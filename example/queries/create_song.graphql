@@ -1,0 +1,5 @@
+mutation AddSong($id: ID!, $name: String!, $fileName: String!) {
+  CreateSong(id: $id, name: $name, fileName: $fileName) {
+    id
+  }
+}

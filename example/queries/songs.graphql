@@ -1,0 +1,13 @@
+query Songs($first: Int!) {
+  Song(first: $first) {
+    id
+    __typename
+    name
+  }
+}
+
+mutation CreateSong($id: ID!, $name: String!, $fileName: String!) {
+  CreateSong(id: $id, name: $name, fileName: $fileName) {
+    id
+  }
+}

@@ -1,0 +1,21 @@
+name: gql_client
+version: 0.0.1
+description: GraphQL Client for Dart
+author: Sat Mandir Khalsa
+homepage: https://github.com/smkhalsa/gql_client
+repository: https://github.com/smkhalsa/gql_client
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  hive: ^1.1.1
+  rxdart: ^0.23.1
+  normalize: ^0.0.3
+  json_serializable: ^3.0.0
+  equatable: ^0.6.1
+  gql: ^0.11.1
+  artemis: ^2.1.0+1
+
+dev_dependencies:
+  test: ^1.9.4
