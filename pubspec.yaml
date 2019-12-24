@@ -16,6 +16,8 @@ dependencies:
   equatable: ^0.6.1
   gql: ^0.11.1
   artemis: ^2.1.0+1
+  uuid: ^2.0.4
 
 dev_dependencies:
   test: ^1.9.4
+  mockito: ^4.1.1

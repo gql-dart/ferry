@@ -1,5 +1,5 @@
-query Songs($first: Int!) {
-  Song(first: $first) {
+query Songs($first: Int!, $offset: Int!) {
+  Song(first: $first, offset: $offset) {
     id
     __typename
     name

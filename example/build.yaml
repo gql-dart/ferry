@@ -7,8 +7,8 @@ targets:
       artemis:
         options:
           schema_mapping:
-            - output: generated/graphql_api.dart
-              schema: schema.json
-              queries_glob: queries/**.graphql
+            - output: lib/graphql_api.dart
+              schema: lib/schema.json
+              queries_glob: lib/**.graphql
               add_query_prefix: true
               resolve_type_field: __typename

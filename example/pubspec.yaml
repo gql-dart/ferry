@@ -1,13 +1,13 @@
-name: gql_cache_example
+name: gql_client_example
 version: 0.0.1
-description: Example usage for gql_cache
+description: Example usage for gql_client
 author: Sat Mandir Khalsa
 
 environment:
   sdk: ">=2.5.0 <3.0.0"
 
 dependencies:
-  gql_cache:
+  gql_client:
     path: ../
   hive: "^1.1.1"
   artemis: "^2.1.0+1"
