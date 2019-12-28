@@ -1,8 +1,8 @@
 /// Deeply merges nested properties, returning a new [Map].
 ///
 /// Properties of [other] will overwrite properties of [object].
-Map<String, Object> deepMerge(
-    Map<String, Object> object, Map<String, Object> other) {
+Map<String, dynamic> deepMerge(
+    Map<String, dynamic> object, Map<String, dynamic> other) {
   return {
     ...object,
     for (var entry in other.entries)

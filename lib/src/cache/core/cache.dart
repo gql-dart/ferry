@@ -46,3 +46,5 @@ abstract class GQLCache<TSerialized> implements DataProxy {
   bool evict(String dataId);
   Future<void> reset();
 }
+
+class CacheLayer {}
