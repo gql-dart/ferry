@@ -13,25 +13,22 @@ main() {
 
     final client = GQLClient(link: link);
 
-    final Map<String, Function> update = {'updateSongs': (j, p) {}};
-
     final ref =
-        client.ref(SongsQuery(variables: SongsArguments(first: 10, offset: 0)));
+        client.ref(SongsQuery(variables: SongsArguments(offset: 0, first: 10)));
 
     ref.stream.listen((response) {
-      print(response.data.Song.first.id);
+      print(response.data.Song);
     });
 
-    print(await ref.execute());
-    print(await ref.execute());
-    print(await ref.execute());
+    await ref.execute();
 
-    // final refetchMergeResult = await queryRef.refetch(
-    //     query: SongsQuery(variables: SongsArguments(first: 15, offset: 20)),
-    //     updateResult: (original, updated) {
-    //       original.Song = [...original.Song, ...updated.Song];
-    //       return original;
-    //     });
+    final refetchMergeResult = await ref.execute(
+        query: SongsQuery(variables: SongsArguments(offset: 10, first: 15)),
+        updateResult: (previousResult, result) {
+          result.Song = [...previousResult.Song, ...result.Song];
+          return result;
+        });
+
     print('complete');
 
     // final mutationRef = client.mutation(AddSongQuery());

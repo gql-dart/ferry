@@ -11,6 +11,9 @@ class GraphQLResponse<T, TVariables extends JsonSerializable> {
   /// The event that resulted in this response
   final QueryEvent<T, TVariables> triggeringEvent;
 
+  /// Whether or not the result is derived from an optimistic response
+  final bool optimistic;
+
   /// The typed data of this response.
   final T data;
 
@@ -23,7 +26,15 @@ class GraphQLResponse<T, TVariables extends JsonSerializable> {
   /// Instantiates a GraphQL response.
   const GraphQLResponse({
     @required this.triggeringEvent,
+    this.optimistic = false,
     this.data,
     this.errors,
   });
+
+  /// Creates a shallow copy
+  GraphQLResponse.from(GraphQLResponse response)
+      : triggeringEvent = response.triggeringEvent,
+        optimistic = response.optimistic,
+        data = response.data,
+        errors = response.errors;
 }
