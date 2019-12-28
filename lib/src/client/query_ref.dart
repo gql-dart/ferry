@@ -21,6 +21,7 @@ class QueryRef<T, TVariables extends JsonSerializable> {
     stream = client.stream
         .where((response) => response.triggeringEvent.refId == id)
         // We must manually cast using a shallow copy to avoid a runtime error
+        // See https://github.com/leafpetersen/cast/issues/1.
         .map((response) => GraphQLResponse<T, TVariables>.from(response))
         .transform(_updateResultTransformer);
   }
@@ -55,6 +56,7 @@ class QueryRef<T, TVariables extends JsonSerializable> {
     Map<String, dynamic> updateHandlerContext,
     Map<String, Object> optimisticResponse,
     dynamic updateCacheHandlerKey,
+    FetchPolicy fetchPolicy,
   }) async {
     final event = QueryEvent(
         refId: id,
@@ -62,7 +64,8 @@ class QueryRef<T, TVariables extends JsonSerializable> {
         updateResult: updateResult,
         optimisticResponse: optimisticResponse,
         updateHandlerContext: updateHandlerContext,
-        updateCacheHandlerKey: updateCacheHandlerKey);
+        updateCacheHandlerKey: updateCacheHandlerKey,
+        fetchPolicy: fetchPolicy);
 
     Future.delayed(Duration.zero).then((_) {
       _client.controller.add(event);

@@ -1,11 +1,8 @@
 import 'dart:async';
-import 'package:gql/execution.dart';
 import 'package:gql_http_link/gql_http_link.dart';
 
 import '../lib/graphql_api.dart';
 import '../../lib/src/client/client.dart';
-import '../../lib/src/client/query_event.dart';
-import '../../lib/src/client/gql_response.dart';
 
 main() {
   () async {
