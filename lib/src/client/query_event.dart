@@ -26,7 +26,7 @@ class QueryEvent<T, TVariables extends JsonSerializable>
     extends JsonSerializable {
   final String id;
 
-  /// The unique identifier of the originating `QueryRef`.
+  /// The unique identifier of the originating [QueryRef].
   final String refId;
 
   /// The GraphQL Query, Mutation, or Subscription to execute.
@@ -39,21 +39,22 @@ class QueryEvent<T, TVariables extends JsonSerializable>
   /// The optimistic result, generally used when running a mutation
   final Map<String, Object> optimisticResponse;
 
-  /// The key that maps to a `UpdateCacheHandler`, defined on the client
+  /// The key that maps to a [UpdateCacheHandler], defined on the client
   final dynamic updateCacheHandlerKey;
 
-  /// Object that gets passed This object gets passed as a parameter to `UpdateFunctionHandler` and `UpdateResultHandler`.
-  final Map<String, dynamic> updateHandlerContext;
+  /// Object that gets passed This object gets passed as a parameter to [UpdateFunctionHandler] and [UpdateResultHandler].
+  final Map<String, dynamic> updateCacheContext;
 
   final FetchPolicy fetchPolicy;
 
-  QueryEvent(
-      {@required this.id,
-      @required this.refId,
-      @required this.query,
-      this.updateRefResult,
-      this.updateHandlerContext,
-      this.optimisticResponse,
-      this.updateCacheHandlerKey,
-      this.fetchPolicy});
+  QueryEvent({
+    @required this.id,
+    @required this.refId,
+    @required this.query,
+    this.updateRefResult,
+    this.updateCacheContext,
+    this.optimisticResponse,
+    this.updateCacheHandlerKey,
+    this.fetchPolicy,
+  });
 }

@@ -5,6 +5,8 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:normalize/normalize.dart';
 
+export 'package:normalize/normalize.dart' show TypePolicy;
+
 import '../helpers/deep_merge.dart';
 
 class GQLCache {

@@ -13,18 +13,18 @@ main() {
     final ref =
         client.ref(SongsQuery(variables: SongsArguments(offset: 0, first: 10)));
 
-    ref.stream.listen((response) {
-      print(response.data.Song);
-    });
+    // ref.stream.listen((response) {
+    //   print(response.data.Song);
+    // });
 
     await ref.execute();
 
-    final refetchMergeResult = await ref.execute(
-        query: SongsQuery(variables: SongsArguments(offset: 10, first: 15)),
-        updateRefResult: (previousResult, result) {
-          result.Song = [...previousResult.Song, ...result.Song];
-          return result;
-        });
+    // final refetchMergeResult = await ref.execute(
+    //     query: SongsQuery(variables: SongsArguments(offset: 10, first: 15)),
+    //     updateRefResult: (previousResult, result) {
+    //       result.Song = [...previousResult.Song, ...result.Song];
+    //       return result;
+    //     });
 
     print('complete');
 

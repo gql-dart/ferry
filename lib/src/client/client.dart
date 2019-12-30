@@ -5,11 +5,14 @@ import 'package:rxdart/rxdart.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:artemis/schema/graphql_query.dart';
 import 'package:gql/execution.dart';
+import 'package:uuid/uuid.dart';
 
 import './query_ref.dart';
 import './graphql_response.dart';
 import './query_event.dart';
 import './cache.dart';
+
+final _uuid = Uuid();
 
 /// Customize how the query response is merged into the cache. Useful
 /// when merging mutation results that add items to a list, etc.
@@ -23,6 +26,7 @@ class GQLClient {
   final Link link;
   final GQLCache cache;
   final FetchPolicy defaultFetchPolicy;
+  final Map<String, TypePolicy> typePolicies;
 
   // NOTE: function is untyped due to issues with deep casting
   // See https://github.com/leafpetersen/cast/issues/1.
@@ -31,6 +35,10 @@ class GQLClient {
   /// Keeps track of network connection status. For offline mutations to work,
   /// you must update this value when the network status changes.
   final isConnected = BehaviorSubject<bool>.seeded(true);
+
+  /// List of [QueryRef]s with active listeners. Can be used to refetch queries
+  /// following a mutation.
+  final activeRefs = <String, QueryRef>{};
 
   final queryEventController = StreamController<QueryEvent>.broadcast();
 
@@ -41,7 +49,8 @@ class GQLClient {
       @required this.cache,
       this.updateCacheHandlers = const {},
       // TODO: change default back
-      this.defaultFetchPolicy = FetchPolicy.NetworkOnly}) {
+      this.defaultFetchPolicy = FetchPolicy.NetworkOnly,
+      this.typePolicies}) {
     responseStream = queryEventController.stream.transform(_resolve);
   }
 
@@ -56,9 +65,14 @@ class GQLClient {
   /// Groups the events by their originating [QueryRef] into seperate streams,
   /// gets the response for each substream, then merges their responses back
   /// together.
+  ///
+  /// NOTE: If the [QueryEvent.refId] does not exist (for example, if
+  /// the event is added directly to the [GQLClient.stream]), we must group
+  /// by a uniqe ID to prevent events from being overwritten in the switchMap
+  /// before they've resolved.
   StreamTransformer<QueryEvent, GraphQLResponse> get _resolve =>
       StreamTransformer.fromBind((queryEventStream) => queryEventStream
-          .groupBy((event) => event.refId)
+          .groupBy((event) => event.refId ?? _uuid.v4())
           .flatMap((eventsForRef) => eventsForRef.switchMap(
               (queryEvent) => _optimisticResponseStream(queryEvent))));
 
