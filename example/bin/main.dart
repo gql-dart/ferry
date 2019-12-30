@@ -21,7 +21,7 @@ main() {
 
     final refetchMergeResult = await ref.execute(
         query: SongsQuery(variables: SongsArguments(offset: 10, first: 15)),
-        updateResult: (previousResult, result) {
+        updateRefResult: (previousResult, result) {
           result.Song = [...previousResult.Song, ...result.Song];
           return result;
         });

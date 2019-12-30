@@ -22,7 +22,10 @@ enum FetchPolicy {
 }
 
 @immutable
-class QueryEvent<T, TVariables extends JsonSerializable> {
+class QueryEvent<T, TVariables extends JsonSerializable>
+    extends JsonSerializable {
+  final String id;
+
   /// The unique identifier of the originating `QueryRef`.
   final String refId;
 
@@ -31,7 +34,7 @@ class QueryEvent<T, TVariables extends JsonSerializable> {
 
   /// Optional function to update the result based on the previous result. Useful
   /// for pagination.
-  final T Function(T previousResult, T result) updateResult;
+  final T Function(T previousResult, T result) updateRefResult;
 
   /// The optimistic result, generally used when running a mutation
   final Map<String, Object> optimisticResponse;
@@ -45,9 +48,10 @@ class QueryEvent<T, TVariables extends JsonSerializable> {
   final FetchPolicy fetchPolicy;
 
   QueryEvent(
-      {@required this.refId,
+      {@required this.id,
+      @required this.refId,
       @required this.query,
-      this.updateResult,
+      this.updateRefResult,
       this.updateHandlerContext,
       this.optimisticResponse,
       this.updateCacheHandlerKey,

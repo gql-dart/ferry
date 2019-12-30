@@ -9,19 +9,20 @@ import '../helpers/deep_merge.dart';
 
 class GQLCache {
   final _dataStream =
-      BehaviorSubject<Map<String, Map<String, Object>>>.seeded({});
+      BehaviorSubject<Map<String, Map<String, dynamic>>>.seeded({});
   final _optimisticPatchesStream =
-      BehaviorSubject<List<Map<String, Map<String, Object>>>>.seeded([]);
+      BehaviorSubject<Map<String, Map<String, Map<String, dynamic>>>>.seeded(
+          {});
 
   Stream<Map<String, Map<String, Object>>> _optimisticDataStream;
 
   GQLCache() {
     _optimisticDataStream = CombineLatestStream.combine2<
             Map<String, Map<String, Object>>,
-            List<Map<String, Map<String, Object>>>,
+            Map<String, Map<String, Map<String, dynamic>>>,
             Map<String, Map<String, Object>>>(
         _dataStream, _optimisticPatchesStream, (data, optimisticPatches) {
-      final result = optimisticPatches.fold(data, deepMerge);
+      final result = optimisticPatches.values.fold(data, deepMerge);
       return result;
     });
   }
@@ -39,5 +40,13 @@ class GQLCache {
           typePolicies: typePolicies);
       return query.parse(result);
     });
+  }
+
+  void removeOptimisticPatch(String id) {
+    final patches = _optimisticPatchesStream.value;
+    if (patches.containsKey(id)) {
+      patches.remove(id);
+      _optimisticPatchesStream.add(patches);
+    }
   }
 }

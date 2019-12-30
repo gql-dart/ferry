@@ -18,18 +18,18 @@ class QueryRef<T, TVariables extends JsonSerializable> {
   Stream<GraphQLResponse<T, TVariables>> stream;
 
   QueryRef({GQLClient client, this.initialQuery}) : _client = client {
-    stream = client.stream
+    stream = client.responseStream
         .where((response) => response.triggeringEvent.refId == id)
         // We must manually cast using a shallow copy to avoid a runtime error
         // See https://github.com/leafpetersen/cast/issues/1.
         .map((response) => GraphQLResponse<T, TVariables>.from(response))
-        .transform(_updateResultTransformer);
+        .transform(_updatedResultStream);
   }
 
-  /// Updates result based on `QueryEvent.updateResult` callback
+  /// Updates the result based on `QueryEvent.updateResult` callback
   StreamTransformer<GraphQLResponse<T, TVariables>,
           GraphQLResponse<T, TVariables>>
-      get _updateResultTransformer =>
+      get _updatedResultStream =>
           StreamTransformer.fromBind((responseStream) => responseStream
                   .startWith(null)
                   .shareReplay(maxSize: 1)
@@ -37,40 +37,40 @@ class QueryRef<T, TVariables extends JsonSerializable> {
                   .map((results) {
                 final previousResult = results.first;
                 final result = results.last;
-                if (result.triggeringEvent.updateResult != null) {
-                  return GraphQLResponse<T, TVariables>(
-                      data: result.triggeringEvent.updateResult(
-                        previousResult.data,
-                        result.data,
-                      ),
-                      errors: result.errors,
-                      triggeringEvent: result.triggeringEvent);
-                } else {
-                  return result;
-                }
+                return result.triggeringEvent.updateRefResult == null
+                    ? result
+                    : GraphQLResponse<T, TVariables>(
+                        data: result.triggeringEvent.updateRefResult(
+                          previousResult.data,
+                          result.data,
+                        ),
+                        errors: result.errors,
+                        triggeringEvent: result.triggeringEvent);
               }));
 
   Future<GraphQLResponse<T, TVariables>> execute({
     GraphQLQuery<T, TVariables> query,
-    T Function(T previousResult, T result) updateResult,
+    T Function(T previousResult, T result) updateRefResult,
     Map<String, dynamic> updateHandlerContext,
     Map<String, Object> optimisticResponse,
     dynamic updateCacheHandlerKey,
     FetchPolicy fetchPolicy,
   }) async {
     final event = QueryEvent(
-        refId: id,
+        id: _uuid.v4(),
+        refId: this.id,
         query: query ?? initialQuery,
-        updateResult: updateResult,
+        updateRefResult: updateRefResult,
         optimisticResponse: optimisticResponse,
         updateHandlerContext: updateHandlerContext,
         updateCacheHandlerKey: updateCacheHandlerKey,
         fetchPolicy: fetchPolicy);
 
     Future.delayed(Duration.zero).then((_) {
-      _client.controller.add(event);
+      _client.queryEventController.add(event);
     });
 
-    return stream.firstWhere((result) => result.triggeringEvent == event);
+    return stream.firstWhere((result) =>
+        result.triggeringEvent == event && result.optimistic == false);
   }
 }
