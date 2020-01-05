@@ -1,47 +1,91 @@
 import 'package:meta/meta.dart';
 import 'dart:async';
-import 'package:artemis/artemis.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:normalize/normalize.dart';
+import 'package:gql/execution.dart';
 
 export 'package:normalize/normalize.dart' show TypePolicy;
 
 import '../helpers/deep_merge.dart';
 
 class GQLCache {
-  final _dataStream =
-      BehaviorSubject<Map<String, Map<String, dynamic>>>.seeded({});
-  final _optimisticPatchesStream =
-      BehaviorSubject<Map<String, Map<String, Map<String, dynamic>>>>.seeded(
-          {});
+  BehaviorSubject<Map<String, Map<String, dynamic>>> _dataStream;
+  BehaviorSubject<Map<String, Map<String, Map<String, dynamic>>>>
+      _optimisticPatchesStream;
 
-  Stream<Map<String, Map<String, Object>>> _optimisticDataStream;
+  ValueStream<Map<String, Map<String, dynamic>>> optimisticDataStream;
 
-  GQLCache() {
-    _optimisticDataStream = CombineLatestStream.combine2<
-            Map<String, Map<String, Object>>,
-            Map<String, Map<String, Map<String, dynamic>>>,
-            Map<String, Map<String, Object>>>(
-        _dataStream, _optimisticPatchesStream, (data, optimisticPatches) {
-      final result = optimisticPatches.values.fold(data, deepMerge);
-      return result;
-    });
+  GQLCache(
+      {Map<String, Map<String, dynamic>> seedData,
+      Map<String, Map<String, Map<String, dynamic>>> seedOptimisticPatches}) {
+    _dataStream = BehaviorSubject.seeded(seedData ?? {});
+    _optimisticPatchesStream =
+        BehaviorSubject.seeded(seedOptimisticPatches ?? {});
+    // TODO: replace with actual optimistic stream
+    optimisticDataStream = _dataStream;
+    // optimisticDataStream = CombineLatestStream.combine2<
+    //         Map<String, dynamic>,
+    //         Map<String, Map<String, dynamic>>,
+    //         Map<String, dynamic>>(_dataStream, _optimisticPatchesStream,
+    //     (data, optimisticPatches) {
+    //   return optimisticPatches.values.fold(data, deepMerge);
+    // }).shareValue();
   }
 
-  Stream<T> watchQuery<T, TVariables extends JsonSerializable>(
-      GraphQLQuery<T, TVariables> query,
-      {bool optimistic = true,
+  Map<String, dynamic> get data {
+    return _dataStream.value;
+  }
+
+  Map<String, dynamic> get optimisticData {
+    return optimisticDataStream.value;
+  }
+
+  Stream<Map<String, dynamic>> watchQuery(
+      {@required Operation operation,
+      bool optimistic = true,
+      bool addTypename = true,
       Map<String, TypePolicy> typePolicies = const {}}) {
-    final stream = optimistic ? _optimisticDataStream : _dataStream;
-    return stream.map((data) {
-      final result = denormalize(
-          query: query.document,
-          normalizedMap: data,
-          variables: query.getVariablesMap(),
-          typePolicies: typePolicies);
-      return query.parse(result);
-    });
+    final stream = _dataStream;
+    // final stream = optimistic ? _optimisticDataStream : _dataStream;
+    return stream.map((data) => denormalize(
+        query: operation.document,
+        addTypename: addTypename,
+        operationName: operation.operationName,
+        normalizedMap: data,
+        variables: operation.variables,
+        typePolicies: typePolicies));
+  }
+
+  Map<String, dynamic> readQuery(
+      {@required Operation operation,
+      bool optimistic = true,
+      bool addTypename = true,
+      Map<String, TypePolicy> typePolicies = const {}}) {
+    return denormalize(
+        query: operation.document,
+        addTypename: addTypename,
+        operationName: operation.operationName,
+        normalizedMap: optimistic ? optimisticData : data,
+        variables: operation.variables,
+        typePolicies: typePolicies);
+  }
+
+  void writeQuery(
+      {@required String eventId,
+      @required Operation operation,
+      @required Map<String, dynamic> data,
+      bool optimistic = false,
+      Map<String, TypePolicy> typePolicies = const {}}) {
+    final result = normalize(
+        query: operation.document,
+        operationName: operation.operationName,
+        variables: operation.variables,
+        data: data,
+        typePolicies: typePolicies);
+    optimistic
+        ? _optimisticPatchesStream
+            .add({..._optimisticPatchesStream.value, eventId: result})
+        : _dataStream.add(Map.from(deepMerge(_dataStream.value, result)));
   }
 
   void removeOptimisticPatch(String id) {

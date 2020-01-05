@@ -17,7 +17,7 @@ class Fragment<TVariables> {
   /// [dataIdFromObject] function.
   ///
   /// If a value with your id does not exist in the store, [null] will be returned.
-  Map<String, Object> idFields;
+  Map<String, dynamic> idFields;
 
   /// The GraphQL query shape to be used constructed using the [parseString] function.
   DocumentNode fragment;

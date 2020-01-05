@@ -49,7 +49,7 @@ class GQLClient {
       @required this.cache,
       this.updateCacheHandlers = const {},
       // TODO: change default back
-      this.defaultFetchPolicy = FetchPolicy.NetworkOnly,
+      this.defaultFetchPolicy = FetchPolicy.CacheAndNetwork,
       this.typePolicies}) {
     responseStream = queryEventController.stream.transform(_resolve);
   }
@@ -97,56 +97,72 @@ class GQLClient {
   Stream<GraphQLResponse> _responseStream(QueryEvent queryEvent) {
     final fetchPolicy = queryEvent.fetchPolicy ?? defaultFetchPolicy;
     switch (fetchPolicy) {
-      case FetchPolicy.NetworkOnly:
-        return _networkResponseStream(queryEvent).doOnData(_cacheResponse);
       case FetchPolicy.NoCache:
-        return _networkResponseStream(queryEvent);
-      case FetchPolicy.CacheFirst:
-        return _hasCachedData(queryEvent)
-            ? _cacheResponseStream(queryEvent)
-            : _networkResponseStream(queryEvent)
-                .doOnData(_cacheResponse)
-                .startWith(null)
-                .switchMap((_) => _cacheResponseStream(queryEvent));
+        return _responseStreamFromNetwork(queryEvent);
+      case FetchPolicy.NetworkOnly:
+        return _responseStreamFromNetwork(queryEvent).doOnData(_writeToCache);
       case FetchPolicy.CacheOnly:
-        return _cacheResponseStream(queryEvent);
+        return _responseStreamFromCache(queryEvent);
+      case FetchPolicy.CacheFirst:
+        return _responseStreamFromCache(queryEvent).take(1).switchMap(
+            (result) => result.data != null
+                ? _responseStreamFromCache(queryEvent)
+                : _responseStreamFromNetwork(queryEvent)
+                    .doOnData(_writeToCache)
+                    .switchMap((_) => _responseStreamFromCache(queryEvent)));
       case FetchPolicy.CacheAndNetwork:
-        return _networkResponseStream(queryEvent)
-            .doOnData(_cacheResponse)
-            .startWith(null)
-            .switchMap((_) => _cacheResponseStream(queryEvent));
+        {
+          final responseStreamFromNetwork =
+              _responseStreamFromNetwork(queryEvent).shareValue();
+          return _responseStreamFromCache(queryEvent)
+              .where((response) => response.data != null)
+              .takeUntil(responseStreamFromNetwork)
+              .concatWith([
+            responseStreamFromNetwork
+                .doOnData(_writeToCache)
+                .switchMap((_) => _responseStreamFromCache(queryEvent))
+          ]);
+        }
     }
   }
 
   /// Fetches the query from the network, mapping the result to a
   /// [GraphQLResponse].
-  Stream<GraphQLResponse> _networkResponseStream(QueryEvent queryEvent) => link
-      .request(Request(
-        operation: Operation(
-            document: queryEvent.query.document,
-            operationName: queryEvent.query.operationName,
-            variables: queryEvent.query.getVariablesMap()),
-      ))
-      .map((response) => GraphQLResponse(
-            triggeringEvent: queryEvent,
-            data: response.data == null
-                ? null
-                : queryEvent.query.parse(response.data),
-            errors: response.errors,
-          ));
+  Stream<GraphQLResponse> _responseStreamFromNetwork(QueryEvent queryEvent) =>
+      link
+          .request(Request(
+            operation: queryEvent.operation,
+          ))
+          .map((response) => GraphQLResponse(
+                triggeringEvent: queryEvent,
+                data: (response.data == null || response.data.isEmpty)
+                    ? null
+                    : queryEvent.query.parse(response.data),
+                errors: response.errors,
+              ));
 
   /// Fetches the query from the cache, mapping the result to a
   /// [GraphQLResponse].
-  Stream<GraphQLResponse> _cacheResponseStream(QueryEvent queryEvent) {
-    // TODO: implement
-  }
-
-  bool _hasCachedData(QueryEvent queryEvent) {
-    // TODO: implement
+  Stream<GraphQLResponse> _responseStreamFromCache(QueryEvent queryEvent) {
+    return cache
+        .watchQuery(
+          operation: queryEvent.operation,
+        )
+        .map((data) => GraphQLResponse(
+              triggeringEvent: queryEvent,
+              data: (data == null || data.isEmpty)
+                  ? null
+                  : queryEvent.query.parse(data),
+            ));
   }
 
   /// Store data in cache
-  void _cacheResponse(GraphQLResponse response) {
-    // TODO: implement
+  void _writeToCache(GraphQLResponse response) {
+    if (response.data == null) return;
+    cache.writeQuery(
+        eventId: response.triggeringEvent.id,
+        operation: response.triggeringEvent.operation,
+        data: response.data.toJson(),
+        optimistic: response.optimistic);
   }
 }

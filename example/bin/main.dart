@@ -3,21 +3,27 @@ import 'package:gql_http_link/gql_http_link.dart';
 
 import '../lib/graphql_api.dart';
 import '../../lib/src/client/client.dart';
+import '../../lib/src/client/cache.dart';
 
 main() {
   () async {
     final link = HttpLink('https://api.kundalini.dev');
+    final cache = GQLCache();
 
-    final client = GQLClient(link: link);
+    final client = GQLClient(link: link, cache: cache);
 
     final ref =
         client.ref(SongsQuery(variables: SongsArguments(offset: 0, first: 10)));
 
-    // ref.stream.listen((response) {
-    //   print(response.data.Song);
-    // });
+    ref.stream.listen((response) {
+      print(response.data.Song);
+    }, onError: (e) {
+      print(e);
+    });
 
     await ref.execute();
+    await ref.execute(
+        query: SongsQuery(variables: SongsArguments(offset: 10, first: 15)));
 
     // final refetchMergeResult = await ref.execute(
     //     query: SongsQuery(variables: SongsArguments(offset: 10, first: 15)),

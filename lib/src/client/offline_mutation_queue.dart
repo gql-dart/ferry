@@ -1,20 +1,20 @@
-import 'package:meta/meta.dart';
-import 'package:hive/hive.dart';
+// import 'package:meta/meta.dart';
+// import 'package:hive/hive.dart';
 
-import './query_event.dart';
+// import './query_event.dart';
 
-abstract class OfflineMutationStore {
-  Future<void> add(QueryEvent event);
+// abstract class OfflineMutationStore {
+//   Future<void> add(QueryEvent event);
 
-  Iterable<dynamic> keys;
+//   Iterable<dynamic> keys;
 
-  Iterable<QueryEvent> values;
+//   Iterable<QueryEvent> values;
 
-  Future<void> delete(dynamic key);
-}
+//   Future<void> delete(dynamic key);
+// }
 
-class HiveMutationQueue extends OfflineMutationStore {
-  final Box _box;
+// class HiveMutationQueue extends OfflineMutationStore {
+//   final Box _box;
 
-  HiveMutationQueue(Box box) : _box = box;
-}
+//   HiveMutationQueue(Box box) : _box = box;
+// }

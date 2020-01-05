@@ -6,8 +6,8 @@ Map<String, dynamic> deepMerge(
   return {
     ...object,
     for (var entry in other.entries)
-      entry.key: object[entry.key] is Map<String, Object> &&
-              entry.value is Map<String, Object>
+      entry.key: object[entry.key] is Map<String, dynamic> &&
+              entry.value is Map<String, dynamic>
           ? deepMerge(object[entry.key], entry.value)
           : entry.value
   };

@@ -70,7 +70,7 @@ class QueryRef<T, TVariables extends JsonSerializable> {
     GraphQLQuery<T, TVariables> query,
     T Function(T previousResult, T result) updateRefResult,
     Map<String, dynamic> updateCacheContext,
-    Map<String, Object> optimisticResponse,
+    Map<String, dynamic> optimisticResponse,
     dynamic updateCacheHandlerKey,
     FetchPolicy fetchPolicy,
   }) async {

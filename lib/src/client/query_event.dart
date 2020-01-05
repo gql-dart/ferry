@@ -1,5 +1,6 @@
 import 'package:meta/meta.dart';
 import 'package:artemis/schema/graphql_query.dart';
+import 'package:gql/execution.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 enum FetchPolicy {
@@ -37,7 +38,7 @@ class QueryEvent<T, TVariables extends JsonSerializable>
   final T Function(T previousResult, T result) updateRefResult;
 
   /// The optimistic result, generally used when running a mutation
-  final Map<String, Object> optimisticResponse;
+  final Map<String, dynamic> optimisticResponse;
 
   /// The key that maps to a [UpdateCacheHandler], defined on the client
   final dynamic updateCacheHandlerKey;
@@ -47,10 +48,15 @@ class QueryEvent<T, TVariables extends JsonSerializable>
 
   final FetchPolicy fetchPolicy;
 
+  Operation get operation => Operation(
+      document: query.document,
+      operationName: query.operationName,
+      variables: query.getVariablesMap());
+
   QueryEvent({
     @required this.id,
-    @required this.refId,
     @required this.query,
+    this.refId,
     this.updateRefResult,
     this.updateCacheContext,
     this.optimisticResponse,

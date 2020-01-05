@@ -30,10 +30,10 @@ class TypePolicy {
 }
 
 class FieldFunctionOptions {
-  Map<String, Object> args;
+  Map<String, dynamic> args;
   Object parentObject;
   FieldNode field;
-  Map<String, Object> variables;
+  Map<String, dynamic> variables;
 
   FieldFunctionOptions(
       {@required this.args,
