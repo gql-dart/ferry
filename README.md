@@ -2,4 +2,4 @@
 
 ## Refetching queries on successful mutation
 
-todo: explain how to use client.activeRefs to do this
+todo: explain how to use client.activeQueryStreams to do this

@@ -7,7 +7,7 @@ import 'package:artemis/schema/graphql_query.dart';
 import 'package:gql/execution.dart';
 import 'package:uuid/uuid.dart';
 
-import './query_ref.dart';
+import './query_stream.dart';
 import './graphql_response.dart';
 import './query_event.dart';
 import './cache.dart';
@@ -36,9 +36,9 @@ class GQLClient {
   /// you must update this value when the network status changes.
   final isConnected = BehaviorSubject<bool>.seeded(true);
 
-  /// List of [QueryRef]s with active listeners. Can be used to refetch queries
+  /// List of [QueryStream]s with active listeners. Can be used to refetch queries
   /// following a mutation.
-  final activeRefs = <String, QueryRef>{};
+  final activeQueryStreams = <String, QueryStream>{};
 
   final queryEventController = StreamController<QueryEvent>.broadcast();
 
@@ -49,43 +49,42 @@ class GQLClient {
       @required this.cache,
       this.updateCacheHandlers = const {},
       // TODO: change default back
-      this.defaultFetchPolicy = FetchPolicy.CacheAndNetwork,
+      this.defaultFetchPolicy = FetchPolicy.CacheFirst,
       this.typePolicies}) {
     responseStream = queryEventController.stream.transform(_resolve);
   }
 
-  QueryRef<T, TVariables> ref<T, TVariables extends JsonSerializable>(
-      GraphQLQuery<T, TVariables> query) {
-    return QueryRef<T, TVariables>(
-      client: this,
-      initialQuery: query,
-    );
+  QueryStream<T, TVariables> query<T, TVariables extends JsonSerializable>(
+      GraphQLQuery<T, TVariables> query,
+      [QueryOptions options]) {
+    return QueryStream<T, TVariables>(this, query, options);
   }
 
-  /// Groups the events by their originating [QueryRef] into seperate streams,
+  /// Groups the events by their originating [QueryStream] into seperate streams,
   /// gets the response for each substream, then merges their responses back
   /// together.
   ///
-  /// NOTE: If the [QueryEvent.refId] does not exist (for example, if
+  /// NOTE: If the [QueryEvent.queryStreamId] does not exist (for example, if
   /// the event is added directly to the [GQLClient.stream]), we must group
   /// by a uniqe ID to prevent events from being overwritten in the switchMap
   /// before they've resolved.
   StreamTransformer<QueryEvent, GraphQLResponse> get _resolve =>
       StreamTransformer.fromBind((queryEventStream) => queryEventStream
-          .groupBy((event) => event.refId ?? _uuid.v4())
-          .flatMap((eventsForRef) => eventsForRef.switchMap(
+          .groupBy((event) => event.queryStreamId ?? _uuid.v4())
+          .flatMap((queryStreamEvents) => queryStreamEvents.switchMap(
               (queryEvent) => _optimisticResponseStream(queryEvent))));
 
   /// Creates a response stream, starting with an optimistic [GraphQLResponse]
   /// if a [QueryEvent.optimisticResponse] is proviced, then remmoves the
   /// optimistic patch from the cache once the network response is received.
   Stream<GraphQLResponse> _optimisticResponseStream(QueryEvent queryEvent) =>
-      queryEvent.optimisticResponse == null
+      queryEvent.options?.optimisticResponse == null
           ? _responseStream(queryEvent)
           : _responseStream(queryEvent)
               .startWith(GraphQLResponse(
                   triggeringEvent: queryEvent,
-                  data: queryEvent.query.parse(queryEvent.optimisticResponse),
+                  data: queryEvent.query
+                      .parse(queryEvent.options?.optimisticResponse),
                   optimistic: true))
               .doOnData((response) {
               if (response.optimistic == false)
@@ -95,7 +94,7 @@ class GQLClient {
   /// Determines how to resolve a query based on the [FetchPolicy] and caches
   /// responses from the network if required by the policy.
   Stream<GraphQLResponse> _responseStream(QueryEvent queryEvent) {
-    final fetchPolicy = queryEvent.fetchPolicy ?? defaultFetchPolicy;
+    final fetchPolicy = queryEvent.options?.fetchPolicy ?? defaultFetchPolicy;
     switch (fetchPolicy) {
       case FetchPolicy.NoCache:
         return _responseStreamFromNetwork(queryEvent);

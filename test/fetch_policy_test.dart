@@ -44,8 +44,8 @@ void main() {
         final id = (i + (query.variables.offset ?? 0)).toString();
         songs.add(
             {"id": id, "name": "Song $id from $source", "__typename": "Song"});
-        return {"Song": songs};
       }
+      return {"Song": songs};
     }
 
     final networkResponses =
@@ -79,13 +79,15 @@ void main() {
             cache: cache,
             defaultFetchPolicy: FetchPolicy.NetworkOnly);
 
-        final ref = client.ref(queries[0]);
+        final queryStream = client.query(queries.first);
 
-        expect(ref.stream.map((response) => response.data.toJson()),
+        expect(queryStream.map((response) => response.data.toJson()),
             emitsInOrder(networkResponses));
 
-        await ref.execute();
-        await ref.execute(query: queries[1]);
+        // wait for initial event to emit to ensure it isn't overwritten
+        await Future.delayed(Duration.zero);
+
+        await queryStream.reQuery(query: queries[1]).first;
 
         expect(cache.data, equals(cacheSnapshot(Source.Network)));
       });
@@ -99,13 +101,15 @@ void main() {
             cache: cache,
             defaultFetchPolicy: FetchPolicy.NoCache);
 
-        final ref = client.ref(queries[0]);
+        final queryStream = client.query(queries[0]);
 
-        expect(ref.stream.map((response) => response.data.toJson()),
+        expect(queryStream.map((response) => response.data.toJson()),
             emitsInOrder(networkResponses));
 
-        await ref.execute();
-        await ref.execute(query: queries[1]);
+        // wait for initial event to emit to ensure it isn't overwritten
+        await Future.delayed(Duration.zero);
+
+        await queryStream.reQuery(query: queries[1]).first;
 
         expect(cache.data, equals(cacheSnapshot(Source.Cache)));
       });
@@ -119,13 +123,15 @@ void main() {
             cache: cache,
             defaultFetchPolicy: FetchPolicy.CacheOnly);
 
-        final ref = client.ref(queries[0]);
+        final queryStream = client.query(queries[0]);
 
-        expect(ref.stream.map((response) => response.data.toJson()),
+        expect(queryStream.map((response) => response.data.toJson()),
             emitsInOrder(cacheResponses));
 
-        await ref.execute();
-        await ref.execute(query: queries[1]);
+        // wait for initial event to emit to ensure it isn't overwritten
+        await Future.delayed(Duration.zero);
+
+        await queryStream.reQuery(query: queries[1]).first;
 
         expect(cache.data, equals(cacheSnapshot(Source.Cache)));
       });
@@ -137,12 +143,14 @@ void main() {
             cache: cache,
             defaultFetchPolicy: FetchPolicy.CacheOnly);
 
-        final ref = client.ref(queries[0]);
+        final queryStream = client.query(queries[0]);
 
-        expect(ref.stream.map((response) => response.data), emits(null));
+        expect(queryStream.map((response) => response.data), emits(null));
 
-        await ref.execute();
-        await ref.execute(query: queries[1]);
+        // wait for initial event to emit to ensure it isn't overwritten
+        await Future.delayed(Duration.zero);
+
+        await queryStream.reQuery(query: queries[1]).first;
 
         expect(cache.data.isEmpty, equals(true));
       });
@@ -156,16 +164,18 @@ void main() {
             cache: cache,
             defaultFetchPolicy: FetchPolicy.CacheFirst);
 
-        final ref = client.ref(queries[0]);
+        final queryStream = client.query(queries[0]);
 
-        expect(ref.stream.map((response) {
+        expect(queryStream.map((response) {
           return response.data.toJson();
         }), emitsInOrder(networkResponses));
 
-        ref.stream.listen((response) => print(response.data));
+        queryStream.listen((response) => print(response.data));
 
-        await ref.execute();
-        await ref.execute(query: queries[1]);
+        // wait for initial event to emit to ensure it isn't overwritten
+        await Future.delayed(Duration.zero);
+
+        await queryStream.reQuery(query: queries[1]).first;
 
         expect(cache.data, equals(cacheSnapshot(Source.Network)));
       });
@@ -177,16 +187,18 @@ void main() {
             cache: cache,
             defaultFetchPolicy: FetchPolicy.CacheFirst);
 
-        final ref = client.ref(queries[0]);
+        final queryStream = client.query(queries[0]);
 
-        expect(ref.stream.map((response) {
+        expect(queryStream.map((response) {
           return response.data.toJson();
         }), emitsInOrder(cacheResponses));
 
-        ref.stream.listen((response) => print(response.data));
+        queryStream.listen((response) => print(response.data));
 
-        await ref.execute();
-        await ref.execute(query: queries[1]);
+        // wait for initial event to emit to ensure it isn't overwritten
+        await Future.delayed(Duration.zero);
+
+        await queryStream.reQuery(query: queries[1]).first;
 
         expect(cache.data, equals(cacheSnapshot(Source.Cache)));
       });
@@ -200,17 +212,19 @@ void main() {
             cache: cache,
             defaultFetchPolicy: FetchPolicy.CacheAndNetwork);
 
-        final ref = client.ref(queries[0]);
+        final queryStream = client.query(queries[0]);
 
-        expect(ref.stream.map((response) => response.data.toJson()),
+        expect(queryStream.map((response) => response.data.toJson()),
             emitsInAnyOrder([...cacheResponses, ...networkResponses]));
 
-        await ref.execute();
-        await ref.execute(query: queries[1]);
+        // wait for initial event to emit to ensure it isn't overwritten
+        await Future.delayed(Duration.zero);
+
+        await queryStream.reQuery(query: queries[1]).first;
 
         // Since the execute future resolves with the first valid result (i.e. from cache), we must
         // add an artificial delay to ensure that the network result is also received.
-        await Future.delayed(Duration(seconds: 2));
+        await Future.delayed(Duration.zero);
 
         expect(cache.data, equals(cacheSnapshot(Source.Network)));
       });
@@ -222,14 +236,16 @@ void main() {
             cache: cache,
             defaultFetchPolicy: FetchPolicy.CacheAndNetwork);
 
-        final ref = client.ref(queries[0]);
+        final queryStream = client.query(queries[0]);
 
-        expect(ref.stream.map((response) {
+        expect(queryStream.map((response) {
           return response.data.toJson();
         }), emitsInOrder(networkResponses));
 
-        await ref.execute();
-        await ref.execute(query: queries[1]);
+        // wait for initial event to emit to ensure it isn't overwritten
+        await Future.delayed(Duration.zero);
+
+        await queryStream.reQuery(query: queries[1]).first;
 
         expect(cache.data, equals(cacheSnapshot(Source.Network)));
       });

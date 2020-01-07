@@ -23,19 +23,10 @@ enum FetchPolicy {
 }
 
 @immutable
-class QueryEvent<T, TVariables extends JsonSerializable>
-    extends JsonSerializable {
-  final String id;
-
-  /// The unique identifier of the originating [QueryRef].
-  final String refId;
-
-  /// The GraphQL Query, Mutation, or Subscription to execute.
-  final GraphQLQuery<T, TVariables> query;
-
+class QueryOptions<T, TVariables extends JsonSerializable> {
   /// Optional function to update the result based on the previous result. Useful
   /// for pagination.
-  final T Function(T previousResult, T result) updateRefResult;
+  final T Function(T previousResult, T result) updateResult;
 
   /// The optimistic result, generally used when running a mutation
   final Map<String, dynamic> optimisticResponse;
@@ -48,6 +39,27 @@ class QueryEvent<T, TVariables extends JsonSerializable>
 
   final FetchPolicy fetchPolicy;
 
+  const QueryOptions(
+      {this.updateCacheContext,
+      this.updateCacheHandlerKey,
+      this.fetchPolicy,
+      this.optimisticResponse,
+      this.updateResult});
+}
+
+@immutable
+class QueryEvent<T, TVariables extends JsonSerializable>
+    extends JsonSerializable {
+  final String id;
+
+  /// The unique identifier of the originating [QueryStream].
+  final String queryStreamId;
+
+  /// The GraphQL Query, Mutation, or Subscription to execute.
+  final GraphQLQuery<T, TVariables> query;
+
+  final QueryOptions options;
+
   Operation get operation => Operation(
       document: query.document,
       operationName: query.operationName,
@@ -56,11 +68,7 @@ class QueryEvent<T, TVariables extends JsonSerializable>
   QueryEvent({
     @required this.id,
     @required this.query,
-    this.refId,
-    this.updateRefResult,
-    this.updateCacheContext,
-    this.optimisticResponse,
-    this.updateCacheHandlerKey,
-    this.fetchPolicy,
+    this.queryStreamId,
+    this.options,
   });
 }

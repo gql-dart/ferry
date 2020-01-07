@@ -12,22 +12,22 @@ main() {
 
     final client = GQLClient(link: link, cache: cache);
 
-    final ref =
-        client.ref(SongsQuery(variables: SongsArguments(offset: 0, first: 10)));
+    final stream = client
+        .query(SongsQuery(variables: SongsArguments(offset: 0, first: 10)));
 
-    ref.stream.listen((response) {
+    stream.listen((response) {
       print(response.data.Song);
     }, onError: (e) {
       print(e);
     });
 
-    await ref.execute();
-    await ref.execute(
+    await stream.first;
+    await stream.reQuery(
         query: SongsQuery(variables: SongsArguments(offset: 10, first: 15)));
 
-    // final refetchMergeResult = await ref.execute(
+    // final refetchMergeResult = await stream.execute(
     //     query: SongsQuery(variables: SongsArguments(offset: 10, first: 15)),
-    //     updateRefResult: (previousResult, result) {
+    //     updateResult: (previousResult, result) {
     //       result.Song = [...previousResult.Song, ...result.Song];
     //       return result;
     //     });
