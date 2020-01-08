@@ -4,7 +4,7 @@ import 'package:gql_link/gql_link.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:artemis/schema/graphql_query.dart';
-import 'package:gql/execution.dart';
+import 'package:gql_exec/gql_exec.dart';
 import 'package:uuid/uuid.dart';
 
 import './query_stream.dart';
@@ -55,9 +55,9 @@ class GQLClient {
   }
 
   QueryStream<T, TVariables> query<T, TVariables extends JsonSerializable>(
-      GraphQLQuery<T, TVariables> query,
-      [QueryOptions options]) {
-    return QueryStream<T, TVariables>(this, query, options);
+    GraphQLQuery<T, TVariables> query,
+  ) {
+    return QueryStream<T, TVariables>(this, query);
   }
 
   /// Groups the events by their originating [QueryStream] into seperate streams,
@@ -130,7 +130,10 @@ class GQLClient {
   Stream<GraphQLResponse> _responseStreamFromNetwork(QueryEvent queryEvent) =>
       link
           .request(Request(
-            operation: queryEvent.operation,
+            operation: Operation(
+                document: queryEvent.query.document,
+                operationName: queryEvent.query.operationName),
+            variables: queryEvent.query.getVariablesMap(),
           ))
           .map((response) => GraphQLResponse(
                 triggeringEvent: queryEvent,
@@ -145,7 +148,9 @@ class GQLClient {
   Stream<GraphQLResponse> _responseStreamFromCache(QueryEvent queryEvent) {
     return cache
         .watchQuery(
-          operation: queryEvent.operation,
+          document: queryEvent.query.document,
+          operationName: queryEvent.query.operationName,
+          variables: queryEvent.query.getVariablesMap(),
         )
         .map((data) => GraphQLResponse(
               triggeringEvent: queryEvent,
@@ -160,7 +165,9 @@ class GQLClient {
     if (response.data == null) return;
     cache.writeQuery(
         eventId: response.triggeringEvent.id,
-        operation: response.triggeringEvent.operation,
+        document: response.triggeringEvent.query.document,
+        operationName: response.triggeringEvent.query.operationName,
+        variables: response.triggeringEvent.query.getVariablesMap(),
         data: response.data.toJson(),
         optimistic: response.optimistic);
   }

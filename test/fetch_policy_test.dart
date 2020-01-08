@@ -1,7 +1,7 @@
 import "dart:async";
 import 'package:mockito/mockito.dart';
 import 'package:gql_link/gql_link.dart';
-import 'package:gql/execution.dart';
+import 'package:gql_exec/gql_exec.dart';
 import "package:test/test.dart";
 import 'package:normalize/normalize.dart';
 
@@ -29,12 +29,11 @@ void main() {
 
     final requests = queries
         .map((query) => Request(
-              operation: Operation(
-                document: query.document,
-                operationName: query.operationName,
-                variables: query.getVariablesMap(),
-              ),
-            ))
+            operation: Operation(
+              document: query.document,
+              operationName: query.operationName,
+            ),
+            variables: query.getVariablesMap()))
         .toList();
 
     Map<String, List<Map<String, dynamic>>> response(

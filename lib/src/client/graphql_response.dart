@@ -1,5 +1,5 @@
 import 'package:meta/meta.dart';
-import 'package:gql/execution.dart';
+import 'package:gql_exec/gql_exec.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import './query_event.dart';

@@ -2,7 +2,7 @@ import 'package:meta/meta.dart';
 import 'dart:async';
 import 'package:rxdart/rxdart.dart';
 import 'package:normalize/normalize.dart';
-import 'package:gql/execution.dart';
+import 'package:gql/ast.dart';
 
 export 'package:normalize/normalize.dart' show TypePolicy;
 
@@ -41,45 +41,51 @@ class GQLCache {
   }
 
   Stream<Map<String, dynamic>> watchQuery(
-      {@required Operation operation,
+      {@required DocumentNode document,
+      @required String operationName,
+      Map<String, dynamic> variables,
       bool optimistic = true,
       bool addTypename = true,
       Map<String, TypePolicy> typePolicies = const {}}) {
     final stream = _dataStream;
     // final stream = optimistic ? _optimisticDataStream : _dataStream;
     return stream.map((data) => denormalize(
-        query: operation.document,
+        query: document,
         addTypename: addTypename,
-        operationName: operation.operationName,
+        operationName: operationName,
         normalizedMap: data,
-        variables: operation.variables,
+        variables: variables,
         typePolicies: typePolicies));
   }
 
   Map<String, dynamic> readQuery(
-      {@required Operation operation,
+      {@required DocumentNode document,
+      @required String operationName,
+      Map<String, dynamic> variables,
       bool optimistic = true,
       bool addTypename = true,
       Map<String, TypePolicy> typePolicies = const {}}) {
     return denormalize(
-        query: operation.document,
+        query: document,
         addTypename: addTypename,
-        operationName: operation.operationName,
+        operationName: operationName,
         normalizedMap: optimistic ? optimisticData : data,
-        variables: operation.variables,
+        variables: variables,
         typePolicies: typePolicies);
   }
 
   void writeQuery(
       {@required String eventId,
-      @required Operation operation,
+      @required DocumentNode document,
+      @required String operationName,
+      Map<String, dynamic> variables,
       @required Map<String, dynamic> data,
       bool optimistic = false,
       Map<String, TypePolicy> typePolicies = const {}}) {
     final result = normalize(
-        query: operation.document,
-        operationName: operation.operationName,
-        variables: operation.variables,
+        query: document,
+        operationName: operationName,
+        variables: variables,
         data: data,
         typePolicies: typePolicies);
     optimistic

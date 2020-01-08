@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart';
 import 'package:artemis/schema/graphql_query.dart';
-import 'package:gql/execution.dart';
+import 'package:gql_exec/gql_exec.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 enum FetchPolicy {
@@ -59,11 +59,6 @@ class QueryEvent<T, TVariables extends JsonSerializable>
   final GraphQLQuery<T, TVariables> query;
 
   final QueryOptions options;
-
-  Operation get operation => Operation(
-      document: query.document,
-      operationName: query.operationName,
-      variables: query.getVariablesMap());
 
   QueryEvent({
     @required this.id,
