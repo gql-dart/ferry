@@ -4,11 +4,11 @@
 // import './query_event.dart';
 
 // abstract class OfflineMutationStore {
-//   Future<void> add(QueryEvent event);
+//   Future<void> add(QueryRequest event);
 
 //   Iterable<dynamic> keys;
 
-//   Iterable<QueryEvent> values;
+//   Iterable<QueryRequest> values;
 
 //   Future<void> delete(dynamic key);
 // }

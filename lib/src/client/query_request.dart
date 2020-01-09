@@ -1,6 +1,5 @@
 import 'package:meta/meta.dart';
 import 'package:artemis/schema/graphql_query.dart';
-import 'package:gql_exec/gql_exec.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 enum FetchPolicy {
@@ -48,22 +47,22 @@ class QueryOptions<T, TVariables extends JsonSerializable> {
 }
 
 @immutable
-class QueryEvent<T, TVariables extends JsonSerializable>
+class QueryRequest<T, TVariables extends JsonSerializable>
     extends JsonSerializable {
   final String id;
 
   /// The unique identifier of the originating [QueryStream].
-  final String queryStreamId;
+  final String queryId;
 
   /// The GraphQL Query, Mutation, or Subscription to execute.
   final GraphQLQuery<T, TVariables> query;
 
   final QueryOptions options;
 
-  QueryEvent({
+  QueryRequest({
     @required this.id,
     @required this.query,
-    this.queryStreamId,
+    this.queryId,
     this.options,
   });
 }

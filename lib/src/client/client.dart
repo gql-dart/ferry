@@ -3,23 +3,18 @@ import 'dart:async';
 import 'package:gql_link/gql_link.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:artemis/schema/graphql_query.dart';
 import 'package:gql_exec/gql_exec.dart';
-import 'package:uuid/uuid.dart';
 
-import './query_stream.dart';
-import './graphql_response.dart';
-import './query_event.dart';
+import './query_response.dart';
+import './query_request.dart';
 import './cache.dart';
-
-final _uuid = Uuid();
 
 /// Customize how the query response is merged into the cache. Useful
 /// when merging mutation results that add items to a list, etc.
 /// Note: if a callback is provided, [updateCache]
 /// is also run immediately with the [optimisticResponse].
 typedef UpdateCacheHandler<T, TVariables extends JsonSerializable>
-    = void Function(dynamic proxy, GraphQLResponse<T, TVariables> response,
+    = void Function(dynamic proxy, QueryResponse<T, TVariables> response,
         Map<String, dynamic> updateHandlerContext);
 
 class GQLClient {
@@ -36,13 +31,7 @@ class GQLClient {
   /// you must update this value when the network status changes.
   final isConnected = BehaviorSubject<bool>.seeded(true);
 
-  /// List of [QueryStream]s with active listeners. Can be used to refetch queries
-  /// following a mutation.
-  final activeQueryStreams = <String, QueryStream>{};
-
-  final queryEventController = StreamController<QueryEvent>.broadcast();
-
-  Stream<GraphQLResponse> responseStream;
+  final queryController = StreamController<QueryRequest>.broadcast();
 
   GQLClient(
       {@required this.link,
@@ -50,124 +39,141 @@ class GQLClient {
       this.updateCacheHandlers = const {},
       // TODO: change default back
       this.defaultFetchPolicy = FetchPolicy.CacheFirst,
-      this.typePolicies}) {
-    responseStream = queryEventController.stream.transform(_resolve);
+      this.typePolicies});
+
+  Stream<QueryResponse<T, TVariables>>
+      responseStream<T, TVariables extends JsonSerializable>(
+          QueryRequest<T, TVariables> requst) {
+    return queryController.stream
+        // Filter for only the relevent queries
+        .whereType<QueryRequest<T, TVariables>>()
+        .where((req) => req.queryId == requst.queryId)
+        // Get the results
+        .switchMap((req) => _optimisticResponseStream(req))
+        // Update the result based on previous, if applicable
+        .transform(StreamTransformer.fromBind(_updateResultStream));
   }
 
-  QueryStream<T, TVariables> query<T, TVariables extends JsonSerializable>(
-    GraphQLQuery<T, TVariables> query,
-  ) {
-    return QueryStream<T, TVariables>(this, query);
+  Stream<QueryResponse<T, TVariables>>
+      _updateResultStream<T, TVariables extends JsonSerializable>(
+          Stream<QueryResponse<T, TVariables>> stream) {
+    return stream.startWith(null).pairwise().map((results) {
+      final previousResult = results.first;
+      final result = results.last;
+      return result.request.options?.updateResult == null
+          ? result
+          : QueryResponse<T, TVariables>(
+              data: result.request.options?.updateResult(
+                previousResult.data,
+                result.data,
+              ),
+              errors: result.errors,
+              request: result.request);
+    });
   }
 
-  /// Groups the events by their originating [QueryStream] into seperate streams,
-  /// gets the response for each substream, then merges their responses back
-  /// together.
-  ///
-  /// NOTE: If the [QueryEvent.queryStreamId] does not exist (for example, if
-  /// the event is added directly to the [GQLClient.stream]), we must group
-  /// by a uniqe ID to prevent events from being overwritten in the switchMap
-  /// before they've resolved.
-  StreamTransformer<QueryEvent, GraphQLResponse> get _resolve =>
-      StreamTransformer.fromBind((queryEventStream) => queryEventStream
-          .groupBy((event) => event.queryStreamId ?? _uuid.v4())
-          .flatMap((queryStreamEvents) => queryStreamEvents.switchMap(
-              (queryEvent) => _optimisticResponseStream(queryEvent))));
-
-  /// Creates a response stream, starting with an optimistic [GraphQLResponse]
-  /// if a [QueryEvent.optimisticResponse] is proviced, then remmoves the
+  /// Creates a response stream, starting with an optimistic [QueryResponse]
+  /// if a [QueryRequest.optimisticResponse] is proviced, then remmoves the
   /// optimistic patch from the cache once the network response is received.
-  Stream<GraphQLResponse> _optimisticResponseStream(QueryEvent queryEvent) =>
-      queryEvent.options?.optimisticResponse == null
-          ? _responseStream(queryEvent)
-          : _responseStream(queryEvent)
-              .startWith(GraphQLResponse(
-                  triggeringEvent: queryEvent,
-                  data: queryEvent.query
-                      .parse(queryEvent.options?.optimisticResponse),
-                  optimistic: true))
-              .doOnData((response) {
-              if (response.optimistic == false)
-                cache.removeOptimisticPatch(response.triggeringEvent.id);
-            });
+  Stream<QueryResponse<T, TVariables>>
+      _optimisticResponseStream<T, TVariables extends JsonSerializable>(
+              QueryRequest<T, TVariables> queryRequest) =>
+          queryRequest.options?.optimisticResponse == null
+              ? _responseStream(queryRequest)
+              : _responseStream(queryRequest)
+                  .startWith(QueryResponse(
+                      request: queryRequest,
+                      data: queryRequest.query
+                          .parse(queryRequest.options?.optimisticResponse),
+                      optimistic: true))
+                  .doOnData((response) {
+                  if (response.optimistic == false)
+                    cache.removeOptimisticPatch(response.request.id);
+                });
 
   /// Determines how to resolve a query based on the [FetchPolicy] and caches
   /// responses from the network if required by the policy.
-  Stream<GraphQLResponse> _responseStream(QueryEvent queryEvent) {
-    final fetchPolicy = queryEvent.options?.fetchPolicy ?? defaultFetchPolicy;
+  Stream<QueryResponse<T, TVariables>>
+      _responseStream<T, TVariables extends JsonSerializable>(
+          QueryRequest<T, TVariables> queryRequest) {
+    final fetchPolicy = queryRequest.options?.fetchPolicy ?? defaultFetchPolicy;
     switch (fetchPolicy) {
       case FetchPolicy.NoCache:
-        return _responseStreamFromNetwork(queryEvent);
+        return _responseStreamFromNetwork(queryRequest);
       case FetchPolicy.NetworkOnly:
-        return _responseStreamFromNetwork(queryEvent).doOnData(_writeToCache);
+        return _responseStreamFromNetwork(queryRequest).doOnData(_writeToCache);
       case FetchPolicy.CacheOnly:
-        return _responseStreamFromCache(queryEvent);
+        return _responseStreamFromCache(queryRequest);
       case FetchPolicy.CacheFirst:
-        return _responseStreamFromCache(queryEvent).take(1).switchMap(
+        return _responseStreamFromCache(queryRequest).take(1).switchMap(
             (result) => result.data != null
-                ? _responseStreamFromCache(queryEvent)
-                : _responseStreamFromNetwork(queryEvent)
+                ? _responseStreamFromCache(queryRequest)
+                : _responseStreamFromNetwork(queryRequest)
                     .doOnData(_writeToCache)
-                    .switchMap((_) => _responseStreamFromCache(queryEvent)));
+                    .switchMap((_) => _responseStreamFromCache(queryRequest)));
       case FetchPolicy.CacheAndNetwork:
         {
           final responseStreamFromNetwork =
-              _responseStreamFromNetwork(queryEvent).shareValue();
-          return _responseStreamFromCache(queryEvent)
+              _responseStreamFromNetwork(queryRequest).shareValue();
+          return _responseStreamFromCache(queryRequest)
               .where((response) => response.data != null)
               .takeUntil(responseStreamFromNetwork)
               .concatWith([
             responseStreamFromNetwork
                 .doOnData(_writeToCache)
-                .switchMap((_) => _responseStreamFromCache(queryEvent))
+                .switchMap((_) => _responseStreamFromCache(queryRequest))
           ]);
         }
     }
   }
 
   /// Fetches the query from the network, mapping the result to a
-  /// [GraphQLResponse].
-  Stream<GraphQLResponse> _responseStreamFromNetwork(QueryEvent queryEvent) =>
-      link
-          .request(Request(
-            operation: Operation(
-                document: queryEvent.query.document,
-                operationName: queryEvent.query.operationName),
-            variables: queryEvent.query.getVariablesMap(),
-          ))
-          .map((response) => GraphQLResponse(
-                triggeringEvent: queryEvent,
-                data: (response.data == null || response.data.isEmpty)
-                    ? null
-                    : queryEvent.query.parse(response.data),
-                errors: response.errors,
-              ));
+  /// [QueryResponse].
+  Stream<QueryResponse<T, TVariables>>
+      _responseStreamFromNetwork<T, TVariables extends JsonSerializable>(
+              QueryRequest<T, TVariables> queryRequest) =>
+          link
+              .request(Request(
+                operation: Operation(
+                    document: queryRequest.query.document,
+                    operationName: queryRequest.query.operationName),
+                variables: queryRequest.query.getVariablesMap(),
+              ))
+              .map((response) => QueryResponse(
+                    request: queryRequest,
+                    data: (response.data == null || response.data.isEmpty)
+                        ? null
+                        : queryRequest.query.parse(response.data),
+                    errors: response.errors,
+                  ));
 
   /// Fetches the query from the cache, mapping the result to a
-  /// [GraphQLResponse].
-  Stream<GraphQLResponse> _responseStreamFromCache(QueryEvent queryEvent) {
+  /// [QueryResponse].
+  Stream<QueryResponse<T, TVariables>>
+      _responseStreamFromCache<T, TVariables extends JsonSerializable>(
+          QueryRequest<T, TVariables> queryRequest) {
     return cache
         .watchQuery(
-          document: queryEvent.query.document,
-          operationName: queryEvent.query.operationName,
-          variables: queryEvent.query.getVariablesMap(),
+          document: queryRequest.query.document,
+          operationName: queryRequest.query.operationName,
+          variables: queryRequest.query.getVariablesMap(),
         )
-        .map((data) => GraphQLResponse(
-              triggeringEvent: queryEvent,
+        .map((data) => QueryResponse(
+              request: queryRequest,
               data: (data == null || data.isEmpty)
                   ? null
-                  : queryEvent.query.parse(data),
+                  : queryRequest.query.parse(data),
             ));
   }
 
   /// Store data in cache
-  void _writeToCache(GraphQLResponse response) {
+  void _writeToCache(QueryResponse response) {
     if (response.data != null)
       cache.writeQuery(
-          eventId: response.triggeringEvent.id,
-          document: response.triggeringEvent.query.document,
-          operationName: response.triggeringEvent.query.operationName,
-          variables: response.triggeringEvent.query.getVariablesMap(),
+          eventId: response.request.id,
+          document: response.request.query.document,
+          operationName: response.request.query.operationName,
+          variables: response.request.query.getVariablesMap(),
           data: response.data.toJson(),
           optimistic: response.optimistic);
   }
