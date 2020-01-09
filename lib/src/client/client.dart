@@ -162,13 +162,13 @@ class GQLClient {
 
   /// Store data in cache
   void _writeToCache(GraphQLResponse response) {
-    if (response.data == null) return;
-    cache.writeQuery(
-        eventId: response.triggeringEvent.id,
-        document: response.triggeringEvent.query.document,
-        operationName: response.triggeringEvent.query.operationName,
-        variables: response.triggeringEvent.query.getVariablesMap(),
-        data: response.data.toJson(),
-        optimistic: response.optimistic);
+    if (response.data != null)
+      cache.writeQuery(
+          eventId: response.triggeringEvent.id,
+          document: response.triggeringEvent.query.document,
+          operationName: response.triggeringEvent.query.operationName,
+          variables: response.triggeringEvent.query.getVariablesMap(),
+          data: response.data.toJson(),
+          optimistic: response.optimistic);
   }
 }
