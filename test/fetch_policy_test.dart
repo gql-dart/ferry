@@ -8,7 +8,7 @@ import 'package:normalize/normalize.dart';
 import '../example/lib/graphql_api.dart';
 import '../lib/src/client/client.dart';
 import '../lib/src/client/query_request.dart';
-import '../lib/src/client/cache.dart';
+import '../lib/src/cache/cache.dart';
 import '../lib/src/helpers/deep_merge.dart';
 
 class MockLink extends Mock implements Link {}
@@ -23,11 +23,8 @@ void main() {
     final mockLink = MockLink();
 
     final queryRequests = [
+      QueryRequest(query: SongsQuery(variables: SongsArguments(first: 3))),
       QueryRequest(
-          id: 'myQuery',
-          query: SongsQuery(variables: SongsArguments(first: 3))),
-      QueryRequest(
-        id: 'myQuery',
         query: SongsQuery(variables: SongsArguments(first: 3, offset: 3)),
       ),
     ];

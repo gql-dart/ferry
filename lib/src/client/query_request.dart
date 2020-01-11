@@ -1,6 +1,9 @@
 import 'package:meta/meta.dart';
 import 'package:artemis/schema/graphql_query.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:uuid/uuid.dart';
+
+final _uuid = Uuid();
 
 enum FetchPolicy {
   /// Return result from cache. Only fetch from network if cached result is not available.
@@ -49,7 +52,7 @@ class QueryOptions<T, TVariables extends JsonSerializable> {
 @immutable
 class QueryRequest<T, TVariables extends JsonSerializable>
     extends JsonSerializable {
-  final String id;
+  final String id = _uuid.v4();
 
   /// The unique identifier of the originating [QueryStream].
   final String queryId;
@@ -57,10 +60,9 @@ class QueryRequest<T, TVariables extends JsonSerializable>
   /// The GraphQL Query, Mutation, or Subscription to execute.
   final GraphQLQuery<T, TVariables> query;
 
-  final QueryOptions options;
+  final QueryOptions<T, TVariables> options;
 
   QueryRequest({
-    @required this.id,
     @required this.query,
     this.queryId,
     this.options,

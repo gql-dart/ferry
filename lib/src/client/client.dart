@@ -7,7 +7,7 @@ import 'package:gql_exec/gql_exec.dart';
 
 import './query_response.dart';
 import './query_request.dart';
-import './cache.dart';
+import '../cache/cache.dart';
 
 /// Customize how the query response is merged into the cache. Useful
 /// when merging mutation results that add items to a list, etc.
