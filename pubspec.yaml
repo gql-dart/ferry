@@ -22,4 +22,4 @@ dependencies:
 dev_dependencies:
   test: ^1.9.4
   mockito: ^4.1.1
-  build_runner:
+  build_runner: ^1.6.7

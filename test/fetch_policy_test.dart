@@ -5,7 +5,7 @@ import 'package:gql_exec/gql_exec.dart';
 import "package:test/test.dart";
 import 'package:normalize/normalize.dart';
 
-import '../example/lib/graphql_api.dart';
+import './api/graphql_api.dart';
 import '../lib/src/client/client.dart';
 import '../lib/src/client/query_request.dart';
 import '../lib/src/cache/cache.dart';
