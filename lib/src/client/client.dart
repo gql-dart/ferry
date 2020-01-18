@@ -60,10 +60,10 @@ class GQLClient {
     return stream.startWith(null).pairwise().map((results) {
       final previousResult = results.first;
       final result = results.last;
-      return result.request.options?.updateResult == null
+      return result.request.updateResult == null
           ? result
           : QueryResponse<T, TVariables>(
-              data: result.request.options?.updateResult(
+              data: result.request.updateResult(
                 previousResult.data,
                 result.data,
               ),
@@ -78,13 +78,13 @@ class GQLClient {
   Stream<QueryResponse<T, TVariables>>
       _optimisticResponseStream<T, TVariables extends JsonSerializable>(
               QueryRequest<T, TVariables> queryRequest) =>
-          queryRequest.options?.optimisticResponse == null
+          queryRequest.optimisticResponse == null
               ? _responseStream(queryRequest)
               : _responseStream(queryRequest)
                   .startWith(QueryResponse(
                       request: queryRequest,
                       data: queryRequest.query
-                          .parse(queryRequest.options?.optimisticResponse),
+                          .parse(queryRequest.optimisticResponse),
                       optimistic: true))
                   .doOnData((response) {
                   if (response.optimistic == false)
@@ -96,7 +96,7 @@ class GQLClient {
   Stream<QueryResponse<T, TVariables>>
       _responseStream<T, TVariables extends JsonSerializable>(
           QueryRequest<T, TVariables> queryRequest) {
-    final fetchPolicy = queryRequest.options?.fetchPolicy ?? defaultFetchPolicy;
+    final fetchPolicy = queryRequest.fetchPolicy ?? defaultFetchPolicy;
     switch (fetchPolicy) {
       case FetchPolicy.NoCache:
         return _responseStreamFromNetwork(queryRequest);

@@ -25,7 +25,18 @@ enum FetchPolicy {
 }
 
 @immutable
-class QueryOptions<T, TVariables extends JsonSerializable> {
+class QueryRequest<T, TVariables extends JsonSerializable>
+    extends JsonSerializable {
+  final String id = _uuid.v4();
+
+  /// The unique identifier of the originating [QueryStream].
+  final String queryId;
+
+  /// The GraphQL Query, Mutation, or Subscription to execute.
+  final GraphQLQuery<T, TVariables> query;
+
+  // QUERY OPTIONS
+
   /// Optional function to update the result based on the previous result. Useful
   /// for pagination.
   final T Function(T previousResult, T result) updateResult;
@@ -41,30 +52,12 @@ class QueryOptions<T, TVariables extends JsonSerializable> {
 
   final FetchPolicy fetchPolicy;
 
-  const QueryOptions(
-      {this.updateCacheContext,
-      this.updateCacheHandlerKey,
-      this.fetchPolicy,
+  QueryRequest(
+      {@required this.query,
+      this.queryId,
+      this.updateResult,
       this.optimisticResponse,
-      this.updateResult});
-}
-
-@immutable
-class QueryRequest<T, TVariables extends JsonSerializable>
-    extends JsonSerializable {
-  final String id = _uuid.v4();
-
-  /// The unique identifier of the originating [QueryStream].
-  final String queryId;
-
-  /// The GraphQL Query, Mutation, or Subscription to execute.
-  final GraphQLQuery<T, TVariables> query;
-
-  final QueryOptions<T, TVariables> options;
-
-  QueryRequest({
-    @required this.query,
-    this.queryId,
-    this.options,
-  });
+      this.updateCacheHandlerKey,
+      this.updateCacheContext,
+      this.fetchPolicy});
 }
