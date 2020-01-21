@@ -9,16 +9,21 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  flutter:
+    sdk: flutter
   hive: ^1.2.0
   rxdart: ^0.23.1
-  normalize: ^0.0.6
-  json_serializable: ^3.0.0
-  equatable: ^1.0.1
-  gql: ^0.12.0
-  artemis: ^2.1.0+1
+  normalize:
+    path: ../normalize
   uuid: ^2.0.4
+  gql_build:
+    path: ../gql/gql_build
+  gql_code_builder:
+    path: ../gql/gql_code_builder
+  gql_link: ^0.2.2
 
 dev_dependencies:
   test: ^1.9.4
   mockito: ^4.1.1
   build_runner: ^1.6.7
+  build_test:
