@@ -9,27 +9,27 @@ export 'package:normalize/normalize.dart' show TypePolicy, AddTypenameVisitor;
 import '../helpers/deep_merge.dart';
 
 class GQLCache {
-  BehaviorSubject<Map<String, Map<String, dynamic>>> _dataStream;
-  BehaviorSubject<Map<String, Map<String, Map<String, dynamic>>>>
+  final BehaviorSubject<Map<String, Map<String, dynamic>>> _dataStream;
+  final BehaviorSubject<Map<String, Map<String, Map<String, dynamic>>>>
       _optimisticPatchesStream;
-
-  ValueStream<Map<String, Map<String, dynamic>>> optimisticDataStream;
+  final _optimisticDataStream =
+      BehaviorSubject<Map<String, Map<String, dynamic>>>();
 
   GQLCache(
       {Map<String, Map<String, dynamic>> seedData,
-      Map<String, Map<String, Map<String, dynamic>>> seedOptimisticPatches}) {
-    _dataStream = BehaviorSubject.seeded(seedData ?? {});
-    _optimisticPatchesStream =
-        BehaviorSubject.seeded(seedOptimisticPatches ?? {});
-    // TODO: replace with actual optimistic stream
-    optimisticDataStream = _dataStream;
-    // optimisticDataStream = CombineLatestStream.combine2<
-    //         Map<String, dynamic>,
-    //         Map<String, Map<String, dynamic>>,
-    //         Map<String, dynamic>>(_dataStream, _optimisticPatchesStream,
-    //     (data, optimisticPatches) {
-    //   return optimisticPatches.values.fold(data, deepMerge);
-    // }).shareValue();
+      Map<String, Map<String, Map<String, dynamic>>> seedOptimisticPatches})
+      : _dataStream = BehaviorSubject.seeded(seedData ?? {}),
+        _optimisticPatchesStream =
+            BehaviorSubject.seeded(seedOptimisticPatches ?? {}) {
+    // TODO: can this be done without listening in the constructor?
+    CombineLatestStream.combine2<
+            Map<String, Map<String, dynamic>>,
+            Map<String, Map<String, Map<String, dynamic>>>,
+            Map<String, Map<String, dynamic>>>(
+        _dataStream, _optimisticPatchesStream, (data, optimisticPatches) {
+      return optimisticPatches.values
+          .fold(data, (a, b) => Map.from(deepMerge(a, b)));
+    }).listen((data) => _optimisticDataStream.add(data));
   }
 
   Map<String, dynamic> get data {
@@ -37,7 +37,7 @@ class GQLCache {
   }
 
   Map<String, dynamic> get optimisticData {
-    return optimisticDataStream.value;
+    return _optimisticDataStream.value;
   }
 
   Stream<Map<String, dynamic>> watchQuery(
@@ -47,8 +47,7 @@ class GQLCache {
       bool optimistic = true,
       bool addTypename = true,
       Map<String, TypePolicy> typePolicies = const {}}) {
-    final stream = _dataStream;
-    // final stream = optimistic ? _optimisticDataStream : _dataStream;
+    final stream = optimistic ? _optimisticDataStream : _dataStream;
     return stream.map((data) => denormalize(
         query: document,
         addTypename: addTypename,
@@ -75,7 +74,7 @@ class GQLCache {
   }
 
   void writeQuery(
-      {@required String eventId,
+      {@required String queryId,
       @required DocumentNode document,
       @required String operationName,
       Map<String, dynamic> variables,
@@ -90,7 +89,7 @@ class GQLCache {
         typePolicies: typePolicies);
     optimistic
         ? _optimisticPatchesStream
-            .add({..._optimisticPatchesStream.value, eventId: result})
+            .add({..._optimisticPatchesStream.value, queryId: result})
         : _dataStream.add(Map.from(deepMerge(_dataStream.value, result)));
   }
 

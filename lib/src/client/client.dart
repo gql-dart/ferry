@@ -128,7 +128,7 @@ class GQLClient {
               .doOnData(
               (response) {
                 if (response.optimistic == false)
-                  cache.removeOptimisticPatch(response.queryRequest.id);
+                  cache.removeOptimisticPatch(response.queryRequest.queryId);
               },
             );
 
@@ -221,7 +221,7 @@ class GQLClient {
   void _writeToCache(QueryResponse response) {
     if (response.data != null)
       cache.writeQuery(
-        eventId: response.queryRequest.id,
+        queryId: response.queryRequest.queryId,
         document: response.queryRequest.operation.document,
         operationName: response.queryRequest.operation.operationName,
         variables: response.queryRequest.variables,

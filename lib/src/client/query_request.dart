@@ -1,4 +1,3 @@
-import 'package:uuid/uuid.dart';
 import 'package:gql_exec/gql_exec.dart';
 import './fetch_policy.dart';
 
@@ -13,12 +12,9 @@ abstract class QueryRequest<T> {
       this.updateCacheContext,
       this.fetchPolicy});
 
-  /// The unique identifier for this request.
-  final String id = Uuid().v4();
-
   /// The unique identifier for this query.
   ///
-  /// If the same [queryId] is passed to multiple [QueryRequest]s, it will be
+  /// If the same [queryId] is passed to multiple [Query]s, it will be
   /// treated as a refetch of the same query. If an [updateResult] callback is
   /// passed, the results will be merged according to the callback.
   final String queryId;
