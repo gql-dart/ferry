@@ -1,5 +1,4 @@
 import 'package:meta/meta.dart';
-import 'package:gql_exec/gql_exec.dart';
 
 import './query_request.dart';
 
@@ -17,7 +16,9 @@ class QueryResponse<T> {
   final T data;
 
   /// The list of errors in this response.
-  final List<GraphQLError> errors;
+  final List<dynamic> errors;
+
+  final bool loading;
 
   /// If this response has any error.
   bool get hasErrors => errors != null && errors.isNotEmpty;
@@ -28,6 +29,7 @@ class QueryResponse<T> {
     this.optimistic = false,
     this.data,
     this.errors,
+    this.loading = false,
   });
 
   /// Creates a shallow copy
@@ -35,5 +37,6 @@ class QueryResponse<T> {
       : queryRequest = response.queryRequest,
         optimistic = response.optimistic,
         data = response.data,
-        errors = response.errors;
+        errors = response.errors,
+        loading = response.loading;
 }

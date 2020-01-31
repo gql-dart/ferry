@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gql_client/gql_client.dart';
 
 typedef QueryResponseBuilder<T> = Widget Function(
-    BuildContext context, AsyncSnapshot<QueryResponse<T>> snapshot);
+    BuildContext context, QueryResponse<T> snapshot);
 
 class Query<T> extends StatefulWidget {
   final QueryRequest<T> queryRequest;
@@ -38,8 +38,14 @@ class _QueryState<T> extends State<Query> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QueryResponse<T>>(
+      initialData:
+          QueryResponse<T>(queryRequest: widget.queryRequest, loading: true),
       stream: stream,
-      builder: builder,
+      builder: (context, snapshot) {
+        // TODO: handle errors
+        final result = snapshot.data;
+        return builder(context, result);
+      },
     );
   }
 }
