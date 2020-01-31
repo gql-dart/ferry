@@ -4,8 +4,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:normalize/normalize.dart';
 import 'package:gql/ast.dart';
 
-export 'package:normalize/normalize.dart' show TypePolicy;
-export 'package:normalize/src/helpers/add_typename_visitor.dart';
+export 'package:normalize/normalize.dart' show TypePolicy, AddTypenameVisitor;
 
 import '../helpers/deep_merge.dart';
 

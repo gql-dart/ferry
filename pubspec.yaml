@@ -18,9 +18,8 @@ dependencies:
   uuid: ^2.0.4
   gql_build:
     path: ../gql/gql_build
-  gql_code_builder:
-    path: ../gql/gql_code_builder
-  gql_link: ^0.2.2
+  gql_link:
+    path: ../gql/gql_link
 
 dev_dependencies:
   test: ^1.9.4
