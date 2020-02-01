@@ -4,7 +4,6 @@ import 'package:gql/ast.dart';
 import 'package:gql_link/gql_link.dart';
 import 'package:gql_exec/gql_exec.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 import './query_response.dart';
 import './query_request.dart';
@@ -17,8 +16,7 @@ import '../helpers/operation_type.dart';
 /// when merging mutation results that add items to a list, etc.
 /// Note: if a callback is provided, [updateCache]
 /// is also run immediately with the [optimisticResponse].
-typedef UpdateCacheHandler<T, TVariables extends JsonSerializable> = void
-    Function(
+typedef UpdateCacheHandler<T> = void Function(
   dynamic proxy,
   QueryResponse<T> response,
   Map<String, dynamic> updateHandlerContext,
@@ -75,7 +73,7 @@ class GQLClient {
         // Optionally add typename
         .map(_addTypename)
         // Get the results
-        .switchMap((req) => _optimisticResponseStream(req))
+        .switchMap((req) => _responseStream(req))
         // Update the result based on previous, if applicable
         .transform(StreamTransformer.fromBind(_updateResultStream));
   }
@@ -93,32 +91,51 @@ class GQLClient {
       );
   }
 
-  Stream<QueryResponse<T>> _updateResultStream<T>(
-      Stream<QueryResponse<T>> stream) {
-    return stream.startWith(null).pairwise().map((results) {
-      final previousResult = results.first;
-      final result = results.last;
-      return result.queryRequest.updateResult == null
-          ? result
-          : QueryResponse<T>(
-              data: result.queryRequest.updateResult(
-                previousResult.data,
-                result.data,
-              ),
-              errors: result.errors,
-              queryRequest: result.queryRequest,
+  /// Determines how to resolve a query based on the [FetchPolicy] and caches
+  /// responses from the network if required by the policy.
+  Stream<QueryResponse<T>> _responseStream<T>(QueryRequest<T> queryRequest) {
+    final fetchPolicy = queryRequest.fetchPolicy ??
+        options.defaultFetchPolicies[operationType(queryRequest)];
+    switch (fetchPolicy) {
+      case FetchPolicy.NoCache:
+        return _optimisticNetworkResponseStream(queryRequest);
+      case FetchPolicy.NetworkOnly:
+        return _optimisticNetworkResponseStream(queryRequest)
+            .doOnData(_writeToCache);
+      case FetchPolicy.CacheOnly:
+        return _cacheResponseStream(queryRequest);
+      case FetchPolicy.CacheFirst:
+        return _cacheResponseStream(queryRequest).take(1).switchMap(
+              (result) => result.data != null
+                  ? _cacheResponseStream(queryRequest)
+                  : _optimisticNetworkResponseStream(queryRequest)
+                      .doOnData(_writeToCache)
+                      .switchMap((_) => _cacheResponseStream(queryRequest)),
             );
-    });
+      case FetchPolicy.CacheAndNetwork:
+        {
+          final responseStreamFromNetwork =
+              _optimisticNetworkResponseStream(queryRequest).shareValue();
+          return _cacheResponseStream(queryRequest)
+              .where((response) => response.data != null)
+              .takeUntil(responseStreamFromNetwork)
+              .concatWith([
+            responseStreamFromNetwork
+                .doOnData(_writeToCache)
+                .switchMap((_) => _cacheResponseStream(queryRequest))
+          ]);
+        }
+    }
   }
 
   /// Creates a response stream, starting with an optimistic [QueryResponse]
   /// if a [QueryRequest.optimisticResponse] is proviced, then remmoves the
   /// optimistic patch from the cache once the network response is received.
-  Stream<QueryResponse<T>> _optimisticResponseStream<T>(
+  Stream<QueryResponse<T>> _optimisticNetworkResponseStream<T>(
           QueryRequest<T> queryRequest) =>
       queryRequest.optimisticResponse == null
-          ? _responseStream(queryRequest)
-          : _responseStream(queryRequest)
+          ? _networkResponseStream(queryRequest)
+          : _networkResponseStream(queryRequest)
               .startWith(
               QueryResponse(
                   queryRequest: queryRequest,
@@ -132,45 +149,9 @@ class GQLClient {
               },
             );
 
-  /// Determines how to resolve a query based on the [FetchPolicy] and caches
-  /// responses from the network if required by the policy.
-  Stream<QueryResponse<T>> _responseStream<T>(QueryRequest<T> queryRequest) {
-    final fetchPolicy = queryRequest.fetchPolicy ??
-        options.defaultFetchPolicies[operationType(queryRequest)];
-    switch (fetchPolicy) {
-      case FetchPolicy.NoCache:
-        return _responseStreamFromNetwork(queryRequest);
-      case FetchPolicy.NetworkOnly:
-        return _responseStreamFromNetwork(queryRequest).doOnData(_writeToCache);
-      case FetchPolicy.CacheOnly:
-        return _responseStreamFromCache(queryRequest);
-      case FetchPolicy.CacheFirst:
-        return _responseStreamFromCache(queryRequest).take(1).switchMap(
-              (result) => result.data != null
-                  ? _responseStreamFromCache(queryRequest)
-                  : _responseStreamFromNetwork(queryRequest)
-                      .doOnData(_writeToCache)
-                      .switchMap((_) => _responseStreamFromCache(queryRequest)),
-            );
-      case FetchPolicy.CacheAndNetwork:
-        {
-          final responseStreamFromNetwork =
-              _responseStreamFromNetwork(queryRequest).shareValue();
-          return _responseStreamFromCache(queryRequest)
-              .where((response) => response.data != null)
-              .takeUntil(responseStreamFromNetwork)
-              .concatWith([
-            responseStreamFromNetwork
-                .doOnData(_writeToCache)
-                .switchMap((_) => _responseStreamFromCache(queryRequest))
-          ]);
-        }
-    }
-  }
-
   /// Fetches the query from the network, mapping the result to a
   /// [QueryResponse].
-  Stream<QueryResponse<T>> _responseStreamFromNetwork<T>(
+  Stream<QueryResponse<T>> _networkResponseStream<T>(
           QueryRequest<T> queryRequest) =>
       link
           .request(
@@ -200,7 +181,7 @@ class GQLClient {
 
   /// Fetches the query from the cache, mapping the result to a
   /// [QueryResponse].
-  Stream<QueryResponse<T>> _responseStreamFromCache<T>(
+  Stream<QueryResponse<T>> _cacheResponseStream<T>(
           QueryRequest<T> queryRequest) =>
       cache
           .watchQuery(
@@ -228,5 +209,23 @@ class GQLClient {
         data: response.data?.data,
         optimistic: response.optimistic,
       );
+  }
+
+  Stream<QueryResponse<T>> _updateResultStream<T>(
+      Stream<QueryResponse<T>> stream) {
+    return stream.startWith(null).pairwise().map((results) {
+      final previousResult = results.first;
+      final result = results.last;
+      return result.queryRequest.updateResult == null
+          ? result
+          : QueryResponse<T>(
+              data: result.queryRequest.updateResult(
+                previousResult.data,
+                result.data,
+              ),
+              errors: result.errors,
+              queryRequest: result.queryRequest,
+            );
+    });
   }
 }
