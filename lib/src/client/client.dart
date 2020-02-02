@@ -78,6 +78,16 @@ class GQLClient {
         .transform(StreamTransformer.fromBind(_updateResultStream));
   }
 
+  /// Convenience method for executing a query and returning the first
+  /// non-optimistic response.
+  Future<QueryResponse<T>> execute<T>(QueryRequest<T> queryRequest) async {
+    Future.delayed(Duration.zero)
+        .then((_) => queryController.add(queryRequest));
+    return responseStream(queryRequest)
+        .firstWhere((response) => !response.optimistic);
+  }
+
+  /// Optionally adds [__typename] to each node of the operation
   QueryRequest<T> _addTypename<T>(QueryRequest<T> request) {
     if (!options.addTypename) return request;
     final document = transform(
@@ -211,6 +221,9 @@ class GQLClient {
       );
   }
 
+  /// Updates previous result with new result.
+  ///
+  /// Useful for pagination.
   Stream<QueryResponse<T>> _updateResultStream<T>(
       Stream<QueryResponse<T>> stream) {
     return stream.startWith(null).pairwise().map((results) {
