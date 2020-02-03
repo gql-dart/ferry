@@ -9,7 +9,7 @@ abstract class QueryRequest<T> {
       this.updateResult,
       this.optimisticResponse,
       this.updateCacheHandlerKey,
-      this.updateCacheContext,
+      this.context,
       this.fetchPolicy});
 
   /// The unique identifier for this query.
@@ -24,8 +24,6 @@ abstract class QueryRequest<T> {
 
   final Map<String, dynamic> variables;
 
-  // QUERY OPTIONS
-
   /// Optional function to update the result based on the previous result. Useful
   /// for pagination.
   final T Function(T previousResult, T result) updateResult;
@@ -36,10 +34,13 @@ abstract class QueryRequest<T> {
   /// The key that maps to a [UpdateCacheHandler], defined on the client
   final dynamic updateCacheHandlerKey;
 
-  /// Object that gets passed This object gets passed as a parameter to [UpdateFunctionHandler] and [UpdateResultHandler].
-  final Map<String, dynamic> updateCacheContext;
+  /// An arbitrary object (must be JSON serializable) to pass data that can be
+  /// used in [UpdateCacheHandler]s or [updateResult].
+  final Map<String, dynamic> context;
 
   final FetchPolicy fetchPolicy;
 
   T parseData(Map<String, dynamic> json);
+
+  // TODO: add toJson / fromJson here and to req_builder
 }

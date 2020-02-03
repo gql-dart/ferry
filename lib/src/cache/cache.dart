@@ -1,35 +1,41 @@
-import 'package:meta/meta.dart';
 import 'dart:async';
 import 'package:rxdart/rxdart.dart';
 import 'package:normalize/normalize.dart';
-import 'package:gql/ast.dart';
 
 export 'package:normalize/normalize.dart' show TypePolicy, AddTypenameVisitor;
 
 import '../helpers/deep_merge.dart';
+import './options.dart';
 
 class GQLCache {
+  final Map<String, TypePolicy> typePolicies;
+
   final BehaviorSubject<Map<String, Map<String, dynamic>>> _dataStream;
   final BehaviorSubject<Map<String, Map<String, Map<String, dynamic>>>>
       _optimisticPatchesStream;
   final _optimisticDataStream =
       BehaviorSubject<Map<String, Map<String, dynamic>>>();
 
-  GQLCache(
-      {Map<String, Map<String, dynamic>> seedData,
-      Map<String, Map<String, Map<String, dynamic>>> seedOptimisticPatches})
-      : _dataStream = BehaviorSubject.seeded(seedData ?? {}),
-        _optimisticPatchesStream =
-            BehaviorSubject.seeded(seedOptimisticPatches ?? {}) {
+  GQLCache({
+    this.typePolicies = const {},
+    Map<String, Map<String, dynamic>> seedData,
+    Map<String, Map<String, Map<String, dynamic>>> seedOptimisticPatches,
+  })  : _dataStream = BehaviorSubject.seeded(seedData ?? {}),
+        _optimisticPatchesStream = BehaviorSubject.seeded(
+          seedOptimisticPatches ?? {},
+        ) {
     // TODO: can this be done without listening in the constructor?
     CombineLatestStream.combine2<
-            Map<String, Map<String, dynamic>>,
-            Map<String, Map<String, Map<String, dynamic>>>,
-            Map<String, Map<String, dynamic>>>(
-        _dataStream, _optimisticPatchesStream, (data, optimisticPatches) {
-      return optimisticPatches.values
-          .fold(data, (a, b) => Map.from(deepMerge(a, b)));
-    }).listen((data) => _optimisticDataStream.add(data));
+        Map<String, Map<String, dynamic>>,
+        Map<String, Map<String, Map<String, dynamic>>>,
+        Map<String, Map<String, dynamic>>>(
+      _dataStream,
+      _optimisticPatchesStream,
+      (data, optimisticPatches) {
+        return optimisticPatches.values
+            .fold(data, (a, b) => Map.from(deepMerge(a, b)));
+      },
+    ).listen((data) => _optimisticDataStream.add(data));
   }
 
   Map<String, dynamic> get data {
@@ -41,55 +47,83 @@ class GQLCache {
   }
 
   Stream<Map<String, dynamic>> watchQuery(
-      {@required DocumentNode document,
-      @required String operationName,
-      Map<String, dynamic> variables,
-      bool optimistic = true,
-      bool addTypename = true,
-      Map<String, TypePolicy> typePolicies = const {}}) {
-    final stream = optimistic ? _optimisticDataStream : _dataStream;
-    return stream.map((data) => denormalize(
-        query: document,
-        addTypename: addTypename,
-        operationName: operationName,
-        normalizedMap: data,
-        variables: variables,
-        typePolicies: typePolicies));
-  }
+    WatchQueryOptions options,
+  ) =>
+      (options.optimistic ? _optimisticDataStream : _dataStream)
+          .map((data) => denormalize(
+                query: options.document,
+                addTypename: options.addTypename,
+                operationName: options.operationName,
+                normalizedMap: data,
+                variables: options.variables,
+                typePolicies: typePolicies,
+              ));
 
   Map<String, dynamic> readQuery(
-      {@required DocumentNode document,
-      @required String operationName,
-      Map<String, dynamic> variables,
-      bool optimistic = true,
-      bool addTypename = true,
-      Map<String, TypePolicy> typePolicies = const {}}) {
-    return denormalize(
-        query: document,
-        addTypename: addTypename,
-        operationName: operationName,
-        normalizedMap: optimistic ? optimisticData : data,
-        variables: variables,
-        typePolicies: typePolicies);
-  }
+    ReadQueryOptions options,
+  ) =>
+      denormalize(
+        query: options.document,
+        addTypename: options.addTypename,
+        operationName: options.operationName,
+        normalizedMap: options.optimistic ? optimisticData : data,
+        variables: options.variables,
+        typePolicies: typePolicies,
+      );
+
+  Map<String, dynamic> readFragment(
+    ReadFragmentOptions options,
+  ) =>
+      denormalizeFragment(
+        fragment: options.fragment,
+        idFields: options.idFields,
+        normalizedMap: options.optimistic ? optimisticData : data,
+        fragmentName: options.fragmentName,
+        variables: options.variables,
+        typePolicies: typePolicies,
+        addTypename: options.addTypename,
+      );
 
   void writeQuery(
-      {@required String queryId,
-      @required DocumentNode document,
-      @required String operationName,
-      Map<String, dynamic> variables,
-      @required Map<String, dynamic> data,
-      bool optimistic = false,
-      Map<String, TypePolicy> typePolicies = const {}}) {
+    WriteQueryOptions options, [
+    bool optimistic = false,
+    String queryId,
+  ]) {
     final result = normalize(
-        query: document,
-        operationName: operationName,
-        variables: variables,
-        data: data,
-        typePolicies: typePolicies);
+      query: options.document,
+      operationName: options.operationName,
+      variables: options.variables,
+      data: options.data,
+      typePolicies: typePolicies,
+    );
     optimistic
-        ? _optimisticPatchesStream
-            .add({..._optimisticPatchesStream.value, queryId: result})
+        ? _optimisticPatchesStream.add({
+            ..._optimisticPatchesStream.value,
+            queryId: Map.from(deepMerge(
+                _optimisticPatchesStream.value[queryId] ?? {}, result)),
+          })
+        : _dataStream.add(Map.from(deepMerge(_dataStream.value, result)));
+  }
+
+  void writeFragment(
+    WriteFragmentOptions options, [
+    bool optimistic = false,
+    String queryId,
+  ]) {
+    final result = normalizeFragment(
+      fragment: options.fragment,
+      idFields: options.idFields,
+      data: options.data,
+      fragmentName: options.fragmentName,
+      variables: options.variables,
+      typePolicies: typePolicies,
+    );
+    optimistic
+        ? _optimisticPatchesStream.add({
+            ..._optimisticPatchesStream.value,
+            queryId: Map.from(deepMerge(
+                _optimisticPatchesStream.value[queryId] ?? {}, result)),
+          })
         : _dataStream.add(Map.from(deepMerge(_dataStream.value, result)));
   }
 

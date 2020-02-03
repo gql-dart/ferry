@@ -88,7 +88,7 @@ Class _buildOperationReqClass(OperationDefinitionNode node, DocumentNode schema,
                   Parameter(
                     (b) => b
                       ..named = true
-                      ..name = "updateCacheContext"
+                      ..name = "context"
                       ..type = refer("Map<String, dynamic>"),
                   ),
                   Parameter(
@@ -129,7 +129,7 @@ Class _buildOperationReqClass(OperationDefinitionNode node, DocumentNode schema,
                       "updateResult": refer("updateResult"),
                       "optimisticResponse": refer("optimisticResponse"),
                       "updateCacheHandlerKey": refer("updateCacheHandlerKey"),
-                      "updateCacheContext": refer("updateCacheContext"),
+                      "context": refer("context"),
                       "fetchPolicy": refer("fetchPolicy"),
                     },
                   ).code,
