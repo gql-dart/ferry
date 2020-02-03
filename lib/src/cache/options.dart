@@ -1,5 +1,4 @@
 import 'package:meta/meta.dart';
-import 'package:normalize/normalize.dart';
 import 'package:gql/ast.dart';
 
 export 'package:normalize/normalize.dart' show TypePolicy, AddTypenameVisitor;
