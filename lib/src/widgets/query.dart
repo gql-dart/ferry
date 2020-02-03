@@ -28,11 +28,7 @@ class _QueryState<T> extends State<Query> {
   @override
   void initState() {
     super.initState();
-    () async {
-      stream = widget.client.responseStream(widget.queryRequest);
-      await Future.delayed(Duration.zero);
-      widget.client.queryController.add(widget.queryRequest);
-    }();
+    stream = widget.client.responseStream(widget.queryRequest);
   }
 
   @override

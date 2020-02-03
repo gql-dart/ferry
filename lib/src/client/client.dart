@@ -36,6 +36,7 @@ class GQLClient {
   }) : options = options ?? GQLClientOptions();
 
   Stream<QueryResponse<T>> responseStream<T>(QueryRequest<T> request) {
+    bool initial = true;
     return queryController.stream
         // Filter for only the relevent queries
         .whereType<QueryRequest<T>>()
@@ -48,16 +49,17 @@ class GQLClient {
         .switchMap((req) => _responseStream(req))
         // Update the result based on previous result for the given [queryId],
         // if applicable. This enables features like pagination.
-        .transform(StreamTransformer.fromBind(_updateResultStream));
-  }
-
-  /// Convenience method for executing a query and returning the first
-  /// non-optimistic response.
-  Future<QueryResponse<T>> execute<T>(QueryRequest<T> queryRequest) async {
-    Future.delayed(Duration.zero)
-        .then((_) => queryController.add(queryRequest));
-    return responseStream(queryRequest)
-        .firstWhere((response) => !response.optimistic);
+        .transform(StreamTransformer.fromBind(_updateResultStream))
+        // Trigger the [QueryRequest] on first listen
+        .doOnListen(
+      () async {
+        if (initial) {
+          await Future.delayed(Duration.zero);
+          queryController.add(request);
+        }
+        initial = false;
+      },
+    );
   }
 
   /// Optionally adds [__typename] to each node of the operation
