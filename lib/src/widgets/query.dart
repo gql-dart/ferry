@@ -38,8 +38,7 @@ class _QueryState<T> extends State<Query> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QueryResponse<T>>(
-      initialData:
-          QueryResponse<T>(queryRequest: widget.queryRequest, loading: true),
+      initialData: QueryResponse<T>(queryRequest: widget.queryRequest),
       stream: stream,
       builder: (context, snapshot) {
         // TODO: handle errors

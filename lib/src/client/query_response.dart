@@ -18,7 +18,8 @@ class QueryResponse<T> {
   /// The list of errors in this response.
   final List<dynamic> errors;
 
-  final bool loading;
+  // TODO: is there a better way to implement loading?
+  bool get loading => errors == null && data == null;
 
   /// If this response has any error.
   bool get hasErrors => errors != null && errors.isNotEmpty;
@@ -29,7 +30,6 @@ class QueryResponse<T> {
     this.optimistic = false,
     this.data,
     this.errors,
-    this.loading = false,
   });
 
   /// Creates a shallow copy
@@ -37,6 +37,5 @@ class QueryResponse<T> {
       : queryRequest = response.queryRequest,
         optimistic = response.optimistic,
         data = response.data,
-        errors = response.errors,
-        loading = response.loading;
+        errors = response.errors;
 }
