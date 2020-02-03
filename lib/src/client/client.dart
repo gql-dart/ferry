@@ -22,7 +22,7 @@ class GQLClient {
 
   /// Keeps track of network connection status. For offline mutations to work,
   /// you must update this value when the network status changes.
-  // TODO: implement offline operation cache
+  // TODO: implement offline mutation cache
   final isConnected = BehaviorSubject<bool>.seeded(true);
 
   /// Add a [QueryRequest] to the controller, then create a [responseStream]
@@ -35,7 +35,6 @@ class GQLClient {
     GQLClientOptions options,
   }) : options = options ?? GQLClientOptions();
 
-  // TODO: set loading synchronously and with each time a new request is received
   Stream<QueryResponse<T>> responseStream<T>(QueryRequest<T> request) {
     return queryController.stream
         // Filter for only the relevent queries
