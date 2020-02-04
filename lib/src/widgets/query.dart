@@ -9,10 +9,11 @@ class Query<T> extends StatefulWidget {
   final QueryResponseBuilder<T> builder;
   final GQLClient client;
 
-  Query(
-      {@required this.queryRequest,
-      @required this.builder,
-      @required this.client});
+  Query({
+    @required this.queryRequest,
+    @required this.builder,
+    @required this.client,
+  });
 
   @override
   _QueryState<T> createState() => _QueryState(builder: builder);

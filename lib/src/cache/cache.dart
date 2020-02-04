@@ -1,26 +1,26 @@
 import 'dart:async';
+import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:normalize/normalize.dart';
 
-export 'package:normalize/normalize.dart' show TypePolicy, AddTypenameVisitor;
-
 import '../helpers/deep_merge.dart';
 import './options.dart';
+import '../store/store.dart';
 
 class GQLCache {
   final Map<String, TypePolicy> typePolicies;
+  final Store _dataStore;
 
-  final BehaviorSubject<Map<String, Map<String, dynamic>>> _dataStream;
   final BehaviorSubject<Map<String, Map<String, Map<String, dynamic>>>>
       _optimisticPatchesStream;
   final _optimisticDataStream =
       BehaviorSubject<Map<String, Map<String, dynamic>>>();
 
   GQLCache({
+    @required Store dataStore,
     this.typePolicies = const {},
-    Map<String, Map<String, dynamic>> seedData,
     Map<String, Map<String, Map<String, dynamic>>> seedOptimisticPatches,
-  })  : _dataStream = BehaviorSubject.seeded(seedData ?? {}),
+  })  : _dataStore = dataStore,
         _optimisticPatchesStream = BehaviorSubject.seeded(
           seedOptimisticPatches ?? {},
         ) {
@@ -29,7 +29,7 @@ class GQLCache {
         Map<String, Map<String, dynamic>>,
         Map<String, Map<String, Map<String, dynamic>>>,
         Map<String, Map<String, dynamic>>>(
-      _dataStream,
+      _dataStore.watch(),
       _optimisticPatchesStream,
       (data, optimisticPatches) {
         return optimisticPatches.values
@@ -38,35 +38,30 @@ class GQLCache {
     ).listen((data) => _optimisticDataStream.add(data));
   }
 
-  Map<String, dynamic> get data {
-    return _dataStream.value;
-  }
-
-  Map<String, dynamic> get optimisticData {
-    return _optimisticDataStream.value;
-  }
-
   Stream<Map<String, dynamic>> watchQuery(
     WatchQueryOptions options,
   ) =>
-      (options.optimistic ? _optimisticDataStream : _dataStream)
-          .map((data) => denormalize(
-                query: options.document,
-                addTypename: options.addTypename,
-                operationName: options.operationName,
-                normalizedMap: data,
-                variables: options.variables,
-                typePolicies: typePolicies,
-              ));
+      (options.optimistic ? _optimisticDataStream : _dataStore.watch()).map(
+        (data) => denormalize(
+          reader: (dataId) => data[dataId],
+          query: options.document,
+          addTypename: options.addTypename,
+          operationName: options.operationName,
+          variables: options.variables,
+          typePolicies: typePolicies,
+        ),
+      );
 
   Map<String, dynamic> readQuery(
     ReadQueryOptions options,
   ) =>
       denormalize(
+        reader: (dataId) => options.optimistic
+            ? _optimisticDataStream.value[dataId]
+            : _dataStore.get(dataId),
         query: options.document,
         addTypename: options.addTypename,
         operationName: options.operationName,
-        normalizedMap: options.optimistic ? optimisticData : data,
         variables: options.variables,
         typePolicies: typePolicies,
       );
@@ -75,9 +70,11 @@ class GQLCache {
     ReadFragmentOptions options,
   ) =>
       denormalizeFragment(
+        reader: (dataId) => options.optimistic
+            ? _optimisticDataStream.value[dataId]
+            : _dataStore.get(dataId),
         fragment: options.fragment,
         idFields: options.idFields,
-        normalizedMap: options.optimistic ? optimisticData : data,
         fragmentName: options.fragmentName,
         variables: options.variables,
         typePolicies: typePolicies,
@@ -89,20 +86,16 @@ class GQLCache {
     bool optimistic = false,
     String queryId,
   ]) {
-    final result = normalize(
+    final Map<String, Map<String, dynamic>> normalizedResult = {};
+    normalize(
+      writer: (dataId, value) => normalizedResult[dataId] = value,
       query: options.document,
       operationName: options.operationName,
       variables: options.variables,
       data: options.data,
       typePolicies: typePolicies,
     );
-    optimistic
-        ? _optimisticPatchesStream.add({
-            ..._optimisticPatchesStream.value,
-            queryId: Map.from(deepMerge(
-                _optimisticPatchesStream.value[queryId] ?? {}, result)),
-          })
-        : _dataStream.add(Map.from(deepMerge(_dataStream.value, result)));
+    _writeData(normalizedResult, optimistic, queryId);
   }
 
   void writeFragment(
@@ -110,7 +103,9 @@ class GQLCache {
     bool optimistic = false,
     String queryId,
   ]) {
-    final result = normalizeFragment(
+    final Map<String, Map<String, dynamic>> normalizedResult = {};
+    normalizeFragment(
+      writer: (dataId, value) => normalizedResult[dataId] = value,
       fragment: options.fragment,
       idFields: options.idFields,
       data: options.data,
@@ -118,14 +113,39 @@ class GQLCache {
       variables: options.variables,
       typePolicies: typePolicies,
     );
-    optimistic
-        ? _optimisticPatchesStream.add({
-            ..._optimisticPatchesStream.value,
-            queryId: Map.from(deepMerge(
-                _optimisticPatchesStream.value[queryId] ?? {}, result)),
-          })
-        : _dataStream.add(Map.from(deepMerge(_dataStream.value, result)));
+    _writeData(normalizedResult, optimistic, queryId);
   }
+
+  void _writeData(
+    Map<String, Map<String, dynamic>> data,
+    bool optimistic,
+    String queryId,
+  ) =>
+      optimistic
+          ? _optimisticPatchesStream.add(
+              {
+                ..._optimisticPatchesStream.value,
+                queryId: Map.from(
+                  deepMerge(
+                    _optimisticPatchesStream.value[queryId] ?? {},
+                    data,
+                  ),
+                ),
+              },
+            )
+          : _dataStore.putAll(Map.fromEntries(
+              data.entries.map(
+                (entry) => MapEntry(
+                  entry.key,
+                  Map.from(
+                    deepMerge(
+                      _dataStore.get(entry.key) ?? {},
+                      entry.value,
+                    ),
+                  ),
+                ),
+              ),
+            ));
 
   void removeOptimisticPatch(String id) {
     final patches = _optimisticPatchesStream.value;
