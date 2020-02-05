@@ -1,6 +1,0 @@
-query SongsQuery($first: Int, $offset: Int) {
-  Song(first: $first, offset: $offset) {
-    id
-    name
-  }
-}
