@@ -2,14 +2,14 @@ import "dart:async";
 import 'package:mockito/mockito.dart';
 import 'package:gql_link/gql_link.dart';
 import 'package:gql_exec/gql_exec.dart';
-import "package:test/test.dart";
+import 'package:gql/ast.dart';
+import "package:flutter_test/flutter_test.dart";
 import 'package:normalize/normalize.dart';
+import "package:gql_client/gql_client.dart";
 
-import './api/graphql_api.dart';
-import '../lib/src/client/client.dart';
-import '../lib/src/client/query_request.dart';
-import '../lib/src/cache/cache.dart';
-import '../lib/src/helpers/deep_merge.dart';
+import '../lib/helpers/deep_merge.dart';
+import '../lib/graphql/songs_query.data.gql.dart';
+import '../lib/graphql/songs_query.req.gql.dart';
 
 class MockLink extends Mock implements Link {}
 
@@ -23,26 +23,28 @@ void main() {
     final mockLink = MockLink();
 
     final queryRequests = [
-      QueryRequest(query: SongsQuery(variables: SongsArguments(first: 3))),
-      QueryRequest(
-        query: SongsQuery(variables: SongsArguments(first: 3, offset: 3)),
+      SongsQuery(
+        buildVars: (b) => b..first = 3,
+      ),
+      SongsQuery(
+        buildVars: (b) => b
+          ..first = 3
+          ..offset = 3,
       ),
     ];
 
     final networkRequests = queryRequests
         .map((request) => Request(
-            operation: Operation(
-              document: request.query.document,
-              operationName: request.query.operationName,
-            ),
-            variables: request.query.getVariablesMap()))
+              operation: request.operation,
+              variables: request.variables,
+            ))
         .toList();
 
     Map<String, List<Map<String, dynamic>>> getResponse(
         SongsQuery query, Source source) {
       final List<Map<String, dynamic>> songs = [];
-      for (var i = 0; i < query.variables.first; i++) {
-        final id = (i + (query.variables.offset ?? 0)).toString();
+      for (var i = 0; i < query.variables["first"]; i++) {
+        final id = (i + (query.variables["offset"] ?? 0)).toString();
         songs.add(
             {"id": id, "name": "Song $id from $source", "__typename": "Song"});
       }
@@ -50,11 +52,11 @@ void main() {
     }
 
     final networkResponses = queryRequests
-        .map((request) => getResponse(request.query, Source.Network))
+        .map((request) => getResponse(request, Source.Network))
         .toList();
 
     final cacheResponses = queryRequests
-        .map((request) => getResponse(request.query, Source.Cache))
+        .map((request) => getResponse(request, Source.Cache))
         .toList();
 
     for (var i = 0; i < networkRequests.length; i++) {
@@ -65,27 +67,35 @@ void main() {
     Map<String, Map<String, dynamic>> cacheSnapshot(Source source) =>
         queryRequests.fold<Map<String, Map<String, dynamic>>>({},
             (cachedData, request) {
-          final data = getResponse(request.query, source);
-          final queryResult = normalize(
-              query: request.query.document,
-              operationName: request.query.operationName,
-              variables: request.query.getVariablesMap(),
-              data: data);
+          final data = getResponse(request, source);
+          final queryResult = {};
+          normalize(
+            writer: (dataId, value) => queryResult[dataId] = value,
+            query: request.operation.document,
+            operationName: request.operation.operationName,
+            variables: request.variables,
+            data: data,
+          );
           return Map.from(deepMerge(cachedData, queryResult));
         });
 
     group(FetchPolicy.NetworkOnly, () {
       test('Returns the correct result', () async {
-        final cache = GQLCache(seedData: cacheSnapshot(Source.Cache));
+        final store = MemoryStore(cacheSnapshot(Source.Cache));
+        final cache = GQLCache(dataStore: store);
+        final options = GQLClientOptions(defaultFetchPolicies: {
+          OperationType.query: FetchPolicy.NetworkOnly,
+        });
 
         final client = GQLClient(
-            link: mockLink,
-            cache: cache,
-            defaultFetchPolicy: FetchPolicy.NetworkOnly);
+          link: mockLink,
+          cache: cache,
+          options: options,
+        );
 
         final responseStream = client.responseStream(queryRequests.first);
 
-        expect(responseStream.map((response) => response.data.toJson()),
+        expect(responseStream.map((response) => response.data),
             emitsInOrder(networkResponses));
 
         client.queryController.add(queryRequests[0]);
@@ -94,21 +104,27 @@ void main() {
         client.queryController.add(queryRequests[1]);
         await Future.delayed(Duration.zero);
 
-        expect(cache.data, equals(cacheSnapshot(Source.Network)));
+        expect(store.toMap(), equals(cacheSnapshot(Source.Network)));
       });
     });
 
     group(FetchPolicy.NoCache, () {
       test('Returns the correct result', () async {
-        final cache = GQLCache(seedData: cacheSnapshot(Source.Cache));
+        final store = MemoryStore(cacheSnapshot(Source.Cache));
+        final cache = GQLCache(dataStore: store);
+        final options = GQLClientOptions(defaultFetchPolicies: {
+          OperationType.query: FetchPolicy.NoCache,
+        });
+
         final client = GQLClient(
-            link: mockLink,
-            cache: cache,
-            defaultFetchPolicy: FetchPolicy.NoCache);
+          link: mockLink,
+          cache: cache,
+          options: options,
+        );
 
         final responseStream = client.responseStream(queryRequests.first);
 
-        expect(responseStream.map((response) => response.data.toJson()),
+        expect(responseStream.map((response) => response.data),
             emitsInOrder(networkResponses));
 
         client.queryController.add(queryRequests[0]);
@@ -117,21 +133,27 @@ void main() {
         client.queryController.add(queryRequests[1]);
         await Future.delayed(Duration.zero);
 
-        expect(cache.data, equals(cacheSnapshot(Source.Cache)));
+        expect(store.toMap(), equals(cacheSnapshot(Source.Cache)));
       });
     });
 
     group(FetchPolicy.CacheOnly, () {
       test('With seeded cache', () async {
-        final cache = GQLCache(seedData: cacheSnapshot(Source.Cache));
+        final store = MemoryStore(cacheSnapshot(Source.Cache));
+        final cache = GQLCache(dataStore: store);
+        final options = GQLClientOptions(defaultFetchPolicies: {
+          OperationType.query: FetchPolicy.CacheOnly,
+        });
+
         final client = GQLClient(
-            link: mockLink,
-            cache: cache,
-            defaultFetchPolicy: FetchPolicy.CacheOnly);
+          link: mockLink,
+          cache: cache,
+          options: options,
+        );
 
         final responseStream = client.responseStream(queryRequests.first);
 
-        expect(responseStream.map((response) => response.data.toJson()),
+        expect(responseStream.map((response) => response.data),
             emitsInOrder(cacheResponses));
 
         client.queryController.add(queryRequests[0]);
@@ -140,15 +162,21 @@ void main() {
         client.queryController.add(queryRequests[1]);
         await Future.delayed(Duration.zero);
 
-        expect(cache.data, equals(cacheSnapshot(Source.Cache)));
+        expect(store.toMap(), equals(cacheSnapshot(Source.Cache)));
       });
 
       test('With empty cache', () async {
-        final cache = GQLCache();
+        final store = MemoryStore();
+        final cache = GQLCache(dataStore: store);
+        final options = GQLClientOptions(defaultFetchPolicies: {
+          OperationType.query: FetchPolicy.CacheOnly,
+        });
+
         final client = GQLClient(
-            link: mockLink,
-            cache: cache,
-            defaultFetchPolicy: FetchPolicy.CacheOnly);
+          link: mockLink,
+          cache: cache,
+          options: options,
+        );
 
         final responseStream = client.responseStream(queryRequests.first);
 
@@ -160,22 +188,28 @@ void main() {
         client.queryController.add(queryRequests[1]);
         await Future.delayed(Duration.zero);
 
-        expect(cache.data.isEmpty, equals(true));
+        expect(store.toMap().isEmpty, equals(true));
       });
     });
 
     group(FetchPolicy.CacheFirst, () {
       test('With empty cache', () async {
-        final cache = GQLCache();
+        final store = MemoryStore();
+        final cache = GQLCache(dataStore: store);
+        final options = GQLClientOptions(defaultFetchPolicies: {
+          OperationType.query: FetchPolicy.CacheFirst,
+        });
+
         final client = GQLClient(
-            link: mockLink,
-            cache: cache,
-            defaultFetchPolicy: FetchPolicy.CacheFirst);
+          link: mockLink,
+          cache: cache,
+          options: options,
+        );
 
         final responseStream = client.responseStream(queryRequests.first);
 
         expect(responseStream.map((response) {
-          return response.data.toJson();
+          return response.data;
         }), emitsInOrder(networkResponses));
 
         client.queryController.add(queryRequests[0]);
@@ -184,20 +218,26 @@ void main() {
         client.queryController.add(queryRequests[1]);
         await Future.delayed(Duration.zero);
 
-        expect(cache.data, equals(cacheSnapshot(Source.Network)));
+        expect(store.toMap(), equals(cacheSnapshot(Source.Network)));
       });
 
       test('With cached results', () async {
-        final cache = GQLCache(seedData: cacheSnapshot(Source.Cache));
+        final store = MemoryStore(cacheSnapshot(Source.Cache));
+        final cache = GQLCache(dataStore: store);
+        final options = GQLClientOptions(defaultFetchPolicies: {
+          OperationType.query: FetchPolicy.CacheFirst,
+        });
+
         final client = GQLClient(
-            link: mockLink,
-            cache: cache,
-            defaultFetchPolicy: FetchPolicy.CacheFirst);
+          link: mockLink,
+          cache: cache,
+          options: options,
+        );
 
         final responseStream = client.responseStream(queryRequests.first);
 
         expect(responseStream.map((response) {
-          return response.data.toJson();
+          return response.data;
         }), emitsInOrder(cacheResponses));
 
         client.queryController.add(queryRequests[0]);
@@ -206,21 +246,27 @@ void main() {
         client.queryController.add(queryRequests[1]);
         await Future.delayed(Duration.zero);
 
-        expect(cache.data, equals(cacheSnapshot(Source.Cache)));
+        expect(store.toMap(), equals(cacheSnapshot(Source.Cache)));
       });
     });
 
     group(FetchPolicy.CacheAndNetwork, () {
       test('With seeded cache', () async {
-        final cache = GQLCache(seedData: cacheSnapshot(Source.Cache));
+        final store = MemoryStore(cacheSnapshot(Source.Cache));
+        final cache = GQLCache(dataStore: store);
+        final options = GQLClientOptions(defaultFetchPolicies: {
+          OperationType.query: FetchPolicy.CacheAndNetwork,
+        });
+
         final client = GQLClient(
-            link: mockLink,
-            cache: cache,
-            defaultFetchPolicy: FetchPolicy.CacheAndNetwork);
+          link: mockLink,
+          cache: cache,
+          options: options,
+        );
 
         final responseStream = client.responseStream(queryRequests.first);
 
-        expect(responseStream.map((response) => response.data.toJson()),
+        expect(responseStream.map((response) => response.data),
             emitsInAnyOrder([...cacheResponses, ...networkResponses]));
 
         client.queryController.add(queryRequests[0]);
@@ -229,20 +275,26 @@ void main() {
         client.queryController.add(queryRequests[1]);
         await Future.delayed(Duration.zero);
 
-        expect(cache.data, equals(cacheSnapshot(Source.Network)));
+        expect(store.toMap(), equals(cacheSnapshot(Source.Network)));
       });
 
       test('With empty cache', () async {
-        final cache = GQLCache();
+        final store = MemoryStore();
+        final cache = GQLCache(dataStore: store);
+        final options = GQLClientOptions(defaultFetchPolicies: {
+          OperationType.query: FetchPolicy.CacheAndNetwork,
+        });
+
         final client = GQLClient(
-            link: mockLink,
-            cache: cache,
-            defaultFetchPolicy: FetchPolicy.CacheAndNetwork);
+          link: mockLink,
+          cache: cache,
+          options: options,
+        );
 
         final responseStream = client.responseStream(queryRequests.first);
 
         expect(responseStream.map((response) {
-          return response.data.toJson();
+          return response.data;
         }), emitsInOrder(networkResponses));
 
         client.queryController.add(queryRequests[0]);
@@ -251,7 +303,7 @@ void main() {
         client.queryController.add(queryRequests[1]);
         await Future.delayed(Duration.zero);
 
-        expect(cache.data, equals(cacheSnapshot(Source.Network)));
+        expect(store.toMap(), equals(cacheSnapshot(Source.Network)));
       });
     });
   });

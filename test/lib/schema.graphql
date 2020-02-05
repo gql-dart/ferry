@@ -1,0 +1,8 @@
+type Song {
+  id: ID!
+  name: String!
+}
+
+type Query {
+  Song(first: Int, offset: Int): [Song!]!
+}

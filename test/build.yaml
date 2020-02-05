@@ -1,0 +1,28 @@
+targets:
+  $default:
+    builders:
+      gql_build|schema_builder:
+        enabled: true
+      gql_build|ast_builder:
+        enabled: true
+      gql_build|op_builder:
+        enabled: true
+        options:
+          schema: gql_client_test|lib/schema.graphql
+      gql_build|data_builder:
+        enabled: true
+        options:
+          schema: gql_client_test|lib/schema.graphql
+      gql_build|var_builder:
+        enabled: true
+        options:
+          schema: gql_client_test|lib/schema.graphql
+      gql_build|fragment_builder:
+        enabled: true
+        options:
+          schema: gql_client_test|lib/schema.graphql
+
+      gql_client|req_builder:
+        enabled: true
+        options:
+          schema: gql_client_test|lib/schema.graphql
