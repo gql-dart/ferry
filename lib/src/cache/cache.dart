@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:normalize/normalize.dart';
 
+import '../store//memory_store.dart';
 import '../helpers/deep_merge.dart';
 import './options.dart';
 import '../store/store.dart';
@@ -17,10 +17,10 @@ class GQLCache {
       BehaviorSubject<Map<String, Map<String, dynamic>>>();
 
   GQLCache({
-    @required Store dataStore,
+    Store dataStore,
     this.typePolicies = const {},
     Map<String, Map<String, Map<String, dynamic>>> seedOptimisticPatches,
-  })  : _dataStore = dataStore,
+  })  : _dataStore = dataStore ?? MemoryStore(),
         _optimisticPatchesStream = BehaviorSubject.seeded(
           seedOptimisticPatches ?? {},
         ) {

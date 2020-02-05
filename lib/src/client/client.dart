@@ -31,9 +31,10 @@ class GQLClient {
 
   GQLClient({
     @required this.link,
-    @required this.cache,
+    GQLCache cache,
     GQLClientOptions options,
-  }) : options = options ?? GQLClientOptions();
+  })  : options = options ?? GQLClientOptions(),
+        cache = cache ?? GQLCache();
 
   Stream<QueryResponse<T>> responseStream<T>(QueryRequest<T> request) {
     bool initial = true;
