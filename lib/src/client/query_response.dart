@@ -1,4 +1,5 @@
 import 'package:meta/meta.dart';
+import 'package:gql_exec/gql_exec.dart';
 
 import './query_request.dart';
 
@@ -16,7 +17,7 @@ class QueryResponse<T> {
   final T data;
 
   /// The list of errors in this response.
-  final List<dynamic> errors;
+  final List<GraphQLError> errors;
 
   // TODO: is there a better way to implement loading?
   bool get loading => errors == null && data == null;

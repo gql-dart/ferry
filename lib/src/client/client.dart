@@ -9,7 +9,6 @@ import './query_response.dart';
 import './query_request.dart';
 import '../cache/cache.dart';
 import './fetch_policy.dart';
-import './network_error.dart';
 import '../helpers/operation_type.dart';
 import '../cache/options.dart';
 import '../cache/cache_proxy.dart';
@@ -146,29 +145,21 @@ class GQLClient {
           QueryRequest<T> queryRequest) =>
       link
           .request(
-        Request(
-            operation: Operation(
-                document: queryRequest.operation.document,
-                operationName: queryRequest.operation.operationName),
-            variables: queryRequest.variables),
-      )
-          .transform(
-        StreamTransformer.fromHandlers(handleError: (error, stackTrace, sink) {
-          sink.add(
-            QueryResponse(
-                queryRequest: queryRequest,
-                errors: [NetworkError(error, stackTrace)]),
+            Request(
+                operation: Operation(
+                    document: queryRequest.operation.document,
+                    operationName: queryRequest.operation.operationName),
+                variables: queryRequest.variables),
+          )
+          .map(
+            (response) => QueryResponse(
+              queryRequest: queryRequest,
+              data: (response.data == null || response.data.isEmpty)
+                  ? null
+                  : queryRequest.parseData(response.data),
+              errors: response.errors,
+            ),
           );
-        }),
-      ).map(
-        (response) => QueryResponse(
-          queryRequest: queryRequest,
-          data: (response.data == null || response.data.isEmpty)
-              ? null
-              : queryRequest.parseData(response.data),
-          errors: response.errors,
-        ),
-      );
 
   /// Fetches the query from the cache, mapping the result to a
   /// [QueryResponse].
