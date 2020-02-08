@@ -229,9 +229,6 @@ final query = MyQuery(buildVars: (b) => b..id = "123");
 
 // Listen to responses for the given query
 client.responseStream(query).listen((response) => print(response));
-
-// Add query to client's queryController Stream
-client.queryController.add(query);
 ```
 
 ## Mutations
@@ -250,9 +247,6 @@ client
   .responseStream(mutation)
   .firstWhere((response) => !response.optimistic)
   .then((response) => print(response));
-
-// Add mutation to client's queryController Stream
-client.queryController.add(mutation);
 ```
 
 ## With Flutter Widget
