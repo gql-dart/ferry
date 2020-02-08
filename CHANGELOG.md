@@ -7,7 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.0.1] - 2019-11-14
+## [0.0.2] - 2020-02-08
+
+### Removed
+
+- Remove custom network error
+- Remove unnecessary readme code
+
+## [0.0.1] - 2020-02-05
 
 ### Added
 
