@@ -1,5 +1,5 @@
 import 'package:gql_exec/gql_exec.dart' as _i1;
-import 'package:gql_example_flutter/src/pokemon_detail/pokemon_detail.ast.gql.dart'
+import 'package:gql_example_flutter/src/graphql/pokemon_detail.ast.gql.dart'
     as _i2;
 
 const PokemonDetail =

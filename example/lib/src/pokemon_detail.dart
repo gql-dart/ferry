@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gql_client/gql_client.dart';
 
-import './pokemon_detail.data.gql.dart';
-import './pokemon_detail.req.gql.dart';
-import '../pokemon_card/pokemon_card.dart';
+import './graphql/pokemon_detail.data.gql.dart';
+import './graphql/pokemon_detail.req.gql.dart';
+import './pokemon_card.dart';
 
 class PokemonDetailScreen extends StatelessWidget {
   final client = GetIt.I<GQLClient>();

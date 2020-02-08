@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import './all_pokemon/all_pokemon.dart';
-import './pokemon_detail/pokemon_detail.dart';
+import './all_pokemon.dart';
+import './pokemon_detail.dart';
 
 class App extends StatelessWidget {
   @override

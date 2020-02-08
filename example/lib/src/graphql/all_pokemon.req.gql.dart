@@ -1,10 +1,9 @@
 import 'package:gql_client/gql_client.dart' as _i1;
-import 'package:gql_example_flutter/src/all_pokemon/all_pokemon.data.gql.dart'
+import 'package:gql_example_flutter/src/graphql/all_pokemon.data.gql.dart'
     as _i2;
-import 'package:gql_example_flutter/src/all_pokemon/all_pokemon.var.gql.dart'
+import 'package:gql_example_flutter/src/graphql/all_pokemon.var.gql.dart'
     as _i3;
-import 'package:gql_example_flutter/src/all_pokemon/all_pokemon.op.gql.dart'
-    as _i4;
+import 'package:gql_example_flutter/src/graphql/all_pokemon.op.gql.dart' as _i4;
 import 'package:uuid/uuid.dart' as _i5;
 
 class AllPokemon extends _i1.QueryRequest<_i2.$AllPokemon> {

@@ -1,9 +1,9 @@
 import 'package:gql_client/gql_client.dart' as _i1;
-import 'package:gql_example_flutter/src/pokemon_detail/pokemon_detail.data.gql.dart'
+import 'package:gql_example_flutter/src/graphql/pokemon_detail.data.gql.dart'
     as _i2;
-import 'package:gql_example_flutter/src/pokemon_detail/pokemon_detail.var.gql.dart'
+import 'package:gql_example_flutter/src/graphql/pokemon_detail.var.gql.dart'
     as _i3;
-import 'package:gql_example_flutter/src/pokemon_detail/pokemon_detail.op.gql.dart'
+import 'package:gql_example_flutter/src/graphql/pokemon_detail.op.gql.dart'
     as _i4;
 import 'package:uuid/uuid.dart' as _i5;
 
