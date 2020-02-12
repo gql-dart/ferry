@@ -30,13 +30,3 @@ dev_dependencies:
   build_runner: ^1.6.7
   build_test: ^0.10.12+1
   built_value_generator: ^7.0.9
-
-dependency_overrides:
-  gql_build:
-    git:
-      url: git://github.com/gql-dart/gql.git
-      path: gql_build
-  gql_code_builder:
-    git:
-      url: git://github.com/gql-dart/gql.git
-      path: gql_code_builder
