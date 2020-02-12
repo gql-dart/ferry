@@ -18,8 +18,9 @@ dependencies:
   gql: ^0.12.0
   gql_link: ^0.2.2
   gql_exec: ^0.2.0
-  gql_build: ^0.0.2
+  gql_build: ^0.0.3
   built_collection: ^4.3.2
+  built_value: ^7.0.9
   code_builder: ^3.2.1
   build: ^1.2.2
 
@@ -28,3 +29,14 @@ dev_dependencies:
   mockito: ^4.1.1
   build_runner: ^1.6.7
   build_test: ^0.10.12+1
+  built_value_generator: ^7.0.9
+
+dependency_overrides:
+  gql_build:
+    git:
+      url: git://github.com/gql-dart/gql.git
+      path: gql_build
+  gql_code_builder:
+    git:
+      url: git://github.com/gql-dart/gql.git
+      path: gql_code_builder

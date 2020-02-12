@@ -1,3 +1,7 @@
+targets:
+  $default:
+    sources:
+      - lib/**
 builders:
   req_builder:
     import: "package:gql_client/src/req_builder/req_builder.dart"

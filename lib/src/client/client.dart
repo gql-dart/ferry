@@ -166,10 +166,11 @@ class GQLClient {
   Stream<QueryResponse<T>> _cacheResponseStream<T>(
           QueryRequest<T> queryRequest) =>
       cache
-          .watchQuery(WatchQueryOptions(
-            document: queryRequest.operation.document,
-            operationName: queryRequest.operation.operationName,
-            variables: queryRequest.variables,
+          .watchQuery(ReadQueryOptions(
+            (b) => b
+              ..document = queryRequest.operation.document
+              ..operationName = queryRequest.operation.operationName
+              ..variables = queryRequest.variables,
           ))
           .map(
             (data) => QueryResponse(
@@ -185,10 +186,11 @@ class GQLClient {
     if (response.data != null)
       cache.writeQuery(
         WriteQueryOptions(
-          document: response.queryRequest.operation.document,
-          operationName: response.queryRequest.operation.operationName,
-          variables: response.queryRequest.variables,
-          data: response.data?.data,
+          (b) => b
+            ..document = response.queryRequest.operation.document
+            ..operationName = response.queryRequest.operation.operationName
+            ..variables = response.queryRequest.variables
+            ..data = response.data?.data,
         ),
         response.optimistic,
         response.queryRequest.queryId,

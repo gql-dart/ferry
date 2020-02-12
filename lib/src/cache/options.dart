@@ -1,84 +1,103 @@
-import 'package:meta/meta.dart';
 import 'package:gql/ast.dart';
+import 'package:built_value/built_value.dart';
 
 export 'package:normalize/normalize.dart' show TypePolicy, AddTypenameVisitor;
 
-class WatchQueryOptions {
-  final DocumentNode document;
-  final String operationName;
-  final Map<String, dynamic> variables;
-  final bool optimistic;
-  final bool addTypename;
+part 'options.g.dart';
 
-  const WatchQueryOptions({
-    @required this.document,
-    this.operationName,
-    this.variables,
-    this.optimistic = true,
-    this.addTypename = true,
-  });
+abstract class BaseQueryOptions {
+  DocumentNode get document;
+  String get operationName;
+  Map<String, dynamic> get variables;
 }
 
-class ReadQueryOptions {
-  final DocumentNode document;
-  final String operationName;
-  final Map<String, dynamic> variables;
-  final bool addTypename;
-  final bool optimistic;
+abstract class ReadQueryOptions
+    implements
+        Built<ReadQueryOptions, ReadQueryOptionsBuilder>,
+        BaseQueryOptions {
+  @nullable
+  bool get optimistic;
 
-  const ReadQueryOptions({
-    @required this.document,
-    this.operationName,
-    this.variables,
-    this.addTypename = true,
-    this.optimistic = true,
-  });
+  DocumentNode get document;
+
+  @nullable
+  String get operationName;
+
+  @nullable
+  Map<String, dynamic> get variables;
+
+  ReadQueryOptions._();
+  factory ReadQueryOptions([void Function(ReadQueryOptionsBuilder) updates]) =
+      _$ReadQueryOptions;
 }
 
-class ReadFragmentOptions {
-  final DocumentNode fragment;
-  final Map<String, dynamic> idFields;
-  final String fragmentName;
-  final Map<String, dynamic> variables;
-  final bool addTypename;
-  final bool optimistic;
+abstract class WriteQueryOptions
+    implements
+        Built<WriteQueryOptions, WriteQueryOptionsBuilder>,
+        BaseQueryOptions {
+  Map<String, dynamic> get data;
 
-  const ReadFragmentOptions({
-    @required this.fragment,
-    @required this.idFields,
-    this.fragmentName,
-    this.variables,
-    this.addTypename = true,
-    this.optimistic = true,
-  });
+  DocumentNode get document;
+
+  @nullable
+  String get operationName;
+
+  @nullable
+  Map<String, dynamic> get variables;
+
+  WriteQueryOptions._();
+  factory WriteQueryOptions([void Function(WriteQueryOptionsBuilder) updates]) =
+      _$WriteQueryOptions;
 }
 
-class WriteQueryOptions {
-  final DocumentNode document;
-  final Map<String, dynamic> data;
-  final String operationName;
-  final Map<String, dynamic> variables;
-
-  const WriteQueryOptions({
-    @required this.document,
-    @required this.data,
-    this.operationName,
-    this.variables,
-  });
+abstract class BaseFragmentOptions {
+  DocumentNode get fragment;
+  Map<String, dynamic> get idFields;
+  String get fragmentName;
+  Map<String, dynamic> get variables;
 }
 
-class WriteFragmentOptions {
-  final DocumentNode fragment;
-  final Map<String, dynamic> idFields;
-  final Map<String, dynamic> data;
-  final String fragmentName;
-  final Map<String, dynamic> variables;
+abstract class ReadFragmentOptions
+    implements
+        Built<ReadFragmentOptions, ReadFragmentOptionsBuilder>,
+        BaseQueryOptions {
+  @nullable
+  bool get optimistic;
 
-  const WriteFragmentOptions({
-    @required this.fragment,
-    @required this.idFields,
-    @required this.data,
-    this.fragmentName,
-    this.variables,
-  });
+  DocumentNode get fragment;
+
+  Map<String, dynamic> get idFields;
+
+  @nullable
+  String get fragmentName;
+
+  @nullable
+  Map<String, dynamic> get variables;
+
+  ReadFragmentOptions._();
+  factory ReadFragmentOptions(
+          [void Function(ReadFragmentOptionsBuilder) updates]) =
+      _$ReadFragmentOptions;
+}
+
+abstract class WriteFragmentOptions
+    implements
+        Built<WriteFragmentOptions, WriteFragmentOptionsBuilder>,
+        BaseQueryOptions {
+  Map<String, dynamic> get data;
+
+  DocumentNode get fragment;
+
+  Map<String, dynamic> get idFields;
+
+  @nullable
+  String get fragmentName;
+
+  @nullable
+  Map<String, dynamic> get variables;
+
+  WriteFragmentOptions._();
+  factory WriteFragmentOptions(
+          [void Function(WriteFragmentOptionsBuilder) updates]) =
+      _$WriteFragmentOptions;
 }

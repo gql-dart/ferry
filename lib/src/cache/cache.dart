@@ -9,6 +9,7 @@ import '../store/store.dart';
 
 class GQLCache {
   final Map<String, TypePolicy> typePolicies;
+  final bool addTypename;
   final Store _dataStore;
 
   final BehaviorSubject<Map<String, Map<String, Map<String, dynamic>>>>
@@ -19,6 +20,7 @@ class GQLCache {
   GQLCache({
     Store dataStore,
     this.typePolicies = const {},
+    this.addTypename = true,
     Map<String, Map<String, Map<String, dynamic>>> seedOptimisticPatches,
   })  : _dataStore = dataStore ?? MemoryStore(),
         _optimisticPatchesStream = BehaviorSubject.seeded(
@@ -39,13 +41,16 @@ class GQLCache {
   }
 
   Stream<Map<String, dynamic>> watchQuery(
-    WatchQueryOptions options,
+    ReadQueryOptions options,
   ) =>
-      (options.optimistic ? _optimisticDataStream : _dataStore.watch()).map(
+      ((options.optimistic ?? true)
+              ? _optimisticDataStream
+              : _dataStore.watch())
+          .map(
         (data) => denormalize(
           reader: (dataId) => data[dataId],
           query: options.document,
-          addTypename: options.addTypename,
+          addTypename: addTypename,
           operationName: options.operationName,
           variables: options.variables,
           typePolicies: typePolicies,
@@ -56,21 +61,21 @@ class GQLCache {
     ReadQueryOptions options,
   ) =>
       denormalize(
-        reader: (dataId) => options.optimistic
+        reader: (dataId) => (options.optimistic ?? true)
             ? _optimisticDataStream.value[dataId]
             : _dataStore.get(dataId),
         query: options.document,
-        addTypename: options.addTypename,
         operationName: options.operationName,
         variables: options.variables,
         typePolicies: typePolicies,
+        addTypename: addTypename,
       );
 
   Map<String, dynamic> readFragment(
     ReadFragmentOptions options,
   ) =>
       denormalizeFragment(
-        reader: (dataId) => options.optimistic
+        reader: (dataId) => (options.optimistic ?? true)
             ? _optimisticDataStream.value[dataId]
             : _dataStore.get(dataId),
         fragment: options.fragment,
@@ -78,7 +83,7 @@ class GQLCache {
         fragmentName: options.fragmentName,
         variables: options.variables,
         typePolicies: typePolicies,
-        addTypename: options.addTypename,
+        addTypename: addTypename,
       );
 
   void writeQuery(

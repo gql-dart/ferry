@@ -17,12 +17,12 @@ class CacheProxy {
   Map<String, dynamic> readQuery(
     ReadQueryOptions options,
   ) =>
-      _cache.readQuery(options);
+      _cache.readQuery(options.rebuild((b) => b..optimistic ??= false));
 
   Map<String, dynamic> readFragment(
     ReadFragmentOptions options,
   ) =>
-      _cache.readFragment(options);
+      _cache.readFragment(options.rebuild((b) => b..optimistic ??= false));
 
   void writeQuery(
     WriteQueryOptions options,
