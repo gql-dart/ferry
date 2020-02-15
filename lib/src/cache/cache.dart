@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:rxdart/rxdart.dart';
 import 'package:normalize/normalize.dart';
 
-import '../store//memory_store.dart';
+import '../store/memory_store.dart';
 import '../helpers/deep_merge.dart';
 import './options.dart';
 import '../store/store.dart';
