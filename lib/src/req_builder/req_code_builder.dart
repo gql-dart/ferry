@@ -1,10 +1,11 @@
 import "package:built_collection/built_collection.dart";
 import "package:code_builder/code_builder.dart";
 import "package:gql/ast.dart";
+import "package:gql_code_builder/source.dart";
 
 Library buildReqLibrary(
-  DocumentNode doc,
-  DocumentNode schema,
+  SourceNode docSource,
+  SourceNode schemaSource,
   String opDocUrl,
   String varDocUrl,
   String dataDocUrl,
@@ -13,7 +14,12 @@ Library buildReqLibrary(
       (b) => b.body
         ..addAll(
           _buildOperationReqClasses(
-              doc, schema, opDocUrl, varDocUrl, dataDocUrl),
+            docSource.flatDocument,
+            schemaSource.flatDocument,
+            opDocUrl,
+            varDocUrl,
+            dataDocUrl,
+          ),
         ),
     );
 
