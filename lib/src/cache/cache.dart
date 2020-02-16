@@ -7,7 +7,7 @@ import '../helpers/deep_merge.dart';
 import './options.dart';
 import '../store/store.dart';
 
-class GQLCache {
+class Cache {
   final Map<String, TypePolicy> typePolicies;
   final bool addTypename;
   final Store _dataStore;
@@ -17,7 +17,7 @@ class GQLCache {
   final _optimisticDataStream =
       BehaviorSubject<Map<String, Map<String, dynamic>>>();
 
-  GQLCache({
+  Cache({
     Store dataStore,
     this.typePolicies = const {},
     this.addTypename = true,

@@ -7,7 +7,7 @@ import './graphql/all_pokemon.req.gql.dart';
 import './pokemon_card.dart';
 
 class AllPokemonScreen extends StatelessWidget {
-  final client = GetIt.I<GQLClient>();
+  final client = GetIt.I<Client>();
 
   @override
   Widget build(BuildContext context) {

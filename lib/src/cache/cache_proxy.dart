@@ -2,12 +2,12 @@ import './options.dart';
 import './cache.dart';
 
 class CacheProxy {
-  final GQLCache _cache;
+  final Cache _cache;
   final bool _optimistic;
   final String _queryId;
 
   CacheProxy(
-    GQLCache cache,
+    Cache cache,
     bool optimistic,
     String queryId,
   )   : _cache = cache,

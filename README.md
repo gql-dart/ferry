@@ -62,10 +62,10 @@ import 'package:gql_client/gql_client.dart';
 
 final link = HttpLink("[path/to/endpoint]");
 
-final client = GQLClient(link: link);
+final client = Client(link: link);
 ```
 
-This instantiates a client with the default configuration, including a `GQLCache` instance that uses a `MemoryStore` to store data.
+This instantiates a client with the default configuration, including a `Cache` instance that uses a `MemoryStore` to store data.
 
 ### With HiveStore (persisted offline data)
 
@@ -78,7 +78,7 @@ import 'package:hive/hive.dart';
 // *** If using flutter ***
 // import 'package:hive_flutter/hive_flutter.dart';
 
-Future<GQLClient> initClient() async {
+Future<Client> initClient() async {
   Hive.init();
   // OR, if using flutter
   // await Hive.initFlutter();
@@ -87,11 +87,11 @@ Future<GQLClient> initClient() async {
 
   final store = HiveStore(box);
 
-  final cache = GQLCache(dataStore: store);
+  final cache = Cache(dataStore: store);
 
   final link = HttpLink("[path/to/endpoint]");
 
-  final client = GQLClient(
+  final client = Client(
     link: link,
     cache: cache,
   );
@@ -102,7 +102,7 @@ Future<GQLClient> initClient() async {
 
 ### With UpdateCacheHandlers
 
-The GQLClient allows arbitrary cache updates following mutations, similar to functionality provided by Apollo Client's mutation `update` function. However, in order for mutations to work offline (still a WIP), the client must be aware of all `UpdateCacheHandlers`.
+The Client allows arbitrary cache updates following mutations, similar to functionality provided by Apollo Client's mutation `update` function. However, in order for mutations to work offline (still a WIP), the client must be aware of all `UpdateCacheHandlers`.
 
 ```dart
 typedef UpdateCacheHandler<T> = void Function(
@@ -125,9 +125,9 @@ final updateCacheHandlers = <dynamic, Function>{
   "MyHandlerKey": MyUpdateCacheHandler,
 };
 
-final options = GQLClientOptions(updateCacheHandlers: updateCacheHandlers);
+final options = ClientOptions(updateCacheHandlers: updateCacheHandlers);
 
-final client = GQLClient(
+final client = Client(
   link: link,
   options: options,
 );
@@ -136,7 +136,7 @@ This handler can then be called using its key `"MyHandlerKey"` from a `QueryRequ
 
 ## Generate Dart GraphQL Files
 
-The `GQLClient` is fully typed, so we must use the `gql_build` package to generate dart representations of our GraphQL queries. We will also use the `req_builder` included in the `GQLClient` package to build typed `QueryRequest`s for each GraphQL query.
+The `Client` is fully typed, so we must use the `gql_build` package to generate dart representations of our GraphQL queries. We will also use the `req_builder` included in the `Client` package to build typed `QueryRequest`s for each GraphQL query.
 
 ### Download GraphQL Schema
 
@@ -253,7 +253,7 @@ client
 
 The library includes a `Query` flutter widget, which is a simple wrapper around the `StreamBuilder` widget.
 
-This example assumes we've registered our `GQLClient` instance with `get_it`, but you can use any dependency injection.
+This example assumes we've registered our `Client` instance with `get_it`, but you can use any dependency injection.
 
 ```dart
 import 'package:flutter/material.dart';
@@ -264,7 +264,7 @@ import './my_query.data.gql.dart';
 import './my_query.req.gql.dart';
 
 class AllPokemonScreen extends StatelessWidget {
-  final client = GetIt.I<GQLClient>();
+  final client = GetIt.I<Client>();
 
   @override
   Widget build(BuildContext context) {

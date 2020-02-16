@@ -7,7 +7,7 @@ typedef QueryResponseBuilder<T> = Widget Function(
 class Query<T> extends StatefulWidget {
   final QueryRequest<T> queryRequest;
   final QueryResponseBuilder<T> builder;
-  final GQLClient client;
+  final Client client;
 
   Query({
     @required this.queryRequest,

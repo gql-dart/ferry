@@ -7,6 +7,6 @@ import './src/app.dart';
 
 void main() async {
   final client = await initClient();
-  GetIt.I.registerLazySingleton<GQLClient>(() => client);
+  GetIt.I.registerLazySingleton<Client>(() => client);
   runApp(App());
 }

@@ -82,12 +82,12 @@
 //     group(FetchPolicy.NetworkOnly, () {
 //       test('Returns the correct result', () async {
 //         final store = MemoryStore(cacheSnapshot(Source.Cache));
-//         final cache = GQLCache(dataStore: store);
-//         final options = GQLClientOptions(defaultFetchPolicies: {
+//         final cache = Cache(dataStore: store);
+//         final options = ClientOptions(defaultFetchPolicies: {
 //           OperationType.query: FetchPolicy.NetworkOnly,
 //         });
 
-//         final client = GQLClient(
+//         final client = Client(
 //           link: mockLink,
 //           cache: cache,
 //           options: options,
@@ -111,12 +111,12 @@
 //     group(FetchPolicy.NoCache, () {
 //       test('Returns the correct result', () async {
 //         final store = MemoryStore(cacheSnapshot(Source.Cache));
-//         final cache = GQLCache(dataStore: store);
-//         final options = GQLClientOptions(defaultFetchPolicies: {
+//         final cache = Cache(dataStore: store);
+//         final options = ClientOptions(defaultFetchPolicies: {
 //           OperationType.query: FetchPolicy.NoCache,
 //         });
 
-//         final client = GQLClient(
+//         final client = Client(
 //           link: mockLink,
 //           cache: cache,
 //           options: options,
@@ -140,12 +140,12 @@
 //     group(FetchPolicy.CacheOnly, () {
 //       test('With seeded cache', () async {
 //         final store = MemoryStore(cacheSnapshot(Source.Cache));
-//         final cache = GQLCache(dataStore: store);
-//         final options = GQLClientOptions(defaultFetchPolicies: {
+//         final cache = Cache(dataStore: store);
+//         final options = ClientOptions(defaultFetchPolicies: {
 //           OperationType.query: FetchPolicy.CacheOnly,
 //         });
 
-//         final client = GQLClient(
+//         final client = Client(
 //           link: mockLink,
 //           cache: cache,
 //           options: options,
@@ -167,12 +167,12 @@
 
 //       test('With empty cache', () async {
 //         final store = MemoryStore();
-//         final cache = GQLCache(dataStore: store);
-//         final options = GQLClientOptions(defaultFetchPolicies: {
+//         final cache = Cache(dataStore: store);
+//         final options = ClientOptions(defaultFetchPolicies: {
 //           OperationType.query: FetchPolicy.CacheOnly,
 //         });
 
-//         final client = GQLClient(
+//         final client = Client(
 //           link: mockLink,
 //           cache: cache,
 //           options: options,
@@ -195,12 +195,12 @@
 //     group(FetchPolicy.CacheFirst, () {
 //       test('With empty cache', () async {
 //         final store = MemoryStore();
-//         final cache = GQLCache(dataStore: store);
-//         final options = GQLClientOptions(defaultFetchPolicies: {
+//         final cache = Cache(dataStore: store);
+//         final options = ClientOptions(defaultFetchPolicies: {
 //           OperationType.query: FetchPolicy.CacheFirst,
 //         });
 
-//         final client = GQLClient(
+//         final client = Client(
 //           link: mockLink,
 //           cache: cache,
 //           options: options,
@@ -223,12 +223,12 @@
 
 //       test('With cached results', () async {
 //         final store = MemoryStore(cacheSnapshot(Source.Cache));
-//         final cache = GQLCache(dataStore: store);
-//         final options = GQLClientOptions(defaultFetchPolicies: {
+//         final cache = Cache(dataStore: store);
+//         final options = ClientOptions(defaultFetchPolicies: {
 //           OperationType.query: FetchPolicy.CacheFirst,
 //         });
 
-//         final client = GQLClient(
+//         final client = Client(
 //           link: mockLink,
 //           cache: cache,
 //           options: options,
@@ -253,12 +253,12 @@
 //     group(FetchPolicy.CacheAndNetwork, () {
 //       test('With seeded cache', () async {
 //         final store = MemoryStore(cacheSnapshot(Source.Cache));
-//         final cache = GQLCache(dataStore: store);
-//         final options = GQLClientOptions(defaultFetchPolicies: {
+//         final cache = Cache(dataStore: store);
+//         final options = ClientOptions(defaultFetchPolicies: {
 //           OperationType.query: FetchPolicy.CacheAndNetwork,
 //         });
 
-//         final client = GQLClient(
+//         final client = Client(
 //           link: mockLink,
 //           cache: cache,
 //           options: options,
@@ -280,12 +280,12 @@
 
 //       test('With empty cache', () async {
 //         final store = MemoryStore();
-//         final cache = GQLCache(dataStore: store);
-//         final options = GQLClientOptions(defaultFetchPolicies: {
+//         final cache = Cache(dataStore: store);
+//         final options = ClientOptions(defaultFetchPolicies: {
 //           OperationType.query: FetchPolicy.CacheAndNetwork,
 //         });
 
-//         final client = GQLClient(
+//         final client = Client(
 //           link: mockLink,
 //           cache: cache,
 //           options: options,

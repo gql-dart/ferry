@@ -14,10 +14,10 @@ import '../cache/options.dart';
 import '../cache/cache_proxy.dart';
 import './client_options.dart';
 
-class GQLClient {
+class Client {
   final Link link;
-  final GQLCache cache;
-  final GQLClientOptions options;
+  final Cache cache;
+  final ClientOptions options;
 
   /// Keeps track of network connection status. For offline mutations to work,
   /// you must update this value when the network status changes.
@@ -28,12 +28,12 @@ class GQLClient {
   /// with the same [QueryRequest] to listen for [QueryResponse]s.
   final queryController = StreamController<QueryRequest>.broadcast();
 
-  GQLClient({
+  Client({
     @required this.link,
-    GQLCache cache,
-    GQLClientOptions options,
-  })  : options = options ?? GQLClientOptions(),
-        cache = cache ?? GQLCache();
+    Cache cache,
+    ClientOptions options,
+  })  : options = options ?? ClientOptions(),
+        cache = cache ?? Cache();
 
   Stream<QueryResponse<T>> responseStream<T>(QueryRequest<T> request) {
     bool initial = true;

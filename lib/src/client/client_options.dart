@@ -20,14 +20,14 @@ typedef UpdateCacheHandler<T> = void Function(
   QueryResponse<T> response,
 );
 
-class GQLClientOptions {
+class ClientOptions {
   final Map<OperationType, FetchPolicy> defaultFetchPolicies;
   // NOTE: function is untyped due to issues with deep casting
   // See https://github.com/leafpetersen/cast/issues/1.
   final Map<dynamic, Function> updateCacheHandlers;
   final bool addTypename;
 
-  GQLClientOptions({
+  ClientOptions({
     this.updateCacheHandlers = const {},
     this.addTypename = true,
     Map<OperationType, FetchPolicy> defaultFetchPolicies = const {},
