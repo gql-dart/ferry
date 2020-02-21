@@ -1,5 +1,5 @@
 name: gql_client
-version: 0.1.2
+version: 0.1.3
 description: GraphQL Client for Dart
 homepage: https://github.com/smkhalsa/gql_client
 repository: https://github.com/smkhalsa/gql_client
@@ -18,7 +18,7 @@ dependencies:
   gql: ^0.12.0
   gql_link: ^0.2.2
   gql_exec: ^0.2.0
-  gql_build: ^0.0.3
+  gql_build: ^0.0.5
   built_collection: ^4.3.2
   built_value: ^7.0.9
   code_builder: ^3.2.1
