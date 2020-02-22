@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - remove 'GQL' prefix
 - use latest version of gql_build
+- update example
 
 ## [0.1.2] - 2020-02-14
 

@@ -1,5 +1,3 @@
-import 'package:gql_example_flutter/fragments.gql.dart' as _i1;
-
 class $NestedFragment {
   const $NestedFragment(this.data);
 
@@ -9,7 +7,7 @@ class $NestedFragment {
   String get name => (data['name'] as String);
 }
 
-class $PokemonCard implements _i1.$NestedFragment {
+class $PokemonCard implements $NestedFragment {
   const $PokemonCard(this.data);
 
   final Map<String, dynamic> data;

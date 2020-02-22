@@ -1,4 +1,5 @@
-import 'package:gql_example_flutter/fragments.gql.dart' as _i1;
+import 'package:gql_example_flutter/src/graphql/pokemon_card_fragment.data.gql.dart'
+    as _i1;
 
 class $PokemonDetail {
   const $PokemonDetail(this.data);
