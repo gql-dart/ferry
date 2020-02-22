@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/smkhalsa/gql_client/master/logo.jpg" width="450px">
+  <img src="https://raw.githubusercontent.com/gql-dart/ferry/master/logo.jpg" width="450px">
 </p>
 <h2 align="center">Stream Based GraphQL Client for Dart</h2>
 
@@ -58,13 +58,13 @@
 
 ## Setup Client
 
-Add `gql_client` and `gql_http_link` to your pubspec.
+Add `ferry` and `gql_http_link` to your pubspec.
 
 ### Simple
 
 ```dart
 import 'package:gql_http_link/gql_http_link.dart';
-import 'package:gql_client/gql_client.dart';
+import 'package:ferry/ferry.dart';
 
 final link = HttpLink("[path/to/endpoint]");
 
@@ -79,7 +79,7 @@ Add `hive` (and `hive_flutter` if you're using flutter) to your pubspec.
 
 ```dart
 import 'package:gql_http_link/gql_http_link.dart';
-import 'package:gql_client/gql_client.dart';
+import 'package:ferry/ferry.dart';
 import 'package:hive/hive.dart';
 // *** If using flutter ***
 // import 'package:hive_flutter/hive_flutter.dart';
@@ -121,7 +121,7 @@ typedef UpdateCacheHandler<T> = void Function(
 
 ```dart
 import 'package:gql_http_link/gql_http_link.dart';
-import 'package:gql_client/gql_client.dart';
+import 'package:ferry/ferry.dart';
 
 import '[path/to/MyUpdateCacheHandler]';
 
@@ -204,7 +204,7 @@ targets:
         options:
           schema: your_package_name|lib/schema.graphql
 
-      gql_client|req_builder:
+      ferry|req_builder:
         enabled: true
         options:
           schema: your_package_name|lib/schema.graphql
@@ -259,7 +259,7 @@ This example assumes we've registered our `Client` instance with `get_it`, but y
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:gql_client/gql_client.dart';
+import 'package:ferry/ferry.dart';
 import 'package:get_it/get_it.dart';
 
 import './my_query.data.gql.dart';
@@ -317,13 +317,13 @@ class AllPokemonScreen extends StatelessWidget {
 ```
 
 
-[license-badge]: https://img.shields.io/github/license/smkhalsa/gql_client.svg?style=flat-square
-[license-link]: https://github.com/smkhalsa/gql_client/blob/master/LICENSE
+[license-badge]: https://img.shields.io/github/license/gql-dart/ferry.svg?style=flat-square
+[license-link]: https://github.com/gql-dart/ferry/blob/master/LICENSE
 [prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
 [prs-link]: http://makeapullrequest.com
-[github-watch-badge]: https://img.shields.io/github/watchers/smkhalsa/gql_client.svg?style=flat-square&logo=github&logoColor=ffffff
-[github-watch-link]: https://github.com/smkhalsa/gql_client/watchers
-[github-star-badge]: https://img.shields.io/github/stars/smkhalsa/gql_client.svg?style=flat-square&logo=github&logoColor=ffffff
-[github-star-link]: https://github.com/smkhalsa/gql_client/stargazers
-[pub-badge]: https://img.shields.io/pub/v/gql_client?logo=dart
-[pub-link]: https://pub.dev/packages/gql_client
+[github-watch-badge]: https://img.shields.io/github/watchers/gql-dart/ferry.svg?style=flat-square&logo=github&logoColor=ffffff
+[github-watch-link]: https://github.com/gql-dart/ferry/watchers
+[github-star-badge]: https://img.shields.io/github/stars/gql-dart/ferry.svg?style=flat-square&logo=github&logoColor=ffffff
+[github-star-link]: https://github.com/gql-dart/ferry/stargazers
+[pub-badge]: https://img.shields.io/pub/v/ferry?logo=dart
+[pub-link]: https://pub.dev/packages/ferry

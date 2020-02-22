@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:gql_client/gql_client.dart';
+import 'package:ferry/ferry.dart';
 
 import './graphql/pokemon_detail.data.gql.dart';
 import './graphql/pokemon_detail.req.gql.dart';

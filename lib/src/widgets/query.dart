@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gql_client/gql_client.dart';
+import 'package:ferry/ferry.dart';
 
 typedef QueryResponseBuilder<T> = Widget Function(
     BuildContext context, QueryResponse<T> snapshot);
