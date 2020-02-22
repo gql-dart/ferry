@@ -197,10 +197,6 @@ targets:
         enabled: true
         options:
           schema: your_package_name|lib/schema.graphql
-      gql_build|fragment_builder:
-        enabled: true
-        options:
-          schema: your_package_name|lib/schema.graphql
 
       gql_client|req_builder:
         enabled: true
