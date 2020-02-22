@@ -1,7 +1,13 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/smkhalsa/gql_client/master/logo.jpg" width="450px">
+</p>
+<h2 align="center">Stream Based GraphQL Client for Dart</h2>
+
 [![MIT License][license-badge]][license-link]
 [![PRs Welcome][prs-badge]][prs-link]
 [![Star on GitHub][github-star-badge]][github-star-link]
 [![Watch on GitHub][github-watch-badge]][github-watch-link]
+[![Pub Version][pub-badge]][pub-link]
 
 **Warning: This library is still a work in progress. The API may change.**
 
@@ -319,3 +325,5 @@ class AllPokemonScreen extends StatelessWidget {
 [github-watch-link]: https://github.com/smkhalsa/gql_client/watchers
 [github-star-badge]: https://img.shields.io/github/stars/smkhalsa/gql_client.svg?style=flat-square&logo=github&logoColor=ffffff
 [github-star-link]: https://github.com/smkhalsa/gql_client/stargazers
+[pub-badge]: https://img.shields.io/pub/v/gql_client?logo=dart
+[pub-link]: https://pub.dev/packages/gql_client
