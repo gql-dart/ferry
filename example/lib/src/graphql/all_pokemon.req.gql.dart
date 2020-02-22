@@ -1,4 +1,4 @@
-import 'package:gql_client/gql_client.dart' as _i1;
+import 'package:ferry/ferry.dart' as _i1;
 import 'package:gql_example_flutter/src/graphql/all_pokemon.data.gql.dart'
     as _i2;
 import 'package:gql_example_flutter/src/graphql/all_pokemon.var.gql.dart'

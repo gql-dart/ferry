@@ -4,7 +4,7 @@ targets:
       - lib/**
 builders:
   req_builder:
-    import: "package:gql_client/src/req_builder/req_builder.dart"
+    import: "package:ferry/src/req_builder/req_builder.dart"
     builder_factories: ["reqBuilder"]
     build_extensions: { ".graphql": [".req.gql.dart"] }
     auto_apply: none

@@ -5,7 +5,7 @@
 // import 'package:gql/ast.dart';
 // import "package:flutter_test/flutter_test.dart";
 // import 'package:normalize/normalize.dart';
-// import "package:gql_client/gql_client.dart";
+// import "package:ferry/ferry.dart";
 
 // import '../lib/helpers/deep_merge.dart';
 // import '../lib/graphql/songs_query.data.gql.dart';

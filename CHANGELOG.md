@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2020-02-22
+
+### Changed
+
+- rename to "ferry"
+- move repo to gql-dart
+
 ## [0.1.3] - 2020-02-21
 
 ### Changed
