@@ -11,19 +11,9 @@ import './req_code_builder.dart';
 Builder reqBuilder(
   BuilderOptions options,
 ) =>
-    ReqBuilder(
-      AssetId.parse(
-        options.config["schema"] as String,
-      ),
-    );
+    ReqBuilder();
 
 class ReqBuilder implements Builder {
-  final AssetId schemaId;
-
-  ReqBuilder(
-    this.schemaId,
-  );
-
   @override
   Map<String, List<String>> get buildExtensions => {
         sourceExtension: [reqExtension],
@@ -32,11 +22,9 @@ class ReqBuilder implements Builder {
   @override
   FutureOr<void> build(BuildStep buildStep) async {
     final doc = await readDocument(buildStep);
-    final schema = await readDocument(buildStep, schemaId);
 
     final library = buildReqLibrary(
       doc,
-      schema,
       buildStep.inputId.changeExtension(opExtension).uri.toString(),
       buildStep.inputId.changeExtension(varExtension).uri.toString(),
       buildStep.inputId.changeExtension(dataExtension).uri.toString(),

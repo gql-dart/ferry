@@ -5,7 +5,6 @@ import "package:gql_code_builder/source.dart";
 
 Library buildReqLibrary(
   SourceNode docSource,
-  SourceNode schemaSource,
   String opDocUrl,
   String varDocUrl,
   String dataDocUrl,
@@ -15,7 +14,6 @@ Library buildReqLibrary(
         ..addAll(
           _buildOperationReqClasses(
             docSource.flatDocument,
-            schemaSource.flatDocument,
             opDocUrl,
             varDocUrl,
             dataDocUrl,
@@ -23,18 +21,25 @@ Library buildReqLibrary(
         ),
     );
 
-List<Class> _buildOperationReqClasses(DocumentNode doc, DocumentNode schema,
-        String opDocUrl, String varDocUrl, String dataDocUrl) =>
+List<Class> _buildOperationReqClasses(
+  DocumentNode doc,
+  String opDocUrl,
+  String varDocUrl,
+  String dataDocUrl,
+) =>
     doc.definitions
         .whereType<OperationDefinitionNode>()
         .map(
-          (op) => _buildOperationReqClass(
-              op, schema, opDocUrl, varDocUrl, dataDocUrl),
+          (op) => _buildOperationReqClass(op, opDocUrl, varDocUrl, dataDocUrl),
         )
         .toList();
 
-Class _buildOperationReqClass(OperationDefinitionNode node, DocumentNode schema,
-    String opDocUrl, String varDocUrl, String dataDocUrl) {
+Class _buildOperationReqClass(
+  OperationDefinitionNode node,
+  String opDocUrl,
+  String varDocUrl,
+  String dataDocUrl,
+) {
   final name = node.name.value;
   final varBuilderRef = refer("${name}VarBuilder", varDocUrl);
   final dataTypeRef = refer("\$${node.name.value}", dataDocUrl);
