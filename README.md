@@ -24,18 +24,18 @@
     - [Build Generated Queries](#build-generated-queries)
   - [Queries](#queries)
   - [Mutations](#mutations)
-  - [With Flutter Widget](#with-flutter-widget)
+  - [With Flutter](#with-flutter)
 
 # Features
 
 | Feature                                                                                              | Progress |
 | :--------------------------------------------------------------------------------------------------- | :------: |
-| Generated Fully Typed Queries and Resposnes (using `gql_build`)                                      |    ✅     |
-| Customizable `Link`s (using `gql_link`)                                                              |    ✅     |
-| Optimistic Cache                                                                                     |    ✅     |
-| Multiple data stores, including `MemoryStore` and `HiveStore` (using `hive` for offline persistence) |    ✅     |
-| Update queries with additinal data (e.g. for pagination)                                             |    ✅     |
-| Flutter Widget                                                                                       |    ✅     |
+| Generated Fully Typed Queries and Resposnes (using `gql_build`)                                      |    ✅    |
+| Customizable `Link`s (using `gql_link`)                                                              |    ✅    |
+| Optimistic Cache                                                                                     |    ✅    |
+| Multiple data stores, including `MemoryStore` and `HiveStore` (using `hive` for offline persistence) |    ✅    |
+| Update queries with additinal data (e.g. for pagination)                                             |    ✅    |
+| Compatible with Flutter                                                                              |    ✅    |
 | Offline Mutations                                                                                    |    🔜    |
 
 # Architecture
@@ -43,7 +43,7 @@
 1. **Code Builders** (from `gql_build`):
    1. Create dart representations of all queries (including their variables, inputs, and data)
    2. Using the additional `req_builder` included with this package, generate typed `QueryRequest` objects which allow the client to parse typed responses.
-2. **Client**: 
+2. **Client**:
    1. Handles configuration
    2. Routes `QueryRequest`s to the cache or network, based on the given `FetchPolicy`
    3. Generates streams of `QueryResponse`s for a given `QueryRequest`
@@ -52,7 +52,6 @@
    1. Normalizes and denormalizes data for queries and fragments (using the `normalize` package)
    2. Maintains a collection of Optimistic Patches and handles optimistic reads and writes
 5. **Store**: Persists data
-
 
 # Usage
 
@@ -138,6 +137,7 @@ final client = Client(
   options: options,
 );
 ```
+
 This handler can then be called using its key `"MyHandlerKey"` from a `QueryRequest`.
 
 ## Generate Dart GraphQL Files
@@ -213,7 +213,9 @@ Now we can build our dart generated files by calling:
 ```sh
 pub run build_runner build
 ```
+
 Or, if we are using flutter
+
 ```sh
 flutter pub run build_runner build
 ```
@@ -249,9 +251,7 @@ client
   .then((response) => print(response));
 ```
 
-## With Flutter Widget
-
-The library includes a `Query` flutter widget, which is a simple wrapper around the `StreamBuilder` widget.
+## With Flutter
 
 This example assumes we've registered our `Client` instance with `get_it`, but you can use any dependency injection.
 
@@ -260,8 +260,9 @@ import 'package:flutter/material.dart';
 import 'package:ferry/ferry.dart';
 import 'package:get_it/get_it.dart';
 
-import './my_query.data.gql.dart';
-import './my_query.req.gql.dart';
+import './graphql/all_pokemon.data.gql.dart';
+import './graphql/all_pokemon.req.gql.dart';
+import './pokemon_card.dart';
 
 class AllPokemonScreen extends StatelessWidget {
   final client = GetIt.I<Client>();
@@ -272,39 +273,28 @@ class AllPokemonScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('All Pokemon'),
       ),
-      body: Query(
-        client: client,
-        queryRequest: AllPokemon(
-          buildVars: (vars) => vars..first = 500,
+      body: StreamBuilder(
+        stream: client.responseStream(
+          AllPokemon(
+            buildVars: (vars) => vars..first = 500,
+          ),
         ),
-        builder: (BuildContext context, QueryResponse<$AllPokemon> response) {
-          if (response.loading)
-            return Center(child: CircularProgressIndicator());
+        builder: (
+          BuildContext context,
+          AsyncSnapshot<QueryResponse<$AllPokemon>> snapshot,
+        ) {
+          final response = snapshot.data;
+          if (response != null && response.loading)
+            return Center(
+              child: CircularProgressIndicator(),
+            );
 
-          final pokemons = response.data?.pokemons ?? [];
+          final pokemons = response?.data?.pokemons ?? [];
 
           return ListView.builder(
             itemCount: pokemons.length,
-            itemBuilder: (context, index) => Card(
-              child: InkWell(
-                onTap: () => Navigator.of(context)
-                    .pushNamed('detail', arguments: {'id': pokemon.id}),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: <Widget>[
-                      SizedBox(
-                        child: Ink.image(image: NetworkImage(pokemon.image)),
-                        height: 200,
-                        width: 200,
-                      ),
-                      Text(pokemon.name, style: Theme.of(context).textTheme.title),
-                      Text('HP: ${pokemon.maxHP}',
-                          style: Theme.of(context).textTheme.subhead)
-                    ],
-                  ),
-                ),
-              ),
+            itemBuilder: (context, index) => PokemonCard(
+              pokemon: pokemons[index],
             ),
           );
         },
@@ -313,7 +303,6 @@ class AllPokemonScreen extends StatelessWidget {
   }
 }
 ```
-
 
 [license-badge]: https://img.shields.io/github/license/gql-dart/ferry.svg?style=flat-square
 [license-link]: https://github.com/gql-dart/ferry/blob/master/LICENSE
