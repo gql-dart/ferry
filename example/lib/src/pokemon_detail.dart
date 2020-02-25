@@ -15,23 +15,31 @@ class PokemonDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Query(
-      client: client,
-      queryRequest: PokemonDetail(
-        buildVars: (vars) => vars..id = id,
+    return StreamBuilder(
+      stream: client.responseStream(
+        PokemonDetail(
+          buildVars: (vars) => vars..id = id,
+        ),
       ),
-      builder: (BuildContext context, QueryResponse<$PokemonDetail> response) {
-        if (response.loading)
+      builder: (
+        BuildContext client,
+        AsyncSnapshot<QueryResponse<$PokemonDetail>> snapshot,
+      ) {
+        final response = snapshot.data;
+        if (response != null && response.loading)
           return Scaffold(
-              appBar: AppBar(),
-              body: Center(child: CircularProgressIndicator()));
+            appBar: AppBar(),
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
 
-        final pokemon = response.data?.pokemon;
+        final pokemon = response?.data?.pokemon;
 
         return Scaffold(
           appBar: AppBar(
               title: Text(
-            pokemon?.name,
+            pokemon?.name ?? "",
           )),
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,

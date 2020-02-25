@@ -15,16 +15,23 @@ class AllPokemonScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('All Pokemon'),
       ),
-      body: Query(
-        client: client,
-        queryRequest: AllPokemon(
-          buildVars: (vars) => vars..first = 500,
+      body: StreamBuilder(
+        stream: client.responseStream(
+          AllPokemon(
+            buildVars: (vars) => vars..first = 500,
+          ),
         ),
-        builder: (BuildContext context, QueryResponse<$AllPokemon> response) {
-          if (response.loading)
-            return Center(child: CircularProgressIndicator());
+        builder: (
+          BuildContext context,
+          AsyncSnapshot<QueryResponse<$AllPokemon>> snapshot,
+        ) {
+          final response = snapshot.data;
+          if (response != null && response.loading)
+            return Center(
+              child: CircularProgressIndicator(),
+            );
 
-          final pokemons = response.data?.pokemons ?? [];
+          final pokemons = response?.data?.pokemons ?? [];
 
           return ListView.builder(
             itemCount: pokemons.length,
