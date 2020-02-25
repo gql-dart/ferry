@@ -40,14 +40,13 @@ class CacheProxy {
 
   void writeQuery(
     Request request,
-    Map<String, dynamic> data, {
-    String queryId,
-  }) =>
+    Map<String, dynamic> data,
+  ) =>
       _cache.writeQuery(
         request,
         data,
         optimistic: _optimistic,
-        queryId: queryId,
+        queryId: _queryId,
       );
 
   void writeFragment({
@@ -56,7 +55,6 @@ class CacheProxy {
     @required Map<String, dynamic> data,
     String fragmentName,
     Map<String, dynamic> variables,
-    String queryId,
   }) =>
       _cache.writeFragment(
         fragment: fragment,
@@ -65,6 +63,6 @@ class CacheProxy {
         fragmentName: fragmentName,
         variables: variables,
         optimistic: _optimistic,
-        queryId: queryId,
+        queryId: _queryId,
       );
 }
