@@ -15,9 +15,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- remove `Query` widget
 - update `QueryRequest` context to use Request context
 - update `req_builder` to use new URI fragments
+
+### Removed
+
+- removed `Query` widget
 
 ## [0.2.1] - 2020-02-22
 
