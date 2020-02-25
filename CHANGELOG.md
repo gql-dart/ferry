@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2020-02-25
+
+### Added
+
+- add `QueryRequest.updateCacheHandlerData`
+
+### Changed
+
+- remove `Query` widget
+- update `QueryRequest` context to use Request context
+- update `req_builder` to use new URI fragments
+
 ## [0.2.1] - 2020-02-22
 
 ### Changed

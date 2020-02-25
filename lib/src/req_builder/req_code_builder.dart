@@ -5,44 +5,30 @@ import "package:gql_code_builder/source.dart";
 
 Library buildReqLibrary(
   SourceNode docSource,
-  String opDocUrl,
-  String varDocUrl,
-  String dataDocUrl,
 ) =>
     Library(
       (b) => b.body
         ..addAll(
           _buildOperationReqClasses(
             docSource.flatDocument,
-            opDocUrl,
-            varDocUrl,
-            dataDocUrl,
           ),
         ),
     );
 
 List<Class> _buildOperationReqClasses(
   DocumentNode doc,
-  String opDocUrl,
-  String varDocUrl,
-  String dataDocUrl,
 ) =>
     doc.definitions
         .whereType<OperationDefinitionNode>()
-        .map(
-          (op) => _buildOperationReqClass(op, opDocUrl, varDocUrl, dataDocUrl),
-        )
+        .map(_buildOperationReqClass)
         .toList();
 
 Class _buildOperationReqClass(
   OperationDefinitionNode node,
-  String opDocUrl,
-  String varDocUrl,
-  String dataDocUrl,
 ) {
   final name = node.name.value;
-  final varBuilderRef = refer("${name}VarBuilder", varDocUrl);
-  final dataTypeRef = refer("\$${node.name.value}", dataDocUrl);
+  final varBuilderRef = refer("${name}VarBuilder", "#var");
+  final dataTypeRef = refer("\$${node.name.value}", "#data");
   final gqlClientUrl = "package:ferry/ferry.dart";
 
   return Class(
@@ -99,8 +85,15 @@ Class _buildOperationReqClass(
                   Parameter(
                     (b) => b
                       ..named = true
-                      ..name = "context"
+                      ..name = "updateCacheHandlerData"
                       ..type = refer("Map<String, dynamic>"),
+                  ),
+                  Parameter(
+                    (b) => b
+                      ..named = true
+                      ..name = "context"
+                      ..type =
+                          refer("Context", "package:gql_exec/gql_exec.dart"),
                   ),
                   Parameter(
                     (b) => b
@@ -117,30 +110,36 @@ Class _buildOperationReqClass(
                   ).call(
                     [],
                     {
-                      "operation": refer(
-                        name,
-                        opDocUrl,
-                      ),
+                      "operation": refer(name, "#op"),
                       "variables": refer("buildVars")
-                          .notEqualTo(refer('null'))
+                          .notEqualTo(refer("null"))
                           .conditional(
                               refer("buildVars").call(
                                 <Expression>[
                                   varBuilderRef.call([]),
                                 ],
                               ).property("variables"),
-                              refer('{}')),
-                      "queryId": refer("queryId").notEqualTo(refer('null')
-                          .conditional(
-                              refer("queryId"),
-                              refer("Uuid", "package:uuid/uuid.dart")
-                                  .call([])
-                                  .property("v4")
-                                  .call([]))),
+                              refer("const {}")),
+                      "context": refer("context").notEqualTo(
+                        refer("null").conditional(
+                          refer("context"),
+                          refer("Context", "package:gql_exec/gql_exec.dart")
+                              .constInstance([]),
+                        ),
+                      ),
+                      "queryId": refer("queryId").notEqualTo(
+                        refer("null").conditional(
+                          refer("queryId"),
+                          refer("Uuid", "package:uuid/uuid.dart")
+                              .call([])
+                              .property("v4")
+                              .call([]),
+                        ),
+                      ),
                       "updateResult": refer("updateResult"),
                       "optimisticResponse": refer("optimisticResponse"),
                       "updateCacheHandlerKey": refer("updateCacheHandlerKey"),
-                      "context": refer("context"),
+                      "updateCacheHandlerData": refer("updateCacheHandlerData"),
                       "fetchPolicy": refer("fetchPolicy"),
                     },
                   ).code,
@@ -149,7 +148,7 @@ Class _buildOperationReqClass(
           ),
         ],
       )
-      ..methods = ListBuilder<Method>(<Method>[_buildParse(node, dataDocUrl)]),
+      ..methods = ListBuilder<Method>(<Method>[_buildParse(node, "#data")]),
   );
 }
 
