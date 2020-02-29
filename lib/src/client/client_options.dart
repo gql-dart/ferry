@@ -24,7 +24,7 @@ class ClientOptions {
   final Map<OperationType, FetchPolicy> defaultFetchPolicies;
   // NOTE: function is untyped due to issues with deep casting
   // See https://github.com/leafpetersen/cast/issues/1.
-  final Map<dynamic, Function> updateCacheHandlers;
+  final Map<String, Function> updateCacheHandlers;
   final bool addTypename;
 
   ClientOptions({

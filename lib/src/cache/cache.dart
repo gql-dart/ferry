@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'package:rxdart/rxdart.dart';
 import 'package:normalize/normalize.dart';
+import 'package:gql_exec/gql_exec.dart';
+import 'package:gql/ast.dart';
+import 'package:meta/meta.dart';
 
 import '../store/memory_store.dart';
 import '../helpers/deep_merge.dart';
-import './options.dart';
 import '../store/store.dart';
 
 class Cache {
@@ -41,81 +43,89 @@ class Cache {
   }
 
   Stream<Map<String, dynamic>> watchQuery(
-    ReadQueryOptions options,
-  ) =>
-      ((options.optimistic ?? true)
-              ? _optimisticDataStream
-              : _dataStore.watch())
-          .map(
+    Request request, {
+    bool optimistic = true,
+  }) =>
+      (optimistic ? _optimisticDataStream : _dataStore.watch()).map(
         (data) => denormalize(
           reader: (dataId) => data[dataId],
-          query: options.document,
+          query: request.operation.document,
           addTypename: addTypename,
-          operationName: options.operationName,
-          variables: options.variables,
+          operationName: request.operation.operationName,
+          variables: request.variables,
           typePolicies: typePolicies,
         ),
       );
 
   Map<String, dynamic> readQuery(
-    ReadQueryOptions options,
-  ) =>
+    Request request, {
+    bool optimistic = true,
+  }) =>
       denormalize(
-        reader: (dataId) => (options.optimistic ?? true)
+        reader: (dataId) => optimistic
             ? _optimisticDataStream.value[dataId]
             : _dataStore.get(dataId),
-        query: options.document,
-        operationName: options.operationName,
-        variables: options.variables,
+        query: request.operation.document,
+        operationName: request.operation.operationName,
+        variables: request.variables,
         typePolicies: typePolicies,
         addTypename: addTypename,
       );
 
-  Map<String, dynamic> readFragment(
-    ReadFragmentOptions options,
-  ) =>
+  Map<String, dynamic> readFragment({
+    @required DocumentNode fragment,
+    @required Map<String, dynamic> idFields,
+    String fragmentName,
+    Map<String, dynamic> variables,
+    bool optimistic = true,
+  }) =>
       denormalizeFragment(
-        reader: (dataId) => (options.optimistic ?? true)
+        reader: (dataId) => optimistic
             ? _optimisticDataStream.value[dataId]
             : _dataStore.get(dataId),
-        fragment: options.fragment,
-        idFields: options.idFields,
-        fragmentName: options.fragmentName,
-        variables: options.variables,
+        fragment: fragment,
+        idFields: idFields,
+        fragmentName: fragmentName,
+        variables: variables,
         typePolicies: typePolicies,
         addTypename: addTypename,
       );
 
   void writeQuery(
-    WriteQueryOptions options, [
+    Request request,
+    Map<String, dynamic> data, {
     bool optimistic = false,
     String queryId,
-  ]) {
+  }) {
     final Map<String, Map<String, dynamic>> normalizedResult = {};
     normalize(
       writer: (dataId, value) => normalizedResult[dataId] = value,
-      query: options.document,
-      operationName: options.operationName,
-      variables: options.variables,
-      data: options.data,
+      query: request.operation.document,
+      operationName: request.operation.operationName,
+      variables: request.variables,
+      data: data,
       typePolicies: typePolicies,
     );
     _writeData(normalizedResult, optimistic, queryId);
   }
 
-  void writeFragment(
-    WriteFragmentOptions options, [
+  void writeFragment({
+    @required DocumentNode fragment,
+    @required Map<String, dynamic> idFields,
+    @required Map<String, dynamic> data,
+    String fragmentName,
+    Map<String, dynamic> variables,
     bool optimistic = false,
     String queryId,
-  ]) {
+  }) {
     final Map<String, Map<String, dynamic>> normalizedResult = {};
     normalizeFragment(
       writer: (dataId, value) => normalizedResult[dataId] = value,
-      fragment: options.fragment,
-      idFields: options.idFields,
-      data: options.data,
-      fragmentName: options.fragmentName,
-      variables: options.variables,
+      fragment: fragment,
+      idFields: idFields,
+      data: data,
+      fragmentName: fragmentName,
+      variables: variables,
       typePolicies: typePolicies,
     );
     _writeData(normalizedResult, optimistic, queryId);
