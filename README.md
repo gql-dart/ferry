@@ -24,7 +24,7 @@
     - [Build Generated Queries](#build-generated-queries)
   - [Queries](#queries)
   - [Mutations](#mutations)
-  - [With Flutter Widget](#with-flutter-widget)
+  - [With Flutter](#with-flutter)
 
 # Features
 
@@ -43,7 +43,7 @@
 1. **Code Builders** (from `gql_build`):
    1. Create dart representations of all queries (including their variables, inputs, and data)
    2. Using the additional `req_builder` included with this package, generate typed `QueryRequest` objects which allow the client to parse typed responses.
-2. **Client**: 
+2. **Client**:
    1. Handles configuration
    2. Routes `QueryRequest`s to the cache or network, based on the given `FetchPolicy`
    3. Generates streams of `QueryResponse`s for a given `QueryRequest`
@@ -52,7 +52,6 @@
    1. Normalizes and denormalizes data for queries and fragments (using the `normalize` package)
    2. Maintains a collection of Optimistic Patches and handles optimistic reads and writes
 5. **Store**: Persists data
-
 
 # Usage
 
@@ -138,6 +137,7 @@ final client = Client(
   options: options,
 );
 ```
+
 This handler can then be called using its key `"MyHandlerKey"` from a `QueryRequest`.
 
 ## Generate Dart GraphQL Files
@@ -213,7 +213,9 @@ Now we can build our dart generated files by calling:
 ```sh
 pub run build_runner build
 ```
+
 Or, if we are using flutter
+
 ```sh
 flutter pub run build_runner build
 ```
@@ -249,7 +251,7 @@ client
   .then((response) => print(response));
 ```
 
-## With Flutter Widget
+## With Flutter
 
 The library includes a `Query` flutter widget, which is a simple wrapper around the `StreamBuilder` widget.
 
@@ -313,7 +315,6 @@ class AllPokemonScreen extends StatelessWidget {
   }
 }
 ```
-
 
 [license-badge]: https://img.shields.io/github/license/gql-dart/ferry.svg?style=flat-square
 [license-link]: https://github.com/gql-dart/ferry/blob/master/LICENSE
