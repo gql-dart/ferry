@@ -25,9 +25,6 @@ class ReqBuilder implements Builder {
 
     final library = buildReqLibrary(
       doc,
-      buildStep.inputId.changeExtension(opExtension).uri.toString(),
-      buildStep.inputId.changeExtension(varExtension).uri.toString(),
-      buildStep.inputId.changeExtension(dataExtension).uri.toString(),
     );
 
     return writeDocument(
