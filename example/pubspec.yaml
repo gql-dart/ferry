@@ -14,7 +14,7 @@ dependencies:
 dev_dependencies:
   build_runner: ^1.0.0
   gql_pedantic: ^1.0.0
-  gql_build: ^0.0.8
+  gql_build: ^0.0.10
   flutter_test:
     sdk: flutter
 flutter:
