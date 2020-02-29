@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:ferry/ferry.dart';
 
 typedef QueryResponseBuilder<T> = Widget Function(
-    BuildContext context, QueryResponse<T> snapshot);
+  BuildContext context,
+  QueryResponse<T> response,
+  Object clientError,
+);
 
 class Query<T> extends StatefulWidget {
   final QueryRequest<T> queryRequest;
@@ -33,15 +36,25 @@ class _QueryState<T> extends State<Query> {
   }
 
   @override
+  void didUpdateWidget(Query oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.queryRequest != widget.queryRequest) {
+      setState(() {
+        stream = widget.client.responseStream(widget.queryRequest);
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return StreamBuilder<QueryResponse<T>>(
       initialData: QueryResponse<T>(queryRequest: widget.queryRequest),
       stream: stream,
-      builder: (context, snapshot) {
-        // TODO: handle errors
-        final result = snapshot.data;
-        return builder(context, result);
-      },
+      builder: (context, snapshot) => builder(
+        context,
+        snapshot.data,
+        snapshot.error,
+      ),
     );
   }
 }

@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `QueryRequest` now extends `Request`
 - update `req_builder` to use new URI fragments
 - add `QueryReqeust.copyWith`
+- add `clientError` object to `Query` Widget
 
 ### Removed
 

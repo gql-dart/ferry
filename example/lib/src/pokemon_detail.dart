@@ -20,7 +20,11 @@ class PokemonDetailScreen extends StatelessWidget {
       queryRequest: PokemonDetail(
         buildVars: (vars) => vars..id = id,
       ),
-      builder: (BuildContext context, QueryResponse<$PokemonDetail> response) {
+      builder: (
+        BuildContext context,
+        QueryResponse<$PokemonDetail> response,
+        Object clientError,
+      ) {
         if (response.loading)
           return Scaffold(
               appBar: AppBar(),
