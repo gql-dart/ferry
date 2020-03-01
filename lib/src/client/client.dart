@@ -4,13 +4,13 @@ import 'package:gql/ast.dart';
 import 'package:gql_link/gql_link.dart';
 import 'package:gql_exec/gql_exec.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:normalize/normalize.dart';
 
 import './query_response.dart';
 import './query_request.dart';
 import '../cache/cache.dart';
 import './fetch_policy.dart';
 import '../helpers/operation_type.dart';
-import '../cache/options.dart';
 import '../cache/cache_proxy.dart';
 import './client_options.dart';
 
@@ -63,18 +63,18 @@ class Client {
   }
 
   /// Optionally adds [__typename] to each node of the operation
-  QueryRequest<T> _addTypename<T>(QueryRequest<T> request) {
-    if (!options.addTypename) return request;
-    final document = transform(
-      request.operation.document,
-      [AddTypenameVisitor()],
-    );
-    return request
-      ..operation = Operation(
-        document: document,
-        operationName: request.operation.operationName,
-      );
-  }
+  QueryRequest<T> _addTypename<T>(QueryRequest<T> request) =>
+      options.addTypename
+          ? request.copyWith(
+              operation: Operation(
+                document: transform(
+                  request.operation.document,
+                  [AddTypenameVisitor()],
+                ),
+                operationName: request.operation.operationName,
+              ),
+            )
+          : request;
 
   /// Determines how to resolve a query based on the [FetchPolicy] and caches
   /// responses from the network if required by the policy.
@@ -143,15 +143,7 @@ class Client {
   /// [QueryResponse].
   Stream<QueryResponse<T>> _networkResponseStream<T>(
           QueryRequest<T> queryRequest) =>
-      link
-          .request(
-            Request(
-                operation: Operation(
-                    document: queryRequest.operation.document,
-                    operationName: queryRequest.operation.operationName),
-                variables: queryRequest.variables),
-          )
-          .map(
+      link.request(queryRequest).map(
             (response) => QueryResponse(
               queryRequest: queryRequest,
               data: (response.data == null || response.data.isEmpty)
@@ -165,14 +157,7 @@ class Client {
   /// [QueryResponse].
   Stream<QueryResponse<T>> _cacheResponseStream<T>(
           QueryRequest<T> queryRequest) =>
-      cache
-          .watchQuery(ReadQueryOptions(
-            (b) => b
-              ..document = queryRequest.operation.document
-              ..operationName = queryRequest.operation.operationName
-              ..variables = queryRequest.variables,
-          ))
-          .map(
+      cache.watchQuery(queryRequest).map(
             (data) => QueryResponse(
               queryRequest: queryRequest,
               data: (data == null || data.isEmpty)
@@ -185,15 +170,10 @@ class Client {
   void _writeToCache(QueryResponse response) {
     if (response.data != null)
       cache.writeQuery(
-        WriteQueryOptions(
-          (b) => b
-            ..document = response.queryRequest.operation.document
-            ..operationName = response.queryRequest.operation.operationName
-            ..variables = response.queryRequest.variables
-            ..data = response.data?.data,
-        ),
-        response.optimistic,
-        response.queryRequest.queryId,
+        response.queryRequest,
+        response.data.data,
+        optimistic: response.optimistic,
+        queryId: response.queryRequest.queryId,
       );
   }
 

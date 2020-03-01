@@ -5,7 +5,6 @@ export './src/client/query_response.dart';
 export './src/client/query_request.dart';
 export './src/client/fetch_policy.dart';
 export './src/cache/cache.dart';
-export './src/cache/options.dart';
 export './src/cache/cache_proxy.dart';
 export './src/widgets/query.dart';
 export './src/store/hive_store.dart';
