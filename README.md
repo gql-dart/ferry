@@ -279,7 +279,11 @@ class AllPokemonScreen extends StatelessWidget {
         queryRequest: AllPokemon(
           buildVars: (vars) => vars..first = 500,
         ),
-        builder: (BuildContext context, QueryResponse<$AllPokemon> response) {
+        builder: (
+          BuildContext context,
+          QueryResponse<$AllPokemon> response,
+          Object clientError,
+        ) {
           if (response.loading)
             return Center(child: CircularProgressIndicator());
 
@@ -287,26 +291,8 @@ class AllPokemonScreen extends StatelessWidget {
 
           return ListView.builder(
             itemCount: pokemons.length,
-            itemBuilder: (context, index) => Card(
-              child: InkWell(
-                onTap: () => Navigator.of(context)
-                    .pushNamed('detail', arguments: {'id': pokemon.id}),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: <Widget>[
-                      SizedBox(
-                        child: Ink.image(image: NetworkImage(pokemon.image)),
-                        height: 200,
-                        width: 200,
-                      ),
-                      Text(pokemon.name, style: Theme.of(context).textTheme.title),
-                      Text('HP: ${pokemon.maxHP}',
-                          style: Theme.of(context).textTheme.subhead)
-                    ],
-                  ),
-                ),
-              ),
+            itemBuilder: (context, index) => PokemonCard(
+              pokemon: pokemons[index],
             ),
           );
         },
