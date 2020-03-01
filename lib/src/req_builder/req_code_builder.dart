@@ -123,15 +123,7 @@ Constructor _buildFactoryConstructor(OperationDefinitionNode node) {
                   .constInstance([]),
             ),
           ),
-          "queryId": refer("queryId").notEqualTo(
-            refer("null").conditional(
-              refer("queryId"),
-              refer("Uuid", "package:uuid/uuid.dart")
-                  .call([])
-                  .property("v4")
-                  .call([]),
-            ),
-          ),
+          "queryId": refer("queryId"),
           "updateResult": refer("updateResult"),
           "optimisticResponse": refer("optimisticResponse"),
           "updateCacheHandlerKey": refer("updateCacheHandlerKey"),

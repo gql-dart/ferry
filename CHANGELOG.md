@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - update `req_builder` to use new URI fragments
 - add `QueryReqeust.copyWith`
 - add `clientError` object to `Query` Widget
+- `req_builder` no longer assigns a unique `queryId` if none is provided
 
 ### Removed
 

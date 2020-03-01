@@ -6,7 +6,6 @@ import 'package:gql_example_flutter/src/graphql/pokemon_detail.var.gql.dart'
 import 'package:gql_exec/gql_exec.dart' as _i4;
 import 'package:gql_example_flutter/src/graphql/pokemon_detail.op.gql.dart'
     as _i5;
-import 'package:uuid/uuid.dart' as _i6;
 
 class PokemonDetail extends _i1.QueryRequest<_i2.$PokemonDetail> {
   factory PokemonDetail(
@@ -25,7 +24,7 @@ class PokemonDetail extends _i1.QueryRequest<_i2.$PokemonDetail> {
               ? buildVars(_i3.PokemonDetailVarBuilder()).variables
               : const {},
           context: context != null ? context : const _i4.Context(),
-          queryId: queryId != null ? queryId : _i6.Uuid().v4(),
+          queryId: queryId,
           updateResult: updateResult,
           optimisticResponse: optimisticResponse,
           updateCacheHandlerKey: updateCacheHandlerKey,
