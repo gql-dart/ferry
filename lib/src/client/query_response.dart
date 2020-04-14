@@ -17,20 +17,25 @@ class QueryResponse<T> {
   final T data;
 
   /// The list of errors in this response.
-  final List<GraphQLError> errors;
+  final List<GraphQLError> graphqlErrors;
+
+  /// Any error returned by [Link]
+  final Object networkError;
 
   // TODO: is there a better way to implement loading?
-  bool get loading => errors == null && data == null;
+  bool get loading => networkError == null && data == null;
 
   /// If this response has any error.
-  bool get hasErrors => errors != null && errors.isNotEmpty;
+  bool get hasErrors =>
+      networkError != null && graphqlErrors != null && graphqlErrors.isNotEmpty;
 
   /// Instantiates a GraphQL response.
   const QueryResponse({
     @required this.queryRequest,
     this.optimistic = false,
     this.data,
-    this.errors,
+    this.graphqlErrors,
+    this.networkError,
   });
 
   /// Creates a shallow copy
@@ -38,5 +43,6 @@ class QueryResponse<T> {
       : queryRequest = response.queryRequest,
         optimistic = response.optimistic,
         data = response.data,
-        errors = response.errors;
+        graphqlErrors = response.graphqlErrors,
+        networkError = response.networkError;
 }

@@ -146,13 +146,25 @@ class Client {
   /// [QueryResponse].
   Stream<QueryResponse<T>> _networkResponseStream<T>(
           QueryRequest<T> queryRequest) =>
-      link.request(queryRequest).map(
+      link
+          .request(queryRequest)
+          .map(
             (response) => QueryResponse(
               queryRequest: queryRequest,
               data: (response.data == null || response.data.isEmpty)
                   ? null
                   : queryRequest.parseData(response.data),
-              errors: response.errors,
+              graphqlErrors: response.errors,
+            ),
+          )
+          .transform<QueryResponse<T>>(
+            StreamTransformer.fromHandlers(
+              handleError: (error, stacktrace, sink) => sink.add(
+                QueryResponse(
+                  queryRequest: queryRequest,
+                  networkError: error,
+                ),
+              ),
             ),
           );
 
@@ -211,7 +223,8 @@ class Client {
                 previousResult.data,
                 result.data,
               ),
-              errors: result.errors,
+              networkError: result.networkError,
+              graphqlErrors: result.graphqlErrors,
               queryRequest: result.queryRequest,
             );
     });
