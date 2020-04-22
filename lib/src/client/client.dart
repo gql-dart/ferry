@@ -102,7 +102,8 @@ class Client {
                   : _optimisticNetworkResponseStream(queryRequest)
                       .doOnData(_writeToCache)
                       .doOnData(_runUpdateCacheHandlers)
-                      .switchMap((_) => _cacheResponseStream(queryRequest)),
+                      .take(1)
+                      .concatWith([_cacheResponseStream(queryRequest).skip(1)]),
             );
       case FetchPolicy.CacheAndNetwork:
         {
@@ -115,7 +116,10 @@ class Client {
               .concatWith([
             responseStreamFromNetwork
                 .doOnData(_writeToCache)
-                .switchMap((_) => _cacheResponseStream(queryRequest))
+                .switchMap((networkResponse) => ConcatStream([
+                      Stream.value(networkResponse),
+                      _cacheResponseStream(queryRequest).skip(1),
+                    ]))
           ]);
         }
     }
@@ -131,13 +135,14 @@ class Client {
           : _networkResponseStream(queryRequest)
               .startWith(
               QueryResponse(
-                  queryRequest: queryRequest,
-                  data: queryRequest.parseData(queryRequest.optimisticResponse),
-                  optimistic: true),
+                queryRequest: queryRequest,
+                data: queryRequest.parseData(queryRequest.optimisticResponse),
+                source: ResponseSource.Optimistic,
+              ),
             )
               .doOnData(
               (response) {
-                if (response.optimistic == false)
+                if (response.source != ResponseSource.Optimistic)
                   cache.removeOptimisticPatch(response.queryRequest.queryId);
               },
             );
@@ -145,28 +150,26 @@ class Client {
   /// Fetches the query from the network, mapping the result to a
   /// [QueryResponse].
   Stream<QueryResponse<T>> _networkResponseStream<T>(
-          QueryRequest<T> queryRequest) =>
-      link
-          .request(queryRequest)
-          .map(
-            (response) => QueryResponse(
-              queryRequest: queryRequest,
-              data: (response.data == null || response.data.isEmpty)
-                  ? null
-                  : queryRequest.parseData(response.data),
-              graphqlErrors: response.errors,
-            ),
-          )
-          .transform<QueryResponse<T>>(
-            StreamTransformer.fromHandlers(
-              handleError: (error, stacktrace, sink) => sink.add(
-                QueryResponse(
-                  queryRequest: queryRequest,
-                  networkError: error,
-                ),
-              ),
-            ),
-          );
+      QueryRequest<T> queryRequest) async* {
+    try {
+      await for (var response in link.request(queryRequest)) {
+        yield QueryResponse(
+          queryRequest: queryRequest,
+          data: (response.data == null || response.data.isEmpty)
+              ? null
+              : queryRequest.parseData(response.data),
+          graphqlErrors: response.errors,
+          source: ResponseSource.Network,
+        );
+      }
+    } catch (e) {
+      yield QueryResponse(
+        queryRequest: queryRequest,
+        networkError: e,
+        source: ResponseSource.Network,
+      );
+    }
+  }
 
   /// Fetches the query from the cache, mapping the result to a
   /// [QueryResponse].
@@ -178,6 +181,7 @@ class Client {
               data: (data == null || data.isEmpty)
                   ? null
                   : queryRequest.parseData(data),
+              source: ResponseSource.Cache,
             ),
           );
 
@@ -187,7 +191,7 @@ class Client {
       cache.writeQuery(
         response.queryRequest,
         response.data.data,
-        optimistic: response.optimistic,
+        optimistic: response.source == ResponseSource.Optimistic,
         queryId: response.queryRequest.queryId,
       );
   }
@@ -201,7 +205,7 @@ class Client {
     handler(
       CacheProxy(
         cache,
-        response.optimistic,
+        response.source == ResponseSource.Optimistic,
         response.queryRequest.queryId,
       ),
       response,
@@ -226,6 +230,7 @@ class Client {
               networkError: result.networkError,
               graphqlErrors: result.graphqlErrors,
               queryRequest: result.queryRequest,
+              source: result.source,
             );
     });
   }
