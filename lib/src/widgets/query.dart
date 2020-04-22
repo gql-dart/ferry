@@ -4,7 +4,6 @@ import 'package:ferry/ferry.dart';
 typedef QueryResponseBuilder<T> = Widget Function(
   BuildContext context,
   QueryResponse<T> response,
-  Object clientError,
 );
 
 class Query<T> extends StatefulWidget {
@@ -48,12 +47,14 @@ class _QueryState<T> extends State<Query> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QueryResponse<T>>(
-      initialData: QueryResponse<T>(queryRequest: widget.queryRequest),
+      initialData: QueryResponse<T>(
+        queryRequest: widget.queryRequest,
+        source: ResponseSource.None,
+      ),
       stream: stream,
       builder: (context, snapshot) => builder(
         context,
         snapshot.data,
-        snapshot.error,
       ),
     );
   }
