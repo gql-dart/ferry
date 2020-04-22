@@ -35,7 +35,10 @@ class Client {
   })  : options = options ?? ClientOptions(),
         cache = cache ?? Cache();
 
-  Stream<QueryResponse<T>> responseStream<T>(QueryRequest<T> request) {
+  Stream<QueryResponse<T>> responseStream<T>(
+    QueryRequest<T> request, {
+    bool executeOnListen = true,
+  }) {
     bool initial = true;
     return queryController.stream
         // Filter for only the relevent queries
@@ -53,7 +56,7 @@ class Client {
         // Trigger the [QueryRequest] on first listen
         .doOnListen(
       () async {
-        if (initial) {
+        if (initial && executeOnListen) {
           await Future.delayed(Duration.zero);
           queryController.add(request);
         }
