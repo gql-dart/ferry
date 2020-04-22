@@ -2,42 +2,70 @@ import "dart:async";
 import 'package:mockito/mockito.dart';
 import 'package:gql_link/gql_link.dart';
 import 'package:gql_exec/gql_exec.dart';
-import 'package:gql/ast.dart';
 import "package:flutter_test/flutter_test.dart";
 import "package:ferry/ferry.dart";
 
-// TODO: move query objects into test folder
-import '../example/lib/src/graphql/all_pokemon.req.gql.dart';
+import './graphql/all_pokemon.req.gql.dart';
+import './graphql/all_pokemon.data.gql.dart';
 
 class MockLink extends Mock implements Link {}
 
 void main() {
-  group("GraphQLErrors", () {
-    final mockLink = MockLink();
+  group("GraphQL Errors", () {
+    test('Returns a response with GraphQL errors', () async {
+      final mockLink = MockLink();
 
-    final allPokemonReq = AllPokemon(buildVars: (b) => b..first = 3);
+      final allPokemonReq = AllPokemon(
+        buildVars: (b) => b..first = 3,
+      );
 
-    final graphQLErrors = [GraphQLError(message: "Your GraphQL is not valid")];
+      final graphQLErrors = [
+        GraphQLError(message: "Your GraphQL is not valid")
+      ];
 
-    test('Returns the correct result', () async {
-      when(mockLink.request(allPokemonReq)).thenAnswer(
+      when(mockLink.request(allPokemonReq, any)).thenAnswer(
         (_) => Stream.value(Response(errors: graphQLErrors)),
       );
 
-      final client = Client(link: mockLink);
+      final client = Client(
+        link: mockLink,
+        options: ClientOptions(addTypename: false),
+      );
 
-      final responseStream = client.responseStream(allPokemonReq);
+      final response = QueryResponse<$AllPokemon>(
+        queryRequest: allPokemonReq,
+        graphqlErrors: graphQLErrors,
+        source: ResponseSource.Network,
+      );
 
-      expect(responseStream.map((response) => response.data),
-          emitsInOrder(networkResponses));
+      expect(client.responseStream(allPokemonReq), emits(response));
+    });
+  });
 
-      client.queryController.add(queryRequests[0]);
-      await Future.delayed(Duration.zero);
+  group("Network Errors", () {
+    test('Returns a network error when Link throws', () async {
+      final mockLink = MockLink();
 
-      client.queryController.add(queryRequests[1]);
-      await Future.delayed(Duration.zero);
+      final allPokemonReq = AllPokemon(
+        buildVars: (b) => b..first = 3,
+      );
 
-      expect(store.toMap(), equals(cacheSnapshot(Source.Network)));
+      final networkError = ServerException(parsedResponse: Response());
+
+      when(mockLink.request(allPokemonReq, any)).thenThrow(networkError);
+
+      final client = Client(
+        link: mockLink,
+        options: ClientOptions(addTypename: false),
+      );
+
+      final response = QueryResponse<$AllPokemon>(
+        queryRequest: allPokemonReq,
+        networkError: networkError,
+        source: ResponseSource.Network,
+      );
+
+      expect(client.responseStream(allPokemonReq), emits(response));
     });
   });
 }
