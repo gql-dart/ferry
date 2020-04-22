@@ -23,7 +23,6 @@ class AllPokemonScreen extends StatelessWidget {
         builder: (
           BuildContext context,
           QueryResponse<$AllPokemon> response,
-          Object clientError,
         ) {
           if (response.loading)
             return Center(child: CircularProgressIndicator());

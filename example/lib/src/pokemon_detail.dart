@@ -23,7 +23,6 @@ class PokemonDetailScreen extends StatelessWidget {
       builder: (
         BuildContext context,
         QueryResponse<$PokemonDetail> response,
-        Object clientError,
       ) {
         if (response.loading)
           return Scaffold(
