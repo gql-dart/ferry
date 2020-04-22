@@ -8,7 +8,7 @@ import '../cache/cache_proxy.dart';
 const _defaultFetchPolicies = {
   OperationType.query: FetchPolicy.CacheFirst,
   OperationType.mutation: FetchPolicy.NetworkOnly,
-  OperationType.subscription: FetchPolicy.NetworkOnly,
+  OperationType.subscription: FetchPolicy.CacheAndNetwork,
 };
 
 /// Update the cache after receiving a [QueryResponse]. Useful
