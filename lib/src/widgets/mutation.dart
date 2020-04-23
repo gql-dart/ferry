@@ -14,7 +14,6 @@ typedef MutationResponseBuilder<T> = Widget Function(
   BuildContext context,
   MutateFunction<T> mutate,
   QueryResponse<T> response,
-  Object clientError,
 );
 
 class Mutation<T> extends StatefulWidget {
@@ -81,13 +80,15 @@ class _MutationState<T> extends State<Query> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QueryResponse<T>>(
-      initialData: QueryResponse<T>(queryRequest: widget.queryRequest),
+      initialData: QueryResponse<T>(
+        queryRequest: widget.queryRequest,
+        dataSource: DataSource.None,
+      ),
       stream: stream,
       builder: (context, snapshot) => builder(
         context,
         _mutate,
         snapshot.data,
-        snapshot.error,
       ),
     );
   }

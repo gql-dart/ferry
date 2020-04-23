@@ -36,7 +36,7 @@
 | Multiple data stores, including `MemoryStore` and `HiveStore` (using `hive` for offline persistence) |    ✅     |
 | Update queries with additinal data (e.g. for pagination)                                             |    ✅     |
 | Flutter Widget                                                                                       |    ✅     |
-| Offline Mutations                                                                                    |    🔜    |
+| Offline Mutations                                                                                    |    🔜     |
 
 # Architecture
 
@@ -247,7 +247,7 @@ final mutation = MyMutation(buildVars: (b) => b..id = "123");
 // If I only care about the first non-optimistic response, I can do:
 client
   .responseStream(mutation)
-  .firstWhere((response) => !response.optimistic)
+  .firstWhere((response) => response.source != ResponseSource.Optimistic)
   .then((response) => print(response));
 ```
 
@@ -282,7 +282,6 @@ class AllPokemonScreen extends StatelessWidget {
         builder: (
           BuildContext context,
           QueryResponse<$AllPokemon> response,
-          Object clientError,
         ) {
           if (response.loading)
             return Center(child: CircularProgressIndicator());

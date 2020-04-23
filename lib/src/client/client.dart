@@ -102,7 +102,8 @@ class Client {
                   : _optimisticNetworkResponseStream(queryRequest)
                       .doOnData(_writeToCache)
                       .doOnData(_runUpdateCacheHandlers)
-                      .switchMap((_) => _cacheResponseStream(queryRequest)),
+                      .take(1)
+                      .concatWith([_cacheResponseStream(queryRequest).skip(1)]),
             );
       case FetchPolicy.CacheAndNetwork:
         {
@@ -115,7 +116,10 @@ class Client {
               .concatWith([
             responseStreamFromNetwork
                 .doOnData(_writeToCache)
-                .switchMap((_) => _cacheResponseStream(queryRequest))
+                .switchMap((networkResponse) => ConcatStream([
+                      Stream.value(networkResponse),
+                      _cacheResponseStream(queryRequest).skip(1),
+                    ]))
           ]);
         }
     }
@@ -131,13 +135,14 @@ class Client {
           : _networkResponseStream(queryRequest)
               .startWith(
               QueryResponse(
-                  queryRequest: queryRequest,
-                  data: queryRequest.parseData(queryRequest.optimisticResponse),
-                  optimistic: true),
+                queryRequest: queryRequest,
+                data: queryRequest.parseData(queryRequest.optimisticResponse),
+                dataSource: DataSource.Optimistic,
+              ),
             )
               .doOnData(
               (response) {
-                if (response.optimistic == false)
+                if (response.dataSource != DataSource.Optimistic)
                   cache.removeOptimisticPatch(response.queryRequest.queryId);
               },
             );
@@ -145,16 +150,26 @@ class Client {
   /// Fetches the query from the network, mapping the result to a
   /// [QueryResponse].
   Stream<QueryResponse<T>> _networkResponseStream<T>(
-          QueryRequest<T> queryRequest) =>
-      link.request(queryRequest).map(
-            (response) => QueryResponse(
-              queryRequest: queryRequest,
-              data: (response.data == null || response.data.isEmpty)
-                  ? null
-                  : queryRequest.parseData(response.data),
-              errors: response.errors,
-            ),
-          );
+      QueryRequest<T> queryRequest) async* {
+    try {
+      await for (var response in link.request(queryRequest)) {
+        yield QueryResponse(
+          queryRequest: queryRequest,
+          data: (response.data == null || response.data.isEmpty)
+              ? null
+              : queryRequest.parseData(response.data),
+          graphqlErrors: response.errors,
+          dataSource: DataSource.Link,
+        );
+      }
+    } on LinkException catch (e) {
+      yield QueryResponse(
+        queryRequest: queryRequest,
+        linkException: e,
+        dataSource: DataSource.Link,
+      );
+    }
+  }
 
   /// Fetches the query from the cache, mapping the result to a
   /// [QueryResponse].
@@ -166,6 +181,7 @@ class Client {
               data: (data == null || data.isEmpty)
                   ? null
                   : queryRequest.parseData(data),
+              dataSource: DataSource.Cache,
             ),
           );
 
@@ -175,7 +191,7 @@ class Client {
       cache.writeQuery(
         response.queryRequest,
         response.data.data,
-        optimistic: response.optimistic,
+        optimistic: response.dataSource == DataSource.Optimistic,
         queryId: response.queryRequest.queryId,
       );
   }
@@ -189,7 +205,7 @@ class Client {
     handler(
       CacheProxy(
         cache,
-        response.optimistic,
+        response.dataSource == DataSource.Optimistic,
         response.queryRequest.queryId,
       ),
       response,
@@ -211,8 +227,10 @@ class Client {
                 previousResult.data,
                 result.data,
               ),
-              errors: result.errors,
+              linkException: result.linkException,
+              graphqlErrors: result.graphqlErrors,
               queryRequest: result.queryRequest,
+              dataSource: result.dataSource,
             );
     });
   }

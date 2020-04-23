@@ -1,0 +1,10 @@
+fragment NestedFragment on Pokemon {
+  id
+  name
+}
+
+fragment PokemonCard on Pokemon {
+  ...NestedFragment
+  maxHP
+  image
+}
