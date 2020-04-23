@@ -1,5 +1,6 @@
 import 'package:meta/meta.dart';
 import 'package:gql_exec/gql_exec.dart';
+import 'package:gql_link/gql_link.dart';
 import "package:collection/collection.dart";
 
 import './query_request.dart';
@@ -35,14 +36,16 @@ class QueryResponse<T> {
   final List<GraphQLError> graphqlErrors;
 
   /// Any error returned by [Link]
-  final Object networkError;
+  final LinkException linkException;
 
   // TODO: is there a better way to implement loading?
-  bool get loading => networkError == null && data == null;
+  bool get loading => linkException == null && data == null;
 
   /// If this response has any error.
   bool get hasErrors =>
-      networkError != null && graphqlErrors != null && graphqlErrors.isNotEmpty;
+      linkException != null &&
+      graphqlErrors != null &&
+      graphqlErrors.isNotEmpty;
 
   /// Instantiates a GraphQL response.
   const QueryResponse({
@@ -50,14 +53,14 @@ class QueryResponse<T> {
     @required this.dataSource,
     this.data,
     this.graphqlErrors,
-    this.networkError,
+    this.linkException,
   });
 
   List<Object> _getChildren() => [
         queryRequest,
         data,
         graphqlErrors,
-        networkError,
+        linkException,
       ];
 
   @override
@@ -79,5 +82,5 @@ class QueryResponse<T> {
         dataSource = response.dataSource,
         data = response.data,
         graphqlErrors = response.graphqlErrors,
-        networkError = response.networkError;
+        linkException = response.linkException;
 }

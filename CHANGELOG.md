@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- network errors in `Link` are now caught and included in the `QueryResponse.networkError` property
+- `LinkExceptions` are now caught and included in the `QueryResponse.linkException` property
 - added `QueryResponse.dataSource` property
 - added basic tests for GraphQL and network errors
 - added `Mutation` widget

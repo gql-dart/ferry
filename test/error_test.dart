@@ -50,9 +50,9 @@ void main() {
         buildVars: (b) => b..first = 3,
       );
 
-      final networkError = ServerException(parsedResponse: Response());
+      final exception = ServerException(parsedResponse: Response());
 
-      when(mockLink.request(allPokemonReq, any)).thenThrow(networkError);
+      when(mockLink.request(allPokemonReq, any)).thenThrow(exception);
 
       final client = Client(
         link: mockLink,
@@ -61,7 +61,7 @@ void main() {
 
       final response = QueryResponse<$AllPokemon>(
         queryRequest: allPokemonReq,
-        networkError: networkError,
+        linkException: exception,
         dataSource: DataSource.Link,
       );
 

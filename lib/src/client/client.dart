@@ -162,10 +162,10 @@ class Client {
           dataSource: DataSource.Link,
         );
       }
-    } catch (e) {
+    } on LinkException catch (e) {
       yield QueryResponse(
         queryRequest: queryRequest,
-        networkError: e,
+        linkException: e,
         dataSource: DataSource.Link,
       );
     }
@@ -227,7 +227,7 @@ class Client {
                 previousResult.data,
                 result.data,
               ),
-              networkError: result.networkError,
+              linkException: result.linkException,
               graphqlErrors: result.graphqlErrors,
               queryRequest: result.queryRequest,
               dataSource: result.dataSource,
