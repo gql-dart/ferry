@@ -35,7 +35,7 @@ void main() {
       final response = QueryResponse<$AllPokemon>(
         queryRequest: allPokemonReq,
         graphqlErrors: graphQLErrors,
-        source: ResponseSource.Network,
+        dataSource: DataSource.Link,
       );
 
       expect(client.responseStream(allPokemonReq), emits(response));
@@ -62,7 +62,7 @@ void main() {
       final response = QueryResponse<$AllPokemon>(
         queryRequest: allPokemonReq,
         networkError: networkError,
-        source: ResponseSource.Network,
+        dataSource: DataSource.Link,
       );
 
       expect(client.responseStream(allPokemonReq), emits(response));

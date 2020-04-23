@@ -82,7 +82,7 @@ class _MutationState<T> extends State<Query> {
     return StreamBuilder<QueryResponse<T>>(
       initialData: QueryResponse<T>(
         queryRequest: widget.queryRequest,
-        source: ResponseSource.None,
+        dataSource: DataSource.None,
       ),
       stream: stream,
       builder: (context, snapshot) => builder(

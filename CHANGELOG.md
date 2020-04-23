@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - network errors in `Link` are now caught and included in the `QueryResponse.networkError` property
-- added `QueryResponse.source` property
+- added `QueryResponse.dataSource` property
 - added basic tests for GraphQL and network errors
 - added `Mutation` widget
 - added `executeOnListen` flag on `responseStream`
@@ -25,8 +25,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-- BREAKING *** removed optimistic flag on `QueryResponse` in favor of source property
-- BREAKING *** removed client error from `Query` widget
+- **BREAKING** removed optimistic flag on `QueryResponse` in favor of source property
+- **BREAKING** removed client error from `Query` widget
 - remove broken `FetchPolicy` tests
 
 ## [0.2.2] - 2020-02-29

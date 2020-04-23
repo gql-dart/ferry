@@ -4,17 +4,17 @@ import "package:collection/collection.dart";
 
 import './query_request.dart';
 
-enum ResponseSource {
+enum DataSource {
   /// A placeholder response source which can be used when waiting for another source
   None,
 
-  /// Response originated from the client [Link]
-  Network,
+  /// Data originated from the client's [Link]
+  Link,
 
-  /// Response originated from the [Cache]
+  /// Data originated from the [Cache]
   Cache,
 
-  /// Response originated from the [QueryRequest.optimisticResponse]
+  /// Data originated from a user-provided [QueryRequest.optimisticResponse]
   Optimistic,
 }
 
@@ -26,7 +26,7 @@ class QueryResponse<T> {
   final QueryRequest<T> queryRequest;
 
   /// The origin of the response.
-  final ResponseSource source;
+  final DataSource dataSource;
 
   /// The typed data of this response.
   final T data;
@@ -47,7 +47,7 @@ class QueryResponse<T> {
   /// Instantiates a GraphQL response.
   const QueryResponse({
     @required this.queryRequest,
-    @required this.source,
+    @required this.dataSource,
     this.data,
     this.graphqlErrors,
     this.networkError,
@@ -76,7 +76,7 @@ class QueryResponse<T> {
   /// Creates a shallow copy
   QueryResponse.from(QueryResponse response)
       : queryRequest = response.queryRequest,
-        source = response.source,
+        dataSource = response.dataSource,
         data = response.data,
         graphqlErrors = response.graphqlErrors,
         networkError = response.networkError;

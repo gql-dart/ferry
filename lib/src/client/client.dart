@@ -137,12 +137,12 @@ class Client {
               QueryResponse(
                 queryRequest: queryRequest,
                 data: queryRequest.parseData(queryRequest.optimisticResponse),
-                source: ResponseSource.Optimistic,
+                dataSource: DataSource.Optimistic,
               ),
             )
               .doOnData(
               (response) {
-                if (response.source != ResponseSource.Optimistic)
+                if (response.dataSource != DataSource.Optimistic)
                   cache.removeOptimisticPatch(response.queryRequest.queryId);
               },
             );
@@ -159,14 +159,14 @@ class Client {
               ? null
               : queryRequest.parseData(response.data),
           graphqlErrors: response.errors,
-          source: ResponseSource.Network,
+          dataSource: DataSource.Link,
         );
       }
     } catch (e) {
       yield QueryResponse(
         queryRequest: queryRequest,
         networkError: e,
-        source: ResponseSource.Network,
+        dataSource: DataSource.Link,
       );
     }
   }
@@ -181,7 +181,7 @@ class Client {
               data: (data == null || data.isEmpty)
                   ? null
                   : queryRequest.parseData(data),
-              source: ResponseSource.Cache,
+              dataSource: DataSource.Cache,
             ),
           );
 
@@ -191,7 +191,7 @@ class Client {
       cache.writeQuery(
         response.queryRequest,
         response.data.data,
-        optimistic: response.source == ResponseSource.Optimistic,
+        optimistic: response.dataSource == DataSource.Optimistic,
         queryId: response.queryRequest.queryId,
       );
   }
@@ -205,7 +205,7 @@ class Client {
     handler(
       CacheProxy(
         cache,
-        response.source == ResponseSource.Optimistic,
+        response.dataSource == DataSource.Optimistic,
         response.queryRequest.queryId,
       ),
       response,
@@ -230,7 +230,7 @@ class Client {
               networkError: result.networkError,
               graphqlErrors: result.graphqlErrors,
               queryRequest: result.queryRequest,
-              source: result.source,
+              dataSource: result.dataSource,
             );
     });
   }
