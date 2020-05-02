@@ -43,7 +43,13 @@ class Client {
     return queryController.stream
         // Filter for only the relevent queries
         .whereType<QueryRequest<T>>()
-        .where((req) => req.queryId == request.queryId)
+        .where((req) {
+          if (request.queryId != null) {
+            return request.queryId == req.queryId;
+          } else {
+            return request == req;
+          }
+        })
         // (if enabled) recursively add __typename field to every node in query
         .map(_addTypename)
         // Fetch [QueryResponse] from network (and optionally cache results)
@@ -55,14 +61,14 @@ class Client {
         .transform(StreamTransformer.fromBind(_updateResultStream))
         // Trigger the [QueryRequest] on first listen
         .doOnListen(
-      () async {
-        if (initial && executeOnListen) {
-          await Future.delayed(Duration.zero);
-          queryController.add(request);
-        }
-        initial = false;
-      },
-    );
+          () async {
+            if (initial && executeOnListen) {
+              await Future.delayed(Duration.zero);
+              queryController.add(request);
+            }
+            initial = false;
+          },
+        );
   }
 
   /// Optionally adds [__typename] to each node of the operation
