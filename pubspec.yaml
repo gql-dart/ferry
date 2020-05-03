@@ -1,5 +1,5 @@
 name: ferry
-version: 0.3.1
+version: 0.3.1+1
 description: GraphQL Client for Dart
 homepage: https://github.com/gql-dart/ferry
 repository: https://github.com/gql-dart/ferry
