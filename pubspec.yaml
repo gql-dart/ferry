@@ -17,10 +17,10 @@ dependencies:
   rxdart: ^0.23.1
   normalize: ^0.1.1
   gql: ^0.12.0
-  gql_link: ^0.2.2
-  gql_exec: ^0.2.0
-  gql_build: ^0.0.10
-  gql_code_builder: ^0.0.9
+  gql_link: ^0.3.0
+  gql_exec: ^0.2.4
+  gql_build: ^0.0.11
+  gql_code_builder: ^0.0.10
   built_collection: ^4.3.2
   code_builder: ^3.2.1
   build: ^1.2.2
