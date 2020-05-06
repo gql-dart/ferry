@@ -6,3 +6,6 @@ pubspec.lock
 # Documentation
 doc/api
 
+# IDE
+.idea/
+
