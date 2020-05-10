@@ -1,13 +1,26 @@
 [![MIT License][license-badge]][license-link]
 [![PRs Welcome][prs-badge]][prs-link]
-[![Star on GitHub][github-star-badge]][github-star-link]
 [![Watch on GitHub][github-watch-badge]][github-watch-link]
+[![Star on GitHub][github-star-badge]][github-star-link]
+[![Watch on GitHub][github-forks-badge]][github-forks-link]
+[![Discord][discord-badge]][discord-link]
 
-# Normalize
+[license-badge]: https://img.shields.io/github/license/gql-dart/ferry.svg?style=for-the-badge
+[license-link]: https://github.com/gql-dart/ferry/blob/master/LICENSE
+[prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge
+[prs-link]: https://github.com/gql-dart/ferry/issues
 
-## About
+[github-watch-badge]: https://img.shields.io/github/watchers/gql-dart/ferry.svg?style=for-the-badge&logo=github&logoColor=ffffff
+[github-watch-link]: https://github.com/gql-dart/ferry/watchers
+[github-star-badge]: https://img.shields.io/github/stars/gql-dart/ferry.svg?style=for-the-badge&logo=github&logoColor=ffffff
+[github-star-link]: https://github.com/gql-dart/ferry/stargazers
+[github-forks-badge]: https://img.shields.io/github/forks/gql-dart/ferry.svg?style=for-the-badge&logo=github&logoColor=ffffff
+[github-forks-link]: https://github.com/gql-dart/ferry/network/members
 
-This project allows for the normalization and denormalization of GraphQL Documents.
+[discord-badge]: https://img.shields.io/discord/559455668810153989.svg?style=for-the-badge&logo=discord&logoColor=ffffff
+[discord-link]: https://discord.gg/NryjpVa
+
+Normalizes and denormalizes data for GraphQL operations.
 
 The `normalize` function writes normalized documents to a normalized `Map` and can be used to cache results of GraphQL queries. It traverses the [GraphQL AST](https://github.com/gql-dart/gql/blob/master/gql/README.md) and only includes the fields specified in the GraphQL Document in the normalized results.
 
@@ -16,8 +29,8 @@ The `normalize` function only normalizes entities that include a `__typename` fi
 IDs are determined by the following:
 
 1. If a `TypePolicy` is provided for the given type, it's `TypePolicy.keyFields` are used.
-1. If a `dataIdFromObject` funciton is provided, the result is used.
-1. The `id` or `_id` field (respectively) are used.
+2. If a `dataIdFromObject` funciton is provided, the result is used.
+3. The `id` or `_id` field (respectively) are used.
 
 The library includes the following methods:
 
@@ -30,11 +43,11 @@ The library includes the following methods:
 
 | Feature                                                                                                                           | Progress |
 | :-------------------------------------------------------------------------------------------------------------------------------- | :------: |
-| Fragments                                                                                                                         |    ✅    |
-| Variables                                                                                                                         |    ✅    |
-| Interface & Union types                                                                                                           |    ✅    |
-| Aliases                                                                                                                           |    ✅    |
-| `TypePolicy`s (see [Apollo](https://www.apollographql.com/docs/react/v3.0-beta/caching/cache-configuration/#the-typepolicy-type)) |    ✅    |
+| Fragments                                                                                                                         |    ✅     |
+| Variables                                                                                                                         |    ✅     |
+| Interface & Union types                                                                                                           |    ✅     |
+| Aliases                                                                                                                           |    ✅     |
+| `TypePolicy`s (see [Apollo](https://www.apollographql.com/docs/react/v3.0-beta/caching/cache-configuration/#the-typepolicy-type)) |    ✅     |
 
 ## Usage
 

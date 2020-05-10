@@ -1,18 +1,29 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/gql-dart/ferry/master/logo.jpg" width="450px">
-</p>
-<h2 align="center">Stream Based GraphQL Client for Dart</h2>
-
 [![MIT License][license-badge]][license-link]
 [![PRs Welcome][prs-badge]][prs-link]
-[![Star on GitHub][github-star-badge]][github-star-link]
 [![Watch on GitHub][github-watch-badge]][github-watch-link]
-[![Pub Version][pub-badge]][pub-link]
+[![Star on GitHub][github-star-badge]][github-star-link]
+[![Watch on GitHub][github-forks-badge]][github-forks-link]
+[![Discord][discord-badge]][discord-link]
 
-**Warning: This library is still a work in progress. The API may change.**
+[license-badge]: https://img.shields.io/github/license/gql-dart/ferry.svg?style=for-the-badge
+[license-link]: https://github.com/gql-dart/ferry/blob/master/LICENSE
+[prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge
+[prs-link]: https://github.com/gql-dart/ferry/issues
 
-- [Features](#features)
-- [Architecture](#architecture)
+[github-watch-badge]: https://img.shields.io/github/watchers/gql-dart/ferry.svg?style=for-the-badge&logo=github&logoColor=ffffff
+[github-watch-link]: https://github.com/gql-dart/ferry/watchers
+[github-star-badge]: https://img.shields.io/github/stars/gql-dart/ferry.svg?style=for-the-badge&logo=github&logoColor=ffffff
+[github-star-link]: https://github.com/gql-dart/ferry/stargazers
+[github-forks-badge]: https://img.shields.io/github/forks/gql-dart/ferry.svg?style=for-the-badge&logo=github&logoColor=ffffff
+[github-forks-link]: https://github.com/gql-dart/ferry/network/members
+
+[discord-badge]: https://img.shields.io/discord/559455668810153989.svg?style=for-the-badge&logo=discord&logoColor=ffffff
+[discord-link]: https://discord.gg/NryjpVa
+
+A GraphQL client for Dart / Flutter.
+
+This is the core `ferry` client package which routes `QueryRequest`s for a given GraphQL operation to the cache or network and returns streams of `QueryResponse`s for each request.
+
 - [Usage](#usage)
   - [Setup Client](#setup-client)
     - [Simple](#simple)
@@ -26,38 +37,14 @@
   - [Mutations](#mutations)
   - [With Flutter](#with-flutter)
 
-# Features
 
-| Feature                                                                                              | Progress |
-| :--------------------------------------------------------------------------------------------------- | :------: |
-| Generated Fully Typed Queries and Resposnes (using `gql_build`)                                      |    ✅     |
-| Customizable `Link`s (using `gql_link`)                                                              |    ✅     |
-| Optimistic Cache                                                                                     |    ✅     |
-| Multiple data stores, including `MemoryStore` and `HiveStore` (using `hive` for offline persistence) |    ✅     |
-| Update queries with additinal data (e.g. for pagination)                                             |    ✅     |
-| Flutter Widget                                                                                       |    ✅     |
-| Offline Mutations                                                                                    |    🔜     |
 
-# Architecture
-
-1. **Code Builders** (from `gql_build`):
-   1. Create dart representations of all queries (including their variables, inputs, and data)
-   2. Using the additional `req_builder` included with this package, generate typed `QueryRequest` objects which allow the client to parse typed responses.
-2. **Client**:
-   1. Handles configuration
-   2. Routes `QueryRequest`s to the cache or network, based on the given `FetchPolicy`
-   3. Generates streams of `QueryResponse`s for a given `QueryRequest`
-3. **Link** (from `gql_link`): Handles GraphQL network requests
-4. **Cache**:
-   1. Normalizes and denormalizes data for queries and fragments (using the `normalize` package)
-   2. Maintains a collection of Optimistic Patches and handles optimistic reads and writes
-5. **Store**: Persists data
 
 # Usage
 
 ## Setup Client
 
-Add `ferry` and `gql_http_link` to your pubspec.
+Add `ferry` and `gql_http_link` to your pubspec dependencies. You will also need to add `ferry_generator` to your dev dependencies.
 
 ### Simple
 
@@ -205,7 +192,7 @@ targets:
         options:
           schema: your_package_name|lib/schema.graphql
 
-      ferry|req_builder:
+      ferry_generator|req_builder:
         enabled: true
 ```
 

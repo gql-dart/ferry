@@ -18,5 +18,5 @@ targets:
         options:
           schema: pokemon_explorer|lib/schema.graphql
 
-      ferry|req_builder:
+      ferry_generator|req_builder:
         enabled: true

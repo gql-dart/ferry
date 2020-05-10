@@ -8,6 +8,7 @@ dependencies:
   gql_link: ^0.3.0
   gql_http_link: ^0.2.2
   ferry: ^0.4.0
+  ferry_generator: ^0.1.0
   ferry_hive_store: ^0.1.0
   hive: ^1.3.0
   hive_flutter: ^0.3.0+1
@@ -20,11 +21,3 @@ dev_dependencies:
     sdk: flutter
 flutter:
   uses-material-design: true
-
-depenency_overrides:
-  ferry:
-    path: ../../
-  ferry_hive_store:
-    path: ../../../ferry_hive_store
-  ferry_store:
-    path: ../../../ferry_store
