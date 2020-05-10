@@ -1,3 +1,5 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
 import 'package:gql/ast.dart' as _i1;
 
 const NestedFragment = _i1.FragmentDefinitionNode(

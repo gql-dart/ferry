@@ -1,3 +1,5 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
 class PokemonDetailVarBuilder {
   final Map<String, dynamic> variables = <String, dynamic>{};
 

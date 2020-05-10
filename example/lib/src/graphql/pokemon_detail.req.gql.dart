@@ -1,11 +1,10 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
 import 'package:ferry/ferry.dart' as _i1;
-import 'package:gql_example_flutter/src/graphql/pokemon_detail.data.gql.dart'
-    as _i2;
-import 'package:gql_example_flutter/src/graphql/pokemon_detail.var.gql.dart'
-    as _i3;
+import 'package:ferry_example/src/graphql/pokemon_detail.data.gql.dart' as _i2;
+import 'package:ferry_example/src/graphql/pokemon_detail.var.gql.dart' as _i3;
 import 'package:gql_exec/gql_exec.dart' as _i4;
-import 'package:gql_example_flutter/src/graphql/pokemon_detail.op.gql.dart'
-    as _i5;
+import 'package:ferry_example/src/graphql/pokemon_detail.op.gql.dart' as _i5;
 
 class PokemonDetail extends _i1.QueryRequest<_i2.$PokemonDetail> {
   factory PokemonDetail(

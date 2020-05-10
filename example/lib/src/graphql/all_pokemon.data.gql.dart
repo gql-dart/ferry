@@ -1,4 +1,6 @@
-import 'package:gql_example_flutter/src/graphql/pokemon_card_fragment.data.gql.dart'
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+import 'package:ferry_example/src/graphql/pokemon_card_fragment.data.gql.dart'
     as _i1;
 
 class $AllPokemon {

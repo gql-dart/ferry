@@ -8,15 +8,15 @@ targets:
       gql_build|op_builder:
         enabled: true
         options:
-          schema: gql_example_flutter|lib/schema.graphql
+          schema: ferry_example|lib/schema.graphql
       gql_build|data_builder:
         enabled: true
         options:
-          schema: gql_example_flutter|lib/schema.graphql
+          schema: ferry_example|lib/schema.graphql
       gql_build|var_builder:
         enabled: true
         options:
-          schema: gql_example_flutter|lib/schema.graphql
+          schema: ferry_example|lib/schema.graphql
 
       ferry|req_builder:
         enabled: true

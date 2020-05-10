@@ -1,5 +1,7 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
 import 'package:gql/ast.dart' as _i1;
-import 'package:gql_example_flutter/src/graphql/pokemon_card_fragment.ast.gql.dart'
+import 'package:ferry_example/src/graphql/pokemon_card_fragment.ast.gql.dart'
     as _i2;
 
 const PokemonDetail = _i1.OperationDefinitionNode(
