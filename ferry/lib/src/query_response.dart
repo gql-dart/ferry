@@ -44,8 +44,7 @@ class QueryResponse<T> {
   /// If this response has any error.
   bool get hasErrors =>
       linkException != null ||
-      (graphqlErrors != null &&
-      graphqlErrors.isNotEmpty);
+      (graphqlErrors != null && graphqlErrors.isNotEmpty);
 
   /// Instantiates a GraphQL response.
   const QueryResponse({
