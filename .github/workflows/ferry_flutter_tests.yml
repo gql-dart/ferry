@@ -1,0 +1,20 @@
+name: Ferry Flutter Tests
+
+on:
+  push:
+    paths:
+      - "ferry_flutter/*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    container:
+      image: google/dart:latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Install dependencies
+        run: flutter pub get
+      - name: Run tests
+        run: flutter pub run test
