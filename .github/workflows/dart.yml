@@ -1,0 +1,90 @@
+name: Dart
+on: pull_request
+
+jobs:
+  packages:
+    strategy:
+      matrix:
+        package:
+          - ferry
+          - ferry_cache
+          - ferry_flutter
+          - ferry_generator
+          - ferry_hive_store
+          - ferry_store
+          - normalize
+    runs-on: ubuntu-latest
+    container:
+      image: google/dart:latest
+    name: Check ${{ matrix.package }}
+    env:
+      PACKAGE: ${{ matrix.package }}
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v2
+      - name: Activate multipack
+        run: |
+          echo "::add-path::$HOME/.pub-cache/bin"
+          pub global activate multipack
+      - name: Override local dependencies
+        run: |
+          multipack pubspec hard_override
+      - name: Get dependencies
+        run: |
+          multipack --only $PACKAGE pub get
+      - name: Check formatting
+        run: |
+          echo ""
+          echo "A list of incorrectly formatted files may follow:"
+          echo ""
+          multipack --only $PACKAGE fmt -n . --set-exit-if-changed
+          echo ""
+      - name: Analyze package
+        run: |
+          multipack --only $PACKAGE analyze --version
+          multipack --only $PACKAGE analyze --fatal-warnings --no-hints .
+      - name: Run tests
+        run: |
+          multipack --only $PACKAGE exec [ ! -d ./test ] && exit 0
+          multipack --only $PACKAGE pub run test
+  examples:
+    strategy:
+      matrix:
+        package:
+          - pokemon_explorer
+    runs-on: ubuntu-latest
+    container:
+      image: google/dart:latest
+    name: Check ${{ matrix.package }}
+    env:
+      PACKAGE: ${{ matrix.package }}
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v2
+      - name: Activate multipack
+        run: |
+          echo "::add-path::$HOME/.pub-cache/bin"
+          pub global activate multipack
+      - name: Override local dependencies
+        run: |
+          multipack pubspec hard_override
+      - name: Get dependencies
+        run: |
+          multipack --only $PACKAGE pub get
+      - name: Run builders
+        run: |
+          multipack --only $PACKAGE pub run build_runner build --delete-conflicting-outputs
+      - name: Check build diff
+        run: |
+          multipack --only $PACKAGE exec git diff --exit-code **/*.gql.dart
+      - name: Check formatting
+        run: |
+          echo ""
+          echo "A list of incorrectly formatted files may follow:"
+          echo ""
+          multipack --only $PACKAGE fmt -n . --set-exit-if-changed
+          echo ""
+      - name: Analyze package
+        run: |
+          multipack --only $PACKAGE analyze --version
+          multipack --only $PACKAGE analyze --fatal-warnings --no-hints .
