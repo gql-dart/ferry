@@ -1,0 +1,11 @@
+name: ferry_store
+version: 0.1.0
+description: Default Store for Ferry GraphQL client
+homepage: https://github.com/gql-dart/ferry/tree/master/ferry_store
+repository: https://github.com/gql-dart/ferry
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dev_dependencies:
+  test: ^1.9.4
