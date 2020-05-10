@@ -15,7 +15,7 @@ jobs:
           - normalize
     runs-on: ubuntu-latest
     container:
-      image: google/dart:latest
+      image: cirrusci/flutter:latest
     name: Check ${{ matrix.package }}
     env:
       PACKAGE: ${{ matrix.package }}
@@ -54,7 +54,7 @@ jobs:
           - pokemon_explorer
     runs-on: ubuntu-latest
     container:
-      image: google/dart:latest
+      image: cirrusci/flutter:latest
     name: Check ${{ matrix.package }}
     env:
       PACKAGE: ${{ matrix.package }}
