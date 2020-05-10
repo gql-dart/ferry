@@ -13,7 +13,3 @@ dependencies:
 
 dev_dependencies:
   test: ^1.9.4
-
-dependency_overrides:
-  ferry_store:
-    path: ../ferry_store

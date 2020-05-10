@@ -19,9 +19,3 @@ dev_dependencies:
   mockito: ^4.1.1
   build_runner: ^1.6.7
   build_test: ^0.10.12+1
-
-dependency_overrides:
-  ferry_cache:
-    path: ../ferry_cache
-  ferry_store:
-    path: ../ferry_store
