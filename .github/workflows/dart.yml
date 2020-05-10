@@ -1,18 +1,48 @@
-name: Dart CI
-
-on: [push]
+name: Dart
+on: pull_request
 
 jobs:
-  build:
-
+  packages:
+    strategy:
+      matrix:
+        package:
+          - ferry
+          - ferry_cache
+          - ferry_generator
+          - ferry_hive_store
+          - ferry_store
+          - normalize
     runs-on: ubuntu-latest
-
     container:
-      image:  google/dart:latest
-
+      image: google/dart:latest
+    name: Check ${{ matrix.package }}
+    env:
+      PACKAGE: ${{ matrix.package }}
     steps:
-    - uses: actions/checkout@v1
-    - name: Install dependencies
-      run: pub get
-    - name: Run tests
-      run: pub run test
+      - name: Clone repository
+        uses: actions/checkout@v2
+      - name: Activate multipack
+        run: |
+          echo "::add-path::$HOME/.pub-cache/bin"
+          pub global activate multipack
+      - name: Override local dependencies
+        run: |
+          multipack pubspec hard_override
+      - name: Get dependencies
+        run: |
+          multipack --only $PACKAGE pub get
+      - name: Check formatting
+        run: |
+          echo ""
+          echo "A list of incorrectly formatted files may follow:"
+          echo ""
+          multipack --only $PACKAGE fmt -n . --set-exit-if-changed
+          echo ""
+      - name: Analyze package
+        run: |
+          multipack --only $PACKAGE analyze --version
+          multipack --only $PACKAGE analyze --fatal-warnings --no-hints .
+      - name: Run tests
+        run: |
+          multipack --only $PACKAGE exec [ ! -d ./test ] && exit 0
+          multipack --only $PACKAGE pub run test
