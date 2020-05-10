@@ -1,14 +1,14 @@
 name: normalize
-version: 0.1.4
+version: 0.1.5
 description: Normalization and denormalization of GraphQL responses in Dart
-homepage: https://github.com/gql-dart/normalize
-repository: https://github.com/gql-dart/normalize
+homepage: https://github.com/gql-dart/ferry/tree/master/normalize
+repository: https://github.com/gql-dart/ferry
 
 environment:
   sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
-  gql: ^0.12.0
+  gql: ^0.12.3
 
 dev_dependencies:
-  test: ^1.9.4
+  test: ^1.14.3
