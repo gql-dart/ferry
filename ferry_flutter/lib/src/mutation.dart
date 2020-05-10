@@ -31,7 +31,7 @@ class Mutation<T> extends StatefulWidget {
   _MutationState<T> createState() => _MutationState(builder: builder);
 }
 
-class _MutationState<T> extends State<Query> {
+class _MutationState<T> extends State<Mutation> {
   final MutationResponseBuilder<T> builder;
 
   Stream<QueryResponse<T>> stream;
@@ -48,7 +48,7 @@ class _MutationState<T> extends State<Query> {
   }
 
   @override
-  void didUpdateWidget(Query oldWidget) {
+  void didUpdateWidget(Mutation oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.queryRequest != widget.queryRequest) {
       setState(() {
