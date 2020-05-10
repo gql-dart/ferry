@@ -158,10 +158,45 @@ packages:
   ferry:
     dependency: "direct main"
     description:
-      name: ferry
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.3.1+2"
+      path: "../../ferry"
+      relative: true
+    source: path
+    version: "0.4.0"
+  ferry_cache:
+    dependency: "direct overridden"
+    description:
+      path: "../../ferry_cache"
+      relative: true
+    source: path
+    version: "0.1.0"
+  ferry_flutter:
+    dependency: "direct overridden"
+    description:
+      path: "../../ferry_flutter"
+      relative: true
+    source: path
+    version: "0.1.0"
+  ferry_generator:
+    dependency: "direct main"
+    description:
+      path: "../../ferry_generator"
+      relative: true
+    source: path
+    version: "0.1.0"
+  ferry_hive_store:
+    dependency: "direct main"
+    description:
+      path: "../../ferry_hive_store"
+      relative: true
+    source: path
+    version: "0.1.0"
+  ferry_store:
+    dependency: "direct overridden"
+    description:
+      path: "../../ferry_store"
+      relative: true
+    source: path
+    version: "0.1.0"
   fixnum:
     dependency: transitive
     description:
@@ -199,7 +234,7 @@ packages:
       name: gql
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.1"
+    version: "0.12.3"
   gql_build:
     dependency: "direct dev"
     description:
@@ -362,12 +397,12 @@ packages:
     source: hosted
     version: "1.0.1+2"
   normalize:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: normalize
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.4"
+      path: "../../normalize"
+      relative: true
+    source: path
+    version: "0.2.0"
   package_config:
     dependency: transitive
     description:
