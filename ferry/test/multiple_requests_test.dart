@@ -38,7 +38,7 @@ void main() {
           .responseStream(req1, executeOnListen: false)
           .scan<List<QueryResponse<$AllPokemon>>>(
               (acc, val, _) => acc..add(val),
-              []).takeUntil(TimerStream(null, Duration(milliseconds: 1)));
+              []).takeUntil(TimerStream(null, Duration(milliseconds: 100)));
 
       () async {
         await Future.delayed(Duration.zero);
@@ -70,7 +70,7 @@ void main() {
           .responseStream(req1, executeOnListen: false)
           .scan<List<QueryResponse<$AllPokemon>>>((acc, val, _) {
         return acc..add(val);
-      }, []).takeUntil(TimerStream(null, Duration(milliseconds: 1)));
+      }, []).takeUntil(TimerStream(null, Duration(milliseconds: 100)));
 
       () async {
         await Future.delayed(Duration.zero);
@@ -113,7 +113,7 @@ void main() {
           .responseStream(req1, executeOnListen: false)
           .scan<List<QueryResponse<$AllPokemon>>>((acc, val, _) {
         return acc..add(val);
-      }, []).takeUntil(TimerStream(null, Duration(milliseconds: 1)));
+      }, []).takeUntil(TimerStream(null, Duration(milliseconds: 100)));
 
       () async {
         await Future.delayed(Duration.zero);
