@@ -18,7 +18,7 @@
 [github-forks-link]: https://github.com/gql-dart/ferry/network/members
 
 [discord-badge]: https://img.shields.io/discord/559455668810153989.svg?style=for-the-badge&logo=discord&logoColor=ffffff
-[discord-link]: https://discord.gg/NryjpVa
+[discord-link]: https://discord.gg/QRTfXE
 
 Flutter widgets for executing GraphQL operations using the `ferry` client.
 
