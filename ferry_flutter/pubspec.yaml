@@ -6,7 +6,7 @@ repository: https://github.com/gql-dart/ferry
 environment: 
   sdk: '>=2.7.0 <3.0.0'
 dependencies: 
-  ferry: ^0.3.1+2
+  ferry: ^0.4.0
   gql_exec: ^0.2.4
   flutter: 
     sdk: flutter
