@@ -7,6 +7,7 @@ import './classes/type_policy.dart';
 import './helpers/resolve_root_typename.dart';
 import './classes/add_typename_visitor.dart';
 import './classes/partial_data_exception.dart';
+import './helpers/deep_merge.dart';
 
 /// Denormalizes data for a given query
 ///
@@ -113,11 +114,17 @@ Map<String, dynamic> denormalize({
           if (!denormalizedData.containsKey(fieldName)) {
             if (!returnPartialData) throw PartialDataException();
           } else {
-            result[selection.alias?.value ?? selection.name.value] =
-                denormalizeNode(
+            final key = selection.alias?.value ?? selection.name.value;
+            final existingValue = result[key];
+            final newValue = denormalizeNode(
               node: selection,
               dataForNode: denormalizedData[fieldName],
             );
+            if (existingValue is Map && newValue is Map) {
+              result[key] = deepMerge(existingValue, newValue);
+            } else {
+              result[key] = newValue;
+            }
           }
           return result;
         },
