@@ -23,14 +23,11 @@ List<FieldNode> expandFragments({
       }
     } else if (selectionNode is FragmentSpreadNode) {
       final fragment = fragmentMap[selectionNode.name.value];
-      // Only include this fragment if the type name matches
-      if (fragment.typeCondition.on.name.value == data["__typename"]) {
-        fieldNodes.addAll(expandFragments(
-          data: data,
-          selectionSet: fragment.selectionSet,
-          fragmentMap: fragmentMap,
-        ));
-      }
+      fieldNodes.addAll(expandFragments(
+        data: data,
+        selectionSet: fragment.selectionSet,
+        fragmentMap: fragmentMap,
+      ));
     } else {
       throw (FormatException("Unknown selection node type"));
     }
