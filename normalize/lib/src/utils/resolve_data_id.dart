@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart';
 
-import '../classes/type_policy.dart';
+import '../options/type_policy.dart';
 
 typedef DataIdResolver = String Function(Map<String, dynamic> object);
 

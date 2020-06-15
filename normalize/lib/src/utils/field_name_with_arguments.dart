@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:gql/ast.dart';
 
-import '../classes/type_policy.dart';
+import '../options/type_policy.dart';
 
 Object _resolveValueNode(
   ValueNode valueNode,
