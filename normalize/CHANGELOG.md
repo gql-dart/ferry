@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.1] - 2020-06-15
+
+### Changed
+
+- fix bug with fragments on same object with different fields
+- fix issue when using a fragment spread on an interface type
+
 ## [0.2.0] - 2020-05-10
 
 ### Changed
