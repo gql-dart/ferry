@@ -1,12 +1,12 @@
 import 'package:gql/ast.dart';
 import 'package:meta/meta.dart';
 
-import './helpers/field_name_with_arguments.dart';
-import './helpers/expand_fragments.dart';
-import './classes/type_policy.dart';
-import './helpers/resolve_root_typename.dart';
-import './classes/add_typename_visitor.dart';
-import './classes/partial_data_exception.dart';
+import './utils/field_name_with_arguments.dart';
+import './utils/expand_fragments.dart';
+import './options/type_policy.dart';
+import './utils/resolve_root_typename.dart';
+import './utils/add_typename_visitor.dart';
+import './utils/exceptions.dart';
 
 /// Denormalizes data for a given query
 ///

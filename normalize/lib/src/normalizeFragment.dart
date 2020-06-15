@@ -1,11 +1,11 @@
 import 'package:gql/ast.dart';
 import 'package:meta/meta.dart';
 
-import './helpers/resolve_data_id.dart';
-import './helpers/field_name_with_arguments.dart';
-import './helpers/expand_fragments.dart';
-import './classes/type_policy.dart';
-import './classes/add_typename_visitor.dart';
+import './utils/resolve_data_id.dart';
+import './utils/field_name_with_arguments.dart';
+import './utils/expand_fragments.dart';
+import './options/type_policy.dart';
+import './utils/add_typename_visitor.dart';
 
 /// Normalizes data for a given fragment
 ///
