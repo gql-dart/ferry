@@ -33,7 +33,7 @@ List<FieldNode> expandFragments({
       throw (FormatException("Unknown selection node type"));
     }
   }
-  return _mergeSelections(fieldNodes).whereType<FieldNode>().toList();
+  return List.from(_mergeSelections(fieldNodes));
 }
 
 /// Deeply merges field nodes
@@ -47,6 +47,8 @@ List<SelectionNode> _mergeSelections(
             if (selection is FieldNode) {
               final key = selection.alias?.value ?? selection.name.value;
               if (selection.selectionSet == null) {
+                return selectionMap..[key] = selection;
+              } else if (!selectionMap.containsKey(key)) {
                 return selectionMap..[key] = selection;
               } else {
                 final existingNode = selectionMap[key];
