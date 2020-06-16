@@ -1,14 +1,14 @@
 name: ferry_cache
-version: 0.1.0
+version: 0.1.1
 homepage: https://github.com/gql-dart/ferry/tree/master/ferry_cache
 description: Cache functionality for Ferry GraphQL client
 repository: https://github.com/gql-dart/ferry
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: '>=2.7.0 <3.0.0'
 dependencies:
   ferry_store: ^0.1.0
   rxdart: ^0.24.0
-  normalize: ^0.1.1
+  normalize: ^0.2.1
   gql: ^0.12.0
   gql_exec: ^0.2.4
   meta: ^1.1.8
