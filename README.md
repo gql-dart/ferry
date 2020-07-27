@@ -40,11 +40,11 @@ See the `ferry` client package directory for [usage instructions](https://github
 
 | Feature                                                                                              | Progress |
 | :--------------------------------------------------------------------------------------------------- | :------: |
-| Generated Fully Typed Queries and Resposnes (using `gql_build`)                                      |    ✅     |
+| Generated Fully Typed Queries and Responses (using `gql_build`)                                      |    ✅     |
 | Customizable `Link`s (using `gql_link`)                                                              |    ✅     |
 | Optimistic Cache                                                                                     |    ✅     |
 | Multiple data stores, including `MemoryStore` and `HiveStore` (using `hive` for offline persistence) |    ✅     |
-| Update queries with additinal data (e.g. for pagination)                                             |    ✅     |
+| Update queries with additional data (e.g. for pagination)                                             |    ✅     |
 | Flutter Widgets                                                                                      |    ✅     |
 | Offline Mutations                                                                                    |    🔜     |
 
