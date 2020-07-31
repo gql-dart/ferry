@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:ferry/ferry.dart';
 
-typedef QueryResponseBuilder<T> = Widget Function(
+typedef QueryResponseBuilder<TData, TVars> = Widget Function(
   BuildContext context,
-  QueryResponse<T> response,
+  QueryResponse<TData, TVars> response,
 );
 
-class Query<T> extends StatefulWidget {
-  final QueryRequest<T> queryRequest;
-  final QueryResponseBuilder<T> builder;
+class Query<TData, TVars> extends StatefulWidget {
+  final QueryRequest<TData, TVars> queryRequest;
+  final QueryResponseBuilder<TData, TVars> builder;
   final Client client;
 
   Query({
@@ -18,13 +18,11 @@ class Query<T> extends StatefulWidget {
   });
 
   @override
-  _QueryState<T> createState() => _QueryState();
+  _QueryState<TData, TVars> createState() => _QueryState();
 }
 
-class _QueryState<T> extends State<Query<T>> {
-
-  Stream<QueryResponse<T>> stream;
-
+class _QueryState<TData, TVars> extends State<Query<TData, TVars>> {
+  Stream<QueryResponse<TData, TVars>> stream;
 
   @override
   void initState() {
@@ -44,8 +42,8 @@ class _QueryState<T> extends State<Query<T>> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QueryResponse<T>>(
-      initialData: QueryResponse<T>(
+    return StreamBuilder<QueryResponse<TData, TVars>>(
+      initialData: QueryResponse<TData, TVars>(
         queryRequest: widget.queryRequest,
         dataSource: DataSource.None,
       ),
