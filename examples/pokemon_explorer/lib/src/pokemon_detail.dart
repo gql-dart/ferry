@@ -5,6 +5,7 @@ import 'package:ferry_flutter/ferry_flutter.dart';
 
 import './graphql/pokemon_detail.data.gql.dart';
 import './graphql/pokemon_detail.req.gql.dart';
+import './graphql/pokemon_detail.var.gql.dart';
 import './pokemon_card.dart';
 
 class PokemonDetailScreen extends StatelessWidget {
@@ -18,12 +19,12 @@ class PokemonDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Query(
       client: client,
-      queryRequest: PokemonDetail(
-        buildVars: (vars) => vars..id = id,
+      queryRequest: GPokemonDetail(
+        (b) => b..vars.id = id,
       ),
       builder: (
         BuildContext context,
-        QueryResponse<$PokemonDetail> response,
+        QueryResponse<GPokemonDetailData, GPokemonDetailVars> response,
       ) {
         if (response.loading)
           return Scaffold(

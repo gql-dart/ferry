@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:ferry/ferry.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ferry_flutter/ferry_flutter.dart';
+import 'package:built_collection/built_collection.dart';
 
 import './graphql/all_pokemon.data.gql.dart';
 import './graphql/all_pokemon.req.gql.dart';
+import './graphql/all_pokemon.var.gql.dart';
 import './pokemon_card.dart';
 
 class AllPokemonScreen extends StatelessWidget {
@@ -18,17 +20,17 @@ class AllPokemonScreen extends StatelessWidget {
       ),
       body: Query(
         client: client,
-        queryRequest: AllPokemon(
-          buildVars: (vars) => vars..first = 500,
+        queryRequest: GAllPokemon(
+          (b) => b..vars.first = 500,
         ),
         builder: (
           BuildContext context,
-          QueryResponse<$AllPokemon> response,
+          QueryResponse<GAllPokemonData, GAllPokemonVars> response,
         ) {
           if (response.loading)
             return Center(child: CircularProgressIndicator());
 
-          final pokemons = response.data?.pokemons ?? [];
+          final pokemons = response.data?.pokemons ?? BuiltList();
 
           return ListView.builder(
             itemCount: pokemons.length,

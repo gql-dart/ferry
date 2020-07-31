@@ -1,78 +1,56 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
 import 'package:ferry/ferry.dart' as _i1;
+import 'package:gql_exec/gql_exec.dart' as _i4;
+import 'package:pokemon_explorer/serializers.gql.dart' as _i6;
+import 'package:pokemon_explorer/src/graphql/pokemon_detail.ast.gql.dart'
+    as _i5;
 import 'package:pokemon_explorer/src/graphql/pokemon_detail.data.gql.dart'
     as _i2;
 import 'package:pokemon_explorer/src/graphql/pokemon_detail.var.gql.dart'
     as _i3;
-import 'package:gql_exec/gql_exec.dart' as _i4;
-import 'package:pokemon_explorer/src/graphql/pokemon_detail.op.gql.dart' as _i5;
 
-class PokemonDetail extends _i1.QueryRequest<_i2.$PokemonDetail> {
-  factory PokemonDetail(
-          {_i3.PokemonDetailVarBuilder Function(_i3.PokemonDetailVarBuilder)
-              buildVars,
-          String queryId,
-          _i2.$PokemonDetail Function(_i2.$PokemonDetail, _i2.$PokemonDetail)
-              updateResult,
-          Map<String, dynamic> optimisticResponse,
-          updateCacheHandlerKey,
-          _i4.Context context,
-          _i1.FetchPolicy fetchPolicy}) =>
-      PokemonDetail._(
-          operation: _i5.PokemonDetail,
-          variables: buildVars != null
-              ? buildVars(_i3.PokemonDetailVarBuilder()).variables
-              : const {},
-          context: context != null ? context : const _i4.Context(),
-          queryId: queryId,
-          updateResult: updateResult,
-          optimisticResponse: optimisticResponse,
-          updateCacheHandlerKey: updateCacheHandlerKey,
-          fetchPolicy: fetchPolicy);
+part 'pokemon_detail.req.gql.g.dart';
 
-  PokemonDetail._(
-      {_i4.Operation operation,
-      Map<String, dynamic> variables,
-      _i4.Context context,
-      String queryId,
-      _i2.$PokemonDetail Function(_i2.$PokemonDetail, _i2.$PokemonDetail)
-          updateResult,
-      Map<String, dynamic> optimisticResponse,
-      String updateCacheHandlerKey,
-      _i1.FetchPolicy fetchPolicy})
-      : super(
-            operation: operation,
-            variables: variables,
-            context: context,
-            queryId: queryId,
-            updateResult: updateResult,
-            optimisticResponse: optimisticResponse,
-            updateCacheHandlerKey: updateCacheHandlerKey,
-            fetchPolicy: fetchPolicy);
+abstract class GPokemonDetail
+    implements
+        Built<GPokemonDetail, GPokemonDetailBuilder>,
+        _i1.QueryRequest<_i2.GPokemonDetailData, _i3.GPokemonDetailVars> {
+  GPokemonDetail._();
 
+  factory GPokemonDetail([Function(GPokemonDetailBuilder b) updates]) =
+      _$GPokemonDetail;
+
+  static void _initializeBuilder(GPokemonDetailBuilder b) => b
+    ..operation =
+        _i4.Operation(document: _i5.document, operationName: 'PokemonDetail');
+  _i3.GPokemonDetailVars get vars;
+  _i4.Operation get operation;
+  _i4.Request get execRequest =>
+      _i4.Request(operation: operation, variables: vars.toJson());
+  @nullable
+  String get queryId;
+  @nullable
+  @BuiltValueField(serialize: false)
+  _i2.GPokemonDetailData Function(
+      _i2.GPokemonDetailData, _i2.GPokemonDetailData) get updateResult;
+  @nullable
+  _i2.GPokemonDetailData get optimisticResponse;
+  @nullable
+  String get updateCacheHandlerKey;
+  @nullable
+  Map<String, dynamic> get updateCacheHandlerContext;
+  @nullable
+  _i1.FetchPolicy get fetchPolicy;
   @override
-  _i2.$PokemonDetail parseData(Map<String, dynamic> json) =>
-      _i2.$PokemonDetail(json);
-  @override
-  PokemonDetail copyWith(
-          {_i4.Operation operation,
-          Map<String, dynamic> variables,
-          _i4.Context context,
-          String queryId,
-          _i2.$PokemonDetail Function(_i2.$PokemonDetail, _i2.$PokemonDetail)
-              updateResult,
-          Map<String, dynamic> optimisticResponse,
-          String updateCacheHandlerKey,
-          _i1.FetchPolicy fetchPolicy}) =>
-      PokemonDetail._(
-          operation: operation ?? this.operation,
-          variables: variables ?? this.variables,
-          context: context ?? this.context,
-          queryId: queryId ?? this.queryId,
-          updateResult: updateResult ?? this.updateResult,
-          optimisticResponse: optimisticResponse ?? this.optimisticResponse,
-          updateCacheHandlerKey:
-              updateCacheHandlerKey ?? this.updateCacheHandlerKey,
-          fetchPolicy: fetchPolicy ?? this.fetchPolicy);
+  _i2.GPokemonDetailData parseData(Map<String, dynamic> json) =>
+      _i2.GPokemonDetailData.fromJson(json);
+  static Serializer<GPokemonDetail> get serializer =>
+      _$gPokemonDetailSerializer;
+  Map<String, dynamic> toJson() =>
+      _i6.serializers.serializeWith(GPokemonDetail.serializer, this);
+  static GPokemonDetail fromJson(Map<String, dynamic> json) =>
+      _i6.serializers.deserializeWith(GPokemonDetail.serializer, json);
 }
