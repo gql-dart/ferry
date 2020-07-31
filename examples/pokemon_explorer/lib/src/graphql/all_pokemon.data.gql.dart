@@ -1,27 +1,57 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+import 'package:built_collection/built_collection.dart';
+import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
+import 'package:pokemon_explorer/serializers.gql.dart' as _i1;
 import 'package:pokemon_explorer/src/graphql/pokemon_card_fragment.data.gql.dart'
-    as _i1;
+    as _i2;
 
-class $AllPokemon {
-  const $AllPokemon(this.data);
+part 'all_pokemon.data.gql.g.dart';
 
-  final Map<String, dynamic> data;
+abstract class GAllPokemonData
+    implements Built<GAllPokemonData, GAllPokemonDataBuilder> {
+  GAllPokemonData._();
 
-  List<$AllPokemon$pokemons> get pokemons => data['pokemons'] == null
-      ? null
-      : (data['pokemons'] as List)
-          .map((dynamic e) => $AllPokemon$pokemons((e as Map<String, dynamic>)))
-          .toList();
+  factory GAllPokemonData([Function(GAllPokemonDataBuilder b) updates]) =
+      _$GAllPokemonData;
+
+  @nullable
+  BuiltList<GAllPokemonData_pokemons> get pokemons;
+  static Serializer<GAllPokemonData> get serializer =>
+      _$gAllPokemonDataSerializer;
+  Map<String, dynamic> toJson() =>
+      _i1.serializers.serializeWith(GAllPokemonData.serializer, this);
+  static GAllPokemonData fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(GAllPokemonData.serializer, json);
 }
 
-class $AllPokemon$pokemons implements _i1.$PokemonCard {
-  const $AllPokemon$pokemons(this.data);
+abstract class GAllPokemonData_pokemons
+    implements
+        Built<GAllPokemonData_pokemons, GAllPokemonData_pokemonsBuilder>,
+        _i2.GPokemonCard {
+  GAllPokemonData_pokemons._();
 
-  final Map<String, dynamic> data;
+  factory GAllPokemonData_pokemons(
+          [Function(GAllPokemonData_pokemonsBuilder b) updates]) =
+      _$GAllPokemonData_pokemons;
 
-  String get id => (data['id'] as String);
-  String get name => (data['name'] as String);
-  int get maxHP => (data['maxHP'] as int);
-  String get image => (data['image'] as String);
+  static void _initializeBuilder(GAllPokemonData_pokemonsBuilder b) =>
+      b..G__typename = 'Pokemon';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  String get id;
+  @nullable
+  String get name;
+  @nullable
+  int get maxHP;
+  @nullable
+  String get image;
+  static Serializer<GAllPokemonData_pokemons> get serializer =>
+      _$gAllPokemonDataPokemonsSerializer;
+  Map<String, dynamic> toJson() =>
+      _i1.serializers.serializeWith(GAllPokemonData_pokemons.serializer, this);
+  static GAllPokemonData_pokemons fromJson(Map<String, dynamic> json) =>
+      _i1.serializers
+          .deserializeWith(GAllPokemonData_pokemons.serializer, json);
 }

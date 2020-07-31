@@ -5,10 +5,6 @@ targets:
         enabled: true
       gql_build|ast_builder:
         enabled: true
-      gql_build|op_builder:
-        enabled: true
-        options:
-          schema: pokemon_explorer|lib/schema.graphql
       gql_build|data_builder:
         enabled: true
         options:
@@ -17,6 +13,12 @@ targets:
         enabled: true
         options:
           schema: pokemon_explorer|lib/schema.graphql
+      gql_build|serializer_builder:
+        enabled: true
+        options:
+          schema: pokemon_explorer|lib/schema.graphql
 
       ferry_generator|req_builder:
         enabled: true
+        options:
+          schema: pokemon_explorer|lib/schema.graphql
