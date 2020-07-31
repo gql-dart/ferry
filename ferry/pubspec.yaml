@@ -3,9 +3,9 @@ version: 0.4.1
 homepage: https://github.com/gql-dart/ferry/tree/master/ferry
 description: Stream-based GraphQL Client for Dart
 repository: https://github.com/gql-dart/ferry
-environment:
+environment: 
   sdk: '>=2.7.0 <3.0.0'
-dependencies:
+dependencies: 
   rxdart: ^0.24.0
   gql: ^0.12.0
   gql_link: ^0.3.0
@@ -14,8 +14,9 @@ dependencies:
   meta: ^1.1.8
   normalize: ^0.2.1
   collection: ^1.14.12
-dev_dependencies:
+dev_dependencies: 
   test: ^1.9.4
   mockito: ^4.1.1
   build_runner: ^1.6.7
   build_test: ^0.10.12+1
+  built_value_generator: ^7.1.0

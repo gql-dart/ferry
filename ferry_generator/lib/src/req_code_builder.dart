@@ -2,265 +2,170 @@ import "package:built_collection/built_collection.dart";
 import "package:code_builder/code_builder.dart";
 import "package:gql/ast.dart";
 import "package:gql_code_builder/source.dart";
+import "package:gql_code_builder/src/built_class.dart";
+import "package:gql_code_builder/src/common.dart";
 
-Library buildReqLibrary(SourceNode docSource) => Library(
-      (b) => b.body
-        ..addAll(
-          _buildOperationReqClasses(docSource.flatDocument),
+Library buildReqLibrary(
+  SourceNode docSource,
+  String partUrl,
+) =>
+    Library(
+      (b) => b
+        ..directives.add(Directive.part(partUrl))
+        ..body.addAll(
+          _buildOperationReqClasses(
+            docSource,
+          ),
         ),
     );
 
-List<Class> _buildOperationReqClasses(DocumentNode doc) => doc.definitions
-    .whereType<OperationDefinitionNode>()
-    .map(_buildOperationReqClass)
-    .toList();
+List<Class> _buildOperationReqClasses(
+  SourceNode docSource,
+) =>
+    docSource.document.definitions
+        .whereType<OperationDefinitionNode>()
+        .map(_buildOperationReqClass)
+        .toList();
 
-Class _buildOperationReqClass(OperationDefinitionNode node) {
-  final name = node.name.value;
-  final dataTypeRef = refer("\$${node.name.value}", "#data");
+Class _buildOperationReqClass(
+  OperationDefinitionNode node,
+) {
+  final dataTypeRef = refer("${builtClassName(node.name.value)}Data", "#data");
+  final varTypeRef = refer("${builtClassName(node.name.value)}Vars", "#var");
   final gqlClientUrl = "package:ferry/ferry.dart";
 
-  return Class(
-    (b) => b
-      ..name = name
-      ..extend = TypeReference(
+  return builtClass(
+    name: node.name.value,
+    getters: [
+      Method(
         (b) => b
-          ..symbol = "QueryRequest"
-          ..url = gqlClientUrl
-          ..types.add(dataTypeRef),
-      )
-      ..constructors = ListBuilder<Constructor>([
-        _buildFactoryConstructor(node),
-        _buildPrivateConstructor(node),
-      ])
-      ..methods = ListBuilder<Method>(
-        <Method>[
-          _buildParse(node),
-          _buildCopyWith(node),
-        ],
+          ..returns = varTypeRef
+          ..type = MethodType.getter
+          ..name = "vars",
+      ),
+      Method(
+        (b) => b
+          ..returns = refer(
+            "Operation",
+            "package:gql_exec/gql_exec.dart",
+          )
+          ..type = MethodType.getter
+          ..name = "operation",
+      ),
+      Method(
+        (b) => b
+          ..returns = refer(
+            "Request",
+            "package:gql_exec/gql_exec.dart",
+          )
+          ..type = MethodType.getter
+          ..name = "execRequest"
+          ..lambda = true
+          ..body = refer(
+            "Request",
+            "package:gql_exec/gql_exec.dart",
+          ).call([], {
+            "operation": refer("operation"),
+            "variables": refer("vars").property("toJson").call([]),
+          }).code,
+      ),
+      Method(
+        (b) => b
+          ..annotations
+              .add(refer("nullable", "package:built_value/built_value.dart"))
+          ..returns = refer("String")
+          ..type = MethodType.getter
+          ..name = "queryId",
+      ),
+      Method(
+        (b) => b
+          ..annotations.addAll([
+            refer("nullable", "package:built_value/built_value.dart"),
+            refer("BuiltValueField", "package:built_value/built_value.dart")
+                .call([], {
+              "serialize": refer("false"),
+            }),
+          ])
+          ..returns = FunctionType(
+            (b) => b
+              ..returnType = dataTypeRef
+              ..requiredParameters = ListBuilder<Reference>([
+                dataTypeRef,
+                dataTypeRef,
+              ]),
+          )
+          ..type = MethodType.getter
+          ..name = "updateResult",
+      ),
+      Method(
+        (b) => b
+          ..annotations
+              .add(refer("nullable", "package:built_value/built_value.dart"))
+          ..returns = dataTypeRef
+          ..type = MethodType.getter
+          ..name = "optimisticResponse",
+      ),
+      Method(
+        (b) => b
+          ..annotations
+              .add(refer("nullable", "package:built_value/built_value.dart"))
+          ..returns = refer("String")
+          ..type = MethodType.getter
+          ..name = "updateCacheHandlerKey",
+      ),
+      Method(
+        (b) => b
+          ..annotations
+              .add(refer("nullable", "package:built_value/built_value.dart"))
+          ..returns = refer("Map<String, dynamic>")
+          ..type = MethodType.getter
+          ..name = "updateCacheHandlerContext",
+      ),
+      Method(
+        (b) => b
+          ..annotations
+              .add(refer("nullable", "package:built_value/built_value.dart"))
+          ..returns = refer("FetchPolicy", gqlClientUrl)
+          ..type = MethodType.getter
+          ..name = "fetchPolicy",
+      ),
+      Method(
+        (b) => b
+          ..annotations.add(refer("override"))
+          ..returns = dataTypeRef
+          ..name = "parseData"
+          ..requiredParameters.add(
+            Parameter(
+              (b) => b
+                ..type = refer("Map<String, dynamic>")
+                ..name = "json",
+            ),
+          )
+          ..lambda = true
+          ..body = dataTypeRef.property("fromJson").call([refer("json")]).code,
+      ),
+    ],
+    initializers: {
+      "operation": refer("Operation", "package:gql_exec/gql_exec.dart").call(
+        [],
+        {
+          "document": refer("document", "#ast"),
+          "operationName": literalString(node.name.value),
+        },
+      ),
+    },
+  ).rebuild(
+    (b) => b
+      ..implements.add(
+        TypeReference(
+          (b) => b
+            ..symbol = "QueryRequest"
+            ..url = gqlClientUrl
+            ..types.addAll([
+              dataTypeRef,
+              varTypeRef,
+            ]),
+        ),
       ),
   );
 }
-
-Constructor _buildFactoryConstructor(OperationDefinitionNode node) {
-  final name = node.name.value;
-  final varBuilderRef = refer("${name}VarBuilder", "#var");
-  final dataTypeRef = refer("\$${node.name.value}", "#data");
-  final gqlClientUrl = "package:ferry/ferry.dart";
-
-  return Constructor(
-    (b) => b
-      ..factory = true
-      ..optionalParameters = ListBuilder<Parameter>([
-        Parameter(
-          (b) => b
-            ..named = true
-            ..name = "buildVars"
-            ..type = FunctionType(
-              (b) => b
-                ..returnType = varBuilderRef
-                ..requiredParameters = ListBuilder<Reference>([varBuilderRef]),
-            ),
-        ),
-        Parameter(
-          (b) => b
-            ..named = true
-            ..name = "queryId"
-            ..type = refer("String"),
-        ),
-        Parameter(
-          (b) => b
-            ..named = true
-            ..name = "updateResult"
-            ..type = FunctionType(
-              (b) => b
-                ..returnType = dataTypeRef
-                ..requiredParameters = ListBuilder<Reference>([
-                  dataTypeRef,
-                  dataTypeRef,
-                ]),
-            ),
-        ),
-        Parameter(
-          (b) => b
-            ..named = true
-            ..name = "optimisticResponse"
-            ..type = refer("Map<String, dynamic>"),
-        ),
-        Parameter(
-          (b) => b
-            ..named = true
-            ..name = "updateCacheHandlerKey",
-        ),
-        Parameter(
-          (b) => b
-            ..named = true
-            ..name = "context"
-            ..type = refer("Context", "package:gql_exec/gql_exec.dart"),
-        ),
-        Parameter(
-          (b) => b
-            ..named = true
-            ..name = "fetchPolicy"
-            ..type = refer("FetchPolicy", gqlClientUrl),
-        ),
-      ])
-      ..lambda = true
-      ..body = refer(name).property("_").call(
-        [],
-        {
-          "operation": refer(name, "#op"),
-          "variables": refer("buildVars").notEqualTo(refer("null")).conditional(
-                refer("buildVars").call(
-                  [varBuilderRef.call([])],
-                ).property("variables"),
-                refer("const {}"),
-              ),
-          "context": refer("context").notEqualTo(
-            refer("null").conditional(
-              refer("context"),
-              refer("Context", "package:gql_exec/gql_exec.dart")
-                  .constInstance([]),
-            ),
-          ),
-          "queryId": refer("queryId"),
-          "updateResult": refer("updateResult"),
-          "optimisticResponse": refer("optimisticResponse"),
-          "updateCacheHandlerKey": refer("updateCacheHandlerKey"),
-          "fetchPolicy": refer("fetchPolicy"),
-        },
-      ).code,
-  );
-}
-
-List<Parameter> _buildParams(OperationDefinitionNode node) {
-  final dataTypeRef = refer("\$${node.name.value}", "#data");
-  final gqlClientUrl = "package:ferry/ferry.dart";
-
-  return [
-    Parameter(
-      (b) => b
-        ..named = true
-        ..name = "operation"
-        ..type = refer("Operation", "package:gql_exec/gql_exec.dart"),
-    ),
-    Parameter(
-      (b) => b
-        ..named = true
-        ..name = "variables"
-        ..type = refer("Map<String, dynamic>"),
-    ),
-    Parameter(
-      (b) => b
-        ..named = true
-        ..name = "context"
-        ..type = refer("Context", "package:gql_exec/gql_exec.dart"),
-    ),
-    Parameter(
-      (b) => b
-        ..named = true
-        ..name = "queryId"
-        ..type = refer("String"),
-    ),
-    Parameter(
-      (b) => b
-        ..named = true
-        ..name = "updateResult"
-        ..type = FunctionType(
-          (b) => b
-            ..returnType = dataTypeRef
-            ..requiredParameters = ListBuilder<Reference>([
-              dataTypeRef,
-              dataTypeRef,
-            ]),
-        ),
-    ),
-    Parameter(
-      (b) => b
-        ..named = true
-        ..name = "optimisticResponse"
-        ..type = refer("Map<String, dynamic>"),
-    ),
-    Parameter(
-      (b) => b
-        ..named = true
-        ..name = "updateCacheHandlerKey"
-        ..type = refer("String"),
-    ),
-    Parameter(
-      (b) => b
-        ..named = true
-        ..name = "fetchPolicy"
-        ..type = refer("FetchPolicy", gqlClientUrl),
-    ),
-  ];
-}
-
-Constructor _buildPrivateConstructor(OperationDefinitionNode node) {
-  return Constructor(
-    (b) => b
-      ..name = "_"
-      ..optionalParameters = ListBuilder<Parameter>(_buildParams(node))
-      ..lambda = true
-      ..initializers = ListBuilder<Code>([
-        refer("super").call(
-          [],
-          {
-            "operation": refer("operation"),
-            "variables": refer("variables"),
-            "context": refer("context"),
-            "queryId": refer("queryId"),
-            "updateResult": refer("updateResult"),
-            "optimisticResponse": refer("optimisticResponse"),
-            "updateCacheHandlerKey": refer("updateCacheHandlerKey"),
-            "fetchPolicy": refer("fetchPolicy"),
-          },
-        ).code
-      ]),
-  );
-}
-
-Method _buildCopyWith(OperationDefinitionNode node) => Method(
-      (b) => b
-        ..annotations.add(refer("override"))
-        ..returns = refer(node.name.value)
-        ..name = "copyWith"
-        ..optionalParameters = ListBuilder<Parameter>(_buildParams(node))
-        ..lambda = true
-        ..body = refer(node.name.value).property("_").call(
-          [],
-          {
-            "operation": CodeExpression(Code("operation ?? this.operation")),
-            "variables": CodeExpression(Code("variables ?? this.variables")),
-            "context": CodeExpression(Code("context ?? this.context")),
-            "queryId": CodeExpression(Code("queryId ?? this.queryId")),
-            "updateResult":
-                CodeExpression(Code("updateResult ?? this.updateResult")),
-            "optimisticResponse": CodeExpression(
-                Code("optimisticResponse ?? this.optimisticResponse")),
-            "updateCacheHandlerKey": CodeExpression(
-                Code("updateCacheHandlerKey ?? this.updateCacheHandlerKey")),
-            "fetchPolicy":
-                CodeExpression(Code("fetchPolicy ?? this.fetchPolicy")),
-          },
-        ).code,
-    );
-
-Method _buildParse(OperationDefinitionNode node) => Method(
-      (b) => b
-        ..annotations.add(refer("override"))
-        ..returns = refer("\$${node.name.value}", "#data")
-        ..name = "parseData"
-        ..requiredParameters.add(
-          Parameter(
-            (b) => b
-              ..type = refer("Map<String, dynamic>")
-              ..name = "json",
-          ),
-        )
-        ..lambda = true
-        ..body = refer(
-          "\$${node.name.value}",
-          "#data",
-        ).call([refer("json")]).code,
-    );

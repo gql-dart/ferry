@@ -22,15 +22,15 @@ enum DataSource {
 /// Encapsulates a GraphQL query/mutation response, with typed
 /// input and responses, and errors.
 @immutable
-class QueryResponse<T> {
+class QueryResponse<TData, TVars> {
   /// The event that resulted in this response
-  final QueryRequest<T> queryRequest;
+  final QueryRequest<TData, TVars> queryRequest;
 
   /// The origin of the response.
   final DataSource dataSource;
 
   /// The typed data of this response.
-  final T data;
+  final TData data;
 
   /// The list of errors in this response.
   final List<GraphQLError> graphqlErrors;
@@ -74,12 +74,4 @@ class QueryResponse<T> {
   int get hashCode => const DeepCollectionEquality().hash(
         _getChildren(),
       );
-
-  /// Creates a shallow copy
-  QueryResponse.from(QueryResponse response)
-      : queryRequest = response.queryRequest,
-        dataSource = response.dataSource,
-        data = response.data,
-        graphqlErrors = response.graphqlErrors,
-        linkException = response.linkException;
 }
