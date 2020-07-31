@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:gql_exec/gql_exec.dart';
 import 'package:ferry/ferry.dart';
 
-typedef MutateFunction<T> = Function({
-  Map<String, dynamic> variables,
-  Context context,
-  Map<String, dynamic> optimisticResponse,
+typedef MutateFunction<TData, TVars> = Function({
+  TVars variables,
+  TData optimisticResponse,
   String updateCacheHandlerKey,
+  Map<String, dynamic> updateCacheHandlerContext,
   FetchPolicy fetchPolicy,
 });
 
-typedef MutationResponseBuilder<T> = Widget Function(
+typedef MutationResponseBuilder<TData, TVars> = Widget Function(
   BuildContext context,
-  MutateFunction<T> mutate,
-  QueryResponse<T> response,
+  MutateFunction<TData, TVars> mutate,
+  QueryResponse<TData, TVars> response,
 );
 
-class Mutation<T> extends StatefulWidget {
-  final QueryRequest<T> queryRequest;
-  final MutationResponseBuilder<T> builder;
+class Mutation<TData, TVars> extends StatefulWidget {
+  final QueryRequest<TData, TVars> queryRequest;
+  final MutationResponseBuilder<TData, TVars> builder;
   final Client client;
 
   Mutation({
@@ -28,13 +27,14 @@ class Mutation<T> extends StatefulWidget {
   });
 
   @override
-  _MutationState<T> createState() => _MutationState(builder: builder);
+  _MutationState<TData, TVars> createState() =>
+      _MutationState(builder: builder);
 }
 
-class _MutationState<T> extends State<Mutation> {
-  final MutationResponseBuilder<T> builder;
+class _MutationState<TData, TVars> extends State<Mutation> {
+  final MutationResponseBuilder<TData, TVars> builder;
 
-  Stream<QueryResponse<T>> stream;
+  Stream<QueryResponse<TData, TVars>> stream;
 
   _MutationState({this.builder});
 
@@ -60,27 +60,32 @@ class _MutationState<T> extends State<Mutation> {
     }
   }
 
-  void _mutate<T>({
-    Map<String, dynamic> variables,
-    Context context,
-    Map<String, dynamic> optimisticResponse,
+// TODO: avoid casting to dynamic
+  void _mutate<TData, TVars>({
+    TVars variables,
+    TData optimisticResponse,
     String updateCacheHandlerKey,
+    Map<String, dynamic> updateCacheHandlerContext,
     FetchPolicy fetchPolicy,
   }) =>
       widget.client.queryController.add(
-        widget.queryRequest.copyWith(
-          variables: variables,
-          context: context,
-          optimisticResponse: optimisticResponse,
-          updateCacheHandlerKey: updateCacheHandlerKey,
-          fetchPolicy: fetchPolicy,
-        ),
+        (widget.queryRequest as dynamic).rebuild((b) {
+          if (variables != null) b.vars = variables;
+          if (updateCacheHandlerContext != null)
+            b.updateCacheHandlerContext = updateCacheHandlerContext;
+          if (optimisticResponse != null)
+            b.optimisticResponse = optimisticResponse;
+          if (updateCacheHandlerKey != null)
+            b.updateCacheHandlerKey = updateCacheHandlerKey;
+          if (fetchPolicy != null) b.fetchPolicy = fetchPolicy;
+          return b;
+        }),
       );
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QueryResponse<T>>(
-      initialData: QueryResponse<T>(
+    return StreamBuilder<QueryResponse<TData, TVars>>(
+      initialData: QueryResponse<TData, TVars>(
         queryRequest: widget.queryRequest,
         dataSource: DataSource.None,
       ),
