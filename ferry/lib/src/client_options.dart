@@ -15,9 +15,9 @@ const _defaultFetchPolicies = {
 /// when merging mutation results that add items to a list, etc.
 /// Note: if a callback is provided, [updateCache]
 /// is also run immediately with the [optimisticResponse].
-typedef UpdateCacheHandler<T> = void Function(
+typedef UpdateCacheHandler<TData, TVars> = void Function(
   CacheProxy proxy,
-  QueryResponse<T> response,
+  QueryResponse<TData, TVars> response,
 );
 
 class ClientOptions {

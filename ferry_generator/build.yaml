@@ -4,8 +4,12 @@ targets:
       - lib/**
 builders:
   req_builder:
-    import: "package:ferry_generator/src/req_builder.dart"
-    builder_factories: ["reqBuilder"]
-    build_extensions: { ".graphql": [".req.gql.dart"] }
+    import: 'package:ferry_generator/src/req_builder.dart'
+    builder_factories: ['reqBuilder']
+    build_extensions: { '.graphql': ['.req.gql.dart'] }
     auto_apply: none
     build_to: source
+    applies_builders:
+      ['gql_build|serializer_builder', 'built_value_generator|built_value']
+    runs_before:
+      ['gql_build|serializer_builder', 'built_value_generator|built_value']

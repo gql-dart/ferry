@@ -34,14 +34,14 @@ class Client {
   })  : options = options ?? ClientOptions(),
         cache = cache ?? Cache();
 
-  Stream<QueryResponse<T>> responseStream<T>(
-    QueryRequest<T> request, {
+  Stream<QueryResponse<TData, TVars>> responseStream<TData, TVars>(
+    QueryRequest<TData, TVars> request, {
     bool executeOnListen = true,
   }) {
     bool initial = true;
     return queryController.stream
         // Filter for only the relevent queries
-        .whereType<QueryRequest<T>>()
+        .whereType<QueryRequest<TData, TVars>>()
         .where((req) {
           if (request.queryId != null) {
             return request.queryId == req.queryId;
@@ -71,22 +71,28 @@ class Client {
   }
 
   /// Optionally adds [__typename] to each node of the operation
-  QueryRequest<T> _addTypename<T>(QueryRequest<T> request) =>
+  QueryRequest<TData, TVars> _addTypename<TData, TVars>(
+    QueryRequest<TData, TVars> request,
+  ) =>
       options.addTypename
-          ? request.copyWith(
-              operation: Operation(
-                document: transform(
-                  request.operation.document,
-                  [AddTypenameVisitor()],
+          // TODO: avoid casting to dynamic
+          ? (request as dynamic).rebuild(
+              (b) => b
+                ..operation = Operation(
+                  document: transform(
+                    request.operation.document,
+                    [AddTypenameVisitor()],
+                  ),
+                  operationName: request.operation.operationName,
                 ),
-                operationName: request.operation.operationName,
-              ),
             )
           : request;
 
   /// Determines how to resolve a query based on the [FetchPolicy] and caches
   /// responses from the network if required by the policy.
-  Stream<QueryResponse<T>> _responseStream<T>(QueryRequest<T> queryRequest) {
+  Stream<QueryResponse<TData, TVars>> _responseStream<TData, TVars>(
+    QueryRequest<TData, TVars> queryRequest,
+  ) {
     final operationType = queryRequest.operation.document.definitions
         .whereType<OperationDefinitionNode>()
         .firstWhere((operationNode) =>
@@ -148,24 +154,27 @@ class Client {
   /// Creates a response stream, starting with an optimistic [QueryResponse]
   /// if a [QueryRequest.optimisticResponse] is proviced, then remmoves the
   /// optimistic patch from the cache once the network response is received.
-  Stream<QueryResponse<T>> _optimisticNetworkResponseStream<T>(
-          QueryRequest<T> queryRequest) =>
-      queryRequest.optimisticResponse == null
-          ? _networkResponseStream(queryRequest)
-          : _networkResponseStream(queryRequest)
-              .startWith(
-              QueryResponse(
-                queryRequest: queryRequest,
-                data: queryRequest.parseData(queryRequest.optimisticResponse),
-                dataSource: DataSource.Optimistic,
-              ),
-            )
-              .doOnData(
-              (response) {
-                if (response.dataSource != DataSource.Optimistic)
-                  cache.removeOptimisticPatch(response.queryRequest.queryId);
-              },
-            );
+  Stream<QueryResponse<TData, TVars>>
+      _optimisticNetworkResponseStream<TData, TVars>(
+    QueryRequest<TData, TVars> queryRequest,
+  ) =>
+          queryRequest.optimisticResponse == null
+              ? _networkResponseStream(queryRequest)
+              : _networkResponseStream(queryRequest)
+                  .startWith(
+                  QueryResponse(
+                    queryRequest: queryRequest,
+                    data: queryRequest.optimisticResponse,
+                    dataSource: DataSource.Optimistic,
+                  ),
+                )
+                  .doOnData(
+                  (response) {
+                    if (response.dataSource != DataSource.Optimistic)
+                      cache
+                          .removeOptimisticPatch(response.queryRequest.queryId);
+                  },
+                );
 
   /// Fetches the query from the network, mapping the result to a
   /// [QueryResponse].
@@ -199,9 +208,10 @@ class Client {
 
   /// Fetches the query from the cache, mapping the result to a
   /// [QueryResponse].
-  Stream<QueryResponse<T>> _cacheResponseStream<T>(
-          QueryRequest<T> queryRequest) =>
-      cache.watchQuery(queryRequest).map(
+  Stream<QueryResponse<TData, TVars>> _cacheResponseStream<TData, TVars>(
+    QueryRequest<TData, TVars> queryRequest,
+  ) =>
+      cache.watchQuery(queryRequest.execRequest).map(
             (data) => QueryResponse(
               queryRequest: queryRequest,
               data: (data == null || data.isEmpty)
@@ -212,21 +222,25 @@ class Client {
           );
 
   /// Store data in cache
-  void _writeToCache(QueryResponse response) {
+  void _writeToCache<TData, TVars>(QueryResponse<TData, TVars> response) {
     if (response.data != null)
       cache.writeQuery(
-        response.queryRequest,
-        response.data.data,
+        response.queryRequest.execRequest,
+        // TODO: avoid casting to dynamic
+        (response.data as dynamic)?.toJson(),
         optimistic: response.dataSource == DataSource.Optimistic,
         queryId: response.queryRequest.queryId,
       );
   }
 
   /// Run user-defined [UpdateCacheHandler]s with a [CacheProxy]
-  void _runUpdateCacheHandlers<T>(QueryResponse<T> response) {
+  void _runUpdateCacheHandlers<TData, TVars>(
+    QueryResponse<TData, TVars> response,
+  ) {
     final key = response.queryRequest.updateCacheHandlerKey;
     if (key == null) return;
-    final handler = options.updateCacheHandlers[key] as UpdateCacheHandler<T>;
+    final handler =
+        options.updateCacheHandlers[key] as UpdateCacheHandler<TData, TVars>;
     if (handler == null) throw Exception("No handler defined for key $key");
     handler(
       CacheProxy(
@@ -241,14 +255,14 @@ class Client {
   /// Updates previous result with new result.
   ///
   /// Useful for pagination.
-  Stream<QueryResponse<T>> _updateResultStream<T>(
-      Stream<QueryResponse<T>> stream) {
+  Stream<QueryResponse<TData, TVars>> _updateResultStream<TData, TVars>(
+      Stream<QueryResponse<TData, TVars>> stream) {
     return stream.startWith(null).pairwise().map((results) {
       final previousResult = results.first;
       final result = results.last;
       return result.queryRequest.updateResult == null
           ? result
-          : QueryResponse<T>(
+          : QueryResponse<TData, TVars>(
               data: result.queryRequest.updateResult(
                 previousResult.data,
                 result.data,
