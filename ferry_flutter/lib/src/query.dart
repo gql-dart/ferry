@@ -18,15 +18,13 @@ class Query<T> extends StatefulWidget {
   });
 
   @override
-  _QueryState<T> createState() => _QueryState(builder: builder);
+  _QueryState<T> createState() => _QueryState();
 }
 
 class _QueryState<T> extends State<Query> {
-  final QueryResponseBuilder<T> builder;
 
   Stream<QueryResponse<T>> stream;
 
-  _QueryState({this.builder});
 
   @override
   void initState() {
@@ -52,7 +50,7 @@ class _QueryState<T> extends State<Query> {
         dataSource: DataSource.None,
       ),
       stream: stream,
-      builder: (context, snapshot) => builder(
+      builder: (context, snapshot) => widget.builder(
         context,
         snapshot.data,
       ),
