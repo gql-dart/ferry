@@ -21,7 +21,7 @@ class Query<T> extends StatefulWidget {
   _QueryState<T> createState() => _QueryState();
 }
 
-class _QueryState<T> extends State<Query> {
+class _QueryState<T> extends State<Query<T>> {
 
   Stream<QueryResponse<T>> stream;
 
