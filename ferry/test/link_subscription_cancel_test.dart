@@ -8,7 +8,7 @@ import 'package:test/test.dart';
 import './graphql/all_pokemon.req.gql.dart';
 
 class _StreamCancelTestLink extends Link {
-  final Completer hasCanceledStreamCompleter = Completer();
+  Completer hasCanceledStreamCompleter = Completer();
 
   @override
   Stream<Response> request(Request request, [forward]) async* {
@@ -29,29 +29,47 @@ class _StreamCancelTestLink extends Link {
       hasCanceledStreamCompleter.complete();
     }
   }
+
+  void reset() {
+    hasCanceledStreamCompleter = Completer();
+  }
 }
 
 void main() {
-  test("Steam in Link is cancelled when no one is listening", () async {
+  test(
+      "Steam in Link is cancelled when no one is listening - for all FetchPolicies",
+      () async {
     final link = _StreamCancelTestLink();
-
     final client = Client(link: link);
-    final request = AllPokemon(
-        fetchPolicy: FetchPolicy.NetworkOnly, buildVars: (b) => b..first = 3);
-    expect(link.hasCanceledStreamCompleter.isCompleted, isFalse);
-    StreamSubscription subscription;
-    subscription = client
-        .responseStream(request)
-        .where((event) => event.dataSource == DataSource.Link)
-        .listen((event) async {
-      //cancel subscription after first item
-      //this ensures the the link.request() method is entered
-      await subscription.cancel();
-    });
-    // the link should complete its "yield*" statement when the subscription is cancelled
-    // and complete its completer
-    await link.hasCanceledStreamCompleter.future;
-
-    expect(link.hasCanceledStreamCompleter.isCompleted, isTrue);
+    // test all fetchpolicies except CacheOnly - CacheOnly does not actually the link
+    for (final fetchPolicy in [
+      FetchPolicy.NetworkOnly,
+      FetchPolicy.CacheFirst,
+      FetchPolicy.CacheAndNetwork,
+      FetchPolicy.NoCache
+    ]) {
+      final request =
+          AllPokemon(fetchPolicy: fetchPolicy, buildVars: (b) => b..first = 3);
+      expect(link.hasCanceledStreamCompleter.isCompleted, isFalse);
+      StreamSubscription subscription;
+      subscription = client
+          .responseStream(request)
+          .where((event) => event.dataSource == DataSource.Link)
+          .listen((event) async {
+        //cancel subscription after first item
+        //this ensures the the link.request() method is entered
+        await subscription.cancel();
+      });
+      // the link should complete its "yield*" statement when the subscription is cancelled
+      // and complete its completer
+      try {
+        await link.hasCanceledStreamCompleter.future
+            .timeout(Duration(seconds: 1));
+        expect(link.hasCanceledStreamCompleter.isCompleted, isTrue);
+        link.reset();
+      } on TimeoutException {
+        fail("Stream from link was not cancelledo when using $fetchPolicy");
+      }
+    }
   });
 }
