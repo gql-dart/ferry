@@ -118,19 +118,29 @@ class Client {
       case FetchPolicy.CacheAndNetwork:
         {
           final responseStreamFromNetwork =
-              _optimisticNetworkResponseStream(queryRequest).shareValue();
+              _optimisticNetworkResponseStream(queryRequest);
+
+          final StreamController<QueryResponse<T>> controller =
+              StreamController();
+          final networkStreamSubscription = responseStreamFromNetwork
+              .listen(controller.add, onError: controller.addError);
+
+          final sharedNetworkStream = controller.stream.shareValue();
+
           return _cacheResponseStream(queryRequest)
               .doOnData(_runUpdateCacheHandlers)
               .where((response) => response.data != null)
-              .takeUntil(responseStreamFromNetwork)
+              .takeUntil(sharedNetworkStream)
               .concatWith([
-            responseStreamFromNetwork
+            sharedNetworkStream
                 .doOnData(_writeToCache)
                 .switchMap((networkResponse) => ConcatStream([
                       Stream.value(networkResponse),
                       _cacheResponseStream(queryRequest).skip(1),
                     ]))
-          ]);
+          ]).doOnCancel(() {
+            networkStreamSubscription.cancel();
+          });
         }
     }
   }
