@@ -160,24 +160,22 @@ class Client {
   /// Fetches the query from the network, mapping the result to a
   /// [QueryResponse].
   Stream<QueryResponse<T>> _networkResponseStream<T>(
-      QueryRequest<T> queryRequest) async* {
+      QueryRequest<T> queryRequest) {
     try {
-      await for (var response in link.request(queryRequest)) {
-        yield QueryResponse(
-          queryRequest: queryRequest,
-          data: (response.data == null || response.data.isEmpty)
-              ? null
-              : queryRequest.parseData(response.data),
-          graphqlErrors: response.errors,
-          dataSource: DataSource.Link,
-        );
-      }
+      return link.request(queryRequest).map((response) => QueryResponse(
+            queryRequest: queryRequest,
+            data: (response.data == null || response.data.isEmpty)
+                ? null
+                : queryRequest.parseData(response.data),
+            graphqlErrors: response.errors,
+            dataSource: DataSource.Link,
+          ));
     } on LinkException catch (e) {
-      yield QueryResponse(
+      return Stream.value(QueryResponse(
         queryRequest: queryRequest,
         linkException: e,
         dataSource: DataSource.Link,
-      );
+      ));
     }
   }
 
