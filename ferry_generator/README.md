@@ -20,4 +20,4 @@
 [discord-badge]: https://img.shields.io/discord/559455668810153989.svg?style=for-the-badge&logo=discord&logoColor=ffffff
 [discord-link]: https://discord.gg/QRTfXE
 
-A Dart code generator to create fully typed `QueryRequest`s to be used with the `ferry` client.
+A Dart code generator to create fully typed `OperationRequest`s to be used with the `ferry` client.

@@ -22,7 +22,7 @@
 
 A GraphQL client for Dart / Flutter.
 
-This is the core `ferry` client package which routes `QueryRequest`s for a given GraphQL operation to the cache or network and returns streams of `QueryResponse`s for each request.
+This is the core `ferry` client package which routes `OperationRequest`s for a given GraphQL operation to the cache or network and returns streams of `OperationResponse`s for each request.
 
 - [Usage](#usage)
   - [Setup Client](#setup-client)
@@ -100,7 +100,7 @@ The Client allows arbitrary cache updates following mutations, similar to functi
 ```dart
 typedef UpdateCacheHandler<T> = void Function(
   CacheProxy proxy,
-  QueryResponse<T> response,
+  OperationResponse<T> response,
 );
 ```
 
@@ -126,11 +126,11 @@ final client = Client(
 );
 ```
 
-This handler can then be called using its key `"MyHandlerKey"` from a `QueryRequest`.
+This handler can then be called using its key `"MyHandlerKey"` from a `OperationRequest`.
 
 ## Generate Dart GraphQL Files
 
-The `Client` is fully typed, so we must use the `gql_build` package to generate dart representations of our GraphQL queries. We will also use the `req_builder` included in the `Client` package to build typed `QueryRequest`s for each GraphQL query.
+The `Client` is fully typed, so we must use the `gql_build` package to generate dart representations of our GraphQL queries. We will also use the `req_builder` included in the `Client` package to build typed `OperationRequest`s for each GraphQL operation.
 
 ### Download GraphQL Schema
 
@@ -214,7 +214,7 @@ flutter pub run build_runner build
 import 'path/to/client.dart';
 import './[my_query].req.gql.dart';
 
-// Instantiate a `QueryRequest` using the generated `.req.gql.dart` file.
+// Instantiate a `OperationRequest` using the generated `.req.gql.dart` file.
 final query = MyQuery(buildVars: (b) => b..id = "123");
 
 // Listen to responses for the given query
@@ -229,7 +229,7 @@ Mutations are executed in the same way as queries
 import 'path/to/client.dart';
 import './[my_mutation].req.gql.dart';
 
-// Instantiate a `QueryRequest` using the generated `.req.gql.dart` file.
+// Instantiate an `OperationRequest` using the generated `.req.gql.dart` file.
 final mutation = MyMutation(buildVars: (b) => b..id = "123");
 
 // If I only care about the first non-optimistic response, I can do:
@@ -264,12 +264,12 @@ class AllPokemonScreen extends StatelessWidget {
       ),
       body: Query(
         client: client,
-        queryRequest: AllPokemon(
+        operationRequest: AllPokemon(
           buildVars: (vars) => vars..first = 500,
         ),
         builder: (
           BuildContext context,
-          QueryResponse<$AllPokemon> response,
+          OperationResponse<$AllPokemon> response,
         ) {
           if (response.loading)
             return Center(child: CircularProgressIndicator());

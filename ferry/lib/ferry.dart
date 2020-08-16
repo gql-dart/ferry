@@ -5,5 +5,5 @@ export './src/cache_proxy.dart';
 export './src/client_options.dart';
 export './src/client.dart';
 export './src/fetch_policy.dart';
-export './src/query_request.dart';
-export './src/query_response.dart';
+export './src/operation_request.dart';
+export './src/operation_response.dart';

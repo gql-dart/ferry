@@ -2,19 +2,19 @@ import 'package:gql_exec/gql_exec.dart';
 
 import './fetch_policy.dart';
 
-abstract class QueryRequest<TData, TVars> {
+abstract class OperationRequest<TData, TVars> {
   TVars get vars;
 
   Operation get operation;
 
   Request get execRequest;
 
-  /// The unique identifier for this query.
+  /// The unique identifier for this request.
   ///
-  /// If the same [queryId] is passed to multiple [Query]s, it will be
-  /// treated as a refetch of the same query. If an [updateResult] callback is
+  /// If the same [requestId] is passed to multiple [OperationRequest]s, it will be
+  /// treated as a refetch of the same operation. If an [updateResult] callback is
   /// passed, the results will be merged according to the callback.
-  String get queryId;
+  String get requestId;
 
   /// Optional function to update the result based on the previous result. Useful
   /// for pagination.
@@ -29,10 +29,10 @@ abstract class QueryRequest<TData, TVars> {
   /// An arbitrary JSON object that can be used to pass data to the [UpdateCacheHandler]
   Map<String, dynamic> get updateCacheHandlerContext;
 
-  /// The [FetchPolicy] to be used when executing this query
+  /// The [FetchPolicy] to be used when executing this operation
   FetchPolicy get fetchPolicy;
 
-  /// Parses data into a concrete type for the given query
+  /// Parses data into a concrete type for the given operation
   ///
   /// This is a simple wrapper on the static fromJson method on the generated class.
   TData parseData(Map<String, dynamic> json);

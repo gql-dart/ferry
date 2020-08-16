@@ -12,16 +12,16 @@ typedef MutateFunction<TData, TVars> = Function({
 typedef MutationResponseBuilder<TData, TVars> = Widget Function(
   BuildContext context,
   MutateFunction<TData, TVars> mutate,
-  QueryResponse<TData, TVars> response,
+  OperationResponse<TData, TVars> response,
 );
 
 class Mutation<TData, TVars> extends StatefulWidget {
-  final QueryRequest<TData, TVars> queryRequest;
+  final OperationRequest<TData, TVars> operationRequest;
   final MutationResponseBuilder<TData, TVars> builder;
   final Client client;
 
   Mutation({
-    @required this.queryRequest,
+    @required this.operationRequest,
     @required this.builder,
     @required this.client,
   });
@@ -34,7 +34,7 @@ class Mutation<TData, TVars> extends StatefulWidget {
 class _MutationState<TData, TVars> extends State<Mutation> {
   final MutationResponseBuilder<TData, TVars> builder;
 
-  Stream<QueryResponse<TData, TVars>> stream;
+  Stream<OperationResponse<TData, TVars>> stream;
 
   _MutationState({this.builder});
 
@@ -42,7 +42,7 @@ class _MutationState<TData, TVars> extends State<Mutation> {
   void initState() {
     super.initState();
     stream = widget.client.responseStream(
-      widget.queryRequest,
+      widget.operationRequest,
       executeOnListen: false,
     );
   }
@@ -50,10 +50,10 @@ class _MutationState<TData, TVars> extends State<Mutation> {
   @override
   void didUpdateWidget(Mutation oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.queryRequest != widget.queryRequest) {
+    if (oldWidget.operationRequest != widget.operationRequest) {
       setState(() {
         stream = widget.client.responseStream(
-          widget.queryRequest,
+          widget.operationRequest,
           executeOnListen: false,
         );
       });
@@ -68,8 +68,8 @@ class _MutationState<TData, TVars> extends State<Mutation> {
     Map<String, dynamic> updateCacheHandlerContext,
     FetchPolicy fetchPolicy,
   }) =>
-      widget.client.queryController.add(
-        (widget.queryRequest as dynamic).rebuild((b) {
+      widget.client.operationController.add(
+        (widget.operationRequest as dynamic).rebuild((b) {
           if (variables != null) b.vars = variables;
           if (updateCacheHandlerContext != null)
             b.updateCacheHandlerContext = updateCacheHandlerContext;
@@ -84,9 +84,9 @@ class _MutationState<TData, TVars> extends State<Mutation> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QueryResponse<TData, TVars>>(
-      initialData: QueryResponse<TData, TVars>(
-        queryRequest: widget.queryRequest,
+    return StreamBuilder<OperationResponse<TData, TVars>>(
+      initialData: OperationResponse<TData, TVars>(
+        operationRequest: widget.operationRequest,
         dataSource: DataSource.None,
       ),
       stream: stream,

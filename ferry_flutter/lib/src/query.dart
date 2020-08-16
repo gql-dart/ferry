@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:ferry/ferry.dart';
 
-typedef QueryResponseBuilder<TData, TVars> = Widget Function(
+typedef OperationResponseBuilder<TData, TVars> = Widget Function(
   BuildContext context,
-  QueryResponse<TData, TVars> response,
+  OperationResponse<TData, TVars> response,
 );
 
 class Query<TData, TVars> extends StatefulWidget {
-  final QueryRequest<TData, TVars> queryRequest;
-  final QueryResponseBuilder<TData, TVars> builder;
+  final OperationRequest<TData, TVars> operationRequest;
+  final OperationResponseBuilder<TData, TVars> builder;
   final Client client;
 
   Query({
-    @required this.queryRequest,
+    @required this.operationRequest,
     @required this.builder,
     @required this.client,
   });
@@ -22,29 +22,29 @@ class Query<TData, TVars> extends StatefulWidget {
 }
 
 class _QueryState<TData, TVars> extends State<Query<TData, TVars>> {
-  Stream<QueryResponse<TData, TVars>> stream;
+  Stream<OperationResponse<TData, TVars>> stream;
 
   @override
   void initState() {
     super.initState();
-    stream = widget.client.responseStream(widget.queryRequest);
+    stream = widget.client.responseStream(widget.operationRequest);
   }
 
   @override
   void didUpdateWidget(Query oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.queryRequest != widget.queryRequest) {
+    if (oldWidget.operationRequest != widget.operationRequest) {
       setState(() {
-        stream = widget.client.responseStream(widget.queryRequest);
+        stream = widget.client.responseStream(widget.operationRequest);
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QueryResponse<TData, TVars>>(
-      initialData: QueryResponse<TData, TVars>(
-        queryRequest: widget.queryRequest,
+    return StreamBuilder<OperationResponse<TData, TVars>>(
+      initialData: OperationResponse<TData, TVars>(
+        operationRequest: widget.operationRequest,
         dataSource: DataSource.None,
       ),
       stream: stream,
