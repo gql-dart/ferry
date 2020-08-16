@@ -68,7 +68,7 @@ class _MutationState<TData, TVars> extends State<Mutation> {
     Map<String, dynamic> updateCacheHandlerContext,
     FetchPolicy fetchPolicy,
   }) =>
-      widget.client.operationController.add(
+      widget.client.requestController.add(
         (widget.operationRequest as dynamic).rebuild((b) {
           if (variables != null) b.vars = variables;
           if (updateCacheHandlerContext != null)

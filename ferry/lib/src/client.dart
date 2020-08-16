@@ -24,7 +24,7 @@ class Client {
   final isConnected = BehaviorSubject<bool>.seeded(true);
 
   /// A stream controller that handles all [OperationRequest]s.
-  final operationController = StreamController<OperationRequest>.broadcast();
+  final requestController = StreamController<OperationRequest>.broadcast();
 
   Client({
     @required this.link,
@@ -39,7 +39,7 @@ class Client {
     bool executeOnListen = true,
   }) {
     bool initial = true;
-    return operationController.stream
+    return requestController.stream
         // Filter for only the relevent queries
         .whereType<OperationRequest<TData, TVars>>()
         .where((req) {
@@ -63,7 +63,7 @@ class Client {
           () async {
             if (initial && executeOnListen) {
               await Future.delayed(Duration.zero);
-              operationController.add(request);
+              requestController.add(request);
             }
             initial = false;
           },
