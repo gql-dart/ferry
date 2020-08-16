@@ -75,7 +75,7 @@ Class _buildOperationReqClass(
               .add(refer("nullable", "package:built_value/built_value.dart"))
           ..returns = refer("String")
           ..type = MethodType.getter
-          ..name = "queryId",
+          ..name = "requestId",
       ),
       Method(
         (b) => b
@@ -159,7 +159,7 @@ Class _buildOperationReqClass(
       ..implements.add(
         TypeReference(
           (b) => b
-            ..symbol = "QueryRequest"
+            ..symbol = "OperationRequest"
             ..url = gqlClientUrl
             ..types.addAll([
               dataTypeRef,

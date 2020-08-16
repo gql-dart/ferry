@@ -72,7 +72,7 @@ class Cache {
       );
 
   Map<String, dynamic> readFragment({
-    @required DocumentNode fragment,
+    @required DocumentNode document,
     @required Map<String, dynamic> idFields,
     String fragmentName,
     Map<String, dynamic> variables,
@@ -82,7 +82,7 @@ class Cache {
         reader: (dataId) => optimistic
             ? _optimisticDataStream.value[dataId]
             : _dataStore.get(dataId),
-        fragment: fragment,
+        fragment: document,
         idFields: idFields,
         fragmentName: fragmentName,
         variables: variables,
@@ -94,7 +94,7 @@ class Cache {
     Request request,
     Map<String, dynamic> data, {
     bool optimistic = false,
-    String queryId,
+    String requestId,
   }) {
     final Map<String, Map<String, dynamic>> normalizedResult = {};
     normalize(
@@ -105,43 +105,43 @@ class Cache {
       data: data,
       typePolicies: typePolicies,
     );
-    _writeData(normalizedResult, optimistic, queryId);
+    _writeData(normalizedResult, optimistic, requestId);
   }
 
   void writeFragment({
-    @required DocumentNode fragment,
+    @required DocumentNode document,
     @required Map<String, dynamic> idFields,
     @required Map<String, dynamic> data,
     String fragmentName,
     Map<String, dynamic> variables,
     bool optimistic = false,
-    String queryId,
+    String requestId,
   }) {
     final Map<String, Map<String, dynamic>> normalizedResult = {};
     normalizeFragment(
       writer: (dataId, value) => normalizedResult[dataId] = value,
-      fragment: fragment,
+      fragment: document,
       idFields: idFields,
       data: data,
       fragmentName: fragmentName,
       variables: variables,
       typePolicies: typePolicies,
     );
-    _writeData(normalizedResult, optimistic, queryId);
+    _writeData(normalizedResult, optimistic, requestId);
   }
 
   void _writeData(
     Map<String, Map<String, dynamic>> data,
     bool optimistic,
-    String queryId,
+    String requestId,
   ) =>
       optimistic
           ? _optimisticPatchesStream.add(
               {
                 ..._optimisticPatchesStream.value,
-                queryId: Map.from(
+                requestId: Map.from(
                   deepMerge(
-                    _optimisticPatchesStream.value[queryId] ?? {},
+                    _optimisticPatchesStream.value[requestId] ?? {},
                     data,
                   ),
                 ),

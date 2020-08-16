@@ -3,7 +3,7 @@ import 'package:gql_exec/gql_exec.dart';
 import 'package:gql_link/gql_link.dart';
 import "package:collection/collection.dart";
 
-import './query_request.dart';
+import './operation_request.dart';
 
 enum DataSource {
   /// A placeholder response source which can be used when waiting for another source
@@ -15,16 +15,16 @@ enum DataSource {
   /// Data originated from the [Cache]
   Cache,
 
-  /// Data originated from a user-provided [QueryRequest.optimisticResponse]
+  /// Data originated from a user-provided [OperationRequest.optimisticResponse]
   Optimistic,
 }
 
-/// Encapsulates a GraphQL query/mutation response, with typed
+/// Encapsulates a GraphQL operation's response, with typed
 /// input and responses, and errors.
 @immutable
-class QueryResponse<TData, TVars> {
+class OperationResponse<TData, TVars> {
   /// The event that resulted in this response
-  final QueryRequest<TData, TVars> queryRequest;
+  final OperationRequest<TData, TVars> operationRequest;
 
   /// The origin of the response.
   final DataSource dataSource;
@@ -47,8 +47,8 @@ class QueryResponse<TData, TVars> {
       (graphqlErrors != null && graphqlErrors.isNotEmpty);
 
   /// Instantiates a GraphQL response.
-  const QueryResponse({
-    @required this.queryRequest,
+  const OperationResponse({
+    @required this.operationRequest,
     @required this.dataSource,
     this.data,
     this.graphqlErrors,
@@ -56,7 +56,7 @@ class QueryResponse<TData, TVars> {
   });
 
   List<Object> _getChildren() => [
-        queryRequest,
+        operationRequest,
         data,
         graphqlErrors,
         linkException,
@@ -64,7 +64,7 @@ class QueryResponse<TData, TVars> {
 
   @override
   bool operator ==(Object o) =>
-      o is QueryResponse &&
+      o is OperationResponse &&
       const DeepCollectionEquality().equals(
         o._getChildren(),
         _getChildren(),

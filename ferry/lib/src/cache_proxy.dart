@@ -1,67 +1,71 @@
-import 'package:gql_exec/gql_exec.dart';
-import 'package:gql/ast.dart';
-import 'package:meta/meta.dart';
 import 'package:ferry_cache/ferry_cache.dart';
+
+import './operation_request.dart';
+import './fragment_request.dart';
 
 class CacheProxy {
   final Cache _cache;
   final bool _optimistic;
-  final String _queryId;
+  final String _requestId;
 
   CacheProxy(
     Cache cache,
     bool optimistic,
-    String queryId,
+    String requestId,
   )   : _cache = cache,
         _optimistic = optimistic,
-        _queryId = queryId;
+        _requestId = requestId;
 
-  Map<String, dynamic> readQuery(
-    Request request, {
+  TData readQuery<TData, TVars>(
+    OperationRequest<TData, TVars> request, {
     bool optimistic,
   }) =>
-      _cache.readQuery(request, optimistic: optimistic ?? false);
-
-  Map<String, dynamic> readFragment({
-    @required DocumentNode fragment,
-    @required Map<String, dynamic> idFields,
-    String fragmentName,
-    Map<String, dynamic> variables,
-    bool optimistic,
-  }) =>
-      _cache.readFragment(
-        fragment: fragment,
-        idFields: idFields,
-        fragmentName: fragmentName,
-        variables: variables,
-        optimistic: optimistic ?? false,
+      request.parseData(
+        _cache.readQuery(
+          request.execRequest,
+          optimistic: optimistic ?? false,
+        ),
       );
 
-  void writeQuery(
-    Request request,
-    Map<String, dynamic> data,
+  TData readFragment<TData, TVars>(
+    FragmentRequest<TData, TVars> request, {
+    bool optimistic,
+  }) =>
+      request.parseData(
+        _cache.readFragment(
+          document: request.document,
+          idFields: request.idFields,
+          fragmentName: request.fragmentName,
+          // TODO: don't cast to dynamic
+          variables: (request.vars as dynamic)?.toJson(),
+          optimistic: optimistic ?? false,
+        ),
+      );
+
+  void writeQuery<TData, TVars>(
+    OperationRequest<TData, TVars> request,
+    TData data,
   ) =>
       _cache.writeQuery(
-        request,
-        data,
+        request.execRequest,
+        // TODO: don't cast to dynamic
+        (data as dynamic)?.toJson(),
         optimistic: _optimistic,
-        queryId: _queryId,
+        requestId: _requestId,
       );
 
-  void writeFragment({
-    @required DocumentNode fragment,
-    @required Map<String, dynamic> idFields,
-    @required Map<String, dynamic> data,
-    String fragmentName,
-    Map<String, dynamic> variables,
-  }) =>
+  void writeFragment<TData, TVars>(
+    FragmentRequest<TData, TVars> request,
+    TData data,
+  ) =>
       _cache.writeFragment(
-        fragment: fragment,
-        idFields: idFields,
-        data: data,
-        fragmentName: fragmentName,
-        variables: variables,
+        document: request.document,
+        idFields: request.idFields,
+        data: (data as dynamic)?.toJson(),
+        fragmentName: request.fragmentName,
+        // TODO: don't cast to dynamic
+        variables: (request.vars as dynamic)?.toJson(),
         optimistic: _optimistic,
-        queryId: _queryId,
+        requestId: _requestId,
       );
 }
