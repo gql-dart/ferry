@@ -15,8 +15,6 @@ abstract class GPokemonDetailVars
 
   @nullable
   String get id;
-  @nullable
-  String get name;
   static Serializer<GPokemonDetailVars> get serializer =>
       _$gPokemonDetailVarsSerializer;
   Map<String, dynamic> toJson() =>

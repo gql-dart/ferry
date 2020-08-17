@@ -14,7 +14,7 @@ part 'all_pokemon.req.gql.g.dart';
 abstract class GAllPokemon
     implements
         Built<GAllPokemon, GAllPokemonBuilder>,
-        _i1.QueryRequest<_i2.GAllPokemonData, _i3.GAllPokemonVars> {
+        _i1.OperationRequest<_i2.GAllPokemonData, _i3.GAllPokemonVars> {
   GAllPokemon._();
 
   factory GAllPokemon([Function(GAllPokemonBuilder b) updates]) = _$GAllPokemon;
@@ -27,7 +27,7 @@ abstract class GAllPokemon
   _i4.Request get execRequest =>
       _i4.Request(operation: operation, variables: vars.toJson());
   @nullable
-  String get queryId;
+  String get requestId;
   @nullable
   @BuiltValueField(serialize: false)
   _i2.GAllPokemonData Function(_i2.GAllPokemonData, _i2.GAllPokemonData)

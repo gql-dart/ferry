@@ -17,7 +17,7 @@ part 'pokemon_detail.req.gql.g.dart';
 abstract class GPokemonDetail
     implements
         Built<GPokemonDetail, GPokemonDetailBuilder>,
-        _i1.QueryRequest<_i2.GPokemonDetailData, _i3.GPokemonDetailVars> {
+        _i1.OperationRequest<_i2.GPokemonDetailData, _i3.GPokemonDetailVars> {
   GPokemonDetail._();
 
   factory GPokemonDetail([Function(GPokemonDetailBuilder b) updates]) =
@@ -31,7 +31,7 @@ abstract class GPokemonDetail
   _i4.Request get execRequest =>
       _i4.Request(operation: operation, variables: vars.toJson());
   @nullable
-  String get queryId;
+  String get requestId;
   @nullable
   @BuiltValueField(serialize: false)
   _i2.GPokemonDetailData Function(

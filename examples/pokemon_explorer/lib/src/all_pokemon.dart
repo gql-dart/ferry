@@ -20,17 +20,17 @@ class AllPokemonScreen extends StatelessWidget {
       ),
       body: Query(
         client: client,
-        queryRequest: GAllPokemon(
+        operationRequest: GAllPokemon(
           (b) => b..vars.first = 500,
         ),
         builder: (
           BuildContext context,
-          QueryResponse<GAllPokemonData, GAllPokemonVars> response,
+          OperationResponse<GAllPokemonData, GAllPokemonVars> response,
         ) {
           if (response.loading)
             return Center(child: CircularProgressIndicator());
 
-          final pokemons = response.data?.pokemons ?? BuiltList();
+          final pokemons = response.data?.queryPokemon ?? BuiltList();
 
           return ListView.builder(
             itemCount: pokemons.length,

@@ -1,7 +1,7 @@
 # import './pokemon_card_fragment.graphql'
 
-query PokemonDetail($id: String, $name: String) {
-  pokemon(id: $id, name: $name) {
+query PokemonDetail($id: String) {
+  getPokemon(id: $id) {
     ...PokemonCard
     weight {
       minimum

@@ -1,92 +1,379 @@
-# Represents a Pokémon's attack types
-type Attack {
-  # The name of this Pokémon attack
+directive @secret(field: String!, pred: String) on OBJECT | INTERFACE
+
+directive @custom(http: CustomHTTP, dql: String) on FIELD_DEFINITION
+
+directive @remote on OBJECT | INTERFACE
+
+directive @cascade on FIELD
+
+directive @hasInverse(field: String!) on FIELD_DEFINITION
+
+directive @search(by: [DgraphIndex!]) on FIELD_DEFINITION
+
+directive @dgraph(type: String, pred: String) on OBJECT | INTERFACE | FIELD_DEFINITION
+
+directive @id on FIELD_DEFINITION
+
+directive @withSubscription on OBJECT | INTERFACE
+
+directive @auth(query: AuthRule, add: AuthRule, update: AuthRule, delete: AuthRule) on OBJECT
+
+input AddAttackInput {
   name: String
-
-  # The type of this Pokémon attack
   type: String
-
-  # The damage of this Pokémon attack
   damage: Int
 }
 
-# Represents a Pokémon
-type Pokemon {
-  # The ID of an object
-  id: ID!
+type AddAttackPayload {
+  attack(order: AttackOrder, first: Int, offset: Int): [Attack]
+  numUids: Int
+}
 
-  # The identifier of this Pokémon
-  number: String
+input AddPokemonAttackInput {
+  fast: [AttackRef]
+  special: [AttackRef]
+}
 
-  # The name of this Pokémon
+type AddPokemonAttackPayload {
+  pokemonAttack(first: Int, offset: Int): [PokemonAttack]
+  numUids: Int
+}
+
+input AddPokemonDimensionInput {
+  minimum: String
+  maximum: String
+}
+
+type AddPokemonDimensionPayload {
+  pokemonDimension(order: PokemonDimensionOrder, first: Int, offset: Int): [PokemonDimension]
+  numUids: Int
+}
+
+input AddPokemonEvolutionRequirementInput {
+  amount: Int
   name: String
+}
 
-  # The minimum and maximum weight of this Pokémon
-  weight: PokemonDimension
+type AddPokemonEvolutionRequirementPayload {
+  pokemonEvolutionRequirement(order: PokemonEvolutionRequirementOrder, first: Int, offset: Int): [PokemonEvolutionRequirement]
+  numUids: Int
+}
 
-  # The minimum and maximum weight of this Pokémon
-  height: PokemonDimension
-
-  # The classification of this Pokémon
+input AddPokemonInput {
+  number: String
+  name: String
+  weight: PokemonDimensionRef
+  height: PokemonDimensionRef
   classification: String
-
-  # The type(s) of this Pokémon
   types: [String]
-
-  # The type(s) of Pokémons that this Pokémon is resistant to
   resistant: [String]
-
-  # The attacks of this Pokémon
-  attacks: PokemonAttack
-
-  # The type(s) of Pokémons that this Pokémon weak to
+  attacks: PokemonAttackRef
   weaknesses: [String]
   fleeRate: Float
-
-  # The maximum CP of this Pokémon
   maxCP: Int
-
-  # The evolutions of this Pokémon
-  evolutions: [Pokemon]
-
-  # The evolution requirements of this Pokémon
-  evolutionRequirements: PokemonEvolutionRequirement
-
-  # The maximum HP of this Pokémon
+  evolutions: [PokemonRef]
+  evolutionRequirements: PokemonEvolutionRequirementRef
   maxHP: Int
   image: String
 }
 
-# Represents a Pokémon's attack types
-type PokemonAttack {
-  # The fast attacks of this Pokémon
-  fast: [Attack]
-
-  # The special attacks of this Pokémon
-  special: [Attack]
+type AddPokemonPayload {
+  pokemon(filter: PokemonFilter, order: PokemonOrder, first: Int, offset: Int): [Pokemon]
+  numUids: Int
 }
 
-# Represents a Pokémon's dimensions
-type PokemonDimension {
-  # The minimum value of this dimension
-  minimum: String
+type Attack {
+  name: String
+  type: String
+  damage: Int
+}
 
-  # The maximum value of this dimension
+input AttackOrder {
+  asc: AttackOrderable
+  desc: AttackOrderable
+  then: AttackOrder
+}
+
+enum AttackOrderable {
+  name
+  type
+  damage
+}
+
+input AttackRef {
+  name: String
+  type: String
+  damage: Int
+}
+
+input AuthRule {
+  and: [AuthRule]
+  or: [AuthRule]
+  not: AuthRule
+  rule: String
+}
+
+input CustomHTTP {
+  url: String!
+  method: HTTPMethod!
+  body: String
+  graphql: String
+  mode: Mode
+  forwardHeaders: [String!]
+  secretHeaders: [String!]
+  introspectionHeaders: [String!]
+  skipIntrospection: Boolean
+}
+
+scalar DateTime
+
+input DateTimeFilter {
+  eq: DateTime
+  le: DateTime
+  lt: DateTime
+  ge: DateTime
+  gt: DateTime
+}
+
+type DeletePokemonPayload {
+  pokemon(filter: PokemonFilter, order: PokemonOrder, first: Int, offset: Int): [Pokemon]
+  msg: String
+  numUids: Int
+}
+
+enum DgraphIndex {
+  int
+  float
+  bool
+  hash
+  exact
+  term
+  fulltext
+  trigram
+  regexp
+  year
+  month
+  day
+  hour
+}
+
+input FloatFilter {
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+}
+
+enum HTTPMethod {
+  GET
+  POST
+  PUT
+  PATCH
+  DELETE
+}
+
+input IntFilter {
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+}
+
+enum Mode {
+  BATCH
+  SINGLE
+}
+
+type Mutation {
+  addAttack(input: [AddAttackInput!]!): AddAttackPayload
+  addPokemon(input: [AddPokemonInput!]!): AddPokemonPayload
+  updatePokemon(input: UpdatePokemonInput!): UpdatePokemonPayload
+  deletePokemon(filter: PokemonFilter!): DeletePokemonPayload
+  addPokemonAttack(input: [AddPokemonAttackInput!]!): AddPokemonAttackPayload
+  addPokemonDimension(input: [AddPokemonDimensionInput!]!): AddPokemonDimensionPayload
+  addPokemonEvolutionRequirement(input: [AddPokemonEvolutionRequirementInput!]!): AddPokemonEvolutionRequirementPayload
+}
+
+type Pokemon {
+  id: ID!
+  number: String
+  name: String
+  weight: PokemonDimension
+  height: PokemonDimension
+  classification: String
+  types: [String]
+  resistant: [String]
+  attacks: PokemonAttack
+  weaknesses: [String]
+  fleeRate: Float
+  maxCP: Int
+  evolutions(filter: PokemonFilter, order: PokemonOrder, first: Int, offset: Int): [Pokemon]
+  evolutionRequirements: PokemonEvolutionRequirement
+  maxHP: Int
+  image: String
+}
+
+type PokemonAttack {
+  fast(order: AttackOrder, first: Int, offset: Int): [Attack]
+  special(order: AttackOrder, first: Int, offset: Int): [Attack]
+}
+
+input PokemonAttackRef {
+  fast: [AttackRef]
+  special: [AttackRef]
+}
+
+type PokemonDimension {
+  minimum: String
   maximum: String
 }
 
-# Represents a Pokémon's requirement to evolve
-type PokemonEvolutionRequirement {
-  # The amount of candy to evolve
-  amount: Int
+input PokemonDimensionOrder {
+  asc: PokemonDimensionOrderable
+  desc: PokemonDimensionOrderable
+  then: PokemonDimensionOrder
+}
 
-  # The name of the candy to evolve
+enum PokemonDimensionOrderable {
+  minimum
+  maximum
+}
+
+input PokemonDimensionRef {
+  minimum: String
+  maximum: String
+}
+
+type PokemonEvolutionRequirement {
+  amount: Int
   name: String
 }
 
-# Query any Pokémon by number or name
-type Query {
-  query: Query
-  pokemons(first: Int!): [Pokemon]
-  pokemon(id: String, name: String): Pokemon
+input PokemonEvolutionRequirementOrder {
+  asc: PokemonEvolutionRequirementOrderable
+  desc: PokemonEvolutionRequirementOrderable
+  then: PokemonEvolutionRequirementOrder
 }
+
+enum PokemonEvolutionRequirementOrderable {
+  amount
+  name
+}
+
+input PokemonEvolutionRequirementRef {
+  amount: Int
+  name: String
+}
+
+input PokemonFilter {
+  id: [ID!]
+  name: StringFullTextFilter
+  and: PokemonFilter
+  or: PokemonFilter
+  not: PokemonFilter
+}
+
+input PokemonOrder {
+  asc: PokemonOrderable
+  desc: PokemonOrderable
+  then: PokemonOrder
+}
+
+enum PokemonOrderable {
+  number
+  name
+  classification
+  types
+  resistant
+  weaknesses
+  fleeRate
+  maxCP
+  maxHP
+  image
+}
+
+input PokemonPatch {
+  number: String
+  name: String
+  weight: PokemonDimensionRef
+  height: PokemonDimensionRef
+  classification: String
+  types: [String]
+  resistant: [String]
+  attacks: PokemonAttackRef
+  weaknesses: [String]
+  fleeRate: Float
+  maxCP: Int
+  evolutions: [PokemonRef]
+  evolutionRequirements: PokemonEvolutionRequirementRef
+  maxHP: Int
+  image: String
+}
+
+input PokemonRef {
+  id: ID
+  number: String
+  name: String
+  weight: PokemonDimensionRef
+  height: PokemonDimensionRef
+  classification: String
+  types: [String]
+  resistant: [String]
+  attacks: PokemonAttackRef
+  weaknesses: [String]
+  fleeRate: Float
+  maxCP: Int
+  evolutions: [PokemonRef]
+  evolutionRequirements: PokemonEvolutionRequirementRef
+  maxHP: Int
+  image: String
+}
+
+type Query {
+  queryAttack(order: AttackOrder, first: Int, offset: Int): [Attack]
+  getPokemon(id: ID!): Pokemon
+  queryPokemon(filter: PokemonFilter, order: PokemonOrder, first: Int, offset: Int): [Pokemon]
+  queryPokemonAttack(first: Int, offset: Int): [PokemonAttack]
+  queryPokemonDimension(order: PokemonDimensionOrder, first: Int, offset: Int): [PokemonDimension]
+  queryPokemonEvolutionRequirement(order: PokemonEvolutionRequirementOrder, first: Int, offset: Int): [PokemonEvolutionRequirement]
+}
+
+input StringExactFilter {
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+}
+
+input StringFullTextFilter {
+  alloftext: String
+  anyoftext: String
+}
+
+input StringHashFilter {
+  eq: String
+}
+
+input StringRegExpFilter {
+  regexp: String
+}
+
+input StringTermFilter {
+  allofterms: String
+  anyofterms: String
+}
+
+input UpdatePokemonInput {
+  filter: PokemonFilter!
+  set: PokemonPatch
+  remove: PokemonPatch
+}
+
+type UpdatePokemonPayload {
+  pokemon(filter: PokemonFilter, order: PokemonOrder, first: Int, offset: Int): [Pokemon]
+  numUids: Int
+}
+

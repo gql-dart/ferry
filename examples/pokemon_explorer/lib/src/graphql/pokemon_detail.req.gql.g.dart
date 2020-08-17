@@ -27,10 +27,10 @@ class _$GPokemonDetailSerializer
       serializers.serialize(object.operation,
           specifiedType: const FullType(_i4.Operation)),
     ];
-    if (object.queryId != null) {
+    if (object.requestId != null) {
       result
-        ..add('queryId')
-        ..add(serializers.serialize(object.queryId,
+        ..add('requestId')
+        ..add(serializers.serialize(object.requestId,
             specifiedType: const FullType(String)));
     }
     if (object.optimisticResponse != null) {
@@ -82,8 +82,8 @@ class _$GPokemonDetailSerializer
           result.operation = serializers.deserialize(value,
               specifiedType: const FullType(_i4.Operation)) as _i4.Operation;
           break;
-        case 'queryId':
-          result.queryId = serializers.deserialize(value,
+        case 'requestId':
+          result.requestId = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
         case 'optimisticResponse':
@@ -120,7 +120,7 @@ class _$GPokemonDetail extends GPokemonDetail {
   @override
   final _i4.Operation operation;
   @override
-  final String queryId;
+  final String requestId;
   @override
   final _i2.GPokemonDetailData Function(
       _i2.GPokemonDetailData, _i2.GPokemonDetailData) updateResult;
@@ -139,7 +139,7 @@ class _$GPokemonDetail extends GPokemonDetail {
   _$GPokemonDetail._(
       {this.vars,
       this.operation,
-      this.queryId,
+      this.requestId,
       this.updateResult,
       this.optimisticResponse,
       this.updateCacheHandlerKey,
@@ -169,7 +169,7 @@ class _$GPokemonDetail extends GPokemonDetail {
     return other is GPokemonDetail &&
         vars == other.vars &&
         operation == other.operation &&
-        queryId == other.queryId &&
+        requestId == other.requestId &&
         updateResult == _$dynamicOther.updateResult &&
         optimisticResponse == other.optimisticResponse &&
         updateCacheHandlerKey == other.updateCacheHandlerKey &&
@@ -185,7 +185,7 @@ class _$GPokemonDetail extends GPokemonDetail {
                 $jc(
                     $jc(
                         $jc($jc($jc(0, vars.hashCode), operation.hashCode),
-                            queryId.hashCode),
+                            requestId.hashCode),
                         updateResult.hashCode),
                     optimisticResponse.hashCode),
                 updateCacheHandlerKey.hashCode),
@@ -198,7 +198,7 @@ class _$GPokemonDetail extends GPokemonDetail {
     return (newBuiltValueToStringHelper('GPokemonDetail')
           ..add('vars', vars)
           ..add('operation', operation)
-          ..add('queryId', queryId)
+          ..add('requestId', requestId)
           ..add('updateResult', updateResult)
           ..add('optimisticResponse', optimisticResponse)
           ..add('updateCacheHandlerKey', updateCacheHandlerKey)
@@ -221,9 +221,9 @@ class GPokemonDetailBuilder
   _i4.Operation get operation => _$this._operation;
   set operation(_i4.Operation operation) => _$this._operation = operation;
 
-  String _queryId;
-  String get queryId => _$this._queryId;
-  set queryId(String queryId) => _$this._queryId = queryId;
+  String _requestId;
+  String get requestId => _$this._requestId;
+  set requestId(String requestId) => _$this._requestId = requestId;
 
   _i2.GPokemonDetailData Function(
       _i2.GPokemonDetailData, _i2.GPokemonDetailData) _updateResult;
@@ -267,7 +267,7 @@ class GPokemonDetailBuilder
     if (_$v != null) {
       _vars = _$v.vars?.toBuilder();
       _operation = _$v.operation;
-      _queryId = _$v.queryId;
+      _requestId = _$v.requestId;
       _updateResult = _$v.updateResult;
       _optimisticResponse = _$v.optimisticResponse?.toBuilder();
       _updateCacheHandlerKey = _$v.updateCacheHandlerKey;
@@ -299,7 +299,7 @@ class GPokemonDetailBuilder
           new _$GPokemonDetail._(
               vars: vars.build(),
               operation: operation,
-              queryId: queryId,
+              requestId: requestId,
               updateResult: updateResult,
               optimisticResponse: _optimisticResponse?.build(),
               updateCacheHandlerKey: updateCacheHandlerKey,
