@@ -17,7 +17,7 @@ abstract class GAllPokemonData
       _$GAllPokemonData;
 
   @nullable
-  BuiltList<GAllPokemonData_pokemons> get pokemons;
+  BuiltList<GAllPokemonData_queryPokemon> get queryPokemon;
   static Serializer<GAllPokemonData> get serializer =>
       _$gAllPokemonDataSerializer;
   Map<String, dynamic> toJson() =>
@@ -26,17 +26,18 @@ abstract class GAllPokemonData
       _i1.serializers.deserializeWith(GAllPokemonData.serializer, json);
 }
 
-abstract class GAllPokemonData_pokemons
+abstract class GAllPokemonData_queryPokemon
     implements
-        Built<GAllPokemonData_pokemons, GAllPokemonData_pokemonsBuilder>,
+        Built<GAllPokemonData_queryPokemon,
+            GAllPokemonData_queryPokemonBuilder>,
         _i2.GPokemonCard {
-  GAllPokemonData_pokemons._();
+  GAllPokemonData_queryPokemon._();
 
-  factory GAllPokemonData_pokemons(
-          [Function(GAllPokemonData_pokemonsBuilder b) updates]) =
-      _$GAllPokemonData_pokemons;
+  factory GAllPokemonData_queryPokemon(
+          [Function(GAllPokemonData_queryPokemonBuilder b) updates]) =
+      _$GAllPokemonData_queryPokemon;
 
-  static void _initializeBuilder(GAllPokemonData_pokemonsBuilder b) =>
+  static void _initializeBuilder(GAllPokemonData_queryPokemonBuilder b) =>
       b..G__typename = 'Pokemon';
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -47,11 +48,11 @@ abstract class GAllPokemonData_pokemons
   int get maxHP;
   @nullable
   String get image;
-  static Serializer<GAllPokemonData_pokemons> get serializer =>
-      _$gAllPokemonDataPokemonsSerializer;
-  Map<String, dynamic> toJson() =>
-      _i1.serializers.serializeWith(GAllPokemonData_pokemons.serializer, this);
-  static GAllPokemonData_pokemons fromJson(Map<String, dynamic> json) =>
+  static Serializer<GAllPokemonData_queryPokemon> get serializer =>
+      _$gAllPokemonDataQueryPokemonSerializer;
+  Map<String, dynamic> toJson() => _i1.serializers
+      .serializeWith(GAllPokemonData_queryPokemon.serializer, this);
+  static GAllPokemonData_queryPokemon fromJson(Map<String, dynamic> json) =>
       _i1.serializers
-          .deserializeWith(GAllPokemonData_pokemons.serializer, json);
+          .deserializeWith(GAllPokemonData_queryPokemon.serializer, json);
 }

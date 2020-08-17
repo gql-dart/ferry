@@ -18,7 +18,7 @@ const AllPokemon = _i1.OperationDefinitionNode(
     directives: [],
     selectionSet: _i1.SelectionSetNode(selections: [
       _i1.FieldNode(
-          name: _i1.NameNode(value: 'pokemons'),
+          name: _i1.NameNode(value: 'queryPokemon'),
           alias: null,
           arguments: [
             _i1.ArgumentNode(

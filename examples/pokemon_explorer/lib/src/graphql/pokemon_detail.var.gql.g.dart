@@ -26,12 +26,6 @@ class _$GPokemonDetailVarsSerializer
         ..add(serializers.serialize(object.id,
             specifiedType: const FullType(String)));
     }
-    if (object.name != null) {
-      result
-        ..add('name')
-        ..add(serializers.serialize(object.name,
-            specifiedType: const FullType(String)));
-    }
     return result;
   }
 
@@ -51,10 +45,6 @@ class _$GPokemonDetailVarsSerializer
           result.id = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
-        case 'name':
-          result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
-          break;
       }
     }
 
@@ -65,14 +55,12 @@ class _$GPokemonDetailVarsSerializer
 class _$GPokemonDetailVars extends GPokemonDetailVars {
   @override
   final String id;
-  @override
-  final String name;
 
   factory _$GPokemonDetailVars(
           [void Function(GPokemonDetailVarsBuilder) updates]) =>
       (new GPokemonDetailVarsBuilder()..update(updates)).build();
 
-  _$GPokemonDetailVars._({this.id, this.name}) : super._();
+  _$GPokemonDetailVars._({this.id}) : super._();
 
   @override
   GPokemonDetailVars rebuild(
@@ -86,19 +74,17 @@ class _$GPokemonDetailVars extends GPokemonDetailVars {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GPokemonDetailVars && id == other.id && name == other.name;
+    return other is GPokemonDetailVars && id == other.id;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, id.hashCode), name.hashCode));
+    return $jf($jc(0, id.hashCode));
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GPokemonDetailVars')
-          ..add('id', id)
-          ..add('name', name))
+    return (newBuiltValueToStringHelper('GPokemonDetailVars')..add('id', id))
         .toString();
   }
 }
@@ -111,16 +97,11 @@ class GPokemonDetailVarsBuilder
   String get id => _$this._id;
   set id(String id) => _$this._id = id;
 
-  String _name;
-  String get name => _$this._name;
-  set name(String name) => _$this._name = name;
-
   GPokemonDetailVarsBuilder();
 
   GPokemonDetailVarsBuilder get _$this {
     if (_$v != null) {
       _id = _$v.id;
-      _name = _$v.name;
       _$v = null;
     }
     return this;
@@ -141,7 +122,7 @@ class GPokemonDetailVarsBuilder
 
   @override
   _$GPokemonDetailVars build() {
-    final _$result = _$v ?? new _$GPokemonDetailVars._(id: id, name: name);
+    final _$result = _$v ?? new _$GPokemonDetailVars._(id: id);
     replace(_$result);
     return _$result;
   }

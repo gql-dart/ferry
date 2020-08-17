@@ -9,11 +9,13 @@ Future<Client> initClient() async {
 
   final box = await Hive.openBox("graphql");
 
+  await box.clear();
+
   final store = HiveStore(box);
 
   final cache = Cache(dataStore: store);
 
-  final link = HttpLink("https://graphql-pokemon.now.sh/graphql");
+  final link = HttpLink("https://ferry.us-west-2.aws.cloud.dgraph.io/graphql");
 
   final client = Client(
     link: link,

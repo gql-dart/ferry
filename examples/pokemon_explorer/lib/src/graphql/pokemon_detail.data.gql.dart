@@ -16,7 +16,7 @@ abstract class GPokemonDetailData
       _$GPokemonDetailData;
 
   @nullable
-  GPokemonDetailData_pokemon get pokemon;
+  GPokemonDetailData_getPokemon get getPokemon;
   static Serializer<GPokemonDetailData> get serializer =>
       _$gPokemonDetailDataSerializer;
   Map<String, dynamic> toJson() =>
@@ -25,17 +25,18 @@ abstract class GPokemonDetailData
       _i1.serializers.deserializeWith(GPokemonDetailData.serializer, json);
 }
 
-abstract class GPokemonDetailData_pokemon
+abstract class GPokemonDetailData_getPokemon
     implements
-        Built<GPokemonDetailData_pokemon, GPokemonDetailData_pokemonBuilder>,
+        Built<GPokemonDetailData_getPokemon,
+            GPokemonDetailData_getPokemonBuilder>,
         _i2.GPokemonCard {
-  GPokemonDetailData_pokemon._();
+  GPokemonDetailData_getPokemon._();
 
-  factory GPokemonDetailData_pokemon(
-          [Function(GPokemonDetailData_pokemonBuilder b) updates]) =
-      _$GPokemonDetailData_pokemon;
+  factory GPokemonDetailData_getPokemon(
+          [Function(GPokemonDetailData_getPokemonBuilder b) updates]) =
+      _$GPokemonDetailData_getPokemon;
 
-  static void _initializeBuilder(GPokemonDetailData_pokemonBuilder b) =>
+  static void _initializeBuilder(GPokemonDetailData_getPokemonBuilder b) =>
       b..G__typename = 'Pokemon';
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -47,29 +48,30 @@ abstract class GPokemonDetailData_pokemon
   @nullable
   String get image;
   @nullable
-  GPokemonDetailData_pokemon_weight get weight;
+  GPokemonDetailData_getPokemon_weight get weight;
   @nullable
-  GPokemonDetailData_pokemon_height get height;
-  static Serializer<GPokemonDetailData_pokemon> get serializer =>
-      _$gPokemonDetailDataPokemonSerializer;
+  GPokemonDetailData_getPokemon_height get height;
+  static Serializer<GPokemonDetailData_getPokemon> get serializer =>
+      _$gPokemonDetailDataGetPokemonSerializer;
   Map<String, dynamic> toJson() => _i1.serializers
-      .serializeWith(GPokemonDetailData_pokemon.serializer, this);
-  static GPokemonDetailData_pokemon fromJson(Map<String, dynamic> json) =>
+      .serializeWith(GPokemonDetailData_getPokemon.serializer, this);
+  static GPokemonDetailData_getPokemon fromJson(Map<String, dynamic> json) =>
       _i1.serializers
-          .deserializeWith(GPokemonDetailData_pokemon.serializer, json);
+          .deserializeWith(GPokemonDetailData_getPokemon.serializer, json);
 }
 
-abstract class GPokemonDetailData_pokemon_weight
+abstract class GPokemonDetailData_getPokemon_weight
     implements
-        Built<GPokemonDetailData_pokemon_weight,
-            GPokemonDetailData_pokemon_weightBuilder> {
-  GPokemonDetailData_pokemon_weight._();
+        Built<GPokemonDetailData_getPokemon_weight,
+            GPokemonDetailData_getPokemon_weightBuilder> {
+  GPokemonDetailData_getPokemon_weight._();
 
-  factory GPokemonDetailData_pokemon_weight(
-          [Function(GPokemonDetailData_pokemon_weightBuilder b) updates]) =
-      _$GPokemonDetailData_pokemon_weight;
+  factory GPokemonDetailData_getPokemon_weight(
+          [Function(GPokemonDetailData_getPokemon_weightBuilder b) updates]) =
+      _$GPokemonDetailData_getPokemon_weight;
 
-  static void _initializeBuilder(GPokemonDetailData_pokemon_weightBuilder b) =>
+  static void _initializeBuilder(
+          GPokemonDetailData_getPokemon_weightBuilder b) =>
       b..G__typename = 'PokemonDimension';
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -77,27 +79,28 @@ abstract class GPokemonDetailData_pokemon_weight
   String get minimum;
   @nullable
   String get maximum;
-  static Serializer<GPokemonDetailData_pokemon_weight> get serializer =>
-      _$gPokemonDetailDataPokemonWeightSerializer;
+  static Serializer<GPokemonDetailData_getPokemon_weight> get serializer =>
+      _$gPokemonDetailDataGetPokemonWeightSerializer;
   Map<String, dynamic> toJson() => _i1.serializers
-      .serializeWith(GPokemonDetailData_pokemon_weight.serializer, this);
-  static GPokemonDetailData_pokemon_weight fromJson(
+      .serializeWith(GPokemonDetailData_getPokemon_weight.serializer, this);
+  static GPokemonDetailData_getPokemon_weight fromJson(
           Map<String, dynamic> json) =>
-      _i1.serializers
-          .deserializeWith(GPokemonDetailData_pokemon_weight.serializer, json);
+      _i1.serializers.deserializeWith(
+          GPokemonDetailData_getPokemon_weight.serializer, json);
 }
 
-abstract class GPokemonDetailData_pokemon_height
+abstract class GPokemonDetailData_getPokemon_height
     implements
-        Built<GPokemonDetailData_pokemon_height,
-            GPokemonDetailData_pokemon_heightBuilder> {
-  GPokemonDetailData_pokemon_height._();
+        Built<GPokemonDetailData_getPokemon_height,
+            GPokemonDetailData_getPokemon_heightBuilder> {
+  GPokemonDetailData_getPokemon_height._();
 
-  factory GPokemonDetailData_pokemon_height(
-          [Function(GPokemonDetailData_pokemon_heightBuilder b) updates]) =
-      _$GPokemonDetailData_pokemon_height;
+  factory GPokemonDetailData_getPokemon_height(
+          [Function(GPokemonDetailData_getPokemon_heightBuilder b) updates]) =
+      _$GPokemonDetailData_getPokemon_height;
 
-  static void _initializeBuilder(GPokemonDetailData_pokemon_heightBuilder b) =>
+  static void _initializeBuilder(
+          GPokemonDetailData_getPokemon_heightBuilder b) =>
       b..G__typename = 'PokemonDimension';
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -105,12 +108,12 @@ abstract class GPokemonDetailData_pokemon_height
   String get minimum;
   @nullable
   String get maximum;
-  static Serializer<GPokemonDetailData_pokemon_height> get serializer =>
-      _$gPokemonDetailDataPokemonHeightSerializer;
+  static Serializer<GPokemonDetailData_getPokemon_height> get serializer =>
+      _$gPokemonDetailDataGetPokemonHeightSerializer;
   Map<String, dynamic> toJson() => _i1.serializers
-      .serializeWith(GPokemonDetailData_pokemon_height.serializer, this);
-  static GPokemonDetailData_pokemon_height fromJson(
+      .serializeWith(GPokemonDetailData_getPokemon_height.serializer, this);
+  static GPokemonDetailData_getPokemon_height fromJson(
           Map<String, dynamic> json) =>
-      _i1.serializers
-          .deserializeWith(GPokemonDetailData_pokemon_height.serializer, json);
+      _i1.serializers.deserializeWith(
+          GPokemonDetailData_getPokemon_height.serializer, json);
 }

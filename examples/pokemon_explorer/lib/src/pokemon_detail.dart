@@ -19,19 +19,19 @@ class PokemonDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Query(
       client: client,
-      queryRequest: GPokemonDetail(
+      operationRequest: GPokemonDetail(
         (b) => b..vars.id = id,
       ),
       builder: (
         BuildContext context,
-        QueryResponse<GPokemonDetailData, GPokemonDetailVars> response,
+        OperationResponse<GPokemonDetailData, GPokemonDetailVars> response,
       ) {
         if (response.loading)
           return Scaffold(
               appBar: AppBar(),
               body: Center(child: CircularProgressIndicator()));
 
-        final pokemon = response.data?.pokemon;
+        final pokemon = response.data?.getPokemon;
 
         return Scaffold(
           appBar: AppBar(
