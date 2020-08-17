@@ -2,12 +2,14 @@ import "dart:async";
 
 import "package:build/build.dart";
 import "package:path/path.dart";
-
 import "package:gql_build/src/config.dart";
 import "package:gql_build/src/utils/reader.dart";
 import "package:gql_build/src/utils/writer.dart";
+import "package:code_builder/code_builder.dart";
+import "package:gql_code_builder/source.dart";
 
-import './req_code_builder.dart';
+import './req/operation_req.dart';
+import './req/fragment_req.dart';
 
 /// Builds GraphQL type-safe request builder
 Builder reqBuilder(
@@ -40,7 +42,7 @@ class ReqBuilder implements Builder {
         .uri
         .path;
 
-    final library = buildReqLibrary(
+    final library = _buildReqLibrary(
       doc,
       basename(generatedPartUrl),
     );
@@ -53,3 +55,22 @@ class ReqBuilder implements Builder {
     );
   }
 }
+
+Library _buildReqLibrary(
+  SourceNode docSource,
+  String partUrl,
+) =>
+    Library(
+      (b) => b
+        ..directives.add(Directive.part(partUrl))
+        ..body.addAll(
+          [
+            ...buildOperationReqClasses(
+              docSource,
+            ),
+            ...buildFragmentReqClasses(
+              docSource,
+            )
+          ],
+        ),
+    );

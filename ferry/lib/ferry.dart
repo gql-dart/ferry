@@ -7,3 +7,4 @@ export './src/client.dart';
 export './src/fetch_policy.dart';
 export './src/operation_request.dart';
 export './src/operation_response.dart';
+export './src/fragment_request.dart';
