@@ -5,21 +5,7 @@ import "package:gql_code_builder/source.dart";
 import "package:gql_code_builder/src/built_class.dart";
 import "package:gql_code_builder/src/common.dart";
 
-Library buildReqLibrary(
-  SourceNode docSource,
-  String partUrl,
-) =>
-    Library(
-      (b) => b
-        ..directives.add(Directive.part(partUrl))
-        ..body.addAll(
-          _buildOperationReqClasses(
-            docSource,
-          ),
-        ),
-    );
-
-List<Class> _buildOperationReqClasses(
+List<Class> buildOperationReqClasses(
   SourceNode docSource,
 ) =>
     docSource.document.definitions
