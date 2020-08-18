@@ -5,8 +5,7 @@ import 'package:gql_exec/gql_exec.dart';
 import "package:ferry/ferry.dart";
 import 'package:test/test.dart';
 
-import './graphql/all_pokemon.req.gql.dart';
-import './graphql/all_pokemon.data.gql.dart';
+import '../../test_graphql/lib/queries/variables/human_with_args.req.gql.dart';
 
 class MockLink extends Mock implements Link {}
 
@@ -15,15 +14,13 @@ void main() {
     test('Returns a response with GraphQL errors', () async {
       final mockLink = MockLink();
 
-      final allPokemonReq = AllPokemon(
-        buildVars: (b) => b..first = 3,
-      );
+      final human = GHumanWithArgs((b) => b..vars.id = "123");
 
       final graphQLErrors = [
         GraphQLError(message: "Your GraphQL is not valid")
       ];
 
-      when(mockLink.request(allPokemonReq, any)).thenAnswer(
+      when(mockLink.request(human.execRequest, any)).thenAnswer(
         (_) => Stream.value(Response(errors: graphQLErrors)),
       );
 
@@ -32,13 +29,13 @@ void main() {
         options: ClientOptions(addTypename: false),
       );
 
-      final response = QueryResponse<$AllPokemon>(
-        queryRequest: allPokemonReq,
+      final response = OperationResponse(
+        operationRequest: human,
         graphqlErrors: graphQLErrors,
         dataSource: DataSource.Link,
       );
 
-      expect(client.responseStream(allPokemonReq), emits(response));
+      expect(client.responseStream(human), emits(response));
     });
   });
 
@@ -47,40 +44,40 @@ void main() {
         () async {
       final mockLink = MockLink();
 
-      final allPokemonReq = AllPokemon(
-        buildVars: (b) => b..first = 3,
-      );
+      final human = GHumanWithArgs((b) => b..vars.id = "123");
 
       final exception = ServerException(parsedResponse: Response());
 
-      when(mockLink.request(allPokemonReq, any)).thenThrow(exception);
+      when(mockLink.request(human.execRequest, any)).thenThrow(exception);
 
       final client = Client(
         link: mockLink,
         options: ClientOptions(addTypename: false),
       );
 
-      final response = QueryResponse<$AllPokemon>(
-        queryRequest: allPokemonReq,
+      final response = OperationResponse(
+        operationRequest: human,
         linkException: exception,
         dataSource: DataSource.Link,
       );
 
-      expect(
-          client.responseStream(allPokemonReq), emitsError(equals(exception)));
+      // TODO: check that also emits response
+
+      expect(client.responseStream(human), emitsError(equals(exception)));
     });
 
-    test('Wraps error events of a stream into QueryResponse', () async {
+    test('Wraps error events of a stream into OperationResponse', () async {
       final mockLink = MockLink();
 
-      final allPokemonReq = AllPokemon(
-        buildVars: (b) => b..first = 3,
-        fetchPolicy: FetchPolicy.NetworkOnly,
+      final req = GHumanWithArgs(
+        (b) => b
+          ..vars.id = "123"
+          ..fetchPolicy = FetchPolicy.NetworkOnly,
       );
 
       final exception = ServerException(parsedResponse: Response());
 
-      when(mockLink.request(allPokemonReq, any))
+      when(mockLink.request(req.execRequest, any))
           .thenAnswer((_) => Stream.error(exception));
 
       final client = Client(
@@ -88,13 +85,13 @@ void main() {
         options: ClientOptions(addTypename: false),
       );
 
-      final response = QueryResponse<$AllPokemon>(
-        queryRequest: allPokemonReq,
+      final response = OperationResponse(
+        operationRequest: req,
         linkException: exception,
         dataSource: DataSource.Link,
       );
 
-      expect(client.responseStream(allPokemonReq), emits(response));
+      expect(client.responseStream(req), emits(response));
     });
   });
 
@@ -102,13 +99,14 @@ void main() {
     test('Can emit data after emitting errors', () {
       final mockLink = MockLink();
 
-      final allPokemonReq = AllPokemon(
-          buildVars: (b) => b..first = 3,
-          fetchPolicy: FetchPolicy
-              .CacheAndNetwork // default is CacheFirst, which allows only 1 item from Link
-          );
+      final req = GHumanWithArgs(
+        (b) => b
+          ..vars.id = "123"
+          ..fetchPolicy = FetchPolicy
+              .CacheAndNetwork, // default is CacheFirst, which allows only 1 item from Link
+      );
 
-      when(mockLink.request(allPokemonReq, any)).thenAnswer((_) async* {
+      when(mockLink.request(req.execRequest, any)).thenAnswer((_) async* {
         final controller = StreamController<Response>();
 
         controller.addError("error");
@@ -123,8 +121,8 @@ void main() {
         options: ClientOptions(addTypename: false),
       );
 
-      expect(client.responseStream(allPokemonReq),
-          emitsInOrder([isA<QueryResponse>(), isA<QueryResponse>()]));
+      expect(client.responseStream(req),
+          emitsInOrder([isA<OperationResponse>(), isA<OperationResponse>()]));
     });
   });
 }

@@ -6,13 +6,14 @@ import "package:ferry/ferry.dart";
 import 'package:rxdart/rxdart.dart';
 import 'package:test/test.dart';
 
-import './graphql/all_pokemon.req.gql.dart';
-import './graphql/all_pokemon.data.gql.dart';
+import 'package:test_graphql/queries/variables/human_with_args.req.gql.dart';
+import 'package:test_graphql/queries/variables/human_with_args.data.gql.dart';
+import 'package:test_graphql/queries/variables/human_with_args.var.gql.dart';
 
 class MockLink extends Mock implements Link {}
 
 void main() {
-  group("Multiple QueryRequests of the same type", () {
+  group("Multiple OperationRequests of the same type", () {
     final mockLink = MockLink();
 
     when(mockLink.request(any, any)).thenAnswer(
@@ -26,29 +27,26 @@ void main() {
     test(
         "Requests with different args aren't returned in the same response stream",
         () async {
-      final req1 = AllPokemon(
-        buildVars: (b) => b..first = 3,
-      );
-
-      final req2 = AllPokemon(
-        buildVars: (b) => b..first = 5,
-      );
+      final human1 = GHumanWithArgs((b) => b..vars.id = "1");
+      final human2 = GHumanWithArgs((b) => b..vars.id = "2");
 
       final resultStream = client
-          .responseStream(req1, executeOnListen: false)
-          .scan<List<QueryResponse<$AllPokemon>>>(
-              (acc, val, _) => acc..add(val),
+          .responseStream(human1, executeOnListen: false)
+          .scan<
+                  List<
+                      OperationResponse<GHumanWithArgsData,
+                          GHumanWithArgsVars>>>((acc, val, _) => acc..add(val),
               []).takeUntil(TimerStream(null, Duration(milliseconds: 100)));
 
       () async {
         await Future.delayed(Duration.zero);
-        client.queryController.add(req1);
+        client.requestController.add(human1);
         await Future.delayed(Duration.zero);
-        client.queryController.add(req2);
+        client.requestController.add(human2);
       }();
 
-      final response1 = QueryResponse<$AllPokemon>(
-        queryRequest: req1,
+      final response1 = OperationResponse(
+        operationRequest: human1,
         data: null,
         dataSource: DataSource.Link,
       );
@@ -58,37 +56,36 @@ void main() {
 
     test("Requests with the same args are returned in the same response stream",
         () async {
-      final req1 = AllPokemon(
-        buildVars: (b) => b..first = 3,
-      );
+      final req1 = GHumanWithArgs((b) => b..vars.id = "1");
 
-      final req2 = AllPokemon(
-        buildVars: (b) => b..first = 3,
-      );
+      final req2 = GHumanWithArgs((b) => b..vars.id = "1");
 
       final resultStream = client
           .responseStream(req1, executeOnListen: false)
-          .scan<List<QueryResponse<$AllPokemon>>>((acc, val, _) {
+          .scan<
+              List<
+                  OperationResponse<GHumanWithArgsData,
+                      GHumanWithArgsVars>>>((acc, val, _) {
         return acc..add(val);
       }, []).takeUntil(TimerStream(null, Duration(milliseconds: 100)));
 
       () async {
         await Future.delayed(Duration.zero);
-        client.queryController.add(req1);
+        client.requestController.add(req1);
         await Future.delayed(Duration.zero);
-        client.queryController.add(req2);
+        client.requestController.add(req2);
       }();
 
       Future.delayed(Duration(milliseconds: 100)).then((value) {});
 
-      final response1 = QueryResponse<$AllPokemon>(
-        queryRequest: req1,
+      final response1 = OperationResponse(
+        operationRequest: req1,
         data: null,
         dataSource: DataSource.Link,
       );
 
-      final response2 = QueryResponse<$AllPokemon>(
-        queryRequest: req2,
+      final response2 = OperationResponse(
+        operationRequest: req2,
         data: null,
         dataSource: DataSource.Link,
       );
@@ -97,41 +94,46 @@ void main() {
     });
 
     test(
-        "Requests with the same queryId are returned in the same response stream",
+        "Requests with the same requestId are returned in the same response stream",
         () async {
-      final req1 = AllPokemon(
-        queryId: "123",
-        buildVars: (b) => b..first = 3,
+      final req1 = GHumanWithArgs(
+        (b) => b
+          ..vars.id = "1"
+          ..requestId = "123",
       );
 
-      final req2 = AllPokemon(
-        queryId: "123",
-        buildVars: (b) => b..first = 5,
+      final req2 = GHumanWithArgs(
+        (b) => b
+          ..vars.id = "2"
+          ..requestId = "123",
       );
 
       final resultStream = client
           .responseStream(req1, executeOnListen: false)
-          .scan<List<QueryResponse<$AllPokemon>>>((acc, val, _) {
+          .scan<
+              List<
+                  OperationResponse<GHumanWithArgsData,
+                      GHumanWithArgsVars>>>((acc, val, _) {
         return acc..add(val);
       }, []).takeUntil(TimerStream(null, Duration(milliseconds: 100)));
 
       () async {
         await Future.delayed(Duration.zero);
-        client.queryController.add(req1);
+        client.requestController.add(req1);
         await Future.delayed(Duration.zero);
-        client.queryController.add(req2);
+        client.requestController.add(req2);
       }();
 
       Future.delayed(Duration(milliseconds: 100)).then((value) {});
 
-      final response1 = QueryResponse<$AllPokemon>(
-        queryRequest: req1,
+      final response1 = OperationResponse(
+        operationRequest: req1,
         data: null,
         dataSource: DataSource.Link,
       );
 
-      final response2 = QueryResponse<$AllPokemon>(
-        queryRequest: req2,
+      final response2 = OperationResponse(
+        operationRequest: req2,
         data: null,
         dataSource: DataSource.Link,
       );
