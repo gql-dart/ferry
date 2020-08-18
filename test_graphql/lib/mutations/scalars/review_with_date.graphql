@@ -1,0 +1,13 @@
+mutation ReviewWithDate(
+  $episode: Episode
+  $review: ReviewInput!
+  $createdAt: Date
+) {
+  createReview(episode: $episode, review: $review, createdAt: $createdAt) {
+    episode
+    stars
+    commentary
+    createdAt
+    seenOn
+  }
+}

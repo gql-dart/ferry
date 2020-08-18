@@ -1,0 +1,12 @@
+query AliasedHero($ep: Episode!) {
+  empireHero: hero(episode: EMPIRE) {
+    id
+    name
+    from: appearsIn
+  }
+  jediHero: hero(episode: JEDI) {
+    id
+    name
+    from: appearsIn
+  }
+}

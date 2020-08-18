@@ -1,0 +1,12 @@
+fragment DroidFragment on Droid {
+  primaryFunction
+}
+
+query HeroForEpisode($ep: Episode!) {
+  hero(episode: $ep) {
+    name
+    ... on Droid {
+      ...DroidFragment
+    }
+  }
+}
