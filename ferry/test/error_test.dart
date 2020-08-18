@@ -83,7 +83,6 @@ void main() {
         final controller = StreamController<Response>();
 
         controller.addError("error");
-
         controller.add(Response(data: {}));
         controller.close();
 

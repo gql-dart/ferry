@@ -37,7 +37,7 @@ class _StreamCancelTestLink extends Link {
 
 void main() {
   test(
-      "Steam in Link is cancelled when no one is listening - for all FetchPolicies",
+      "Stream in Link is cancelled when no one is listening - for all FetchPolicies",
       () async {
     final link = _StreamCancelTestLink();
     final client = Client(link: link);
@@ -68,7 +68,7 @@ void main() {
         expect(link.hasCanceledStreamCompleter.isCompleted, isTrue);
         link.reset();
       } on TimeoutException {
-        fail("Stream from link was not cancelledo when using $fetchPolicy");
+        fail("Stream from link was not cancelled when using $fetchPolicy");
       }
     }
   });
