@@ -68,4 +68,38 @@ void main() {
       expect(client.responseStream(allPokemonReq), emits(response));
     });
   });
+
+  group('Behavior after receiving errors', () {
+    test('Can emit data after emitting errors', () async {
+      final mockLink = MockLink();
+
+      final allPokemonReq = AllPokemon(
+          buildVars: (b) => b..first = 3,
+          fetchPolicy: FetchPolicy
+              .CacheAndNetwork // default is CacheFirst, which allows only 1 item from Link
+          );
+
+      when(mockLink.request(allPokemonReq, any)).thenAnswer((_) {
+        final controller = StreamController<Response>();
+
+        Future.delayed((Duration(microseconds: 1)))
+            .then((value) => controller.addError("error"));
+
+        Future.delayed((Duration(milliseconds: 100))).then((value) {
+          controller.add(Response(data: {}));
+          controller.close();
+        });
+
+        return controller.stream;
+      });
+
+      final client = Client(
+        link: mockLink,
+        options: ClientOptions(addTypename: false),
+      );
+
+      expect(client.responseStream(allPokemonReq),
+          emitsInOrder([isA<QueryResponse>(), isA<QueryResponse>()]));
+    });
+  });
 }
