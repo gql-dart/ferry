@@ -70,7 +70,7 @@ void main() {
   });
 
   group('Behavior after receiving errors', () {
-    test('Can emit data after emitting errors', () async {
+    test('Can emit data after emitting errors', () {
       final mockLink = MockLink();
 
       final allPokemonReq = AllPokemon(
@@ -79,18 +79,15 @@ void main() {
               .CacheAndNetwork // default is CacheFirst, which allows only 1 item from Link
           );
 
-      when(mockLink.request(allPokemonReq, any)).thenAnswer((_) {
+      when(mockLink.request(allPokemonReq, any)).thenAnswer((_) async* {
         final controller = StreamController<Response>();
 
-        Future.delayed((Duration(microseconds: 1)))
-            .then((value) => controller.addError("error"));
+        controller.addError("error");
 
-        Future.delayed((Duration(milliseconds: 100))).then((value) {
-          controller.add(Response(data: {}));
-          controller.close();
-        });
+        controller.add(Response(data: {}));
+        controller.close();
 
-        return controller.stream;
+        yield* controller.stream;
       });
 
       final client = Client(
