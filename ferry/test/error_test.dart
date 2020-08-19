@@ -47,7 +47,9 @@ void main() {
         () async {
       final mockLink = MockLink();
 
-      final allPokemonReq = AllPokemon(buildVars: (b) => b..first = 3);
+      final allPokemonReq = AllPokemon(
+        buildVars: (b) => b..first = 3,
+      );
 
       final exception = ServerException(parsedResponse: Response());
 
@@ -72,7 +74,9 @@ void main() {
       final mockLink = MockLink();
 
       final allPokemonReq = AllPokemon(
-          buildVars: (b) => b..first = 3, fetchPolicy: FetchPolicy.NetworkOnly);
+        buildVars: (b) => b..first = 3,
+        fetchPolicy: FetchPolicy.NetworkOnly,
+      );
 
       final exception = ServerException(parsedResponse: Response());
 
