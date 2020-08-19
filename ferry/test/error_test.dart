@@ -43,16 +43,42 @@ void main() {
   });
 
   group("Network Errors", () {
-    test('Returns a network error when Link throws', () async {
+    test('Returns a stream that emits an error if link throws an exception',
+        () async {
       final mockLink = MockLink();
 
       final allPokemonReq = AllPokemon(
-        buildVars: (b) => b..first = 3,
-      );
+          buildVars: (b) => b..first = 3, fetchPolicy: FetchPolicy.NetworkOnly);
 
       final exception = ServerException(parsedResponse: Response());
 
       when(mockLink.request(allPokemonReq, any)).thenThrow(exception);
+
+      final client = Client(
+        link: mockLink,
+        options: ClientOptions(addTypename: false),
+      );
+
+      final response = QueryResponse<$AllPokemon>(
+        queryRequest: allPokemonReq,
+        linkException: exception,
+        dataSource: DataSource.Link,
+      );
+
+      expect(
+          client.responseStream(allPokemonReq), emitsError(equals(exception)));
+    });
+
+    test('Wraps error events of a stream into QueryResponse', () async {
+      final mockLink = MockLink();
+
+      final allPokemonReq = AllPokemon(
+          buildVars: (b) => b..first = 3, fetchPolicy: FetchPolicy.NetworkOnly);
+
+      final exception = ServerException(parsedResponse: Response());
+
+      when(mockLink.request(allPokemonReq, any))
+          .thenAnswer((_) =>Stream.error(exception));
 
       final client = Client(
         link: mockLink,
@@ -99,3 +125,9 @@ void main() {
     });
   });
 }
+
+abstract class Mockable {
+  int stream();
+}
+
+class MyMock extends Mock implements Mockable {}
