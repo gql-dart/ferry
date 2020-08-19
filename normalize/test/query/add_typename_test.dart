@@ -38,6 +38,19 @@ void main() {
             ),
             equals(sharedResponse),
           );
+
+          final normalizedResult = {};
+          normalize(
+            addTypename: true,
+            query: query,
+            data: sharedResponse,
+            writer: (dataId, value) => normalizedResult[dataId] = value,
+          );
+
+          expect(
+            normalizedResult,
+            equals(sharedNormalizedMap),
+          );
         },
       );
 
@@ -72,6 +85,19 @@ void main() {
               addTypename: true,
             ),
             equals(sharedResponse),
+          );
+
+          final normalizedResult = {};
+          normalize(
+            addTypename: true,
+            query: query,
+            data: sharedResponse,
+            writer: (dataId, value) => normalizedResult[dataId] = value,
+          );
+
+          expect(
+            normalizedResult,
+            equals(sharedNormalizedMap),
           );
         },
       );
@@ -109,6 +135,19 @@ void main() {
               addTypename: true,
             ),
             equals(sharedResponse),
+          );
+
+          final normalizedResult = {};
+          normalize(
+            addTypename: true,
+            query: query,
+            data: sharedResponse,
+            writer: (dataId, value) => normalizedResult[dataId] = value,
+          );
+
+          expect(
+            normalizedResult,
+            equals(sharedNormalizedMap),
           );
         },
       );

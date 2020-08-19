@@ -35,6 +35,7 @@ void normalizeFragment({
   Map<String, TypePolicy> typePolicies,
   DataIdResolver dataIdFromObject,
   String referenceKey,
+  bool addTypename = false,
 }) {
   // Set default if none is defined
   referenceKey ??= '\$ref';
@@ -117,6 +118,7 @@ void normalizeFragment({
       );
 
       final dataToMerge = {
+        if (addTypename && typename != null) "__typename": typename,
         for (var selection in subNodes)
           fieldNameWithArguments(
             selection,
