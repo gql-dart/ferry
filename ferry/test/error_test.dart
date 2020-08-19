@@ -78,7 +78,7 @@ void main() {
       final exception = ServerException(parsedResponse: Response());
 
       when(mockLink.request(allPokemonReq, any))
-          .thenAnswer((_) =>Stream.error(exception));
+          .thenAnswer((_) => Stream.error(exception));
 
       final client = Client(
         link: mockLink,
