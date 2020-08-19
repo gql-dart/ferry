@@ -171,38 +171,30 @@ class Client {
   /// [QueryResponse].
   Stream<QueryResponse<T>> _networkResponseStream<T>(
       QueryRequest<T> queryRequest) {
-    try {
-      return link.request(queryRequest).transform(
-            StreamTransformer.fromHandlers(
-              handleData: (response, sink) => sink.add(
-                QueryResponse(
-                  queryRequest: queryRequest,
-                  data: (response.data == null || response.data.isEmpty)
-                      ? null
-                      : queryRequest.parseData(response.data),
-                  graphqlErrors: response.errors,
-                  dataSource: DataSource.Link,
-                ),
-              ),
-              handleError: (error, stackTrace, sink) => sink.add(
-                QueryResponse<T>(
-                  queryRequest: queryRequest,
-                  linkException: error is LinkException
-                      ? error
-                      : ServerException(
-                          originalException: error, parsedResponse: null),
-                  dataSource: DataSource.Link,
-                ),
+    return link.request(queryRequest).transform(
+          StreamTransformer.fromHandlers(
+            handleData: (response, sink) => sink.add(
+              QueryResponse(
+                queryRequest: queryRequest,
+                data: (response.data == null || response.data.isEmpty)
+                    ? null
+                    : queryRequest.parseData(response.data),
+                graphqlErrors: response.errors,
+                dataSource: DataSource.Link,
               ),
             ),
-          );
-    } on LinkException catch (e) {
-      return Stream.value(QueryResponse(
-        queryRequest: queryRequest,
-        linkException: e,
-        dataSource: DataSource.Link,
-      ));
-    }
+            handleError: (error, stackTrace, sink) => sink.add(
+              QueryResponse<T>(
+                queryRequest: queryRequest,
+                linkException: error is LinkException
+                    ? error
+                    : ServerException(
+                        originalException: error, parsedResponse: null),
+                dataSource: DataSource.Link,
+              ),
+            ),
+          ),
+        );
   }
 
   /// Fetches the query from the cache, mapping the result to a
