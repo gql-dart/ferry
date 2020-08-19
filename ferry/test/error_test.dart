@@ -124,9 +124,3 @@ void main() {
     });
   });
 }
-
-abstract class Mockable {
-  int stream();
-}
-
-class MyMock extends Mock implements Mockable {}
