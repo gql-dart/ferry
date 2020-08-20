@@ -132,7 +132,7 @@ class _$GDroidFragmentSerializer
           specifiedType: const FullType(_i3.GDroidFragmentVars)),
       'document',
       serializers.serialize(object.document,
-          specifiedType: const FullType(_i7.DocumentNode)),
+          specifiedType: const FullType(_i8.DocumentNode)),
       'fragmentName',
       serializers.serialize(object.fragmentName,
           specifiedType: const FullType(String)),
@@ -164,8 +164,8 @@ class _$GDroidFragmentSerializer
           break;
         case 'document':
           result.document = serializers.deserialize(value,
-                  specifiedType: const FullType(_i7.DocumentNode))
-              as _i7.DocumentNode;
+                  specifiedType: const FullType(_i8.DocumentNode))
+              as _i8.DocumentNode;
           break;
         case 'fragmentName':
           result.fragmentName = serializers.deserialize(value,
@@ -399,7 +399,7 @@ class _$GDroidFragment extends GDroidFragment {
   @override
   final _i3.GDroidFragmentVars vars;
   @override
-  final _i7.DocumentNode document;
+  final _i8.DocumentNode document;
   @override
   final String fragmentName;
   @override
@@ -471,9 +471,9 @@ class GDroidFragmentBuilder
       _$this._vars ??= new _i3.GDroidFragmentVarsBuilder();
   set vars(_i3.GDroidFragmentVarsBuilder vars) => _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i8.DocumentNode _document;
+  _i8.DocumentNode get document => _$this._document;
+  set document(_i8.DocumentNode document) => _$this._document = document;
 
   String _fragmentName;
   String get fragmentName => _$this._fragmentName;

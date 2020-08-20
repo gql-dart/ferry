@@ -54,7 +54,8 @@ void main() {
       expect(await resultStream.last, equals([response1]));
     });
 
-    test("Requests with the same args are returned in the same response stream",
+    test(
+        "Requests with the same args are not returned in the same response stream",
         () async {
       final req1 = GHumanWithArgs((b) => b
         ..vars.id = "1"
@@ -88,13 +89,7 @@ void main() {
         dataSource: DataSource.Link,
       );
 
-      final response2 = OperationResponse(
-        operationRequest: req2,
-        data: null,
-        dataSource: DataSource.Link,
-      );
-
-      expect(await resultStream.last, equals([response1, response2]));
+      expect(await resultStream.last, equals([response1]));
     });
 
     test(
