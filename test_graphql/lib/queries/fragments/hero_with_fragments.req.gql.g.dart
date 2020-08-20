@@ -132,7 +132,7 @@ class _$GheroDataSerializer implements StructuredSerializer<GheroData> {
           specifiedType: const FullType(_i3.GheroDataVars)),
       'document',
       serializers.serialize(object.document,
-          specifiedType: const FullType(_i7.DocumentNode)),
+          specifiedType: const FullType(_i8.DocumentNode)),
       'fragmentName',
       serializers.serialize(object.fragmentName,
           specifiedType: const FullType(String)),
@@ -163,8 +163,8 @@ class _$GheroDataSerializer implements StructuredSerializer<GheroData> {
           break;
         case 'document':
           result.document = serializers.deserialize(value,
-                  specifiedType: const FullType(_i7.DocumentNode))
-              as _i7.DocumentNode;
+                  specifiedType: const FullType(_i8.DocumentNode))
+              as _i8.DocumentNode;
           break;
         case 'fragmentName':
           result.fragmentName = serializers.deserialize(value,
@@ -200,7 +200,7 @@ class _$GcomparisonFieldsSerializer
           specifiedType: const FullType(_i3.GcomparisonFieldsVars)),
       'document',
       serializers.serialize(object.document,
-          specifiedType: const FullType(_i7.DocumentNode)),
+          specifiedType: const FullType(_i8.DocumentNode)),
       'fragmentName',
       serializers.serialize(object.fragmentName,
           specifiedType: const FullType(String)),
@@ -232,8 +232,8 @@ class _$GcomparisonFieldsSerializer
           break;
         case 'document':
           result.document = serializers.deserialize(value,
-                  specifiedType: const FullType(_i7.DocumentNode))
-              as _i7.DocumentNode;
+                  specifiedType: const FullType(_i8.DocumentNode))
+              as _i8.DocumentNode;
           break;
         case 'fragmentName':
           result.fragmentName = serializers.deserialize(value,
@@ -470,7 +470,7 @@ class _$GheroData extends GheroData {
   @override
   final _i3.GheroDataVars vars;
   @override
-  final _i7.DocumentNode document;
+  final _i8.DocumentNode document;
   @override
   final String fragmentName;
   @override
@@ -539,9 +539,9 @@ class GheroDataBuilder implements Builder<GheroData, GheroDataBuilder> {
       _$this._vars ??= new _i3.GheroDataVarsBuilder();
   set vars(_i3.GheroDataVarsBuilder vars) => _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i8.DocumentNode _document;
+  _i8.DocumentNode get document => _$this._document;
+  set document(_i8.DocumentNode document) => _$this._document = document;
 
   String _fragmentName;
   String get fragmentName => _$this._fragmentName;
@@ -609,7 +609,7 @@ class _$GcomparisonFields extends GcomparisonFields {
   @override
   final _i3.GcomparisonFieldsVars vars;
   @override
-  final _i7.DocumentNode document;
+  final _i8.DocumentNode document;
   @override
   final String fragmentName;
   @override
@@ -682,9 +682,9 @@ class GcomparisonFieldsBuilder
       _$this._vars ??= new _i3.GcomparisonFieldsVarsBuilder();
   set vars(_i3.GcomparisonFieldsVarsBuilder vars) => _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i8.DocumentNode _document;
+  _i8.DocumentNode get document => _$this._document;
+  set document(_i8.DocumentNode document) => _$this._document = document;
 
   String _fragmentName;
   String get fragmentName => _$this._fragmentName;

@@ -7,7 +7,8 @@ import 'package:gql_exec/gql_exec.dart' as _i4;
 import 'package:test_graphql/queries/no_vars/hero_no_vars.ast.gql.dart' as _i5;
 import 'package:test_graphql/queries/no_vars/hero_no_vars.data.gql.dart' as _i2;
 import 'package:test_graphql/queries/no_vars/hero_no_vars.var.gql.dart' as _i3;
-import 'package:test_graphql/schema/serializers.gql.dart' as _i6;
+import 'package:test_graphql/schema/serializers.gql.dart' as _i7;
+import 'package:uuid/uuid.dart' as _i6;
 
 part 'hero_no_vars.req.gql.g.dart';
 
@@ -21,7 +22,8 @@ abstract class GHeroNoVars
 
   static void _initializeBuilder(GHeroNoVarsBuilder b) => b
     ..operation =
-        _i4.Operation(document: _i5.document, operationName: 'HeroNoVars');
+        _i4.Operation(document: _i5.document, operationName: 'HeroNoVars')
+    ..requestId = _i6.Uuid().v1();
   _i3.GHeroNoVarsVars get vars;
   _i4.Operation get operation;
   _i4.Request get execRequest =>
@@ -45,7 +47,7 @@ abstract class GHeroNoVars
       _i2.GHeroNoVarsData.fromJson(json);
   static Serializer<GHeroNoVars> get serializer => _$gHeroNoVarsSerializer;
   Map<String, dynamic> toJson() =>
-      _i6.serializers.serializeWith(GHeroNoVars.serializer, this);
+      _i7.serializers.serializeWith(GHeroNoVars.serializer, this);
   static GHeroNoVars fromJson(Map<String, dynamic> json) =>
-      _i6.serializers.deserializeWith(GHeroNoVars.serializer, json);
+      _i7.serializers.deserializeWith(GHeroNoVars.serializer, json);
 }

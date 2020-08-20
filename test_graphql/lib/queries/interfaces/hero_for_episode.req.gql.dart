@@ -3,7 +3,7 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:ferry/ferry.dart' as _i1;
-import 'package:gql/ast.dart' as _i7;
+import 'package:gql/ast.dart' as _i8;
 import 'package:gql_exec/gql_exec.dart' as _i4;
 import 'package:test_graphql/queries/interfaces/hero_for_episode.ast.gql.dart'
     as _i5;
@@ -11,7 +11,8 @@ import 'package:test_graphql/queries/interfaces/hero_for_episode.data.gql.dart'
     as _i2;
 import 'package:test_graphql/queries/interfaces/hero_for_episode.var.gql.dart'
     as _i3;
-import 'package:test_graphql/schema/serializers.gql.dart' as _i6;
+import 'package:test_graphql/schema/serializers.gql.dart' as _i7;
+import 'package:uuid/uuid.dart' as _i6;
 
 part 'hero_for_episode.req.gql.g.dart';
 
@@ -26,7 +27,8 @@ abstract class GHeroForEpisode
 
   static void _initializeBuilder(GHeroForEpisodeBuilder b) => b
     ..operation =
-        _i4.Operation(document: _i5.document, operationName: 'HeroForEpisode');
+        _i4.Operation(document: _i5.document, operationName: 'HeroForEpisode')
+    ..requestId = _i6.Uuid().v1();
   _i3.GHeroForEpisodeVars get vars;
   _i4.Operation get operation;
   _i4.Request get execRequest =>
@@ -51,9 +53,9 @@ abstract class GHeroForEpisode
   static Serializer<GHeroForEpisode> get serializer =>
       _$gHeroForEpisodeSerializer;
   Map<String, dynamic> toJson() =>
-      _i6.serializers.serializeWith(GHeroForEpisode.serializer, this);
+      _i7.serializers.serializeWith(GHeroForEpisode.serializer, this);
   static GHeroForEpisode fromJson(Map<String, dynamic> json) =>
-      _i6.serializers.deserializeWith(GHeroForEpisode.serializer, json);
+      _i7.serializers.deserializeWith(GHeroForEpisode.serializer, json);
 }
 
 abstract class GDroidFragment
@@ -69,7 +71,7 @@ abstract class GDroidFragment
     ..document = _i5.document
     ..fragmentName = 'DroidFragment';
   _i3.GDroidFragmentVars get vars;
-  _i7.DocumentNode get document;
+  _i8.DocumentNode get document;
   String get fragmentName;
   Map<String, dynamic> get idFields;
   @override
@@ -78,7 +80,7 @@ abstract class GDroidFragment
   static Serializer<GDroidFragment> get serializer =>
       _$gDroidFragmentSerializer;
   Map<String, dynamic> toJson() =>
-      _i6.serializers.serializeWith(GDroidFragment.serializer, this);
+      _i7.serializers.serializeWith(GDroidFragment.serializer, this);
   static GDroidFragment fromJson(Map<String, dynamic> json) =>
-      _i6.serializers.deserializeWith(GDroidFragment.serializer, json);
+      _i7.serializers.deserializeWith(GDroidFragment.serializer, json);
 }

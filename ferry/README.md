@@ -80,7 +80,7 @@ Future<Client> initClient() async {
 
   final store = HiveStore(box);
 
-  final cache = Cache(dataStore: store);
+  final cache = Cache(store: store);
 
   final link = HttpLink("[path/to/endpoint]");
 

@@ -49,6 +49,10 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GReviewWithDateData.serializer)
       ..add(GReviewWithDateData_createReview.serializer)
       ..add(GReviewWithDateVars.serializer)
+      ..add(GReviews.serializer)
+      ..add(GReviewsData.serializer)
+      ..add(GReviewsData_reviews.serializer)
+      ..add(GReviewsVars.serializer)
       ..add(GcomparisonFields.serializer)
       ..add(GcomparisonFieldsData.serializer)
       ..add(GcomparisonFieldsData_friendsConnection.serializer)
@@ -58,6 +62,9 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GheroData.serializer)
       ..add(GheroDataData.serializer)
       ..add(GheroDataVars.serializer)
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(DateTime)]),
+          () => new ListBuilder<DateTime>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(DateTime)]),
           () => new ListBuilder<DateTime>())
@@ -76,6 +83,10 @@ Serializers _$serializers = (new Serializers().toBuilder()
           ]),
           () => new ListBuilder<
               GHeroWithFragmentsData_hero_friendsConnection_edges>())
+      ..addBuilderFactory(
+          const FullType(
+              BuiltList, const [const FullType(GReviewsData_reviews)]),
+          () => new ListBuilder<GReviewsData_reviews>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [
             const FullType(GcomparisonFieldsData_friendsConnection_edges)

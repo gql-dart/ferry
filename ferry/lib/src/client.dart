@@ -42,13 +42,7 @@ class Client {
     return requestController.stream
         // Filter for only the relevent queries
         .whereType<OperationRequest<TData, TVars>>()
-        .where((req) {
-          if (request.requestId != null) {
-            return request.requestId == req.requestId;
-          } else {
-            return request == req;
-          }
-        })
+        .where((req) => request.requestId == req.requestId)
         // (if enabled) recursively add __typename field to every node in operation
         .map(_addTypename)
         // Fetch [OperationResponse] from network (and optionally cache results)
@@ -60,14 +54,14 @@ class Client {
         .transform(StreamTransformer.fromBind(_updateResultStream))
         // Trigger the [OperationRequest] on first listen
         .doOnListen(
-          () async {
-            if (initial && executeOnListen) {
-              await Future.delayed(Duration.zero);
-              requestController.add(request);
-            }
-            initial = false;
-          },
-        );
+      () async {
+        if (initial && executeOnListen) {
+          await Future.delayed(Duration.zero);
+          requestController.add(request);
+        }
+        initial = false;
+      },
+    );
   }
 
   /// Adds `__typename` to each node of the operation when [ClientOptions.addTypename] is [true].

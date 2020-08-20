@@ -169,10 +169,10 @@ class Cache {
               ),
             );
 
-  void removeOptimisticPatch(String id) {
+  void removeOptimisticPatch(String requestId) {
     final patches = _optimisticPatchesStream.value;
-    if (patches.containsKey(id)) {
-      patches.remove(id);
+    if (patches.containsKey(requestId)) {
+      patches.remove(requestId);
       _optimisticPatchesStream.add(patches);
     }
   }

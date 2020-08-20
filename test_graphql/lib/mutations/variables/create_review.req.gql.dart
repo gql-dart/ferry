@@ -10,7 +10,8 @@ import 'package:test_graphql/mutations/variables/create_review.data.gql.dart'
     as _i2;
 import 'package:test_graphql/mutations/variables/create_review.var.gql.dart'
     as _i3;
-import 'package:test_graphql/schema/serializers.gql.dart' as _i6;
+import 'package:test_graphql/schema/serializers.gql.dart' as _i7;
+import 'package:uuid/uuid.dart' as _i6;
 
 part 'create_review.req.gql.g.dart';
 
@@ -25,7 +26,8 @@ abstract class GCreateReview
 
   static void _initializeBuilder(GCreateReviewBuilder b) => b
     ..operation =
-        _i4.Operation(document: _i5.document, operationName: 'CreateReview');
+        _i4.Operation(document: _i5.document, operationName: 'CreateReview')
+    ..requestId = _i6.Uuid().v1();
   _i3.GCreateReviewVars get vars;
   _i4.Operation get operation;
   _i4.Request get execRequest =>
@@ -49,7 +51,7 @@ abstract class GCreateReview
       _i2.GCreateReviewData.fromJson(json);
   static Serializer<GCreateReview> get serializer => _$gCreateReviewSerializer;
   Map<String, dynamic> toJson() =>
-      _i6.serializers.serializeWith(GCreateReview.serializer, this);
+      _i7.serializers.serializeWith(GCreateReview.serializer, this);
   static GCreateReview fromJson(Map<String, dynamic> json) =>
-      _i6.serializers.deserializeWith(GCreateReview.serializer, json);
+      _i7.serializers.deserializeWith(GCreateReview.serializer, json);
 }

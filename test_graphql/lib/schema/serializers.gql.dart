@@ -64,6 +64,12 @@ import 'package:test_graphql/queries/variables/human_with_args.req.gql.dart'
     show GHumanWithArgs;
 import 'package:test_graphql/queries/variables/human_with_args.var.gql.dart'
     show GHumanWithArgsVars;
+import 'package:test_graphql/queries/variables/reviews.data.gql.dart'
+    show GReviewsData, GReviewsData_reviews;
+import 'package:test_graphql/queries/variables/reviews.req.gql.dart'
+    show GReviews;
+import 'package:test_graphql/queries/variables/reviews.var.gql.dart'
+    show GReviewsVars;
 import 'package:test_graphql/schema/schema.schema.gql.dart'
     show GEpisode, GLengthUnit, GReviewInput, GColorInput, GISODate;
 
@@ -74,14 +80,21 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   ..add(OperationSerializer())
   ..addPlugin(StandardJsonPlugin());
 @SerializersFor([
+  GReviewWithDate,
+  GCreateReview,
   GHeroWithFragments,
   GheroData,
   GcomparisonFields,
   GHeroNoVars,
+  GReviews,
   GHumanWithArgs,
   GAliasedHero,
   GHeroForEpisode,
   GDroidFragment,
+  GReviewWithDateData,
+  GReviewWithDateData_createReview,
+  GCreateReviewData,
+  GCreateReviewData_createReview,
   GHeroWithFragmentsData,
   GHeroWithFragmentsData_hero,
   GHeroWithFragmentsData_hero_friendsConnection,
@@ -94,6 +107,8 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GcomparisonFieldsData_friendsConnection_edges_node,
   GHeroNoVarsData,
   GHeroNoVarsData_hero,
+  GReviewsData,
+  GReviewsData_reviews,
   GHumanWithArgsData,
   GHumanWithArgsData_human,
   GAliasedHeroData,
@@ -109,21 +124,16 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GReviewInput,
   GColorInput,
   GISODate,
+  GReviewWithDateVars,
+  GCreateReviewVars,
   GHeroWithFragmentsVars,
   GheroDataVars,
   GcomparisonFieldsVars,
   GHeroNoVarsVars,
+  GReviewsVars,
   GHumanWithArgsVars,
   GAliasedHeroVars,
   GHeroForEpisodeVars,
-  GDroidFragmentVars,
-  GReviewWithDate,
-  GCreateReview,
-  GReviewWithDateData,
-  GReviewWithDateData_createReview,
-  GCreateReviewData,
-  GCreateReviewData_createReview,
-  GReviewWithDateVars,
-  GCreateReviewVars
+  GDroidFragmentVars
 ])
 final Serializers serializers = _serializersBuilder.build();
