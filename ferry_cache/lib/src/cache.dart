@@ -26,6 +26,10 @@ class Cache {
   })  : _dataStore = dataStore ?? MemoryStore(),
         _optimisticPatchesStream = BehaviorSubject.seeded(
           seedOptimisticPatches ?? {},
+          // sync is necessary to ensure that _optimisticDataStream is update synchronously when a
+          // new event is added to _optimisticPatchesStream.
+          // TODO: it is discouraged to use sync - ensure that there are no unintended side effects
+          sync: true,
         ) {
     // TODO: can this be done without listening in the constructor?
     CombineLatestStream.combine2<
@@ -104,6 +108,7 @@ class Cache {
       variables: request.variables,
       data: data,
       typePolicies: typePolicies,
+      addTypename: addTypename,
     );
     _writeData(normalizedResult, optimistic, requestId);
   }
@@ -126,6 +131,7 @@ class Cache {
       fragmentName: fragmentName,
       variables: variables,
       typePolicies: typePolicies,
+      addTypename: addTypename,
     );
     _writeData(normalizedResult, optimistic, requestId);
   }

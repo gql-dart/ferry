@@ -154,7 +154,7 @@ class Client {
   }
 
   /// Creates a response stream, starting with an optimistic [OperationResponse]
-  /// if a [OperationRequest.optimisticResponse] is provided, then remmoves the
+  /// if a [OperationRequest.optimisticResponse] is provided, then removes the
   /// optimistic patch from the cache once the network response is received.
   Stream<OperationResponse<TData, TVars>>
       _optimisticNetworkResponseStream<TData, TVars>(

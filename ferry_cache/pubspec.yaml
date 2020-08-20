@@ -8,7 +8,7 @@ environment:
 dependencies: 
   ferry_store: ^0.1.0
   rxdart: ^0.24.0
-  normalize: ^0.2.1
+  normalize: ^0.2.2
   gql: ^0.12.0
   gql_exec: ^0.2.4
   meta: ^1.1.8

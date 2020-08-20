@@ -19,28 +19,28 @@ class CacheProxy {
   TData readQuery<TData, TVars>(
     OperationRequest<TData, TVars> request, {
     bool optimistic,
-  }) =>
-      request.parseData(
-        _cache.readQuery(
-          request.execRequest,
-          optimistic: optimistic ?? false,
-        ),
-      );
+  }) {
+    final json = _cache.readQuery(
+      request.execRequest,
+      optimistic: optimistic ?? _optimistic,
+    );
+    return json == null ? null : request.parseData(json);
+  }
 
   TData readFragment<TData, TVars>(
     FragmentRequest<TData, TVars> request, {
     bool optimistic,
-  }) =>
-      request.parseData(
-        _cache.readFragment(
-          document: request.document,
-          idFields: request.idFields,
-          fragmentName: request.fragmentName,
-          // TODO: don't cast to dynamic
-          variables: (request.vars as dynamic)?.toJson(),
-          optimistic: optimistic ?? false,
-        ),
-      );
+  }) {
+    final json = _cache.readFragment(
+      document: request.document,
+      idFields: request.idFields,
+      fragmentName: request.fragmentName,
+      // TODO: don't cast to dynamic
+      variables: (request.vars as dynamic)?.toJson(),
+      optimistic: optimistic ?? _optimistic,
+    );
+    return json == null ? null : request.parseData(json);
+  }
 
   void writeQuery<TData, TVars>(
     OperationRequest<TData, TVars> request,
