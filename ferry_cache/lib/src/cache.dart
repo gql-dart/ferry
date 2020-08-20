@@ -11,7 +11,7 @@ import './helpers/deep_merge.dart';
 class Cache {
   final Map<String, TypePolicy> typePolicies;
   final bool addTypename;
-  final Store _dataStore;
+  final Store _store;
 
   final BehaviorSubject<Map<String, Map<String, Map<String, dynamic>>>>
       _optimisticPatchesStream;
@@ -19,11 +19,11 @@ class Cache {
       BehaviorSubject<Map<String, Map<String, dynamic>>>();
 
   Cache({
-    Store dataStore,
+    Store store,
     this.typePolicies = const {},
     this.addTypename = true,
     Map<String, Map<String, Map<String, dynamic>>> seedOptimisticPatches,
-  })  : _dataStore = dataStore ?? MemoryStore(),
+  })  : _store = store ?? MemoryStore(),
         _optimisticPatchesStream = BehaviorSubject.seeded(
           seedOptimisticPatches ?? {},
           // sync is necessary to ensure that _optimisticDataStream is update synchronously when a
@@ -36,7 +36,7 @@ class Cache {
         Map<String, Map<String, dynamic>>,
         Map<String, Map<String, Map<String, dynamic>>>,
         Map<String, Map<String, dynamic>>>(
-      _dataStore.watch(),
+      _store.watch(),
       _optimisticPatchesStream,
       (data, optimisticPatches) {
         return optimisticPatches.values
@@ -49,7 +49,7 @@ class Cache {
     Request request, {
     bool optimistic = true,
   }) =>
-      (optimistic ? _optimisticDataStream : _dataStore.watch()).map(
+      (optimistic ? _optimisticDataStream : _store.watch()).map(
         (data) => denormalize(
           reader: (dataId) => data[dataId],
           query: request.operation.document,
@@ -67,7 +67,7 @@ class Cache {
       denormalize(
         reader: (dataId) => optimistic
             ? _optimisticDataStream.value[dataId]
-            : _dataStore.get(dataId),
+            : _store.get(dataId),
         query: request.operation.document,
         operationName: request.operation.operationName,
         variables: request.variables,
@@ -85,7 +85,7 @@ class Cache {
       denormalizeFragment(
         reader: (dataId) => optimistic
             ? _optimisticDataStream.value[dataId]
-            : _dataStore.get(dataId),
+            : _store.get(dataId),
         fragment: document,
         idFields: idFields,
         fragmentName: fragmentName,
@@ -153,14 +153,14 @@ class Cache {
                 ),
               },
             )
-          : _dataStore.putAll(
+          : _store.putAll(
               Map.fromEntries(
                 data.entries.map(
                   (entry) => MapEntry(
                     entry.key,
                     Map.from(
                       deepMerge(
-                        _dataStore.get(entry.key) ?? {},
+                        _store.get(entry.key) ?? {},
                         entry.value,
                       ),
                     ),
