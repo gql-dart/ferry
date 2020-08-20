@@ -7,21 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.2.0] - [TBD]
-
-### Changed
-
-- rename `dataStore` to `store`
-- bump `normalize` version
-
-## [0.1.1] - 2020-06-16
-
-### Changed
-
-- bump normalize version
-
-## [0.1.0] - 2020-05-10
+## [0.0.1] - [TBD]
 
 ### Added
 
-- initial release as an independent package
+- package added

@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - [TBD]
+
+### Changed
+
+- use typed data in `CacheProxy` methods 
+- bump `normalize` version
+- bump `ferry_cache` version
+- rename `QueryRequest` and `QueryResponse` to `OperationRequest` and `OperationResponse`
+- rename `queryId` to `requestId`
+
 ## [0.4.1] - 2020-06-16
 
 ### Changed
