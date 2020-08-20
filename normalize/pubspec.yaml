@@ -1,5 +1,5 @@
 name: normalize
-version: 0.2.1
+version: 0.2.2
 homepage: https://github.com/gql-dart/ferry/tree/master/normalize
 description: Normalization and denormalization of GraphQL responses in Dart
 repository: https://github.com/gql-dart/ferry
@@ -10,16 +10,3 @@ dependencies:
   meta: ^1.1.8
 dev_dependencies: 
   test: ^1.14.3
-dependency_overrides: 
-  ferry_generator: 
-    path: ../ferry_generator
-  test_graphql: 
-    path: ../test_graphql
-  ferry_store: 
-    path: ../ferry_store
-  ferry_hive_store: 
-    path: ../ferry_hive_store
-  ferry_cache: 
-    path: ../ferry_cache
-  ferry: 
-    path: ../ferry

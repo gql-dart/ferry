@@ -56,9 +56,13 @@ void main() {
 
     test("Requests with the same args are returned in the same response stream",
         () async {
-      final req1 = GHumanWithArgs((b) => b..vars.id = "1");
+      final req1 = GHumanWithArgs((b) => b
+        ..vars.id = "1"
+        ..fetchPolicy = FetchPolicy.CacheAndNetwork);
 
-      final req2 = GHumanWithArgs((b) => b..vars.id = "1");
+      final req2 = GHumanWithArgs((b) => b
+        ..vars.id = "1"
+        ..fetchPolicy = FetchPolicy.CacheAndNetwork);
 
       final resultStream = client
           .responseStream(req1, executeOnListen: false)

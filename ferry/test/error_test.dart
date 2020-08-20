@@ -5,7 +5,7 @@ import 'package:gql_exec/gql_exec.dart';
 import "package:ferry/ferry.dart";
 import 'package:test/test.dart';
 
-import '../../test_graphql/lib/queries/variables/human_with_args.req.gql.dart';
+import 'package:test_graphql/queries/variables/human_with_args.req.gql.dart';
 
 class MockLink extends Mock implements Link {}
 
@@ -14,13 +14,13 @@ void main() {
     test('Returns a response with GraphQL errors', () async {
       final mockLink = MockLink();
 
-      final human = GHumanWithArgs((b) => b..vars.id = "123");
+      final req = GHumanWithArgs((b) => b..vars.id = "123");
 
       final graphQLErrors = [
         GraphQLError(message: "Your GraphQL is not valid")
       ];
 
-      when(mockLink.request(human.execRequest, any)).thenAnswer(
+      when(mockLink.request(req.execRequest, any)).thenAnswer(
         (_) => Stream.value(Response(errors: graphQLErrors)),
       );
 
@@ -30,12 +30,12 @@ void main() {
       );
 
       final response = OperationResponse(
-        operationRequest: human,
+        operationRequest: req,
         graphqlErrors: graphQLErrors,
         dataSource: DataSource.Link,
       );
 
-      expect(client.responseStream(human), emits(response));
+      expect(client.responseStream(req), emits(response));
     });
   });
 
@@ -44,11 +44,11 @@ void main() {
         () async {
       final mockLink = MockLink();
 
-      final human = GHumanWithArgs((b) => b..vars.id = "123");
+      final req = GHumanWithArgs((b) => b..vars.id = "123");
 
       final exception = ServerException(parsedResponse: Response());
 
-      when(mockLink.request(human.execRequest, any)).thenThrow(exception);
+      when(mockLink.request(req.execRequest, any)).thenThrow(exception);
 
       final client = Client(
         link: mockLink,
@@ -56,14 +56,14 @@ void main() {
       );
 
       final response = OperationResponse(
-        operationRequest: human,
+        operationRequest: req,
         linkException: exception,
         dataSource: DataSource.Link,
       );
 
       // TODO: check that also emits response
 
-      expect(client.responseStream(human), emitsError(equals(exception)));
+      expect(client.responseStream(req), emitsError(equals(exception)));
     });
 
     test('Wraps error events of a stream into OperationResponse', () async {

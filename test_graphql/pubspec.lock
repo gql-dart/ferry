@@ -350,7 +350,7 @@ packages:
       path: "../normalize"
       relative: true
     source: path
-    version: "0.2.1"
+    version: "0.2.2"
   package_config:
     dependency: transitive
     description:
