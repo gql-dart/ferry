@@ -6,7 +6,7 @@ targets:
       gql_build|serializer_builder:
         enabled: true
         options:
-          schema: test_graphql|lib/graphql/schema.graphql
+          schema: test_graphql|lib/schema/schema.graphql
           custom_serializers:
             - import: 'package:test_graphql/date_serializer.dart'
               name: DateSerializer
@@ -19,18 +19,18 @@ targets:
       gql_build|data_builder:
         enabled: true
         options:
-          schema: test_graphql|lib/graphql/schema.graphql
+          schema: test_graphql|lib/schema/schema.graphql
           type_overrides:
             Date:
               name: DateTime
       gql_build|var_builder:
         enabled: true
         options:
-          schema: test_graphql|lib/graphql/schema.graphql
+          schema: test_graphql|lib/schema/schema.graphql
           type_overrides:
             Date:
               name: DateTime
       ferry_generator|req_builder:
         enabled: true
         options:
-          schema: test_graphql|lib/graphql/schema.graphql
+          schema: test_graphql|lib/schema/schema.graphql
