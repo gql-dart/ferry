@@ -13,7 +13,7 @@ Future<Client> initClient() async {
 
   final store = HiveStore(box);
 
-  final cache = Cache(dataStore: store);
+  final cache = Cache(store: store);
 
   final link = HttpLink("https://ferry.us-west-2.aws.cloud.dgraph.io/graphql");
 
