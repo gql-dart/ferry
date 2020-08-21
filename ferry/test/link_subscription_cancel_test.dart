@@ -5,7 +5,8 @@ import 'package:gql_exec/gql_exec.dart';
 import 'package:gql_exec/src/response.dart';
 import 'package:test/test.dart';
 
-import './graphql/all_pokemon.req.gql.dart';
+import 'package:test_graphql/queries/variables/human_with_args.req.gql.dart';
+import 'package:test_graphql/queries/variables/human_with_args.data.gql.dart';
 
 class _StreamCancelTestLink extends Link {
   Completer hasCanceledStreamCompleter = Completer();
@@ -48,12 +49,16 @@ void main() {
       FetchPolicy.CacheAndNetwork,
       FetchPolicy.NoCache
     ]) {
-      final request =
-          AllPokemon(fetchPolicy: fetchPolicy, buildVars: (b) => b..first = 3);
+      final req = GHumanWithArgs(
+        (b) => b
+          ..vars.id = "123"
+          ..fetchPolicy = fetchPolicy,
+      );
+
       expect(link.hasCanceledStreamCompleter.isCompleted, isFalse);
       StreamSubscription subscription;
       subscription = client
-          .responseStream(request)
+          .responseStream(req)
           .where((event) => event.dataSource == DataSource.Link)
           .listen((event) async {
         //cancel subscription after first item
