@@ -1,10 +1,10 @@
 name: test_graphql
 version: 0.0.1
-environment:
+environment: 
   sdk: '>=2.7.0 <3.0.0'
-dependencies:
+dependencies: 
   built_value: ^7.1.0
-dev_dependencies:
+dev_dependencies: 
   build_runner: ^1.10.0
   gql_pedantic: ^1.0.2
   gql_build: ^0.1.1
