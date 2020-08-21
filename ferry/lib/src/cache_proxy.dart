@@ -3,6 +3,9 @@ import 'package:ferry_cache/ferry_cache.dart';
 import './operation_request.dart';
 import './fragment_request.dart';
 
+/// Provides an interface for interacting with the [Cache] from within
+/// [UpdateCacheHandler]s, including fully typed reads and writes for
+/// operations and fragments.
 class CacheProxy {
   final Cache _cache;
   final bool _optimistic;
