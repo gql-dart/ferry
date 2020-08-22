@@ -49,6 +49,8 @@ class Client {
         // or fetch from cache, depending on the [FetchPolicy]. Switches to
         // the latest stream for a given [requestId].
         .switchMap((req) => _responseStream(req))
+        // Run any [UpdateCacheHandler]s
+        .transform(StreamTransformer.fromBind(_updateCacheHandlersStream))
         // Update the result based on previous result for the given [requestId],
         // if applicable. This enables features like pagination.
         .transform(StreamTransformer.fromBind(_updateResultStream))
@@ -100,19 +102,15 @@ class Client {
         return _optimisticNetworkResponseStream(operationRequest);
       case FetchPolicy.NetworkOnly:
         return _optimisticNetworkResponseStream(operationRequest)
-            .doOnData(_writeToCache)
-            .doOnData(_runUpdateCacheHandlers);
+            .doOnData(_writeToCache);
       case FetchPolicy.CacheOnly:
-        return _cacheResponseStream(operationRequest)
-            .doOnData(_runUpdateCacheHandlers);
+        return _cacheResponseStream(operationRequest);
       case FetchPolicy.CacheFirst:
         return _cacheResponseStream(operationRequest).take(1).switchMap(
               (result) => result.data != null
                   ? _cacheResponseStream(operationRequest)
-                      .doOnData(_runUpdateCacheHandlers)
                   : _optimisticNetworkResponseStream(operationRequest)
                       .doOnData(_writeToCache)
-                      .doOnData(_runUpdateCacheHandlers)
                       .take(1)
                       .concatWith(
                           [_cacheResponseStream(operationRequest).skip(1)]),
@@ -130,7 +128,6 @@ class Client {
           final sharedNetworkStream = controller.stream.shareValue();
 
           return _cacheResponseStream(operationRequest)
-              .doOnData(_runUpdateCacheHandlers)
               .where((response) => response.data != null)
               .takeUntil(sharedNetworkStream)
               .concatWith([
@@ -176,7 +173,8 @@ class Client {
   /// Fetches the query from the network, mapping the result to a
   /// [OperationResponse].
   Stream<OperationResponse<TData, TVars>> _networkResponseStream<TData, TVars>(
-      OperationRequest<TData, TVars> operationRequest) {
+    OperationRequest<TData, TVars> operationRequest,
+  ) {
     return link.request(operationRequest.execRequest).transform(
           StreamTransformer.fromHandlers(
             handleData: (response, sink) => sink.add(
@@ -219,7 +217,9 @@ class Client {
           );
 
   /// Writes data from [OperationResponse] to the cache
-  void _writeToCache<TData, TVars>(OperationResponse<TData, TVars> response) {
+  void _writeToCache<TData, TVars>(
+    OperationResponse<TData, TVars> response,
+  ) {
     if (response.data != null)
       cache.writeQuery(
         response.operationRequest.execRequest,
@@ -230,30 +230,57 @@ class Client {
       );
   }
 
-  /// Runs user-defined [UpdateCacheHandler]s with a [CacheProxy]
-  void _runUpdateCacheHandlers<TData, TVars>(
-    OperationResponse<TData, TVars> response,
+  /// Runs any specified [UpdateCacheHandler]s with a [CacheProxy] when
+  ///   1. an optimistic response is received
+  ///   2. the first time a non-optimistic response is received
+  Stream<OperationResponse<TData, TVars>>
+      _updateCacheHandlersStream<TData, TVars>(
+    Stream<OperationResponse<TData, TVars>> stream,
   ) {
-    final key = response.operationRequest.updateCacheHandlerKey;
-    if (key == null) return;
-    final handler =
-        options.updateCacheHandlers[key] as UpdateCacheHandler<TData, TVars>;
-    if (handler == null) throw Exception("No handler defined for key $key");
-    handler(
-      CacheProxy(
+    bool runNonOptimistically = false;
+
+    return stream.doOnData((res) {
+      final key = res.operationRequest.updateCacheHandlerKey;
+      if (key == null) return;
+
+      final handler =
+          options.updateCacheHandlers[key] as UpdateCacheHandler<TData, TVars>;
+      if (handler == null) throw Exception("No handler defined for key $key");
+
+      final proxy = CacheProxy(
         cache,
-        response.dataSource == DataSource.Optimistic,
-        response.operationRequest.requestId,
-      ),
-      response,
-    );
+        res.dataSource == DataSource.Optimistic,
+        res.operationRequest.requestId,
+      );
+
+      switch (res.dataSource) {
+        case DataSource.Optimistic:
+          {
+            handler(proxy, res);
+            runNonOptimistically = false;
+            return;
+          }
+        case DataSource.Link:
+        case DataSource.Cache:
+          {
+            if (runNonOptimistically == false) {
+              handler(proxy, res);
+              runNonOptimistically = true;
+            }
+            return;
+          }
+        case DataSource.None:
+          return;
+      }
+    });
   }
 
   /// Updates previous result with new result.
   ///
   /// Useful for pagination.
   Stream<OperationResponse<TData, TVars>> _updateResultStream<TData, TVars>(
-      Stream<OperationResponse<TData, TVars>> stream) {
+    Stream<OperationResponse<TData, TVars>> stream,
+  ) {
     return stream.startWith(null).pairwise().map((results) {
       final previousResult = results.first;
       final result = results.last;

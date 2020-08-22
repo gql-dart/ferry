@@ -74,6 +74,8 @@ class _$GCreateReviewData_createReviewSerializer
       '__typename',
       serializers.serialize(object.G__typename,
           specifiedType: const FullType(String)),
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
       'stars',
       serializers.serialize(object.stars, specifiedType: const FullType(int)),
     ];
@@ -106,6 +108,10 @@ class _$GCreateReviewData_createReviewSerializer
       switch (key) {
         case '__typename':
           result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'id':
+          result.id = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
         case 'episode':
@@ -223,6 +229,8 @@ class _$GCreateReviewData_createReview extends GCreateReviewData_createReview {
   @override
   final String G__typename;
   @override
+  final String id;
+  @override
   final _i2.GEpisode episode;
   @override
   final int stars;
@@ -234,11 +242,15 @@ class _$GCreateReviewData_createReview extends GCreateReviewData_createReview {
       (new GCreateReviewData_createReviewBuilder()..update(updates)).build();
 
   _$GCreateReviewData_createReview._(
-      {this.G__typename, this.episode, this.stars, this.commentary})
+      {this.G__typename, this.id, this.episode, this.stars, this.commentary})
       : super._() {
     if (G__typename == null) {
       throw new BuiltValueNullFieldError(
           'GCreateReviewData_createReview', 'G__typename');
+    }
+    if (id == null) {
+      throw new BuiltValueNullFieldError(
+          'GCreateReviewData_createReview', 'id');
     }
     if (stars == null) {
       throw new BuiltValueNullFieldError(
@@ -260,6 +272,7 @@ class _$GCreateReviewData_createReview extends GCreateReviewData_createReview {
     if (identical(other, this)) return true;
     return other is GCreateReviewData_createReview &&
         G__typename == other.G__typename &&
+        id == other.id &&
         episode == other.episode &&
         stars == other.stars &&
         commentary == other.commentary;
@@ -268,7 +281,9 @@ class _$GCreateReviewData_createReview extends GCreateReviewData_createReview {
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc(0, G__typename.hashCode), episode.hashCode),
+        $jc(
+            $jc($jc($jc(0, G__typename.hashCode), id.hashCode),
+                episode.hashCode),
             stars.hashCode),
         commentary.hashCode));
   }
@@ -277,6 +292,7 @@ class _$GCreateReviewData_createReview extends GCreateReviewData_createReview {
   String toString() {
     return (newBuiltValueToStringHelper('GCreateReviewData_createReview')
           ..add('G__typename', G__typename)
+          ..add('id', id)
           ..add('episode', episode)
           ..add('stars', stars)
           ..add('commentary', commentary))
@@ -293,6 +309,10 @@ class GCreateReviewData_createReviewBuilder
   String _G__typename;
   String get G__typename => _$this._G__typename;
   set G__typename(String G__typename) => _$this._G__typename = G__typename;
+
+  String _id;
+  String get id => _$this._id;
+  set id(String id) => _$this._id = id;
 
   _i2.GEpisode _episode;
   _i2.GEpisode get episode => _$this._episode;
@@ -313,6 +333,7 @@ class GCreateReviewData_createReviewBuilder
   GCreateReviewData_createReviewBuilder get _$this {
     if (_$v != null) {
       _G__typename = _$v.G__typename;
+      _id = _$v.id;
       _episode = _$v.episode;
       _stars = _$v.stars;
       _commentary = _$v.commentary;
@@ -339,6 +360,7 @@ class GCreateReviewData_createReviewBuilder
     final _$result = _$v ??
         new _$GCreateReviewData_createReview._(
             G__typename: G__typename,
+            id: id,
             episode: episode,
             stars: stars,
             commentary: commentary);
