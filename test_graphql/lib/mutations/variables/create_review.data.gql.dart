@@ -38,6 +38,7 @@ abstract class GCreateReviewData_createReview
       b..G__typename = 'Review';
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
+  String get id;
   @nullable
   _i2.GEpisode get episode;
   int get stars;

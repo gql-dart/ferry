@@ -98,9 +98,9 @@ Future<Client> initClient() async {
 The Client allows arbitrary cache updates following mutations, similar to functionality provided by Apollo Client's mutation `update` function. However, in order for mutations to work offline (still a WIP), the client must be aware of all `UpdateCacheHandlers`.
 
 ```dart
-typedef UpdateCacheHandler<T> = void Function(
+typedef UpdateCacheHandler<TData, TVars> = void Function(
   CacheProxy proxy,
-  OperationResponse<T> response,
+  OperationResponse<TData, TVars> response,
 );
 ```
 
