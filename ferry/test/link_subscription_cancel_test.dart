@@ -6,7 +6,6 @@ import 'package:gql_exec/src/response.dart';
 import 'package:test/test.dart';
 
 import 'package:test_graphql/queries/variables/human_with_args.req.gql.dart';
-import 'package:test_graphql/queries/variables/human_with_args.data.gql.dart';
 
 class _StreamCancelTestLink extends Link {
   Completer hasCanceledStreamCompleter = Completer();
