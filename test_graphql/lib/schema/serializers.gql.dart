@@ -7,13 +7,13 @@ import 'package:test_graphql/date_serializer.dart' show DateSerializer;
 import 'package:test_graphql/mutations/scalars/review_with_date.data.gql.dart'
     show GReviewWithDateData, GReviewWithDateData_createReview;
 import 'package:test_graphql/mutations/scalars/review_with_date.req.gql.dart'
-    show GReviewWithDate;
+    show GReviewWithDateReq;
 import 'package:test_graphql/mutations/scalars/review_with_date.var.gql.dart'
     show GReviewWithDateVars;
 import 'package:test_graphql/mutations/variables/create_review.data.gql.dart'
     show GCreateReviewData, GCreateReviewData_createReview;
 import 'package:test_graphql/mutations/variables/create_review.req.gql.dart'
-    show GCreateReview;
+    show GCreateReviewReq;
 import 'package:test_graphql/mutations/variables/create_review.var.gql.dart'
     show GCreateReviewVars;
 import 'package:test_graphql/queries/aliases/aliased_hero.data.gql.dart'
@@ -22,7 +22,7 @@ import 'package:test_graphql/queries/aliases/aliased_hero.data.gql.dart'
         GAliasedHeroData_empireHero,
         GAliasedHeroData_jediHero;
 import 'package:test_graphql/queries/aliases/aliased_hero.req.gql.dart'
-    show GAliasedHero;
+    show GAliasedHeroReq;
 import 'package:test_graphql/queries/aliases/aliased_hero.var.gql.dart'
     show GAliasedHeroVars;
 import 'package:test_graphql/queries/fragments/hero_with_fragments.data.gql.dart'
@@ -38,7 +38,7 @@ import 'package:test_graphql/queries/fragments/hero_with_fragments.data.gql.dart
         GcomparisonFieldsData_friendsConnection_edges,
         GcomparisonFieldsData_friendsConnection_edges_node;
 import 'package:test_graphql/queries/fragments/hero_with_fragments.req.gql.dart'
-    show GHeroWithFragments, GheroData, GcomparisonFields;
+    show GHeroWithFragmentsReq, GheroDataReq, GcomparisonFieldsReq;
 import 'package:test_graphql/queries/fragments/hero_with_fragments.var.gql.dart'
     show GHeroWithFragmentsVars, GheroDataVars, GcomparisonFieldsVars;
 import 'package:test_graphql/queries/interfaces/hero_for_episode.data.gql.dart'
@@ -49,25 +49,25 @@ import 'package:test_graphql/queries/interfaces/hero_for_episode.data.gql.dart'
         GHeroForEpisodeData_hero__asDroid,
         GDroidFragmentData;
 import 'package:test_graphql/queries/interfaces/hero_for_episode.req.gql.dart'
-    show GHeroForEpisode, GDroidFragment;
+    show GHeroForEpisodeReq, GDroidFragmentReq;
 import 'package:test_graphql/queries/interfaces/hero_for_episode.var.gql.dart'
     show GHeroForEpisodeVars, GDroidFragmentVars;
 import 'package:test_graphql/queries/no_vars/hero_no_vars.data.gql.dart'
     show GHeroNoVarsData, GHeroNoVarsData_hero;
 import 'package:test_graphql/queries/no_vars/hero_no_vars.req.gql.dart'
-    show GHeroNoVars;
+    show GHeroNoVarsReq;
 import 'package:test_graphql/queries/no_vars/hero_no_vars.var.gql.dart'
     show GHeroNoVarsVars;
 import 'package:test_graphql/queries/variables/human_with_args.data.gql.dart'
     show GHumanWithArgsData, GHumanWithArgsData_human;
 import 'package:test_graphql/queries/variables/human_with_args.req.gql.dart'
-    show GHumanWithArgs;
+    show GHumanWithArgsReq;
 import 'package:test_graphql/queries/variables/human_with_args.var.gql.dart'
     show GHumanWithArgsVars;
 import 'package:test_graphql/queries/variables/reviews.data.gql.dart'
     show GReviewsData, GReviewsData_reviews;
 import 'package:test_graphql/queries/variables/reviews.req.gql.dart'
-    show GReviews;
+    show GReviewsReq;
 import 'package:test_graphql/queries/variables/reviews.var.gql.dart'
     show GReviewsVars;
 import 'package:test_graphql/schema/schema.schema.gql.dart'
@@ -80,17 +80,17 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   ..add(OperationSerializer())
   ..addPlugin(StandardJsonPlugin());
 @SerializersFor([
-  GReviewWithDate,
-  GCreateReview,
-  GHeroWithFragments,
-  GheroData,
-  GcomparisonFields,
-  GHeroNoVars,
-  GReviews,
-  GHumanWithArgs,
-  GAliasedHero,
-  GHeroForEpisode,
-  GDroidFragment,
+  GReviewWithDateReq,
+  GCreateReviewReq,
+  GHeroWithFragmentsReq,
+  GheroDataReq,
+  GcomparisonFieldsReq,
+  GHeroNoVarsReq,
+  GReviewsReq,
+  GHumanWithArgsReq,
+  GAliasedHeroReq,
+  GHeroForEpisodeReq,
+  GDroidFragmentReq,
   GReviewWithDateData,
   GReviewWithDateData_createReview,
   GCreateReviewData,

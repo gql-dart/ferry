@@ -15,16 +15,16 @@ import 'package:uuid/uuid.dart' as _i6;
 
 part 'review_with_date.req.gql.g.dart';
 
-abstract class GReviewWithDate
+abstract class GReviewWithDateReq
     implements
-        Built<GReviewWithDate, GReviewWithDateBuilder>,
+        Built<GReviewWithDateReq, GReviewWithDateReqBuilder>,
         _i1.OperationRequest<_i2.GReviewWithDateData, _i3.GReviewWithDateVars> {
-  GReviewWithDate._();
+  GReviewWithDateReq._();
 
-  factory GReviewWithDate([Function(GReviewWithDateBuilder b) updates]) =
-      _$GReviewWithDate;
+  factory GReviewWithDateReq([Function(GReviewWithDateReqBuilder b) updates]) =
+      _$GReviewWithDateReq;
 
-  static void _initializeBuilder(GReviewWithDateBuilder b) => b
+  static void _initializeBuilder(GReviewWithDateReqBuilder b) => b
     ..operation =
         _i4.Operation(document: _i5.document, operationName: 'ReviewWithDate')
     ..requestId = _i6.Uuid().v1();
@@ -49,10 +49,10 @@ abstract class GReviewWithDate
   @override
   _i2.GReviewWithDateData parseData(Map<String, dynamic> json) =>
       _i2.GReviewWithDateData.fromJson(json);
-  static Serializer<GReviewWithDate> get serializer =>
-      _$gReviewWithDateSerializer;
+  static Serializer<GReviewWithDateReq> get serializer =>
+      _$gReviewWithDateReqSerializer;
   Map<String, dynamic> toJson() =>
-      _i7.serializers.serializeWith(GReviewWithDate.serializer, this);
-  static GReviewWithDate fromJson(Map<String, dynamic> json) =>
-      _i7.serializers.deserializeWith(GReviewWithDate.serializer, json);
+      _i7.serializers.serializeWith(GReviewWithDateReq.serializer, this);
+  static GReviewWithDateReq fromJson(Map<String, dynamic> json) =>
+      _i7.serializers.deserializeWith(GReviewWithDateReq.serializer, json);
 }

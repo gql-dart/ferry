@@ -12,15 +12,16 @@ import 'package:uuid/uuid.dart' as _i6;
 
 part 'hero_no_vars.req.gql.g.dart';
 
-abstract class GHeroNoVars
+abstract class GHeroNoVarsReq
     implements
-        Built<GHeroNoVars, GHeroNoVarsBuilder>,
+        Built<GHeroNoVarsReq, GHeroNoVarsReqBuilder>,
         _i1.OperationRequest<_i2.GHeroNoVarsData, _i3.GHeroNoVarsVars> {
-  GHeroNoVars._();
+  GHeroNoVarsReq._();
 
-  factory GHeroNoVars([Function(GHeroNoVarsBuilder b) updates]) = _$GHeroNoVars;
+  factory GHeroNoVarsReq([Function(GHeroNoVarsReqBuilder b) updates]) =
+      _$GHeroNoVarsReq;
 
-  static void _initializeBuilder(GHeroNoVarsBuilder b) => b
+  static void _initializeBuilder(GHeroNoVarsReqBuilder b) => b
     ..operation =
         _i4.Operation(document: _i5.document, operationName: 'HeroNoVars')
     ..requestId = _i6.Uuid().v1();
@@ -45,9 +46,10 @@ abstract class GHeroNoVars
   @override
   _i2.GHeroNoVarsData parseData(Map<String, dynamic> json) =>
       _i2.GHeroNoVarsData.fromJson(json);
-  static Serializer<GHeroNoVars> get serializer => _$gHeroNoVarsSerializer;
+  static Serializer<GHeroNoVarsReq> get serializer =>
+      _$gHeroNoVarsReqSerializer;
   Map<String, dynamic> toJson() =>
-      _i7.serializers.serializeWith(GHeroNoVars.serializer, this);
-  static GHeroNoVars fromJson(Map<String, dynamic> json) =>
-      _i7.serializers.deserializeWith(GHeroNoVars.serializer, json);
+      _i7.serializers.serializeWith(GHeroNoVarsReq.serializer, this);
+  static GHeroNoVarsReq fromJson(Map<String, dynamic> json) =>
+      _i7.serializers.deserializeWith(GHeroNoVarsReq.serializer, json);
 }

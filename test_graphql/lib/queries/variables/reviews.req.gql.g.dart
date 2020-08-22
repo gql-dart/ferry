@@ -6,16 +6,16 @@ part of 'reviews.req.gql.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<GReviews> _$gReviewsSerializer = new _$GReviewsSerializer();
+Serializer<GReviewsReq> _$gReviewsReqSerializer = new _$GReviewsReqSerializer();
 
-class _$GReviewsSerializer implements StructuredSerializer<GReviews> {
+class _$GReviewsReqSerializer implements StructuredSerializer<GReviewsReq> {
   @override
-  final Iterable<Type> types = const [GReviews, _$GReviews];
+  final Iterable<Type> types = const [GReviewsReq, _$GReviewsReq];
   @override
-  final String wireName = 'GReviews';
+  final String wireName = 'GReviewsReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GReviews object,
+  Iterable<Object> serialize(Serializers serializers, GReviewsReq object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'vars',
@@ -60,9 +60,9 @@ class _$GReviewsSerializer implements StructuredSerializer<GReviews> {
   }
 
   @override
-  GReviews deserialize(Serializers serializers, Iterable<Object> serialized,
+  GReviewsReq deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GReviewsBuilder();
+    final result = new GReviewsReqBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -111,7 +111,7 @@ class _$GReviewsSerializer implements StructuredSerializer<GReviews> {
   }
 }
 
-class _$GReviews extends GReviews {
+class _$GReviewsReq extends GReviewsReq {
   @override
   final _i3.GReviewsVars vars;
   @override
@@ -130,10 +130,10 @@ class _$GReviews extends GReviews {
   @override
   final _i1.FetchPolicy fetchPolicy;
 
-  factory _$GReviews([void Function(GReviewsBuilder) updates]) =>
-      (new GReviewsBuilder()..update(updates)).build();
+  factory _$GReviewsReq([void Function(GReviewsReqBuilder) updates]) =>
+      (new GReviewsReqBuilder()..update(updates)).build();
 
-  _$GReviews._(
+  _$GReviewsReq._(
       {this.vars,
       this.operation,
       this.requestId,
@@ -144,25 +144,25 @@ class _$GReviews extends GReviews {
       this.fetchPolicy})
       : super._() {
     if (vars == null) {
-      throw new BuiltValueNullFieldError('GReviews', 'vars');
+      throw new BuiltValueNullFieldError('GReviewsReq', 'vars');
     }
     if (operation == null) {
-      throw new BuiltValueNullFieldError('GReviews', 'operation');
+      throw new BuiltValueNullFieldError('GReviewsReq', 'operation');
     }
   }
 
   @override
-  GReviews rebuild(void Function(GReviewsBuilder) updates) =>
+  GReviewsReq rebuild(void Function(GReviewsReqBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GReviewsBuilder toBuilder() => new GReviewsBuilder()..replace(this);
+  GReviewsReqBuilder toBuilder() => new GReviewsReqBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     final dynamic _$dynamicOther = other;
-    return other is GReviews &&
+    return other is GReviewsReq &&
         vars == other.vars &&
         operation == other.operation &&
         requestId == other.requestId &&
@@ -191,7 +191,7 @@ class _$GReviews extends GReviews {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GReviews')
+    return (newBuiltValueToStringHelper('GReviewsReq')
           ..add('vars', vars)
           ..add('operation', operation)
           ..add('requestId', requestId)
@@ -204,8 +204,8 @@ class _$GReviews extends GReviews {
   }
 }
 
-class GReviewsBuilder implements Builder<GReviews, GReviewsBuilder> {
-  _$GReviews _$v;
+class GReviewsReqBuilder implements Builder<GReviewsReq, GReviewsReqBuilder> {
+  _$GReviewsReq _$v;
 
   _i3.GReviewsVarsBuilder _vars;
   _i3.GReviewsVarsBuilder get vars =>
@@ -251,11 +251,11 @@ class GReviewsBuilder implements Builder<GReviews, GReviewsBuilder> {
   set fetchPolicy(_i1.FetchPolicy fetchPolicy) =>
       _$this._fetchPolicy = fetchPolicy;
 
-  GReviewsBuilder() {
-    GReviews._initializeBuilder(this);
+  GReviewsReqBuilder() {
+    GReviewsReq._initializeBuilder(this);
   }
 
-  GReviewsBuilder get _$this {
+  GReviewsReqBuilder get _$this {
     if (_$v != null) {
       _vars = _$v.vars?.toBuilder();
       _operation = _$v.operation;
@@ -271,24 +271,24 @@ class GReviewsBuilder implements Builder<GReviews, GReviewsBuilder> {
   }
 
   @override
-  void replace(GReviews other) {
+  void replace(GReviewsReq other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$GReviews;
+    _$v = other as _$GReviewsReq;
   }
 
   @override
-  void update(void Function(GReviewsBuilder) updates) {
+  void update(void Function(GReviewsReqBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$GReviews build() {
-    _$GReviews _$result;
+  _$GReviewsReq build() {
+    _$GReviewsReq _$result;
     try {
       _$result = _$v ??
-          new _$GReviews._(
+          new _$GReviewsReq._(
               vars: vars.build(),
               operation: operation,
               requestId: requestId,
@@ -307,7 +307,7 @@ class GReviewsBuilder implements Builder<GReviews, GReviewsBuilder> {
         _optimisticResponse?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GReviews', _$failedField, e.toString());
+            'GReviewsReq', _$failedField, e.toString());
       }
       rethrow;
     }

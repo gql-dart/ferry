@@ -12,15 +12,15 @@ import 'package:uuid/uuid.dart' as _i6;
 
 part 'reviews.req.gql.g.dart';
 
-abstract class GReviews
+abstract class GReviewsReq
     implements
-        Built<GReviews, GReviewsBuilder>,
+        Built<GReviewsReq, GReviewsReqBuilder>,
         _i1.OperationRequest<_i2.GReviewsData, _i3.GReviewsVars> {
-  GReviews._();
+  GReviewsReq._();
 
-  factory GReviews([Function(GReviewsBuilder b) updates]) = _$GReviews;
+  factory GReviewsReq([Function(GReviewsReqBuilder b) updates]) = _$GReviewsReq;
 
-  static void _initializeBuilder(GReviewsBuilder b) => b
+  static void _initializeBuilder(GReviewsReqBuilder b) => b
     ..operation =
         _i4.Operation(document: _i5.document, operationName: 'Reviews')
     ..requestId = _i6.Uuid().v1();
@@ -45,9 +45,9 @@ abstract class GReviews
   @override
   _i2.GReviewsData parseData(Map<String, dynamic> json) =>
       _i2.GReviewsData.fromJson(json);
-  static Serializer<GReviews> get serializer => _$gReviewsSerializer;
+  static Serializer<GReviewsReq> get serializer => _$gReviewsReqSerializer;
   Map<String, dynamic> toJson() =>
-      _i7.serializers.serializeWith(GReviews.serializer, this);
-  static GReviews fromJson(Map<String, dynamic> json) =>
-      _i7.serializers.deserializeWith(GReviews.serializer, json);
+      _i7.serializers.serializeWith(GReviewsReq.serializer, this);
+  static GReviewsReq fromJson(Map<String, dynamic> json) =>
+      _i7.serializers.deserializeWith(GReviewsReq.serializer, json);
 }

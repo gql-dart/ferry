@@ -6,18 +6,18 @@ part of 'review_with_date.req.gql.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<GReviewWithDate> _$gReviewWithDateSerializer =
-    new _$GReviewWithDateSerializer();
+Serializer<GReviewWithDateReq> _$gReviewWithDateReqSerializer =
+    new _$GReviewWithDateReqSerializer();
 
-class _$GReviewWithDateSerializer
-    implements StructuredSerializer<GReviewWithDate> {
+class _$GReviewWithDateReqSerializer
+    implements StructuredSerializer<GReviewWithDateReq> {
   @override
-  final Iterable<Type> types = const [GReviewWithDate, _$GReviewWithDate];
+  final Iterable<Type> types = const [GReviewWithDateReq, _$GReviewWithDateReq];
   @override
-  final String wireName = 'GReviewWithDate';
+  final String wireName = 'GReviewWithDateReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GReviewWithDate object,
+  Iterable<Object> serialize(Serializers serializers, GReviewWithDateReq object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'vars',
@@ -62,10 +62,10 @@ class _$GReviewWithDateSerializer
   }
 
   @override
-  GReviewWithDate deserialize(
+  GReviewWithDateReq deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GReviewWithDateBuilder();
+    final result = new GReviewWithDateReqBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -114,7 +114,7 @@ class _$GReviewWithDateSerializer
   }
 }
 
-class _$GReviewWithDate extends GReviewWithDate {
+class _$GReviewWithDateReq extends GReviewWithDateReq {
   @override
   final _i3.GReviewWithDateVars vars;
   @override
@@ -133,10 +133,11 @@ class _$GReviewWithDate extends GReviewWithDate {
   @override
   final _i1.FetchPolicy fetchPolicy;
 
-  factory _$GReviewWithDate([void Function(GReviewWithDateBuilder) updates]) =>
-      (new GReviewWithDateBuilder()..update(updates)).build();
+  factory _$GReviewWithDateReq(
+          [void Function(GReviewWithDateReqBuilder) updates]) =>
+      (new GReviewWithDateReqBuilder()..update(updates)).build();
 
-  _$GReviewWithDate._(
+  _$GReviewWithDateReq._(
       {this.vars,
       this.operation,
       this.requestId,
@@ -147,26 +148,27 @@ class _$GReviewWithDate extends GReviewWithDate {
       this.fetchPolicy})
       : super._() {
     if (vars == null) {
-      throw new BuiltValueNullFieldError('GReviewWithDate', 'vars');
+      throw new BuiltValueNullFieldError('GReviewWithDateReq', 'vars');
     }
     if (operation == null) {
-      throw new BuiltValueNullFieldError('GReviewWithDate', 'operation');
+      throw new BuiltValueNullFieldError('GReviewWithDateReq', 'operation');
     }
   }
 
   @override
-  GReviewWithDate rebuild(void Function(GReviewWithDateBuilder) updates) =>
+  GReviewWithDateReq rebuild(
+          void Function(GReviewWithDateReqBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GReviewWithDateBuilder toBuilder() =>
-      new GReviewWithDateBuilder()..replace(this);
+  GReviewWithDateReqBuilder toBuilder() =>
+      new GReviewWithDateReqBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     final dynamic _$dynamicOther = other;
-    return other is GReviewWithDate &&
+    return other is GReviewWithDateReq &&
         vars == other.vars &&
         operation == other.operation &&
         requestId == other.requestId &&
@@ -195,7 +197,7 @@ class _$GReviewWithDate extends GReviewWithDate {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GReviewWithDate')
+    return (newBuiltValueToStringHelper('GReviewWithDateReq')
           ..add('vars', vars)
           ..add('operation', operation)
           ..add('requestId', requestId)
@@ -208,9 +210,9 @@ class _$GReviewWithDate extends GReviewWithDate {
   }
 }
 
-class GReviewWithDateBuilder
-    implements Builder<GReviewWithDate, GReviewWithDateBuilder> {
-  _$GReviewWithDate _$v;
+class GReviewWithDateReqBuilder
+    implements Builder<GReviewWithDateReq, GReviewWithDateReqBuilder> {
+  _$GReviewWithDateReq _$v;
 
   _i3.GReviewWithDateVarsBuilder _vars;
   _i3.GReviewWithDateVarsBuilder get vars =>
@@ -259,11 +261,11 @@ class GReviewWithDateBuilder
   set fetchPolicy(_i1.FetchPolicy fetchPolicy) =>
       _$this._fetchPolicy = fetchPolicy;
 
-  GReviewWithDateBuilder() {
-    GReviewWithDate._initializeBuilder(this);
+  GReviewWithDateReqBuilder() {
+    GReviewWithDateReq._initializeBuilder(this);
   }
 
-  GReviewWithDateBuilder get _$this {
+  GReviewWithDateReqBuilder get _$this {
     if (_$v != null) {
       _vars = _$v.vars?.toBuilder();
       _operation = _$v.operation;
@@ -279,24 +281,24 @@ class GReviewWithDateBuilder
   }
 
   @override
-  void replace(GReviewWithDate other) {
+  void replace(GReviewWithDateReq other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$GReviewWithDate;
+    _$v = other as _$GReviewWithDateReq;
   }
 
   @override
-  void update(void Function(GReviewWithDateBuilder) updates) {
+  void update(void Function(GReviewWithDateReqBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$GReviewWithDate build() {
-    _$GReviewWithDate _$result;
+  _$GReviewWithDateReq build() {
+    _$GReviewWithDateReq _$result;
     try {
       _$result = _$v ??
-          new _$GReviewWithDate._(
+          new _$GReviewWithDateReq._(
               vars: vars.build(),
               operation: operation,
               requestId: requestId,
@@ -315,7 +317,7 @@ class GReviewWithDateBuilder
         _optimisticResponse?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GReviewWithDate', _$failedField, e.toString());
+            'GReviewWithDateReq', _$failedField, e.toString());
       }
       rethrow;
     }

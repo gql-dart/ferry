@@ -6,17 +6,18 @@ part of 'aliased_hero.req.gql.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<GAliasedHero> _$gAliasedHeroSerializer =
-    new _$GAliasedHeroSerializer();
+Serializer<GAliasedHeroReq> _$gAliasedHeroReqSerializer =
+    new _$GAliasedHeroReqSerializer();
 
-class _$GAliasedHeroSerializer implements StructuredSerializer<GAliasedHero> {
+class _$GAliasedHeroReqSerializer
+    implements StructuredSerializer<GAliasedHeroReq> {
   @override
-  final Iterable<Type> types = const [GAliasedHero, _$GAliasedHero];
+  final Iterable<Type> types = const [GAliasedHeroReq, _$GAliasedHeroReq];
   @override
-  final String wireName = 'GAliasedHero';
+  final String wireName = 'GAliasedHeroReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GAliasedHero object,
+  Iterable<Object> serialize(Serializers serializers, GAliasedHeroReq object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'vars',
@@ -61,9 +62,10 @@ class _$GAliasedHeroSerializer implements StructuredSerializer<GAliasedHero> {
   }
 
   @override
-  GAliasedHero deserialize(Serializers serializers, Iterable<Object> serialized,
+  GAliasedHeroReq deserialize(
+      Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GAliasedHeroBuilder();
+    final result = new GAliasedHeroReqBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -112,7 +114,7 @@ class _$GAliasedHeroSerializer implements StructuredSerializer<GAliasedHero> {
   }
 }
 
-class _$GAliasedHero extends GAliasedHero {
+class _$GAliasedHeroReq extends GAliasedHeroReq {
   @override
   final _i3.GAliasedHeroVars vars;
   @override
@@ -131,10 +133,10 @@ class _$GAliasedHero extends GAliasedHero {
   @override
   final _i1.FetchPolicy fetchPolicy;
 
-  factory _$GAliasedHero([void Function(GAliasedHeroBuilder) updates]) =>
-      (new GAliasedHeroBuilder()..update(updates)).build();
+  factory _$GAliasedHeroReq([void Function(GAliasedHeroReqBuilder) updates]) =>
+      (new GAliasedHeroReqBuilder()..update(updates)).build();
 
-  _$GAliasedHero._(
+  _$GAliasedHeroReq._(
       {this.vars,
       this.operation,
       this.requestId,
@@ -145,25 +147,26 @@ class _$GAliasedHero extends GAliasedHero {
       this.fetchPolicy})
       : super._() {
     if (vars == null) {
-      throw new BuiltValueNullFieldError('GAliasedHero', 'vars');
+      throw new BuiltValueNullFieldError('GAliasedHeroReq', 'vars');
     }
     if (operation == null) {
-      throw new BuiltValueNullFieldError('GAliasedHero', 'operation');
+      throw new BuiltValueNullFieldError('GAliasedHeroReq', 'operation');
     }
   }
 
   @override
-  GAliasedHero rebuild(void Function(GAliasedHeroBuilder) updates) =>
+  GAliasedHeroReq rebuild(void Function(GAliasedHeroReqBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GAliasedHeroBuilder toBuilder() => new GAliasedHeroBuilder()..replace(this);
+  GAliasedHeroReqBuilder toBuilder() =>
+      new GAliasedHeroReqBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     final dynamic _$dynamicOther = other;
-    return other is GAliasedHero &&
+    return other is GAliasedHeroReq &&
         vars == other.vars &&
         operation == other.operation &&
         requestId == other.requestId &&
@@ -192,7 +195,7 @@ class _$GAliasedHero extends GAliasedHero {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GAliasedHero')
+    return (newBuiltValueToStringHelper('GAliasedHeroReq')
           ..add('vars', vars)
           ..add('operation', operation)
           ..add('requestId', requestId)
@@ -205,9 +208,9 @@ class _$GAliasedHero extends GAliasedHero {
   }
 }
 
-class GAliasedHeroBuilder
-    implements Builder<GAliasedHero, GAliasedHeroBuilder> {
-  _$GAliasedHero _$v;
+class GAliasedHeroReqBuilder
+    implements Builder<GAliasedHeroReq, GAliasedHeroReqBuilder> {
+  _$GAliasedHeroReq _$v;
 
   _i3.GAliasedHeroVarsBuilder _vars;
   _i3.GAliasedHeroVarsBuilder get vars =>
@@ -255,11 +258,11 @@ class GAliasedHeroBuilder
   set fetchPolicy(_i1.FetchPolicy fetchPolicy) =>
       _$this._fetchPolicy = fetchPolicy;
 
-  GAliasedHeroBuilder() {
-    GAliasedHero._initializeBuilder(this);
+  GAliasedHeroReqBuilder() {
+    GAliasedHeroReq._initializeBuilder(this);
   }
 
-  GAliasedHeroBuilder get _$this {
+  GAliasedHeroReqBuilder get _$this {
     if (_$v != null) {
       _vars = _$v.vars?.toBuilder();
       _operation = _$v.operation;
@@ -275,24 +278,24 @@ class GAliasedHeroBuilder
   }
 
   @override
-  void replace(GAliasedHero other) {
+  void replace(GAliasedHeroReq other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$GAliasedHero;
+    _$v = other as _$GAliasedHeroReq;
   }
 
   @override
-  void update(void Function(GAliasedHeroBuilder) updates) {
+  void update(void Function(GAliasedHeroReqBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$GAliasedHero build() {
-    _$GAliasedHero _$result;
+  _$GAliasedHeroReq build() {
+    _$GAliasedHeroReq _$result;
     try {
       _$result = _$v ??
-          new _$GAliasedHero._(
+          new _$GAliasedHeroReq._(
               vars: vars.build(),
               operation: operation,
               requestId: requestId,
@@ -311,7 +314,7 @@ class GAliasedHeroBuilder
         _optimisticResponse?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GAliasedHero', _$failedField, e.toString());
+            'GAliasedHeroReq', _$failedField, e.toString());
       }
       rethrow;
     }

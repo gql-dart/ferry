@@ -15,16 +15,16 @@ import 'package:uuid/uuid.dart' as _i6;
 
 part 'human_with_args.req.gql.g.dart';
 
-abstract class GHumanWithArgs
+abstract class GHumanWithArgsReq
     implements
-        Built<GHumanWithArgs, GHumanWithArgsBuilder>,
+        Built<GHumanWithArgsReq, GHumanWithArgsReqBuilder>,
         _i1.OperationRequest<_i2.GHumanWithArgsData, _i3.GHumanWithArgsVars> {
-  GHumanWithArgs._();
+  GHumanWithArgsReq._();
 
-  factory GHumanWithArgs([Function(GHumanWithArgsBuilder b) updates]) =
-      _$GHumanWithArgs;
+  factory GHumanWithArgsReq([Function(GHumanWithArgsReqBuilder b) updates]) =
+      _$GHumanWithArgsReq;
 
-  static void _initializeBuilder(GHumanWithArgsBuilder b) => b
+  static void _initializeBuilder(GHumanWithArgsReqBuilder b) => b
     ..operation =
         _i4.Operation(document: _i5.document, operationName: 'HumanWithArgs')
     ..requestId = _i6.Uuid().v1();
@@ -49,10 +49,10 @@ abstract class GHumanWithArgs
   @override
   _i2.GHumanWithArgsData parseData(Map<String, dynamic> json) =>
       _i2.GHumanWithArgsData.fromJson(json);
-  static Serializer<GHumanWithArgs> get serializer =>
-      _$gHumanWithArgsSerializer;
+  static Serializer<GHumanWithArgsReq> get serializer =>
+      _$gHumanWithArgsReqSerializer;
   Map<String, dynamic> toJson() =>
-      _i7.serializers.serializeWith(GHumanWithArgs.serializer, this);
-  static GHumanWithArgs fromJson(Map<String, dynamic> json) =>
-      _i7.serializers.deserializeWith(GHumanWithArgs.serializer, json);
+      _i7.serializers.serializeWith(GHumanWithArgsReq.serializer, this);
+  static GHumanWithArgsReq fromJson(Map<String, dynamic> json) =>
+      _i7.serializers.deserializeWith(GHumanWithArgsReq.serializer, json);
 }

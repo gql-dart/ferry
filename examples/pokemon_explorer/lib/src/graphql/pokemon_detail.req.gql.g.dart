@@ -6,18 +6,18 @@ part of 'pokemon_detail.req.gql.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<GPokemonDetail> _$gPokemonDetailSerializer =
-    new _$GPokemonDetailSerializer();
+Serializer<GPokemonDetailReq> _$gPokemonDetailReqSerializer =
+    new _$GPokemonDetailReqSerializer();
 
-class _$GPokemonDetailSerializer
-    implements StructuredSerializer<GPokemonDetail> {
+class _$GPokemonDetailReqSerializer
+    implements StructuredSerializer<GPokemonDetailReq> {
   @override
-  final Iterable<Type> types = const [GPokemonDetail, _$GPokemonDetail];
+  final Iterable<Type> types = const [GPokemonDetailReq, _$GPokemonDetailReq];
   @override
-  final String wireName = 'GPokemonDetail';
+  final String wireName = 'GPokemonDetailReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GPokemonDetail object,
+  Iterable<Object> serialize(Serializers serializers, GPokemonDetailReq object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'vars',
@@ -62,10 +62,10 @@ class _$GPokemonDetailSerializer
   }
 
   @override
-  GPokemonDetail deserialize(
+  GPokemonDetailReq deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GPokemonDetailBuilder();
+    final result = new GPokemonDetailReqBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -114,7 +114,7 @@ class _$GPokemonDetailSerializer
   }
 }
 
-class _$GPokemonDetail extends GPokemonDetail {
+class _$GPokemonDetailReq extends GPokemonDetailReq {
   @override
   final _i3.GPokemonDetailVars vars;
   @override
@@ -133,10 +133,11 @@ class _$GPokemonDetail extends GPokemonDetail {
   @override
   final _i1.FetchPolicy fetchPolicy;
 
-  factory _$GPokemonDetail([void Function(GPokemonDetailBuilder) updates]) =>
-      (new GPokemonDetailBuilder()..update(updates)).build();
+  factory _$GPokemonDetailReq(
+          [void Function(GPokemonDetailReqBuilder) updates]) =>
+      (new GPokemonDetailReqBuilder()..update(updates)).build();
 
-  _$GPokemonDetail._(
+  _$GPokemonDetailReq._(
       {this.vars,
       this.operation,
       this.requestId,
@@ -147,26 +148,26 @@ class _$GPokemonDetail extends GPokemonDetail {
       this.fetchPolicy})
       : super._() {
     if (vars == null) {
-      throw new BuiltValueNullFieldError('GPokemonDetail', 'vars');
+      throw new BuiltValueNullFieldError('GPokemonDetailReq', 'vars');
     }
     if (operation == null) {
-      throw new BuiltValueNullFieldError('GPokemonDetail', 'operation');
+      throw new BuiltValueNullFieldError('GPokemonDetailReq', 'operation');
     }
   }
 
   @override
-  GPokemonDetail rebuild(void Function(GPokemonDetailBuilder) updates) =>
+  GPokemonDetailReq rebuild(void Function(GPokemonDetailReqBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GPokemonDetailBuilder toBuilder() =>
-      new GPokemonDetailBuilder()..replace(this);
+  GPokemonDetailReqBuilder toBuilder() =>
+      new GPokemonDetailReqBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     final dynamic _$dynamicOther = other;
-    return other is GPokemonDetail &&
+    return other is GPokemonDetailReq &&
         vars == other.vars &&
         operation == other.operation &&
         requestId == other.requestId &&
@@ -195,7 +196,7 @@ class _$GPokemonDetail extends GPokemonDetail {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GPokemonDetail')
+    return (newBuiltValueToStringHelper('GPokemonDetailReq')
           ..add('vars', vars)
           ..add('operation', operation)
           ..add('requestId', requestId)
@@ -208,9 +209,9 @@ class _$GPokemonDetail extends GPokemonDetail {
   }
 }
 
-class GPokemonDetailBuilder
-    implements Builder<GPokemonDetail, GPokemonDetailBuilder> {
-  _$GPokemonDetail _$v;
+class GPokemonDetailReqBuilder
+    implements Builder<GPokemonDetailReq, GPokemonDetailReqBuilder> {
+  _$GPokemonDetailReq _$v;
 
   _i3.GPokemonDetailVarsBuilder _vars;
   _i3.GPokemonDetailVarsBuilder get vars =>
@@ -259,11 +260,11 @@ class GPokemonDetailBuilder
   set fetchPolicy(_i1.FetchPolicy fetchPolicy) =>
       _$this._fetchPolicy = fetchPolicy;
 
-  GPokemonDetailBuilder() {
-    GPokemonDetail._initializeBuilder(this);
+  GPokemonDetailReqBuilder() {
+    GPokemonDetailReq._initializeBuilder(this);
   }
 
-  GPokemonDetailBuilder get _$this {
+  GPokemonDetailReqBuilder get _$this {
     if (_$v != null) {
       _vars = _$v.vars?.toBuilder();
       _operation = _$v.operation;
@@ -279,24 +280,24 @@ class GPokemonDetailBuilder
   }
 
   @override
-  void replace(GPokemonDetail other) {
+  void replace(GPokemonDetailReq other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$GPokemonDetail;
+    _$v = other as _$GPokemonDetailReq;
   }
 
   @override
-  void update(void Function(GPokemonDetailBuilder) updates) {
+  void update(void Function(GPokemonDetailReqBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$GPokemonDetail build() {
-    _$GPokemonDetail _$result;
+  _$GPokemonDetailReq build() {
+    _$GPokemonDetailReq _$result;
     try {
       _$result = _$v ??
-          new _$GPokemonDetail._(
+          new _$GPokemonDetailReq._(
               vars: vars.build(),
               operation: operation,
               requestId: requestId,
@@ -315,7 +316,7 @@ class GPokemonDetailBuilder
         _optimisticResponse?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GPokemonDetail', _$failedField, e.toString());
+            'GPokemonDetailReq', _$failedField, e.toString());
       }
       rethrow;
     }

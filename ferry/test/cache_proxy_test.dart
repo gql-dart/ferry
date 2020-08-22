@@ -9,7 +9,7 @@ void main() {
     group("writing queries", () {
       final cache = Cache();
 
-      final req = GHumanWithArgs((b) => b..vars.id = "123");
+      final req = GHumanWithArgsReq((b) => b..vars.id = "123");
       final data = GHumanWithArgsData(
         (b) => b
           ..human.name = "Han Solo"

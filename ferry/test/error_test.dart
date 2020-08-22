@@ -14,7 +14,7 @@ void main() {
     test('Returns a response with GraphQL errors', () async {
       final mockLink = MockLink();
 
-      final req = GHumanWithArgs((b) => b..vars.id = "123");
+      final req = GHumanWithArgsReq((b) => b..vars.id = "123");
 
       final graphQLErrors = [
         GraphQLError(message: "Your GraphQL is not valid")
@@ -44,7 +44,7 @@ void main() {
         () async {
       final mockLink = MockLink();
 
-      final req = GHumanWithArgs((b) => b..vars.id = "123");
+      final req = GHumanWithArgsReq((b) => b..vars.id = "123");
 
       final exception = ServerException(parsedResponse: Response());
 
@@ -69,7 +69,7 @@ void main() {
     test('Wraps error events of a stream into OperationResponse', () async {
       final mockLink = MockLink();
 
-      final req = GHumanWithArgs(
+      final req = GHumanWithArgsReq(
         (b) => b
           ..vars.id = "123"
           ..fetchPolicy = FetchPolicy.NetworkOnly,
@@ -99,7 +99,7 @@ void main() {
     test('Can emit data after emitting errors', () {
       final mockLink = MockLink();
 
-      final req = GHumanWithArgs(
+      final req = GHumanWithArgsReq(
         (b) => b
           ..vars.id = "123"
           ..fetchPolicy = FetchPolicy

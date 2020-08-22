@@ -27,8 +27,8 @@ void main() {
     test(
         "Requests with different args aren't returned in the same response stream",
         () async {
-      final human1 = GHumanWithArgs((b) => b..vars.id = "1");
-      final human2 = GHumanWithArgs((b) => b..vars.id = "2");
+      final human1 = GHumanWithArgsReq((b) => b..vars.id = "1");
+      final human2 = GHumanWithArgsReq((b) => b..vars.id = "2");
 
       final resultStream = client
           .responseStream(human1, executeOnListen: false)
@@ -57,11 +57,11 @@ void main() {
     test(
         "Requests with the same args are not returned in the same response stream",
         () async {
-      final req1 = GHumanWithArgs((b) => b
+      final req1 = GHumanWithArgsReq((b) => b
         ..vars.id = "1"
         ..fetchPolicy = FetchPolicy.CacheAndNetwork);
 
-      final req2 = GHumanWithArgs((b) => b
+      final req2 = GHumanWithArgsReq((b) => b
         ..vars.id = "1"
         ..fetchPolicy = FetchPolicy.CacheAndNetwork);
 
@@ -95,13 +95,13 @@ void main() {
     test(
         "Requests with the same requestId are returned in the same response stream",
         () async {
-      final req1 = GHumanWithArgs(
+      final req1 = GHumanWithArgsReq(
         (b) => b
           ..vars.id = "1"
           ..requestId = "123",
       );
 
-      final req2 = GHumanWithArgs(
+      final req2 = GHumanWithArgsReq(
         (b) => b
           ..vars.id = "2"
           ..requestId = "123",

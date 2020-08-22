@@ -12,16 +12,16 @@ import 'package:uuid/uuid.dart' as _i6;
 
 part 'aliased_hero.req.gql.g.dart';
 
-abstract class GAliasedHero
+abstract class GAliasedHeroReq
     implements
-        Built<GAliasedHero, GAliasedHeroBuilder>,
+        Built<GAliasedHeroReq, GAliasedHeroReqBuilder>,
         _i1.OperationRequest<_i2.GAliasedHeroData, _i3.GAliasedHeroVars> {
-  GAliasedHero._();
+  GAliasedHeroReq._();
 
-  factory GAliasedHero([Function(GAliasedHeroBuilder b) updates]) =
-      _$GAliasedHero;
+  factory GAliasedHeroReq([Function(GAliasedHeroReqBuilder b) updates]) =
+      _$GAliasedHeroReq;
 
-  static void _initializeBuilder(GAliasedHeroBuilder b) => b
+  static void _initializeBuilder(GAliasedHeroReqBuilder b) => b
     ..operation =
         _i4.Operation(document: _i5.document, operationName: 'AliasedHero')
     ..requestId = _i6.Uuid().v1();
@@ -46,9 +46,10 @@ abstract class GAliasedHero
   @override
   _i2.GAliasedHeroData parseData(Map<String, dynamic> json) =>
       _i2.GAliasedHeroData.fromJson(json);
-  static Serializer<GAliasedHero> get serializer => _$gAliasedHeroSerializer;
+  static Serializer<GAliasedHeroReq> get serializer =>
+      _$gAliasedHeroReqSerializer;
   Map<String, dynamic> toJson() =>
-      _i7.serializers.serializeWith(GAliasedHero.serializer, this);
-  static GAliasedHero fromJson(Map<String, dynamic> json) =>
-      _i7.serializers.deserializeWith(GAliasedHero.serializer, json);
+      _i7.serializers.serializeWith(GAliasedHeroReq.serializer, this);
+  static GAliasedHeroReq fromJson(Map<String, dynamic> json) =>
+      _i7.serializers.deserializeWith(GAliasedHeroReq.serializer, json);
 }

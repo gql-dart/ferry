@@ -6,16 +6,18 @@ part of 'hero_no_vars.req.gql.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<GHeroNoVars> _$gHeroNoVarsSerializer = new _$GHeroNoVarsSerializer();
+Serializer<GHeroNoVarsReq> _$gHeroNoVarsReqSerializer =
+    new _$GHeroNoVarsReqSerializer();
 
-class _$GHeroNoVarsSerializer implements StructuredSerializer<GHeroNoVars> {
+class _$GHeroNoVarsReqSerializer
+    implements StructuredSerializer<GHeroNoVarsReq> {
   @override
-  final Iterable<Type> types = const [GHeroNoVars, _$GHeroNoVars];
+  final Iterable<Type> types = const [GHeroNoVarsReq, _$GHeroNoVarsReq];
   @override
-  final String wireName = 'GHeroNoVars';
+  final String wireName = 'GHeroNoVarsReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GHeroNoVars object,
+  Iterable<Object> serialize(Serializers serializers, GHeroNoVarsReq object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'vars',
@@ -60,9 +62,10 @@ class _$GHeroNoVarsSerializer implements StructuredSerializer<GHeroNoVars> {
   }
 
   @override
-  GHeroNoVars deserialize(Serializers serializers, Iterable<Object> serialized,
+  GHeroNoVarsReq deserialize(
+      Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GHeroNoVarsBuilder();
+    final result = new GHeroNoVarsReqBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -111,7 +114,7 @@ class _$GHeroNoVarsSerializer implements StructuredSerializer<GHeroNoVars> {
   }
 }
 
-class _$GHeroNoVars extends GHeroNoVars {
+class _$GHeroNoVarsReq extends GHeroNoVarsReq {
   @override
   final _i3.GHeroNoVarsVars vars;
   @override
@@ -130,10 +133,10 @@ class _$GHeroNoVars extends GHeroNoVars {
   @override
   final _i1.FetchPolicy fetchPolicy;
 
-  factory _$GHeroNoVars([void Function(GHeroNoVarsBuilder) updates]) =>
-      (new GHeroNoVarsBuilder()..update(updates)).build();
+  factory _$GHeroNoVarsReq([void Function(GHeroNoVarsReqBuilder) updates]) =>
+      (new GHeroNoVarsReqBuilder()..update(updates)).build();
 
-  _$GHeroNoVars._(
+  _$GHeroNoVarsReq._(
       {this.vars,
       this.operation,
       this.requestId,
@@ -144,25 +147,26 @@ class _$GHeroNoVars extends GHeroNoVars {
       this.fetchPolicy})
       : super._() {
     if (vars == null) {
-      throw new BuiltValueNullFieldError('GHeroNoVars', 'vars');
+      throw new BuiltValueNullFieldError('GHeroNoVarsReq', 'vars');
     }
     if (operation == null) {
-      throw new BuiltValueNullFieldError('GHeroNoVars', 'operation');
+      throw new BuiltValueNullFieldError('GHeroNoVarsReq', 'operation');
     }
   }
 
   @override
-  GHeroNoVars rebuild(void Function(GHeroNoVarsBuilder) updates) =>
+  GHeroNoVarsReq rebuild(void Function(GHeroNoVarsReqBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GHeroNoVarsBuilder toBuilder() => new GHeroNoVarsBuilder()..replace(this);
+  GHeroNoVarsReqBuilder toBuilder() =>
+      new GHeroNoVarsReqBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     final dynamic _$dynamicOther = other;
-    return other is GHeroNoVars &&
+    return other is GHeroNoVarsReq &&
         vars == other.vars &&
         operation == other.operation &&
         requestId == other.requestId &&
@@ -191,7 +195,7 @@ class _$GHeroNoVars extends GHeroNoVars {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GHeroNoVars')
+    return (newBuiltValueToStringHelper('GHeroNoVarsReq')
           ..add('vars', vars)
           ..add('operation', operation)
           ..add('requestId', requestId)
@@ -204,8 +208,9 @@ class _$GHeroNoVars extends GHeroNoVars {
   }
 }
 
-class GHeroNoVarsBuilder implements Builder<GHeroNoVars, GHeroNoVarsBuilder> {
-  _$GHeroNoVars _$v;
+class GHeroNoVarsReqBuilder
+    implements Builder<GHeroNoVarsReq, GHeroNoVarsReqBuilder> {
+  _$GHeroNoVarsReq _$v;
 
   _i3.GHeroNoVarsVarsBuilder _vars;
   _i3.GHeroNoVarsVarsBuilder get vars =>
@@ -252,11 +257,11 @@ class GHeroNoVarsBuilder implements Builder<GHeroNoVars, GHeroNoVarsBuilder> {
   set fetchPolicy(_i1.FetchPolicy fetchPolicy) =>
       _$this._fetchPolicy = fetchPolicy;
 
-  GHeroNoVarsBuilder() {
-    GHeroNoVars._initializeBuilder(this);
+  GHeroNoVarsReqBuilder() {
+    GHeroNoVarsReq._initializeBuilder(this);
   }
 
-  GHeroNoVarsBuilder get _$this {
+  GHeroNoVarsReqBuilder get _$this {
     if (_$v != null) {
       _vars = _$v.vars?.toBuilder();
       _operation = _$v.operation;
@@ -272,24 +277,24 @@ class GHeroNoVarsBuilder implements Builder<GHeroNoVars, GHeroNoVarsBuilder> {
   }
 
   @override
-  void replace(GHeroNoVars other) {
+  void replace(GHeroNoVarsReq other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$GHeroNoVars;
+    _$v = other as _$GHeroNoVarsReq;
   }
 
   @override
-  void update(void Function(GHeroNoVarsBuilder) updates) {
+  void update(void Function(GHeroNoVarsReqBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$GHeroNoVars build() {
-    _$GHeroNoVars _$result;
+  _$GHeroNoVarsReq build() {
+    _$GHeroNoVarsReq _$result;
     try {
       _$result = _$v ??
-          new _$GHeroNoVars._(
+          new _$GHeroNoVarsReq._(
               vars: vars.build(),
               operation: operation,
               requestId: requestId,
@@ -308,7 +313,7 @@ class GHeroNoVarsBuilder implements Builder<GHeroNoVars, GHeroNoVarsBuilder> {
         _optimisticResponse?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GHeroNoVars', _$failedField, e.toString());
+            'GHeroNoVarsReq', _$failedField, e.toString());
       }
       rethrow;
     }

@@ -6,18 +6,18 @@ part of 'human_with_args.req.gql.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<GHumanWithArgs> _$gHumanWithArgsSerializer =
-    new _$GHumanWithArgsSerializer();
+Serializer<GHumanWithArgsReq> _$gHumanWithArgsReqSerializer =
+    new _$GHumanWithArgsReqSerializer();
 
-class _$GHumanWithArgsSerializer
-    implements StructuredSerializer<GHumanWithArgs> {
+class _$GHumanWithArgsReqSerializer
+    implements StructuredSerializer<GHumanWithArgsReq> {
   @override
-  final Iterable<Type> types = const [GHumanWithArgs, _$GHumanWithArgs];
+  final Iterable<Type> types = const [GHumanWithArgsReq, _$GHumanWithArgsReq];
   @override
-  final String wireName = 'GHumanWithArgs';
+  final String wireName = 'GHumanWithArgsReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GHumanWithArgs object,
+  Iterable<Object> serialize(Serializers serializers, GHumanWithArgsReq object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'vars',
@@ -62,10 +62,10 @@ class _$GHumanWithArgsSerializer
   }
 
   @override
-  GHumanWithArgs deserialize(
+  GHumanWithArgsReq deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GHumanWithArgsBuilder();
+    final result = new GHumanWithArgsReqBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -114,7 +114,7 @@ class _$GHumanWithArgsSerializer
   }
 }
 
-class _$GHumanWithArgs extends GHumanWithArgs {
+class _$GHumanWithArgsReq extends GHumanWithArgsReq {
   @override
   final _i3.GHumanWithArgsVars vars;
   @override
@@ -133,10 +133,11 @@ class _$GHumanWithArgs extends GHumanWithArgs {
   @override
   final _i1.FetchPolicy fetchPolicy;
 
-  factory _$GHumanWithArgs([void Function(GHumanWithArgsBuilder) updates]) =>
-      (new GHumanWithArgsBuilder()..update(updates)).build();
+  factory _$GHumanWithArgsReq(
+          [void Function(GHumanWithArgsReqBuilder) updates]) =>
+      (new GHumanWithArgsReqBuilder()..update(updates)).build();
 
-  _$GHumanWithArgs._(
+  _$GHumanWithArgsReq._(
       {this.vars,
       this.operation,
       this.requestId,
@@ -147,26 +148,26 @@ class _$GHumanWithArgs extends GHumanWithArgs {
       this.fetchPolicy})
       : super._() {
     if (vars == null) {
-      throw new BuiltValueNullFieldError('GHumanWithArgs', 'vars');
+      throw new BuiltValueNullFieldError('GHumanWithArgsReq', 'vars');
     }
     if (operation == null) {
-      throw new BuiltValueNullFieldError('GHumanWithArgs', 'operation');
+      throw new BuiltValueNullFieldError('GHumanWithArgsReq', 'operation');
     }
   }
 
   @override
-  GHumanWithArgs rebuild(void Function(GHumanWithArgsBuilder) updates) =>
+  GHumanWithArgsReq rebuild(void Function(GHumanWithArgsReqBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GHumanWithArgsBuilder toBuilder() =>
-      new GHumanWithArgsBuilder()..replace(this);
+  GHumanWithArgsReqBuilder toBuilder() =>
+      new GHumanWithArgsReqBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     final dynamic _$dynamicOther = other;
-    return other is GHumanWithArgs &&
+    return other is GHumanWithArgsReq &&
         vars == other.vars &&
         operation == other.operation &&
         requestId == other.requestId &&
@@ -195,7 +196,7 @@ class _$GHumanWithArgs extends GHumanWithArgs {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GHumanWithArgs')
+    return (newBuiltValueToStringHelper('GHumanWithArgsReq')
           ..add('vars', vars)
           ..add('operation', operation)
           ..add('requestId', requestId)
@@ -208,9 +209,9 @@ class _$GHumanWithArgs extends GHumanWithArgs {
   }
 }
 
-class GHumanWithArgsBuilder
-    implements Builder<GHumanWithArgs, GHumanWithArgsBuilder> {
-  _$GHumanWithArgs _$v;
+class GHumanWithArgsReqBuilder
+    implements Builder<GHumanWithArgsReq, GHumanWithArgsReqBuilder> {
+  _$GHumanWithArgsReq _$v;
 
   _i3.GHumanWithArgsVarsBuilder _vars;
   _i3.GHumanWithArgsVarsBuilder get vars =>
@@ -259,11 +260,11 @@ class GHumanWithArgsBuilder
   set fetchPolicy(_i1.FetchPolicy fetchPolicy) =>
       _$this._fetchPolicy = fetchPolicy;
 
-  GHumanWithArgsBuilder() {
-    GHumanWithArgs._initializeBuilder(this);
+  GHumanWithArgsReqBuilder() {
+    GHumanWithArgsReq._initializeBuilder(this);
   }
 
-  GHumanWithArgsBuilder get _$this {
+  GHumanWithArgsReqBuilder get _$this {
     if (_$v != null) {
       _vars = _$v.vars?.toBuilder();
       _operation = _$v.operation;
@@ -279,24 +280,24 @@ class GHumanWithArgsBuilder
   }
 
   @override
-  void replace(GHumanWithArgs other) {
+  void replace(GHumanWithArgsReq other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$GHumanWithArgs;
+    _$v = other as _$GHumanWithArgsReq;
   }
 
   @override
-  void update(void Function(GHumanWithArgsBuilder) updates) {
+  void update(void Function(GHumanWithArgsReqBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$GHumanWithArgs build() {
-    _$GHumanWithArgs _$result;
+  _$GHumanWithArgsReq build() {
+    _$GHumanWithArgsReq _$result;
     try {
       _$result = _$v ??
-          new _$GHumanWithArgs._(
+          new _$GHumanWithArgsReq._(
               vars: vars.build(),
               operation: operation,
               requestId: requestId,
@@ -315,7 +316,7 @@ class GHumanWithArgsBuilder
         _optimisticResponse?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GHumanWithArgs', _$failedField, e.toString());
+            'GHumanWithArgsReq', _$failedField, e.toString());
       }
       rethrow;
     }

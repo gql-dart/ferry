@@ -15,16 +15,16 @@ import 'package:uuid/uuid.dart' as _i6;
 
 part 'create_review.req.gql.g.dart';
 
-abstract class GCreateReview
+abstract class GCreateReviewReq
     implements
-        Built<GCreateReview, GCreateReviewBuilder>,
+        Built<GCreateReviewReq, GCreateReviewReqBuilder>,
         _i1.OperationRequest<_i2.GCreateReviewData, _i3.GCreateReviewVars> {
-  GCreateReview._();
+  GCreateReviewReq._();
 
-  factory GCreateReview([Function(GCreateReviewBuilder b) updates]) =
-      _$GCreateReview;
+  factory GCreateReviewReq([Function(GCreateReviewReqBuilder b) updates]) =
+      _$GCreateReviewReq;
 
-  static void _initializeBuilder(GCreateReviewBuilder b) => b
+  static void _initializeBuilder(GCreateReviewReqBuilder b) => b
     ..operation =
         _i4.Operation(document: _i5.document, operationName: 'CreateReview')
     ..requestId = _i6.Uuid().v1();
@@ -49,9 +49,10 @@ abstract class GCreateReview
   @override
   _i2.GCreateReviewData parseData(Map<String, dynamic> json) =>
       _i2.GCreateReviewData.fromJson(json);
-  static Serializer<GCreateReview> get serializer => _$gCreateReviewSerializer;
+  static Serializer<GCreateReviewReq> get serializer =>
+      _$gCreateReviewReqSerializer;
   Map<String, dynamic> toJson() =>
-      _i7.serializers.serializeWith(GCreateReview.serializer, this);
-  static GCreateReview fromJson(Map<String, dynamic> json) =>
-      _i7.serializers.deserializeWith(GCreateReview.serializer, json);
+      _i7.serializers.serializeWith(GCreateReviewReq.serializer, this);
+  static GCreateReviewReq fromJson(Map<String, dynamic> json) =>
+      _i7.serializers.deserializeWith(GCreateReviewReq.serializer, json);
 }

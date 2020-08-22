@@ -6,21 +6,26 @@ part of 'hero_with_fragments.req.gql.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<GHeroWithFragments> _$gHeroWithFragmentsSerializer =
-    new _$GHeroWithFragmentsSerializer();
-Serializer<GheroData> _$gheroDataSerializer = new _$GheroDataSerializer();
-Serializer<GcomparisonFields> _$gcomparisonFieldsSerializer =
-    new _$GcomparisonFieldsSerializer();
+Serializer<GHeroWithFragmentsReq> _$gHeroWithFragmentsReqSerializer =
+    new _$GHeroWithFragmentsReqSerializer();
+Serializer<GheroDataReq> _$gheroDataReqSerializer =
+    new _$GheroDataReqSerializer();
+Serializer<GcomparisonFieldsReq> _$gcomparisonFieldsReqSerializer =
+    new _$GcomparisonFieldsReqSerializer();
 
-class _$GHeroWithFragmentsSerializer
-    implements StructuredSerializer<GHeroWithFragments> {
+class _$GHeroWithFragmentsReqSerializer
+    implements StructuredSerializer<GHeroWithFragmentsReq> {
   @override
-  final Iterable<Type> types = const [GHeroWithFragments, _$GHeroWithFragments];
+  final Iterable<Type> types = const [
+    GHeroWithFragmentsReq,
+    _$GHeroWithFragmentsReq
+  ];
   @override
-  final String wireName = 'GHeroWithFragments';
+  final String wireName = 'GHeroWithFragmentsReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GHeroWithFragments object,
+  Iterable<Object> serialize(
+      Serializers serializers, GHeroWithFragmentsReq object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'vars',
@@ -65,10 +70,10 @@ class _$GHeroWithFragmentsSerializer
   }
 
   @override
-  GHeroWithFragments deserialize(
+  GHeroWithFragmentsReq deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GHeroWithFragmentsBuilder();
+    final result = new GHeroWithFragmentsReqBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -117,14 +122,14 @@ class _$GHeroWithFragmentsSerializer
   }
 }
 
-class _$GheroDataSerializer implements StructuredSerializer<GheroData> {
+class _$GheroDataReqSerializer implements StructuredSerializer<GheroDataReq> {
   @override
-  final Iterable<Type> types = const [GheroData, _$GheroData];
+  final Iterable<Type> types = const [GheroDataReq, _$GheroDataReq];
   @override
-  final String wireName = 'GheroData';
+  final String wireName = 'GheroDataReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GheroData object,
+  Iterable<Object> serialize(Serializers serializers, GheroDataReq object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'vars',
@@ -146,9 +151,9 @@ class _$GheroDataSerializer implements StructuredSerializer<GheroData> {
   }
 
   @override
-  GheroData deserialize(Serializers serializers, Iterable<Object> serialized,
+  GheroDataReq deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GheroDataBuilder();
+    final result = new GheroDataReqBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -184,15 +189,19 @@ class _$GheroDataSerializer implements StructuredSerializer<GheroData> {
   }
 }
 
-class _$GcomparisonFieldsSerializer
-    implements StructuredSerializer<GcomparisonFields> {
+class _$GcomparisonFieldsReqSerializer
+    implements StructuredSerializer<GcomparisonFieldsReq> {
   @override
-  final Iterable<Type> types = const [GcomparisonFields, _$GcomparisonFields];
+  final Iterable<Type> types = const [
+    GcomparisonFieldsReq,
+    _$GcomparisonFieldsReq
+  ];
   @override
-  final String wireName = 'GcomparisonFields';
+  final String wireName = 'GcomparisonFieldsReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GcomparisonFields object,
+  Iterable<Object> serialize(
+      Serializers serializers, GcomparisonFieldsReq object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'vars',
@@ -214,10 +223,10 @@ class _$GcomparisonFieldsSerializer
   }
 
   @override
-  GcomparisonFields deserialize(
+  GcomparisonFieldsReq deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GcomparisonFieldsBuilder();
+    final result = new GcomparisonFieldsReqBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -253,7 +262,7 @@ class _$GcomparisonFieldsSerializer
   }
 }
 
-class _$GHeroWithFragments extends GHeroWithFragments {
+class _$GHeroWithFragmentsReq extends GHeroWithFragmentsReq {
   @override
   final _i3.GHeroWithFragmentsVars vars;
   @override
@@ -272,11 +281,11 @@ class _$GHeroWithFragments extends GHeroWithFragments {
   @override
   final _i1.FetchPolicy fetchPolicy;
 
-  factory _$GHeroWithFragments(
-          [void Function(GHeroWithFragmentsBuilder) updates]) =>
-      (new GHeroWithFragmentsBuilder()..update(updates)).build();
+  factory _$GHeroWithFragmentsReq(
+          [void Function(GHeroWithFragmentsReqBuilder) updates]) =>
+      (new GHeroWithFragmentsReqBuilder()..update(updates)).build();
 
-  _$GHeroWithFragments._(
+  _$GHeroWithFragmentsReq._(
       {this.vars,
       this.operation,
       this.requestId,
@@ -287,27 +296,27 @@ class _$GHeroWithFragments extends GHeroWithFragments {
       this.fetchPolicy})
       : super._() {
     if (vars == null) {
-      throw new BuiltValueNullFieldError('GHeroWithFragments', 'vars');
+      throw new BuiltValueNullFieldError('GHeroWithFragmentsReq', 'vars');
     }
     if (operation == null) {
-      throw new BuiltValueNullFieldError('GHeroWithFragments', 'operation');
+      throw new BuiltValueNullFieldError('GHeroWithFragmentsReq', 'operation');
     }
   }
 
   @override
-  GHeroWithFragments rebuild(
-          void Function(GHeroWithFragmentsBuilder) updates) =>
+  GHeroWithFragmentsReq rebuild(
+          void Function(GHeroWithFragmentsReqBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GHeroWithFragmentsBuilder toBuilder() =>
-      new GHeroWithFragmentsBuilder()..replace(this);
+  GHeroWithFragmentsReqBuilder toBuilder() =>
+      new GHeroWithFragmentsReqBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     final dynamic _$dynamicOther = other;
-    return other is GHeroWithFragments &&
+    return other is GHeroWithFragmentsReq &&
         vars == other.vars &&
         operation == other.operation &&
         requestId == other.requestId &&
@@ -336,7 +345,7 @@ class _$GHeroWithFragments extends GHeroWithFragments {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GHeroWithFragments')
+    return (newBuiltValueToStringHelper('GHeroWithFragmentsReq')
           ..add('vars', vars)
           ..add('operation', operation)
           ..add('requestId', requestId)
@@ -349,9 +358,9 @@ class _$GHeroWithFragments extends GHeroWithFragments {
   }
 }
 
-class GHeroWithFragmentsBuilder
-    implements Builder<GHeroWithFragments, GHeroWithFragmentsBuilder> {
-  _$GHeroWithFragments _$v;
+class GHeroWithFragmentsReqBuilder
+    implements Builder<GHeroWithFragmentsReq, GHeroWithFragmentsReqBuilder> {
+  _$GHeroWithFragmentsReq _$v;
 
   _i3.GHeroWithFragmentsVarsBuilder _vars;
   _i3.GHeroWithFragmentsVarsBuilder get vars =>
@@ -401,11 +410,11 @@ class GHeroWithFragmentsBuilder
   set fetchPolicy(_i1.FetchPolicy fetchPolicy) =>
       _$this._fetchPolicy = fetchPolicy;
 
-  GHeroWithFragmentsBuilder() {
-    GHeroWithFragments._initializeBuilder(this);
+  GHeroWithFragmentsReqBuilder() {
+    GHeroWithFragmentsReq._initializeBuilder(this);
   }
 
-  GHeroWithFragmentsBuilder get _$this {
+  GHeroWithFragmentsReqBuilder get _$this {
     if (_$v != null) {
       _vars = _$v.vars?.toBuilder();
       _operation = _$v.operation;
@@ -421,24 +430,24 @@ class GHeroWithFragmentsBuilder
   }
 
   @override
-  void replace(GHeroWithFragments other) {
+  void replace(GHeroWithFragmentsReq other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$GHeroWithFragments;
+    _$v = other as _$GHeroWithFragmentsReq;
   }
 
   @override
-  void update(void Function(GHeroWithFragmentsBuilder) updates) {
+  void update(void Function(GHeroWithFragmentsReqBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$GHeroWithFragments build() {
-    _$GHeroWithFragments _$result;
+  _$GHeroWithFragmentsReq build() {
+    _$GHeroWithFragmentsReq _$result;
     try {
       _$result = _$v ??
-          new _$GHeroWithFragments._(
+          new _$GHeroWithFragmentsReq._(
               vars: vars.build(),
               operation: operation,
               requestId: requestId,
@@ -457,7 +466,7 @@ class GHeroWithFragmentsBuilder
         _optimisticResponse?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GHeroWithFragments', _$failedField, e.toString());
+            'GHeroWithFragmentsReq', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -466,7 +475,7 @@ class GHeroWithFragmentsBuilder
   }
 }
 
-class _$GheroData extends GheroData {
+class _$GheroDataReq extends GheroDataReq {
   @override
   final _i3.GheroDataVars vars;
   @override
@@ -476,36 +485,36 @@ class _$GheroData extends GheroData {
   @override
   final Map<String, dynamic> idFields;
 
-  factory _$GheroData([void Function(GheroDataBuilder) updates]) =>
-      (new GheroDataBuilder()..update(updates)).build();
+  factory _$GheroDataReq([void Function(GheroDataReqBuilder) updates]) =>
+      (new GheroDataReqBuilder()..update(updates)).build();
 
-  _$GheroData._({this.vars, this.document, this.fragmentName, this.idFields})
+  _$GheroDataReq._({this.vars, this.document, this.fragmentName, this.idFields})
       : super._() {
     if (vars == null) {
-      throw new BuiltValueNullFieldError('GheroData', 'vars');
+      throw new BuiltValueNullFieldError('GheroDataReq', 'vars');
     }
     if (document == null) {
-      throw new BuiltValueNullFieldError('GheroData', 'document');
+      throw new BuiltValueNullFieldError('GheroDataReq', 'document');
     }
     if (fragmentName == null) {
-      throw new BuiltValueNullFieldError('GheroData', 'fragmentName');
+      throw new BuiltValueNullFieldError('GheroDataReq', 'fragmentName');
     }
     if (idFields == null) {
-      throw new BuiltValueNullFieldError('GheroData', 'idFields');
+      throw new BuiltValueNullFieldError('GheroDataReq', 'idFields');
     }
   }
 
   @override
-  GheroData rebuild(void Function(GheroDataBuilder) updates) =>
+  GheroDataReq rebuild(void Function(GheroDataReqBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GheroDataBuilder toBuilder() => new GheroDataBuilder()..replace(this);
+  GheroDataReqBuilder toBuilder() => new GheroDataReqBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GheroData &&
+    return other is GheroDataReq &&
         vars == other.vars &&
         document == other.document &&
         fragmentName == other.fragmentName &&
@@ -522,7 +531,7 @@ class _$GheroData extends GheroData {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GheroData')
+    return (newBuiltValueToStringHelper('GheroDataReq')
           ..add('vars', vars)
           ..add('document', document)
           ..add('fragmentName', fragmentName)
@@ -531,8 +540,9 @@ class _$GheroData extends GheroData {
   }
 }
 
-class GheroDataBuilder implements Builder<GheroData, GheroDataBuilder> {
-  _$GheroData _$v;
+class GheroDataReqBuilder
+    implements Builder<GheroDataReq, GheroDataReqBuilder> {
+  _$GheroDataReq _$v;
 
   _i3.GheroDataVarsBuilder _vars;
   _i3.GheroDataVarsBuilder get vars =>
@@ -551,11 +561,11 @@ class GheroDataBuilder implements Builder<GheroData, GheroDataBuilder> {
   Map<String, dynamic> get idFields => _$this._idFields;
   set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
 
-  GheroDataBuilder() {
-    GheroData._initializeBuilder(this);
+  GheroDataReqBuilder() {
+    GheroDataReq._initializeBuilder(this);
   }
 
-  GheroDataBuilder get _$this {
+  GheroDataReqBuilder get _$this {
     if (_$v != null) {
       _vars = _$v.vars?.toBuilder();
       _document = _$v.document;
@@ -567,24 +577,24 @@ class GheroDataBuilder implements Builder<GheroData, GheroDataBuilder> {
   }
 
   @override
-  void replace(GheroData other) {
+  void replace(GheroDataReq other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$GheroData;
+    _$v = other as _$GheroDataReq;
   }
 
   @override
-  void update(void Function(GheroDataBuilder) updates) {
+  void update(void Function(GheroDataReqBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$GheroData build() {
-    _$GheroData _$result;
+  _$GheroDataReq build() {
+    _$GheroDataReq _$result;
     try {
       _$result = _$v ??
-          new _$GheroData._(
+          new _$GheroDataReq._(
               vars: vars.build(),
               document: document,
               fragmentName: fragmentName,
@@ -596,7 +606,7 @@ class GheroDataBuilder implements Builder<GheroData, GheroDataBuilder> {
         vars.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GheroData', _$failedField, e.toString());
+            'GheroDataReq', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -605,7 +615,7 @@ class GheroDataBuilder implements Builder<GheroData, GheroDataBuilder> {
   }
 }
 
-class _$GcomparisonFields extends GcomparisonFields {
+class _$GcomparisonFieldsReq extends GcomparisonFieldsReq {
   @override
   final _i3.GcomparisonFieldsVars vars;
   @override
@@ -615,39 +625,41 @@ class _$GcomparisonFields extends GcomparisonFields {
   @override
   final Map<String, dynamic> idFields;
 
-  factory _$GcomparisonFields(
-          [void Function(GcomparisonFieldsBuilder) updates]) =>
-      (new GcomparisonFieldsBuilder()..update(updates)).build();
+  factory _$GcomparisonFieldsReq(
+          [void Function(GcomparisonFieldsReqBuilder) updates]) =>
+      (new GcomparisonFieldsReqBuilder()..update(updates)).build();
 
-  _$GcomparisonFields._(
+  _$GcomparisonFieldsReq._(
       {this.vars, this.document, this.fragmentName, this.idFields})
       : super._() {
     if (vars == null) {
-      throw new BuiltValueNullFieldError('GcomparisonFields', 'vars');
+      throw new BuiltValueNullFieldError('GcomparisonFieldsReq', 'vars');
     }
     if (document == null) {
-      throw new BuiltValueNullFieldError('GcomparisonFields', 'document');
+      throw new BuiltValueNullFieldError('GcomparisonFieldsReq', 'document');
     }
     if (fragmentName == null) {
-      throw new BuiltValueNullFieldError('GcomparisonFields', 'fragmentName');
+      throw new BuiltValueNullFieldError(
+          'GcomparisonFieldsReq', 'fragmentName');
     }
     if (idFields == null) {
-      throw new BuiltValueNullFieldError('GcomparisonFields', 'idFields');
+      throw new BuiltValueNullFieldError('GcomparisonFieldsReq', 'idFields');
     }
   }
 
   @override
-  GcomparisonFields rebuild(void Function(GcomparisonFieldsBuilder) updates) =>
+  GcomparisonFieldsReq rebuild(
+          void Function(GcomparisonFieldsReqBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GcomparisonFieldsBuilder toBuilder() =>
-      new GcomparisonFieldsBuilder()..replace(this);
+  GcomparisonFieldsReqBuilder toBuilder() =>
+      new GcomparisonFieldsReqBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GcomparisonFields &&
+    return other is GcomparisonFieldsReq &&
         vars == other.vars &&
         document == other.document &&
         fragmentName == other.fragmentName &&
@@ -664,7 +676,7 @@ class _$GcomparisonFields extends GcomparisonFields {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GcomparisonFields')
+    return (newBuiltValueToStringHelper('GcomparisonFieldsReq')
           ..add('vars', vars)
           ..add('document', document)
           ..add('fragmentName', fragmentName)
@@ -673,9 +685,9 @@ class _$GcomparisonFields extends GcomparisonFields {
   }
 }
 
-class GcomparisonFieldsBuilder
-    implements Builder<GcomparisonFields, GcomparisonFieldsBuilder> {
-  _$GcomparisonFields _$v;
+class GcomparisonFieldsReqBuilder
+    implements Builder<GcomparisonFieldsReq, GcomparisonFieldsReqBuilder> {
+  _$GcomparisonFieldsReq _$v;
 
   _i3.GcomparisonFieldsVarsBuilder _vars;
   _i3.GcomparisonFieldsVarsBuilder get vars =>
@@ -694,11 +706,11 @@ class GcomparisonFieldsBuilder
   Map<String, dynamic> get idFields => _$this._idFields;
   set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
 
-  GcomparisonFieldsBuilder() {
-    GcomparisonFields._initializeBuilder(this);
+  GcomparisonFieldsReqBuilder() {
+    GcomparisonFieldsReq._initializeBuilder(this);
   }
 
-  GcomparisonFieldsBuilder get _$this {
+  GcomparisonFieldsReqBuilder get _$this {
     if (_$v != null) {
       _vars = _$v.vars?.toBuilder();
       _document = _$v.document;
@@ -710,24 +722,24 @@ class GcomparisonFieldsBuilder
   }
 
   @override
-  void replace(GcomparisonFields other) {
+  void replace(GcomparisonFieldsReq other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$GcomparisonFields;
+    _$v = other as _$GcomparisonFieldsReq;
   }
 
   @override
-  void update(void Function(GcomparisonFieldsBuilder) updates) {
+  void update(void Function(GcomparisonFieldsReqBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$GcomparisonFields build() {
-    _$GcomparisonFields _$result;
+  _$GcomparisonFieldsReq build() {
+    _$GcomparisonFieldsReq _$result;
     try {
       _$result = _$v ??
-          new _$GcomparisonFields._(
+          new _$GcomparisonFieldsReq._(
               vars: vars.build(),
               document: document,
               fragmentName: fragmentName,
@@ -739,7 +751,7 @@ class GcomparisonFieldsBuilder
         vars.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GcomparisonFields', _$failedField, e.toString());
+            'GcomparisonFieldsReq', _$failedField, e.toString());
       }
       rethrow;
     }
