@@ -48,7 +48,7 @@ void main() {
       FetchPolicy.CacheAndNetwork,
       FetchPolicy.NoCache
     ]) {
-      final req = GHumanWithArgs(
+      final req = GHumanWithArgsReq(
         (b) => b
           ..vars.id = "123"
           ..fetchPolicy = fetchPolicy,

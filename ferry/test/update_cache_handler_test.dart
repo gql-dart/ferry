@@ -15,7 +15,7 @@ import 'package:test_graphql/schema/schema.schema.gql.dart';
 
 class MockLink extends Mock implements Link {}
 
-final createReviewReq = GCreateReview(
+final createReviewReq = GCreateReviewReq(
   (b) => b
     ..updateCacheHandlerKey = "createReviewHandler"
     ..vars.episode = GEpisode.NEWHOPE
@@ -31,7 +31,7 @@ final createReviewData = GCreateReviewData(
     ..createReview.commentary = "Amazing!!!",
 );
 
-final reviewsReq = GReviews();
+final reviewsReq = GReviewsReq();
 
 UpdateCacheHandler<GCreateReviewData, GCreateReviewVars> createReviewHandler = (
   proxy,

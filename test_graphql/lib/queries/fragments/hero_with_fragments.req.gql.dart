@@ -16,17 +16,18 @@ import 'package:uuid/uuid.dart' as _i6;
 
 part 'hero_with_fragments.req.gql.g.dart';
 
-abstract class GHeroWithFragments
+abstract class GHeroWithFragmentsReq
     implements
-        Built<GHeroWithFragments, GHeroWithFragmentsBuilder>,
+        Built<GHeroWithFragmentsReq, GHeroWithFragmentsReqBuilder>,
         _i1.OperationRequest<_i2.GHeroWithFragmentsData,
             _i3.GHeroWithFragmentsVars> {
-  GHeroWithFragments._();
+  GHeroWithFragmentsReq._();
 
-  factory GHeroWithFragments([Function(GHeroWithFragmentsBuilder b) updates]) =
-      _$GHeroWithFragments;
+  factory GHeroWithFragmentsReq(
+          [Function(GHeroWithFragmentsReqBuilder b) updates]) =
+      _$GHeroWithFragmentsReq;
 
-  static void _initializeBuilder(GHeroWithFragmentsBuilder b) => b
+  static void _initializeBuilder(GHeroWithFragmentsReqBuilder b) => b
     ..operation = _i4.Operation(
         document: _i5.document, operationName: 'HeroWithFragments')
     ..requestId = _i6.Uuid().v1();
@@ -51,23 +52,24 @@ abstract class GHeroWithFragments
   @override
   _i2.GHeroWithFragmentsData parseData(Map<String, dynamic> json) =>
       _i2.GHeroWithFragmentsData.fromJson(json);
-  static Serializer<GHeroWithFragments> get serializer =>
-      _$gHeroWithFragmentsSerializer;
+  static Serializer<GHeroWithFragmentsReq> get serializer =>
+      _$gHeroWithFragmentsReqSerializer;
   Map<String, dynamic> toJson() =>
-      _i7.serializers.serializeWith(GHeroWithFragments.serializer, this);
-  static GHeroWithFragments fromJson(Map<String, dynamic> json) =>
-      _i7.serializers.deserializeWith(GHeroWithFragments.serializer, json);
+      _i7.serializers.serializeWith(GHeroWithFragmentsReq.serializer, this);
+  static GHeroWithFragmentsReq fromJson(Map<String, dynamic> json) =>
+      _i7.serializers.deserializeWith(GHeroWithFragmentsReq.serializer, json);
 }
 
-abstract class GheroData
+abstract class GheroDataReq
     implements
-        Built<GheroData, GheroDataBuilder>,
+        Built<GheroDataReq, GheroDataReqBuilder>,
         _i1.FragmentRequest<_i2.GheroDataData, _i3.GheroDataVars> {
-  GheroData._();
+  GheroDataReq._();
 
-  factory GheroData([Function(GheroDataBuilder b) updates]) = _$GheroData;
+  factory GheroDataReq([Function(GheroDataReqBuilder b) updates]) =
+      _$GheroDataReq;
 
-  static void _initializeBuilder(GheroDataBuilder b) => b
+  static void _initializeBuilder(GheroDataReqBuilder b) => b
     ..document = _i5.document
     ..fragmentName = 'heroData';
   _i3.GheroDataVars get vars;
@@ -77,24 +79,25 @@ abstract class GheroData
   @override
   _i2.GheroDataData parseData(Map<String, dynamic> json) =>
       _i2.GheroDataData.fromJson(json);
-  static Serializer<GheroData> get serializer => _$gheroDataSerializer;
+  static Serializer<GheroDataReq> get serializer => _$gheroDataReqSerializer;
   Map<String, dynamic> toJson() =>
-      _i7.serializers.serializeWith(GheroData.serializer, this);
-  static GheroData fromJson(Map<String, dynamic> json) =>
-      _i7.serializers.deserializeWith(GheroData.serializer, json);
+      _i7.serializers.serializeWith(GheroDataReq.serializer, this);
+  static GheroDataReq fromJson(Map<String, dynamic> json) =>
+      _i7.serializers.deserializeWith(GheroDataReq.serializer, json);
 }
 
-abstract class GcomparisonFields
+abstract class GcomparisonFieldsReq
     implements
-        Built<GcomparisonFields, GcomparisonFieldsBuilder>,
+        Built<GcomparisonFieldsReq, GcomparisonFieldsReqBuilder>,
         _i1.FragmentRequest<_i2.GcomparisonFieldsData,
             _i3.GcomparisonFieldsVars> {
-  GcomparisonFields._();
+  GcomparisonFieldsReq._();
 
-  factory GcomparisonFields([Function(GcomparisonFieldsBuilder b) updates]) =
-      _$GcomparisonFields;
+  factory GcomparisonFieldsReq(
+          [Function(GcomparisonFieldsReqBuilder b) updates]) =
+      _$GcomparisonFieldsReq;
 
-  static void _initializeBuilder(GcomparisonFieldsBuilder b) => b
+  static void _initializeBuilder(GcomparisonFieldsReqBuilder b) => b
     ..document = _i5.document
     ..fragmentName = 'comparisonFields';
   _i3.GcomparisonFieldsVars get vars;
@@ -104,10 +107,10 @@ abstract class GcomparisonFields
   @override
   _i2.GcomparisonFieldsData parseData(Map<String, dynamic> json) =>
       _i2.GcomparisonFieldsData.fromJson(json);
-  static Serializer<GcomparisonFields> get serializer =>
-      _$gcomparisonFieldsSerializer;
+  static Serializer<GcomparisonFieldsReq> get serializer =>
+      _$gcomparisonFieldsReqSerializer;
   Map<String, dynamic> toJson() =>
-      _i7.serializers.serializeWith(GcomparisonFields.serializer, this);
-  static GcomparisonFields fromJson(Map<String, dynamic> json) =>
-      _i7.serializers.deserializeWith(GcomparisonFields.serializer, json);
+      _i7.serializers.serializeWith(GcomparisonFieldsReq.serializer, this);
+  static GcomparisonFieldsReq fromJson(Map<String, dynamic> json) =>
+      _i7.serializers.deserializeWith(GcomparisonFieldsReq.serializer, json);
 }

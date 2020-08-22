@@ -6,17 +6,18 @@ part of 'create_review.req.gql.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<GCreateReview> _$gCreateReviewSerializer =
-    new _$GCreateReviewSerializer();
+Serializer<GCreateReviewReq> _$gCreateReviewReqSerializer =
+    new _$GCreateReviewReqSerializer();
 
-class _$GCreateReviewSerializer implements StructuredSerializer<GCreateReview> {
+class _$GCreateReviewReqSerializer
+    implements StructuredSerializer<GCreateReviewReq> {
   @override
-  final Iterable<Type> types = const [GCreateReview, _$GCreateReview];
+  final Iterable<Type> types = const [GCreateReviewReq, _$GCreateReviewReq];
   @override
-  final String wireName = 'GCreateReview';
+  final String wireName = 'GCreateReviewReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GCreateReview object,
+  Iterable<Object> serialize(Serializers serializers, GCreateReviewReq object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'vars',
@@ -61,10 +62,10 @@ class _$GCreateReviewSerializer implements StructuredSerializer<GCreateReview> {
   }
 
   @override
-  GCreateReview deserialize(
+  GCreateReviewReq deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GCreateReviewBuilder();
+    final result = new GCreateReviewReqBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -113,7 +114,7 @@ class _$GCreateReviewSerializer implements StructuredSerializer<GCreateReview> {
   }
 }
 
-class _$GCreateReview extends GCreateReview {
+class _$GCreateReviewReq extends GCreateReviewReq {
   @override
   final _i3.GCreateReviewVars vars;
   @override
@@ -132,10 +133,11 @@ class _$GCreateReview extends GCreateReview {
   @override
   final _i1.FetchPolicy fetchPolicy;
 
-  factory _$GCreateReview([void Function(GCreateReviewBuilder) updates]) =>
-      (new GCreateReviewBuilder()..update(updates)).build();
+  factory _$GCreateReviewReq(
+          [void Function(GCreateReviewReqBuilder) updates]) =>
+      (new GCreateReviewReqBuilder()..update(updates)).build();
 
-  _$GCreateReview._(
+  _$GCreateReviewReq._(
       {this.vars,
       this.operation,
       this.requestId,
@@ -146,25 +148,26 @@ class _$GCreateReview extends GCreateReview {
       this.fetchPolicy})
       : super._() {
     if (vars == null) {
-      throw new BuiltValueNullFieldError('GCreateReview', 'vars');
+      throw new BuiltValueNullFieldError('GCreateReviewReq', 'vars');
     }
     if (operation == null) {
-      throw new BuiltValueNullFieldError('GCreateReview', 'operation');
+      throw new BuiltValueNullFieldError('GCreateReviewReq', 'operation');
     }
   }
 
   @override
-  GCreateReview rebuild(void Function(GCreateReviewBuilder) updates) =>
+  GCreateReviewReq rebuild(void Function(GCreateReviewReqBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GCreateReviewBuilder toBuilder() => new GCreateReviewBuilder()..replace(this);
+  GCreateReviewReqBuilder toBuilder() =>
+      new GCreateReviewReqBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     final dynamic _$dynamicOther = other;
-    return other is GCreateReview &&
+    return other is GCreateReviewReq &&
         vars == other.vars &&
         operation == other.operation &&
         requestId == other.requestId &&
@@ -193,7 +196,7 @@ class _$GCreateReview extends GCreateReview {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GCreateReview')
+    return (newBuiltValueToStringHelper('GCreateReviewReq')
           ..add('vars', vars)
           ..add('operation', operation)
           ..add('requestId', requestId)
@@ -206,9 +209,9 @@ class _$GCreateReview extends GCreateReview {
   }
 }
 
-class GCreateReviewBuilder
-    implements Builder<GCreateReview, GCreateReviewBuilder> {
-  _$GCreateReview _$v;
+class GCreateReviewReqBuilder
+    implements Builder<GCreateReviewReq, GCreateReviewReqBuilder> {
+  _$GCreateReviewReq _$v;
 
   _i3.GCreateReviewVarsBuilder _vars;
   _i3.GCreateReviewVarsBuilder get vars =>
@@ -256,11 +259,11 @@ class GCreateReviewBuilder
   set fetchPolicy(_i1.FetchPolicy fetchPolicy) =>
       _$this._fetchPolicy = fetchPolicy;
 
-  GCreateReviewBuilder() {
-    GCreateReview._initializeBuilder(this);
+  GCreateReviewReqBuilder() {
+    GCreateReviewReq._initializeBuilder(this);
   }
 
-  GCreateReviewBuilder get _$this {
+  GCreateReviewReqBuilder get _$this {
     if (_$v != null) {
       _vars = _$v.vars?.toBuilder();
       _operation = _$v.operation;
@@ -276,24 +279,24 @@ class GCreateReviewBuilder
   }
 
   @override
-  void replace(GCreateReview other) {
+  void replace(GCreateReviewReq other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$GCreateReview;
+    _$v = other as _$GCreateReviewReq;
   }
 
   @override
-  void update(void Function(GCreateReviewBuilder) updates) {
+  void update(void Function(GCreateReviewReqBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$GCreateReview build() {
-    _$GCreateReview _$result;
+  _$GCreateReviewReq build() {
+    _$GCreateReviewReq _$result;
     try {
       _$result = _$v ??
-          new _$GCreateReview._(
+          new _$GCreateReviewReq._(
               vars: vars.build(),
               operation: operation,
               requestId: requestId,
@@ -312,7 +315,7 @@ class GCreateReviewBuilder
         _optimisticResponse?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GCreateReview', _$failedField, e.toString());
+            'GCreateReviewReq', _$failedField, e.toString());
       }
       rethrow;
     }

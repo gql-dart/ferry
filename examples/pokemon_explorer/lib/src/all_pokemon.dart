@@ -20,7 +20,7 @@ class AllPokemonScreen extends StatelessWidget {
       ),
       body: Query(
         client: client,
-        operationRequest: GAllPokemon(
+        operationRequest: GAllPokemonReq(
           (b) => b..vars.first = 500,
         ),
         builder: (

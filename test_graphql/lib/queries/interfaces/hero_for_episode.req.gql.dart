@@ -16,16 +16,16 @@ import 'package:uuid/uuid.dart' as _i6;
 
 part 'hero_for_episode.req.gql.g.dart';
 
-abstract class GHeroForEpisode
+abstract class GHeroForEpisodeReq
     implements
-        Built<GHeroForEpisode, GHeroForEpisodeBuilder>,
+        Built<GHeroForEpisodeReq, GHeroForEpisodeReqBuilder>,
         _i1.OperationRequest<_i2.GHeroForEpisodeData, _i3.GHeroForEpisodeVars> {
-  GHeroForEpisode._();
+  GHeroForEpisodeReq._();
 
-  factory GHeroForEpisode([Function(GHeroForEpisodeBuilder b) updates]) =
-      _$GHeroForEpisode;
+  factory GHeroForEpisodeReq([Function(GHeroForEpisodeReqBuilder b) updates]) =
+      _$GHeroForEpisodeReq;
 
-  static void _initializeBuilder(GHeroForEpisodeBuilder b) => b
+  static void _initializeBuilder(GHeroForEpisodeReqBuilder b) => b
     ..operation =
         _i4.Operation(document: _i5.document, operationName: 'HeroForEpisode')
     ..requestId = _i6.Uuid().v1();
@@ -50,24 +50,24 @@ abstract class GHeroForEpisode
   @override
   _i2.GHeroForEpisodeData parseData(Map<String, dynamic> json) =>
       _i2.GHeroForEpisodeData.fromJson(json);
-  static Serializer<GHeroForEpisode> get serializer =>
-      _$gHeroForEpisodeSerializer;
+  static Serializer<GHeroForEpisodeReq> get serializer =>
+      _$gHeroForEpisodeReqSerializer;
   Map<String, dynamic> toJson() =>
-      _i7.serializers.serializeWith(GHeroForEpisode.serializer, this);
-  static GHeroForEpisode fromJson(Map<String, dynamic> json) =>
-      _i7.serializers.deserializeWith(GHeroForEpisode.serializer, json);
+      _i7.serializers.serializeWith(GHeroForEpisodeReq.serializer, this);
+  static GHeroForEpisodeReq fromJson(Map<String, dynamic> json) =>
+      _i7.serializers.deserializeWith(GHeroForEpisodeReq.serializer, json);
 }
 
-abstract class GDroidFragment
+abstract class GDroidFragmentReq
     implements
-        Built<GDroidFragment, GDroidFragmentBuilder>,
+        Built<GDroidFragmentReq, GDroidFragmentReqBuilder>,
         _i1.FragmentRequest<_i2.GDroidFragmentData, _i3.GDroidFragmentVars> {
-  GDroidFragment._();
+  GDroidFragmentReq._();
 
-  factory GDroidFragment([Function(GDroidFragmentBuilder b) updates]) =
-      _$GDroidFragment;
+  factory GDroidFragmentReq([Function(GDroidFragmentReqBuilder b) updates]) =
+      _$GDroidFragmentReq;
 
-  static void _initializeBuilder(GDroidFragmentBuilder b) => b
+  static void _initializeBuilder(GDroidFragmentReqBuilder b) => b
     ..document = _i5.document
     ..fragmentName = 'DroidFragment';
   _i3.GDroidFragmentVars get vars;
@@ -77,10 +77,10 @@ abstract class GDroidFragment
   @override
   _i2.GDroidFragmentData parseData(Map<String, dynamic> json) =>
       _i2.GDroidFragmentData.fromJson(json);
-  static Serializer<GDroidFragment> get serializer =>
-      _$gDroidFragmentSerializer;
+  static Serializer<GDroidFragmentReq> get serializer =>
+      _$gDroidFragmentReqSerializer;
   Map<String, dynamic> toJson() =>
-      _i7.serializers.serializeWith(GDroidFragment.serializer, this);
-  static GDroidFragment fromJson(Map<String, dynamic> json) =>
-      _i7.serializers.deserializeWith(GDroidFragment.serializer, json);
+      _i7.serializers.serializeWith(GDroidFragmentReq.serializer, this);
+  static GDroidFragmentReq fromJson(Map<String, dynamic> json) =>
+      _i7.serializers.deserializeWith(GDroidFragmentReq.serializer, json);
 }

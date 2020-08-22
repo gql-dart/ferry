@@ -14,16 +14,16 @@ import 'package:pokemon_explorer/src/graphql/pokemon_card_fragment.var.gql.dart'
 
 part 'pokemon_card_fragment.req.gql.g.dart';
 
-abstract class GNestedFragment
+abstract class GNestedFragmentReq
     implements
-        Built<GNestedFragment, GNestedFragmentBuilder>,
+        Built<GNestedFragmentReq, GNestedFragmentReqBuilder>,
         _i1.FragmentRequest<_i2.GNestedFragmentData, _i3.GNestedFragmentVars> {
-  GNestedFragment._();
+  GNestedFragmentReq._();
 
-  factory GNestedFragment([Function(GNestedFragmentBuilder b) updates]) =
-      _$GNestedFragment;
+  factory GNestedFragmentReq([Function(GNestedFragmentReqBuilder b) updates]) =
+      _$GNestedFragmentReq;
 
-  static void _initializeBuilder(GNestedFragmentBuilder b) => b
+  static void _initializeBuilder(GNestedFragmentReqBuilder b) => b
     ..document = _i4.document
     ..fragmentName = 'NestedFragment';
   _i3.GNestedFragmentVars get vars;
@@ -33,24 +33,24 @@ abstract class GNestedFragment
   @override
   _i2.GNestedFragmentData parseData(Map<String, dynamic> json) =>
       _i2.GNestedFragmentData.fromJson(json);
-  static Serializer<GNestedFragment> get serializer =>
-      _$gNestedFragmentSerializer;
+  static Serializer<GNestedFragmentReq> get serializer =>
+      _$gNestedFragmentReqSerializer;
   Map<String, dynamic> toJson() =>
-      _i6.serializers.serializeWith(GNestedFragment.serializer, this);
-  static GNestedFragment fromJson(Map<String, dynamic> json) =>
-      _i6.serializers.deserializeWith(GNestedFragment.serializer, json);
+      _i6.serializers.serializeWith(GNestedFragmentReq.serializer, this);
+  static GNestedFragmentReq fromJson(Map<String, dynamic> json) =>
+      _i6.serializers.deserializeWith(GNestedFragmentReq.serializer, json);
 }
 
-abstract class GPokemonCard
+abstract class GPokemonCardReq
     implements
-        Built<GPokemonCard, GPokemonCardBuilder>,
+        Built<GPokemonCardReq, GPokemonCardReqBuilder>,
         _i1.FragmentRequest<_i2.GPokemonCardData, _i3.GPokemonCardVars> {
-  GPokemonCard._();
+  GPokemonCardReq._();
 
-  factory GPokemonCard([Function(GPokemonCardBuilder b) updates]) =
-      _$GPokemonCard;
+  factory GPokemonCardReq([Function(GPokemonCardReqBuilder b) updates]) =
+      _$GPokemonCardReq;
 
-  static void _initializeBuilder(GPokemonCardBuilder b) => b
+  static void _initializeBuilder(GPokemonCardReqBuilder b) => b
     ..document = _i4.document
     ..fragmentName = 'PokemonCard';
   _i3.GPokemonCardVars get vars;
@@ -60,9 +60,10 @@ abstract class GPokemonCard
   @override
   _i2.GPokemonCardData parseData(Map<String, dynamic> json) =>
       _i2.GPokemonCardData.fromJson(json);
-  static Serializer<GPokemonCard> get serializer => _$gPokemonCardSerializer;
+  static Serializer<GPokemonCardReq> get serializer =>
+      _$gPokemonCardReqSerializer;
   Map<String, dynamic> toJson() =>
-      _i6.serializers.serializeWith(GPokemonCard.serializer, this);
-  static GPokemonCard fromJson(Map<String, dynamic> json) =>
-      _i6.serializers.deserializeWith(GPokemonCard.serializer, json);
+      _i6.serializers.serializeWith(GPokemonCardReq.serializer, this);
+  static GPokemonCardReq fromJson(Map<String, dynamic> json) =>
+      _i6.serializers.deserializeWith(GPokemonCardReq.serializer, json);
 }

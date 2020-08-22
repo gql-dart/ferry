@@ -6,20 +6,20 @@ part of 'pokemon_card_fragment.req.gql.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<GNestedFragment> _$gNestedFragmentSerializer =
-    new _$GNestedFragmentSerializer();
-Serializer<GPokemonCard> _$gPokemonCardSerializer =
-    new _$GPokemonCardSerializer();
+Serializer<GNestedFragmentReq> _$gNestedFragmentReqSerializer =
+    new _$GNestedFragmentReqSerializer();
+Serializer<GPokemonCardReq> _$gPokemonCardReqSerializer =
+    new _$GPokemonCardReqSerializer();
 
-class _$GNestedFragmentSerializer
-    implements StructuredSerializer<GNestedFragment> {
+class _$GNestedFragmentReqSerializer
+    implements StructuredSerializer<GNestedFragmentReq> {
   @override
-  final Iterable<Type> types = const [GNestedFragment, _$GNestedFragment];
+  final Iterable<Type> types = const [GNestedFragmentReq, _$GNestedFragmentReq];
   @override
-  final String wireName = 'GNestedFragment';
+  final String wireName = 'GNestedFragmentReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GNestedFragment object,
+  Iterable<Object> serialize(Serializers serializers, GNestedFragmentReq object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'vars',
@@ -41,10 +41,10 @@ class _$GNestedFragmentSerializer
   }
 
   @override
-  GNestedFragment deserialize(
+  GNestedFragmentReq deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GNestedFragmentBuilder();
+    final result = new GNestedFragmentReqBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -80,14 +80,15 @@ class _$GNestedFragmentSerializer
   }
 }
 
-class _$GPokemonCardSerializer implements StructuredSerializer<GPokemonCard> {
+class _$GPokemonCardReqSerializer
+    implements StructuredSerializer<GPokemonCardReq> {
   @override
-  final Iterable<Type> types = const [GPokemonCard, _$GPokemonCard];
+  final Iterable<Type> types = const [GPokemonCardReq, _$GPokemonCardReq];
   @override
-  final String wireName = 'GPokemonCard';
+  final String wireName = 'GPokemonCardReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GPokemonCard object,
+  Iterable<Object> serialize(Serializers serializers, GPokemonCardReq object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'vars',
@@ -109,9 +110,10 @@ class _$GPokemonCardSerializer implements StructuredSerializer<GPokemonCard> {
   }
 
   @override
-  GPokemonCard deserialize(Serializers serializers, Iterable<Object> serialized,
+  GPokemonCardReq deserialize(
+      Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GPokemonCardBuilder();
+    final result = new GPokemonCardReqBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -147,7 +149,7 @@ class _$GPokemonCardSerializer implements StructuredSerializer<GPokemonCard> {
   }
 }
 
-class _$GNestedFragment extends GNestedFragment {
+class _$GNestedFragmentReq extends GNestedFragmentReq {
   @override
   final _i3.GNestedFragmentVars vars;
   @override
@@ -157,38 +159,40 @@ class _$GNestedFragment extends GNestedFragment {
   @override
   final Map<String, dynamic> idFields;
 
-  factory _$GNestedFragment([void Function(GNestedFragmentBuilder) updates]) =>
-      (new GNestedFragmentBuilder()..update(updates)).build();
+  factory _$GNestedFragmentReq(
+          [void Function(GNestedFragmentReqBuilder) updates]) =>
+      (new GNestedFragmentReqBuilder()..update(updates)).build();
 
-  _$GNestedFragment._(
+  _$GNestedFragmentReq._(
       {this.vars, this.document, this.fragmentName, this.idFields})
       : super._() {
     if (vars == null) {
-      throw new BuiltValueNullFieldError('GNestedFragment', 'vars');
+      throw new BuiltValueNullFieldError('GNestedFragmentReq', 'vars');
     }
     if (document == null) {
-      throw new BuiltValueNullFieldError('GNestedFragment', 'document');
+      throw new BuiltValueNullFieldError('GNestedFragmentReq', 'document');
     }
     if (fragmentName == null) {
-      throw new BuiltValueNullFieldError('GNestedFragment', 'fragmentName');
+      throw new BuiltValueNullFieldError('GNestedFragmentReq', 'fragmentName');
     }
     if (idFields == null) {
-      throw new BuiltValueNullFieldError('GNestedFragment', 'idFields');
+      throw new BuiltValueNullFieldError('GNestedFragmentReq', 'idFields');
     }
   }
 
   @override
-  GNestedFragment rebuild(void Function(GNestedFragmentBuilder) updates) =>
+  GNestedFragmentReq rebuild(
+          void Function(GNestedFragmentReqBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GNestedFragmentBuilder toBuilder() =>
-      new GNestedFragmentBuilder()..replace(this);
+  GNestedFragmentReqBuilder toBuilder() =>
+      new GNestedFragmentReqBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GNestedFragment &&
+    return other is GNestedFragmentReq &&
         vars == other.vars &&
         document == other.document &&
         fragmentName == other.fragmentName &&
@@ -205,7 +209,7 @@ class _$GNestedFragment extends GNestedFragment {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GNestedFragment')
+    return (newBuiltValueToStringHelper('GNestedFragmentReq')
           ..add('vars', vars)
           ..add('document', document)
           ..add('fragmentName', fragmentName)
@@ -214,9 +218,9 @@ class _$GNestedFragment extends GNestedFragment {
   }
 }
 
-class GNestedFragmentBuilder
-    implements Builder<GNestedFragment, GNestedFragmentBuilder> {
-  _$GNestedFragment _$v;
+class GNestedFragmentReqBuilder
+    implements Builder<GNestedFragmentReq, GNestedFragmentReqBuilder> {
+  _$GNestedFragmentReq _$v;
 
   _i3.GNestedFragmentVarsBuilder _vars;
   _i3.GNestedFragmentVarsBuilder get vars =>
@@ -235,11 +239,11 @@ class GNestedFragmentBuilder
   Map<String, dynamic> get idFields => _$this._idFields;
   set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
 
-  GNestedFragmentBuilder() {
-    GNestedFragment._initializeBuilder(this);
+  GNestedFragmentReqBuilder() {
+    GNestedFragmentReq._initializeBuilder(this);
   }
 
-  GNestedFragmentBuilder get _$this {
+  GNestedFragmentReqBuilder get _$this {
     if (_$v != null) {
       _vars = _$v.vars?.toBuilder();
       _document = _$v.document;
@@ -251,24 +255,24 @@ class GNestedFragmentBuilder
   }
 
   @override
-  void replace(GNestedFragment other) {
+  void replace(GNestedFragmentReq other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$GNestedFragment;
+    _$v = other as _$GNestedFragmentReq;
   }
 
   @override
-  void update(void Function(GNestedFragmentBuilder) updates) {
+  void update(void Function(GNestedFragmentReqBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$GNestedFragment build() {
-    _$GNestedFragment _$result;
+  _$GNestedFragmentReq build() {
+    _$GNestedFragmentReq _$result;
     try {
       _$result = _$v ??
-          new _$GNestedFragment._(
+          new _$GNestedFragmentReq._(
               vars: vars.build(),
               document: document,
               fragmentName: fragmentName,
@@ -280,7 +284,7 @@ class GNestedFragmentBuilder
         vars.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GNestedFragment', _$failedField, e.toString());
+            'GNestedFragmentReq', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -289,7 +293,7 @@ class GNestedFragmentBuilder
   }
 }
 
-class _$GPokemonCard extends GPokemonCard {
+class _$GPokemonCardReq extends GPokemonCardReq {
   @override
   final _i3.GPokemonCardVars vars;
   @override
@@ -299,36 +303,38 @@ class _$GPokemonCard extends GPokemonCard {
   @override
   final Map<String, dynamic> idFields;
 
-  factory _$GPokemonCard([void Function(GPokemonCardBuilder) updates]) =>
-      (new GPokemonCardBuilder()..update(updates)).build();
+  factory _$GPokemonCardReq([void Function(GPokemonCardReqBuilder) updates]) =>
+      (new GPokemonCardReqBuilder()..update(updates)).build();
 
-  _$GPokemonCard._({this.vars, this.document, this.fragmentName, this.idFields})
+  _$GPokemonCardReq._(
+      {this.vars, this.document, this.fragmentName, this.idFields})
       : super._() {
     if (vars == null) {
-      throw new BuiltValueNullFieldError('GPokemonCard', 'vars');
+      throw new BuiltValueNullFieldError('GPokemonCardReq', 'vars');
     }
     if (document == null) {
-      throw new BuiltValueNullFieldError('GPokemonCard', 'document');
+      throw new BuiltValueNullFieldError('GPokemonCardReq', 'document');
     }
     if (fragmentName == null) {
-      throw new BuiltValueNullFieldError('GPokemonCard', 'fragmentName');
+      throw new BuiltValueNullFieldError('GPokemonCardReq', 'fragmentName');
     }
     if (idFields == null) {
-      throw new BuiltValueNullFieldError('GPokemonCard', 'idFields');
+      throw new BuiltValueNullFieldError('GPokemonCardReq', 'idFields');
     }
   }
 
   @override
-  GPokemonCard rebuild(void Function(GPokemonCardBuilder) updates) =>
+  GPokemonCardReq rebuild(void Function(GPokemonCardReqBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GPokemonCardBuilder toBuilder() => new GPokemonCardBuilder()..replace(this);
+  GPokemonCardReqBuilder toBuilder() =>
+      new GPokemonCardReqBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GPokemonCard &&
+    return other is GPokemonCardReq &&
         vars == other.vars &&
         document == other.document &&
         fragmentName == other.fragmentName &&
@@ -345,7 +351,7 @@ class _$GPokemonCard extends GPokemonCard {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GPokemonCard')
+    return (newBuiltValueToStringHelper('GPokemonCardReq')
           ..add('vars', vars)
           ..add('document', document)
           ..add('fragmentName', fragmentName)
@@ -354,9 +360,9 @@ class _$GPokemonCard extends GPokemonCard {
   }
 }
 
-class GPokemonCardBuilder
-    implements Builder<GPokemonCard, GPokemonCardBuilder> {
-  _$GPokemonCard _$v;
+class GPokemonCardReqBuilder
+    implements Builder<GPokemonCardReq, GPokemonCardReqBuilder> {
+  _$GPokemonCardReq _$v;
 
   _i3.GPokemonCardVarsBuilder _vars;
   _i3.GPokemonCardVarsBuilder get vars =>
@@ -375,11 +381,11 @@ class GPokemonCardBuilder
   Map<String, dynamic> get idFields => _$this._idFields;
   set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
 
-  GPokemonCardBuilder() {
-    GPokemonCard._initializeBuilder(this);
+  GPokemonCardReqBuilder() {
+    GPokemonCardReq._initializeBuilder(this);
   }
 
-  GPokemonCardBuilder get _$this {
+  GPokemonCardReqBuilder get _$this {
     if (_$v != null) {
       _vars = _$v.vars?.toBuilder();
       _document = _$v.document;
@@ -391,24 +397,24 @@ class GPokemonCardBuilder
   }
 
   @override
-  void replace(GPokemonCard other) {
+  void replace(GPokemonCardReq other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$GPokemonCard;
+    _$v = other as _$GPokemonCardReq;
   }
 
   @override
-  void update(void Function(GPokemonCardBuilder) updates) {
+  void update(void Function(GPokemonCardReqBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$GPokemonCard build() {
-    _$GPokemonCard _$result;
+  _$GPokemonCardReq build() {
+    _$GPokemonCardReq _$result;
     try {
       _$result = _$v ??
-          new _$GPokemonCard._(
+          new _$GPokemonCardReq._(
               vars: vars.build(),
               document: document,
               fragmentName: fragmentName,
@@ -420,7 +426,7 @@ class GPokemonCardBuilder
         vars.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GPokemonCard', _$failedField, e.toString());
+            'GPokemonCardReq', _$failedField, e.toString());
       }
       rethrow;
     }

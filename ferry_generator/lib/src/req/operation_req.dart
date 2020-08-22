@@ -21,7 +21,7 @@ Class _buildOperationReqClass(
   final gqlClientUrl = "package:ferry/ferry.dart";
 
   return builtClass(
-    name: node.name.value,
+    name: "${node.name.value}Req",
     getters: [
       Method(
         (b) => b

@@ -43,13 +43,13 @@ import 'package:pokemon_explorer/schema.schema.gql.dart'
 import 'package:pokemon_explorer/src/graphql/all_pokemon.data.gql.dart'
     show GAllPokemonData, GAllPokemonData_queryPokemon;
 import 'package:pokemon_explorer/src/graphql/all_pokemon.req.gql.dart'
-    show GAllPokemon;
+    show GAllPokemonReq;
 import 'package:pokemon_explorer/src/graphql/all_pokemon.var.gql.dart'
     show GAllPokemonVars;
 import 'package:pokemon_explorer/src/graphql/pokemon_card_fragment.data.gql.dart'
     show GNestedFragmentData, GPokemonCardData;
 import 'package:pokemon_explorer/src/graphql/pokemon_card_fragment.req.gql.dart'
-    show GNestedFragment, GPokemonCard;
+    show GNestedFragmentReq, GPokemonCardReq;
 import 'package:pokemon_explorer/src/graphql/pokemon_card_fragment.var.gql.dart'
     show GNestedFragmentVars, GPokemonCardVars;
 import 'package:pokemon_explorer/src/graphql/pokemon_detail.data.gql.dart'
@@ -59,7 +59,7 @@ import 'package:pokemon_explorer/src/graphql/pokemon_detail.data.gql.dart'
         GPokemonDetailData_getPokemon_weight,
         GPokemonDetailData_getPokemon_height;
 import 'package:pokemon_explorer/src/graphql/pokemon_detail.req.gql.dart'
-    show GPokemonDetail;
+    show GPokemonDetailReq;
 import 'package:pokemon_explorer/src/graphql/pokemon_detail.var.gql.dart'
     show GPokemonDetailVars;
 
@@ -69,10 +69,10 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   ..add(OperationSerializer())
   ..addPlugin(StandardJsonPlugin());
 @SerializersFor([
-  GAllPokemon,
-  GNestedFragment,
-  GPokemonCard,
-  GPokemonDetail,
+  GAllPokemonReq,
+  GNestedFragmentReq,
+  GPokemonCardReq,
+  GPokemonDetailReq,
   GAllPokemonData,
   GAllPokemonData_queryPokemon,
   GNestedFragmentData,

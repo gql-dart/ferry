@@ -28,7 +28,7 @@ void main() {
     group(".CacheFirst", () {
       final client = Client(link: mockLink);
 
-      final req = GHumanWithArgs(
+      final req = GHumanWithArgsReq(
         (b) => b
           ..vars.id = "1"
           ..fetchPolicy = FetchPolicy.CacheFirst,
@@ -53,7 +53,7 @@ void main() {
     group(".CacheAndNetwork", () {
       final client = Client(link: mockLink);
 
-      final req = GHumanWithArgs(
+      final req = GHumanWithArgsReq(
         (b) => b
           ..vars.id = "1"
           ..fetchPolicy = FetchPolicy.CacheAndNetwork,
@@ -81,7 +81,7 @@ void main() {
     group(".NetworkOnly", () {
       final client = Client(link: mockLink);
 
-      final req = GHumanWithArgs(
+      final req = GHumanWithArgsReq(
         (b) => b
           ..vars.id = "1"
           ..fetchPolicy = FetchPolicy.NetworkOnly,
@@ -106,7 +106,7 @@ void main() {
     group(".CacheOnly", () {
       final client = Client(link: mockLink);
 
-      final req = GHumanWithArgs(
+      final req = GHumanWithArgsReq(
         (b) => b
           ..vars.id = "1"
           ..fetchPolicy = FetchPolicy.CacheOnly,
@@ -134,7 +134,7 @@ void main() {
     group(".NoCache", () {
       final client = Client(link: mockLink);
 
-      final req = GHumanWithArgs(
+      final req = GHumanWithArgsReq(
         (b) => b
           ..vars.id = "1"
           ..fetchPolicy = FetchPolicy.NoCache,

@@ -6,16 +6,18 @@ part of 'all_pokemon.req.gql.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<GAllPokemon> _$gAllPokemonSerializer = new _$GAllPokemonSerializer();
+Serializer<GAllPokemonReq> _$gAllPokemonReqSerializer =
+    new _$GAllPokemonReqSerializer();
 
-class _$GAllPokemonSerializer implements StructuredSerializer<GAllPokemon> {
+class _$GAllPokemonReqSerializer
+    implements StructuredSerializer<GAllPokemonReq> {
   @override
-  final Iterable<Type> types = const [GAllPokemon, _$GAllPokemon];
+  final Iterable<Type> types = const [GAllPokemonReq, _$GAllPokemonReq];
   @override
-  final String wireName = 'GAllPokemon';
+  final String wireName = 'GAllPokemonReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GAllPokemon object,
+  Iterable<Object> serialize(Serializers serializers, GAllPokemonReq object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'vars',
@@ -60,9 +62,10 @@ class _$GAllPokemonSerializer implements StructuredSerializer<GAllPokemon> {
   }
 
   @override
-  GAllPokemon deserialize(Serializers serializers, Iterable<Object> serialized,
+  GAllPokemonReq deserialize(
+      Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GAllPokemonBuilder();
+    final result = new GAllPokemonReqBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -111,7 +114,7 @@ class _$GAllPokemonSerializer implements StructuredSerializer<GAllPokemon> {
   }
 }
 
-class _$GAllPokemon extends GAllPokemon {
+class _$GAllPokemonReq extends GAllPokemonReq {
   @override
   final _i3.GAllPokemonVars vars;
   @override
@@ -130,10 +133,10 @@ class _$GAllPokemon extends GAllPokemon {
   @override
   final _i1.FetchPolicy fetchPolicy;
 
-  factory _$GAllPokemon([void Function(GAllPokemonBuilder) updates]) =>
-      (new GAllPokemonBuilder()..update(updates)).build();
+  factory _$GAllPokemonReq([void Function(GAllPokemonReqBuilder) updates]) =>
+      (new GAllPokemonReqBuilder()..update(updates)).build();
 
-  _$GAllPokemon._(
+  _$GAllPokemonReq._(
       {this.vars,
       this.operation,
       this.requestId,
@@ -144,25 +147,26 @@ class _$GAllPokemon extends GAllPokemon {
       this.fetchPolicy})
       : super._() {
     if (vars == null) {
-      throw new BuiltValueNullFieldError('GAllPokemon', 'vars');
+      throw new BuiltValueNullFieldError('GAllPokemonReq', 'vars');
     }
     if (operation == null) {
-      throw new BuiltValueNullFieldError('GAllPokemon', 'operation');
+      throw new BuiltValueNullFieldError('GAllPokemonReq', 'operation');
     }
   }
 
   @override
-  GAllPokemon rebuild(void Function(GAllPokemonBuilder) updates) =>
+  GAllPokemonReq rebuild(void Function(GAllPokemonReqBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GAllPokemonBuilder toBuilder() => new GAllPokemonBuilder()..replace(this);
+  GAllPokemonReqBuilder toBuilder() =>
+      new GAllPokemonReqBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     final dynamic _$dynamicOther = other;
-    return other is GAllPokemon &&
+    return other is GAllPokemonReq &&
         vars == other.vars &&
         operation == other.operation &&
         requestId == other.requestId &&
@@ -191,7 +195,7 @@ class _$GAllPokemon extends GAllPokemon {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GAllPokemon')
+    return (newBuiltValueToStringHelper('GAllPokemonReq')
           ..add('vars', vars)
           ..add('operation', operation)
           ..add('requestId', requestId)
@@ -204,8 +208,9 @@ class _$GAllPokemon extends GAllPokemon {
   }
 }
 
-class GAllPokemonBuilder implements Builder<GAllPokemon, GAllPokemonBuilder> {
-  _$GAllPokemon _$v;
+class GAllPokemonReqBuilder
+    implements Builder<GAllPokemonReq, GAllPokemonReqBuilder> {
+  _$GAllPokemonReq _$v;
 
   _i3.GAllPokemonVarsBuilder _vars;
   _i3.GAllPokemonVarsBuilder get vars =>
@@ -252,11 +257,11 @@ class GAllPokemonBuilder implements Builder<GAllPokemon, GAllPokemonBuilder> {
   set fetchPolicy(_i1.FetchPolicy fetchPolicy) =>
       _$this._fetchPolicy = fetchPolicy;
 
-  GAllPokemonBuilder() {
-    GAllPokemon._initializeBuilder(this);
+  GAllPokemonReqBuilder() {
+    GAllPokemonReq._initializeBuilder(this);
   }
 
-  GAllPokemonBuilder get _$this {
+  GAllPokemonReqBuilder get _$this {
     if (_$v != null) {
       _vars = _$v.vars?.toBuilder();
       _operation = _$v.operation;
@@ -272,24 +277,24 @@ class GAllPokemonBuilder implements Builder<GAllPokemon, GAllPokemonBuilder> {
   }
 
   @override
-  void replace(GAllPokemon other) {
+  void replace(GAllPokemonReq other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$GAllPokemon;
+    _$v = other as _$GAllPokemonReq;
   }
 
   @override
-  void update(void Function(GAllPokemonBuilder) updates) {
+  void update(void Function(GAllPokemonReqBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$GAllPokemon build() {
-    _$GAllPokemon _$result;
+  _$GAllPokemonReq build() {
+    _$GAllPokemonReq _$result;
     try {
       _$result = _$v ??
-          new _$GAllPokemon._(
+          new _$GAllPokemonReq._(
               vars: vars.build(),
               operation: operation,
               requestId: requestId,
@@ -308,7 +313,7 @@ class GAllPokemonBuilder implements Builder<GAllPokemon, GAllPokemonBuilder> {
         _optimisticResponse?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GAllPokemon', _$failedField, e.toString());
+            'GAllPokemonReq', _$failedField, e.toString());
       }
       rethrow;
     }

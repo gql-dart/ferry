@@ -6,20 +6,20 @@ part of 'hero_for_episode.req.gql.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<GHeroForEpisode> _$gHeroForEpisodeSerializer =
-    new _$GHeroForEpisodeSerializer();
-Serializer<GDroidFragment> _$gDroidFragmentSerializer =
-    new _$GDroidFragmentSerializer();
+Serializer<GHeroForEpisodeReq> _$gHeroForEpisodeReqSerializer =
+    new _$GHeroForEpisodeReqSerializer();
+Serializer<GDroidFragmentReq> _$gDroidFragmentReqSerializer =
+    new _$GDroidFragmentReqSerializer();
 
-class _$GHeroForEpisodeSerializer
-    implements StructuredSerializer<GHeroForEpisode> {
+class _$GHeroForEpisodeReqSerializer
+    implements StructuredSerializer<GHeroForEpisodeReq> {
   @override
-  final Iterable<Type> types = const [GHeroForEpisode, _$GHeroForEpisode];
+  final Iterable<Type> types = const [GHeroForEpisodeReq, _$GHeroForEpisodeReq];
   @override
-  final String wireName = 'GHeroForEpisode';
+  final String wireName = 'GHeroForEpisodeReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GHeroForEpisode object,
+  Iterable<Object> serialize(Serializers serializers, GHeroForEpisodeReq object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'vars',
@@ -64,10 +64,10 @@ class _$GHeroForEpisodeSerializer
   }
 
   @override
-  GHeroForEpisode deserialize(
+  GHeroForEpisodeReq deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GHeroForEpisodeBuilder();
+    final result = new GHeroForEpisodeReqBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -116,15 +116,15 @@ class _$GHeroForEpisodeSerializer
   }
 }
 
-class _$GDroidFragmentSerializer
-    implements StructuredSerializer<GDroidFragment> {
+class _$GDroidFragmentReqSerializer
+    implements StructuredSerializer<GDroidFragmentReq> {
   @override
-  final Iterable<Type> types = const [GDroidFragment, _$GDroidFragment];
+  final Iterable<Type> types = const [GDroidFragmentReq, _$GDroidFragmentReq];
   @override
-  final String wireName = 'GDroidFragment';
+  final String wireName = 'GDroidFragmentReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GDroidFragment object,
+  Iterable<Object> serialize(Serializers serializers, GDroidFragmentReq object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'vars',
@@ -146,10 +146,10 @@ class _$GDroidFragmentSerializer
   }
 
   @override
-  GDroidFragment deserialize(
+  GDroidFragmentReq deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GDroidFragmentBuilder();
+    final result = new GDroidFragmentReqBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -185,7 +185,7 @@ class _$GDroidFragmentSerializer
   }
 }
 
-class _$GHeroForEpisode extends GHeroForEpisode {
+class _$GHeroForEpisodeReq extends GHeroForEpisodeReq {
   @override
   final _i3.GHeroForEpisodeVars vars;
   @override
@@ -204,10 +204,11 @@ class _$GHeroForEpisode extends GHeroForEpisode {
   @override
   final _i1.FetchPolicy fetchPolicy;
 
-  factory _$GHeroForEpisode([void Function(GHeroForEpisodeBuilder) updates]) =>
-      (new GHeroForEpisodeBuilder()..update(updates)).build();
+  factory _$GHeroForEpisodeReq(
+          [void Function(GHeroForEpisodeReqBuilder) updates]) =>
+      (new GHeroForEpisodeReqBuilder()..update(updates)).build();
 
-  _$GHeroForEpisode._(
+  _$GHeroForEpisodeReq._(
       {this.vars,
       this.operation,
       this.requestId,
@@ -218,26 +219,27 @@ class _$GHeroForEpisode extends GHeroForEpisode {
       this.fetchPolicy})
       : super._() {
     if (vars == null) {
-      throw new BuiltValueNullFieldError('GHeroForEpisode', 'vars');
+      throw new BuiltValueNullFieldError('GHeroForEpisodeReq', 'vars');
     }
     if (operation == null) {
-      throw new BuiltValueNullFieldError('GHeroForEpisode', 'operation');
+      throw new BuiltValueNullFieldError('GHeroForEpisodeReq', 'operation');
     }
   }
 
   @override
-  GHeroForEpisode rebuild(void Function(GHeroForEpisodeBuilder) updates) =>
+  GHeroForEpisodeReq rebuild(
+          void Function(GHeroForEpisodeReqBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GHeroForEpisodeBuilder toBuilder() =>
-      new GHeroForEpisodeBuilder()..replace(this);
+  GHeroForEpisodeReqBuilder toBuilder() =>
+      new GHeroForEpisodeReqBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     final dynamic _$dynamicOther = other;
-    return other is GHeroForEpisode &&
+    return other is GHeroForEpisodeReq &&
         vars == other.vars &&
         operation == other.operation &&
         requestId == other.requestId &&
@@ -266,7 +268,7 @@ class _$GHeroForEpisode extends GHeroForEpisode {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GHeroForEpisode')
+    return (newBuiltValueToStringHelper('GHeroForEpisodeReq')
           ..add('vars', vars)
           ..add('operation', operation)
           ..add('requestId', requestId)
@@ -279,9 +281,9 @@ class _$GHeroForEpisode extends GHeroForEpisode {
   }
 }
 
-class GHeroForEpisodeBuilder
-    implements Builder<GHeroForEpisode, GHeroForEpisodeBuilder> {
-  _$GHeroForEpisode _$v;
+class GHeroForEpisodeReqBuilder
+    implements Builder<GHeroForEpisodeReq, GHeroForEpisodeReqBuilder> {
+  _$GHeroForEpisodeReq _$v;
 
   _i3.GHeroForEpisodeVarsBuilder _vars;
   _i3.GHeroForEpisodeVarsBuilder get vars =>
@@ -330,11 +332,11 @@ class GHeroForEpisodeBuilder
   set fetchPolicy(_i1.FetchPolicy fetchPolicy) =>
       _$this._fetchPolicy = fetchPolicy;
 
-  GHeroForEpisodeBuilder() {
-    GHeroForEpisode._initializeBuilder(this);
+  GHeroForEpisodeReqBuilder() {
+    GHeroForEpisodeReq._initializeBuilder(this);
   }
 
-  GHeroForEpisodeBuilder get _$this {
+  GHeroForEpisodeReqBuilder get _$this {
     if (_$v != null) {
       _vars = _$v.vars?.toBuilder();
       _operation = _$v.operation;
@@ -350,24 +352,24 @@ class GHeroForEpisodeBuilder
   }
 
   @override
-  void replace(GHeroForEpisode other) {
+  void replace(GHeroForEpisodeReq other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$GHeroForEpisode;
+    _$v = other as _$GHeroForEpisodeReq;
   }
 
   @override
-  void update(void Function(GHeroForEpisodeBuilder) updates) {
+  void update(void Function(GHeroForEpisodeReqBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$GHeroForEpisode build() {
-    _$GHeroForEpisode _$result;
+  _$GHeroForEpisodeReq build() {
+    _$GHeroForEpisodeReq _$result;
     try {
       _$result = _$v ??
-          new _$GHeroForEpisode._(
+          new _$GHeroForEpisodeReq._(
               vars: vars.build(),
               operation: operation,
               requestId: requestId,
@@ -386,7 +388,7 @@ class GHeroForEpisodeBuilder
         _optimisticResponse?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GHeroForEpisode', _$failedField, e.toString());
+            'GHeroForEpisodeReq', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -395,7 +397,7 @@ class GHeroForEpisodeBuilder
   }
 }
 
-class _$GDroidFragment extends GDroidFragment {
+class _$GDroidFragmentReq extends GDroidFragmentReq {
   @override
   final _i3.GDroidFragmentVars vars;
   @override
@@ -405,38 +407,39 @@ class _$GDroidFragment extends GDroidFragment {
   @override
   final Map<String, dynamic> idFields;
 
-  factory _$GDroidFragment([void Function(GDroidFragmentBuilder) updates]) =>
-      (new GDroidFragmentBuilder()..update(updates)).build();
+  factory _$GDroidFragmentReq(
+          [void Function(GDroidFragmentReqBuilder) updates]) =>
+      (new GDroidFragmentReqBuilder()..update(updates)).build();
 
-  _$GDroidFragment._(
+  _$GDroidFragmentReq._(
       {this.vars, this.document, this.fragmentName, this.idFields})
       : super._() {
     if (vars == null) {
-      throw new BuiltValueNullFieldError('GDroidFragment', 'vars');
+      throw new BuiltValueNullFieldError('GDroidFragmentReq', 'vars');
     }
     if (document == null) {
-      throw new BuiltValueNullFieldError('GDroidFragment', 'document');
+      throw new BuiltValueNullFieldError('GDroidFragmentReq', 'document');
     }
     if (fragmentName == null) {
-      throw new BuiltValueNullFieldError('GDroidFragment', 'fragmentName');
+      throw new BuiltValueNullFieldError('GDroidFragmentReq', 'fragmentName');
     }
     if (idFields == null) {
-      throw new BuiltValueNullFieldError('GDroidFragment', 'idFields');
+      throw new BuiltValueNullFieldError('GDroidFragmentReq', 'idFields');
     }
   }
 
   @override
-  GDroidFragment rebuild(void Function(GDroidFragmentBuilder) updates) =>
+  GDroidFragmentReq rebuild(void Function(GDroidFragmentReqBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GDroidFragmentBuilder toBuilder() =>
-      new GDroidFragmentBuilder()..replace(this);
+  GDroidFragmentReqBuilder toBuilder() =>
+      new GDroidFragmentReqBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GDroidFragment &&
+    return other is GDroidFragmentReq &&
         vars == other.vars &&
         document == other.document &&
         fragmentName == other.fragmentName &&
@@ -453,7 +456,7 @@ class _$GDroidFragment extends GDroidFragment {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GDroidFragment')
+    return (newBuiltValueToStringHelper('GDroidFragmentReq')
           ..add('vars', vars)
           ..add('document', document)
           ..add('fragmentName', fragmentName)
@@ -462,9 +465,9 @@ class _$GDroidFragment extends GDroidFragment {
   }
 }
 
-class GDroidFragmentBuilder
-    implements Builder<GDroidFragment, GDroidFragmentBuilder> {
-  _$GDroidFragment _$v;
+class GDroidFragmentReqBuilder
+    implements Builder<GDroidFragmentReq, GDroidFragmentReqBuilder> {
+  _$GDroidFragmentReq _$v;
 
   _i3.GDroidFragmentVarsBuilder _vars;
   _i3.GDroidFragmentVarsBuilder get vars =>
@@ -483,11 +486,11 @@ class GDroidFragmentBuilder
   Map<String, dynamic> get idFields => _$this._idFields;
   set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
 
-  GDroidFragmentBuilder() {
-    GDroidFragment._initializeBuilder(this);
+  GDroidFragmentReqBuilder() {
+    GDroidFragmentReq._initializeBuilder(this);
   }
 
-  GDroidFragmentBuilder get _$this {
+  GDroidFragmentReqBuilder get _$this {
     if (_$v != null) {
       _vars = _$v.vars?.toBuilder();
       _document = _$v.document;
@@ -499,24 +502,24 @@ class GDroidFragmentBuilder
   }
 
   @override
-  void replace(GDroidFragment other) {
+  void replace(GDroidFragmentReq other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$GDroidFragment;
+    _$v = other as _$GDroidFragmentReq;
   }
 
   @override
-  void update(void Function(GDroidFragmentBuilder) updates) {
+  void update(void Function(GDroidFragmentReqBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$GDroidFragment build() {
-    _$GDroidFragment _$result;
+  _$GDroidFragmentReq build() {
+    _$GDroidFragmentReq _$result;
     try {
       _$result = _$v ??
-          new _$GDroidFragment._(
+          new _$GDroidFragmentReq._(
               vars: vars.build(),
               document: document,
               fragmentName: fragmentName,
@@ -528,7 +531,7 @@ class GDroidFragmentBuilder
         vars.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GDroidFragment', _$failedField, e.toString());
+            'GDroidFragmentReq', _$failedField, e.toString());
       }
       rethrow;
     }

@@ -7,7 +7,7 @@ import 'package:test_graphql/schema/schema.schema.gql.dart';
 
 void main() {
   group("Optimism", () {
-    final mutation1 = GCreateReview(
+    final mutation1 = GCreateReviewReq(
       (b) => b
         ..vars.review.commentary = "I loved it"
         ..vars.review.stars = 5
@@ -21,7 +21,7 @@ void main() {
         ..createReview.episode = GEpisode.EMPIRE,
     );
 
-    final mutation2 = GCreateReview(
+    final mutation2 = GCreateReviewReq(
       (b) => b
         ..vars.review.commentary = "It was OK"
         ..vars.review.stars = 3
