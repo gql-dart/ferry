@@ -54,8 +54,6 @@ class Client {
         // Update the result based on previous result for the given [requestId],
         // if applicable. This enables features like pagination.
         .transform(StreamTransformer.fromBind(_updateResultStream))
-        // Ignore duplicate [OperationResponse]s
-        .distinct()
         // Trigger the [OperationRequest] on first listen
         .doOnListen(
       () async {
