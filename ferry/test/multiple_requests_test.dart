@@ -6,9 +6,9 @@ import "package:ferry/ferry.dart";
 import 'package:rxdart/rxdart.dart';
 import 'package:test/test.dart';
 
-import 'package:test_graphql/queries/variables/human_with_args.req.gql.dart';
-import 'package:test_graphql/queries/variables/human_with_args.data.gql.dart';
-import 'package:test_graphql/queries/variables/human_with_args.var.gql.dart';
+import 'package:ferry_test_graphql/queries/variables/human_with_args.req.gql.dart';
+import 'package:ferry_test_graphql/queries/variables/human_with_args.data.gql.dart';
+import 'package:ferry_test_graphql/queries/variables/human_with_args.var.gql.dart';
 
 class MockLink extends Mock implements Link {}
 

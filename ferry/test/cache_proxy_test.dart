@@ -1,8 +1,8 @@
 import 'package:ferry/ferry.dart';
 import 'package:test/test.dart';
 
-import 'package:test_graphql/queries/variables/human_with_args.req.gql.dart';
-import 'package:test_graphql/queries/variables/human_with_args.data.gql.dart';
+import 'package:ferry_test_graphql/queries/variables/human_with_args.req.gql.dart';
+import 'package:ferry_test_graphql/queries/variables/human_with_args.data.gql.dart';
 
 void main() {
   group("CacheProxy", () {
