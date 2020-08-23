@@ -6,12 +6,12 @@ import 'package:gql_exec/gql_exec.dart';
 import "package:ferry/ferry.dart";
 import 'package:test/test.dart';
 
-import 'package:test_graphql/queries/variables/reviews.req.gql.dart';
-import 'package:test_graphql/queries/variables/reviews.data.gql.dart';
-import 'package:test_graphql/mutations/variables/create_review.req.gql.dart';
-import 'package:test_graphql/mutations/variables/create_review.var.gql.dart';
-import 'package:test_graphql/mutations/variables/create_review.data.gql.dart';
-import 'package:test_graphql/schema/schema.schema.gql.dart';
+import 'package:ferry_test_graphql/queries/variables/reviews.req.gql.dart';
+import 'package:ferry_test_graphql/queries/variables/reviews.data.gql.dart';
+import 'package:ferry_test_graphql/mutations/variables/create_review.req.gql.dart';
+import 'package:ferry_test_graphql/mutations/variables/create_review.var.gql.dart';
+import 'package:ferry_test_graphql/mutations/variables/create_review.data.gql.dart';
+import 'package:ferry_test_graphql/schema/schema.schema.gql.dart';
 
 class MockLink extends Mock implements Link {}
 
