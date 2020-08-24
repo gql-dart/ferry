@@ -1,4 +1,4 @@
-import 'package:ferry/ferry.dart';
+import 'package:ferry_cache/ferry_cache.dart';
 import 'package:test/test.dart';
 
 import 'package:ferry_test_graphql/mutations/variables/create_review.req.gql.dart';
