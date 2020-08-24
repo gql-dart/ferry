@@ -27,36 +27,30 @@ class Mutation<TData, TVars> extends StatefulWidget {
   });
 
   @override
-  _MutationState<TData, TVars> createState() =>
-      _MutationState(builder: builder);
+  _MutationState<TData, TVars> createState() => _MutationState();
 }
 
 class _MutationState<TData, TVars> extends State<Mutation> {
-  final MutationResponseBuilder<TData, TVars> builder;
-
   Stream<OperationResponse<TData, TVars>> stream;
 
-  _MutationState({this.builder});
+  Stream<OperationResponse<TData, TVars>> _getStream() => widget.client
+      .responseStream(
+        widget.operationRequest,
+        executeOnListen: false,
+      )
+      .distinct();
 
   @override
   void initState() {
     super.initState();
-    stream = widget.client.responseStream(
-      widget.operationRequest,
-      executeOnListen: false,
-    );
+    stream = _getStream();
   }
 
   @override
   void didUpdateWidget(Mutation oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.operationRequest != widget.operationRequest) {
-      setState(() {
-        stream = widget.client.responseStream(
-          widget.operationRequest,
-          executeOnListen: false,
-        );
-      });
+      setState(() => stream = _getStream());
     }
   }
 
@@ -90,7 +84,7 @@ class _MutationState<TData, TVars> extends State<Mutation> {
         dataSource: DataSource.None,
       ),
       stream: stream,
-      builder: (context, snapshot) => builder(
+      builder: (context, snapshot) => widget.builder(
         context,
         _mutate,
         snapshot.data,
