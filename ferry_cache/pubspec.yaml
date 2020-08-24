@@ -14,3 +14,4 @@ dependencies:
   meta: ^1.1.8
 dev_dependencies: 
   test: ^1.9.4
+  ferry_test_graphql: ^0.0.1
