@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1] - 2020-08-24
+
+### Updated
+
+- use latest version of `ferry`
+- only emit distinct `OperationResponse`s from response stream
+
 ## [0.1.0+1] - 2020-06-09
 
 ### Updated

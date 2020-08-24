@@ -24,19 +24,20 @@ class Query<TData, TVars> extends StatefulWidget {
 class _QueryState<TData, TVars> extends State<Query<TData, TVars>> {
   Stream<OperationResponse<TData, TVars>> stream;
 
+  Stream<OperationResponse<TData, TVars>> _getStream() =>
+      widget.client.responseStream(widget.operationRequest).distinct();
+
   @override
   void initState() {
     super.initState();
-    stream = widget.client.responseStream(widget.operationRequest);
+    stream = _getStream();
   }
 
   @override
-  void didUpdateWidget(Query oldWidget) {
+  void didUpdateWidget(Query<TData, TVars> oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.operationRequest != widget.operationRequest) {
-      setState(() {
-        stream = widget.client.responseStream(widget.operationRequest);
-      });
+      setState(() => stream = _getStream());
     }
   }
 
