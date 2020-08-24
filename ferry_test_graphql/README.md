@@ -1,1 +1,1 @@
-Test GraphQL Operations, used in Ferry tests
+Example GraphQL Operations, used in Ferry tests
