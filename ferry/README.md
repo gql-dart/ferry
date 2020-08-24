@@ -130,7 +130,7 @@ This handler can then be called using its key `"MyHandlerKey"` from a `Operation
 
 ## Generate Dart GraphQL Files
 
-The `Client` is fully typed, so we must use the `gql_build` package to generate dart representations of our GraphQL queries. We will also use the `req_builder` included in the `Client` package to build typed `OperationRequest`s for each GraphQL operation.
+The ferry `Client` is fully typed, so we must use the `gql_build` package to generate dart representations of our GraphQL operations, variables, and data. We will also use the `req_builder` included in the `ferry_generator` package to build typed `OperationRequest`s for each GraphQL operation.
 
 ### Download GraphQL Schema
 
@@ -215,7 +215,7 @@ import 'path/to/client.dart';
 import './[my_query].req.gql.dart';
 
 // Instantiate a `OperationRequest` using the generated `.req.gql.dart` file.
-final query = MyQuery(buildVars: (b) => b..id = "123");
+final query = GMyQueryReq((b) => b..vars.id = "123");
 
 // Listen to responses for the given query
 client.responseStream(query).listen((response) => print(response));
@@ -230,7 +230,7 @@ import 'path/to/client.dart';
 import './[my_mutation].req.gql.dart';
 
 // Instantiate an `OperationRequest` using the generated `.req.gql.dart` file.
-final mutation = MyMutation(buildVars: (b) => b..id = "123");
+final mutation = GMyMutationReq((b) => b..vars.id = "123");
 
 // If I only care about the first non-optimistic response, I can do:
 client
@@ -249,9 +249,13 @@ This example assumes we've registered our `Client` instance with `get_it`, but y
 import 'package:flutter/material.dart';
 import 'package:ferry/ferry.dart';
 import 'package:get_it/get_it.dart';
+import 'package:ferry_flutter/ferry_flutter.dart';
+import 'package:built_collection/built_collection.dart';
 
-import './my_query.data.gql.dart';
-import './my_query.req.gql.dart';
+import './graphql/all_pokemon.data.gql.dart';
+import './graphql/all_pokemon.req.gql.dart';
+import './graphql/all_pokemon.var.gql.dart';
+import './pokemon_card.dart';
 
 class AllPokemonScreen extends StatelessWidget {
   final client = GetIt.I<Client>();
@@ -264,17 +268,17 @@ class AllPokemonScreen extends StatelessWidget {
       ),
       body: Query(
         client: client,
-        operationRequest: AllPokemon(
-          buildVars: (vars) => vars..first = 500,
+        operationRequest: GAllPokemonReq(
+          (b) => b..vars.first = 500,
         ),
         builder: (
           BuildContext context,
-          OperationResponse<$AllPokemon> response,
+          OperationResponse<GAllPokemonData, GAllPokemonVars> response,
         ) {
           if (response.loading)
             return Center(child: CircularProgressIndicator());
 
-          final pokemons = response.data?.pokemons ?? [];
+          final pokemons = response.data?.queryPokemon ?? BuiltList();
 
           return ListView.builder(
             itemCount: pokemons.length,
