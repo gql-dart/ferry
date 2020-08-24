@@ -194,6 +194,8 @@ targets:
 
       ferry_generator|req_builder:
         enabled: true
+        options:
+          schema: your_package_name|lib/schema.graphql
 ```
 
 Now we can build our dart generated files by calling:
