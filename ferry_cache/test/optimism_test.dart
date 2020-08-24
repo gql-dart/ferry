@@ -16,6 +16,7 @@ void main() {
 
     final mutation1data = GCreateReviewData(
       (b) => b
+        ..createReview.id = "123"
         ..createReview.commentary = "I loved it"
         ..createReview.stars = 5
         ..createReview.episode = GEpisode.EMPIRE,
@@ -30,6 +31,7 @@ void main() {
 
     final mutation2data = GCreateReviewData(
       (b) => b
+        ..createReview.id = "456"
         ..createReview.commentary = "It was OK"
         ..createReview.stars = 3
         ..createReview.episode = GEpisode.NEWHOPE,

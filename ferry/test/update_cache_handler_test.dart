@@ -15,14 +15,6 @@ import 'package:ferry_test_graphql/schema/schema.schema.gql.dart';
 
 class MockLink extends Mock implements Link {}
 
-final createReviewReq = GCreateReviewReq(
-  (b) => b
-    ..updateCacheHandlerKey = "createReviewHandler"
-    ..vars.episode = GEpisode.NEWHOPE
-    ..vars.review.stars = 5
-    ..vars.review.commentary = "Amazing!!!",
-);
-
 final createReviewData = GCreateReviewData(
   (b) => b
     ..createReview.id = "123"
@@ -54,15 +46,26 @@ void main() {
 
     group("without optimistic response", () {
       final mockLink = MockLink();
+      final req = GCreateReviewReq(
+        (b) => b
+          ..updateCacheHandlerKey = "createReviewHandler"
+          ..vars.episode = GEpisode.NEWHOPE
+          ..vars.review.stars = 5
+          ..vars.review.commentary = "Amazing!!!",
+      );
       final linkController = StreamController<Response>();
       final client = Client(link: mockLink, options: clientOptions);
-      final queue = StreamQueue(client.responseStream(createReviewReq));
+      final queue = StreamQueue(client.responseStream(
+        req,
+        executeOnListen: false,
+      ));
 
       when(mockLink.request(any, any)).thenAnswer((_) => linkController.stream);
 
       test("runs only on first non-optimistic", () async {
         expect(client.cache.readQuery(reviewsReq.execRequest), equals(null));
 
+        client.requestController.add(req);
         linkController.add(Response(data: createReviewData.toJson()));
         await queue.next;
 
@@ -79,8 +82,12 @@ void main() {
 
     group("with optimistic response", () {
       final mockLink = MockLink();
-      final req = createReviewReq.rebuild(
+      final req = GCreateReviewReq(
         (b) => b
+          ..updateCacheHandlerKey = "createReviewHandler"
+          ..vars.episode = GEpisode.NEWHOPE
+          ..vars.review.stars = 5
+          ..vars.review.commentary = "Amazing!!!"
           ..optimisticResponse.createReview.id = "456"
           ..optimisticResponse.createReview.stars = 4
           ..optimisticResponse.createReview.episode = GEpisode.JEDI
@@ -88,7 +95,10 @@ void main() {
       );
       final linkController = StreamController<Response>();
       final client = Client(link: mockLink, options: clientOptions);
-      final queue = StreamQueue(client.responseStream(req));
+      final queue = StreamQueue(client.responseStream(
+        req,
+        executeOnListen: false,
+      ));
 
       when(mockLink.request(any, any)).thenAnswer((_) => linkController.stream);
 
@@ -96,6 +106,7 @@ void main() {
           () async {
         expect(client.cache.readQuery(reviewsReq.execRequest), equals(null));
 
+        client.requestController.add(req);
         await queue.next;
 
         expect(client.cache.readQuery(reviewsReq.execRequest)["reviews"].length,
