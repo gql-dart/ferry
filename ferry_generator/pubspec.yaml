@@ -13,6 +13,7 @@ dependencies:
   code_builder: ^3.2.1
   build: ^1.2.2
   uuid: ^2.2.0
+  path: ^1.7.0
 dev_dependencies: 
   test: ^1.9.4
   build_runner: ^1.10.1
