@@ -34,10 +34,14 @@ void main() {
           ..fetchPolicy = FetchPolicy.CacheFirst,
       );
 
-      final queue = StreamQueue(client.responseStream(req));
+      final queue = StreamQueue(client.responseStream(
+        req,
+        executeOnListen: false,
+      ));
 
       test("First request returns a network response", () async {
         expect(client.cache.readQuery(req.execRequest), equals(null));
+        client.requestController.add(req);
         final response = await queue.next;
         expect(response.dataSource, equals(DataSource.Link));
         expect(client.cache.readQuery(req.execRequest), equals(data.toJson()));
@@ -59,10 +63,14 @@ void main() {
           ..fetchPolicy = FetchPolicy.CacheAndNetwork,
       );
 
-      final queue = StreamQueue(client.responseStream(req));
+      final queue = StreamQueue(client.responseStream(
+        req,
+        executeOnListen: false,
+      ));
 
       test("First request returns a network response", () async {
         expect(client.cache.readQuery(req.execRequest), equals(null));
+        client.requestController.add(req);
         final response = await queue.next;
         expect(response.dataSource, equals(DataSource.Link));
         expect(client.cache.readQuery(req.execRequest), equals(data.toJson()));
@@ -87,10 +95,14 @@ void main() {
           ..fetchPolicy = FetchPolicy.NetworkOnly,
       );
 
-      final queue = StreamQueue(client.responseStream(req));
+      final queue = StreamQueue(client.responseStream(
+        req,
+        executeOnListen: false,
+      ));
 
       test("First request returns a network response", () async {
         expect(client.cache.readQuery(req.execRequest), equals(null));
+        client.requestController.add(req);
         final response = await queue.next;
         expect(response.dataSource, equals(DataSource.Link));
         expect(client.cache.readQuery(req.execRequest), equals(data.toJson()));
@@ -112,10 +124,14 @@ void main() {
           ..fetchPolicy = FetchPolicy.CacheOnly,
       );
 
-      final queue = StreamQueue(client.responseStream(req));
+      final queue = StreamQueue(client.responseStream(
+        req,
+        executeOnListen: false,
+      ));
 
       test("Request returns no data with empty cache", () async {
         expect(client.cache.readQuery(req.execRequest), equals(null));
+        client.requestController.add(req);
         final response = await queue.next;
         expect(client.cache.readQuery(req.execRequest), equals(null));
         expect(response.dataSource, equals(DataSource.Cache));
@@ -140,11 +156,15 @@ void main() {
           ..fetchPolicy = FetchPolicy.NoCache,
       );
 
-      final queue = StreamQueue(client.responseStream(req));
+      final queue = StreamQueue(client.responseStream(
+        req,
+        executeOnListen: false,
+      ));
 
       test("First request returns response from network, doesn't cache",
           () async {
         expect(client.cache.readQuery(req.execRequest), equals(null));
+        client.requestController.add(req);
         final response = await queue.next;
         expect(client.cache.readQuery(req.execRequest), equals(null));
         expect(response.dataSource, equals(DataSource.Link));
