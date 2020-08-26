@@ -25,6 +25,18 @@ class _$GReviewsVarsSerializer implements StructuredSerializer<GReviewsVars> {
         ..add(serializers.serialize(object.episode,
             specifiedType: const FullType(_i1.GEpisode)));
     }
+    if (object.first != null) {
+      result
+        ..add('first')
+        ..add(serializers.serialize(object.first,
+            specifiedType: const FullType(int)));
+    }
+    if (object.offset != null) {
+      result
+        ..add('offset')
+        ..add(serializers.serialize(object.offset,
+            specifiedType: const FullType(int)));
+    }
     return result;
   }
 
@@ -43,6 +55,14 @@ class _$GReviewsVarsSerializer implements StructuredSerializer<GReviewsVars> {
           result.episode = serializers.deserialize(value,
               specifiedType: const FullType(_i1.GEpisode)) as _i1.GEpisode;
           break;
+        case 'first':
+          result.first = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'offset':
+          result.offset = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
       }
     }
 
@@ -53,11 +73,15 @@ class _$GReviewsVarsSerializer implements StructuredSerializer<GReviewsVars> {
 class _$GReviewsVars extends GReviewsVars {
   @override
   final _i1.GEpisode episode;
+  @override
+  final int first;
+  @override
+  final int offset;
 
   factory _$GReviewsVars([void Function(GReviewsVarsBuilder) updates]) =>
       (new GReviewsVarsBuilder()..update(updates)).build();
 
-  _$GReviewsVars._({this.episode}) : super._();
+  _$GReviewsVars._({this.episode, this.first, this.offset}) : super._();
 
   @override
   GReviewsVars rebuild(void Function(GReviewsVarsBuilder) updates) =>
@@ -69,18 +93,24 @@ class _$GReviewsVars extends GReviewsVars {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GReviewsVars && episode == other.episode;
+    return other is GReviewsVars &&
+        episode == other.episode &&
+        first == other.first &&
+        offset == other.offset;
   }
 
   @override
   int get hashCode {
-    return $jf($jc(0, episode.hashCode));
+    return $jf(
+        $jc($jc($jc(0, episode.hashCode), first.hashCode), offset.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('GReviewsVars')
-          ..add('episode', episode))
+          ..add('episode', episode)
+          ..add('first', first)
+          ..add('offset', offset))
         .toString();
   }
 }
@@ -93,11 +123,21 @@ class GReviewsVarsBuilder
   _i1.GEpisode get episode => _$this._episode;
   set episode(_i1.GEpisode episode) => _$this._episode = episode;
 
+  int _first;
+  int get first => _$this._first;
+  set first(int first) => _$this._first = first;
+
+  int _offset;
+  int get offset => _$this._offset;
+  set offset(int offset) => _$this._offset = offset;
+
   GReviewsVarsBuilder();
 
   GReviewsVarsBuilder get _$this {
     if (_$v != null) {
       _episode = _$v.episode;
+      _first = _$v.first;
+      _offset = _$v.offset;
       _$v = null;
     }
     return this;
@@ -118,7 +158,8 @@ class GReviewsVarsBuilder
 
   @override
   _$GReviewsVars build() {
-    final _$result = _$v ?? new _$GReviewsVars._(episode: episode);
+    final _$result = _$v ??
+        new _$GReviewsVars._(episode: episode, first: first, offset: offset);
     replace(_$result);
     return _$result;
   }

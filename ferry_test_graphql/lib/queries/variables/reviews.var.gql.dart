@@ -16,6 +16,10 @@ abstract class GReviewsVars
 
   @nullable
   _i1.GEpisode get episode;
+  @nullable
+  int get first;
+  @nullable
+  int get offset;
   static Serializer<GReviewsVars> get serializer => _$gReviewsVarsSerializer;
   Map<String, dynamic> toJson() =>
       _i2.serializers.serializeWith(GReviewsVars.serializer, this);

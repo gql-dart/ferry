@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.1] - 2020-08-26
+
+### Changed
+
+- fixes updateResult when more than two results are merged
+
 ## [0.5.0] - 2020-08-24
 
 ### Changed

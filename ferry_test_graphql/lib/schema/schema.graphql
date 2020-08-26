@@ -9,7 +9,7 @@ schema {
 # The query type, represents all of the entry points into our object graph
 type Query {
   hero(episode: Episode): Character
-  reviews(episode: Episode): [Review]
+  reviews(episode: Episode, first: int, offset: int): [Review]
   search(text: String): [SearchResult]
   character(id: ID!): Character
   droid(id: ID!): Droid

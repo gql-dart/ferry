@@ -1,5 +1,5 @@
-query Reviews($episode: Episode) {
-  reviews(episode: $episode) {
+query Reviews($episode: Episode, $first: Int, $offset: Int) {
+  reviews(episode: $episode, first: $first, offset: $offset) {
     id
     episode
     stars
