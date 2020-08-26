@@ -43,6 +43,18 @@ const Query = _i1.ObjectTypeDefinitionNode(
                 directives: [],
                 type: _i1.NamedTypeNode(
                     name: _i1.NameNode(value: 'Episode'), isNonNull: false),
+                defaultValue: null),
+            _i1.InputValueDefinitionNode(
+                name: _i1.NameNode(value: 'first'),
+                directives: [],
+                type: _i1.NamedTypeNode(
+                    name: _i1.NameNode(value: 'int'), isNonNull: false),
+                defaultValue: null),
+            _i1.InputValueDefinitionNode(
+                name: _i1.NameNode(value: 'offset'),
+                directives: [],
+                type: _i1.NamedTypeNode(
+                    name: _i1.NameNode(value: 'int'), isNonNull: false),
                 defaultValue: null)
           ],
           type: _i1.ListTypeNode(

@@ -281,21 +281,20 @@ class Client {
   Stream<OperationResponse<TData, TVars>> _updateResultStream<TData, TVars>(
     Stream<OperationResponse<TData, TVars>> stream,
   ) {
-    return stream.startWith(null).pairwise().map((results) {
-      final previousResult = results.first;
-      final result = results.last;
-      return result.operationRequest.updateResult == null
-          ? result
-          : OperationResponse<TData, TVars>(
-              data: result.operationRequest.updateResult(
-                previousResult.data,
-                result.data,
+    OperationResponse<TData, TVars> previous;
+    return stream.map(
+      (response) => previous = response.operationRequest.updateResult == null
+          ? response
+          : OperationResponse(
+              operationRequest: response.operationRequest,
+              data: response.operationRequest.updateResult(
+                previous?.data,
+                response.data,
               ),
-              linkException: result.linkException,
-              graphqlErrors: result.graphqlErrors,
-              operationRequest: result.operationRequest,
-              dataSource: result.dataSource,
-            );
-    });
+              dataSource: response.dataSource,
+              linkException: response.linkException,
+              graphqlErrors: response.graphqlErrors,
+            ),
+    );
   }
 }
