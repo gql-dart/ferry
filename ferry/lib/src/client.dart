@@ -142,6 +142,8 @@ class Client {
           });
         }
     }
+
+    throw Exception("Unknown Fetch Policy");
   }
 
   /// Creates a response stream, starting with an optimistic [OperationResponse]
@@ -163,10 +165,11 @@ class Client {
                 )
                   .doOnData(
                   (response) {
-                    if (response.dataSource != DataSource.Optimistic)
+                    if (response.dataSource != DataSource.Optimistic) {
                       cache.removeOptimisticPatch(
                         response.operationRequest.requestId,
                       );
+                    }
                   },
                 );
 
