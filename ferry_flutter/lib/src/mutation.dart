@@ -64,14 +64,21 @@ class _MutationState<TData, TVars> extends State<Mutation> {
   }) =>
       widget.client.requestController.add(
         (widget.operationRequest as dynamic).rebuild((b) {
-          if (variables != null) b.vars = variables;
-          if (updateCacheHandlerContext != null)
+          if (variables != null) {
+            b.vars = variables;
+          }
+          if (updateCacheHandlerContext != null) {
             b.updateCacheHandlerContext = updateCacheHandlerContext;
-          if (optimisticResponse != null)
+          }
+          if (optimisticResponse != null) {
             b.optimisticResponse = optimisticResponse;
-          if (updateCacheHandlerKey != null)
+          }
+          if (updateCacheHandlerKey != null) {
             b.updateCacheHandlerKey = updateCacheHandlerKey;
-          if (fetchPolicy != null) b.fetchPolicy = fetchPolicy;
+          }
+          if (fetchPolicy != null) {
+            b.fetchPolicy = fetchPolicy;
+          }
           return b;
         }),
       );

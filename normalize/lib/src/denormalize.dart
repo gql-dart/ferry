@@ -52,7 +52,7 @@ Map<String, dynamic> denormalize({
     typePolicies,
   );
 
-  final Map<String, FragmentDefinitionNode> fragmentMap = {
+  final fragmentMap = {
     for (var fragmentDefinition
         in query.definitions.whereType<FragmentDefinitionNode>())
       fragmentDefinition.name.value: fragmentDefinition
@@ -67,13 +67,15 @@ Map<String, dynamic> denormalize({
     @required Object dataForNode,
   }) {
     SelectionSetNode selectionSet;
-    if (node is OperationDefinitionNode)
+    if (node is OperationDefinitionNode) {
       selectionSet = node.selectionSet;
-    else if (node is FieldNode)
+    } else if (node is FieldNode) {
       selectionSet = node.selectionSet;
-    else
-      throw (Exception(
-          "Unexpected node type. Expected 'OperationDefinitionNode' or 'FieldNode'"));
+    } else {
+      throw Exception(
+        "Unexpected node type. Expected 'OperationDefinitionNode' or 'FieldNode'",
+      );
+    }
 
     if (dataForNode == null) return null;
 
@@ -126,8 +128,9 @@ Map<String, dynamic> denormalize({
       return result.isEmpty ? null : result;
     }
 
-    throw (Exception(
-        "There are sub-selections on this node, but the data is not null, an Array, or a Map"));
+    throw Exception(
+      'There are sub-selections on this node, but the data is not null, an Array, or a Map',
+    );
   }
 
   try {

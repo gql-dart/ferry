@@ -8,14 +8,14 @@ List<FieldNode> expandFragments({
   @required SelectionSetNode selectionSet,
   @required Map<String, FragmentDefinitionNode> fragmentMap,
 }) {
-  final List<FieldNode> fieldNodes = [];
+  final fieldNodes = <FieldNode>[];
 
   for (var selectionNode in selectionSet.selections) {
     if (selectionNode is FieldNode) {
       fieldNodes.add(selectionNode);
     } else if (selectionNode is InlineFragmentNode) {
       // Only include this fragment if the type name matches
-      if (selectionNode.typeCondition.on.name.value == data["__typename"]) {
+      if (selectionNode.typeCondition.on.name.value == data['__typename']) {
         fieldNodes.addAll(expandFragments(
           data: data,
           selectionSet: selectionNode.selectionSet,
@@ -30,7 +30,7 @@ List<FieldNode> expandFragments({
         fragmentMap: fragmentMap,
       ));
     } else {
-      throw (FormatException("Unknown selection node type"));
+      throw (FormatException('Unknown selection node type'));
     }
   }
   return List.from(_mergeSelections(fieldNodes));

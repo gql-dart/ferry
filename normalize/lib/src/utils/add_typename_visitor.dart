@@ -1,8 +1,8 @@
-import "package:gql/ast.dart";
+import 'package:gql/ast.dart';
 
 class AddTypenameVisitor extends TransformingVisitor {
   @override
-  visitFieldNode(FieldNode node) {
+  FieldNode visitFieldNode(FieldNode node) {
     if (node.selectionSet == null) {
       return node;
     }
@@ -21,7 +21,7 @@ class AddTypenameVisitor extends TransformingVisitor {
       selectionSet: SelectionSetNode(
         selections: <SelectionNode>[
           FieldNode(
-            name: NameNode(value: "__typename"),
+            name: NameNode(value: '__typename'),
           ),
           ...node.selectionSet.selections,
         ],
@@ -30,7 +30,8 @@ class AddTypenameVisitor extends TransformingVisitor {
   }
 
   @override
-  visitFragmentDefinitionNode(FragmentDefinitionNode node) {
+  FragmentDefinitionNode visitFragmentDefinitionNode(
+      FragmentDefinitionNode node) {
     if (node.selectionSet == null) {
       return node;
     }
@@ -48,7 +49,7 @@ class AddTypenameVisitor extends TransformingVisitor {
       selectionSet: SelectionSetNode(
         selections: <SelectionNode>[
           FieldNode(
-            name: NameNode(value: "__typename"),
+            name: NameNode(value: '__typename'),
           ),
           ...node.selectionSet.selections,
         ],

@@ -48,22 +48,25 @@ void normalizeFragment({
 
   final hasOperationDefinition = fragment.definitions
       .any((definition) => definition is OperationDefinitionNode);
-  if (hasOperationDefinition)
-    throw (Exception(
-        'Operation definition found, but expected a fragment definition'));
+  if (hasOperationDefinition) {
+    throw Exception(
+      'Operation definition found, but expected a fragment definition',
+    );
+  }
 
-  final Map<String, FragmentDefinitionNode> fragmentMap = {
+  final fragmentMap = {
     for (var fragmentDefinition
         in fragment.definitions.whereType<FragmentDefinitionNode>())
       fragmentDefinition.name.value: fragmentDefinition
   };
 
-  if (fragmentMap.length > 1 && fragmentName == null)
-    throw (Exception(
-        'Multiple fragments defined, but no fragmentName provided'));
+  if (fragmentMap.length > 1 && fragmentName == null) {
+    throw Exception('Multiple fragments defined, but no fragmentName provided');
+  }
 
-  if (fragmentName != null && fragmentMap[fragmentName] == null)
-    throw (Exception('Fragment "$fragmentName" not found'));
+  if (fragmentName != null && fragmentMap[fragmentName] == null) {
+    throw Exception('Fragment "$fragmentName" not found');
+  }
 
   final fragmentDefinition = fragmentName != null
       ? fragmentMap[fragmentName]
@@ -71,7 +74,7 @@ void normalizeFragment({
 
   final dataForFragment = {
     ...data,
-    "__typename": fragmentDefinition.typeCondition.on.name.value,
+    '__typename': fragmentDefinition.typeCondition.on.name.value,
     ...idFields,
   };
 
@@ -85,12 +88,13 @@ void normalizeFragment({
     @required Map<String, Map<String, dynamic>> normalizedMap,
   }) {
     SelectionSetNode selectionSet;
-    if (node is FragmentDefinitionNode)
+    if (node is FragmentDefinitionNode) {
       selectionSet = node.selectionSet;
-    else if (node is FieldNode)
+    } else if (node is FieldNode) {
       selectionSet = node.selectionSet;
-    else
-      throw (Exception("Unexpected node type"));
+    } else {
+      throw Exception('Unexpected node type');
+    }
 
     if (dataForNode == null) return null;
 
@@ -118,7 +122,7 @@ void normalizeFragment({
       );
 
       final dataToMerge = {
-        if (addTypename && typename != null) "__typename": typename,
+        if (addTypename && typename != null) '__typename': typename,
         for (var selection in subNodes)
           fieldNameWithArguments(
             selection,
@@ -149,8 +153,9 @@ void normalizeFragment({
       }
     }
 
-    throw (Exception(
-        "There are sub-selections on this node, but the data is not null, an Array, or a Map"));
+    throw Exception(
+      'There are sub-selections on this node, but the data is not null, an Array, or a Map',
+    );
   }
 
   final Map<String, Map<String, dynamic>> normalized = normalizeNode(

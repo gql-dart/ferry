@@ -48,7 +48,7 @@ void normalize({
     typePolicies,
   );
 
-  final Map<String, FragmentDefinitionNode> fragmentMap = {
+  final fragmentMap = {
     for (var fragmentDefinition
         in query.definitions.whereType<FragmentDefinitionNode>())
       fragmentDefinition.name.value: fragmentDefinition
@@ -64,12 +64,13 @@ void normalize({
     @required Map<String, Map<String, dynamic>> normalizedMap,
   }) {
     SelectionSetNode selectionSet;
-    if (node is OperationDefinitionNode)
+    if (node is OperationDefinitionNode) {
       selectionSet = node.selectionSet;
-    else if (node is FieldNode)
+    } else if (node is FieldNode) {
       selectionSet = node.selectionSet;
-    else
-      throw (Exception("Unexpected node type"));
+    } else {
+      throw Exception('Unexpected node type');
+    }
 
     if (dataForNode == null) return null;
 
@@ -97,7 +98,7 @@ void normalize({
       );
 
       final dataToMerge = {
-        if (addTypename && typename != null) "__typename": typename,
+        if (addTypename && typename != null) '__typename': typename,
         for (var selection in subNodes)
           fieldNameWithArguments(
             selection,
@@ -128,8 +129,9 @@ void normalize({
       }
     }
 
-    throw (Exception(
-        "There are sub-selections on this node, but the data is not null, an Array, or a Map"));
+    throw Exception(
+      'There are sub-selections on this node, but the data is not null, an Array, or a Map',
+    );
   }
 
   final Map<String, Map<String, dynamic>> normalized = normalizeNode(

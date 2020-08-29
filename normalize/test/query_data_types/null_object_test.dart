@@ -1,11 +1,11 @@
-import "package:test/test.dart";
+import 'package:test/test.dart';
 import 'package:gql/language.dart';
 
 import 'package:normalize/normalize.dart';
 
 void main() {
-  group("Null Object", () {
-    final query = parseString("""
+  group('Null Object', () {
+    final query = parseString('''
       query TestQuery(\$postIds: [ID!]!) {
         postsByIds(ids: \$postIds) {
           id
@@ -13,23 +13,23 @@ void main() {
           title
         }
       }
-    """);
+    ''');
 
     final variables = {
-      "postIds": ["non-existent-id"]
+      'postIds': ['non-existent-id']
     };
 
     final data = {
-      "postsByIds": [null]
+      'postsByIds': [null]
     };
 
     final normalizedMap = {
-      "Query": {
+      'Query': {
         'postsByIds({"ids":["non-existent-id"]})': [null]
       }
     };
 
-    test("Produces correct normalized object", () {
+    test('Produces correct normalized object', () {
       final normalizedResult = {};
       normalize(
         writer: (dataId, value) => normalizedResult[dataId] = value,
@@ -44,7 +44,7 @@ void main() {
       );
     });
 
-    test("Produces correct nested data object", () {
+    test('Produces correct nested data object', () {
       expect(
           denormalize(
             query: query,

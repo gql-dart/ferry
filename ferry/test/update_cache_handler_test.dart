@@ -1,9 +1,9 @@
-import "dart:async";
+import 'dart:async';
 import 'package:async/async.dart';
 import 'package:mockito/mockito.dart';
 import 'package:gql_link/gql_link.dart';
 import 'package:gql_exec/gql_exec.dart';
-import "package:ferry/ferry.dart";
+import 'package:ferry/ferry.dart';
 import 'package:test/test.dart';
 
 import 'package:ferry_test_graphql/queries/variables/reviews.req.gql.dart';
@@ -17,10 +17,10 @@ class MockLink extends Mock implements Link {}
 
 final createReviewData = GCreateReviewData(
   (b) => b
-    ..createReview.id = "123"
+    ..createReview.id = '123'
     ..createReview.stars = 5
     ..createReview.episode = GEpisode.NEWHOPE
-    ..createReview.commentary = "Amazing!!!",
+    ..createReview.commentary = 'Amazing!!!',
 );
 
 final reviewsReq = GReviewsReq();
@@ -39,19 +39,19 @@ UpdateCacheHandler<GCreateReviewData, GCreateReviewVars> createReviewHandler = (
 };
 
 void main() {
-  group("UpdateCacheHandler", () {
+  group('UpdateCacheHandler', () {
     final clientOptions = ClientOptions(updateCacheHandlers: {
-      "createReviewHandler": createReviewHandler,
+      'createReviewHandler': createReviewHandler,
     });
 
-    group("without optimistic response", () {
+    group('without optimistic response', () {
       final mockLink = MockLink();
       final req = GCreateReviewReq(
         (b) => b
-          ..updateCacheHandlerKey = "createReviewHandler"
+          ..updateCacheHandlerKey = 'createReviewHandler'
           ..vars.episode = GEpisode.NEWHOPE
           ..vars.review.stars = 5
-          ..vars.review.commentary = "Amazing!!!",
+          ..vars.review.commentary = 'Amazing!!!',
       );
       final linkController = StreamController<Response>();
       final client = Client(link: mockLink, options: clientOptions);
@@ -62,36 +62,36 @@ void main() {
 
       when(mockLink.request(any, any)).thenAnswer((_) => linkController.stream);
 
-      test("runs only on first non-optimistic", () async {
+      test('runs only on first non-optimistic', () async {
         expect(client.cache.readQuery(reviewsReq.execRequest), equals(null));
 
         client.requestController.add(req);
         linkController.add(Response(data: createReviewData.toJson()));
         await queue.next;
 
-        expect(client.cache.readQuery(reviewsReq.execRequest)["reviews"].length,
+        expect(client.cache.readQuery(reviewsReq.execRequest)['reviews'].length,
             equals(1));
 
         linkController.add(Response(data: createReviewData.toJson()));
         await queue.next;
 
-        expect(client.cache.readQuery(reviewsReq.execRequest)["reviews"].length,
+        expect(client.cache.readQuery(reviewsReq.execRequest)['reviews'].length,
             equals(1));
       });
     });
 
-    group("with optimistic response", () {
+    group('with optimistic response', () {
       final mockLink = MockLink();
       final req = GCreateReviewReq(
         (b) => b
-          ..updateCacheHandlerKey = "createReviewHandler"
+          ..updateCacheHandlerKey = 'createReviewHandler'
           ..vars.episode = GEpisode.NEWHOPE
           ..vars.review.stars = 5
-          ..vars.review.commentary = "Amazing!!!"
-          ..optimisticResponse.createReview.id = "456"
+          ..vars.review.commentary = 'Amazing!!!'
+          ..optimisticResponse.createReview.id = '456'
           ..optimisticResponse.createReview.stars = 4
           ..optimisticResponse.createReview.episode = GEpisode.JEDI
-          ..optimisticResponse.createReview.commentary = "hi",
+          ..optimisticResponse.createReview.commentary = 'hi',
       );
       final linkController = StreamController<Response>();
       final client = Client(link: mockLink, options: clientOptions);
@@ -102,38 +102,38 @@ void main() {
 
       when(mockLink.request(any, any)).thenAnswer((_) => linkController.stream);
 
-      test("runs on optimistic response and first non-optimistic response",
+      test('runs on optimistic response and first non-optimistic response',
           () async {
         expect(client.cache.readQuery(reviewsReq.execRequest), equals(null));
 
         client.requestController.add(req);
         await queue.next;
 
-        expect(client.cache.readQuery(reviewsReq.execRequest)["reviews"].length,
+        expect(client.cache.readQuery(reviewsReq.execRequest)['reviews'].length,
             equals(1));
         expect(
-          client.cache.readQuery(reviewsReq.execRequest)["reviews"].first["id"],
-          equals("456"),
+          client.cache.readQuery(reviewsReq.execRequest)['reviews'].first['id'],
+          equals('456'),
         );
 
         linkController.add(Response(data: createReviewData.toJson()));
         await queue.next;
 
-        expect(client.cache.readQuery(reviewsReq.execRequest)["reviews"].length,
+        expect(client.cache.readQuery(reviewsReq.execRequest)['reviews'].length,
             equals(1));
         expect(
-          client.cache.readQuery(reviewsReq.execRequest)["reviews"].first["id"],
-          equals("123"),
+          client.cache.readQuery(reviewsReq.execRequest)['reviews'].first['id'],
+          equals('123'),
         );
 
         linkController.add(Response(data: createReviewData.toJson()));
         await queue.next;
 
-        expect(client.cache.readQuery(reviewsReq.execRequest)["reviews"].length,
+        expect(client.cache.readQuery(reviewsReq.execRequest)['reviews'].length,
             equals(1));
         expect(
-          client.cache.readQuery(reviewsReq.execRequest)["reviews"].first["id"],
-          equals("123"),
+          client.cache.readQuery(reviewsReq.execRequest)['reviews'].first['id'],
+          equals('123'),
         );
       });
     });

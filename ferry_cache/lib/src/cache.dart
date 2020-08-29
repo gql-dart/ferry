@@ -100,7 +100,7 @@ class Cache {
     bool optimistic = false,
     String requestId,
   }) {
-    final Map<String, Map<String, dynamic>> normalizedResult = {};
+    final normalizedResult = <String, Map<String, dynamic>>{};
     normalize(
       writer: (dataId, value) => normalizedResult[dataId] = value,
       query: request.operation.document,
@@ -122,7 +122,7 @@ class Cache {
     bool optimistic = false,
     String requestId,
   }) {
-    final Map<String, Map<String, dynamic>> normalizedResult = {};
+    final normalizedResult = <String, Map<String, dynamic>>{};
     normalizeFragment(
       writer: (dataId, value) => normalizedResult[dataId] = value,
       fragment: document,

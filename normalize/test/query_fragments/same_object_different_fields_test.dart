@@ -5,8 +5,8 @@ import 'package:normalize/normalize.dart';
 import '../shared_data.dart';
 
 void main() {
-  group("Fragments With Same Object But Different Fields", () {
-    final query = parseString("""
+  group('Fragments With Same Object But Different Fields', () {
+    final query = parseString('''
       query TestQuery {
         posts {
           __typename
@@ -42,9 +42,9 @@ void main() {
           id
         }
       }
-    """);
+    ''');
 
-    test("Produces correct nested data object", () {
+    test('Produces correct nested data object', () {
       expect(
         denormalize(
           query: query,

@@ -1,11 +1,11 @@
-import "package:test/test.dart";
+import 'package:test/test.dart';
 import 'package:gql/language.dart';
 
 import 'package:normalize/normalize.dart';
 
 void main() {
-  group("Existing data different variables", () {
-    final query = parseString("""
+  group('Existing data different variables', () {
+    final query = parseString('''
       query TestQuery(\$a: Boolean) {
         posts(b: \$a) {
           id
@@ -27,69 +27,69 @@ void main() {
           }
         }
       }
-    """);
+    ''');
 
-    test("With no data", () {
+    test('With no data', () {
       final normalizedMap = {};
       expect(
         denormalize(
             query: query,
             reader: (dataId) => normalizedMap[dataId],
-            variables: {"a": false}),
+            variables: {'a': false}),
         equals(null),
       );
     });
 
-    test("With data that uses different variables", () {
+    test('With data that uses different variables', () {
       final normalizedMap = {
-        "Query": {
-          "posts({\"b\":true})": [
-            {"\$ref": "Post:123"}
+        'Query': {
+          'posts({"b":true})': [
+            {'\$ref': 'Post:123'}
           ]
         },
-        "Post:123": {
-          "id": "123",
-          "__typename": "Post",
-          "author": {"\$ref": "Author:1"},
-          "title": "My awesome blog post",
-          "comments": [
-            {"\$ref": "Comment:324"}
+        'Post:123': {
+          'id': '123',
+          '__typename': 'Post',
+          'author': {'\$ref': 'Author:1'},
+          'title': 'My awesome blog post',
+          'comments': [
+            {'\$ref': 'Comment:324'}
           ]
         },
-        "Author:1": {"id": "1", "__typename": "Author", "name": "Paul"},
-        "Comment:324": {
-          "id": "324",
-          "__typename": "Comment",
-          "commenter": {"\$ref": "Author:2"}
+        'Author:1': {'id': '1', '__typename': 'Author', 'name': 'Paul'},
+        'Comment:324': {
+          'id': '324',
+          '__typename': 'Comment',
+          'commenter': {'\$ref': 'Author:2'}
         },
-        "Author:2": {"id": "2", "__typename": "Author", "name": "Nicole"}
+        'Author:2': {'id': '2', '__typename': 'Author', 'name': 'Nicole'}
       };
 
       expect(
         denormalize(
             query: query,
             reader: (dataId) => normalizedMap[dataId],
-            variables: {"a": false}),
+            variables: {'a': false}),
         equals(null),
       );
     });
 
-    test("Explicit null", () {
+    test('Explicit null', () {
       final normalizedMap = {
-        "Query": {"posts({\"b\":false})": null},
+        'Query': {'posts({"b":false})': null},
       };
 
       expect(
         denormalize(
             query: query,
             reader: (dataId) => normalizedMap[dataId],
-            variables: {"a": false}),
-        equals({"posts": null}),
+            variables: {'a': false}),
+        equals({'posts': null}),
       );
     });
   });
-  group("Existing data different nested variables", () {
-    final query = parseString("""
+  group('Existing data different nested variables', () {
+    final query = parseString('''
       query TestQuery(\$a: Boolean) {
         posts {
           id
@@ -111,40 +111,40 @@ void main() {
           }
         }
       }
-    """);
+    ''');
 
-    test("With data that uses different nested variables", () {
+    test('With data that uses different nested variables', () {
       final normalizedMap = {
-        "Query": {
-          "posts": [
-            {"\$ref": "Post:123"}
+        'Query': {
+          'posts': [
+            {'\$ref': 'Post:123'}
           ]
         },
-        "Post:123": {
-          "id": "123",
-          "__typename": "Post",
-          "author": {"\$ref": "Author:1"},
-          "title": "My awesome blog post",
-          "comments({\"b\":true})": [
-            {"\$ref": "Comment:324"}
+        'Post:123': {
+          'id': '123',
+          '__typename': 'Post',
+          'author': {'\$ref': 'Author:1'},
+          'title': 'My awesome blog post',
+          'comments({"b":true})': [
+            {'\$ref': 'Comment:324'}
           ]
         },
-        "Author:1": {"id": "1", "__typename": "Author", "name": "Paul"},
-        "Comment:324": {
-          "id": "324",
-          "__typename": "Comment",
-          "commenter": {"\$ref": "Author:2"}
+        'Author:1': {'id': '1', '__typename': 'Author', 'name': 'Paul'},
+        'Comment:324': {
+          'id': '324',
+          '__typename': 'Comment',
+          'commenter': {'\$ref': 'Author:2'}
         },
-        "Author:2": {"id": "2", "__typename": "Author", "name": "Nicole"}
+        'Author:2': {'id': '2', '__typename': 'Author', 'name': 'Nicole'}
       };
 
       final response = {
-        "posts": [
+        'posts': [
           {
-            "id": "123",
-            "__typename": "Post",
-            "author": {"id": "1", "__typename": "Author", "name": "Paul"},
-            "title": "My awesome blog post",
+            'id': '123',
+            '__typename': 'Post',
+            'author': {'id': '1', '__typename': 'Author', 'name': 'Paul'},
+            'title': 'My awesome blog post',
           }
         ]
       };
@@ -154,45 +154,45 @@ void main() {
             query: query,
             reader: (dataId) => normalizedMap[dataId],
             returnPartialData: true,
-            variables: {"a": false}),
+            variables: {'a': false}),
         equals(response),
       );
     });
 
-    test("Explicit null", () {
+    test('Explicit null', () {
       final normalizedMap = {
-        "Query": {
-          "posts": [
-            {"\$ref": "Post:123"}
+        'Query': {
+          'posts': [
+            {'\$ref': 'Post:123'}
           ]
         },
-        "Post:123": {
-          "id": "123",
-          "__typename": "Post",
-          "author": {"\$ref": "Author:1"},
-          "title": "My awesome blog post",
-          "comments({\"b\":true})": [
-            {"\$ref": "Comment:324"}
+        'Post:123': {
+          'id': '123',
+          '__typename': 'Post',
+          'author': {'\$ref': 'Author:1'},
+          'title': 'My awesome blog post',
+          'comments({"b":true})': [
+            {'\$ref': 'Comment:324'}
           ],
-          "comments({\"b\":false})": null
+          'comments({"b":false})': null
         },
-        "Author:1": {"id": "1", "__typename": "Author", "name": "Paul"},
-        "Comment:324": {
-          "id": "324",
-          "__typename": "Comment",
-          "commenter": {"\$ref": "Author:2"}
+        'Author:1': {'id': '1', '__typename': 'Author', 'name': 'Paul'},
+        'Comment:324': {
+          'id': '324',
+          '__typename': 'Comment',
+          'commenter': {'\$ref': 'Author:2'}
         },
-        "Author:2": {"id": "2", "__typename": "Author", "name": "Nicole"}
+        'Author:2': {'id': '2', '__typename': 'Author', 'name': 'Nicole'}
       };
 
       final response = {
-        "posts": [
+        'posts': [
           {
-            "id": "123",
-            "__typename": "Post",
-            "author": {"id": "1", "__typename": "Author", "name": "Paul"},
-            "title": "My awesome blog post",
-            "comments": null
+            'id': '123',
+            '__typename': 'Post',
+            'author': {'id': '1', '__typename': 'Author', 'name': 'Paul'},
+            'title': 'My awesome blog post',
+            'comments': null
           }
         ]
       };
@@ -201,7 +201,7 @@ void main() {
         denormalize(
             query: query,
             reader: (dataId) => normalizedMap[dataId],
-            variables: {"a": false}),
+            variables: {'a': false}),
         equals(response),
       );
     });

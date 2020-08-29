@@ -7,16 +7,16 @@ Object _resolveValueNode(
   ValueNode valueNode,
   Map<String, dynamic> variables,
 ) {
-  if (valueNode is VariableNode)
+  if (valueNode is VariableNode) {
     return variables[valueNode.name.value];
-  else if (valueNode is ListValueNode)
+  } else if (valueNode is ListValueNode) {
     return valueNode.values
         .map((node) => _resolveValueNode(
               node,
               variables,
             ))
         .toList();
-  else if (valueNode is ObjectValueNode) {
+  } else if (valueNode is ObjectValueNode) {
     return {
       for (var field in valueNode.fields)
         field.name.value: _resolveValueNode(
@@ -24,18 +24,19 @@ Object _resolveValueNode(
           variables,
         )
     };
-  } else if (valueNode is IntValueNode)
+  } else if (valueNode is IntValueNode) {
     return valueNode.value;
-  else if (valueNode is FloatValueNode)
+  } else if (valueNode is FloatValueNode) {
     return valueNode.value;
-  else if (valueNode is StringValueNode)
+  } else if (valueNode is StringValueNode) {
     return valueNode.value;
-  else if (valueNode is BooleanValueNode)
+  } else if (valueNode is BooleanValueNode) {
     return valueNode.value;
-  else if (valueNode is EnumValueNode)
+  } else if (valueNode is EnumValueNode) {
     return valueNode.name.value;
-  else
+  } else {
     return null;
+  }
 }
 
 String fieldNameWithArguments(
@@ -53,7 +54,7 @@ String fieldNameWithArguments(
           .toList();
   final orderedArguments = List.from(pertinentArguments)
     ..sort((a, b) => a.name.value.compareTo(b.name.value));
-  final Map<String, dynamic> argumentsObject = {
+  final argumentsObject = {
     for (var argumentNode in orderedArguments)
       argumentNode.name.value: _resolveValueNode(
         argumentNode.value,

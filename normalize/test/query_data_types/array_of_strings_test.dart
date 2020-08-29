@@ -1,11 +1,11 @@
-import "package:test/test.dart";
+import 'package:test/test.dart';
 import 'package:gql/language.dart';
 
 import 'package:normalize/normalize.dart';
 
 void main() {
-  group("Array of Strings", () {
-    final query = parseString("""
+  group('Array of Strings', () {
+    final query = parseString('''
       query TestQuery {
         posts {
           id
@@ -13,32 +13,32 @@ void main() {
           tags
         }
       }
-    """);
+    ''');
 
     final data = {
-      "posts": [
+      'posts': [
         {
-          "id": "123",
-          "__typename": "Post",
-          "tags": ["olle", "kalle"]
+          'id': '123',
+          '__typename': 'Post',
+          'tags': ['olle', 'kalle']
         }
       ]
     };
 
     final normalizedMap = {
-      "Query": {
-        "posts": [
-          {"\$ref": "Post:123"}
+      'Query': {
+        'posts': [
+          {'\$ref': 'Post:123'}
         ]
       },
-      "Post:123": {
-        "id": "123",
-        "__typename": "Post",
-        "tags": ["olle", "kalle"]
+      'Post:123': {
+        'id': '123',
+        '__typename': 'Post',
+        'tags': ['olle', 'kalle']
       }
     };
 
-    test("Produces correct normalized object", () {
+    test('Produces correct normalized object', () {
       final normalizedResult = {};
       normalize(
         writer: (dataId, value) => normalizedResult[dataId] = value,
@@ -52,7 +52,7 @@ void main() {
       );
     });
 
-    test("Produces correct nested data object", () {
+    test('Produces correct nested data object', () {
       expect(
         denormalize(
           query: query,

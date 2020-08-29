@@ -1,4 +1,4 @@
-import "package:gql/ast.dart";
+import 'package:gql/ast.dart';
 
 abstract class FragmentRequest<TData, TVars> {
   TVars get vars;

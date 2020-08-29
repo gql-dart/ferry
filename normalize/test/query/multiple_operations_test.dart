@@ -1,13 +1,13 @@
-import "package:test/test.dart";
+import 'package:test/test.dart';
 import 'package:gql/language.dart';
 
 import 'package:normalize/normalize.dart';
 import '../shared_data.dart';
 
 void main() {
-  group("Multiple Operations", () {
-    test("With operationName", () {
-      final query = parseString("""
+  group('Multiple Operations', () {
+    test('With operationName', () {
+      final query = parseString('''
         query FirstQuery {
           author {
             id
@@ -36,13 +36,13 @@ void main() {
             }
           }
         }
-      """);
+      ''');
 
       expect(
         denormalize(
           query: query,
           reader: (dataId) => sharedNormalizedMap[dataId],
-          operationName: "TestQuery",
+          operationName: 'TestQuery',
           addTypename: true,
         ),
         equals(sharedResponse),
@@ -53,7 +53,7 @@ void main() {
         writer: (dataId, value) => normalizedResult[dataId] = value,
         query: query,
         data: sharedResponse,
-        operationName: "TestQuery",
+        operationName: 'TestQuery',
       );
 
       expect(
@@ -62,8 +62,8 @@ void main() {
       );
     });
 
-    test("Without operationName", () {
-      final query = parseString("""
+    test('Without operationName', () {
+      final query = parseString('''
         query TestQuery {
           posts {
             id
@@ -92,7 +92,7 @@ void main() {
             __typename
           }
         }
-      """);
+      ''');
       expect(
         denormalize(
             query: query,
@@ -106,7 +106,7 @@ void main() {
         writer: (dataId, value) => normalizedResult[dataId] = value,
         query: query,
         data: sharedResponse,
-        operationName: "TestQuery",
+        operationName: 'TestQuery',
       );
 
       expect(

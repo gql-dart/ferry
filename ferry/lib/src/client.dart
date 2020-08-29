@@ -38,7 +38,7 @@ class Client {
     OperationRequest<TData, TVars> request, {
     bool executeOnListen = true,
   }) {
-    bool initial = true;
+    var initial = true;
     return requestController.stream
         // Filter for only the relevent queries
         .whereType<OperationRequest<TData, TVars>>()
@@ -120,8 +120,8 @@ class Client {
           final responseStreamFromNetwork =
               _optimisticNetworkResponseStream(operationRequest);
 
-          final StreamController<OperationResponse<TData, TVars>> controller =
-              StreamController();
+          final controller =
+              StreamController<OperationResponse<TData, TVars>>();
           final networkStreamSubscription = responseStreamFromNetwork
               .listen(controller.add, onError: controller.addError);
 
@@ -142,8 +142,7 @@ class Client {
           });
         }
     }
-
-    throw Exception("Unknown Fetch Policy");
+    return null;
   }
 
   /// Creates a response stream, starting with an optimistic [OperationResponse]
@@ -223,7 +222,7 @@ class Client {
   void _writeToCache<TData, TVars>(
     OperationResponse<TData, TVars> response,
   ) {
-    if (response.data != null)
+    if (response.data != null) {
       cache.writeQuery(
         response.operationRequest.execRequest,
         // TODO: avoid casting to dynamic
@@ -231,6 +230,7 @@ class Client {
         optimistic: response.dataSource == DataSource.Optimistic,
         requestId: response.operationRequest.requestId,
       );
+    }
   }
 
   /// Runs any specified [UpdateCacheHandler]s with a [CacheProxy] when
@@ -240,7 +240,7 @@ class Client {
       _updateCacheHandlersStream<TData, TVars>(
     Stream<OperationResponse<TData, TVars>> stream,
   ) {
-    bool runNonOptimistically = false;
+    var runNonOptimistically = false;
 
     return stream.doOnData((res) {
       final key = res.operationRequest.updateCacheHandlerKey;
@@ -248,7 +248,7 @@ class Client {
 
       final handler =
           options.updateCacheHandlers[key] as UpdateCacheHandler<TData, TVars>;
-      if (handler == null) throw Exception("No handler defined for key $key");
+      if (handler == null) throw Exception('No handler defined for key $key');
 
       final proxy = CacheProxy(
         cache,

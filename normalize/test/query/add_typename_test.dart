@@ -1,4 +1,4 @@
-import "package:test/test.dart";
+import 'package:test/test.dart';
 import 'package:gql/language.dart';
 
 import 'package:normalize/normalize.dart';
@@ -6,12 +6,12 @@ import '../shared_data.dart';
 
 void main() {
   group(
-    "Add Typename",
+    'Add Typename',
     () {
       test(
-        "Simple query",
+        'Simple query',
         () {
-          final query = parseString("""
+          final query = parseString('''
             query TestQuery {
               posts {
                 id
@@ -29,7 +29,7 @@ void main() {
                 }
               }
             }
-          """);
+          ''');
           expect(
             denormalize(
               query: query,
@@ -55,9 +55,9 @@ void main() {
       );
 
       test(
-        "Inline Fragments",
+        'Inline Fragments',
         () {
-          final query = parseString("""
+          final query = parseString('''
             query TestQuery {
               posts {
                 id
@@ -77,7 +77,7 @@ void main() {
                 }
               }
             }
-          """);
+          ''');
           expect(
             denormalize(
               query: query,
@@ -103,9 +103,9 @@ void main() {
       );
 
       test(
-        "Fragment Definition",
+        'Fragment Definition',
         () {
-          final query = parseString("""
+          final query = parseString('''
             query TestQuery {
               posts {
                 id
@@ -127,7 +127,7 @@ void main() {
                 name
               }
             }
-          """);
+          ''');
           expect(
             denormalize(
               query: query,

@@ -10,7 +10,7 @@ String resolveRootTypename(
       return typePolicies?.entries
               ?.firstWhere(
                 (entry) => entry.value.queryType,
-                orElse: () {},
+                orElse: () => null,
               )
               ?.key ??
           'Query';
@@ -18,7 +18,7 @@ String resolveRootTypename(
       return typePolicies?.entries
               ?.firstWhere(
                 (entry) => entry.value.mutationType,
-                orElse: () {},
+                orElse: () => null,
               )
               ?.key ??
           'Mutation';
@@ -26,9 +26,10 @@ String resolveRootTypename(
       return typePolicies?.entries
               ?.firstWhere(
                 (entry) => entry.value.subscriptionType,
-                orElse: () {},
+                orElse: () => null,
               )
               ?.key ??
           'Subscription';
   }
+  return null;
 }

@@ -1,11 +1,11 @@
-import "package:test/test.dart";
+import 'package:test/test.dart';
 import 'package:gql/language.dart';
 
 import 'package:normalize/normalize.dart';
 
 void main() {
-  group("Deep Null", () {
-    final query = parseString("""
+  group('Deep Null', () {
+    final query = parseString('''
       query TestQuery {
         posts {
           id
@@ -27,37 +27,37 @@ void main() {
           }
         }
       }
-    """);
+    ''');
 
     final data = {
-      "posts": [
+      'posts': [
         {
-          "id": "123",
-          "__typename": "Post",
-          "author": {"id": "1", "__typename": "Author", "name": "Paul"},
-          "title": "My awesome blog post",
-          "comments": null
+          'id': '123',
+          '__typename': 'Post',
+          'author': {'id': '1', '__typename': 'Author', 'name': 'Paul'},
+          'title': 'My awesome blog post',
+          'comments': null
         }
       ]
     };
 
     final normalizedMap = {
-      "Query": {
-        "posts": [
-          {"\$ref": "Post:123"}
+      'Query': {
+        'posts': [
+          {'\$ref': 'Post:123'}
         ]
       },
-      "Post:123": {
-        "id": "123",
-        "__typename": "Post",
-        "author": {"\$ref": "Author:1"},
-        "title": "My awesome blog post",
-        "comments": null
+      'Post:123': {
+        'id': '123',
+        '__typename': 'Post',
+        'author': {'\$ref': 'Author:1'},
+        'title': 'My awesome blog post',
+        'comments': null
       },
-      "Author:1": {"id": "1", "__typename": "Author", "name": "Paul"}
+      'Author:1': {'id': '1', '__typename': 'Author', 'name': 'Paul'}
     };
 
-    test("Produces correct normalized object", () {
+    test('Produces correct normalized object', () {
       final normalizedResult = {};
       normalize(
         writer: (dataId, value) => normalizedResult[dataId] = value,
@@ -71,7 +71,7 @@ void main() {
       );
     });
 
-    test("Produces correct nested data object", () {
+    test('Produces correct nested data object', () {
       expect(
         denormalize(
           query: query,

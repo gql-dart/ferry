@@ -1,8 +1,8 @@
-import "dart:async";
+import 'dart:async';
 import 'package:mockito/mockito.dart';
 import 'package:gql_link/gql_link.dart';
 import 'package:gql_exec/gql_exec.dart';
-import "package:ferry/ferry.dart";
+import 'package:ferry/ferry.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:test/test.dart';
 
@@ -13,7 +13,7 @@ import 'package:ferry_test_graphql/queries/variables/human_with_args.var.gql.dar
 class MockLink extends Mock implements Link {}
 
 void main() {
-  group("Multiple OperationRequests of the same type", () {
+  group('Multiple OperationRequests of the same type', () {
     final mockLink = MockLink();
 
     when(mockLink.request(any, any)).thenAnswer(
@@ -27,8 +27,8 @@ void main() {
     test(
         "Requests with different args aren't returned in the same response stream",
         () async {
-      final human1 = GHumanWithArgsReq((b) => b..vars.id = "1");
-      final human2 = GHumanWithArgsReq((b) => b..vars.id = "2");
+      final human1 = GHumanWithArgsReq((b) => b..vars.id = '1');
+      final human2 = GHumanWithArgsReq((b) => b..vars.id = '2');
 
       final resultStream = client
           .responseStream(human1, executeOnListen: false)
@@ -55,14 +55,14 @@ void main() {
     });
 
     test(
-        "Requests with the same args are not returned in the same response stream",
+        'Requests with the same args are not returned in the same response stream',
         () async {
       final req1 = GHumanWithArgsReq((b) => b
-        ..vars.id = "1"
+        ..vars.id = '1'
         ..fetchPolicy = FetchPolicy.CacheAndNetwork);
 
       final req2 = GHumanWithArgsReq((b) => b
-        ..vars.id = "1"
+        ..vars.id = '1'
         ..fetchPolicy = FetchPolicy.CacheAndNetwork);
 
       final resultStream = client
@@ -93,18 +93,18 @@ void main() {
     });
 
     test(
-        "Requests with the same requestId are returned in the same response stream",
+        'Requests with the same requestId are returned in the same response stream',
         () async {
       final req1 = GHumanWithArgsReq(
         (b) => b
-          ..vars.id = "1"
-          ..requestId = "123",
+          ..vars.id = '1'
+          ..requestId = '123',
       );
 
       final req2 = GHumanWithArgsReq(
         (b) => b
-          ..vars.id = "2"
-          ..requestId = "123",
+          ..vars.id = '2'
+          ..requestId = '123',
       );
 
       final resultStream = client

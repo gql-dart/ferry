@@ -1,8 +1,8 @@
-import "dart:async";
+import 'dart:async';
 import 'package:mockito/mockito.dart';
 import 'package:gql_link/gql_link.dart';
 import 'package:gql_exec/gql_exec.dart';
-import "package:ferry/ferry.dart";
+import 'package:ferry/ferry.dart';
 import 'package:test/test.dart';
 import 'package:async/async.dart';
 
@@ -18,9 +18,12 @@ GReviewsData dataForRequest(GReviewsReq request) {
     ..reviews.addAll([
       for (int i = offset; i < offset + first; i++)
         GReviewsData_reviews(
-          (b) => b
-            ..id = "$i"
-            ..stars = 5,
+          (b) {
+            var i2 = i;
+            return b
+              ..id = '$i2'
+              ..stars = 5;
+          },
         )
     ]));
 }
@@ -42,7 +45,7 @@ final updateResult = (GReviewsData previous, GReviewsData result) =>
     previous?.rebuild((b) => b..reviews.addAll(result.reviews)) ?? result;
 
 void main() {
-  group("Update Result", () {
+  group('Update Result', () {
     final mockLink = MockLink();
 
     for (var req in [req1, req2, req3]) {
@@ -56,7 +59,7 @@ void main() {
       options: ClientOptions(addTypename: false),
     );
 
-    test("correctly updates the result", () async {
+    test('correctly updates the result', () async {
       final queue = StreamQueue(client.responseStream(req1));
 
       final reviews1 = dataForRequest(req1).reviews;

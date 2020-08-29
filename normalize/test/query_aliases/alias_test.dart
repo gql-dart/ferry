@@ -1,12 +1,12 @@
-import "package:test/test.dart";
+import 'package:test/test.dart';
 import 'package:gql/language.dart';
 
 import 'package:normalize/normalize.dart';
 import '../shared_data.dart';
 
 void main() {
-  group("Alias", () {
-    final query = parseString("""
+  group('Alias', () {
+    final query = parseString('''
       query TestQuery {
         posts {
           id
@@ -28,27 +28,27 @@ void main() {
           }
         }
       }
-    """);
+    ''');
 
     final data = {
-      "posts": [
+      'posts': [
         {
-          "id": "123",
-          "__typename": "Post",
-          "olle": {"id": "1", "__typename": "Author", "name": "Paul"},
-          "title": "My awesome blog post",
-          "comments": [
+          'id': '123',
+          '__typename': 'Post',
+          'olle': {'id': '1', '__typename': 'Author', 'name': 'Paul'},
+          'title': 'My awesome blog post',
+          'comments': [
             {
-              "id": "324",
-              "__typename": "Comment",
-              "commenter": {"id": "2", "__typename": "Author", "name": "Nicole"}
+              'id': '324',
+              '__typename': 'Comment',
+              'commenter': {'id': '2', '__typename': 'Author', 'name': 'Nicole'}
             }
           ]
         }
       ]
     };
 
-    test("Produces correct normalized object", () {
+    test('Produces correct normalized object', () {
       final normalizedResult = {};
       normalize(
         writer: (dataId, value) => normalizedResult[dataId] = value,
@@ -62,7 +62,7 @@ void main() {
       );
     });
 
-    test("Produces correct nested data object", () {
+    test('Produces correct nested data object', () {
       expect(
         denormalize(
           query: query,

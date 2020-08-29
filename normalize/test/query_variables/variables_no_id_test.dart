@@ -1,11 +1,11 @@
-import "package:test/test.dart";
+import 'package:test/test.dart';
 import 'package:gql/language.dart';
 
 import 'package:normalize/normalize.dart';
 
 void main() {
-  group("Variables No ID", () {
-    final query = parseString("""
+  group('Variables No ID', () {
+    final query = parseString('''
       query TestQuery {
         posts {
           id
@@ -21,41 +21,41 @@ void main() {
           }
         }
       }
-    """);
+    ''');
 
     final data = {
-      "posts": [
+      'posts': [
         {
-          "id": "123",
-          "__typename": "Post",
-          "author": {"id": "1", "__typename": "Author", "name": "Paul"},
-          "title": "My awesome blog post",
-          "comments": [
-            {"body": "The comment"}
+          'id': '123',
+          '__typename': 'Post',
+          'author': {'id': '1', '__typename': 'Author', 'name': 'Paul'},
+          'title': 'My awesome blog post',
+          'comments': [
+            {'body': 'The comment'}
           ]
         }
       ]
     };
 
     final normalizedMap = {
-      "Query": {
-        "posts": [
-          {"\$ref": "Post:123"}
+      'Query': {
+        'posts': [
+          {'\$ref': 'Post:123'}
         ]
       },
-      "Post:123": {
-        "id": "123",
-        "__typename": "Post",
-        "author": {"\$ref": "Author:1"},
-        "title": "My awesome blog post",
+      'Post:123': {
+        'id': '123',
+        '__typename': 'Post',
+        'author': {'\$ref': 'Author:1'},
+        'title': 'My awesome blog post',
         'comments({"a":"1"})': [
-          {"body": "The comment"}
+          {'body': 'The comment'}
         ]
       },
-      "Author:1": {"id": "1", "__typename": "Author", "name": "Paul"},
+      'Author:1': {'id': '1', '__typename': 'Author', 'name': 'Paul'},
     };
 
-    test("Produces correct normalized object", () {
+    test('Produces correct normalized object', () {
       final normalizedResult = {};
       normalize(
         writer: (dataId, value) => normalizedResult[dataId] = value,
@@ -69,7 +69,7 @@ void main() {
       );
     });
 
-    test("Produces correct nested data object", () {
+    test('Produces correct nested data object', () {
       expect(
         denormalize(
           query: query,
