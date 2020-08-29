@@ -1,7 +1,7 @@
 import 'package:meta/meta.dart';
 import 'package:gql_exec/gql_exec.dart';
 import 'package:gql_link/gql_link.dart';
-import "package:collection/collection.dart";
+import 'package:collection/collection.dart';
 
 import './operation_request.dart';
 

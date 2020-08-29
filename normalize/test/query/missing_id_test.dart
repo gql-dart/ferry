@@ -1,13 +1,13 @@
-import "package:test/test.dart";
+import 'package:test/test.dart';
 import 'package:gql/language.dart';
 
 import 'package:normalize/normalize.dart';
 
 void main() {
   group(
-    "Missing ID",
+    'Missing ID',
     () {
-      final query = parseString("""
+      final query = parseString('''
         query TestQuery {
           posts {
             id
@@ -33,63 +33,63 @@ void main() {
             nisse
           }
         }
-      """);
+      ''');
 
       final data = {
-        "posts": [
+        'posts': [
           {
-            "id": "123",
-            "__typename": "Post",
-            "author": {"id": "1", "__typename": "Author", "name": "Paul"},
-            "title": "My awesome blog post",
-            "comments": [
+            'id': '123',
+            '__typename': 'Post',
+            'author': {'id': '1', '__typename': 'Author', 'name': 'Paul'},
+            'title': 'My awesome blog post',
+            'comments': [
               {
-                "__typename": "Comment",
-                "commenter": {
-                  "id": "2",
-                  "__typename": "Author",
-                  "name": "Nicole"
+                '__typename': 'Comment',
+                'commenter': {
+                  'id': '2',
+                  '__typename': 'Author',
+                  'name': 'Nicole'
                 }
               },
               {
-                "__typename": "Comment",
-                "commenter": {
-                  "id": "2",
-                  "__typename": "Author",
-                  "name": "Nicole"
+                '__typename': 'Comment',
+                'commenter': {
+                  'id': '2',
+                  '__typename': 'Author',
+                  'name': 'Nicole'
                 }
               }
             ]
           }
         ],
-        "testNode": {"__typename": "olle", "nisse": "asd"}
+        'testNode': {'__typename': 'olle', 'nisse': 'asd'}
       };
 
       final normalizedMap = {
-        "Query": {
-          "posts": [
-            {"\$ref": "Post:123"}
+        'Query': {
+          'posts': [
+            {'\$ref': 'Post:123'}
           ],
-          "testNode": {"__typename": "olle", "nisse": "asd"}
+          'testNode': {'__typename': 'olle', 'nisse': 'asd'}
         },
-        "Post:123": {
-          "id": "123",
-          "__typename": "Post",
-          "author": {"\$ref": "Author:1"},
-          "title": "My awesome blog post",
-          "comments": [
+        'Post:123': {
+          'id': '123',
+          '__typename': 'Post',
+          'author': {'\$ref': 'Author:1'},
+          'title': 'My awesome blog post',
+          'comments': [
             {
-              "__typename": "Comment",
-              "commenter": {"\$ref": "Author:2"}
+              '__typename': 'Comment',
+              'commenter': {'\$ref': 'Author:2'}
             },
             {
-              "__typename": "Comment",
-              "commenter": {"\$ref": "Author:2"}
+              '__typename': 'Comment',
+              'commenter': {'\$ref': 'Author:2'}
             }
           ]
         },
-        "Author:1": {"id": "1", "__typename": "Author", "name": "Paul"},
-        "Author:2": {"id": "2", "__typename": "Author", "name": "Nicole"},
+        'Author:1': {'id': '1', '__typename': 'Author', 'name': 'Paul'},
+        'Author:2': {'id': '2', '__typename': 'Author', 'name': 'Nicole'},
       };
 
       final normalizedResult = {};
@@ -100,7 +100,7 @@ void main() {
       );
 
       test(
-        "Produces correct normalized object",
+        'Produces correct normalized object',
         () {
           expect(
               normalizedResult,
@@ -111,7 +111,7 @@ void main() {
       );
 
       test(
-        "Produces correct nested data object",
+        'Produces correct nested data object',
         () {
           expect(
             denormalize(

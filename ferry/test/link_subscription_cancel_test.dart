@@ -12,7 +12,7 @@ class _StreamCancelTestLink extends Link {
 
   @override
   Stream<Response> request(Request request, [forward]) async* {
-    StreamController<Response> controller = StreamController();
+    var controller = StreamController<Response>();
     StreamSubscription sub;
     try {
       //simulate events coming in, e.g. from a websocket
@@ -37,7 +37,7 @@ class _StreamCancelTestLink extends Link {
 
 void main() {
   test(
-      "Stream in Link is cancelled when no one is listening - for all FetchPolicies",
+      'Stream in Link is cancelled when no one is listening - for all FetchPolicies',
       () async {
     final link = _StreamCancelTestLink();
     final client = Client(link: link);
@@ -72,7 +72,7 @@ void main() {
         expect(link.hasCanceledStreamCompleter.isCompleted, isTrue);
         link.reset();
       } on TimeoutException {
-        fail("Stream from link was not cancelled when using $fetchPolicy");
+        fail('Stream from link was not cancelled when using $fetchPolicy');
       }
     }
   });

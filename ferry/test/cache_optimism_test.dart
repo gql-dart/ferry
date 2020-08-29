@@ -6,38 +6,38 @@ import 'package:ferry_test_graphql/mutations/variables/create_review.data.gql.da
 import 'package:ferry_test_graphql/schema/schema.schema.gql.dart';
 
 void main() {
-  group("Optimism", () {
+  group('Optimism', () {
     final mutation1 = GCreateReviewReq(
       (b) => b
-        ..vars.review.commentary = "I loved it"
+        ..vars.review.commentary = 'I loved it'
         ..vars.review.stars = 5
         ..vars.episode = GEpisode.EMPIRE,
     );
 
     final mutation1data = GCreateReviewData(
       (b) => b
-        ..createReview.id = "123"
-        ..createReview.commentary = "I loved it"
+        ..createReview.id = '123'
+        ..createReview.commentary = 'I loved it'
         ..createReview.stars = 5
         ..createReview.episode = GEpisode.EMPIRE,
     );
 
     final mutation2 = GCreateReviewReq(
       (b) => b
-        ..vars.review.commentary = "It was OK"
+        ..vars.review.commentary = 'It was OK'
         ..vars.review.stars = 3
         ..vars.episode = GEpisode.NEWHOPE,
     );
 
     final mutation2data = GCreateReviewData(
       (b) => b
-        ..createReview.id = "456"
-        ..createReview.commentary = "It was OK"
+        ..createReview.id = '456'
+        ..createReview.commentary = 'It was OK'
         ..createReview.stars = 3
         ..createReview.episode = GEpisode.NEWHOPE,
     );
 
-    group("single optimistic write", () {
+    group('single optimistic write', () {
       final store = MemoryStore();
       final cache = Cache(store: store);
       cache.writeQuery(
@@ -47,7 +47,7 @@ void main() {
         requestId: mutation1.requestId,
       );
 
-      test("data exists optimistically", () {
+      test('data exists optimistically', () {
         expect(
           cache.readQuery(mutation1.execRequest, optimistic: true),
           equals(mutation1data.toJson()),
@@ -61,12 +61,12 @@ void main() {
         );
       });
 
-      test("store is empty", () {
+      test('store is empty', () {
         expect(store.toMap(), equals({}));
       });
     });
 
-    group("multiple optimistic writes", () {
+    group('multiple optimistic writes', () {
       final store = MemoryStore();
       final cache = Cache(store: store);
       cache.writeQuery(
@@ -82,7 +82,7 @@ void main() {
         optimistic: true,
         requestId: mutation2.requestId,
       );
-      test("data exists optimistically", () {
+      test('data exists optimistically', () {
         expect(
           cache.readQuery(mutation1.execRequest, optimistic: true),
           equals(mutation1data.toJson()),
@@ -104,11 +104,11 @@ void main() {
         );
       });
 
-      test("store is empty", () {
+      test('store is empty', () {
         expect(store.toMap(), equals({}));
       });
 
-      test("can remove a single optimistic patch", () {
+      test('can remove a single optimistic patch', () {
         cache.removeOptimisticPatch(mutation1.requestId);
 
         expect(

@@ -1,11 +1,11 @@
-import "package:test/test.dart";
+import 'package:test/test.dart';
 import 'package:gql/language.dart';
 
 import 'package:normalize/normalize.dart';
 
 void main() {
-  group("Object and null array", () {
-    final query = parseString("""
+  group('Object and null array', () {
+    final query = parseString('''
       query TestQuery(\$postIds: [ID!]!) {
         postsByIds(ids: \$postIds) {
           id
@@ -13,34 +13,34 @@ void main() {
           title
         }
       }
-    """);
+    ''');
 
     final variables = {
-      "postIds": ["123", "non-existent-id"]
+      'postIds': ['123', 'non-existent-id']
     };
 
     final data = {
-      "postsByIds": [
-        {"id": "123", "__typename": "Post", "title": "My awesome blog post"},
+      'postsByIds': [
+        {'id': '123', '__typename': 'Post', 'title': 'My awesome blog post'},
         null
       ]
     };
 
     final normalizedMap = {
-      "Query": {
+      'Query': {
         'postsByIds({"ids":["123","non-existent-id"]})': [
-          {"\$ref": "Post:123"},
+          {'\$ref': 'Post:123'},
           null
         ]
       },
-      "Post:123": {
-        "id": "123",
-        "__typename": "Post",
-        "title": "My awesome blog post"
+      'Post:123': {
+        'id': '123',
+        '__typename': 'Post',
+        'title': 'My awesome blog post'
       }
     };
 
-    test("Produces correct normalized object", () {
+    test('Produces correct normalized object', () {
       final normalizedResult = {};
       normalize(
         writer: (dataId, value) => normalizedResult[dataId] = value,
@@ -55,7 +55,7 @@ void main() {
       );
     });
 
-    test("Produces correct nested data object", () {
+    test('Produces correct nested data object', () {
       expect(
         denormalize(
           query: query,

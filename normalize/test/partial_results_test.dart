@@ -1,35 +1,35 @@
-import "package:test/test.dart";
+import 'package:test/test.dart';
 import 'package:gql/language.dart';
 
 import 'package:normalize/normalize.dart';
 
 void main() {
-  test("Return partial data", () {
+  test('Return partial data', () {
     final data = {
-      "Query": {
-        "posts": [
-          {"\$ref": "Post:123"}
+      'Query': {
+        'posts': [
+          {'\$ref': 'Post:123'}
         ]
       },
-      "Post:123": {
-        "id": "123",
-        "__typename": "Post",
+      'Post:123': {
+        'id': '123',
+        '__typename': 'Post',
       },
     };
 
-    final query = parseString("""
+    final query = parseString('''
       query TestQuery {
         posts {
           id
           title
         }
       }
-    """);
+    ''');
     final response = {
-      "posts": [
+      'posts': [
         {
-          "id": "123",
-          "__typename": "Post",
+          'id': '123',
+          '__typename': 'Post',
         }
       ]
     };
@@ -46,25 +46,25 @@ void main() {
 
   test("Don't return partial data", () {
     final data = {
-      "Query": {
-        "posts": [
-          {"\$ref": "Post:123"}
+      'Query': {
+        'posts': [
+          {'\$ref': 'Post:123'}
         ]
       },
-      "Post:123": {
-        "id": "123",
-        "__typename": "Post",
+      'Post:123': {
+        'id': '123',
+        '__typename': 'Post',
       },
     };
 
-    final query = parseString("""
+    final query = parseString('''
       query TestQuery {
         posts {
           id
           title
         }
       }
-    """);
+    ''');
     expect(
       denormalize(
         query: query,
@@ -76,33 +76,33 @@ void main() {
     );
   });
 
-  test("Explicit null", () {
+  test('Explicit null', () {
     final data = {
-      "Query": {
-        "posts": [
-          {"\$ref": "Post:123"}
+      'Query': {
+        'posts': [
+          {'\$ref': 'Post:123'}
         ]
       },
-      "Post:123": {
-        "id": "123",
-        "title": null,
-        "__typename": "Post",
+      'Post:123': {
+        'id': '123',
+        'title': null,
+        '__typename': 'Post',
       },
     };
-    final query = parseString("""
+    final query = parseString('''
       query TestQuery {
         posts {
           id
           title
         }
       }
-    """);
+    ''');
     final response = {
-      "posts": [
+      'posts': [
         {
-          "id": "123",
-          "__typename": "Post",
-          "title": null,
+          'id': '123',
+          '__typename': 'Post',
+          'title': null,
         }
       ]
     };

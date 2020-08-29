@@ -1,12 +1,12 @@
-import "dart:async";
+import 'dart:async';
 
-import "package:build/build.dart";
-import "package:path/path.dart";
-import "package:gql_build/src/config.dart";
-import "package:gql_build/src/utils/reader.dart";
-import "package:gql_build/src/utils/writer.dart";
-import "package:code_builder/code_builder.dart";
-import "package:gql_code_builder/source.dart";
+import 'package:build/build.dart';
+import 'package:path/path.dart';
+import 'package:gql_build/src/config.dart';
+import 'package:gql_build/src/utils/reader.dart';
+import 'package:gql_build/src/utils/writer.dart';
+import 'package:code_builder/code_builder.dart';
+import 'package:gql_code_builder/source.dart';
 
 import './req/operation_req.dart';
 import './req/fragment_req.dart';
@@ -17,7 +17,7 @@ Builder reqBuilder(
 ) =>
     ReqBuilder(
       AssetId.parse(
-        options.config["schema"] as String,
+        options.config['schema'] as String,
       ),
     );
 

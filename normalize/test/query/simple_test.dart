@@ -1,12 +1,12 @@
-import "package:test/test.dart";
+import 'package:test/test.dart';
 import 'package:gql/language.dart';
 
 import 'package:normalize/normalize.dart';
 import '../shared_data.dart';
 
 void main() {
-  group("Simple", () {
-    final query = parseString("""
+  group('Simple', () {
+    final query = parseString('''
       query TestQuery {
         posts {
           id
@@ -28,9 +28,9 @@ void main() {
           }
         }
       }
-    """);
+    ''');
 
-    test("Produces correct normalized object", () {
+    test('Produces correct normalized object', () {
       final normalizedResult = {};
       normalize(
         writer: (dataId, value) => normalizedResult[dataId] = value,
@@ -44,7 +44,7 @@ void main() {
       );
     });
 
-    test("Produces correct nested data object", () {
+    test('Produces correct nested data object', () {
       expect(
           denormalize(
             query: query,

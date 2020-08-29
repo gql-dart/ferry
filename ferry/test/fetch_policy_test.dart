@@ -1,9 +1,9 @@
-import "dart:async";
+import 'dart:async';
 import 'package:async/async.dart';
 import 'package:mockito/mockito.dart';
 import 'package:gql_link/gql_link.dart';
 import 'package:gql_exec/gql_exec.dart';
-import "package:ferry/ferry.dart";
+import 'package:ferry/ferry.dart';
 import 'package:test/test.dart';
 
 import 'package:ferry_test_graphql/queries/variables/human_with_args.req.gql.dart';
@@ -12,12 +12,12 @@ import 'package:ferry_test_graphql/queries/variables/human_with_args.data.gql.da
 class MockLink extends Mock implements Link {}
 
 void main() {
-  group("Fetch Policy", () {
+  group('Fetch Policy', () {
     final mockLink = MockLink();
 
     final data = GHumanWithArgsData(
       (b) => b
-        ..human.name = "Steve Jobs"
+        ..human.name = 'Steve Jobs'
         ..human.height = 1.88,
     );
 
@@ -25,12 +25,12 @@ void main() {
       (_) => Stream.value(Response(data: data.toJson())),
     );
 
-    group(".CacheFirst", () {
+    group('.CacheFirst', () {
       final client = Client(link: mockLink);
 
       final req = GHumanWithArgsReq(
         (b) => b
-          ..vars.id = "1"
+          ..vars.id = '1'
           ..fetchPolicy = FetchPolicy.CacheFirst,
       );
 
@@ -39,7 +39,7 @@ void main() {
         executeOnListen: false,
       ));
 
-      test("First request returns a network response", () async {
+      test('First request returns a network response', () async {
         expect(client.cache.readQuery(req.execRequest), equals(null));
         client.requestController.add(req);
         final response = await queue.next;
@@ -47,19 +47,19 @@ void main() {
         expect(client.cache.readQuery(req.execRequest), equals(data.toJson()));
       });
 
-      test("Second request returns a cached response", () async {
+      test('Second request returns a cached response', () async {
         client.requestController.add(req);
         final response = await queue.next;
         expect(response.dataSource, equals(DataSource.Cache));
       });
     });
 
-    group(".CacheAndNetwork", () {
+    group('.CacheAndNetwork', () {
       final client = Client(link: mockLink);
 
       final req = GHumanWithArgsReq(
         (b) => b
-          ..vars.id = "1"
+          ..vars.id = '1'
           ..fetchPolicy = FetchPolicy.CacheAndNetwork,
       );
 
@@ -68,7 +68,7 @@ void main() {
         executeOnListen: false,
       ));
 
-      test("First request returns a network response", () async {
+      test('First request returns a network response', () async {
         expect(client.cache.readQuery(req.execRequest), equals(null));
         client.requestController.add(req);
         final response = await queue.next;
@@ -76,7 +76,7 @@ void main() {
         expect(client.cache.readQuery(req.execRequest), equals(data.toJson()));
       });
 
-      test("Second request returns a cached response then a network response",
+      test('Second request returns a cached response then a network response',
           () async {
         client.requestController.add(req);
         final response1 = await queue.next;
@@ -86,12 +86,12 @@ void main() {
       });
     });
 
-    group(".NetworkOnly", () {
+    group('.NetworkOnly', () {
       final client = Client(link: mockLink);
 
       final req = GHumanWithArgsReq(
         (b) => b
-          ..vars.id = "1"
+          ..vars.id = '1'
           ..fetchPolicy = FetchPolicy.NetworkOnly,
       );
 
@@ -100,7 +100,7 @@ void main() {
         executeOnListen: false,
       ));
 
-      test("First request returns a network response", () async {
+      test('First request returns a network response', () async {
         expect(client.cache.readQuery(req.execRequest), equals(null));
         client.requestController.add(req);
         final response = await queue.next;
@@ -108,19 +108,19 @@ void main() {
         expect(client.cache.readQuery(req.execRequest), equals(data.toJson()));
       });
 
-      test("Second request returns a network response", () async {
+      test('Second request returns a network response', () async {
         client.requestController.add(req);
         final response = await queue.next;
         expect(response.dataSource, equals(DataSource.Link));
       });
     });
 
-    group(".CacheOnly", () {
+    group('.CacheOnly', () {
       final client = Client(link: mockLink);
 
       final req = GHumanWithArgsReq(
         (b) => b
-          ..vars.id = "1"
+          ..vars.id = '1'
           ..fetchPolicy = FetchPolicy.CacheOnly,
       );
 
@@ -129,7 +129,7 @@ void main() {
         executeOnListen: false,
       ));
 
-      test("Request returns no data with empty cache", () async {
+      test('Request returns no data with empty cache', () async {
         expect(client.cache.readQuery(req.execRequest), equals(null));
         client.requestController.add(req);
         final response = await queue.next;
@@ -138,7 +138,7 @@ void main() {
         expect(response.data, equals(null));
       });
 
-      test("Request returns data after writing to cache", () async {
+      test('Request returns data after writing to cache', () async {
         client.cache.writeQuery(req.execRequest, data.toJson());
         client.requestController.add(req);
         final response = await queue.next;
@@ -147,12 +147,12 @@ void main() {
       });
     });
 
-    group(".NoCache", () {
+    group('.NoCache', () {
       final client = Client(link: mockLink);
 
       final req = GHumanWithArgsReq(
         (b) => b
-          ..vars.id = "1"
+          ..vars.id = '1'
           ..fetchPolicy = FetchPolicy.NoCache,
       );
 

@@ -1,8 +1,8 @@
-import "dart:async";
+import 'dart:async';
 import 'package:mockito/mockito.dart';
 import 'package:gql_link/gql_link.dart';
 import 'package:gql_exec/gql_exec.dart';
-import "package:ferry/ferry.dart";
+import 'package:ferry/ferry.dart';
 import 'package:test/test.dart';
 
 import 'package:ferry_test_graphql/queries/variables/human_with_args.req.gql.dart';
@@ -10,14 +10,14 @@ import 'package:ferry_test_graphql/queries/variables/human_with_args.req.gql.dar
 class MockLink extends Mock implements Link {}
 
 void main() {
-  group("GraphQL Errors", () {
+  group('GraphQL Errors', () {
     test('Returns a response with GraphQL errors', () async {
       final mockLink = MockLink();
 
-      final req = GHumanWithArgsReq((b) => b..vars.id = "123");
+      final req = GHumanWithArgsReq((b) => b..vars.id = '123');
 
       final graphQLErrors = [
-        GraphQLError(message: "Your GraphQL is not valid")
+        GraphQLError(message: 'Your GraphQL is not valid')
       ];
 
       when(mockLink.request(req.execRequest, any)).thenAnswer(
@@ -39,12 +39,12 @@ void main() {
     });
   });
 
-  group("Network Errors", () {
+  group('Network Errors', () {
     test('Returns a stream that emits an error if link throws an exception',
         () async {
       final mockLink = MockLink();
 
-      final req = GHumanWithArgsReq((b) => b..vars.id = "123");
+      final req = GHumanWithArgsReq((b) => b..vars.id = '123');
 
       final exception = ServerException(parsedResponse: Response());
 
@@ -55,13 +55,12 @@ void main() {
         options: ClientOptions(addTypename: false),
       );
 
-      final response = OperationResponse(
-        operationRequest: req,
-        linkException: exception,
-        dataSource: DataSource.Link,
-      );
-
       // TODO: check that also emits response
+      // final response = OperationResponse(
+      //   operationRequest: req,
+      //   linkException: exception,
+      //   dataSource: DataSource.Link,
+      // );
 
       expect(client.responseStream(req), emitsError(equals(exception)));
     });
@@ -71,7 +70,7 @@ void main() {
 
       final req = GHumanWithArgsReq(
         (b) => b
-          ..vars.id = "123"
+          ..vars.id = '123'
           ..fetchPolicy = FetchPolicy.NetworkOnly,
       );
 
@@ -101,7 +100,7 @@ void main() {
 
       final req = GHumanWithArgsReq(
         (b) => b
-          ..vars.id = "123"
+          ..vars.id = '123'
           ..fetchPolicy = FetchPolicy
               .CacheAndNetwork, // default is CacheFirst, which allows only 1 item from Link
       );
@@ -109,7 +108,7 @@ void main() {
       when(mockLink.request(req.execRequest, any)).thenAnswer((_) async* {
         final controller = StreamController<Response>();
 
-        controller.addError("error");
+        controller.addError('error');
         controller.add(Response(data: {}));
         controller.close();
 

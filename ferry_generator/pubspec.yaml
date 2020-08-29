@@ -18,3 +18,4 @@ dev_dependencies:
   test: ^1.9.4
   build_runner: ^1.10.1
   build_test: ^0.10.12+1
+  pedantic: ^1.9.0

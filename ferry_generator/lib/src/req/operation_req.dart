@@ -1,9 +1,9 @@
-import "package:built_collection/built_collection.dart";
-import "package:code_builder/code_builder.dart";
-import "package:gql/ast.dart";
-import "package:gql_code_builder/source.dart";
-import "package:gql_code_builder/src/built_class.dart";
-import "package:gql_code_builder/src/common.dart";
+import 'package:built_collection/built_collection.dart';
+import 'package:code_builder/code_builder.dart';
+import 'package:gql/ast.dart';
+import 'package:gql_code_builder/source.dart';
+import 'package:gql_code_builder/src/built_class.dart';
+import 'package:gql_code_builder/src/common.dart';
 
 List<Class> buildOperationReqClasses(
   SourceNode docSource,
@@ -16,60 +16,60 @@ List<Class> buildOperationReqClasses(
 Class _buildOperationReqClass(
   OperationDefinitionNode node,
 ) {
-  final dataTypeRef = refer("${builtClassName(node.name.value)}Data", "#data");
-  final varTypeRef = refer("${builtClassName(node.name.value)}Vars", "#var");
-  final gqlClientUrl = "package:ferry/ferry.dart";
+  final dataTypeRef = refer('${builtClassName(node.name.value)}Data', '#data');
+  final varTypeRef = refer('${builtClassName(node.name.value)}Vars', '#var');
+  final gqlClientUrl = 'package:ferry/ferry.dart';
 
   return builtClass(
-    name: "${node.name.value}Req",
+    name: '${node.name.value}Req',
     getters: [
       Method(
         (b) => b
           ..returns = varTypeRef
           ..type = MethodType.getter
-          ..name = "vars",
+          ..name = 'vars',
       ),
       Method(
         (b) => b
           ..returns = refer(
-            "Operation",
-            "package:gql_exec/gql_exec.dart",
+            'Operation',
+            'package:gql_exec/gql_exec.dart',
           )
           ..type = MethodType.getter
-          ..name = "operation",
+          ..name = 'operation',
       ),
       Method(
         (b) => b
           ..returns = refer(
-            "Request",
-            "package:gql_exec/gql_exec.dart",
+            'Request',
+            'package:gql_exec/gql_exec.dart',
           )
           ..type = MethodType.getter
-          ..name = "execRequest"
+          ..name = 'execRequest'
           ..lambda = true
           ..body = refer(
-            "Request",
-            "package:gql_exec/gql_exec.dart",
+            'Request',
+            'package:gql_exec/gql_exec.dart',
           ).call([], {
-            "operation": refer("operation"),
-            "variables": refer("vars").property("toJson").call([]),
+            'operation': refer('operation'),
+            'variables': refer('vars').property('toJson').call([]),
           }).code,
       ),
       Method(
         (b) => b
           ..annotations
-              .add(refer("nullable", "package:built_value/built_value.dart"))
-          ..returns = refer("String")
+              .add(refer('nullable', 'package:built_value/built_value.dart'))
+          ..returns = refer('String')
           ..type = MethodType.getter
-          ..name = "requestId",
+          ..name = 'requestId',
       ),
       Method(
         (b) => b
           ..annotations.addAll([
-            refer("nullable", "package:built_value/built_value.dart"),
-            refer("BuiltValueField", "package:built_value/built_value.dart")
+            refer('nullable', 'package:built_value/built_value.dart'),
+            refer('BuiltValueField', 'package:built_value/built_value.dart')
                 .call([], {
-              "serialize": refer("false"),
+              'serialize': refer('false'),
             }),
           ])
           ..returns = FunctionType(
@@ -81,67 +81,67 @@ Class _buildOperationReqClass(
               ]),
           )
           ..type = MethodType.getter
-          ..name = "updateResult",
+          ..name = 'updateResult',
       ),
       Method(
         (b) => b
           ..annotations
-              .add(refer("nullable", "package:built_value/built_value.dart"))
+              .add(refer('nullable', 'package:built_value/built_value.dart'))
           ..returns = dataTypeRef
           ..type = MethodType.getter
-          ..name = "optimisticResponse",
+          ..name = 'optimisticResponse',
       ),
       Method(
         (b) => b
           ..annotations
-              .add(refer("nullable", "package:built_value/built_value.dart"))
-          ..returns = refer("String")
+              .add(refer('nullable', 'package:built_value/built_value.dart'))
+          ..returns = refer('String')
           ..type = MethodType.getter
-          ..name = "updateCacheHandlerKey",
+          ..name = 'updateCacheHandlerKey',
       ),
       Method(
         (b) => b
           ..annotations
-              .add(refer("nullable", "package:built_value/built_value.dart"))
-          ..returns = refer("Map<String, dynamic>")
+              .add(refer('nullable', 'package:built_value/built_value.dart'))
+          ..returns = refer('Map<String, dynamic>')
           ..type = MethodType.getter
-          ..name = "updateCacheHandlerContext",
+          ..name = 'updateCacheHandlerContext',
       ),
       Method(
         (b) => b
           ..annotations
-              .add(refer("nullable", "package:built_value/built_value.dart"))
-          ..returns = refer("FetchPolicy", gqlClientUrl)
+              .add(refer('nullable', 'package:built_value/built_value.dart'))
+          ..returns = refer('FetchPolicy', gqlClientUrl)
           ..type = MethodType.getter
-          ..name = "fetchPolicy",
+          ..name = 'fetchPolicy',
       ),
       Method(
         (b) => b
-          ..annotations.add(refer("override"))
+          ..annotations.add(refer('override'))
           ..returns = dataTypeRef
-          ..name = "parseData"
+          ..name = 'parseData'
           ..requiredParameters.add(
             Parameter(
               (b) => b
-                ..type = refer("Map<String, dynamic>")
-                ..name = "json",
+                ..type = refer('Map<String, dynamic>')
+                ..name = 'json',
             ),
           )
           ..lambda = true
-          ..body = dataTypeRef.property("fromJson").call([refer("json")]).code,
+          ..body = dataTypeRef.property('fromJson').call([refer('json')]).code,
       ),
     ],
     initializers: {
-      "operation": refer("Operation", "package:gql_exec/gql_exec.dart").call(
+      'operation': refer('Operation', 'package:gql_exec/gql_exec.dart').call(
         [],
         {
-          "document": refer("document", "#ast"),
-          "operationName": literalString(node.name.value),
+          'document': refer('document', '#ast'),
+          'operationName': literalString(node.name.value),
         },
       ),
-      "requestId": refer("Uuid", 'package:uuid/uuid.dart')
+      'requestId': refer('Uuid', 'package:uuid/uuid.dart')
           .call([])
-          .property("v1")
+          .property('v1')
           .call([]),
     },
   ).rebuild(
@@ -149,7 +149,7 @@ Class _buildOperationReqClass(
       ..implements.add(
         TypeReference(
           (b) => b
-            ..symbol = "OperationRequest"
+            ..symbol = 'OperationRequest'
             ..url = gqlClientUrl
             ..types.addAll([
               dataTypeRef,
