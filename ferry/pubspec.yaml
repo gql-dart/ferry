@@ -1,5 +1,5 @@
 name: ferry
-version: 0.5.1+2
+version: 0.6.0
 homepage: https://github.com/gql-dart/ferry/tree/master/ferry
 description: Ferry is a simple, powerful GraphQL Client for Flutter and Dart.
 repository: https://github.com/gql-dart/ferry
@@ -10,11 +10,10 @@ dependencies:
   gql: ^0.12.0
   gql_link: ^0.3.0
   gql_exec: ^0.2.4
-  ferry_cache: ^0.2.0
   meta: ^1.1.8
   normalize: ^0.2.2
   collection: ^1.14.12
-  ferry_store: ^0.1.0
+  ferry_store: ^0.2.0
 dev_dependencies: 
   test: ^1.9.4
   mockito: ^4.1.1

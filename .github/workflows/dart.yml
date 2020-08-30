@@ -7,7 +7,6 @@ jobs:
       matrix:
         package:
           - ferry
-          - ferry_cache
           - ferry_generator
           - ferry_hive_store
           - ferry_store

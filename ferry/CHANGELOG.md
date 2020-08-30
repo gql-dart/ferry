@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0] - 2020-08-30
+
+### Changed
+
+- Merge `ferry_cache` into `ferry` package.
+- Use full types for cache methods
+- Update `ferry_store` dependencies
+- Export Cache from `package:ferry/cache.dart`.
+
 ## [0.5.1+2] - 2020-08-29
 
 ### Changed
