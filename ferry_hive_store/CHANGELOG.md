@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- add tests
+
+### Changed
+
+- [breaking] use typed box to avoid necessity to recast
+- base watch stream on underlying hive watch
+
 ## [0.1.0] - 2020-05-10
 
 ### Added

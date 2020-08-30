@@ -5,6 +5,8 @@ description: Default Store for Ferry GraphQL client
 repository: https://github.com/gql-dart/ferry
 environment: 
   sdk: '>=2.7.0 <3.0.0'
+dependencies: 
+  rxdart: ^0.24.1
 dev_dependencies: 
   test: ^1.9.4
   pedantic: ^1.9.0
