@@ -28,12 +28,9 @@ void normalize({
   Map<String, dynamic> variables,
   Map<String, TypePolicy> typePolicies,
   DataIdResolver dataIdFromObject,
-  String referenceKey,
   bool addTypename = false,
+  String referenceKey = '\$ref',
 }) {
-  // Set default if none is defined
-  referenceKey ??= '\$ref';
-
   /// The AST Node of the GraphQL Operation.
   final operationDefinition = operationName != null
       ? query.definitions.whereType<OperationDefinitionNode>().firstWhere(

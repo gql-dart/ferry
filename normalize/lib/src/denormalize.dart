@@ -25,11 +25,8 @@ Map<String, dynamic> denormalize({
   Map<String, TypePolicy> typePolicies,
   bool addTypename = false,
   bool returnPartialData = false,
-  String referenceKey,
+  String referenceKey = '\$ref',
 }) {
-  // Set defaults if none are defined
-  referenceKey ??= '\$ref';
-
   // Add typenames
   if (addTypename) {
     query = transform(
