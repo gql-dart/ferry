@@ -40,11 +40,11 @@ void main() {
       ));
 
       test('First request returns a network response', () async {
-        expect(client.cache.readQuery(req.execRequest), equals(null));
+        expect(client.cache.readQuery(req), equals(null));
         client.requestController.add(req);
         final response = await queue.next;
         expect(response.dataSource, equals(DataSource.Link));
-        expect(client.cache.readQuery(req.execRequest), equals(data.toJson()));
+        expect(client.cache.readQuery(req), equals(data));
       });
 
       test('Second request returns a cached response', () async {
@@ -69,11 +69,11 @@ void main() {
       ));
 
       test('First request returns a network response', () async {
-        expect(client.cache.readQuery(req.execRequest), equals(null));
+        expect(client.cache.readQuery(req), equals(null));
         client.requestController.add(req);
         final response = await queue.next;
         expect(response.dataSource, equals(DataSource.Link));
-        expect(client.cache.readQuery(req.execRequest), equals(data.toJson()));
+        expect(client.cache.readQuery(req), equals(data));
       });
 
       test('Second request returns a cached response then a network response',
@@ -101,11 +101,11 @@ void main() {
       ));
 
       test('First request returns a network response', () async {
-        expect(client.cache.readQuery(req.execRequest), equals(null));
+        expect(client.cache.readQuery(req), equals(null));
         client.requestController.add(req);
         final response = await queue.next;
         expect(response.dataSource, equals(DataSource.Link));
-        expect(client.cache.readQuery(req.execRequest), equals(data.toJson()));
+        expect(client.cache.readQuery(req), equals(data));
       });
 
       test('Second request returns a network response', () async {
@@ -130,16 +130,16 @@ void main() {
       ));
 
       test('Request returns no data with empty cache', () async {
-        expect(client.cache.readQuery(req.execRequest), equals(null));
+        expect(client.cache.readQuery(req), equals(null));
         client.requestController.add(req);
         final response = await queue.next;
-        expect(client.cache.readQuery(req.execRequest), equals(null));
+        expect(client.cache.readQuery(req), equals(null));
         expect(response.dataSource, equals(DataSource.Cache));
         expect(response.data, equals(null));
       });
 
       test('Request returns data after writing to cache', () async {
-        client.cache.writeQuery(req.execRequest, data.toJson());
+        client.cache.writeQuery(req, data);
         client.requestController.add(req);
         final response = await queue.next;
         expect(response.dataSource, equals(DataSource.Cache));
@@ -163,10 +163,10 @@ void main() {
 
       test("First request returns response from network, doesn't cache",
           () async {
-        expect(client.cache.readQuery(req.execRequest), equals(null));
+        expect(client.cache.readQuery(req), equals(null));
         client.requestController.add(req);
         final response = await queue.next;
-        expect(client.cache.readQuery(req.execRequest), equals(null));
+        expect(client.cache.readQuery(req), equals(null));
         expect(response.dataSource, equals(DataSource.Link));
         expect(response.data, equals(data));
       });
@@ -175,7 +175,7 @@ void main() {
           () async {
         client.requestController.add(req);
         final response = await queue.next;
-        expect(client.cache.readQuery(req.execRequest), equals(null));
+        expect(client.cache.readQuery(req), equals(null));
         expect(response.dataSource, equals(DataSource.Link));
         expect(response.data, equals(data));
       });
