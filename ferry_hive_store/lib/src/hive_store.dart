@@ -1,29 +1,18 @@
 import 'dart:async';
 import 'package:hive/hive.dart';
 import 'package:ferry_store/ferry_store.dart';
+import 'package:rxdart/rxdart.dart';
 
 class HiveStore extends Store {
-  final _controller = StreamController<Map<String, Map<String, dynamic>>>();
+  final Box<Map<String, dynamic>> box;
 
-  final Box box;
-
-  HiveStore(this.box) {
-    _controller.add(_recast(box.toMap()));
-  }
-
-  // Workaround for correct typecasting
-  Map<String, Map<String, dynamic>> _recast(Map<dynamic, dynamic> data) =>
-      data.map<String, Map<String, dynamic>>(
-        (key, value) => MapEntry(
-          key,
-          Map.from(value),
-        ),
-      );
+  HiveStore(this.box);
 
   @override
-  Stream<Map<String, Map<String, dynamic>>> watch() {
-    return _controller.stream;
-  }
+  Stream<Map<String, Map<String, dynamic>>> watch() => box
+      .watch()
+      .map((_) => box.toMap().cast<String, Map<String, dynamic>>())
+      .shareValueSeeded(box.toMap().cast<String, Map<String, dynamic>>());
 
   @override
   Map<String, dynamic> get(String dataId) {
@@ -33,25 +22,15 @@ class HiveStore extends Store {
   }
 
   @override
-  void put(String dataId, Map<String, dynamic> value) {
-    box.put(dataId, value);
-    _controller.add(_recast(box.toMap()));
-  }
+  void put(String dataId, Map<String, dynamic> value) => box.put(dataId, value);
 
   @override
-  void putAll(Map<String, Map<String, dynamic>> data) {
-    box.putAll(data);
-    _controller.add(_recast(box.toMap()));
-  }
+  void putAll(Map<String, Map<String, dynamic>> data) => box.putAll(data);
 
   @override
-  void delete(String dataId) {
-    box.delete(dataId);
-    _controller.add(_recast(box.toMap()));
-  }
+  void delete(String dataId) => box.delete(dataId);
 
   @override
-  Map<String, Map<String, dynamic>> toMap() {
-    return _recast(box.toMap());
-  }
+  Map<String, Map<String, dynamic>> toMap() =>
+      box.toMap().cast<String, Map<String, dynamic>>();
 }
