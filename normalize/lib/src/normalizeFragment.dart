@@ -34,12 +34,9 @@ void normalizeFragment({
   Map<String, dynamic> variables,
   Map<String, TypePolicy> typePolicies,
   DataIdResolver dataIdFromObject,
-  String referenceKey,
   bool addTypename = false,
+  String referenceKey = '\$ref',
 }) {
-  // Set default if none is defined
-  referenceKey ??= '\$ref';
-
   // Always add typenames to ensure data is stored with typename
   fragment = transform(
     fragment,
