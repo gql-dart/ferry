@@ -5,13 +5,13 @@ import 'package:gql_link/gql_link.dart';
 import 'package:gql_exec/gql_exec.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:normalize/normalize.dart';
-import 'package:ferry_cache/ferry_cache.dart';
 
 import './operation_response.dart';
 import './operation_request.dart';
 import './fetch_policy.dart';
 import './cache_proxy.dart';
 import './client_options.dart';
+import './cache.dart';
 
 class Client {
   final Link link;
@@ -208,12 +208,10 @@ class Client {
   Stream<OperationResponse<TData, TVars>> _cacheResponseStream<TData, TVars>(
     OperationRequest<TData, TVars> operationRequest,
   ) =>
-      cache.watchQuery(operationRequest.execRequest).map(
+      cache.watchQuery(operationRequest).map(
             (data) => OperationResponse(
               operationRequest: operationRequest,
-              data: (data == null || data.isEmpty)
-                  ? null
-                  : operationRequest.parseData(data),
+              data: data,
               dataSource: DataSource.Cache,
             ),
           );
@@ -224,9 +222,8 @@ class Client {
   ) {
     if (response.data != null) {
       cache.writeQuery(
-        response.operationRequest.execRequest,
-        // TODO: avoid casting to dynamic
-        (response.data as dynamic)?.toJson(),
+        response.operationRequest,
+        response.data,
         optimistic: response.dataSource == DataSource.Optimistic,
         requestId: response.operationRequest.requestId,
       );

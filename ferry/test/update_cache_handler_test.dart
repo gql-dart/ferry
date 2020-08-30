@@ -63,20 +63,18 @@ void main() {
       when(mockLink.request(any, any)).thenAnswer((_) => linkController.stream);
 
       test('runs only on first non-optimistic', () async {
-        expect(client.cache.readQuery(reviewsReq.execRequest), equals(null));
+        expect(client.cache.readQuery(reviewsReq), equals(null));
 
         client.requestController.add(req);
         linkController.add(Response(data: createReviewData.toJson()));
         await queue.next;
 
-        expect(client.cache.readQuery(reviewsReq.execRequest)['reviews'].length,
-            equals(1));
+        expect(client.cache.readQuery(reviewsReq).reviews.length, equals(1));
 
         linkController.add(Response(data: createReviewData.toJson()));
         await queue.next;
 
-        expect(client.cache.readQuery(reviewsReq.execRequest)['reviews'].length,
-            equals(1));
+        expect(client.cache.readQuery(reviewsReq).reviews.length, equals(1));
       });
     });
 
@@ -104,35 +102,32 @@ void main() {
 
       test('runs on optimistic response and first non-optimistic response',
           () async {
-        expect(client.cache.readQuery(reviewsReq.execRequest), equals(null));
+        expect(client.cache.readQuery(reviewsReq), equals(null));
 
         client.requestController.add(req);
         await queue.next;
 
-        expect(client.cache.readQuery(reviewsReq.execRequest)['reviews'].length,
-            equals(1));
+        expect(client.cache.readQuery(reviewsReq).reviews.length, equals(1));
         expect(
-          client.cache.readQuery(reviewsReq.execRequest)['reviews'].first['id'],
+          client.cache.readQuery(reviewsReq).reviews.first.id,
           equals('456'),
         );
 
         linkController.add(Response(data: createReviewData.toJson()));
         await queue.next;
 
-        expect(client.cache.readQuery(reviewsReq.execRequest)['reviews'].length,
-            equals(1));
+        expect(client.cache.readQuery(reviewsReq).reviews.length, equals(1));
         expect(
-          client.cache.readQuery(reviewsReq.execRequest)['reviews'].first['id'],
+          client.cache.readQuery(reviewsReq).reviews.first.id,
           equals('123'),
         );
 
         linkController.add(Response(data: createReviewData.toJson()));
         await queue.next;
 
-        expect(client.cache.readQuery(reviewsReq.execRequest)['reviews'].length,
-            equals(1));
+        expect(client.cache.readQuery(reviewsReq).reviews.length, equals(1));
         expect(
-          client.cache.readQuery(reviewsReq.execRequest)['reviews'].first['id'],
+          client.cache.readQuery(reviewsReq).reviews.first.id,
           equals('123'),
         );
       });
