@@ -20,4 +20,4 @@
 [discord-badge]: https://img.shields.io/discord/559455668810153989.svg?style=for-the-badge&logo=discord&logoColor=ffffff
 [discord-link]: https://discord.gg/QRTfXE
 
-The base `Store` class used in `ferry_cache`, along with the default `MemoryStore` implementation.
+The base `Store` class used in `ferry`'s Cache, along with the default `MemoryStore` implementation.

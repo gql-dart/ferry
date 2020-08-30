@@ -7,7 +7,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 Future<Client> initClient() async {
   await Hive.initFlutter();
 
-  final box = await Hive.openBox("graphql");
+  final box = await Hive.openBox<Map<String, dynamic>>("graphql");
 
   await box.clear();
 
