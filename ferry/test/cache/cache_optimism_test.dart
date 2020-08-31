@@ -62,7 +62,7 @@ void main() {
       });
 
       test('store is empty', () {
-        expect(store.toMap(), equals({}));
+        expect(store.valueStream.value, equals({}));
       });
     });
 
@@ -105,7 +105,7 @@ void main() {
       });
 
       test('store is empty', () {
-        expect(store.toMap(), equals({}));
+        expect(store.valueStream.value, equals({}));
       });
 
       test('can remove a single optimistic patch', () {
