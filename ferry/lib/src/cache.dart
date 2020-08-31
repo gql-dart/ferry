@@ -12,8 +12,9 @@ class Cache {
   final bool addTypename;
   final Store _store;
 
-  BehaviorSubject<Map<String, Map<String, Map<String, dynamic>>>>
+  final BehaviorSubject<Map<String, Map<String, Map<String, dynamic>>>>
       _optimisticPatchesStream;
+
   final _optimisticDataStream =
       BehaviorSubject<Map<String, Map<String, dynamic>>>();
 
@@ -22,32 +23,29 @@ class Cache {
     this.typePolicies = const {},
     this.addTypename = true,
     Map<String, Map<String, Map<String, dynamic>>> seedOptimisticPatches,
-  }) : _store = store ?? MemoryStore() {
-    _optimisticPatchesStream = BehaviorSubject.seeded(
-      seedOptimisticPatches ?? {},
-      // sync is necessary to ensure that _optimisticDataStream is update synchronously when a
-      // new event is added to _optimisticPatchesStream.
-      // TODO: it is discouraged to use sync - ensure that there are no unintended side effects
-      sync: true,
-    );
-    CombineLatestStream.combine2<
-        Map<String, Map<String, dynamic>>,
-        Map<String, Map<String, Map<String, dynamic>>>,
-        Map<String, Map<String, dynamic>>>(
-      _store.watch(),
-      _optimisticPatchesStream,
-      (data, optimisticPatches) {
-        return optimisticPatches.values
-            .fold(data, (a, b) => Map.from(deepMerge(a, b)));
-      },
-    ).listen((value) => _optimisticDataStream.add(value));
+  })  : _store = store ?? MemoryStore(),
+        _optimisticPatchesStream = BehaviorSubject.seeded(
+          seedOptimisticPatches ?? {},
+        ) {
+    /// TODO: is there a way to do this without listenening in the constructor?
+    ///
+    /// TODO: is there a way to make this have the latest result from [store.valueStream]
+    /// and [_optimisticPatchesStream] immediately after a new value is added to either?
+    /// If so, we could get rid of [_optimisticData]
+    CombineLatestStream.combine2(store.valueStream, _optimisticPatchesStream,
+            (_, __) => _optimisticData)
+        .listen((data) => _optimisticDataStream.add(data));
   }
+
+  Map<String, Map<String, dynamic>> get _optimisticData =>
+      _optimisticPatchesStream.value.values
+          .fold(_store.valueStream.value, (a, b) => Map.from(deepMerge(a, b)));
 
   Stream<TData> watchQuery<TData, TVars>(
     OperationRequest<TData, TVars> request, {
     bool optimistic = true,
   }) =>
-      (optimistic ? _optimisticDataStream : _store.watch()).map((data) {
+      (optimistic ? _optimisticDataStream : _store.valueStream).map((data) {
         final json = denormalize(
           reader: (dataId) => data[dataId],
           query: request.operation.document,
@@ -66,7 +64,7 @@ class Cache {
   }) {
     final json = denormalize(
       reader: (dataId) =>
-          optimistic ? _optimisticDataStream.value[dataId] : _store.get(dataId),
+          optimistic ? _optimisticData[dataId] : _store.get(dataId),
       query: request.operation.document,
       addTypename: addTypename,
       operationName: request.operation.operationName,
@@ -83,7 +81,7 @@ class Cache {
   }) {
     final json = denormalizeFragment(
       reader: (dataId) =>
-          optimistic ? _optimisticDataStream.value[dataId] : _store.get(dataId),
+          optimistic ? _optimisticData[dataId] : _store.get(dataId),
       fragment: request.document,
       idFields: request.idFields,
       fragmentName: request.fragmentName,
@@ -175,5 +173,16 @@ class Cache {
       patches.remove(requestId);
       _optimisticPatchesStream.add(patches);
     }
+  }
+
+  void clear() {
+    _optimisticPatchesStream.add({});
+    _store.clear();
+  }
+
+  void dispose() {
+    _optimisticPatchesStream.close();
+    _optimisticDataStream.close();
+    _store.dispose();
   }
 }

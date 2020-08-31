@@ -1,4 +1,4 @@
-import 'package:ferry/ferry.dart';
+import 'package:ferry/cache.dart';
 import 'package:test/test.dart';
 
 import 'package:ferry_test_graphql/queries/variables/human_with_args.req.gql.dart';

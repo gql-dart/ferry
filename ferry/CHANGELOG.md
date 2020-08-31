@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.6.0] - 2020-08-30
 
+### Added
+- Add `clear()` method to Cache
+- Add `dispose()` method to Cache
+
 ### Changed
 
 - Merge `ferry_cache` into `ferry` package.
