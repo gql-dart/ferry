@@ -1,0 +1,4 @@
+fragment ReviewFragment on Review {
+  stars
+  commentary
+}
