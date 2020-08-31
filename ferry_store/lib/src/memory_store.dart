@@ -4,35 +4,30 @@ import 'package:rxdart/rxdart.dart';
 import './store.dart';
 
 class MemoryStore extends Store {
-  final BehaviorSubject<Map<String, Map<String, dynamic>>> _dataController;
+  @override
+  final BehaviorSubject<Map<String, Map<String, dynamic>>> valueStream;
 
   MemoryStore([Map<String, Map<String, dynamic>> initialData])
-      : _dataController = BehaviorSubject.seeded(initialData ?? {});
+      : valueStream = BehaviorSubject.seeded(initialData ?? {});
 
   @override
-  Stream<Map<String, Map<String, dynamic>>> watch() {
-    return _dataController.stream;
-  }
-
-  @override
-  Map<String, dynamic> get(String dataId) {
-    return _dataController.value[dataId];
-  }
+  Map<String, dynamic> get(String dataId) => valueStream.value[dataId];
 
   @override
   void put(String dataId, Map<String, dynamic> value) =>
-      _dataController.add(_dataController.value..[dataId] = value);
+      valueStream.add(valueStream.value..[dataId] = value);
 
   @override
   void putAll(Map<String, Map<String, dynamic>> data) =>
-      _dataController.add(_dataController.value..addAll(data));
+      valueStream.add(valueStream.value..addAll(data));
 
   @override
   void delete(String dataId) =>
-      _dataController.add(_dataController.value..remove(dataId));
+      valueStream.add(valueStream.value..remove(dataId));
 
   @override
-  Map<String, Map<String, dynamic>> toMap() => Map.from(_dataController.value);
+  void clear() => valueStream.add(valueStream.value..clear());
 
-  Future<void> dispose() => _dataController.close();
+  @override
+  Future<void> dispose() => valueStream.close();
 }

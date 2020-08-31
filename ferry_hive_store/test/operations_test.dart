@@ -24,7 +24,7 @@ void main() {
       await box.clear();
       final store = HiveStore(box);
 
-      expect(store.toMap(), equals({}));
+      expect(store.valueStream.value, equals({}));
     });
     test('can include seeded data', () async {
       final box = await Hive.openBox<Map<String, dynamic>>('graphql');
@@ -32,7 +32,7 @@ void main() {
       await box.putAll(data);
       final store = HiveStore(box);
 
-      expect(store.toMap(), equals(data));
+      expect(store.valueStream.value, equals(data));
     });
 
     test('can get data', () async {
@@ -54,7 +54,7 @@ void main() {
       for (var entry in data.entries) {
         store.put(entry.key, entry.value);
       }
-      expect(store.toMap(), equals(data));
+      expect(store.valueStream.value, equals(data));
     });
 
     test('can put all data', () async {
@@ -63,7 +63,7 @@ void main() {
       final store = HiveStore(box);
 
       store.putAll(data);
-      expect(store.toMap(), equals(data));
+      expect(store.valueStream.value, equals(data));
     });
 
     test('can delete data', () async {
@@ -74,9 +74,19 @@ void main() {
 
       store.delete(data.keys.first);
       expect(
-        store.toMap(),
+        store.valueStream.value,
         equals({data.keys.last: data.values.last}),
       );
+    });
+
+    test('can clear data', () async {
+      final box = await Hive.openBox<Map<String, dynamic>>('graphql');
+      await box.clear();
+      await box.putAll(data);
+      final store = HiveStore(box);
+
+      store.clear();
+      expect(store.valueStream.value, equals({}));
     });
   });
 
@@ -87,7 +97,7 @@ void main() {
       await box.putAll(data);
       final store = HiveStore(box);
 
-      expect(store.watch(), emits(data));
+      expect(store.valueStream, emits(data));
     });
 
     test('put method triggers new data', () async {
@@ -103,7 +113,7 @@ void main() {
       };
 
       expect(
-        store.watch(),
+        store.valueStream,
         emitsInOrder([
           data,
           {...data, newPostKey: newPostValue},
@@ -126,7 +136,7 @@ void main() {
       };
 
       expect(
-        store.watch(),
+        store.valueStream,
         emitsInOrder([
           data,
           {...data, newPostKey: newPostValue},
@@ -134,6 +144,17 @@ void main() {
       );
 
       await box.put(newPostKey, newPostValue);
+    });
+
+    test('dispose method triggers done event', () async {
+      final box = await Hive.openBox<Map<String, dynamic>>('graphql');
+      await box.clear();
+      await box.putAll(data);
+      final store = HiveStore(box);
+
+      expect(store.valueStream, emitsInOrder([data, emitsDone]));
+
+      await store.dispose();
     });
   });
 }
