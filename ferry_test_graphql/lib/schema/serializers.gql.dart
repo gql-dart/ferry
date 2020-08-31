@@ -2,6 +2,12 @@ import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart' show StandardJsonPlugin;
 import 'package:ferry_test_graphql/date_serializer.dart' show DateSerializer;
+import 'package:ferry_test_graphql/fragments/review_fragment.data.gql.dart'
+    show GReviewFragmentData;
+import 'package:ferry_test_graphql/fragments/review_fragment.req.gql.dart'
+    show GReviewFragmentReq;
+import 'package:ferry_test_graphql/fragments/review_fragment.var.gql.dart'
+    show GReviewFragmentVars;
 import 'package:ferry_test_graphql/mutations/scalars/review_with_date.data.gql.dart'
     show GReviewWithDateData, GReviewWithDateData_createReview;
 import 'package:ferry_test_graphql/mutations/scalars/review_with_date.req.gql.dart'
@@ -80,6 +86,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   ..add(OperationSerializer())
   ..addPlugin(StandardJsonPlugin());
 @SerializersFor([
+  GReviewFragmentReq,
   GReviewWithDateReq,
   GCreateReviewReq,
   GHeroWithFragmentsReq,
@@ -91,6 +98,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GAliasedHeroReq,
   GHeroForEpisodeReq,
   GDroidFragmentReq,
+  GReviewFragmentData,
   GReviewWithDateData,
   GReviewWithDateData_createReview,
   GCreateReviewData,
@@ -124,6 +132,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GReviewInput,
   GColorInput,
   GISODate,
+  GReviewFragmentVars,
   GReviewWithDateVars,
   GCreateReviewVars,
   GHeroWithFragmentsVars,
