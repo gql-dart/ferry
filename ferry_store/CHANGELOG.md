@@ -12,10 +12,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - add tests
+- add clear method
+- add dispose method
 
 ### Changed
 
 - base `MemoryStore` stream on Rx `BehaviorSubject`
+
+### Removed
+
+- remove `toMap()` method
 
 ## [0.1.0] - 2020-05-10
 

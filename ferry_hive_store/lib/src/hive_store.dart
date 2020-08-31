@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:hive/hive.dart';
 import 'package:ferry_store/ferry_store.dart';
 import 'package:rxdart/rxdart.dart';
@@ -6,31 +7,56 @@ import 'package:rxdart/rxdart.dart';
 class HiveStore extends Store {
   final Box<Map<String, dynamic>> box;
 
-  HiveStore(this.box);
+  @override
+  final BehaviorSubject<Map<String, Map<String, dynamic>>> valueStream;
+
+  StreamSubscription<BoxEvent> _boxStreamSubscription;
+
+  HiveStore(this.box)
+      : valueStream = BehaviorSubject.seeded(
+            box.toMap().cast<String, Map<String, dynamic>>()) {
+    _boxStreamSubscription = box.watch().listen(_onBoxEvent);
+  }
+
+  void _onBoxEvent(BoxEvent event) {
+    if (valueStream.value[event.key] != event.value) {
+      valueStream.add(_boxData);
+    }
+  }
+
+  Map<String, Map<String, dynamic>> get _boxData =>
+      box.toMap().cast<String, Map<String, dynamic>>();
 
   @override
-  Stream<Map<String, Map<String, dynamic>>> watch() => box
-      .watch()
-      .map((_) => box.toMap().cast<String, Map<String, dynamic>>())
-      .shareValueSeeded(box.toMap().cast<String, Map<String, dynamic>>());
+  Map<String, dynamic> get(String dataId) => box.get(dataId);
 
   @override
-  Map<String, dynamic> get(String dataId) {
-    final result = box.get(dataId);
-    if (result == null) return null;
-    return Map.from(result);
+  void put(String dataId, Map<String, dynamic> value) {
+    box.put(dataId, value);
+    valueStream.add(_boxData);
   }
 
   @override
-  void put(String dataId, Map<String, dynamic> value) => box.put(dataId, value);
+  void putAll(Map<String, Map<String, dynamic>> data) {
+    box.putAll(data);
+    valueStream.add(_boxData);
+  }
 
   @override
-  void putAll(Map<String, Map<String, dynamic>> data) => box.putAll(data);
+  void delete(String dataId) {
+    box.delete(dataId);
+    valueStream.add(_boxData);
+  }
 
   @override
-  void delete(String dataId) => box.delete(dataId);
+  void clear() {
+    box.clear();
+    valueStream.add({});
+  }
 
   @override
-  Map<String, Map<String, dynamic>> toMap() =>
-      box.toMap().cast<String, Map<String, dynamic>>();
+  void dispose() {
+    _boxStreamSubscription.cancel();
+    valueStream.close();
+  }
 }
