@@ -32,7 +32,7 @@ class Cache {
     /// TODO: is there a way to make this have the latest result from [store.valueStream]
     /// and [_optimisticPatchesStream] immediately after a new value is added to either?
     /// If so, we could get rid of [_optimisticData]
-    CombineLatestStream.combine2(store.valueStream, _optimisticPatchesStream,
+    CombineLatestStream.combine2(_store.valueStream, _optimisticPatchesStream,
             (_, __) => _optimisticData)
         .listen((data) => _optimisticDataStream.add(data));
   }
