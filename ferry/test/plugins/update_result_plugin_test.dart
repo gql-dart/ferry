@@ -3,6 +3,7 @@ import 'package:mockito/mockito.dart';
 import 'package:gql_link/gql_link.dart';
 import 'package:gql_exec/gql_exec.dart';
 import 'package:ferry/ferry.dart';
+import 'package:ferry/plugins.dart';
 import 'package:test/test.dart';
 import 'package:async/async.dart';
 
@@ -56,8 +57,7 @@ void main() {
 
     final client = Client(
       link: mockLink,
-      options: ClientOptions(addTypename: false),
-    );
+    )..plugins.removeWhere((plugin) => plugin is AddTypenamePlugin);
 
     test('correctly updates the result', () async {
       final queue = StreamQueue(client.responseStream(req1));
