@@ -1,27 +1,35 @@
+import 'package:ferry/src/helpers/apply_transformers.dart';
 import 'package:meta/meta.dart';
 import 'dart:async';
 import 'package:gql/ast.dart';
 import 'package:gql_link/gql_link.dart';
-import 'package:gql_exec/gql_exec.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:normalize/normalize.dart';
 
 import './operation_response.dart';
 import './operation_request.dart';
 import './fetch_policy.dart';
-import './cache_proxy.dart';
-import './client_options.dart';
 import './cache.dart';
+
+import './plugins/plugin.dart';
+import './plugins/update_result_plugin/update_result_plugin.dart';
+import './plugins/add_typename_plugin/add_typename_plugin.dart';
+
+final standardPlugins = [
+  AddTypenamePlugin(),
+  UpdateResultPlugin(),
+];
+
+const _defaultFetchPolicies = {
+  OperationType.query: FetchPolicy.CacheFirst,
+  OperationType.mutation: FetchPolicy.NetworkOnly,
+  OperationType.subscription: FetchPolicy.CacheAndNetwork,
+};
 
 class Client {
   final Link link;
   final Cache cache;
-  final ClientOptions options;
-
-  /// Keeps track of network connection status. For offline mutations to work,
-  /// you must update this value when the network status changes.
-  // TODO: implement offline mutation cache
-  final isConnected = BehaviorSubject<bool>.seeded(true);
+  final Map<OperationType, FetchPolicy> defaultFetchPolicies;
+  final List<Plugin> plugins = standardPlugins;
 
   /// A stream controller that handles all [OperationRequest]s.
   final requestController = StreamController<OperationRequest>.broadcast();
@@ -29,9 +37,12 @@ class Client {
   Client({
     @required this.link,
     Cache cache,
-    ClientOptions options,
-  })  : options = options ?? ClientOptions(),
-        cache = cache ?? Cache();
+    Map<OperationType, FetchPolicy> defaultFetchPolicies = const {},
+  })  : cache = cache ?? Cache(),
+        defaultFetchPolicies = {
+          ..._defaultFetchPolicies,
+          ...defaultFetchPolicies
+        };
 
   /// Provides a stream of [OperationResponse]s for the given [OperationRequest].
   Stream<OperationResponse<TData, TVars>> responseStream<TData, TVars>(
@@ -43,17 +54,18 @@ class Client {
         // Filter for only the relevent queries
         .whereType<OperationRequest<TData, TVars>>()
         .where((req) => request.requestId == req.requestId)
-        // (if enabled) recursively add __typename field to every node in operation
-        .map(_addTypename)
+        // Apply request transformers
+        .transform(applyTransformers<OperationRequest<TData, TVars>>(
+          plugins.map((plugin) => plugin.buildRequestTransformer()),
+        ))
         // Fetch [OperationResponse] from network (and optionally cache results)
         // or fetch from cache, depending on the [FetchPolicy]. Switches to
         // the latest stream for a given [requestId].
         .switchMap((req) => _responseStream(req))
-        // Run any [UpdateCacheHandler]s
-        .transform(StreamTransformer.fromBind(_updateCacheHandlersStream))
-        // Update the result based on previous result for the given [requestId],
-        // if applicable. This enables features like pagination.
-        .transform(StreamTransformer.fromBind(_updateResultStream))
+        // Apply response transformers
+        .transform(applyTransformers<OperationResponse<TData, TVars>>(
+          plugins.map((plugin) => plugin.buildResponseTransformer()),
+        ))
         // Trigger the [OperationRequest] on first listen
         .doOnListen(
       () async {
@@ -66,24 +78,6 @@ class Client {
     );
   }
 
-  /// Adds `__typename` to each node of the operation when [ClientOptions.addTypename] is [true].
-  OperationRequest<TData, TVars> _addTypename<TData, TVars>(
-    OperationRequest<TData, TVars> request,
-  ) =>
-      options.addTypename
-          // TODO: avoid casting to dynamic
-          ? (request as dynamic).rebuild(
-              (b) => b
-                ..operation = Operation(
-                  document: transform(
-                    request.operation.document,
-                    [AddTypenameVisitor()],
-                  ),
-                  operationName: request.operation.operationName,
-                ),
-            )
-          : request;
-
   /// Determines how to resolve an operation based on the [FetchPolicy] and caches
   /// responses from the network if required by the policy.
   Stream<OperationResponse<TData, TVars>> _responseStream<TData, TVars>(
@@ -95,8 +89,8 @@ class Client {
             operationNode.name.value ==
             operationRequest.operation.operationName)
         .type;
-    final fetchPolicy = operationRequest.fetchPolicy ??
-        options.defaultFetchPolicies[operationType];
+    final fetchPolicy =
+        operationRequest.fetchPolicy ?? defaultFetchPolicies[operationType];
     switch (fetchPolicy) {
       case FetchPolicy.NoCache:
         return _optimisticNetworkResponseStream(operationRequest);
@@ -228,73 +222,5 @@ class Client {
         requestId: response.operationRequest.requestId,
       );
     }
-  }
-
-  /// Runs any specified [UpdateCacheHandler]s with a [CacheProxy] when
-  ///   1. an optimistic response is received
-  ///   2. the first time a non-optimistic response is received
-  Stream<OperationResponse<TData, TVars>>
-      _updateCacheHandlersStream<TData, TVars>(
-    Stream<OperationResponse<TData, TVars>> stream,
-  ) {
-    var runNonOptimistically = false;
-
-    return stream.doOnData((res) {
-      final key = res.operationRequest.updateCacheHandlerKey;
-      if (key == null) return;
-
-      final handler =
-          options.updateCacheHandlers[key] as UpdateCacheHandler<TData, TVars>;
-      if (handler == null) throw Exception('No handler defined for key $key');
-
-      final proxy = CacheProxy(
-        cache,
-        res.dataSource == DataSource.Optimistic,
-        res.operationRequest.requestId,
-      );
-
-      switch (res.dataSource) {
-        case DataSource.Optimistic:
-          {
-            handler(proxy, res);
-            runNonOptimistically = false;
-            return;
-          }
-        case DataSource.Link:
-        case DataSource.Cache:
-          {
-            if (runNonOptimistically == false) {
-              handler(proxy, res);
-              runNonOptimistically = true;
-            }
-            return;
-          }
-        case DataSource.None:
-          return;
-      }
-    });
-  }
-
-  /// Updates previous result with new result.
-  ///
-  /// Useful for pagination.
-  Stream<OperationResponse<TData, TVars>> _updateResultStream<TData, TVars>(
-    Stream<OperationResponse<TData, TVars>> stream,
-  ) {
-    OperationResponse<TData, TVars> previous;
-    return stream.map(
-      (response) => previous = response.operationRequest.updateResult == null
-          ? response
-          : OperationResponse(
-              operationRequest: response.operationRequest,
-              data: response.operationRequest.updateResult(
-                previous?.data,
-                response.data,
-              ),
-              dataSource: response.dataSource,
-              linkException: response.linkException,
-              graphqlErrors: response.graphqlErrors,
-            ),
-    );
   }
 }

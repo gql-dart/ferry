@@ -1,6 +1,6 @@
-import './operation_request.dart';
-import './fragment_request.dart';
-import './cache.dart';
+import 'package:ferry/src/operation_request.dart';
+import 'package:ferry/src/fragment_request.dart';
+import 'package:ferry/src/cache.dart';
 
 /// Provides an interface for interacting with the [Cache] from within
 /// [UpdateCacheHandler]s.

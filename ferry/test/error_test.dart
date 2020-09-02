@@ -3,6 +3,7 @@ import 'package:mockito/mockito.dart';
 import 'package:gql_link/gql_link.dart';
 import 'package:gql_exec/gql_exec.dart';
 import 'package:ferry/ferry.dart';
+import 'package:ferry/plugins.dart';
 import 'package:test/test.dart';
 
 import 'package:ferry_test_graphql/queries/variables/human_with_args.req.gql.dart';
@@ -26,8 +27,7 @@ void main() {
 
       final client = Client(
         link: mockLink,
-        options: ClientOptions(addTypename: false),
-      );
+      )..plugins.removeWhere((plugin) => plugin is AddTypenamePlugin);
 
       final response = OperationResponse(
         operationRequest: req,
@@ -52,8 +52,7 @@ void main() {
 
       final client = Client(
         link: mockLink,
-        options: ClientOptions(addTypename: false),
-      );
+      )..plugins.removeWhere((plugin) => plugin is AddTypenamePlugin);
 
       // TODO: check that also emits response
       // final response = OperationResponse(
@@ -81,8 +80,7 @@ void main() {
 
       final client = Client(
         link: mockLink,
-        options: ClientOptions(addTypename: false),
-      );
+      )..plugins.removeWhere((plugin) => plugin is AddTypenamePlugin);
 
       final response = OperationResponse(
         operationRequest: req,
@@ -117,8 +115,7 @@ void main() {
 
       final client = Client(
         link: mockLink,
-        options: ClientOptions(addTypename: false),
-      );
+      )..plugins.removeWhere((plugin) => plugin is AddTypenamePlugin);
 
       expect(client.responseStream(req),
           emitsInOrder([isA<OperationResponse>(), isA<OperationResponse>()]));
