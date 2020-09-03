@@ -30,7 +30,7 @@ void main() {
         final res = OperationResponse(
           operationRequest: null,
           dataSource: null,
-          graphqlErrors: [GraphQLError(message: "")],
+          graphqlErrors: [GraphQLError(message: '')],
         );
         expect(res.hasErrors, true);
       });

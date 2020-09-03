@@ -46,36 +46,34 @@ final updateResult = (GReviewsData previous, GReviewsData result) =>
     previous?.rebuild((b) => b..reviews.addAll(result.reviews)) ?? result;
 
 void main() {
-  group('Update Result', () {
-    final mockLink = MockLink();
+  final mockLink = MockLink();
 
-    for (var req in [req1, req2, req3]) {
-      when(mockLink.request(req.execRequest, any)).thenAnswer(
-        (_) => Stream.value(Response(data: dataForRequest(req).toJson())),
-      );
-    }
+  for (var req in [req1, req2, req3]) {
+    when(mockLink.request(req.execRequest, any)).thenAnswer(
+      (_) => Stream.value(Response(data: dataForRequest(req).toJson())),
+    );
+  }
 
-    final client = Client(
-      link: mockLink,
-    )..plugins.removeWhere((plugin) => plugin is AddTypenamePlugin);
+  final client = Client(
+    link: mockLink,
+  )..plugins.removeWhere((plugin) => plugin is AddTypenamePlugin);
 
-    test('correctly updates the result', () async {
-      final queue = StreamQueue(client.responseStream(req1));
+  test('correctly updates the result', () async {
+    final queue = StreamQueue(client.responseStream(req1));
 
-      final reviews1 = dataForRequest(req1).reviews;
-      expect((await queue.next).data.reviews, equals(reviews1));
+    final reviews1 = dataForRequest(req1).reviews;
+    expect((await queue.next).data.reviews, equals(reviews1));
 
-      client.requestController.add(req2);
-      final reviews2 = reviews1.rebuild(
-        (b) => b..addAll(dataForRequest(req2).reviews),
-      );
-      expect((await queue.next).data.reviews, equals(reviews2));
+    client.requestController.add(req2);
+    final reviews2 = reviews1.rebuild(
+      (b) => b..addAll(dataForRequest(req2).reviews),
+    );
+    expect((await queue.next).data.reviews, equals(reviews2));
 
-      client.requestController.add(req3);
-      final reviews3 = reviews2.rebuild(
-        (b) => b..addAll(dataForRequest(req3).reviews),
-      );
-      expect((await queue.next).data.reviews, equals(reviews3));
-    });
+    client.requestController.add(req3);
+    final reviews3 = reviews2.rebuild(
+      (b) => b..addAll(dataForRequest(req3).reviews),
+    );
+    expect((await queue.next).data.reviews, equals(reviews3));
   });
 }
