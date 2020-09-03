@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import '../operation_request.dart';
-import '../operation_response.dart';
+import 'package:ferry/src/operation_request.dart';
+import 'package:ferry/src/operation_response.dart';
 
 abstract class Plugin {
   T _identity<T>(T b) => b;
