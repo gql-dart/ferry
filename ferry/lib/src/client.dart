@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:gql/ast.dart';
 import 'package:gql_link/gql_link.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:normalize/normalize.dart';
 
 import './operation_response.dart';
 import './operation_request.dart';
@@ -14,7 +15,7 @@ import './plugins/plugin.dart';
 import './plugins/update_result_plugin/update_result_plugin.dart';
 import './plugins/add_typename_plugin/add_typename_plugin.dart';
 
-final standardPlugins = [
+final defaultPlugins = [
   AddTypenamePlugin(),
   UpdateResultPlugin(),
 ];
@@ -29,7 +30,7 @@ class Client {
   final Link link;
   final Cache cache;
   final Map<OperationType, FetchPolicy> defaultFetchPolicies;
-  final List<Plugin> plugins = standardPlugins;
+  final List<Plugin> plugins = defaultPlugins;
 
   /// A stream controller that handles all [OperationRequest]s.
   final requestController = StreamController<OperationRequest>.broadcast();
@@ -51,22 +52,27 @@ class Client {
   }) {
     var initial = true;
     return requestController.stream
-        // Filter for only the relevent queries
+
+        /// Filter for only the relevent queries
         .whereType<OperationRequest<TData, TVars>>()
         .where((req) => request.requestId == req.requestId)
-        // Apply request transformers
+
+        /// Apply plulgin request transformers
         .transform(applyTransformers<OperationRequest<TData, TVars>>(
           plugins.map((plugin) => plugin.buildRequestTransformer()),
         ))
-        // Fetch [OperationResponse] from network (and optionally cache results)
-        // or fetch from cache, depending on the [FetchPolicy]. Switches to
-        // the latest stream for a given [requestId].
-        .switchMap((req) => _responseStream(req))
-        // Apply response transformers
+
+        /// Fetch [OperationResponse] from network (and optionally cache results)
+        /// or fetch from cache, depending on the [FetchPolicy]. Switches to
+        /// the latest stream for a given [requestId].
+        .switchMap((req) => _requestResolverStream(req))
+
+        /// Apply plugin response transformers
         .transform(applyTransformers<OperationResponse<TData, TVars>>(
           plugins.map((plugin) => plugin.buildResponseTransformer()),
         ))
-        // Trigger the [OperationRequest] on first listen
+
+        /// Trigger the [OperationRequest] on first listen
         .doOnListen(
       () async {
         if (initial && executeOnListen) {
@@ -80,17 +86,17 @@ class Client {
 
   /// Determines how to resolve an operation based on the [FetchPolicy] and caches
   /// responses from the network if required by the policy.
-  Stream<OperationResponse<TData, TVars>> _responseStream<TData, TVars>(
+  Stream<OperationResponse<TData, TVars>> _requestResolverStream<TData, TVars>(
     OperationRequest<TData, TVars> operationRequest,
   ) {
-    final operationType = operationRequest.operation.document.definitions
-        .whereType<OperationDefinitionNode>()
-        .firstWhere((operationNode) =>
-            operationNode.name.value ==
-            operationRequest.operation.operationName)
-        .type;
+    final operationType = getOperationDefinition(
+      operationRequest.operation.document,
+      operationRequest.operation.operationName,
+    ).type;
+
     final fetchPolicy =
         operationRequest.fetchPolicy ?? defaultFetchPolicies[operationType];
+
     switch (fetchPolicy) {
       case FetchPolicy.NoCache:
         return _optimisticNetworkResponseStream(operationRequest);
