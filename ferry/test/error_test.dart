@@ -54,13 +54,6 @@ void main() {
         link: mockLink,
       )..plugins.removeWhere((plugin) => plugin is AddTypenamePlugin);
 
-      // TODO: check that also emits response
-      // final response = OperationResponse(
-      //   operationRequest: req,
-      //   linkException: exception,
-      //   dataSource: DataSource.Link,
-      // );
-
       expect(client.responseStream(req), emitsError(equals(exception)));
     });
 
