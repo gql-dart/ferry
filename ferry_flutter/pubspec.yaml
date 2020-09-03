@@ -1,6 +1,6 @@
 name: ferry_flutter
 version: 0.2.1
-homepage: https://github.com/gql-dart/ferry/tree/master/ferry_flutter
+homepage: https://ferrygraphql.com/
 description: Flutter widgets for the Ferry GraphQL client
 repository: https://github.com/gql-dart/ferry
 environment: 
