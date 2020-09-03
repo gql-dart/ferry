@@ -203,7 +203,7 @@ packages:
       path: "../../ferry_flutter"
       relative: true
     source: path
-    version: "0.2.0"
+    version: "0.2.1"
   ferry_generator:
     dependency: "direct main"
     description:

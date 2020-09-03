@@ -7,3 +7,5 @@ pubspec.lock
 doc/api
 
 build/
+
+test/__hive_data__
