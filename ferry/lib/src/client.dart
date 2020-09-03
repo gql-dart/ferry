@@ -189,7 +189,9 @@ class Client {
                 linkException: error is LinkException
                     ? error
                     : ServerException(
-                        originalException: error, parsedResponse: null),
+                        originalException: error,
+                        parsedResponse: null,
+                      ),
                 dataSource: DataSource.Link,
               ),
             ),
@@ -222,5 +224,11 @@ class Client {
         requestId: response.operationRequest.requestId,
       );
     }
+  }
+
+  void dispose() {
+    requestController.close();
+    cache.dispose();
+    plugins.forEach((plugin) => plugin.dispose());
   }
 }
