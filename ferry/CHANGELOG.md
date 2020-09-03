@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0] - 2020-07-04
+
+### Added
+- Implement plugin system
+- Add [OfflineMutationPlugin]
+
+### Changed
+- Convert addTypename into plugin
+- Convert updateResult into plugin
+- Convert updateCache into plugin
+
 ## [0.6.0] - 2020-08-30
 
 ### Added
