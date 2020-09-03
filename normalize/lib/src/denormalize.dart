@@ -7,6 +7,7 @@ import './options/type_policy.dart';
 import './utils/resolve_root_typename.dart';
 import './utils/add_typename_visitor.dart';
 import './utils/exceptions.dart';
+import './utils/get_operation_definition.dart';
 
 /// Denormalizes data for a given query
 ///
@@ -35,14 +36,7 @@ Map<String, dynamic> denormalize({
     );
   }
 
-  /// The AST Node of the GraphQL Operation.
-  final operationDefinition = operationName != null
-      ? query.definitions.whereType<OperationDefinitionNode>().firstWhere(
-            (definition) => definition.name.value == operationName,
-            orElse: () => throw (Exception(
-                'Could not find operationName "$operationName"')),
-          )
-      : query.definitions.whereType<OperationDefinitionNode>().first;
+  final operationDefinition = getOperationDefinition(query, operationName);
 
   final rootTypename = resolveRootTypename(
     operationDefinition,
