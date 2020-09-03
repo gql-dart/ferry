@@ -6,6 +6,7 @@ import './utils/field_name_with_arguments.dart';
 import './utils/expand_fragments.dart';
 import './options/type_policy.dart';
 import './utils/resolve_root_typename.dart';
+import './utils/get_operation_definition.dart';
 
 /// Normalizes data for a given query
 ///
@@ -31,14 +32,7 @@ void normalize({
   bool addTypename = false,
   String referenceKey = '\$ref',
 }) {
-  /// The AST Node of the GraphQL Operation.
-  final operationDefinition = operationName != null
-      ? query.definitions.whereType<OperationDefinitionNode>().firstWhere(
-            (definition) => definition.name.value == operationName,
-            orElse: () => throw (Exception(
-                'Could not find operationName "$operationName"')),
-          )
-      : query.definitions.whereType<OperationDefinitionNode>().first;
+  final operationDefinition = getOperationDefinition(query, operationName);
 
   final rootTypename = resolveRootTypename(
     operationDefinition,
