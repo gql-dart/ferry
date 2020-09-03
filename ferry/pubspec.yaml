@@ -15,6 +15,7 @@ dependencies:
   collection: ^1.14.12
   ferry_store: ^0.2.0
   hive: ^1.4.4
+  built_value: ^7.1.0
 dev_dependencies: 
   test: ^1.9.4
   mockito: ^4.1.1
@@ -23,3 +24,4 @@ dev_dependencies:
   built_value_generator: ^7.1.0
   ferry_test_graphql: ^0.0.1+1
   pedantic: ^1.9.0
+  async: ^2.4.2
