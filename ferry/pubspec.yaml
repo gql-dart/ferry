@@ -11,9 +11,10 @@ dependencies:
   gql_link: ^0.3.0
   gql_exec: ^0.2.4
   meta: ^1.1.8
-  normalize: ^0.2.2
+  normalize: ^0.2.3
   collection: ^1.14.12
   ferry_store: ^0.2.0
+  hive: ^1.4.4
 dev_dependencies: 
   test: ^1.9.4
   mockito: ^4.1.1
