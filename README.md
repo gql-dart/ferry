@@ -1,7 +1,7 @@
 <p align="center">
   <img src="https://raw.githubusercontent.com/gql-dart/ferry/master/logo.jpg" width="450px">
 </p>
-<h2 align="center">A simple, powerful GraphQL Client for Flutter and Dart</h2>
+<h1 align="center">A simple, powerful GraphQL Client for Flutter and Dart</h1>
 
 [![MIT License][license-badge]][license-link]
 [![PRs Welcome][prs-badge]][prs-link]
