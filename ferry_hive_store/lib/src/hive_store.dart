@@ -1,34 +1,43 @@
 import 'dart:async';
+import 'package:collection/collection.dart';
 
 import 'package:hive/hive.dart';
 import 'package:ferry_store/ferry_store.dart';
 import 'package:rxdart/rxdart.dart';
 
 class HiveStore extends Store {
-  final Box<Map<String, dynamic>> box;
+  final Box box;
 
   @override
   final BehaviorSubject<Map<String, Map<String, dynamic>>> valueStream;
 
   StreamSubscription<BoxEvent> _boxStreamSubscription;
 
-  HiveStore(this.box)
-      : valueStream = BehaviorSubject.seeded(
-            box.toMap().cast<String, Map<String, dynamic>>()) {
+  HiveStore(this.box) : valueStream = BehaviorSubject.seeded(_toMap(box)) {
     _boxStreamSubscription = box.watch().listen(_onBoxEvent);
   }
 
+  // Workaround for correct typecasting
+  static Map<String, Map<String, dynamic>> _toMap(
+    Box box,
+  ) =>
+      box.keys.fold<Map<String, Map<String, dynamic>>>(
+          {}, (map, key) => map..[key] = Map.from(box.get(key)));
+
   void _onBoxEvent(BoxEvent event) {
-    if (valueStream.value[event.key] != event.value) {
+    final isEqual = const DeepCollectionEquality().equals(
+      valueStream.value[event.key],
+      event.value,
+    );
+    if (isEqual == false) {
       valueStream.add(_boxData);
     }
   }
 
-  Map<String, Map<String, dynamic>> get _boxData =>
-      box.toMap().cast<String, Map<String, dynamic>>();
+  Map<String, Map<String, dynamic>> get _boxData => _toMap(box);
 
   @override
-  Map<String, dynamic> get(String dataId) => box.get(dataId);
+  Map<String, dynamic> get(String dataId) => valueStream.value[dataId];
 
   @override
   void put(String dataId, Map<String, dynamic> value) {
