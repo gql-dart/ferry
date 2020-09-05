@@ -85,12 +85,12 @@ Map<String, dynamic> denormalize({
     if (dataForNode is Map) {
       final denormalizedData = dataForNode.containsKey(referenceKey)
           ? reader(dataForNode[referenceKey])
-          : dataForNode;
+          : Map<String, dynamic>.from(dataForNode);
       final typename = denormalizedData['__typename'];
       final typePolicy = (typePolicies ?? const {})[typename];
 
       final subNodes = expandFragments(
-        data: Map.from(denormalizedData),
+        data: denormalizedData,
         selectionSet: selectionSet,
         fragmentMap: fragmentMap,
       );

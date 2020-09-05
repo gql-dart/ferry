@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.4] - 2020-09-05
+
+### Changed
+
+- fix type casting of nested map in denormalizeFragment.
+
 ## [0.2.3] - 2020-09-03
 
 ### Changed
