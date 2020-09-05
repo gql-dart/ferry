@@ -1,5 +1,5 @@
-export 'src/normalize.dart';
-export 'src/denormalize.dart';
+export 'src/normalize_operation.dart';
+export 'src/denormalize_operation.dart';
 
 export 'src/denormalize_fragment.dart';
 export 'src/normalize_fragment.dart';

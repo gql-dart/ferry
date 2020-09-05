@@ -32,8 +32,8 @@ void main() {
     test('With no data', () {
       final normalizedMap = {};
       expect(
-        denormalize(
-          query: query,
+        denormalizeOperation(
+          document: query,
           read: (dataId) => normalizedMap[dataId],
           variables: {'a': false},
         ),
@@ -67,8 +67,8 @@ void main() {
       };
 
       expect(
-        denormalize(
-            query: query,
+        denormalizeOperation(
+            document: query,
             read: (dataId) => normalizedMap[dataId],
             variables: {'a': false}),
         equals(null),
@@ -81,8 +81,8 @@ void main() {
       };
 
       expect(
-        denormalize(
-            query: query,
+        denormalizeOperation(
+            document: query,
             read: (dataId) => normalizedMap[dataId],
             variables: {'a': false}),
         equals({'posts': null}),
@@ -151,8 +151,8 @@ void main() {
       };
 
       expect(
-        denormalize(
-          query: query,
+        denormalizeOperation(
+          document: query,
           read: (dataId) => normalizedMap[dataId],
           returnPartialData: true,
           variables: {'a': false},
@@ -200,8 +200,8 @@ void main() {
       };
 
       expect(
-        denormalize(
-          query: query,
+        denormalizeOperation(
+          document: query,
           read: (dataId) => normalizedMap[dataId],
           variables: {'a': false},
         ),

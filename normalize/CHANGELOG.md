@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2020-09-05
+
+### Changed
+
+- rename `normalize` to `normalizeOperation`
+- rename `denormalize` to `denormalizeOperation`
+- rename `query` to `document` in `normalizeOperation` and `denormalizeOperation`
+- rename `fragment` to `document` in `normalizeFragment` and `denormalizeFragment`
+- rename `reader` to `read` in denormalize functions
+- replace `writer` with `merge` function in normalize functions
+
 ## [0.2.4] - 2020-09-05
 
 ### Changed

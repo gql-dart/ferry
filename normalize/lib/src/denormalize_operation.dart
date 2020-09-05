@@ -3,25 +3,25 @@ import 'package:meta/meta.dart';
 import 'package:normalize/normalize.dart';
 import 'package:normalize/src/options/denormalize_config.dart';
 
-import './options/type_policy.dart';
-import './utils/resolve_root_typename.dart';
-import './utils/add_typename_visitor.dart';
-import './utils/exceptions.dart';
-import './utils/get_operation_definition.dart';
-import './denormalize_node.dart';
+import 'options/type_policy.dart';
+import 'utils/resolve_root_typename.dart';
+import 'utils/add_typename_visitor.dart';
+import 'utils/exceptions.dart';
+import 'utils/get_operation_definition.dart';
+import 'denormalize_node.dart';
 
 /// Denormalizes data for a given query
 ///
-/// Pass in a [reader] function to read the normalized map.
+/// Pass in a [read] function to read the normalized map.
 ///
 /// If any [TypePolicy]s were used to normalize the data, they must be provided
 /// to ensure that the appropriate normalized entity can be found.
 ///
 /// Likewise, if a custom [referenceKey] was used to normalize the data, it
 /// must be provided. Otherwise, the default '$ref' key will be used.
-Map<String, dynamic> denormalize({
+Map<String, dynamic> denormalizeOperation({
   @required Map<String, dynamic> Function(String dataId) read,
-  @required DocumentNode query,
+  @required DocumentNode document,
   String operationName,
   Map<String, dynamic> variables = const {},
   Map<String, TypePolicy> typePolicies = const {},
@@ -31,13 +31,13 @@ Map<String, dynamic> denormalize({
 }) {
   // Add typenames
   if (addTypename) {
-    query = transform(
-      query,
+    document = transform(
+      document,
       [AddTypenameVisitor()],
     );
   }
 
-  final operationDefinition = getOperationDefinition(query, operationName);
+  final operationDefinition = getOperationDefinition(document, operationName);
 
   final rootTypename = resolveRootTypename(
     operationDefinition,
@@ -46,7 +46,7 @@ Map<String, dynamic> denormalize({
 
   final fragmentMap = {
     for (var fragmentDefinition
-        in query.definitions.whereType<FragmentDefinitionNode>())
+        in document.definitions.whereType<FragmentDefinitionNode>())
       fragmentDefinition.name.value: fragmentDefinition
   };
 

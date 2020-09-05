@@ -20,7 +20,7 @@ void main() {
 
       expect(
         denormalizeFragment(
-          fragment: fragment,
+          document: fragment,
           idFields: {'id': '1'},
           read: (dataId) => normalizedMap[dataId],
         ),
@@ -31,7 +31,7 @@ void main() {
       normalizeFragment(
         merge: (dataId, value) =>
             (normalizedResult[dataId] ??= {}).addAll(value),
-        fragment: fragment,
+        document: fragment,
         idFields: {'id': '1'},
         data: data,
       );
@@ -69,7 +69,7 @@ void main() {
 
       expect(
         denormalizeFragment(
-          fragment: fragment,
+          document: fragment,
           idFields: {'id': '324'},
           read: (dataId) => normalizedMap[dataId],
         ),
@@ -80,7 +80,7 @@ void main() {
       normalizeFragment(
         merge: (dataId, value) =>
             (normalizedResult[dataId] ??= {}).addAll(value),
-        fragment: fragment,
+        document: fragment,
         idFields: {'id': '324'},
         data: data,
       );
@@ -119,7 +119,7 @@ void main() {
 
       expect(
         denormalizeFragment(
-          fragment: fragment,
+          document: fragment,
           idFields: {'id': '324'},
           read: (dataId) => normalizedMap[dataId],
           addTypename: true,
@@ -131,7 +131,7 @@ void main() {
       normalizeFragment(
         merge: (dataId, value) =>
             (normalizedResult[dataId] ??= {}).addAll(value),
-        fragment: fragment,
+        document: fragment,
         idFields: {'id': '324'},
         data: data,
       );
@@ -174,7 +174,7 @@ void main() {
       };
       expect(
         denormalizeFragment(
-          fragment: fragment,
+          document: fragment,
           fragmentName: 'commentData',
           idFields: {'id': '324'},
           read: (dataId) => normalizedMap[dataId],
@@ -186,7 +186,7 @@ void main() {
       normalizeFragment(
         merge: (dataId, value) =>
             (normalizedResult[dataId] ??= {}).addAll(value),
-        fragment: fragment,
+        document: fragment,
         fragmentName: 'commentData',
         idFields: {'id': '324'},
         data: data,

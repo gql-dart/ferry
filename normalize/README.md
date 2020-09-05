@@ -117,9 +117,10 @@ We can then run our normalize function:
 
 ```dart
 final normalizedMap = {};
-normalize(
-  writer: (dataId, value) => normalizedMap[dataId] = value,
-  query: query,
+normalizeOperation(
+  merge: (dataId, value) =>
+      (normalizedMap[dataId] ??= {}).addAll(value),
+  document: query,
   data: data,
 );
 print(normalizedMap);
@@ -164,9 +165,9 @@ Which will produce the following normalized result:
 If we later want to denormalize this data (for example, when reading from a cache), we can call `denormalize` on the normalizedMap from above. This will give us back the original data response object.
 
 ```dart
-denormalize(
-  query: query,
-  reader: (dataId) => normalizedMap[dataId],
+denormalizeOperation(
+  document: query,
+  read: (dataId) => normalizedMap[dataId],
 )
 ```
 

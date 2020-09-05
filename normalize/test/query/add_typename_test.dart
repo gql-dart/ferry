@@ -31,8 +31,8 @@ void main() {
             }
           ''');
           expect(
-            denormalize(
-              query: query,
+            denormalizeOperation(
+              document: query,
               read: (dataId) => sharedNormalizedMap[dataId],
               addTypename: true,
             ),
@@ -40,9 +40,9 @@ void main() {
           );
 
           final normalizedResult = {};
-          normalize(
+          normalizeOperation(
             addTypename: true,
-            query: query,
+            document: query,
             data: sharedResponse,
             merge: (dataId, value) =>
                 (normalizedResult[dataId] ??= {}).addAll(value),
@@ -80,8 +80,8 @@ void main() {
             }
           ''');
           expect(
-            denormalize(
-              query: query,
+            denormalizeOperation(
+              document: query,
               read: (dataId) => sharedNormalizedMap[dataId],
               addTypename: true,
             ),
@@ -89,9 +89,9 @@ void main() {
           );
 
           final normalizedResult = {};
-          normalize(
+          normalizeOperation(
             addTypename: true,
-            query: query,
+            document: query,
             data: sharedResponse,
             merge: (dataId, value) =>
                 (normalizedResult[dataId] ??= {}).addAll(value),
@@ -131,8 +131,8 @@ void main() {
             }
           ''');
           expect(
-            denormalize(
-              query: query,
+            denormalizeOperation(
+              document: query,
               read: (dataId) => sharedNormalizedMap[dataId],
               addTypename: true,
             ),
@@ -140,9 +140,9 @@ void main() {
           );
 
           final normalizedResult = {};
-          normalize(
+          normalizeOperation(
             addTypename: true,
-            query: query,
+            document: query,
             data: sharedResponse,
             merge: (dataId, value) =>
                 (normalizedResult[dataId] ??= {}).addAll(value),

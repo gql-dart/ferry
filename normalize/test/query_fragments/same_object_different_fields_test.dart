@@ -46,8 +46,8 @@ void main() {
 
     test('Produces correct nested data object', () {
       expect(
-        denormalize(
-          query: query,
+        denormalizeOperation(
+          document: query,
           read: (dataId) => sharedNormalizedMap[dataId],
         ),
         equals(sharedResponse),
