@@ -116,7 +116,7 @@ Map<String, dynamic> denormalizeFragment({
     if (dataForNode is Map) {
       final denormalizedData = dataForNode.containsKey(referenceKey)
           ? reader(dataForNode[referenceKey])
-          : dataForNode;
+          : Map<String, dynamic>.from(dataForNode);
       final typename = denormalizedData['__typename'];
       final typePolicy = (typePolicies ?? const {})[typename];
 
