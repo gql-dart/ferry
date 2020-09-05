@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:gql/ast.dart';
 
-import '../options/type_policy.dart';
+import '../options/field_policy.dart';
 
 Object _resolveValueNode(
   ValueNode valueNode,
@@ -39,28 +39,33 @@ Object _resolveValueNode(
   }
 }
 
+Map<String, dynamic> argsWithValues(
+  Map<String, dynamic> variables,
+  List<ArgumentNode> arguments,
+) =>
+    {
+      for (var argument in arguments)
+        argument.name.value: _resolveValueNode(
+          argument.value,
+          variables,
+        )
+    };
+
 String fieldNameWithArguments(
   FieldNode fieldNode,
   Map<String, dynamic> variables,
-  TypePolicy typePolicy,
+  FieldPolicy fieldPolicy,
 ) {
   if (fieldNode.arguments.isEmpty) return fieldNode.name.value;
-  final fieldPolicy = (typePolicy?.fields ?? const {})[fieldNode.name.value];
   final pertinentArguments = fieldPolicy == null
       ? fieldNode.arguments
       : fieldNode.arguments
           .where(
               (argument) => fieldPolicy.keyArgs.contains(argument.name.value))
           .toList();
-  final orderedArguments = List.from(pertinentArguments)
+  final orderedArguments = List<ArgumentNode>.from(pertinentArguments)
     ..sort((a, b) => a.name.value.compareTo(b.name.value));
-  final argumentsObject = {
-    for (var argumentNode in orderedArguments)
-      argumentNode.name.value: _resolveValueNode(
-        argumentNode.value,
-        variables,
-      )
-  };
-  final hashedArgs = json.encode(argumentsObject);
+  final args = argsWithValues(variables, orderedArguments);
+  final hashedArgs = json.encode(args);
   return '${fieldNode.name.value}($hashedArgs)';
 }

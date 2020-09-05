@@ -48,7 +48,7 @@ void main() {
       expect(
         denormalize(
           query: query,
-          reader: (dataId) => sharedNormalizedMap[dataId],
+          read: (dataId) => sharedNormalizedMap[dataId],
         ),
         equals(sharedResponse),
       );

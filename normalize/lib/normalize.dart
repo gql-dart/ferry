@@ -1,8 +1,8 @@
 export 'src/normalize.dart';
 export 'src/denormalize.dart';
 
-export 'src/denormalizeFragment.dart';
-export 'src/normalizeFragment.dart';
+export 'src/denormalize_fragment.dart';
+export 'src/normalize_fragment.dart';
 
 export 'src/options/field_policy.dart';
 export 'src/options/type_policy.dart';

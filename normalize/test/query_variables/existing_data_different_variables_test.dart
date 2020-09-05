@@ -33,9 +33,10 @@ void main() {
       final normalizedMap = {};
       expect(
         denormalize(
-            query: query,
-            reader: (dataId) => normalizedMap[dataId],
-            variables: {'a': false}),
+          query: query,
+          read: (dataId) => normalizedMap[dataId],
+          variables: {'a': false},
+        ),
         equals(null),
       );
     });
@@ -68,7 +69,7 @@ void main() {
       expect(
         denormalize(
             query: query,
-            reader: (dataId) => normalizedMap[dataId],
+            read: (dataId) => normalizedMap[dataId],
             variables: {'a': false}),
         equals(null),
       );
@@ -82,7 +83,7 @@ void main() {
       expect(
         denormalize(
             query: query,
-            reader: (dataId) => normalizedMap[dataId],
+            read: (dataId) => normalizedMap[dataId],
             variables: {'a': false}),
         equals({'posts': null}),
       );
@@ -151,10 +152,11 @@ void main() {
 
       expect(
         denormalize(
-            query: query,
-            reader: (dataId) => normalizedMap[dataId],
-            returnPartialData: true,
-            variables: {'a': false}),
+          query: query,
+          read: (dataId) => normalizedMap[dataId],
+          returnPartialData: true,
+          variables: {'a': false},
+        ),
         equals(response),
       );
     });
@@ -199,9 +201,10 @@ void main() {
 
       expect(
         denormalize(
-            query: query,
-            reader: (dataId) => normalizedMap[dataId],
-            variables: {'a': false}),
+          query: query,
+          read: (dataId) => normalizedMap[dataId],
+          variables: {'a': false},
+        ),
         equals(response),
       );
     });
