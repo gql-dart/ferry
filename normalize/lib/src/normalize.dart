@@ -2,11 +2,11 @@ import 'package:gql/ast.dart';
 import 'package:meta/meta.dart';
 
 import './utils/resolve_data_id.dart';
-import './utils/field_name_with_arguments.dart';
-import './utils/expand_fragments.dart';
 import './options/type_policy.dart';
 import './utils/resolve_root_typename.dart';
 import './utils/get_operation_definition.dart';
+import './normalize_node.dart';
+import './options/normalize_config.dart';
 
 /// Normalizes data for a given query
 ///
@@ -22,12 +22,12 @@ import './utils/get_operation_definition.dart';
 /// should begin with '$' since a graphl response object key cannot begin with
 /// that symbol. If none is provided, we will use '$ref' by default.
 void normalize({
-  @required void Function(String dataId, Map<String, dynamic> value) writer,
+  @required void Function(String dataId, Map<String, dynamic> value) merge,
   @required DocumentNode query,
   @required Map<String, dynamic> data,
   String operationName,
-  Map<String, dynamic> variables,
-  Map<String, TypePolicy> typePolicies,
+  Map<String, dynamic> variables = const {},
+  Map<String, TypePolicy> typePolicies = const {},
   DataIdResolver dataIdFromObject,
   bool addTypename = false,
   String referenceKey = '\$ref',
@@ -45,91 +45,23 @@ void normalize({
       fragmentDefinition.name.value: fragmentDefinition
   };
 
-  /// Returns a normalized object for a given node.
-  ///
-  /// This is called recursively as the AST is traversed. Accepts either the
-  /// root [OperationDefinitionNode] or a [FieldNode].
-  Object normalizeNode({
-    @required Node node,
-    @required Object dataForNode,
-    @required Map<String, Map<String, dynamic>> normalizedMap,
-  }) {
-    SelectionSetNode selectionSet;
-    if (node is OperationDefinitionNode) {
-      selectionSet = node.selectionSet;
-    } else if (node is FieldNode) {
-      selectionSet = node.selectionSet;
-    } else {
-      throw Exception('Unexpected node type');
-    }
-
-    if (dataForNode == null) return null;
-
-    if (dataForNode is List) {
-      return dataForNode
-          .map((data) => normalizeNode(
-                node: node,
-                dataForNode: data,
-                normalizedMap: normalizedMap,
-              ))
-          .toList();
-    }
-
-    // If this is a leaf node, return the data
-    if (selectionSet == null) return dataForNode;
-
-    if (dataForNode is Map) {
-      final typename = dataForNode['__typename'];
-      final typePolicy = (typePolicies ?? const {})[typename];
-
-      final subNodes = expandFragments(
-        data: dataForNode,
-        selectionSet: selectionSet,
-        fragmentMap: fragmentMap,
-      );
-
-      final dataToMerge = {
-        if (addTypename && typename != null) '__typename': typename,
-        for (var selection in subNodes)
-          fieldNameWithArguments(
-            selection,
-            variables,
-            typePolicy,
-          ): normalizeNode(
-            node: selection,
-            dataForNode:
-                dataForNode[selection.alias?.value ?? selection.name.value],
-            normalizedMap: normalizedMap,
-          )
-      };
-
-      final dataId = resolveDataId(
-        data: dataForNode,
-        typePolicies: typePolicies,
-        dataIdFromObject: dataIdFromObject,
-      );
-
-      if (node is OperationDefinitionNode) {
-        (normalizedMap[rootTypename] ??= {}).addAll(dataToMerge);
-        return normalizedMap;
-      } else if (dataId != null) {
-        (normalizedMap[dataId] ??= {}).addAll(dataToMerge);
-        return {referenceKey: dataId};
-      } else {
-        return dataToMerge;
-      }
-    }
-
-    throw Exception(
-      'There are sub-selections on this node, but the data is not null, an Array, or a Map',
-    );
-  }
-
-  final Map<String, Map<String, dynamic>> normalized = normalizeNode(
-    node: operationDefinition,
-    dataForNode: data,
-    normalizedMap: {},
+  final config = NormalizeConfig(
+    merge: merge,
+    variables: variables,
+    typePolicies: typePolicies,
+    referenceKey: referenceKey,
+    fragmentMap: fragmentMap,
+    addTypename: addTypename,
+    dataIdFromObject: dataIdFromObject,
   );
 
-  normalized.entries.forEach((entry) => writer(entry.key, entry.value));
+  merge(
+    rootTypename,
+    normalizeNode(
+      selectionSet: operationDefinition.selectionSet,
+      dataForNode: data,
+      config: config,
+      root: true,
+    ),
+  );
 }

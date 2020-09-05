@@ -22,14 +22,15 @@ void main() {
         denormalizeFragment(
           fragment: fragment,
           idFields: {'id': '1'},
-          reader: (dataId) => normalizedMap[dataId],
+          read: (dataId) => normalizedMap[dataId],
         ),
         equals(data),
       );
 
       final normalizedResult = {};
       normalizeFragment(
-        writer: (dataId, value) => normalizedResult[dataId] = value,
+        merge: (dataId, value) =>
+            (normalizedResult[dataId] ??= {}).addAll(value),
         fragment: fragment,
         idFields: {'id': '1'},
         data: data,
@@ -70,14 +71,15 @@ void main() {
         denormalizeFragment(
           fragment: fragment,
           idFields: {'id': '324'},
-          reader: (dataId) => normalizedMap[dataId],
+          read: (dataId) => normalizedMap[dataId],
         ),
         equals(data),
       );
 
       final normalizedResult = {};
       normalizeFragment(
-        writer: (dataId, value) => normalizedResult[dataId] = value,
+        merge: (dataId, value) =>
+            (normalizedResult[dataId] ??= {}).addAll(value),
         fragment: fragment,
         idFields: {'id': '324'},
         data: data,
@@ -119,7 +121,7 @@ void main() {
         denormalizeFragment(
           fragment: fragment,
           idFields: {'id': '324'},
-          reader: (dataId) => normalizedMap[dataId],
+          read: (dataId) => normalizedMap[dataId],
           addTypename: true,
         ),
         equals(data),
@@ -127,7 +129,8 @@ void main() {
 
       final normalizedResult = {};
       normalizeFragment(
-        writer: (dataId, value) => normalizedResult[dataId] = value,
+        merge: (dataId, value) =>
+            (normalizedResult[dataId] ??= {}).addAll(value),
         fragment: fragment,
         idFields: {'id': '324'},
         data: data,
@@ -174,14 +177,15 @@ void main() {
           fragment: fragment,
           fragmentName: 'commentData',
           idFields: {'id': '324'},
-          reader: (dataId) => normalizedMap[dataId],
+          read: (dataId) => normalizedMap[dataId],
         ),
         equals(data),
       );
 
       final normalizedResult = {};
       normalizeFragment(
-        writer: (dataId, value) => normalizedResult[dataId] = value,
+        merge: (dataId, value) =>
+            (normalizedResult[dataId] ??= {}).addAll(value),
         fragment: fragment,
         fragmentName: 'commentData',
         idFields: {'id': '324'},

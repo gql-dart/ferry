@@ -41,7 +41,7 @@ void main() {
       expect(
         denormalize(
           query: query,
-          reader: (dataId) => sharedNormalizedMap[dataId],
+          read: (dataId) => sharedNormalizedMap[dataId],
           operationName: 'TestQuery',
           addTypename: true,
         ),
@@ -50,7 +50,8 @@ void main() {
 
       final normalizedResult = {};
       normalize(
-        writer: (dataId, value) => normalizedResult[dataId] = value,
+        merge: (dataId, value) =>
+            (normalizedResult[dataId] ??= {}).addAll(value),
         query: query,
         data: sharedResponse,
         operationName: 'TestQuery',
@@ -96,14 +97,15 @@ void main() {
       expect(
         denormalize(
             query: query,
-            reader: (dataId) => sharedNormalizedMap[dataId],
+            read: (dataId) => sharedNormalizedMap[dataId],
             addTypename: true),
         equals(sharedResponse),
       );
 
       final normalizedResult = {};
       normalize(
-        writer: (dataId, value) => normalizedResult[dataId] = value,
+        merge: (dataId, value) =>
+            (normalizedResult[dataId] ??= {}).addAll(value),
         query: query,
         data: sharedResponse,
         operationName: 'TestQuery',

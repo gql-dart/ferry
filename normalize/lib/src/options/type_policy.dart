@@ -25,6 +25,6 @@ class TypePolicy {
     this.queryType = false,
     this.mutationType = false,
     this.subscriptionType = false,
-    this.fields,
+    this.fields = const {},
   });
 }

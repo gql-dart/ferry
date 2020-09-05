@@ -73,7 +73,8 @@ void main() {
     test('Produces correct normalized object', () {
       final normalizedResult = {};
       normalize(
-        writer: (dataId, value) => normalizedResult[dataId] = value,
+        merge: (dataId, value) =>
+            (normalizedResult[dataId] ??= {}).addAll(value),
         query: query,
         data: data,
       );
@@ -88,7 +89,7 @@ void main() {
       expect(
         denormalize(
           query: query,
-          reader: (dataId) => normalizedMap[dataId],
+          read: (dataId) => normalizedMap[dataId],
         ),
         equals(data),
       );

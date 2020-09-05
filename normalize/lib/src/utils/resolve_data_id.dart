@@ -7,7 +7,7 @@ typedef DataIdResolver = String Function(Map<String, dynamic> object);
 /// Returns a unique ID to use to reference this normalized object.
 ///
 /// First checks if a [TypePolicy] exists for the given type. Next,
-/// calls the [dataIdForType] function if one is specified. Finally,
+/// calls the [dataIdFromObject] function if one is specified. Finally,
 /// falls back to the 'id' or '_id' field, respectively.
 ///
 /// Returns [null] if this type should not be normalized.

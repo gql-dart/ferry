@@ -96,7 +96,8 @@ void main() {
       normalize(
         query: query,
         data: data,
-        writer: (dataId, value) => normalizedResult[dataId] = value,
+        merge: (dataId, value) =>
+            (normalizedResult[dataId] ??= {}).addAll(value),
       );
 
       test(
@@ -115,7 +116,9 @@ void main() {
         () {
           expect(
             denormalize(
-                query: query, reader: (dataId) => normalizedMap[dataId]),
+              query: query,
+              read: (dataId) => normalizedMap[dataId],
+            ),
             equals(data),
           );
         },
