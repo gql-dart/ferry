@@ -9,7 +9,7 @@ import './options/normalize_config.dart';
 
 /// Normalizes data for a given fragment
 ///
-/// Pass in a [writer] function to write the result to the denormalized map.
+/// Pass in a [merge] function to merge the result into the denormalized map.
 ///
 /// An [idFields] Map must be provided that includes all identifying data, per
 /// any pertinent [TypePolicy] or [dataIdFromObject] funciton. If entities of
@@ -27,7 +27,7 @@ import './options/normalize_config.dart';
 /// that symbol. If none is provided, we will use '$ref' by default.
 void normalizeFragment({
   @required void Function(String dataId, Map<String, dynamic> value) merge,
-  @required DocumentNode fragment,
+  @required DocumentNode document,
   @required Map<String, dynamic> idFields,
   @required Map<String, dynamic> data,
   String fragmentName,
@@ -38,12 +38,12 @@ void normalizeFragment({
   String referenceKey = '\$ref',
 }) {
   // Always add typenames to ensure data is stored with typename
-  fragment = transform(
-    fragment,
+  document = transform(
+    document,
     [AddTypenameVisitor()],
   );
 
-  final hasOperationDefinition = fragment.definitions
+  final hasOperationDefinition = document.definitions
       .any((definition) => definition is OperationDefinitionNode);
   if (hasOperationDefinition) {
     throw Exception(
@@ -53,7 +53,7 @@ void normalizeFragment({
 
   final fragmentMap = {
     for (var fragmentDefinition
-        in fragment.definitions.whereType<FragmentDefinitionNode>())
+        in document.definitions.whereType<FragmentDefinitionNode>())
       fragmentDefinition.name.value: fragmentDefinition
   };
 

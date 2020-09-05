@@ -80,10 +80,10 @@ void main() {
 
     test('Produces correct normalized object', () {
       final normalizedResult = {};
-      normalize(
+      normalizeOperation(
         merge: (dataId, value) =>
             (normalizedResult[dataId] ??= {}).addAll(value),
-        query: query1,
+        document: query1,
         data: sharedResponse,
       );
 
@@ -95,16 +95,16 @@ void main() {
 
     test('Produces correct nested data object for both queries', () {
       expect(
-        denormalize(
-          query: query1,
+        denormalizeOperation(
+          document: query1,
           read: (dataId) => normalizedMap[dataId],
         ),
         equals(sharedResponse),
       );
 
       expect(
-        denormalize(
-          query: query2,
+        denormalizeOperation(
+          document: query2,
           read: (dataId) => normalizedMap[dataId],
         ),
         equals(sharedResponse),

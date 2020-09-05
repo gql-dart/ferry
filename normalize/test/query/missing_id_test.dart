@@ -93,8 +93,8 @@ void main() {
       };
 
       final normalizedResult = {};
-      normalize(
-        query: query,
+      normalizeOperation(
+        document: query,
         data: data,
         merge: (dataId, value) =>
             (normalizedResult[dataId] ??= {}).addAll(value),
@@ -115,8 +115,8 @@ void main() {
         'Produces correct nested data object',
         () {
           expect(
-            denormalize(
-              query: query,
+            denormalizeOperation(
+              document: query,
               read: (dataId) => normalizedMap[dataId],
             ),
             equals(data),

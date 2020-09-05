@@ -1,16 +1,16 @@
 import 'package:gql/ast.dart';
 import 'package:meta/meta.dart';
 
-import './utils/resolve_data_id.dart';
-import './options/type_policy.dart';
-import './utils/resolve_root_typename.dart';
-import './utils/get_operation_definition.dart';
-import './normalize_node.dart';
-import './options/normalize_config.dart';
+import 'utils/resolve_data_id.dart';
+import 'options/type_policy.dart';
+import 'utils/resolve_root_typename.dart';
+import 'utils/get_operation_definition.dart';
+import 'normalize_node.dart';
+import 'options/normalize_config.dart';
 
 /// Normalizes data for a given query
 ///
-/// Pass in a [writer] function to write the result to the denormalized map.
+/// Pass in a [merge] function to merge the result into the denormalized map.
 ///
 /// IDs are generated for each entity based on the following:
 /// 1. If no __typename field exists, the entity will not be normalized.
@@ -21,9 +21,9 @@ import './options/normalize_config.dart';
 /// The [referenceKey] is used to reference the ID of a normalized object. It
 /// should begin with '$' since a graphl response object key cannot begin with
 /// that symbol. If none is provided, we will use '$ref' by default.
-void normalize({
+void normalizeOperation({
   @required void Function(String dataId, Map<String, dynamic> value) merge,
-  @required DocumentNode query,
+  @required DocumentNode document,
   @required Map<String, dynamic> data,
   String operationName,
   Map<String, dynamic> variables = const {},
@@ -32,7 +32,7 @@ void normalize({
   bool addTypename = false,
   String referenceKey = '\$ref',
 }) {
-  final operationDefinition = getOperationDefinition(query, operationName);
+  final operationDefinition = getOperationDefinition(document, operationName);
 
   final rootTypename = resolveRootTypename(
     operationDefinition,
@@ -41,7 +41,7 @@ void normalize({
 
   final fragmentMap = {
     for (var fragmentDefinition
-        in query.definitions.whereType<FragmentDefinitionNode>())
+        in document.definitions.whereType<FragmentDefinitionNode>())
       fragmentDefinition.name.value: fragmentDefinition
   };
 

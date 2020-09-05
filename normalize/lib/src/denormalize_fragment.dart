@@ -11,7 +11,7 @@ import './denormalize_node.dart';
 
 /// Denormalizes data for a given fragment.
 ///
-/// Pass in a [reader] function to read the normalized map.
+/// Pass in a [read] function to read the normalized map.
 ///
 /// An [idFields] Map must be provided that includes all identifying data, per
 /// any pertinent [TypePolicy] or [dataIdFromObject] funciton. If entities of
@@ -26,7 +26,7 @@ import './denormalize_node.dart';
 /// must be provided. Otherwise, the default '$ref' key will be used.
 Map<String, dynamic> denormalizeFragment({
   @required Map<String, dynamic> Function(String dataId) read,
-  @required DocumentNode fragment,
+  @required DocumentNode document,
   @required Map<String, dynamic> idFields,
   String fragmentName,
   Map<String, dynamic> variables = const {},
@@ -37,15 +37,15 @@ Map<String, dynamic> denormalizeFragment({
   String referenceKey = '\$ref',
 }) {
   if (addTypename) {
-    fragment = transform(
-      fragment,
+    document = transform(
+      document,
       [AddTypenameVisitor()],
     );
   }
 
   final fragmentMap = {
     for (var fragmentDefinition
-        in fragment.definitions.whereType<FragmentDefinitionNode>())
+        in document.definitions.whereType<FragmentDefinitionNode>())
       fragmentDefinition.name.value: fragmentDefinition
   };
 
