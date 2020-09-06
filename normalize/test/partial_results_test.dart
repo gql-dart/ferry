@@ -79,6 +79,7 @@ void main() {
   test('Explicit null', () {
     final data = {
       'Query': {
+        '__typename': 'Query',
         'posts': [
           {'\$ref': 'Post:123'}
         ]
@@ -98,6 +99,7 @@ void main() {
       }
     ''');
     final response = {
+      '__typename': 'Query',
       'posts': [
         {
           'id': '123',

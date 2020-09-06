@@ -7,31 +7,33 @@ import '../shared_data.dart';
 void main() {
   group('Custom Root', () {
     final query = parseString('''
-      query TestQuery {
-        posts {
+  query Posts {
+    __typename
+    posts {
+      id
+      __typename
+      author {
+        id
+        __typename
+        name
+      }
+      title
+      comments {
+        id
+        __typename
+        commenter {
           id
           __typename
-          author {
-            id
-            __typename
-            name
-          }
-          title
-          comments {
-            id
-            __typename
-            commenter {
-              id
-              __typename
-              name
-            }
-          }
+          name
         }
       }
-    ''');
+    }
+  }
+''');
 
     final normalizedMap = {
       'CustomQueryRoot': {
+        '__typename': 'CustomQueryRoot',
         'posts': [
           {'\$ref': 'Post:123'}
         ]
@@ -54,6 +56,11 @@ void main() {
       'Author:2': {'id': '2', '__typename': 'Author', 'name': 'Nicole'}
     };
 
+    final response = {
+      ...sharedResponse,
+      '__typename': 'CustomQueryRoot',
+    };
+
     final typePolicies = {'CustomQueryRoot': TypePolicy(queryType: true)};
 
     test('Produces correct normalized object', () {
@@ -62,7 +69,7 @@ void main() {
         merge: (dataId, value) =>
             (normalizedResult[dataId] ??= {}).addAll(value),
         document: query,
-        data: sharedResponse,
+        data: response,
         typePolicies: typePolicies,
       );
 
@@ -79,7 +86,7 @@ void main() {
           read: (dataId) => normalizedMap[dataId],
           typePolicies: typePolicies,
         ),
-        equals(sharedResponse),
+        equals(response),
       );
     });
   });

@@ -11,26 +11,20 @@ void main() {
         query FirstQuery {
           author {
             id
-            __typename
           }
         }
-
         query TestQuery {
           posts {
             id
-            __typename
             author {
               id
-              __typename
               name
             }
             title
             comments {
               id
-              __typename
               commenter {
                 id
-                __typename
                 name
               }
             }
@@ -50,6 +44,7 @@ void main() {
 
       final normalizedResult = {};
       normalizeOperation(
+        addTypename: true,
         merge: (dataId, value) =>
             (normalizedResult[dataId] ??= {}).addAll(value),
         document: query,
@@ -68,19 +63,15 @@ void main() {
         query TestQuery {
           posts {
             id
-            __typename
             author {
               id
-              __typename
               name
             }
             title
             comments {
               id
-              __typename
               commenter {
                 id
-                __typename
                 name
               }
             }
@@ -90,20 +81,21 @@ void main() {
         query FirstQuery {
           author {
             id
-            __typename
           }
         }
       ''');
       expect(
         denormalizeOperation(
-            document: query,
-            read: (dataId) => sharedNormalizedMap[dataId],
-            addTypename: true),
+          document: query,
+          read: (dataId) => sharedNormalizedMap[dataId],
+          addTypename: true,
+        ),
         equals(sharedResponse),
       );
 
       final normalizedResult = {};
       normalizeOperation(
+        addTypename: true,
         merge: (dataId, value) =>
             (normalizedResult[dataId] ??= {}).addAll(value),
         document: query,

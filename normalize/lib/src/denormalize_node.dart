@@ -70,6 +70,10 @@ Object denormalizeNode({
                 parentObject: denormalizedData,
                 field: fieldNode,
                 variables: config.variables,
+                isReference: (object) =>
+                    object.containsKey(config.referenceKey),
+                resolveReference: (reference) =>
+                    config.read(reference[config.referenceKey]),
               ),
             );
         } else if (!denormalizedData.containsKey(fieldName)) {

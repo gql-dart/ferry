@@ -8,6 +8,7 @@ void main() {
   group('Variables Bool External', () {
     final query = parseString('''
       query TestQuery(\$a: Boolean) {
+        __typename
         posts {
           id
           __typename
@@ -34,6 +35,7 @@ void main() {
 
     final normalizedMap = {
       'Query': {
+        '__typename': 'Query',
         'posts': [
           {'\$ref': 'Post:123'}
         ]
