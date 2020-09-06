@@ -29,7 +29,6 @@ Map<String, dynamic> denormalizeOperation({
   bool returnPartialData = false,
   String referenceKey = '\$ref',
 }) {
-  // Add typenames
   if (addTypename) {
     document = transform(
       document,
