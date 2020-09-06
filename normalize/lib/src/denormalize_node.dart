@@ -6,6 +6,7 @@ import './utils/field_name_with_arguments.dart';
 import './utils/expand_fragments.dart';
 import './utils/exceptions.dart';
 import './options/denormalize_config.dart';
+import './utils/is_dangling_reference.dart';
 
 /// Returns a denormalized object for a given [SelectionSetNode].
 ///
@@ -20,11 +21,14 @@ Object denormalizeNode({
 
   if (dataForNode is List) {
     return dataForNode
-        .map((data) => denormalizeNode(
-              selectionSet: selectionSet,
-              dataForNode: data,
-              config: config,
-            ))
+        .where((data) => !isDanglingReference(data, config))
+        .map(
+          (data) => denormalizeNode(
+            selectionSet: selectionSet,
+            dataForNode: data,
+            config: config,
+          ),
+        )
         .toList();
   }
 
