@@ -43,14 +43,6 @@ void normalizeFragment({
     [AddTypenameVisitor()],
   );
 
-  final hasOperationDefinition = document.definitions
-      .any((definition) => definition is OperationDefinitionNode);
-  if (hasOperationDefinition) {
-    throw Exception(
-      'Operation definition found, but expected a fragment definition',
-    );
-  }
-
   final fragmentMap = {
     for (var fragmentDefinition
         in document.definitions.whereType<FragmentDefinitionNode>())
