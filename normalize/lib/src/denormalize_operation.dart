@@ -59,10 +59,6 @@ Map<String, dynamic> denormalizeOperation({
     fragmentMap: fragmentMap,
   );
 
-  /// TODO: make fieldPolicy read work with root operation
-  final fieldPolicy = (typePolicies[rootTypename]?.fields ??
-      const {})[operationDefinition.name.value];
-
   try {
     return denormalizeNode(
       selectionSet: operationDefinition.selectionSet,

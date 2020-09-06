@@ -8,6 +8,7 @@ void main() {
   group('Fragments With Same Object But Different Fields', () {
     final query = parseString('''
       query TestQuery {
+        __typename
         posts {
           __typename
           id

@@ -56,4 +56,33 @@ class AddTypenameVisitor extends TransformingVisitor {
       ),
     );
   }
+
+  @override
+  OperationDefinitionNode visitOperationDefinitionNode(
+      OperationDefinitionNode node) {
+    if (node.selectionSet == null) {
+      return node;
+    }
+
+    final hasTypename = node.selectionSet.selections
+        .whereType<FieldNode>()
+        .any((node) => node.name.value == '__typename');
+
+    if (hasTypename) return node;
+
+    return OperationDefinitionNode(
+      type: node.type,
+      name: node.name,
+      variableDefinitions: node.variableDefinitions,
+      directives: node.directives,
+      selectionSet: SelectionSetNode(
+        selections: <SelectionNode>[
+          FieldNode(
+            name: NameNode(value: '__typename'),
+          ),
+          ...node.selectionSet.selections,
+        ],
+      ),
+    );
+  }
 }

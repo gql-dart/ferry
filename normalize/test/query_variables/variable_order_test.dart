@@ -8,6 +8,7 @@ void main() {
   group('Variables Bool Simple', () {
     final query1 = parseString('''
       query TestQuery {
+        __typename
         posts {
           id
           __typename
@@ -32,6 +33,7 @@ void main() {
 
     final query2 = parseString('''
       query TestQuery {
+        __typename
         posts {
           id
           __typename
@@ -56,6 +58,7 @@ void main() {
 
     final normalizedMap = {
       'Query': {
+        '__typename': 'Query',
         'posts': [
           {'\$ref': 'Post:123'}
         ]

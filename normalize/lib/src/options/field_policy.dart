@@ -5,21 +5,30 @@ import 'package:normalize/src/utils/field_name_with_arguments.dart';
 
 class FieldFunctionOptions {
   /// The data for the parent field.
-  Map<String, dynamic> parentObject;
+  final Map<String, dynamic> parentObject;
 
   /// The FieldNode object used to read this field.
-  FieldNode field;
+  final FieldNode field;
 
   /// Any variables passed to the query that read this field
-  Map<String, dynamic> variables;
+  final Map<String, dynamic> variables;
 
   /// The final argument values passed to the field, after applying variables.
-  Map<String, dynamic> args;
+  final Map<String, dynamic> args;
+
+  /// Returns whether or not this object is a reference to a normalized object.
+  final bool Function(Map<String, dynamic> object) isReference;
+
+  /// Returns the normalized object for the given reference.
+  final Map<String, dynamic> Function(Map<String, dynamic> reference)
+      resolveReference;
 
   FieldFunctionOptions({
     @required this.parentObject,
     @required this.field,
     @required this.variables,
+    @required this.isReference,
+    @required this.resolveReference,
   }) : args = argsWithValues(variables, field.arguments);
 }
 

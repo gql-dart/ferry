@@ -8,6 +8,7 @@ void main() {
   group('Key Fields', () {
     final query = parseString('''
       query TestQuery {
+        __typename
         posts {
           id
           __typename
@@ -32,6 +33,7 @@ void main() {
 
     final normalizedMap = {
       'Query': {
+        '__typename': 'Query',
         'posts': [
           {'\$ref': 'Post:123:My awesome blog post'}
         ]

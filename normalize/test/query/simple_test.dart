@@ -8,6 +8,7 @@ void main() {
   group('Simple', () {
     final query = parseString('''
       query TestQuery {
+        __typename
         posts {
           id
           __typename

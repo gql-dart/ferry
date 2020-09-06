@@ -8,6 +8,7 @@ void main() {
   group('Alias', () {
     final query = parseString('''
       query TestQuery {
+        __typename
         posts {
           id
           __typename
@@ -31,6 +32,7 @@ void main() {
     ''');
 
     final data = {
+      '__typename': 'Query',
       'posts': [
         {
           'id': '123',
