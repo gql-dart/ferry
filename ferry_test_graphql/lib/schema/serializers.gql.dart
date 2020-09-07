@@ -36,26 +36,26 @@ import 'package:ferry_test_graphql/queries/fragments/hero_with_fragments.data.gq
         GHeroWithFragmentsData_hero_friendsConnection,
         GHeroWithFragmentsData_hero_friendsConnection_edges,
         GHeroWithFragmentsData_hero_friendsConnection_edges_node,
-        GheroDataData,
         GcomparisonFieldsData,
         GcomparisonFieldsData_friendsConnection,
         GcomparisonFieldsData_friendsConnection_edges,
-        GcomparisonFieldsData_friendsConnection_edges_node;
+        GcomparisonFieldsData_friendsConnection_edges_node,
+        GheroDataData;
 import 'package:ferry_test_graphql/queries/fragments/hero_with_fragments.req.gql.dart'
-    show GHeroWithFragmentsReq, GheroDataReq, GcomparisonFieldsReq;
+    show GHeroWithFragmentsReq, GcomparisonFieldsReq, GheroDataReq;
 import 'package:ferry_test_graphql/queries/fragments/hero_with_fragments.var.gql.dart'
-    show GHeroWithFragmentsVars, GheroDataVars, GcomparisonFieldsVars;
+    show GHeroWithFragmentsVars, GcomparisonFieldsVars, GheroDataVars;
 import 'package:ferry_test_graphql/queries/interfaces/hero_for_episode.data.gql.dart'
     show
+        GDroidFragmentData,
         GHeroForEpisodeData,
         GHeroForEpisodeData_hero,
-        GHeroForEpisodeData_hero__base,
         GHeroForEpisodeData_hero__asDroid,
-        GDroidFragmentData;
+        GHeroForEpisodeData_hero__base;
 import 'package:ferry_test_graphql/queries/interfaces/hero_for_episode.req.gql.dart'
-    show GHeroForEpisodeReq, GDroidFragmentReq;
+    show GDroidFragmentReq, GHeroForEpisodeReq;
 import 'package:ferry_test_graphql/queries/interfaces/hero_for_episode.var.gql.dart'
-    show GHeroForEpisodeVars, GDroidFragmentVars;
+    show GDroidFragmentVars, GHeroForEpisodeVars;
 import 'package:ferry_test_graphql/queries/no_vars/hero_no_vars.data.gql.dart'
     show GHeroNoVarsData, GHeroNoVarsData_hero;
 import 'package:ferry_test_graphql/queries/no_vars/hero_no_vars.req.gql.dart'
@@ -75,7 +75,7 @@ import 'package:ferry_test_graphql/queries/variables/reviews.req.gql.dart'
 import 'package:ferry_test_graphql/queries/variables/reviews.var.gql.dart'
     show GReviewsVars;
 import 'package:ferry_test_graphql/schema/schema.schema.gql.dart'
-    show GEpisode, GLengthUnit, GReviewInput, GColorInput, GISODate;
+    show GColorInput, GEpisode, GISODate, GLengthUnit, GReviewInput;
 import 'package:gql_code_builder/src/serializers/operation_serializer.dart'
     show OperationSerializer;
 
@@ -86,63 +86,63 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   ..add(OperationSerializer())
   ..addPlugin(StandardJsonPlugin());
 @SerializersFor([
-  GReviewFragmentReq,
-  GReviewWithDateReq,
-  GCreateReviewReq,
-  GHeroWithFragmentsReq,
-  GheroDataReq,
-  GcomparisonFieldsReq,
-  GHeroNoVarsReq,
-  GReviewsReq,
-  GHumanWithArgsReq,
+  GAliasedHeroData,
+  GAliasedHeroData_empireHero,
+  GAliasedHeroData_jediHero,
   GAliasedHeroReq,
-  GHeroForEpisodeReq,
-  GDroidFragmentReq,
-  GReviewFragmentData,
-  GReviewWithDateData,
-  GReviewWithDateData_createReview,
+  GAliasedHeroVars,
+  GColorInput,
   GCreateReviewData,
   GCreateReviewData_createReview,
+  GCreateReviewReq,
+  GCreateReviewVars,
+  GDroidFragmentData,
+  GDroidFragmentReq,
+  GDroidFragmentVars,
+  GEpisode,
+  GHeroForEpisodeData,
+  GHeroForEpisodeData_hero,
+  GHeroForEpisodeData_hero__asDroid,
+  GHeroForEpisodeData_hero__base,
+  GHeroForEpisodeReq,
+  GHeroForEpisodeVars,
+  GHeroNoVarsData,
+  GHeroNoVarsData_hero,
+  GHeroNoVarsReq,
+  GHeroNoVarsVars,
   GHeroWithFragmentsData,
   GHeroWithFragmentsData_hero,
   GHeroWithFragmentsData_hero_friendsConnection,
   GHeroWithFragmentsData_hero_friendsConnection_edges,
   GHeroWithFragmentsData_hero_friendsConnection_edges_node,
-  GheroDataData,
+  GHeroWithFragmentsReq,
+  GHeroWithFragmentsVars,
+  GHumanWithArgsData,
+  GHumanWithArgsData_human,
+  GHumanWithArgsReq,
+  GHumanWithArgsVars,
+  GISODate,
+  GLengthUnit,
+  GReviewFragmentData,
+  GReviewFragmentReq,
+  GReviewFragmentVars,
+  GReviewInput,
+  GReviewWithDateData,
+  GReviewWithDateData_createReview,
+  GReviewWithDateReq,
+  GReviewWithDateVars,
+  GReviewsData,
+  GReviewsData_reviews,
+  GReviewsReq,
+  GReviewsVars,
   GcomparisonFieldsData,
   GcomparisonFieldsData_friendsConnection,
   GcomparisonFieldsData_friendsConnection_edges,
   GcomparisonFieldsData_friendsConnection_edges_node,
-  GHeroNoVarsData,
-  GHeroNoVarsData_hero,
-  GReviewsData,
-  GReviewsData_reviews,
-  GHumanWithArgsData,
-  GHumanWithArgsData_human,
-  GAliasedHeroData,
-  GAliasedHeroData_empireHero,
-  GAliasedHeroData_jediHero,
-  GHeroForEpisodeData,
-  GHeroForEpisodeData_hero,
-  GHeroForEpisodeData_hero__base,
-  GHeroForEpisodeData_hero__asDroid,
-  GDroidFragmentData,
-  GEpisode,
-  GLengthUnit,
-  GReviewInput,
-  GColorInput,
-  GISODate,
-  GReviewFragmentVars,
-  GReviewWithDateVars,
-  GCreateReviewVars,
-  GHeroWithFragmentsVars,
-  GheroDataVars,
+  GcomparisonFieldsReq,
   GcomparisonFieldsVars,
-  GHeroNoVarsVars,
-  GReviewsVars,
-  GHumanWithArgsVars,
-  GAliasedHeroVars,
-  GHeroForEpisodeVars,
-  GDroidFragmentVars
+  GheroDataData,
+  GheroDataReq,
+  GheroDataVars
 ])
 final Serializers serializers = _serializersBuilder.build();

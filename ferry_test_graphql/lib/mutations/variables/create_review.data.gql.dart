@@ -14,6 +14,10 @@ abstract class GCreateReviewData
   factory GCreateReviewData([Function(GCreateReviewDataBuilder b) updates]) =
       _$GCreateReviewData;
 
+  static void _initializeBuilder(GCreateReviewDataBuilder b) =>
+      b..G__typename = 'Mutation';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
   @nullable
   GCreateReviewData_createReview get createReview;
   static Serializer<GCreateReviewData> get serializer =>

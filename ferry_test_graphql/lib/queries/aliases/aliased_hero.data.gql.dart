@@ -15,6 +15,10 @@ abstract class GAliasedHeroData
   factory GAliasedHeroData([Function(GAliasedHeroDataBuilder b) updates]) =
       _$GAliasedHeroData;
 
+  static void _initializeBuilder(GAliasedHeroDataBuilder b) =>
+      b..G__typename = 'Query';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
   @nullable
   GAliasedHeroData_empireHero get empireHero;
   @nullable

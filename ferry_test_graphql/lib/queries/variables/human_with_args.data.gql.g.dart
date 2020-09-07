@@ -21,7 +21,11 @@ class _$GHumanWithArgsDataSerializer
   @override
   Iterable<Object> serialize(Serializers serializers, GHumanWithArgsData object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
+    final result = <Object>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+    ];
     if (object.human != null) {
       result
         ..add('human')
@@ -43,6 +47,10 @@ class _$GHumanWithArgsDataSerializer
       iterator.moveNext();
       final dynamic value = iterator.current;
       switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
         case 'human':
           result.human.replace(serializers.deserialize(value,
                   specifiedType: const FullType(GHumanWithArgsData_human))
@@ -118,13 +126,19 @@ class _$GHumanWithArgsData_humanSerializer
 
 class _$GHumanWithArgsData extends GHumanWithArgsData {
   @override
+  final String G__typename;
+  @override
   final GHumanWithArgsData_human human;
 
   factory _$GHumanWithArgsData(
           [void Function(GHumanWithArgsDataBuilder) updates]) =>
       (new GHumanWithArgsDataBuilder()..update(updates)).build();
 
-  _$GHumanWithArgsData._({this.human}) : super._();
+  _$GHumanWithArgsData._({this.G__typename, this.human}) : super._() {
+    if (G__typename == null) {
+      throw new BuiltValueNullFieldError('GHumanWithArgsData', 'G__typename');
+    }
+  }
 
   @override
   GHumanWithArgsData rebuild(
@@ -138,17 +152,20 @@ class _$GHumanWithArgsData extends GHumanWithArgsData {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GHumanWithArgsData && human == other.human;
+    return other is GHumanWithArgsData &&
+        G__typename == other.G__typename &&
+        human == other.human;
   }
 
   @override
   int get hashCode {
-    return $jf($jc(0, human.hashCode));
+    return $jf($jc($jc(0, G__typename.hashCode), human.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('GHumanWithArgsData')
+          ..add('G__typename', G__typename)
           ..add('human', human))
         .toString();
   }
@@ -158,15 +175,22 @@ class GHumanWithArgsDataBuilder
     implements Builder<GHumanWithArgsData, GHumanWithArgsDataBuilder> {
   _$GHumanWithArgsData _$v;
 
+  String _G__typename;
+  String get G__typename => _$this._G__typename;
+  set G__typename(String G__typename) => _$this._G__typename = G__typename;
+
   GHumanWithArgsData_humanBuilder _human;
   GHumanWithArgsData_humanBuilder get human =>
       _$this._human ??= new GHumanWithArgsData_humanBuilder();
   set human(GHumanWithArgsData_humanBuilder human) => _$this._human = human;
 
-  GHumanWithArgsDataBuilder();
+  GHumanWithArgsDataBuilder() {
+    GHumanWithArgsData._initializeBuilder(this);
+  }
 
   GHumanWithArgsDataBuilder get _$this {
     if (_$v != null) {
+      _G__typename = _$v.G__typename;
       _human = _$v.human?.toBuilder();
       _$v = null;
     }
@@ -190,7 +214,9 @@ class GHumanWithArgsDataBuilder
   _$GHumanWithArgsData build() {
     _$GHumanWithArgsData _$result;
     try {
-      _$result = _$v ?? new _$GHumanWithArgsData._(human: _human?.build());
+      _$result = _$v ??
+          new _$GHumanWithArgsData._(
+              G__typename: G__typename, human: _human?.build());
     } catch (_) {
       String _$failedField;
       try {

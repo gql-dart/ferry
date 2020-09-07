@@ -47,7 +47,11 @@ class _$GHeroWithFragmentsDataSerializer
   Iterable<Object> serialize(
       Serializers serializers, GHeroWithFragmentsData object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
+    final result = <Object>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+    ];
     if (object.hero != null) {
       result
         ..add('hero')
@@ -69,6 +73,10 @@ class _$GHeroWithFragmentsDataSerializer
       iterator.moveNext();
       final dynamic value = iterator.current;
       switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
         case 'hero':
           result.hero.replace(serializers.deserialize(value,
                   specifiedType: const FullType(GHeroWithFragmentsData_hero))
@@ -638,13 +646,20 @@ class _$GcomparisonFieldsData_friendsConnection_edges_nodeSerializer
 
 class _$GHeroWithFragmentsData extends GHeroWithFragmentsData {
   @override
+  final String G__typename;
+  @override
   final GHeroWithFragmentsData_hero hero;
 
   factory _$GHeroWithFragmentsData(
           [void Function(GHeroWithFragmentsDataBuilder) updates]) =>
       (new GHeroWithFragmentsDataBuilder()..update(updates)).build();
 
-  _$GHeroWithFragmentsData._({this.hero}) : super._();
+  _$GHeroWithFragmentsData._({this.G__typename, this.hero}) : super._() {
+    if (G__typename == null) {
+      throw new BuiltValueNullFieldError(
+          'GHeroWithFragmentsData', 'G__typename');
+    }
+  }
 
   @override
   GHeroWithFragmentsData rebuild(
@@ -658,17 +673,20 @@ class _$GHeroWithFragmentsData extends GHeroWithFragmentsData {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GHeroWithFragmentsData && hero == other.hero;
+    return other is GHeroWithFragmentsData &&
+        G__typename == other.G__typename &&
+        hero == other.hero;
   }
 
   @override
   int get hashCode {
-    return $jf($jc(0, hero.hashCode));
+    return $jf($jc($jc(0, G__typename.hashCode), hero.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('GHeroWithFragmentsData')
+          ..add('G__typename', G__typename)
           ..add('hero', hero))
         .toString();
   }
@@ -678,15 +696,22 @@ class GHeroWithFragmentsDataBuilder
     implements Builder<GHeroWithFragmentsData, GHeroWithFragmentsDataBuilder> {
   _$GHeroWithFragmentsData _$v;
 
+  String _G__typename;
+  String get G__typename => _$this._G__typename;
+  set G__typename(String G__typename) => _$this._G__typename = G__typename;
+
   GHeroWithFragmentsData_heroBuilder _hero;
   GHeroWithFragmentsData_heroBuilder get hero =>
       _$this._hero ??= new GHeroWithFragmentsData_heroBuilder();
   set hero(GHeroWithFragmentsData_heroBuilder hero) => _$this._hero = hero;
 
-  GHeroWithFragmentsDataBuilder();
+  GHeroWithFragmentsDataBuilder() {
+    GHeroWithFragmentsData._initializeBuilder(this);
+  }
 
   GHeroWithFragmentsDataBuilder get _$this {
     if (_$v != null) {
+      _G__typename = _$v.G__typename;
       _hero = _$v.hero?.toBuilder();
       _$v = null;
     }
@@ -710,7 +735,9 @@ class GHeroWithFragmentsDataBuilder
   _$GHeroWithFragmentsData build() {
     _$GHeroWithFragmentsData _$result;
     try {
-      _$result = _$v ?? new _$GHeroWithFragmentsData._(hero: _hero?.build());
+      _$result = _$v ??
+          new _$GHeroWithFragmentsData._(
+              G__typename: G__typename, hero: _hero?.build());
     } catch (_) {
       String _$failedField;
       try {

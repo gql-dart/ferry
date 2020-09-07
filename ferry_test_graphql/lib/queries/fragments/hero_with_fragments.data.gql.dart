@@ -15,6 +15,10 @@ abstract class GHeroWithFragmentsData
           [Function(GHeroWithFragmentsDataBuilder b) updates]) =
       _$GHeroWithFragmentsData;
 
+  static void _initializeBuilder(GHeroWithFragmentsDataBuilder b) =>
+      b..G__typename = 'Query';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
   @nullable
   GHeroWithFragmentsData_hero get hero;
   static Serializer<GHeroWithFragmentsData> get serializer =>

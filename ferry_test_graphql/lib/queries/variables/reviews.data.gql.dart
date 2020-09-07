@@ -15,6 +15,10 @@ abstract class GReviewsData
   factory GReviewsData([Function(GReviewsDataBuilder b) updates]) =
       _$GReviewsData;
 
+  static void _initializeBuilder(GReviewsDataBuilder b) =>
+      b..G__typename = 'Query';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
   @nullable
   BuiltList<GReviewsData_reviews> get reviews;
   static Serializer<GReviewsData> get serializer => _$gReviewsDataSerializer;
