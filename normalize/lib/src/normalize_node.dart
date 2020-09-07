@@ -9,8 +9,7 @@ import 'package:normalize/src/policies/field_policy.dart';
 
 /// Returns a normalized object for a given [SelectionSetNode].
 ///
-/// This is called recursively as the AST is traversed. Accepts either the
-/// root [OperationDefinitionNode] or a [FieldNode].
+/// This is called recursively as the AST is traversed.
 Object normalizeNode({
   @required SelectionSetNode selectionSet,
   @required Object dataForNode,
