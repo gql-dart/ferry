@@ -2,12 +2,12 @@ import 'package:gql/ast.dart';
 import 'package:meta/meta.dart';
 import 'package:normalize/normalize.dart';
 
-import './options/denormalize_config.dart';
-import './options/type_policy.dart';
-import './utils/resolve_data_id.dart';
-import './utils/add_typename_visitor.dart';
-import './utils/exceptions.dart';
-import './denormalize_node.dart';
+import 'package:normalize/src/config/denormalize_config.dart';
+import 'package:normalize/src/policies/type_policy.dart';
+import 'package:normalize/src/utils/resolve_data_id.dart';
+import 'package:normalize/src/utils/add_typename_visitor.dart';
+import 'package:normalize/src/utils/exceptions.dart';
+import 'package:normalize/src/denormalize_node.dart';
 
 /// Denormalizes data for a given fragment.
 ///
@@ -81,6 +81,7 @@ Map<String, dynamic> denormalizeFragment({
     returnPartialData: returnPartialData,
     referenceKey: referenceKey,
     fragmentMap: fragmentMap,
+    dataIdFromObject: dataIdFromObject,
   );
 
   try {

@@ -1,14 +1,15 @@
 import 'package:gql/ast.dart';
 import 'package:meta/meta.dart';
 import 'package:normalize/normalize.dart';
-import 'package:normalize/src/options/denormalize_config.dart';
 
-import 'options/type_policy.dart';
-import 'utils/resolve_root_typename.dart';
-import 'utils/add_typename_visitor.dart';
-import 'utils/exceptions.dart';
-import 'utils/get_operation_definition.dart';
-import 'denormalize_node.dart';
+import 'package:normalize/src/policies/type_policy.dart';
+import 'package:normalize/src/utils/resolve_root_typename.dart';
+import 'package:normalize/src/utils/add_typename_visitor.dart';
+import 'package:normalize/src/utils/exceptions.dart';
+import 'package:normalize/src/utils/get_operation_definition.dart';
+import 'package:normalize/src/denormalize_node.dart';
+import 'package:normalize/src/config/denormalize_config.dart';
+import 'package:normalize/src/utils/resolve_data_id.dart';
 
 /// Denormalizes data for a given query
 ///
@@ -25,6 +26,7 @@ Map<String, dynamic> denormalizeOperation({
   String operationName,
   Map<String, dynamic> variables = const {},
   Map<String, TypePolicy> typePolicies = const {},
+  DataIdResolver dataIdFromObject,
   bool addTypename = false,
   bool returnPartialData = false,
   String referenceKey = '\$ref',
@@ -56,6 +58,7 @@ Map<String, dynamic> denormalizeOperation({
     returnPartialData: returnPartialData,
     referenceKey: referenceKey,
     fragmentMap: fragmentMap,
+    dataIdFromObject: dataIdFromObject,
   );
 
   try {

@@ -1,12 +1,12 @@
 import 'package:gql/ast.dart';
 import 'package:meta/meta.dart';
 
-import 'utils/resolve_data_id.dart';
-import 'options/type_policy.dart';
-import 'utils/resolve_root_typename.dart';
-import 'utils/get_operation_definition.dart';
-import 'normalize_node.dart';
-import 'options/normalize_config.dart';
+import 'package:normalize/src/utils/resolve_data_id.dart';
+import 'package:normalize/src/policies/type_policy.dart';
+import 'package:normalize/src/utils/resolve_root_typename.dart';
+import 'package:normalize/src/utils/get_operation_definition.dart';
+import 'package:normalize/src/normalize_node.dart';
+import 'package:normalize/src/config/normalize_config.dart';
 
 /// Normalizes data for a given query
 ///
@@ -22,7 +22,8 @@ import 'options/normalize_config.dart';
 /// should begin with '$' since a graphl response object key cannot begin with
 /// that symbol. If none is provided, we will use '$ref' by default.
 void normalizeOperation({
-  @required void Function(String dataId, Map<String, dynamic> value) merge,
+  @required void Function(String dataId, Map<String, dynamic> value) write,
+  @required Map<String, dynamic> Function(String dataId) read,
   @required DocumentNode document,
   @required Map<String, dynamic> data,
   String operationName,
@@ -46,7 +47,8 @@ void normalizeOperation({
   };
 
   final config = NormalizeConfig(
-    merge: merge,
+    write: write,
+    read: read,
     variables: variables,
     typePolicies: typePolicies,
     referenceKey: referenceKey,
@@ -55,12 +57,13 @@ void normalizeOperation({
     dataIdFromObject: dataIdFromObject,
   );
 
-  merge(
+  config.write(
     rootTypename,
     normalizeNode(
       selectionSet: operationDefinition.selectionSet,
       dataForNode: data,
       config: config,
+      existingNormalizedData: config.read(rootTypename),
       root: true,
     ),
   );
