@@ -46,9 +46,9 @@ class Cache {
     bool optimistic = true,
   }) =>
       (optimistic ? _optimisticDataStream : _store.valueStream).map((data) {
-        final json = denormalize(
-          reader: (dataId) => data[dataId],
-          query: request.operation.document,
+        final json = denormalizeOperation(
+          read: (dataId) => data[dataId],
+          document: request.operation.document,
           addTypename: addTypename,
           operationName: request.operation.operationName,
           // TODO: don't cast to dynamic
@@ -62,10 +62,10 @@ class Cache {
     OperationRequest<TData, TVars> request, {
     bool optimistic = true,
   }) {
-    final json = denormalize(
-      reader: (dataId) =>
+    final json = denormalizeOperation(
+      read: (dataId) =>
           optimistic ? _optimisticData[dataId] : _store.get(dataId),
-      query: request.operation.document,
+      document: request.operation.document,
       addTypename: addTypename,
       operationName: request.operation.operationName,
       // TODO: don't cast to dynamic
@@ -80,9 +80,9 @@ class Cache {
     bool optimistic = true,
   }) {
     final json = denormalizeFragment(
-      reader: (dataId) =>
+      read: (dataId) =>
           optimistic ? _optimisticData[dataId] : _store.get(dataId),
-      fragment: request.document,
+      document: request.document,
       idFields: request.idFields,
       fragmentName: request.fragmentName,
       // TODO: don't cast to dynamic
@@ -100,9 +100,11 @@ class Cache {
     String requestId,
   }) {
     final normalizedResult = <String, Map<String, dynamic>>{};
-    normalize(
-      writer: (dataId, value) => normalizedResult[dataId] = value,
-      query: request.operation.document,
+    normalizeOperation(
+      read: (dataId) =>
+          optimistic ? _optimisticData[dataId] : _store.get(dataId),
+      write: (dataId, value) => normalizedResult[dataId] = value,
+      document: request.operation.document,
       operationName: request.operation.operationName,
       // TODO: don't cast to dynamic
       variables: (request.vars as dynamic)?.toJson(),
@@ -121,8 +123,10 @@ class Cache {
   }) {
     final normalizedResult = <String, Map<String, dynamic>>{};
     normalizeFragment(
-      writer: (dataId, value) => normalizedResult[dataId] = value,
-      fragment: request.document,
+      read: (dataId) =>
+          optimistic ? _optimisticData[dataId] : _store.get(dataId),
+      write: (dataId, value) => normalizedResult[dataId] = value,
+      document: request.document,
       idFields: request.idFields,
       fragmentName: request.fragmentName,
       // TODO: don't cast to dynamic
