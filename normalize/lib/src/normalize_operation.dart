@@ -10,7 +10,8 @@ import 'package:normalize/src/config/normalize_config.dart';
 
 /// Normalizes data for a given query
 ///
-/// Pass in a [merge] function to merge the result into the denormalized map.
+/// Pass in [read] and [write] functions to read and write the result to the
+/// denormalized map.
 ///
 /// IDs are generated for each entity based on the following:
 /// 1. If no __typename field exists, the entity will not be normalized.

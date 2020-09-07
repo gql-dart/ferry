@@ -9,7 +9,8 @@ import 'package:normalize/src/config/normalize_config.dart';
 
 /// Normalizes data for a given fragment
 ///
-/// Pass in a [merge] function to merge the result into the denormalized map.
+/// Pass in [read] and [write] functions to read and write the result to the
+/// denormalized map.
 ///
 /// An [idFields] Map must be provided that includes all identifying data, per
 /// any pertinent [TypePolicy] or [dataIdFromObject] funciton. If entities of
