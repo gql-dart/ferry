@@ -16,6 +16,10 @@ abstract class GHeroForEpisodeData
   factory GHeroForEpisodeData(
       [Function(GHeroForEpisodeDataBuilder b) updates]) = _$GHeroForEpisodeData;
 
+  static void _initializeBuilder(GHeroForEpisodeDataBuilder b) =>
+      b..G__typename = 'Query';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
   @nullable
   GHeroForEpisodeData_hero get hero;
   static Serializer<GHeroForEpisodeData> get serializer =>

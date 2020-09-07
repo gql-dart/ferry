@@ -16,6 +16,10 @@ abstract class GAllPokemonData
   factory GAllPokemonData([Function(GAllPokemonDataBuilder b) updates]) =
       _$GAllPokemonData;
 
+  static void _initializeBuilder(GAllPokemonDataBuilder b) =>
+      b..G__typename = 'Query';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
   @nullable
   BuiltList<GAllPokemonData_queryPokemon> get queryPokemon;
   static Serializer<GAllPokemonData> get serializer =>

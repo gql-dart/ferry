@@ -13,6 +13,10 @@ abstract class GHeroNoVarsData
   factory GHeroNoVarsData([Function(GHeroNoVarsDataBuilder b) updates]) =
       _$GHeroNoVarsData;
 
+  static void _initializeBuilder(GHeroNoVarsDataBuilder b) =>
+      b..G__typename = 'Query';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
   @nullable
   GHeroNoVarsData_hero get hero;
   static Serializer<GHeroNoVarsData> get serializer =>

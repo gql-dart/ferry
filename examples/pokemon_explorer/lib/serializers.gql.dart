@@ -56,8 +56,8 @@ import 'package:pokemon_explorer/src/graphql/pokemon_detail.data.gql.dart'
     show
         GPokemonDetailData,
         GPokemonDetailData_getPokemon,
-        GPokemonDetailData_getPokemon_weight,
-        GPokemonDetailData_getPokemon_height;
+        GPokemonDetailData_getPokemon_height,
+        GPokemonDetailData_getPokemon_weight;
 import 'package:pokemon_explorer/src/graphql/pokemon_detail.req.gql.dart'
     show GPokemonDetailReq;
 import 'package:pokemon_explorer/src/graphql/pokemon_detail.var.gql.dart'
@@ -69,23 +69,15 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   ..add(OperationSerializer())
   ..addPlugin(StandardJsonPlugin());
 @SerializersFor([
-  GAllPokemonReq,
-  GNestedFragmentReq,
-  GPokemonCardReq,
-  GPokemonDetailReq,
-  GAllPokemonData,
-  GAllPokemonData_queryPokemon,
-  GNestedFragmentData,
-  GPokemonCardData,
-  GPokemonDetailData,
-  GPokemonDetailData_getPokemon,
-  GPokemonDetailData_getPokemon_weight,
-  GPokemonDetailData_getPokemon_height,
   GAddAttackInput,
   GAddPokemonAttackInput,
   GAddPokemonDimensionInput,
   GAddPokemonEvolutionRequirementInput,
   GAddPokemonInput,
+  GAllPokemonData,
+  GAllPokemonData_queryPokemon,
+  GAllPokemonReq,
+  GAllPokemonVars,
   GAttackOrder,
   GAttackOrderable,
   GAttackRef,
@@ -98,7 +90,19 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GHTTPMethod,
   GIntFilter,
   GMode,
+  GNestedFragmentData,
+  GNestedFragmentReq,
+  GNestedFragmentVars,
   GPokemonAttackRef,
+  GPokemonCardData,
+  GPokemonCardReq,
+  GPokemonCardVars,
+  GPokemonDetailData,
+  GPokemonDetailData_getPokemon,
+  GPokemonDetailData_getPokemon_height,
+  GPokemonDetailData_getPokemon_weight,
+  GPokemonDetailReq,
+  GPokemonDetailVars,
   GPokemonDimensionOrder,
   GPokemonDimensionOrderable,
   GPokemonDimensionRef,
@@ -115,10 +119,6 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GStringHashFilter,
   GStringRegExpFilter,
   GStringTermFilter,
-  GUpdatePokemonInput,
-  GAllPokemonVars,
-  GNestedFragmentVars,
-  GPokemonCardVars,
-  GPokemonDetailVars
+  GUpdatePokemonInput
 ])
 final Serializers serializers = _serializersBuilder.build();

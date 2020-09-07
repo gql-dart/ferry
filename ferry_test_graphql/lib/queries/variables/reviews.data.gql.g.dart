@@ -20,7 +20,11 @@ class _$GReviewsDataSerializer implements StructuredSerializer<GReviewsData> {
   @override
   Iterable<Object> serialize(Serializers serializers, GReviewsData object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
+    final result = <Object>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+    ];
     if (object.reviews != null) {
       result
         ..add('reviews')
@@ -42,6 +46,10 @@ class _$GReviewsDataSerializer implements StructuredSerializer<GReviewsData> {
       iterator.moveNext();
       final dynamic value = iterator.current;
       switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
         case 'reviews':
           result.reviews.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
@@ -154,12 +162,18 @@ class _$GReviewsData_reviewsSerializer
 
 class _$GReviewsData extends GReviewsData {
   @override
+  final String G__typename;
+  @override
   final BuiltList<GReviewsData_reviews> reviews;
 
   factory _$GReviewsData([void Function(GReviewsDataBuilder) updates]) =>
       (new GReviewsDataBuilder()..update(updates)).build();
 
-  _$GReviewsData._({this.reviews}) : super._();
+  _$GReviewsData._({this.G__typename, this.reviews}) : super._() {
+    if (G__typename == null) {
+      throw new BuiltValueNullFieldError('GReviewsData', 'G__typename');
+    }
+  }
 
   @override
   GReviewsData rebuild(void Function(GReviewsDataBuilder) updates) =>
@@ -171,17 +185,20 @@ class _$GReviewsData extends GReviewsData {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GReviewsData && reviews == other.reviews;
+    return other is GReviewsData &&
+        G__typename == other.G__typename &&
+        reviews == other.reviews;
   }
 
   @override
   int get hashCode {
-    return $jf($jc(0, reviews.hashCode));
+    return $jf($jc($jc(0, G__typename.hashCode), reviews.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('GReviewsData')
+          ..add('G__typename', G__typename)
           ..add('reviews', reviews))
         .toString();
   }
@@ -191,16 +208,23 @@ class GReviewsDataBuilder
     implements Builder<GReviewsData, GReviewsDataBuilder> {
   _$GReviewsData _$v;
 
+  String _G__typename;
+  String get G__typename => _$this._G__typename;
+  set G__typename(String G__typename) => _$this._G__typename = G__typename;
+
   ListBuilder<GReviewsData_reviews> _reviews;
   ListBuilder<GReviewsData_reviews> get reviews =>
       _$this._reviews ??= new ListBuilder<GReviewsData_reviews>();
   set reviews(ListBuilder<GReviewsData_reviews> reviews) =>
       _$this._reviews = reviews;
 
-  GReviewsDataBuilder();
+  GReviewsDataBuilder() {
+    GReviewsData._initializeBuilder(this);
+  }
 
   GReviewsDataBuilder get _$this {
     if (_$v != null) {
+      _G__typename = _$v.G__typename;
       _reviews = _$v.reviews?.toBuilder();
       _$v = null;
     }
@@ -224,7 +248,9 @@ class GReviewsDataBuilder
   _$GReviewsData build() {
     _$GReviewsData _$result;
     try {
-      _$result = _$v ?? new _$GReviewsData._(reviews: _reviews?.build());
+      _$result = _$v ??
+          new _$GReviewsData._(
+              G__typename: G__typename, reviews: _reviews?.build());
     } catch (_) {
       String _$failedField;
       try {

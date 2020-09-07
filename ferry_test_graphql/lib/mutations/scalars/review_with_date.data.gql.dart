@@ -15,6 +15,10 @@ abstract class GReviewWithDateData
   factory GReviewWithDateData(
       [Function(GReviewWithDateDataBuilder b) updates]) = _$GReviewWithDateData;
 
+  static void _initializeBuilder(GReviewWithDateDataBuilder b) =>
+      b..G__typename = 'Mutation';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
   @nullable
   GReviewWithDateData_createReview get createReview;
   static Serializer<GReviewWithDateData> get serializer =>

@@ -13,6 +13,10 @@ abstract class GHumanWithArgsData
   factory GHumanWithArgsData([Function(GHumanWithArgsDataBuilder b) updates]) =
       _$GHumanWithArgsData;
 
+  static void _initializeBuilder(GHumanWithArgsDataBuilder b) =>
+      b..G__typename = 'Query';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
   @nullable
   GHumanWithArgsData_human get human;
   static Serializer<GHumanWithArgsData> get serializer =>

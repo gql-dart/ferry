@@ -15,6 +15,10 @@ abstract class GPokemonDetailData
   factory GPokemonDetailData([Function(GPokemonDetailDataBuilder b) updates]) =
       _$GPokemonDetailData;
 
+  static void _initializeBuilder(GPokemonDetailDataBuilder b) =>
+      b..G__typename = 'Query';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
   @nullable
   GPokemonDetailData_getPokemon get getPokemon;
   static Serializer<GPokemonDetailData> get serializer =>

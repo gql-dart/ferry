@@ -21,7 +21,11 @@ class _$GHeroNoVarsDataSerializer
   @override
   Iterable<Object> serialize(Serializers serializers, GHeroNoVarsData object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
+    final result = <Object>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+    ];
     if (object.hero != null) {
       result
         ..add('hero')
@@ -43,6 +47,10 @@ class _$GHeroNoVarsDataSerializer
       iterator.moveNext();
       final dynamic value = iterator.current;
       switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
         case 'hero':
           result.hero.replace(serializers.deserialize(value,
                   specifiedType: const FullType(GHeroNoVarsData_hero))
@@ -115,12 +123,18 @@ class _$GHeroNoVarsData_heroSerializer
 
 class _$GHeroNoVarsData extends GHeroNoVarsData {
   @override
+  final String G__typename;
+  @override
   final GHeroNoVarsData_hero hero;
 
   factory _$GHeroNoVarsData([void Function(GHeroNoVarsDataBuilder) updates]) =>
       (new GHeroNoVarsDataBuilder()..update(updates)).build();
 
-  _$GHeroNoVarsData._({this.hero}) : super._();
+  _$GHeroNoVarsData._({this.G__typename, this.hero}) : super._() {
+    if (G__typename == null) {
+      throw new BuiltValueNullFieldError('GHeroNoVarsData', 'G__typename');
+    }
+  }
 
   @override
   GHeroNoVarsData rebuild(void Function(GHeroNoVarsDataBuilder) updates) =>
@@ -133,17 +147,21 @@ class _$GHeroNoVarsData extends GHeroNoVarsData {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GHeroNoVarsData && hero == other.hero;
+    return other is GHeroNoVarsData &&
+        G__typename == other.G__typename &&
+        hero == other.hero;
   }
 
   @override
   int get hashCode {
-    return $jf($jc(0, hero.hashCode));
+    return $jf($jc($jc(0, G__typename.hashCode), hero.hashCode));
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GHeroNoVarsData')..add('hero', hero))
+    return (newBuiltValueToStringHelper('GHeroNoVarsData')
+          ..add('G__typename', G__typename)
+          ..add('hero', hero))
         .toString();
   }
 }
@@ -152,15 +170,22 @@ class GHeroNoVarsDataBuilder
     implements Builder<GHeroNoVarsData, GHeroNoVarsDataBuilder> {
   _$GHeroNoVarsData _$v;
 
+  String _G__typename;
+  String get G__typename => _$this._G__typename;
+  set G__typename(String G__typename) => _$this._G__typename = G__typename;
+
   GHeroNoVarsData_heroBuilder _hero;
   GHeroNoVarsData_heroBuilder get hero =>
       _$this._hero ??= new GHeroNoVarsData_heroBuilder();
   set hero(GHeroNoVarsData_heroBuilder hero) => _$this._hero = hero;
 
-  GHeroNoVarsDataBuilder();
+  GHeroNoVarsDataBuilder() {
+    GHeroNoVarsData._initializeBuilder(this);
+  }
 
   GHeroNoVarsDataBuilder get _$this {
     if (_$v != null) {
+      _G__typename = _$v.G__typename;
       _hero = _$v.hero?.toBuilder();
       _$v = null;
     }
@@ -184,7 +209,9 @@ class GHeroNoVarsDataBuilder
   _$GHeroNoVarsData build() {
     _$GHeroNoVarsData _$result;
     try {
-      _$result = _$v ?? new _$GHeroNoVarsData._(hero: _hero?.build());
+      _$result = _$v ??
+          new _$GHeroNoVarsData._(
+              G__typename: G__typename, hero: _hero?.build());
     } catch (_) {
       String _$failedField;
       try {

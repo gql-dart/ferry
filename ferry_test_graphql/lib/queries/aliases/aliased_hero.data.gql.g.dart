@@ -23,7 +23,11 @@ class _$GAliasedHeroDataSerializer
   @override
   Iterable<Object> serialize(Serializers serializers, GAliasedHeroData object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
+    final result = <Object>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+    ];
     if (object.empireHero != null) {
       result
         ..add('empireHero')
@@ -51,6 +55,10 @@ class _$GAliasedHeroDataSerializer
       iterator.moveNext();
       final dynamic value = iterator.current;
       switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
         case 'empireHero':
           result.empireHero.replace(serializers.deserialize(value,
                   specifiedType: const FullType(GAliasedHeroData_empireHero))
@@ -210,6 +218,8 @@ class _$GAliasedHeroData_jediHeroSerializer
 
 class _$GAliasedHeroData extends GAliasedHeroData {
   @override
+  final String G__typename;
+  @override
   final GAliasedHeroData_empireHero empireHero;
   @override
   final GAliasedHeroData_jediHero jediHero;
@@ -218,7 +228,12 @@ class _$GAliasedHeroData extends GAliasedHeroData {
           [void Function(GAliasedHeroDataBuilder) updates]) =>
       (new GAliasedHeroDataBuilder()..update(updates)).build();
 
-  _$GAliasedHeroData._({this.empireHero, this.jediHero}) : super._();
+  _$GAliasedHeroData._({this.G__typename, this.empireHero, this.jediHero})
+      : super._() {
+    if (G__typename == null) {
+      throw new BuiltValueNullFieldError('GAliasedHeroData', 'G__typename');
+    }
+  }
 
   @override
   GAliasedHeroData rebuild(void Function(GAliasedHeroDataBuilder) updates) =>
@@ -232,18 +247,21 @@ class _$GAliasedHeroData extends GAliasedHeroData {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GAliasedHeroData &&
+        G__typename == other.G__typename &&
         empireHero == other.empireHero &&
         jediHero == other.jediHero;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, empireHero.hashCode), jediHero.hashCode));
+    return $jf($jc($jc($jc(0, G__typename.hashCode), empireHero.hashCode),
+        jediHero.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('GAliasedHeroData')
+          ..add('G__typename', G__typename)
           ..add('empireHero', empireHero)
           ..add('jediHero', jediHero))
         .toString();
@@ -253,6 +271,10 @@ class _$GAliasedHeroData extends GAliasedHeroData {
 class GAliasedHeroDataBuilder
     implements Builder<GAliasedHeroData, GAliasedHeroDataBuilder> {
   _$GAliasedHeroData _$v;
+
+  String _G__typename;
+  String get G__typename => _$this._G__typename;
+  set G__typename(String G__typename) => _$this._G__typename = G__typename;
 
   GAliasedHeroData_empireHeroBuilder _empireHero;
   GAliasedHeroData_empireHeroBuilder get empireHero =>
@@ -266,10 +288,13 @@ class GAliasedHeroDataBuilder
   set jediHero(GAliasedHeroData_jediHeroBuilder jediHero) =>
       _$this._jediHero = jediHero;
 
-  GAliasedHeroDataBuilder();
+  GAliasedHeroDataBuilder() {
+    GAliasedHeroData._initializeBuilder(this);
+  }
 
   GAliasedHeroDataBuilder get _$this {
     if (_$v != null) {
+      _G__typename = _$v.G__typename;
       _empireHero = _$v.empireHero?.toBuilder();
       _jediHero = _$v.jediHero?.toBuilder();
       _$v = null;
@@ -296,7 +321,9 @@ class GAliasedHeroDataBuilder
     try {
       _$result = _$v ??
           new _$GAliasedHeroData._(
-              empireHero: _empireHero?.build(), jediHero: _jediHero?.build());
+              G__typename: G__typename,
+              empireHero: _empireHero?.build(),
+              jediHero: _jediHero?.build());
     } catch (_) {
       String _$failedField;
       try {
