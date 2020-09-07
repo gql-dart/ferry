@@ -44,9 +44,9 @@ void main() {
 
       final normalizedResult = {};
       normalizeOperation(
+        read: (dataId) => normalizedResult[dataId],
         addTypename: true,
-        merge: (dataId, value) =>
-            (normalizedResult[dataId] ??= {}).addAll(value),
+        write: (dataId, value) => normalizedResult[dataId] = value,
         document: query,
         data: sharedResponse,
         operationName: 'TestQuery',
@@ -95,9 +95,9 @@ void main() {
 
       final normalizedResult = {};
       normalizeOperation(
+        read: (dataId) => normalizedResult[dataId],
         addTypename: true,
-        merge: (dataId, value) =>
-            (normalizedResult[dataId] ??= {}).addAll(value),
+        write: (dataId, value) => normalizedResult[dataId] = value,
         document: query,
         data: sharedResponse,
         operationName: 'TestQuery',

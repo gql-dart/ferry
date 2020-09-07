@@ -37,7 +37,7 @@ void main() {
         fields: {
           'posts': FieldPolicy(
             read: (existing, options) {
-              final postRef = options.parentObject[options.field.name.value][0];
+              final postRef = existing[0];
               expect(options.isReference(postRef), equals(true));
               final resolvedPost = options.resolveReference(postRef);
               final authorRef = resolvedPost['author'];

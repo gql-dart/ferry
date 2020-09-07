@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:gql/ast.dart';
 
-import '../options/field_policy.dart';
+import 'package:normalize/src/policies/field_policy.dart';
 
 Object _resolveValueNode(
   ValueNode valueNode,

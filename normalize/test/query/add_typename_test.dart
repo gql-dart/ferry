@@ -41,11 +41,11 @@ void main() {
 
           final normalizedResult = {};
           normalizeOperation(
+            read: (dataId) => normalizedResult[dataId],
             addTypename: true,
             document: query,
             data: sharedResponse,
-            merge: (dataId, value) =>
-                (normalizedResult[dataId] ??= {}).addAll(value),
+            write: (dataId, value) => normalizedResult[dataId] = value,
           );
 
           expect(
@@ -90,11 +90,11 @@ void main() {
 
           final normalizedResult = {};
           normalizeOperation(
+            read: (dataId) => normalizedResult[dataId],
             addTypename: true,
             document: query,
             data: sharedResponse,
-            merge: (dataId, value) =>
-                (normalizedResult[dataId] ??= {}).addAll(value),
+            write: (dataId, value) => normalizedResult[dataId] = value,
           );
 
           expect(
@@ -141,11 +141,11 @@ void main() {
 
           final normalizedResult = {};
           normalizeOperation(
+            read: (dataId) => normalizedResult[dataId],
             addTypename: true,
             document: query,
             data: sharedResponse,
-            merge: (dataId, value) =>
-                (normalizedResult[dataId] ??= {}).addAll(value),
+            write: (dataId, value) => normalizedResult[dataId] = value,
           );
 
           expect(

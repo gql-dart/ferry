@@ -16,7 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - rename `query` to `document` in `normalizeOperation` and `denormalizeOperation`
 - rename `fragment` to `document` in `normalizeFragment` and `denormalizeFragment`
 - rename `reader` to `read` in denormalize functions
-- replace `writer` with `merge` function in normalize functions
+- rename `writer` with `write` in normalize functions
+- require `read` callback in normalize functions
 - denormalize methods now filter out dangling references
 
 ## [0.2.4] - 2020-09-05

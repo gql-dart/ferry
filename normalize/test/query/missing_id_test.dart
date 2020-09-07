@@ -94,10 +94,10 @@ void main() {
 
       final normalizedResult = {};
       normalizeOperation(
+        read: (dataId) => normalizedResult[dataId],
         document: query,
         data: data,
-        merge: (dataId, value) =>
-            (normalizedResult[dataId] ??= {}).addAll(value),
+        write: (dataId, value) => normalizedResult[dataId] = value,
       );
 
       test(

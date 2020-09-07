@@ -1,12 +1,12 @@
 import 'package:gql/ast.dart';
 import 'package:meta/meta.dart';
-import 'package:normalize/normalize.dart';
 
-import './utils/field_name_with_arguments.dart';
-import './utils/expand_fragments.dart';
-import './utils/exceptions.dart';
-import './options/denormalize_config.dart';
-import './utils/is_dangling_reference.dart';
+import 'package:normalize/src/utils/field_name_with_arguments.dart';
+import 'package:normalize/src/utils/expand_fragments.dart';
+import 'package:normalize/src/utils/exceptions.dart';
+import 'package:normalize/src/config/denormalize_config.dart';
+import 'package:normalize/src/utils/is_dangling_reference.dart';
+import 'package:normalize/src/policies/field_policy.dart';
 
 /// Returns a denormalized object for a given [SelectionSetNode].
 ///
@@ -65,19 +65,10 @@ Object denormalizeNode({
         if (fieldPolicy?.read != null) {
           return result
             ..[resultKey] = fieldPolicy.read(
-              denormalizeNode(
-                selectionSet: fieldNode.selectionSet,
-                dataForNode: denormalizedData[fieldName],
-                config: config..returnPartialData = true,
-              ),
+              denormalizedData[fieldName],
               FieldFunctionOptions(
-                parentObject: denormalizedData,
                 field: fieldNode,
-                variables: config.variables,
-                isReference: (object) =>
-                    object.containsKey(config.referenceKey),
-                resolveReference: (reference) =>
-                    config.read(reference[config.referenceKey]),
+                config: config,
               ),
             );
         } else if (!denormalizedData.containsKey(fieldName)) {

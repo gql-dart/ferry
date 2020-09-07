@@ -29,8 +29,8 @@ void main() {
 
       final normalizedResult = {};
       normalizeFragment(
-        merge: (dataId, value) =>
-            (normalizedResult[dataId] ??= {}).addAll(value),
+        read: (dataId) => normalizedResult[dataId],
+        write: (dataId, value) => normalizedResult[dataId] = value,
         document: fragment,
         idFields: {'id': '1'},
         data: data,
@@ -78,8 +78,8 @@ void main() {
 
       final normalizedResult = {};
       normalizeFragment(
-        merge: (dataId, value) =>
-            (normalizedResult[dataId] ??= {}).addAll(value),
+        read: (dataId) => normalizedResult[dataId],
+        write: (dataId, value) => normalizedResult[dataId] = value,
         document: fragment,
         idFields: {'id': '324'},
         data: data,
@@ -129,8 +129,8 @@ void main() {
 
       final normalizedResult = {};
       normalizeFragment(
-        merge: (dataId, value) =>
-            (normalizedResult[dataId] ??= {}).addAll(value),
+        read: (dataId) => normalizedResult[dataId],
+        write: (dataId, value) => normalizedResult[dataId] = value,
         document: fragment,
         idFields: {'id': '324'},
         data: data,
@@ -184,8 +184,8 @@ void main() {
 
       final normalizedResult = {};
       normalizeFragment(
-        merge: (dataId, value) =>
-            (normalizedResult[dataId] ??= {}).addAll(value),
+        read: (dataId) => normalizedResult[dataId],
+        write: (dataId, value) => normalizedResult[dataId] = value,
         document: fragment,
         fragmentName: 'commentData',
         idFields: {'id': '324'},

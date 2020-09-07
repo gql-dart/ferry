@@ -32,8 +32,8 @@ void main() {
     test('Produces correct normalized object', () {
       final normalizedResult = {};
       normalizeOperation(
-        merge: (dataId, value) =>
-            (normalizedResult[dataId] ??= {}).addAll(value),
+        read: (dataId) => normalizedResult[dataId],
+        write: (dataId, value) => normalizedResult[dataId] = value,
         document: query,
         data: data,
       );
