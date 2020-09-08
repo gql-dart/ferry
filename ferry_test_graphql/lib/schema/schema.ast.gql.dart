@@ -114,7 +114,7 @@ const Query = _i1.ObjectTypeDefinitionNode(
                 defaultValue: null)
           ],
           type: _i1.NamedTypeNode(
-              name: _i1.NameNode(value: 'Human'), isNonNull: false)),
+              name: _i1.NameNode(value: 'Human'), isNonNull: true)),
       _i1.FieldDefinitionNode(
           name: _i1.NameNode(value: 'starship'),
           directives: [],

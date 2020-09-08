@@ -4,7 +4,7 @@ import 'dart:async';
 import 'package:gql/ast.dart';
 import 'package:gql_link/gql_link.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:normalize/normalize.dart';
+import 'package:normalize/utils.dart';
 
 import './operation_response.dart';
 import './operation_request.dart';

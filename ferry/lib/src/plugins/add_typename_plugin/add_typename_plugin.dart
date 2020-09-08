@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:gql_exec/gql_exec.dart';
 import 'package:gql/ast.dart';
-import 'package:normalize/normalize.dart';
+import 'package:normalize/utils.dart';
 
 import 'package:ferry/src/operation_request.dart';
 import 'package:ferry/src/plugins/plugin.dart';

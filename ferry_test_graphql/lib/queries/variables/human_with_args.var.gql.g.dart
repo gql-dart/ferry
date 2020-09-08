@@ -23,7 +23,12 @@ class _$GHumanWithArgsVarsSerializer
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(String)),
     ];
-
+    if (object.friendsAfter != null) {
+      result
+        ..add('friendsAfter')
+        ..add(serializers.serialize(object.friendsAfter,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
@@ -43,6 +48,10 @@ class _$GHumanWithArgsVarsSerializer
           result.id = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'friendsAfter':
+          result.friendsAfter = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
       }
     }
 
@@ -53,12 +62,14 @@ class _$GHumanWithArgsVarsSerializer
 class _$GHumanWithArgsVars extends GHumanWithArgsVars {
   @override
   final String id;
+  @override
+  final String friendsAfter;
 
   factory _$GHumanWithArgsVars(
           [void Function(GHumanWithArgsVarsBuilder) updates]) =>
       (new GHumanWithArgsVarsBuilder()..update(updates)).build();
 
-  _$GHumanWithArgsVars._({this.id}) : super._() {
+  _$GHumanWithArgsVars._({this.id, this.friendsAfter}) : super._() {
     if (id == null) {
       throw new BuiltValueNullFieldError('GHumanWithArgsVars', 'id');
     }
@@ -76,17 +87,21 @@ class _$GHumanWithArgsVars extends GHumanWithArgsVars {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GHumanWithArgsVars && id == other.id;
+    return other is GHumanWithArgsVars &&
+        id == other.id &&
+        friendsAfter == other.friendsAfter;
   }
 
   @override
   int get hashCode {
-    return $jf($jc(0, id.hashCode));
+    return $jf($jc($jc(0, id.hashCode), friendsAfter.hashCode));
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GHumanWithArgsVars')..add('id', id))
+    return (newBuiltValueToStringHelper('GHumanWithArgsVars')
+          ..add('id', id)
+          ..add('friendsAfter', friendsAfter))
         .toString();
   }
 }
@@ -99,11 +114,16 @@ class GHumanWithArgsVarsBuilder
   String get id => _$this._id;
   set id(String id) => _$this._id = id;
 
+  String _friendsAfter;
+  String get friendsAfter => _$this._friendsAfter;
+  set friendsAfter(String friendsAfter) => _$this._friendsAfter = friendsAfter;
+
   GHumanWithArgsVarsBuilder();
 
   GHumanWithArgsVarsBuilder get _$this {
     if (_$v != null) {
       _id = _$v.id;
+      _friendsAfter = _$v.friendsAfter;
       _$v = null;
     }
     return this;
@@ -124,7 +144,8 @@ class GHumanWithArgsVarsBuilder
 
   @override
   _$GHumanWithArgsVars build() {
-    final _$result = _$v ?? new _$GHumanWithArgsVars._(id: id);
+    final _$result =
+        _$v ?? new _$GHumanWithArgsVars._(id: id, friendsAfter: friendsAfter);
     replace(_$result);
     return _$result;
   }

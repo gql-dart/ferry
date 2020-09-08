@@ -63,7 +63,11 @@ import 'package:ferry_test_graphql/queries/no_vars/hero_no_vars.req.gql.dart'
 import 'package:ferry_test_graphql/queries/no_vars/hero_no_vars.var.gql.dart'
     show GHeroNoVarsVars;
 import 'package:ferry_test_graphql/queries/variables/human_with_args.data.gql.dart'
-    show GHumanWithArgsData, GHumanWithArgsData_human;
+    show
+        GHumanWithArgsData,
+        GHumanWithArgsData_human,
+        GHumanWithArgsData_human_friendsConnection,
+        GHumanWithArgsData_human_friendsConnection_friends;
 import 'package:ferry_test_graphql/queries/variables/human_with_args.req.gql.dart'
     show GHumanWithArgsReq;
 import 'package:ferry_test_graphql/queries/variables/human_with_args.var.gql.dart'
@@ -119,6 +123,8 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GHeroWithFragmentsVars,
   GHumanWithArgsData,
   GHumanWithArgsData_human,
+  GHumanWithArgsData_human_friendsConnection,
+  GHumanWithArgsData_human_friendsConnection_friends,
   GHumanWithArgsReq,
   GHumanWithArgsVars,
   GISODate,

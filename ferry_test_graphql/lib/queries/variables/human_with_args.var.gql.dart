@@ -14,6 +14,8 @@ abstract class GHumanWithArgsVars
       _$GHumanWithArgsVars;
 
   String get id;
+  @nullable
+  String get friendsAfter;
   static Serializer<GHumanWithArgsVars> get serializer =>
       _$gHumanWithArgsVarsSerializer;
   Map<String, dynamic> toJson() =>

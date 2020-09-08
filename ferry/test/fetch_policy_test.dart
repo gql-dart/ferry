@@ -17,6 +17,7 @@ void main() {
 
     final data = GHumanWithArgsData(
       (b) => b
+        ..human.id = 'steve'
         ..human.name = 'Steve Jobs'
         ..human.height = 1.88,
     );
