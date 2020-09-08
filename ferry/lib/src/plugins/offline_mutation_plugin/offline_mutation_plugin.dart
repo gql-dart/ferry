@@ -5,7 +5,7 @@ import 'package:hive/hive.dart';
 import 'package:built_value/serializer.dart';
 import 'package:gql/ast.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:normalize/normalize.dart';
+import 'package:normalize/utils.dart';
 
 import 'package:ferry/src/operation_request.dart';
 import 'package:ferry/src/operation_response.dart';

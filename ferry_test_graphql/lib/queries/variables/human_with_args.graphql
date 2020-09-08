@@ -1,6 +1,13 @@
-query HumanWithArgs($id: ID!) {
+query HumanWithArgs($id: ID!, $friendsAfter: ID) {
   human(id: $id) {
+    id
     name
     height
+    friendsConnection(first: 10, after: $friendsAfter) {
+      friends {
+        id
+        name
+      }
+    }
   }
 }

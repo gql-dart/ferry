@@ -13,7 +13,7 @@ type Query {
   search(text: String): [SearchResult]
   character(id: ID!): Character
   droid(id: ID!): Droid
-  human(id: ID!): Human
+  human(id: ID!): Human!
   starship(id: ID!): Starship
 }
 

@@ -40,6 +40,8 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GHeroWithFragmentsVars.serializer)
       ..add(GHumanWithArgsData.serializer)
       ..add(GHumanWithArgsData_human.serializer)
+      ..add(GHumanWithArgsData_human_friendsConnection.serializer)
+      ..add(GHumanWithArgsData_human_friendsConnection_friends.serializer)
       ..add(GHumanWithArgsReq.serializer)
       ..add(GHumanWithArgsVars.serializer)
       ..add(GISODate.serializer)
@@ -86,6 +88,12 @@ Serializers _$serializers = (new Serializers().toBuilder()
           ]),
           () => new ListBuilder<
               GHeroWithFragmentsData_hero_friendsConnection_edges>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(GHumanWithArgsData_human_friendsConnection_friends)
+          ]),
+          () => new ListBuilder<
+              GHumanWithArgsData_human_friendsConnection_friends>())
       ..addBuilderFactory(
           const FullType(
               BuiltList, const [const FullType(GReviewsData_reviews)]),

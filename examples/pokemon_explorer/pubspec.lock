@@ -196,7 +196,7 @@ packages:
       path: "../../ferry"
       relative: true
     source: path
-    version: "0.7.1"
+    version: "0.7.2"
   ferry_flutter:
     dependency: "direct main"
     description:
@@ -437,7 +437,7 @@ packages:
       path: "../../normalize"
       relative: true
     source: path
-    version: "0.3.0"
+    version: "0.3.2"
   package_config:
     dependency: transitive
     description:

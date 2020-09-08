@@ -50,6 +50,7 @@ void main() {
       final req = GHumanWithArgsReq((b) => b..vars.id = '123');
       final data = GHumanWithArgsData(
         (b) => b
+          ..human.id = '123'
           ..human.name = 'Han Solo'
           ..human.height = 1.85,
       );

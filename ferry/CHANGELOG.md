@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.2] - 2020-09-09
+
+### Added
+
+- Add `identify` method
+- Add `evict` method
+
+### Changed
+- Use latest `normalize` version
+- Expose store from cache
+
 ## [0.7.1] - 2020-09-07
 
 ### Changed
