@@ -2,49 +2,17 @@ import 'package:test/test.dart';
 import 'package:gql/language.dart';
 
 import 'package:normalize/normalize.dart';
-import '../shared_data.dart';
 
 void main() {
-  group('FieldPolicy.read method', () {
-    final query = parseString('''
-      query TestQuery {
-        __typename
-        posts {
-          __typename
-          id
-          author {
-            __typename
+  group('FetchPolicy.merge', () {
+    test('can merge arrays on root field', () {
+      final query = parseString('''
+        query TestQuery {
+          posts {
             id
-            name
-          }
-          title
-          comments {
-            __typename
-            id
-            commenter {
-              __typename
-              id
-              name
-            }
           }
         }
-      }
-    ''');
-
-    test('can use custom merge function on root field', () {
-      final queryPolicy = TypePolicy(
-        queryType: true,
-        fields: {
-          'posts': FieldPolicy(
-            merge: (existing, incoming, options) {
-              if (existing is List && incoming is List) {
-                return [...existing, ...incoming];
-              }
-              return incoming;
-            },
-          )
-        },
-      );
+      ''');
 
       final response = {
         '__typename': 'Query',
@@ -52,20 +20,24 @@ void main() {
           {
             'id': '456',
             '__typename': 'Post',
-            'author': {
-              'id': '1',
-              '__typename': 'Author',
-              'name': 'Paul',
-            },
-            'title': 'My second blog post',
-            'comments': []
           }
         ]
       };
 
-      final existingNormalizedMap = {...sharedNormalizedMap};
+      final existing = {
+        'Query': {
+          '__typename': 'Query',
+          'posts': [
+            {'\$ref': 'Post:123'},
+          ]
+        },
+        'Post:123': {
+          'id': '123',
+          '__typename': 'Post',
+        },
+      };
 
-      final resultNormalizedMap = {
+      final result = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -76,62 +48,47 @@ void main() {
         'Post:123': {
           'id': '123',
           '__typename': 'Post',
-          'author': {'\$ref': 'Author:1'},
-          'title': 'My awesome blog post',
-          'comments': [
-            {'\$ref': 'Comment:324'}
-          ]
         },
         'Post:456': {
           'id': '456',
           '__typename': 'Post',
-          'author': {'\$ref': 'Author:1'},
-          'title': 'My second blog post',
-          'comments': []
         },
-        'Author:1': {
-          'id': '1',
-          '__typename': 'Author',
-          'name': 'Paul',
-        },
-        'Comment:324': {
-          'id': '324',
-          '__typename': 'Comment',
-          'commenter': {'\$ref': 'Author:2'},
-        },
-        'Author:2': {
-          'id': '2',
-          '__typename': 'Author',
-          'name': 'Nicole',
-        }
       };
 
       normalizeOperation(
+        addTypename: true,
         data: response,
         document: query,
-        read: (dataId) => existingNormalizedMap[dataId],
-        write: (dataId, value) => existingNormalizedMap[dataId] = value,
+        read: (dataId) => existing[dataId],
+        write: (dataId, value) => existing[dataId] = value,
         typePolicies: {
-          'Query': queryPolicy,
+          'Query': TypePolicy(
+            queryType: true,
+            fields: {
+              'posts': FieldPolicy(
+                merge: (existing, incoming, options) {
+                  return [...existing ?? [], ...incoming];
+                },
+              )
+            },
+          ),
         },
       );
 
-      expect(existingNormalizedMap, equals(resultNormalizedMap));
+      expect(existing, equals(result));
     });
 
-    test('can use custom merge function on child field', () {
-      final queryPolicy = TypePolicy(
-        fields: {
-          'comments': FieldPolicy(
-            merge: (existing, incoming, options) {
-              if (existing is List && incoming is List) {
-                return [...existing, ...incoming];
-              }
-              return incoming;
-            },
-          )
-        },
-      );
+    test('can merge arrays on child field', () {
+      final query = parseString('''
+        query TestQuery {
+          posts {
+            id
+            comments {
+              id
+            }
+          }
+        }
+      ''');
 
       final response = {
         '__typename': 'Query',
@@ -139,30 +96,17 @@ void main() {
           {
             'id': '123',
             '__typename': 'Post',
-            'author': {
-              'id': '1',
-              '__typename': 'Author',
-              'name': 'Paul',
-            },
-            'title': 'My awesome blog post',
             'comments': [
               {
                 'id': '876',
                 '__typename': 'Comment',
-                'commenter': {
-                  'id': '2',
-                  '__typename': 'Author',
-                  'name': 'Nicole',
-                }
               }
             ]
           }
         ]
       };
 
-      final existingNormalizedMap = {...sharedNormalizedMap};
-
-      final resultNormalizedMap = {
+      final existing = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -172,46 +116,219 @@ void main() {
         'Post:123': {
           'id': '123',
           '__typename': 'Post',
-          'author': {'\$ref': 'Author:1'},
-          'title': 'My awesome blog post',
+          'comments': [
+            {'\$ref': 'Comment:324'},
+          ]
+        },
+        'Comment:324': {
+          'id': '324',
+          '__typename': 'Comment',
+        },
+      };
+
+      final result = {
+        'Query': {
+          '__typename': 'Query',
+          'posts': [
+            {'\$ref': 'Post:123'},
+          ]
+        },
+        'Post:123': {
+          'id': '123',
+          '__typename': 'Post',
           'comments': [
             {'\$ref': 'Comment:324'},
             {'\$ref': 'Comment:876'}
           ]
         },
-        'Author:1': {
-          'id': '1',
-          '__typename': 'Author',
-          'name': 'Paul',
-        },
         'Comment:324': {
           'id': '324',
           '__typename': 'Comment',
-          'commenter': {'\$ref': 'Author:2'},
         },
         'Comment:876': {
           'id': '876',
           '__typename': 'Comment',
-          'commenter': {'\$ref': 'Author:2'},
         },
-        'Author:2': {
-          'id': '2',
-          '__typename': 'Author',
-          'name': 'Nicole',
-        }
       };
 
       normalizeOperation(
+        addTypename: true,
         data: response,
         document: query,
-        read: (dataId) => existingNormalizedMap[dataId],
-        write: (dataId, value) => existingNormalizedMap[dataId] = value,
+        read: (dataId) => existing[dataId],
+        write: (dataId, value) => existing[dataId] = value,
         typePolicies: {
-          'Post': queryPolicy,
+          'Post': TypePolicy(
+            fields: {
+              'comments': FieldPolicy(
+                merge: (existing, incoming, options) {
+                  return [...existing ?? [], ...incoming];
+                },
+              )
+            },
+          ),
         },
       );
 
-      expect(existingNormalizedMap, equals(resultNormalizedMap));
+      expect(existing, equals(result));
+    });
+
+    test('can replace data', () {
+      final query = parseString('''
+        query TestQuery {
+          posts {
+            id
+            comments {
+              id
+            }
+          }
+        }
+      ''');
+
+      final response = {
+        '__typename': 'Query',
+        'posts': [
+          {
+            'id': '123',
+            '__typename': 'Post',
+            'comments': [
+              {
+                'id': '876',
+                '__typename': 'Comment',
+              }
+            ]
+          }
+        ]
+      };
+
+      final existing = {};
+
+      final result = {
+        'Query': {
+          '__typename': 'Query',
+          'posts': [
+            {'\$ref': 'Post:123'},
+          ]
+        },
+        'Post:123': {
+          'id': '123',
+          '__typename': 'Post',
+          'comments': [
+            {
+              'id': '876',
+              '__typename': 'Comment',
+            }
+          ]
+        },
+        'Comment:876': {
+          'id': '876',
+          '__typename': 'Comment',
+        },
+      };
+
+      normalizeOperation(
+        addTypename: true,
+        data: response,
+        document: query,
+        read: (dataId) => existing[dataId],
+        write: (dataId, value) => existing[dataId] = value,
+        typePolicies: {
+          'Post': TypePolicy(
+            fields: {
+              'comments': FieldPolicy(
+                merge: (_, incoming, options) {
+                  return [options.readField(options.field, incoming[0])];
+                },
+              )
+            },
+          ),
+        },
+      );
+
+      expect(existing, equals(result));
+    });
+
+    test('can merge maps', () {
+      final query = parseString('''
+      query PostAuthorWithName {
+        posts {
+          id
+          author {
+            name
+          }
+        }
+      }
+    ''');
+
+      final response = {
+        '__typename': 'Query',
+        'posts': [
+          {
+            'id': '123',
+            '__typename': 'Post',
+            'author': {
+              '__typename': 'Author',
+              'name': 'Paul',
+            },
+          }
+        ]
+      };
+
+      final existing = {
+        'Query': {
+          '__typename': 'Query',
+          'posts': [
+            {'\$ref': 'Post:123'},
+          ]
+        },
+        'Post:123': {
+          'id': '123',
+          '__typename': 'Post',
+          'author': {
+            '__typename': 'Author',
+            'age': '54',
+          },
+        },
+      };
+
+      final result = {
+        'Query': {
+          '__typename': 'Query',
+          'posts': [
+            {'\$ref': 'Post:123'},
+          ]
+        },
+        'Post:123': {
+          'id': '123',
+          '__typename': 'Post',
+          'author': {
+            '__typename': 'Author',
+            'age': '54',
+            'name': 'Paul',
+          },
+        },
+      };
+
+      normalizeOperation(
+        addTypename: true,
+        data: response,
+        document: query,
+        read: (dataId) => existing[dataId],
+        write: (dataId, value) => existing[dataId] = value,
+        typePolicies: {
+          'Post': TypePolicy(
+            fields: {
+              'author': FieldPolicy(
+                merge: (existing, incoming, options) {
+                  return <String, dynamic>{...existing ?? {}, ...incoming};
+                },
+              )
+            },
+          ),
+        },
+      );
+
+      expect(existing, equals(result));
     });
   });
 }

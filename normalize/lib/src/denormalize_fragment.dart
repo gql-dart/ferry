@@ -2,7 +2,7 @@ import 'package:gql/ast.dart';
 import 'package:meta/meta.dart';
 import 'package:normalize/normalize.dart';
 
-import 'package:normalize/src/config/denormalize_config.dart';
+import 'package:normalize/src/config/normalization_config.dart';
 import 'package:normalize/src/policies/type_policy.dart';
 import 'package:normalize/src/utils/resolve_data_id.dart';
 import 'package:normalize/src/utils/add_typename_visitor.dart';
@@ -74,14 +74,14 @@ Map<String, dynamic> denormalizeFragment({
     dataIdFromObject: dataIdFromObject,
   );
 
-  final config = DenormalizeConfig(
+  final config = NormalizationConfig(
     read: read,
     variables: variables,
     typePolicies: typePolicies,
-    returnPartialData: returnPartialData,
     referenceKey: referenceKey,
     fragmentMap: fragmentMap,
     dataIdFromObject: dataIdFromObject,
+    addTypename: addTypename,
   );
 
   try {
@@ -89,6 +89,7 @@ Map<String, dynamic> denormalizeFragment({
       selectionSet: fragmentDefinition.selectionSet,
       dataForNode: read(dataId),
       config: config,
+      returnPartialData: returnPartialData,
     );
   } on PartialDataException {
     return null;

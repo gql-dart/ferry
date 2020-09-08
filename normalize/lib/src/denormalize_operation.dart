@@ -8,7 +8,7 @@ import 'package:normalize/src/utils/add_typename_visitor.dart';
 import 'package:normalize/src/utils/exceptions.dart';
 import 'package:normalize/src/utils/get_operation_definition.dart';
 import 'package:normalize/src/denormalize_node.dart';
-import 'package:normalize/src/config/denormalize_config.dart';
+import 'package:normalize/src/config/normalization_config.dart';
 import 'package:normalize/src/utils/resolve_data_id.dart';
 
 /// Denormalizes data for a given query
@@ -51,14 +51,14 @@ Map<String, dynamic> denormalizeOperation({
       fragmentDefinition.name.value: fragmentDefinition
   };
 
-  final config = DenormalizeConfig(
+  final config = NormalizationConfig(
     read: read,
     variables: variables,
     typePolicies: typePolicies,
-    returnPartialData: returnPartialData,
     referenceKey: referenceKey,
     fragmentMap: fragmentMap,
     dataIdFromObject: dataIdFromObject,
+    addTypename: addTypename,
   );
 
   try {
@@ -66,6 +66,7 @@ Map<String, dynamic> denormalizeOperation({
       selectionSet: operationDefinition.selectionSet,
       dataForNode: read(rootTypename) ?? const {},
       config: config,
+      returnPartialData: returnPartialData,
     );
   } on PartialDataException {
     return null;

@@ -1,4 +1,4 @@
-final sharedNormalizedMap = {
+final Map<String, dynamic> sharedNormalizedMap = {
   'Query': {
     '__typename': 'Query',
     'posts': [
@@ -31,7 +31,7 @@ final sharedNormalizedMap = {
   }
 };
 
-final sharedResponse = {
+final Map<String, dynamic> sharedResponse = {
   '__typename': 'Query',
   'posts': [
     {
