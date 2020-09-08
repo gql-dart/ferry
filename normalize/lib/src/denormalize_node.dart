@@ -1,7 +1,7 @@
 import 'package:gql/ast.dart';
 import 'package:meta/meta.dart';
 
-import 'package:normalize/src/utils/field_name_with_arguments.dart';
+import 'package:normalize/src/utils/field_key.dart';
 import 'package:normalize/src/utils/expand_fragments.dart';
 import 'package:normalize/src/utils/exceptions.dart';
 import 'package:normalize/src/config/normalization_config.dart';
@@ -55,11 +55,11 @@ Object denormalizeNode({
         final fieldPolicy =
             (typePolicy?.fields ?? const {})[fieldNode.name.value];
 
-        final fieldName = fieldNameWithArguments(
+        final fieldName = FieldKey(
           fieldNode,
           config.variables,
           fieldPolicy,
-        );
+        ).toString();
 
         final resultKey = fieldNode.alias?.value ?? fieldNode.name.value;
 

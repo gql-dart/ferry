@@ -43,7 +43,7 @@ void main() {
         '__typename': 'Post',
         'author': {'\$ref': 'Author:1'},
         'title': 'My awesome blog post',
-        'comments({"a":["1","2"]})': [
+        'comments({"a":[1,2]})': [
           {'\$ref': 'Comment:324'}
         ]
       },

@@ -1,7 +1,7 @@
 import 'package:gql/ast.dart';
 import 'package:meta/meta.dart';
 
-import 'package:normalize/src/utils/field_name_with_arguments.dart';
+import 'package:normalize/src/utils/field_key.dart';
 import 'package:normalize/src/utils/resolve_data_id.dart';
 import 'package:normalize/src/config/normalization_config.dart';
 import 'package:normalize/src/denormalize_node.dart';
