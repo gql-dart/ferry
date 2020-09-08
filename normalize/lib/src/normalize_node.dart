@@ -4,7 +4,7 @@ import 'package:meta/meta.dart';
 import 'package:normalize/src/utils/resolve_data_id.dart';
 import 'package:normalize/src/utils/field_name_with_arguments.dart';
 import 'package:normalize/src/utils/expand_fragments.dart';
-import 'package:normalize/src/config/normalize_config.dart';
+import 'package:normalize/src/config/normalization_config.dart';
 import 'package:normalize/src/policies/field_policy.dart';
 
 /// Returns a normalized object for a given [SelectionSetNode].
@@ -13,8 +13,9 @@ import 'package:normalize/src/policies/field_policy.dart';
 Object normalizeNode({
   @required SelectionSetNode selectionSet,
   @required Object dataForNode,
-  @required NormalizeConfig config,
   @required Object existingNormalizedData,
+  @required NormalizationConfig config,
+  @required void Function(String dataId, Map<String, dynamic> value) write,
   bool root = false,
 }) {
   if (dataForNode == null) return null;
@@ -24,8 +25,9 @@ Object normalizeNode({
         .map((data) => normalizeNode(
               selectionSet: selectionSet,
               dataForNode: data,
-              config: config,
               existingNormalizedData: null,
+              config: config,
+              write: write,
             ))
         .toList();
   }
@@ -66,8 +68,9 @@ Object normalizeNode({
         final fieldData = normalizeNode(
           selectionSet: field.selectionSet,
           dataForNode: dataForNode[field.alias?.value ?? field.name.value],
-          config: config,
           existingNormalizedData: existingFieldData,
+          config: config,
+          write: write,
         );
         if (fieldPolicy?.merge != null) {
           return data
@@ -85,7 +88,7 @@ Object normalizeNode({
     };
 
     if (!root && dataId != null) {
-      config.write(dataId, dataToMerge);
+      write(dataId, dataToMerge);
       return {config.referenceKey: dataId};
     } else {
       return dataToMerge;

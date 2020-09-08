@@ -4,7 +4,7 @@ import 'package:meta/meta.dart';
 import 'package:normalize/src/utils/field_name_with_arguments.dart';
 import 'package:normalize/src/utils/expand_fragments.dart';
 import 'package:normalize/src/utils/exceptions.dart';
-import 'package:normalize/src/config/denormalize_config.dart';
+import 'package:normalize/src/config/normalization_config.dart';
 import 'package:normalize/src/utils/is_dangling_reference.dart';
 import 'package:normalize/src/policies/field_policy.dart';
 
@@ -14,7 +14,8 @@ import 'package:normalize/src/policies/field_policy.dart';
 Object denormalizeNode({
   @required SelectionSetNode selectionSet,
   @required Object dataForNode,
-  @required DenormalizeConfig config,
+  @required NormalizationConfig config,
+  @required bool returnPartialData,
 }) {
   if (dataForNode == null) return null;
 
@@ -26,6 +27,7 @@ Object denormalizeNode({
             selectionSet: selectionSet,
             dataForNode: data,
             config: config,
+            returnPartialData: returnPartialData,
           ),
         )
         .toList();
@@ -71,7 +73,7 @@ Object denormalizeNode({
               ),
             );
         } else if (!denormalizedData.containsKey(fieldName)) {
-          if (!config.returnPartialData) throw PartialDataException();
+          if (!returnPartialData) throw PartialDataException();
           return result;
         } else {
           return result
@@ -79,6 +81,7 @@ Object denormalizeNode({
               selectionSet: fieldNode.selectionSet,
               dataForNode: denormalizedData[fieldName],
               config: config,
+              returnPartialData: returnPartialData,
             );
         }
       },

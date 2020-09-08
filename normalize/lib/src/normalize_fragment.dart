@@ -5,7 +5,7 @@ import 'package:normalize/src/utils/resolve_data_id.dart';
 import 'package:normalize/src/policies/type_policy.dart';
 import 'package:normalize/src/utils/add_typename_visitor.dart';
 import 'package:normalize/src/normalize_node.dart';
-import 'package:normalize/src/config/normalize_config.dart';
+import 'package:normalize/src/config/normalization_config.dart';
 
 /// Normalizes data for a given fragment
 ///
@@ -69,8 +69,7 @@ void normalizeFragment({
     ...idFields,
   };
 
-  final config = NormalizeConfig(
-    write: write,
+  final config = NormalizationConfig(
     read: read,
     variables: variables,
     typePolicies: typePolicies,
@@ -86,13 +85,14 @@ void normalizeFragment({
     dataIdFromObject: dataIdFromObject,
   );
 
-  config.write(
+  write(
     dataId,
     normalizeNode(
       selectionSet: fragmentDefinition.selectionSet,
       dataForNode: dataForFragment,
-      config: config,
       existingNormalizedData: config.read(dataId),
+      config: config,
+      write: write,
       root: true,
     ),
   );

@@ -3,10 +3,11 @@ import 'package:meta/meta.dart';
 
 import 'package:normalize/src/utils/field_name_with_arguments.dart';
 import 'package:normalize/src/utils/resolve_data_id.dart';
-import 'package:normalize/src/config/base_config.dart';
+import 'package:normalize/src/config/normalization_config.dart';
+import 'package:normalize/src/denormalize_node.dart';
 
 class FieldFunctionOptions {
-  final BaseConfig _config;
+  final NormalizationConfig _config;
 
   /// The FieldNode object used to read this field.
   final FieldNode field;
@@ -19,7 +20,7 @@ class FieldFunctionOptions {
 
   FieldFunctionOptions({
     @required this.field,
-    @required BaseConfig config,
+    @required NormalizationConfig config,
   })  : _config = config,
         variables = config.variables,
         args = argsWithValues(config.variables, field.arguments);
@@ -37,23 +38,35 @@ class FieldFunctionOptions {
         )
       };
 
-  /// Returns the normalized object for the given reference.
-  Map<String, dynamic> resolveReference(Map<String, dynamic> reference) =>
-      _config.read(reference[_config.referenceKey]);
+  /// Returns denormalized data for the given [field] and normalized [data], recursively resolving any references.
+  T readField<T>(FieldNode field, Object data) => denormalizeNode(
+        selectionSet: field.selectionSet,
+        dataForNode: data,
+        config: NormalizationConfig(
+          read: _config.read,
+          variables: _config.variables,
+          typePolicies: _config.typePolicies,
+          referenceKey: _config.referenceKey,
+          fragmentMap: _config.fragmentMap,
+          dataIdFromObject: _config.dataIdFromObject,
+          addTypename: _config.addTypename,
+        ),
+        returnPartialData: true,
+      );
 }
 
-typedef FieldReadFunction<TExisting> = TExisting Function(
+typedef FieldReadFunction<TExisting, TReadResult> = TReadResult Function(
   TExisting existing,
   FieldFunctionOptions options,
 );
 
-typedef FieldMergeFunction<TExisting> = TExisting Function(
+typedef FieldMergeFunction<TExisting, TIncoming> = TExisting Function(
   TExisting existing,
-  Object incoming,
+  TIncoming incoming,
   FieldFunctionOptions options,
 );
 
-class FieldPolicy<TValue> {
+class FieldPolicy<TExisting, TIncoming, TReadResult> {
   /// Defines which arguments passed to the field are "important" in the sense
   /// that their values (together with the enclosing entity object) determine
   /// the field's value.
@@ -64,10 +77,10 @@ class FieldPolicy<TValue> {
   List<String> keyArgs;
 
   /// Custom function to read existing field
-  FieldReadFunction<TValue> read;
+  FieldReadFunction<TExisting, TReadResult> read;
 
   /// Custom function to merge into existing field
-  FieldMergeFunction merge;
+  FieldMergeFunction<TExisting, TIncoming> merge;
 
   FieldPolicy({this.keyArgs, this.read, this.merge});
 }
