@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.3] - 2020-09-09
+
+### Added
+
+- add `identify` method
+- export utils seperately
+
+### Changed
+
+- updates to `FieldKey`
+- fix null bug in denormalize_node
+
 ## [0.3.2] - 2020-09-08
 
 ### Added

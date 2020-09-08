@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 import 'package:gql/ast.dart';
 
@@ -10,7 +11,7 @@ import 'package:normalize/src/policies/field_policy.dart';
 /// are defined, all arguments will be included.
 class FieldKey {
   final String fieldName;
-  final Map<String, dynamic> args;
+  final SplayTreeMap<String, dynamic> args;
 
   FieldKey(
     FieldNode fieldNode,
@@ -19,23 +20,22 @@ class FieldKey {
   )   : fieldName = fieldNode.name.value,
         args = _initArgs(fieldNode, variables, fieldPolicy);
 
-  FieldKey._(this.fieldName, this.args);
-
-  static Map<String, dynamic> _initArgs(
+  static SplayTreeMap<String, dynamic> _initArgs(
     FieldNode fieldNode,
     Map<String, dynamic> variables,
     FieldPolicy fieldPolicy,
   ) {
     final pertinentArguments = fieldPolicy == null
         ? fieldNode.arguments
-        : fieldNode.arguments
-            .where(
-                (argument) => fieldPolicy.keyArgs.contains(argument.name.value))
-            .toList();
-    final orderedArguments = List<ArgumentNode>.from(pertinentArguments)
-      ..sort((a, b) => a.name.value.compareTo(b.name.value));
-    return argsWithValues(variables, orderedArguments);
+        : fieldNode.arguments.where(
+            (argument) => fieldPolicy.keyArgs.contains(argument.name.value));
+    return argsWithValues(variables, pertinentArguments);
   }
+
+  FieldKey.from(
+    this.fieldName,
+    Map<String, dynamic> args,
+  ) : args = SplayTreeMap<String, dynamic>.from(args);
 
   @override
   bool operator ==(o) => o.toString() == toString();
@@ -43,35 +43,34 @@ class FieldKey {
   @override
   int get hashCode => toString().hashCode;
 
-  /// Generates a stringified key from the field's name and any arguments.
   @override
   String toString() =>
       args.isEmpty ? fieldName : '$fieldName(${json.encode(args)})';
 
-  static FieldKey parse(String stringified) {
-    final openingIndex = stringified.indexOf('(');
-    final closingIndex = stringified.lastIndexOf(')');
-    final name = openingIndex == -1
-        ? stringified
-        : stringified.substring(0, openingIndex);
+  static FieldKey parse(String keyString) {
+    final openingIndex = keyString.indexOf('(');
+    final closingIndex = keyString.lastIndexOf(')');
+    final name =
+        openingIndex == -1 ? keyString : keyString.substring(0, openingIndex);
     final Map<String, dynamic> args = openingIndex == -1
         ? {}
-        : json.decode(stringified.substring(openingIndex + 1, closingIndex));
-    return FieldKey._(name, args);
+        : json.decode(keyString.substring(openingIndex + 1, closingIndex));
+    return FieldKey.from(name, args);
   }
 }
 
-Map<String, dynamic> argsWithValues(
+SplayTreeMap<String, dynamic> argsWithValues(
   Map<String, dynamic> variables,
-  List<ArgumentNode> arguments,
+  Iterable<ArgumentNode> arguments,
 ) =>
-    {
-      for (var argument in arguments)
-        argument.name.value: _resolveValueNode(
+    arguments.fold(
+      SplayTreeMap(),
+      (map, argument) => map
+        ..[argument.name.value] = _resolveValueNode(
           argument.value,
           variables,
-        )
-    };
+        ),
+    );
 
 Object _resolveValueNode(
   ValueNode valueNode,

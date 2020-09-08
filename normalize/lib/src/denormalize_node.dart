@@ -38,8 +38,9 @@ Object denormalizeNode({
 
   if (dataForNode is Map) {
     final denormalizedData = dataForNode.containsKey(config.referenceKey)
-        ? config.read(dataForNode[config.referenceKey])
+        ? config.read(dataForNode[config.referenceKey]) ?? {}
         : Map<String, dynamic>.from(dataForNode);
+
     final typename = denormalizedData['__typename'];
     final typePolicy = config.typePolicies[typename];
 
