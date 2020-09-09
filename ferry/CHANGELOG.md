@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add `identify` method
 - Add `evict` method
+- Add `gc` method
+- Add `retain` method
+- Add `release` method
 
 ### Changed
 - Use latest `normalize` version

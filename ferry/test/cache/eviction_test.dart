@@ -99,4 +99,39 @@ void main() {
       expect(cache.store.get(entityId)[keyChewie.toString()], isNotNull);
     });
   });
+
+  group('Garbage collection', () {
+    test('can remove orphaned entities', () {
+      final cache = Cache();
+      cache.writeQuery(hanReq, hanData);
+      cache.writeQuery(
+        hanReq,
+        hanData.rebuild((b) => b..human.friendsConnection.friends.removeLast()),
+      );
+      expect(cache.store.get('Human:luke'), isNotNull);
+      expect(cache.store.get('Human:chewie'), isNotNull);
+      cache.gc();
+      expect(cache.store.get('Human:luke'), isNotNull);
+      expect(cache.store.get('Human:chewie'), isNull);
+    });
+
+    test('can retain and release entities entities', () {
+      final cache = Cache();
+      cache.writeQuery(hanReq, hanData);
+      cache.writeQuery(
+        hanReq,
+        hanData.rebuild((b) => b..human.friendsConnection.friends.removeLast()),
+      );
+      expect(cache.store.get('Human:luke'), isNotNull);
+      expect(cache.store.get('Human:chewie'), isNotNull);
+      cache.retain('Human:chewie');
+      cache.gc();
+      expect(cache.store.get('Human:luke'), isNotNull);
+      expect(cache.store.get('Human:chewie'), isNotNull);
+      cache.release('Human:chewie');
+      cache.gc();
+      expect(cache.store.get('Human:luke'), isNotNull);
+      expect(cache.store.get('Human:chewie'), isNull);
+    });
+  });
 }

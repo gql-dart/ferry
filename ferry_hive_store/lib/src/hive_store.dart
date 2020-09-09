@@ -58,6 +58,12 @@ class HiveStore extends Store {
   }
 
   @override
+  void deleteAll(Iterable<String> dataIds) {
+    box.deleteAll(dataIds);
+    valueStream.add(_boxData);
+  }
+
+  @override
   void clear() {
     box.clear();
     valueStream.add({});

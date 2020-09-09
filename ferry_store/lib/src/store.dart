@@ -11,6 +11,8 @@ abstract class Store {
 
   void delete(String dataId);
 
+  void deleteAll(Iterable<String> dataIds);
+
   void clear();
 
   void dispose();
