@@ -115,7 +115,7 @@ void main() {
       expect(cache.store.get('Human:chewie'), isNull);
     });
 
-    test('can retain and release entities entities', () {
+    test('can retain and release entities', () {
       final cache = Cache();
       cache.writeQuery(hanReq, hanData);
       cache.writeQuery(
