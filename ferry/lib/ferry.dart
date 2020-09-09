@@ -1,5 +1,6 @@
 export 'package:gql_link/gql_link.dart';
 export 'package:ferry_store/ferry_store.dart';
+export 'package:normalize/policies.dart';
 
 export './src/cache.dart';
 export './src/client.dart';
