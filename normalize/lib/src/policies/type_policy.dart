@@ -3,18 +3,32 @@ import './field_policy.dart';
 class TypePolicy {
   /// Allows defining the primary key fields for this type.
   ///
-  /// If you don't wish to normalize this type, simply pass an empty list. In
+  /// Pass a `true` value for any fields you wish to use as key fields. You can
+  /// also use child fields.
+  ///
+  /// ```dart
+  /// final bookTypePolicy = TypePolicy(
+  ///   keyFields: {
+  ///     'title': true,
+  ///     'author': {
+  ///       'name': true,
+  ///     }
+  ///   },
+  /// );
+  /// ```
+  ///
+  /// If you don't wish to normalize this type, simply pass an empty `Map`. In
   /// that case, we won't normalize this type and it will be reachable from its
   /// parent.
-  ///
-  /// Unlike the Apollo Client, nested keyFields are not currently allowed.
-  List<String> keyFields;
+  Map<String, dynamic> keyFields;
 
-  /// If your schema uses a custom __typename for any of the root Query,
-  /// Mutation, and/or Subscription types (rare), set the corresponding
-  /// field below to true to indicate that this type serves as that type.
+  /// Set to `true` if this type is the root Query in your schema.
   bool queryType;
+
+  /// Set to `true` if this type is the root Mutation in your schema.
   bool mutationType;
+
+  /// Set to `true` if this type is the root Subscription in your schema.
   bool subscriptionType;
 
   /// Allows defining [FieldPolicy]s for this type.

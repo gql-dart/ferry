@@ -1,6 +1,10 @@
+import 'dart:collection';
+import 'dart:convert';
+
 import 'package:meta/meta.dart';
 
 import '../policies/type_policy.dart';
+import './exceptions.dart';
 
 typedef DataIdResolver = String Function(Map<String, dynamic> object);
 
@@ -20,10 +24,16 @@ String resolveDataId({
   if (typename == null) return null;
 
   final typePolicy = (typePolicies ?? const {})[typename];
+
   if (typePolicy?.keyFields != null) {
     if (typePolicy.keyFields.isEmpty) return null;
-    return [typename, ...typePolicy.keyFields.map((field) => data[field])]
-        .join(':');
+
+    try {
+      final fields = keyFieldsWithArgs(typePolicy.keyFields, data);
+      return '$typename:${json.encode(fields)}';
+    } on MissingKeyFieldException {
+      return null;
+    }
   }
 
   if (dataIdFromObject != null) return dataIdFromObject(data);
@@ -31,3 +41,22 @@ String resolveDataId({
   final id = data['id'] ?? data['_id'];
   return id == null ? null : '$typename:$id';
 }
+
+SplayTreeMap<String, dynamic> keyFieldsWithArgs(
+  Map<String, dynamic> keyFields,
+  Map data,
+) =>
+    keyFields.entries.fold(
+      SplayTreeMap(),
+      (fields, entry) {
+        if (entry.value is Map) {
+          return fields
+            ..[entry.key] =
+                keyFieldsWithArgs(entry.value, data[entry.key] ?? {});
+        } else if (entry.value == true) {
+          if (!data.containsKey(entry.key)) throw MissingKeyFieldException();
+          return fields..[entry.key] = data[entry.key];
+        }
+        return fields;
+      },
+    );

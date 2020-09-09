@@ -31,60 +31,207 @@ void main() {
       }
     ''');
 
-    final normalizedMap = {
-      'Query': {
-        '__typename': 'Query',
-        'posts': [
-          {'\$ref': 'Post:123:My awesome blog post'}
-        ]
-      },
-      'Post:123:My awesome blog post': {
-        'id': '123',
-        '__typename': 'Post',
-        'author': {'\$ref': 'Author:1'},
-        'title': 'My awesome blog post',
-        'comments': [
-          {'\$ref': 'Comment:324'}
-        ]
-      },
-      'Author:1': {'id': '1', '__typename': 'Author', 'name': 'Paul'},
-      'Comment:324': {
-        'id': '324',
-        '__typename': 'Comment',
-        'commenter': {'\$ref': 'Author:2'}
-      },
-      'Author:2': {'id': '2', '__typename': 'Author', 'name': 'Nicole'}
-    };
+    group('with correct keyFields', () {
+      final normalizedMap = {
+        'Query': {
+          '__typename': 'Query',
+          'posts': [
+            {
+              '\$ref':
+                  'Post:{"author":{"name":"Paul"},"id":"123","title":"My awesome blog post"}'
+            }
+          ]
+        },
+        'Post:{"author":{"name":"Paul"},"id":"123","title":"My awesome blog post"}':
+            {
+          'id': '123',
+          '__typename': 'Post',
+          'author': {'\$ref': 'Author:1'},
+          'title': 'My awesome blog post',
+          'comments': [
+            {'\$ref': 'Comment:324'}
+          ]
+        },
+        'Author:1': {'id': '1', '__typename': 'Author', 'name': 'Paul'},
+        'Comment:324': {
+          'id': '324',
+          '__typename': 'Comment',
+          'commenter': {'\$ref': 'Author:2'}
+        },
+        'Author:2': {'id': '2', '__typename': 'Author', 'name': 'Nicole'}
+      };
 
-    final typePolicies = {
-      'Post': TypePolicy(keyFields: ['id', 'title'])
-    };
+      final typePolicies = {
+        'Post': TypePolicy(
+          keyFields: {
+            'id': true,
+            'title': true,
+            'author': {
+              'name': true,
+            },
+          },
+        )
+      };
 
-    test('Produces correct normalized object', () {
-      final normalizedResult = {};
-      normalizeOperation(
-        read: (dataId) => normalizedResult[dataId],
-        write: (dataId, value) => normalizedResult[dataId] = value,
-        document: query,
-        data: sharedResponse,
-        typePolicies: typePolicies,
-      );
+      test('Produces correct normalized object', () {
+        final normalizedResult = {};
+        normalizeOperation(
+          read: (dataId) => normalizedResult[dataId],
+          write: (dataId, value) => normalizedResult[dataId] = value,
+          document: query,
+          data: sharedResponse,
+          typePolicies: typePolicies,
+        );
 
-      expect(
-        normalizedResult,
-        equals(normalizedMap),
-      );
+        expect(
+          normalizedResult,
+          equals(normalizedMap),
+        );
+      });
+
+      test('Produces correct nested data object', () {
+        expect(
+          denormalizeOperation(
+            document: query,
+            read: (dataId) => normalizedMap[dataId],
+            typePolicies: typePolicies,
+          ),
+          equals(sharedResponse),
+        );
+      });
     });
 
-    test('Produces correct nested data object', () {
-      expect(
-        denormalizeOperation(
+    group('with invalid keyField values', () {
+      final normalizedMap = {
+        'Query': {
+          '__typename': 'Query',
+          'posts': [
+            {'\$ref': 'Post:{"author":{"name":"Paul"},"id":"123"}'}
+          ]
+        },
+        'Post:{"author":{"name":"Paul"},"id":"123"}': {
+          'id': '123',
+          '__typename': 'Post',
+          'author': {'\$ref': 'Author:1'},
+          'title': 'My awesome blog post',
+          'comments': [
+            {'\$ref': 'Comment:324'}
+          ]
+        },
+        'Author:1': {'id': '1', '__typename': 'Author', 'name': 'Paul'},
+        'Comment:324': {
+          'id': '324',
+          '__typename': 'Comment',
+          'commenter': {'\$ref': 'Author:2'}
+        },
+        'Author:2': {'id': '2', '__typename': 'Author', 'name': 'Nicole'}
+      };
+
+      final typePolicies = {
+        'Post': TypePolicy(
+          keyFields: {
+            'id': true,
+            'title': "I'm a string",
+            'missing': false,
+            'author': {
+              'name': true,
+              'missing': 3,
+            },
+          },
+        )
+      };
+
+      test('Produces correct normalized object', () {
+        final normalizedResult = {};
+        normalizeOperation(
+          read: (dataId) => normalizedResult[dataId],
+          write: (dataId, value) => normalizedResult[dataId] = value,
           document: query,
-          read: (dataId) => normalizedMap[dataId],
+          data: sharedResponse,
           typePolicies: typePolicies,
-        ),
-        equals(sharedResponse),
-      );
+        );
+
+        expect(
+          normalizedResult,
+          equals(normalizedMap),
+        );
+      });
+
+      test('Produces correct nested data object', () {
+        expect(
+          denormalizeOperation(
+            document: query,
+            read: (dataId) => normalizedMap[dataId],
+            typePolicies: typePolicies,
+          ),
+          equals(sharedResponse),
+        );
+      });
+    });
+
+    group('with missing keyFields', () {
+      final normalizedMap = {
+        'Query': {
+          '__typename': 'Query',
+          'posts': [
+            {
+              'id': '123',
+              '__typename': 'Post',
+              'author': {'\$ref': 'Author:1'},
+              'title': 'My awesome blog post',
+              'comments': [
+                {'\$ref': 'Comment:324'}
+              ]
+            }
+          ]
+        },
+        'Author:1': {'id': '1', '__typename': 'Author', 'name': 'Paul'},
+        'Comment:324': {
+          'id': '324',
+          '__typename': 'Comment',
+          'commenter': {'\$ref': 'Author:2'}
+        },
+        'Author:2': {'id': '2', '__typename': 'Author', 'name': 'Nicole'}
+      };
+
+      final typePolicies = {
+        'Post': TypePolicy(
+          keyFields: {
+            'id': true,
+            'title': true,
+            'author': {
+              'missing': true,
+            },
+          },
+        )
+      };
+
+      test('Produces correct normalized object', () {
+        final normalizedResult = {};
+        normalizeOperation(
+          read: (dataId) => normalizedResult[dataId],
+          write: (dataId, value) => normalizedResult[dataId] = value,
+          document: query,
+          data: sharedResponse,
+          typePolicies: typePolicies,
+        );
+
+        expect(
+          normalizedResult,
+          equals(normalizedMap),
+        );
+      });
+
+      test('Produces correct nested data object', () {
+        expect(
+          denormalizeOperation(
+            document: query,
+            read: (dataId) => normalizedMap[dataId],
+            typePolicies: typePolicies,
+          ),
+          equals(sharedResponse),
+        );
+      });
     });
   });
 }
