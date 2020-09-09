@@ -19,6 +19,9 @@ class Cache {
   final _optimisticDataStream =
       BehaviorSubject<Map<String, Map<String, dynamic>>>();
 
+  /// A set of entity IDs to retain when the cache is garbage collected.
+  final Set<String> _retainedEntityIds = {};
+
   Cache({
     Store store,
     this.typePolicies = const {},
@@ -267,6 +270,25 @@ class Cache {
     final fieldKey = utils.FieldKey.parse(keyString);
     return fieldName == fieldKey.fieldName &&
         args.entries.every((arg) => fieldKey.args[arg.key] == arg.value);
+  }
+
+  /// Prevents the entity from being garbage collected.
+  void retain(String entityId) => _retainedEntityIds.add(entityId);
+
+  /// Allows the entity to be garbage collected if it no longer has any
+  /// references.
+  void release(String entityId) => _retainedEntityIds.remove(entityId);
+
+  /// Removes all entities that cannot be reached from one of the root operations.
+  void gc() {
+    final reachable = utils.reachableDataIds(
+      (dataId) => store.get(dataId),
+      typePolicies,
+    );
+    final keysToRemove = store.valueStream.value.keys.where(
+      (key) => !reachable.contains(key) && !_retainedEntityIds.contains(key),
+    );
+    store.deleteAll(keysToRemove);
   }
 
   /// Removes all data from the store and from any optimistic patches.

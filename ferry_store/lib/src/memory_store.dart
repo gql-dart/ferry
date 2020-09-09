@@ -26,6 +26,10 @@ class MemoryStore extends Store {
       valueStream.add(valueStream.value..remove(dataId));
 
   @override
+  void deleteAll(Iterable<String> dataIds) => valueStream
+      .add(valueStream.value..removeWhere((key, _) => dataIds.contains(key)));
+
+  @override
   void clear() => valueStream.add(valueStream.value..clear());
 
   @override

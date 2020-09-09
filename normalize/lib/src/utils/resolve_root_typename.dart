@@ -1,11 +1,17 @@
 import 'package:gql/ast.dart';
 import '../policies/type_policy.dart';
 
-String resolveRootTypename(
-  OperationDefinitionNode operationDefinition,
+final defaultRootTypenames = {
+  OperationType.query: 'Query',
+  OperationType.mutation: 'Mutation',
+  OperationType.subscription: 'Subscription',
+};
+
+String typenameForOperationType(
+  OperationType operationType,
   Map<String, TypePolicy> typePolicies,
 ) {
-  switch (operationDefinition.type) {
+  switch (operationType) {
     case OperationType.query:
       return typePolicies?.entries
               ?.firstWhere(
@@ -13,7 +19,7 @@ String resolveRootTypename(
                 orElse: () => null,
               )
               ?.key ??
-          'Query';
+          defaultRootTypenames[OperationType.query];
     case OperationType.mutation:
       return typePolicies?.entries
               ?.firstWhere(
@@ -21,7 +27,7 @@ String resolveRootTypename(
                 orElse: () => null,
               )
               ?.key ??
-          'Mutation';
+          defaultRootTypenames[OperationType.mutation];
     case OperationType.subscription:
       return typePolicies?.entries
               ?.firstWhere(
@@ -29,7 +35,16 @@ String resolveRootTypename(
                 orElse: () => null,
               )
               ?.key ??
-          'Subscription';
+          defaultRootTypenames[OperationType.subscription];
   }
   return null;
 }
+
+String resolveRootTypename(
+  OperationDefinitionNode operationDefinition,
+  Map<String, TypePolicy> typePolicies,
+) =>
+    typenameForOperationType(
+      operationDefinition.type,
+      typePolicies,
+    );
