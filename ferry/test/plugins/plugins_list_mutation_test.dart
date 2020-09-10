@@ -3,7 +3,6 @@ import 'package:gql_link/gql_link.dart';
 import 'package:ferry/ferry.dart';
 import 'package:test/test.dart';
 
-
 class MockLink extends Mock implements Link {}
 
 void main() {
