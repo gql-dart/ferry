@@ -30,7 +30,7 @@ class Client {
   final Link link;
   final Cache cache;
   final Map<OperationType, FetchPolicy> defaultFetchPolicies;
-  final List<Plugin> plugins = defaultPlugins;
+  final List<Plugin> plugins = List.of(defaultPlugins);
 
   /// A stream controller that handles all [OperationRequest]s.
   final requestController = StreamController<OperationRequest>.broadcast();
