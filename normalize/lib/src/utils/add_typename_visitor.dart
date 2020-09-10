@@ -60,6 +60,12 @@ class AddTypenameVisitor extends TransformingVisitor {
   @override
   OperationDefinitionNode visitOperationDefinitionNode(
       OperationDefinitionNode node) {
+    // Subscriptions can only have a single root type
+    // https://spec.graphql.org/June2018/#example-2353b
+    if (node.type == OperationType.subscription) {
+      return node;
+    }
+
     if (node.selectionSet == null) {
       return node;
     }
