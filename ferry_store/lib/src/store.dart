@@ -1,7 +1,7 @@
-import 'package:rxdart/rxdart.dart';
-
 abstract class Store {
-  ValueStream<Map<String, Map<String, dynamic>>> valueStream;
+  Iterable<String> get keys;
+
+  Stream<Map<String, dynamic>> watch(String dataId);
 
   Map<String, dynamic> get(String dataId);
 
@@ -15,5 +15,5 @@ abstract class Store {
 
   void clear();
 
-  void dispose();
+  Future<void> dispose() async => null;
 }
