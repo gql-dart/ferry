@@ -1,9 +1,8 @@
 import 'package:normalize/src/policies/type_policy.dart';
-
-import './resolve_root_typename.dart';
+import 'package:normalize/src/utils/resolve_root_typename.dart';
 
 /// Returns a set of dataIds that can be reached by any root query.
-Set<String> reachableDataIds(
+Set<String> reachableIds(
   Map<String, dynamic> Function(String dataId) read, [
   Map<String, TypePolicy> typePolicies = const {},
   String referenceKey = '\$ref',

@@ -7,4 +7,6 @@ export 'src/utils/resolve_data_id.dart';
 export 'src/utils/field_key.dart';
 export 'src/utils/is_dangling_reference.dart';
 export 'src/utils/identify.dart';
-export 'src/utils/reachable_data_ids.dart';
+export 'src/utils/reachable_ids.dart';
+export 'src/utils/get_fragment_map.dart';
+export 'src/utils/operation_field_names.dart';

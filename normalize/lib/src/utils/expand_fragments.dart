@@ -1,10 +1,10 @@
 import 'package:gql/ast.dart';
 import 'package:meta/meta.dart';
 
-/// Adds fragment fields to selections if type of data matches fragment type
+/// Adds fragment fields to selections if fragment type matches [typename]
 /// and deeply merges nested field nodes.
 List<FieldNode> expandFragments({
-  @required Map<String, dynamic> data,
+  @required String typename,
   @required SelectionSetNode selectionSet,
   @required Map<String, FragmentDefinitionNode> fragmentMap,
 }) {
@@ -15,9 +15,9 @@ List<FieldNode> expandFragments({
       fieldNodes.add(selectionNode);
     } else if (selectionNode is InlineFragmentNode) {
       // Only include this fragment if the type name matches
-      if (selectionNode.typeCondition.on.name.value == data['__typename']) {
+      if (selectionNode.typeCondition.on.name.value == typename) {
         fieldNodes.addAll(expandFragments(
-          data: data,
+          typename: typename,
           selectionSet: selectionNode.selectionSet,
           fragmentMap: fragmentMap,
         ));
@@ -25,7 +25,7 @@ List<FieldNode> expandFragments({
     } else if (selectionNode is FragmentSpreadNode) {
       final fragment = fragmentMap[selectionNode.name.value];
       fieldNodes.addAll(expandFragments(
-        data: data,
+        typename: typename,
         selectionSet: fragment.selectionSet,
         fragmentMap: fragmentMap,
       ));

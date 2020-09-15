@@ -4,6 +4,7 @@ import 'package:normalize/normalize.dart';
 
 import 'package:normalize/src/config/normalization_config.dart';
 import 'package:normalize/src/policies/type_policy.dart';
+import 'package:normalize/src/utils/get_fragment_map.dart';
 import 'package:normalize/src/utils/resolve_data_id.dart';
 import 'package:normalize/src/utils/add_typename_visitor.dart';
 import 'package:normalize/src/utils/exceptions.dart';
@@ -43,11 +44,7 @@ Map<String, dynamic> denormalizeFragment({
     );
   }
 
-  final fragmentMap = {
-    for (var fragmentDefinition
-        in document.definitions.whereType<FragmentDefinitionNode>())
-      fragmentDefinition.name.value: fragmentDefinition
-  };
+  final fragmentMap = getFragmentMap(document);
 
   if (fragmentMap.length > 1 && fragmentName == null) {
     throw Exception(

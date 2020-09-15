@@ -45,7 +45,7 @@ Object denormalizeNode({
     final typePolicy = config.typePolicies[typename];
 
     final subNodes = expandFragments(
-      data: denormalizedData,
+      typename: typename,
       selectionSet: selectionSet,
       fragmentMap: config.fragmentMap,
     );
