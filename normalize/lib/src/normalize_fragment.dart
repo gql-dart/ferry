@@ -6,6 +6,7 @@ import 'package:normalize/src/policies/type_policy.dart';
 import 'package:normalize/src/utils/add_typename_visitor.dart';
 import 'package:normalize/src/normalize_node.dart';
 import 'package:normalize/src/config/normalization_config.dart';
+import 'package:normalize/src/utils/get_fragment_map.dart';
 
 /// Normalizes data for a given fragment
 ///
@@ -45,11 +46,7 @@ void normalizeFragment({
     [AddTypenameVisitor()],
   );
 
-  final fragmentMap = {
-    for (var fragmentDefinition
-        in document.definitions.whereType<FragmentDefinitionNode>())
-      fragmentDefinition.name.value: fragmentDefinition
-  };
+  final fragmentMap = getFragmentMap(document);
 
   if (fragmentMap.length > 1 && fragmentName == null) {
     throw Exception('Multiple fragments defined, but no fragmentName provided');

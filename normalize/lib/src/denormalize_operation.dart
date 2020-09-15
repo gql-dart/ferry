@@ -10,6 +10,7 @@ import 'package:normalize/src/utils/get_operation_definition.dart';
 import 'package:normalize/src/denormalize_node.dart';
 import 'package:normalize/src/config/normalization_config.dart';
 import 'package:normalize/src/utils/resolve_data_id.dart';
+import 'package:normalize/src/utils/get_fragment_map.dart';
 
 /// Denormalizes data for a given query
 ///
@@ -45,18 +46,12 @@ Map<String, dynamic> denormalizeOperation({
     typePolicies,
   );
 
-  final fragmentMap = {
-    for (var fragmentDefinition
-        in document.definitions.whereType<FragmentDefinitionNode>())
-      fragmentDefinition.name.value: fragmentDefinition
-  };
-
   final config = NormalizationConfig(
     read: read,
     variables: variables,
     typePolicies: typePolicies,
     referenceKey: referenceKey,
-    fragmentMap: fragmentMap,
+    fragmentMap: getFragmentMap(document),
     dataIdFromObject: dataIdFromObject,
     addTypename: addTypename,
   );

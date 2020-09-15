@@ -48,7 +48,7 @@ Object normalizeNode({
     final typePolicy = (config.typePolicies ?? const {})[typename];
 
     final subNodes = expandFragments(
-      data: dataForNode,
+      typename: typename,
       selectionSet: selectionSet,
       fragmentMap: config.fragmentMap,
     );
