@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- rename `reachableDataIds` to `reachableIds`
+
+### Added
+
+- add `operationFieldNames` method
+
 ## [0.4.1] - 2020-09-22
 
 ### Changed
