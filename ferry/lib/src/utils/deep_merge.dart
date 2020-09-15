@@ -2,7 +2,9 @@
 ///
 /// Properties of [other] will overwrite properties of [object].
 Map<String, dynamic> deepMerge(
-    Map<String, dynamic> object, Map<String, dynamic> other) {
+  Map<String, dynamic> object,
+  Map<String, dynamic> other,
+) {
   return {
     ...object,
     for (var entry in other.entries)

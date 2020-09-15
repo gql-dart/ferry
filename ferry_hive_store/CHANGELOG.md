@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- watch now only watches a specific `dataId`
+
 ## [0.2.2] - 2020-09-09
 
 ### Added
