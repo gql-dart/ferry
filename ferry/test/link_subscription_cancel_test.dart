@@ -50,7 +50,7 @@ void main() {
     ]) {
       final req = GHumanWithArgsReq(
         (b) => b
-          ..vars.id = "123"
+          ..vars.id = '123'
           ..fetchPolicy = fetchPolicy,
       );
 

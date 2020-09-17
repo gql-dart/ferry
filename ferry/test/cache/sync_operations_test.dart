@@ -25,7 +25,7 @@ final reviewFragmentReq =
 final reviewFragmentData = GReviewFragmentData.fromJson(review.toJson());
 
 void main() {
-  group('cache operations', () {
+  group('sync operations', () {
     test('can read and write queries', () {
       final cache = Cache();
       cache.writeQuery(reviewsReq, reviewsData);

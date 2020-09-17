@@ -16,5 +16,5 @@ abstract class Plugin {
       buildResponseTransformer<TData, TVars>() =>
           StreamTransformer.fromBind(_identity);
 
-  void dispose() => null;
+  Future<void> dispose() async => null;
 }
