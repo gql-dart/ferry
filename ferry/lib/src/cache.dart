@@ -1,23 +1,23 @@
 import 'dart:async';
+import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:normalize/normalize.dart';
 import 'package:normalize/utils.dart' as utils;
 import 'package:ferry_store/ferry_store.dart';
 
-import './helpers/deep_merge.dart';
+import './utils/deep_merge.dart';
 import './operation_request.dart';
 import './fragment_request.dart';
+import './utils/data_ids_change_stream.dart';
 
 class Cache {
   final Map<String, TypePolicy> typePolicies;
   final bool addTypename;
   final Store store;
 
+  @visibleForTesting
   final BehaviorSubject<Map<String, Map<String, Map<String, dynamic>>>>
-      _optimisticPatchesStream;
-
-  final _optimisticDataStream =
-      BehaviorSubject<Map<String, Map<String, dynamic>>>();
+      optimisticPatchesStream;
 
   /// A set of entity IDs to retain when the cache is garbage collected.
   final Set<String> _retainedEntityIds = {};
@@ -28,38 +28,61 @@ class Cache {
     this.addTypename = true,
     Map<String, Map<String, Map<String, dynamic>>> seedOptimisticPatches,
   })  : store = store ?? MemoryStore(),
-        _optimisticPatchesStream = BehaviorSubject.seeded(
+        optimisticPatchesStream = BehaviorSubject.seeded(
           seedOptimisticPatches ?? {},
-        ) {
-    /// TODO: is there a way to do this without listenening in the constructor?
-    ///
-    /// TODO: is there a way to make this have the latest result from [store.valueStream]
-    /// and [_optimisticPatchesStream] immediately after a new value is added to either?
-    /// If so, we could get rid of [_optimisticData]
-    CombineLatestStream.combine2(this.store.valueStream,
-            _optimisticPatchesStream, (_, __) => _optimisticData)
-        .listen((data) => _optimisticDataStream.add(data));
-  }
+        );
 
-  Map<String, Map<String, dynamic>> get _optimisticData =>
-      _optimisticPatchesStream.value.values
-          .fold(store.valueStream.value, (a, b) => Map.from(deepMerge(a, b)));
+  /// Reads data for the given [dataId] from the [Store], merging in any data from optimistic patches
+  @visibleForTesting
+  Map<String, dynamic> optimisticReader(String dataId) =>
+      optimisticPatchesStream.value.values.fold<Map<String, dynamic>>(
+        {dataId: store.get(dataId)},
+        (merged, patch) => patch.containsKey(dataId)
+            ? Map.from(
+                deepMerge(
+                  merged,
+                  {dataId: patch[dataId]},
+                ),
+              )
+            : merged,
+      )[dataId];
 
   Stream<TData> watchQuery<TData, TVars>(
     OperationRequest<TData, TVars> request, {
     bool optimistic = true,
   }) =>
-      (optimistic ? _optimisticDataStream : store.valueStream).map((data) {
-        final json = denormalizeOperation(
-          read: (dataId) => data[dataId],
-          document: request.operation.document,
-          addTypename: addTypename,
-          operationName: request.operation.operationName,
-          // TODO: don't cast to dynamic
-          variables: (request.vars as dynamic)?.toJson(),
-          typePolicies: typePolicies,
+      DeferStream(() {
+        final data = readQuery(
+          request,
+          optimistic: optimistic,
         );
-        return json == null ? null : request.parseData(json);
+
+        var closed = false;
+
+        final dataChanged = dataIdsChangeStream(
+          request,
+          data,
+          optimistic,
+          optimisticPatchesStream,
+          optimisticReader,
+          store,
+          typePolicies,
+          addTypename,
+        ).transform(StreamTransformer.fromHandlers(handleDone: (sink) {
+          closed = true;
+          sink.close();
+        }));
+
+        return NeverStream<TData>()
+            .startWith(data)
+            .takeUntil(dataChanged)
+            .concatWith([
+          DeferStream(
+            () => closed
+                ? Stream.empty()
+                : watchQuery(request, optimistic: optimistic),
+          )
+        ]);
       });
 
   TData readQuery<TData, TVars>(
@@ -67,8 +90,7 @@ class Cache {
     bool optimistic = true,
   }) {
     final json = denormalizeOperation(
-      read: (dataId) =>
-          optimistic ? _optimisticData[dataId] : store.get(dataId),
+      read: optimistic ? optimisticReader : (dataId) => store.get(dataId),
       document: request.operation.document,
       addTypename: addTypename,
       operationName: request.operation.operationName,
@@ -84,8 +106,7 @@ class Cache {
     bool optimistic = true,
   }) {
     final json = denormalizeFragment(
-      read: (dataId) =>
-          optimistic ? _optimisticData[dataId] : store.get(dataId),
+      read: optimistic ? optimisticReader : (dataId) => store.get(dataId),
       document: request.document,
       idFields: request.idFields,
       fragmentName: request.fragmentName,
@@ -105,8 +126,7 @@ class Cache {
   }) {
     final normalizedResult = <String, Map<String, dynamic>>{};
     normalizeOperation(
-      read: (dataId) =>
-          optimistic ? _optimisticData[dataId] : store.get(dataId),
+      read: optimistic ? optimisticReader : (dataId) => store.get(dataId),
       write: (dataId, value) => normalizedResult[dataId] = value,
       document: request.operation.document,
       operationName: request.operation.operationName,
@@ -127,8 +147,7 @@ class Cache {
   }) {
     final normalizedResult = <String, Map<String, dynamic>>{};
     normalizeFragment(
-      read: (dataId) =>
-          optimistic ? _optimisticData[dataId] : store.get(dataId),
+      read: optimistic ? optimisticReader : (dataId) => store.get(dataId),
       write: (dataId, value) => normalizedResult[dataId] = value,
       document: request.document,
       idFields: request.idFields,
@@ -148,12 +167,12 @@ class Cache {
     String requestId,
   ) =>
       optimistic
-          ? _optimisticPatchesStream.add(
+          ? optimisticPatchesStream.add(
               {
-                ..._optimisticPatchesStream.value,
+                ...optimisticPatchesStream.value,
                 requestId: Map.from(
                   deepMerge(
-                    _optimisticPatchesStream.value[requestId] ?? {},
+                    optimisticPatchesStream.value[requestId] ?? {},
                     data,
                   ),
                 ),
@@ -176,10 +195,10 @@ class Cache {
             );
 
   void removeOptimisticPatch(String requestId) {
-    final patches = _optimisticPatchesStream.value;
+    final patches = optimisticPatchesStream.value;
     if (patches.containsKey(requestId)) {
       patches.remove(requestId);
-      _optimisticPatchesStream.add(patches);
+      optimisticPatchesStream.add(patches);
     }
   }
 
@@ -215,8 +234,8 @@ class Cache {
   void _evictEntity(String entityId) {
     store.delete(entityId);
 
-    _optimisticPatchesStream.add(
-      _optimisticPatchesStream.value.map(
+    optimisticPatchesStream.add(
+      optimisticPatchesStream.value.map(
         (patchKey, patch) => MapEntry(patchKey, patch..remove(entityId)),
       ),
     );
@@ -228,8 +247,8 @@ class Cache {
     String fieldName,
     Map<String, dynamic> args,
   ) {
-    _optimisticPatchesStream.add(
-      _optimisticPatchesStream.value.map(
+    optimisticPatchesStream.add(
+      optimisticPatchesStream.value.map(
         (patchKey, patch) {
           if (!patch.containsKey(entityId)) return MapEntry(patchKey, patch);
           return MapEntry(
@@ -281,11 +300,11 @@ class Cache {
 
   /// Removes all entities that cannot be reached from one of the root operations.
   void gc() {
-    final reachable = utils.reachableDataIds(
+    final reachable = utils.reachableIds(
       (dataId) => store.get(dataId),
       typePolicies,
     );
-    final keysToRemove = store.valueStream.value.keys.where(
+    final keysToRemove = store.keys.where(
       (key) => !reachable.contains(key) && !_retainedEntityIds.contains(key),
     );
     store.deleteAll(keysToRemove);
@@ -293,13 +312,12 @@ class Cache {
 
   /// Removes all data from the store and from any optimistic patches.
   void clear() {
-    _optimisticPatchesStream.add({});
+    optimisticPatchesStream.add({});
     store.clear();
   }
 
-  void dispose() {
-    _optimisticPatchesStream.close();
-    _optimisticDataStream.close();
-    store.dispose();
-  }
+  Future<void> dispose() => Future.wait([
+        optimisticPatchesStream.close(),
+        store.dispose(),
+      ]);
 }

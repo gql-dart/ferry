@@ -1,4 +1,3 @@
-import 'package:ferry/src/helpers/apply_transformers.dart';
 import 'package:meta/meta.dart';
 import 'dart:async';
 import 'package:gql/ast.dart';
@@ -6,14 +5,14 @@ import 'package:gql_link/gql_link.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:normalize/utils.dart';
 
-import './operation_response.dart';
-import './operation_request.dart';
-import './fetch_policy.dart';
-import './cache.dart';
-
-import './plugins/plugin.dart';
-import './plugins/update_result_plugin/update_result_plugin.dart';
-import './plugins/add_typename_plugin/add_typename_plugin.dart';
+import 'package:ferry/src/operation_response.dart';
+import 'package:ferry/src/operation_request.dart';
+import 'package:ferry/src/fetch_policy.dart';
+import 'package:ferry/src/cache.dart';
+import 'package:ferry/src/utils/apply_transformers.dart';
+import 'package:ferry/src/plugins/plugin.dart';
+import 'package:ferry/src/plugins/update_result_plugin/update_result_plugin.dart';
+import 'package:ferry/src/plugins/add_typename_plugin/add_typename_plugin.dart';
 
 final defaultPlugins = [
   AddTypenamePlugin(),
@@ -232,9 +231,9 @@ class Client {
     }
   }
 
-  void dispose() {
-    requestController.close();
-    cache.dispose();
-    plugins.forEach((plugin) => plugin.dispose());
-  }
+  Future<void> dispose() => Future.wait([
+        requestController.close(),
+        cache.dispose(),
+        ...plugins.map((plugin) => plugin.dispose())
+      ]);
 }
