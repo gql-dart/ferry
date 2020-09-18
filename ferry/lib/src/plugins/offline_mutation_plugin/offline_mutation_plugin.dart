@@ -123,5 +123,5 @@ class OfflineMutationPlugin extends Plugin {
           );
 
   @override
-  void dispose() => isConnectedController.close();
+  Future<void> dispose() => isConnectedController.close();
 }
