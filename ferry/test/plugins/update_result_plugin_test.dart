@@ -9,6 +9,7 @@ import 'package:async/async.dart';
 
 import 'package:ferry_test_graphql/queries/variables/reviews.req.gql.dart';
 import 'package:ferry_test_graphql/queries/variables/reviews.data.gql.dart';
+import 'package:ferry_test_graphql/fragments/review_fragment.req.gql.dart';
 
 class MockLink extends Mock implements Link {}
 
@@ -19,12 +20,9 @@ GReviewsData dataForRequest(GReviewsReq request) {
     ..reviews.addAll([
       for (int i = offset; i < offset + first; i++)
         GReviewsData_reviews(
-          (b) {
-            var i2 = i;
-            return b
-              ..id = '$i2'
-              ..stars = 5;
-          },
+          (b) => b
+            ..id = '$i'
+            ..stars = 5,
         )
     ]));
 }
@@ -54,11 +52,11 @@ void main() {
     );
   }
 
-  final client = Client(
-    link: mockLink,
-  )..plugins.removeWhere((plugin) => plugin is AddTypenamePlugin);
-
   test('correctly updates the result', () async {
+    final client = Client(
+      link: mockLink,
+    )..plugins.removeWhere((plugin) => plugin is AddTypenamePlugin);
+
     final queue = StreamQueue(client.responseStream(req1));
 
     final reviews1 = dataForRequest(req1).reviews;
@@ -75,5 +73,28 @@ void main() {
       (b) => b..addAll(dataForRequest(req3).reviews),
     );
     expect((await queue.next).data.reviews, equals(reviews3));
+  });
+
+  test('continues to track changes to previous', () async {
+    final client = Client(
+      link: mockLink,
+    )..plugins.removeWhere((plugin) => plugin is AddTypenamePlugin);
+
+    final queue = StreamQueue(client.responseStream(req1));
+
+    final reviews1 = dataForRequest(req1).reviews;
+    expect((await queue.next).data.reviews, equals(reviews1));
+
+    client.requestController.add(req2);
+    final reviews2 = reviews1.rebuild(
+      (b) => b..addAll(dataForRequest(req2).reviews),
+    );
+    expect((await queue.next).data.reviews, equals(reviews2));
+
+    final reviewFragment = GReviewFragmentReq((b) => b..idFields = {'id': 0});
+    final review = client.cache.readFragment(reviewFragment);
+    client.cache
+        .writeFragment(reviewFragment, review.rebuild((b) => b..stars = 1));
+    expect((await queue.next).data.reviews.first.stars, equals(1));
   });
 }

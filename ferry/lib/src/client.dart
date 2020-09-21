@@ -11,12 +11,10 @@ import 'package:ferry/src/fetch_policy.dart';
 import 'package:ferry/src/cache.dart';
 import 'package:ferry/src/utils/apply_transformers.dart';
 import 'package:ferry/src/plugins/plugin.dart';
-import 'package:ferry/src/plugins/update_result_plugin/update_result_plugin.dart';
 import 'package:ferry/src/plugins/add_typename_plugin/add_typename_plugin.dart';
 
 final defaultPlugins = [
   AddTypenamePlugin(),
-  UpdateResultPlugin(),
 ];
 
 const _defaultFetchPolicies = {
@@ -50,6 +48,9 @@ class Client {
     bool executeOnListen = true,
   }) {
     var initial = true;
+
+    var prev = BehaviorSubject<OperationResponse<TData, TVars>>.seeded(null);
+
     return requestController.stream
 
         /// Filter for only the relevent queries
@@ -64,7 +65,27 @@ class Client {
         /// Fetch [OperationResponse] from network (and optionally cache results)
         /// or fetch from cache, depending on the [FetchPolicy]. Switches to
         /// the latest stream for a given [requestId].
-        .switchMap((req) => _requestResolverStream(req))
+        .switchMap(
+          (req) => prev = req.updateResult == null
+              ? _requestResolverStream(req).shareValue()
+              : CombineLatestStream.combine2<
+                  OperationResponse<TData, TVars>,
+                  OperationResponse<TData, TVars>,
+                  OperationResponse<TData, TVars>>(
+                  prev,
+                  _requestResolverStream(req).shareValue(),
+                  (previous, response) => OperationResponse(
+                    operationRequest: response.operationRequest,
+                    data: response.operationRequest.updateResult(
+                      previous?.data,
+                      response.data,
+                    ),
+                    dataSource: response.dataSource,
+                    linkException: response.linkException,
+                    graphqlErrors: response.graphqlErrors,
+                  ),
+                ).shareValue(),
+        )
 
         /// Apply plugin response transformers
         .transform(applyTransformers<OperationResponse<TData, TVars>>(
