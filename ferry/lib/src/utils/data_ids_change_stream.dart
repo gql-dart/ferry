@@ -33,8 +33,6 @@ Stream<Set<String>> dataIdsChangeStream<TData, TVars>(
     addTypename: addTypename,
   );
 
-  /// Remove to root operation id (we only want to subscribe to changes on the
-  /// operation fields, not the entire operation type)
   final operationDefinition = getOperationDefinition(
     request.operation.document,
     request.operation.operationName,
@@ -43,54 +41,43 @@ Stream<Set<String>> dataIdsChangeStream<TData, TVars>(
     operationDefinition,
     typePolicies,
   );
-  dataIds.remove(rootTypename);
 
   /// IDs that have changed
   final changed = <String>{};
 
-  return CombineLatestStream<Map<String, dynamic>, Set<String>>(
-    [
-      /// Listen for changes to the operation root
-      dataForIdStream(
-        rootTypename,
-        store,
-        optimistic,
-        optimisticPatchesStream,
-        optimisticReader,
-      )
-          .map(
-            (data) => operationRootData(
-              data,
-              request,
-              typePolicies,
-            ),
-          )
-          .distinct(
-            (prev, next) => const DeepCollectionEquality().equals(
-              prev,
-              next,
-            ),
-          )
-          .doOnData((_) => changed.add(rootTypename)),
+  /// Streams for each dataId referenced in [existingData], including the [rootTypename]
+  final streams = dataIds.map((dataId) {
+    var stream = dataForIdStream(
+      dataId,
+      store,
+      optimistic,
+      optimisticPatchesStream,
+      optimisticReader,
+    );
 
-      /// Listen for changes to any referenced entity
-      ...dataIds.map(
-        (dataId) => dataForIdStream(
-          dataId,
-          store,
-          optimistic,
-          optimisticPatchesStream,
-          optimisticReader,
+    /// we only want to subscribe to changes on the operation fields, not the entire operation type)
+    if (dataId == rootTypename) {
+      stream = stream.map(
+        (data) => operationRootData(
+          data,
+          request,
+          typePolicies,
+        ),
+      );
+    }
+
+    return stream
+        .distinct(
+          (prev, next) => const DeepCollectionEquality().equals(
+            prev,
+            next,
+          ),
         )
-            .distinct(
-              (prev, next) => const DeepCollectionEquality().equals(
-                prev,
-                next,
-              ),
-            )
-            .doOnData((_) => changed.add(dataId)),
-      ),
-    ],
+        .doOnData((_) => changed.add(dataId));
+  });
+
+  return CombineLatestStream<Map<String, dynamic>, Set<String>>(
+    streams,
     (_) {
       final result = {...changed};
       changed.clear();
