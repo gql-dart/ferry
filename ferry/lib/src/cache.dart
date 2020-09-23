@@ -68,10 +68,7 @@ class Cache {
           store,
           typePolicies,
           addTypename,
-        ).transform(StreamTransformer.fromHandlers(handleDone: (sink) {
-          closed = true;
-          sink.close();
-        }));
+        ).doOnDone(() => closed = true);
 
         return NeverStream<TData>()
             .startWith(data)
