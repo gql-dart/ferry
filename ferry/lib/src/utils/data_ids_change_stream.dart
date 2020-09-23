@@ -7,7 +7,7 @@ import 'package:rxdart/rxdart.dart';
 
 import 'package:ferry/src/operation_request.dart';
 
-/// Emits when the data for this request changes.
+/// Emits when the data for this request changes, returning a `Set` of changed IDs.
 Stream<Set<String>> dataIdsChangeStream<TData, TVars>(
   OperationRequest<TData, TVars> request,
   TData existingData,
@@ -45,6 +45,7 @@ Stream<Set<String>> dataIdsChangeStream<TData, TVars>(
   );
   dataIds.remove(rootTypename);
 
+  /// IDs that have changed
   final changed = <String>{};
 
   return CombineLatestStream<Map<String, dynamic>, Set<String>>(
