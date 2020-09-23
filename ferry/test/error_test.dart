@@ -93,7 +93,7 @@ void main() {
         (b) => b
           ..vars.id = '123'
           ..fetchPolicy = FetchPolicy
-              .CacheAndNetwork, // default is CacheFirst, which allows only 1 item from Link
+              .NetworkOnly, // default is CacheFirst, which allows only 1 item from Link
       );
 
       when(mockLink.request(req.execRequest, any)).thenAnswer((_) async* {
@@ -110,8 +110,12 @@ void main() {
         link: mockLink,
       )..plugins.removeWhere((plugin) => plugin is AddTypenamePlugin);
 
-      expect(client.responseStream(req),
-          emitsInOrder([isA<OperationResponse>(), isA<OperationResponse>()]));
+      expect(
+        client.responseStream(req),
+        emitsInOrder(
+          [isA<OperationResponse>(), isA<OperationResponse>()],
+        ),
+      );
     });
   });
 }
