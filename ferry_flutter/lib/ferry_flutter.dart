@@ -1,2 +1,1 @@
-export './src/query.dart';
-export './src/mutation.dart';
+export './src/operation.dart';

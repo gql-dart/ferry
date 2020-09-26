@@ -6,26 +6,26 @@ typedef OperationResponseBuilder<TData, TVars> = Widget Function(
   OperationResponse<TData, TVars> response,
 );
 
-class Query<TData, TVars> extends StatefulWidget {
+class Operation<TData, TVars> extends StatefulWidget {
   final OperationRequest<TData, TVars> operationRequest;
   final OperationResponseBuilder<TData, TVars> builder;
-  final Client client;
+  final Responder responder;
 
-  Query({
+  Operation({
     @required this.operationRequest,
     @required this.builder,
-    @required this.client,
+    @required this.responder,
   });
 
   @override
-  _QueryState<TData, TVars> createState() => _QueryState();
+  _OperationState<TData, TVars> createState() => _OperationState();
 }
 
-class _QueryState<TData, TVars> extends State<Query<TData, TVars>> {
+class _OperationState<TData, TVars> extends State<Operation<TData, TVars>> {
   Stream<OperationResponse<TData, TVars>> stream;
 
   Stream<OperationResponse<TData, TVars>> _getStream() =>
-      widget.client.responseStream(widget.operationRequest).distinct();
+      widget.responder.responseStream(widget.operationRequest).distinct();
 
   @override
   void initState() {
@@ -34,7 +34,7 @@ class _QueryState<TData, TVars> extends State<Query<TData, TVars>> {
   }
 
   @override
-  void didUpdateWidget(Query<TData, TVars> oldWidget) {
+  void didUpdateWidget(Operation<TData, TVars> oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.operationRequest != widget.operationRequest) {
       setState(() => stream = _getStream());
