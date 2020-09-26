@@ -1,13 +1,69 @@
 import 'dart:async';
+import 'package:ferry/ferry.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'package:ferry/src/operation_response.dart';
 import 'package:ferry/src/cache.dart';
-import 'package:ferry/src/plugins/plugin.dart';
-import './cache_proxy.dart';
+import 'package:ferry/src/responder.dart';
 
-export './cache_proxy.dart';
+/// Provides an interface for interacting with the [Cache] from within
+/// [UpdateCacheHandler]s.
+///
+/// Sets the [_optimistic] and [_requestId] properties based on the originating request.
+class CacheProxy {
+  final Cache _cache;
+  final bool _optimistic;
+  final String _requestId;
+
+  CacheProxy(
+    Cache cache,
+    bool optimistic,
+    String requestId,
+  )   : _cache = cache,
+        _optimistic = optimistic,
+        _requestId = requestId;
+
+  TData readQuery<TData, TVars>(
+    OperationRequest<TData, TVars> request, {
+    bool optimistic,
+  }) =>
+      _cache.readQuery(
+        request,
+        optimistic: optimistic ?? _optimistic,
+      );
+
+  TData readFragment<TData, TVars>(
+    FragmentRequest<TData, TVars> request, {
+    bool optimistic,
+  }) =>
+      _cache.readFragment(
+        request,
+        optimistic: optimistic ?? _optimistic,
+      );
+
+  void writeQuery<TData, TVars>(
+    OperationRequest<TData, TVars> request,
+    TData data,
+  ) =>
+      _cache.writeQuery(
+        request,
+        data,
+        optimistic: _optimistic,
+        requestId: _requestId,
+      );
+
+  void writeFragment<TData, TVars>(
+    FragmentRequest<TData, TVars> request,
+    TData data,
+  ) =>
+      _cache.writeFragment(
+        request,
+        data,
+        optimistic: _optimistic,
+        requestId: _requestId,
+      );
+}
 
 /// Updates the cache after receiving an [OperationResponse].
 ///
@@ -23,7 +79,7 @@ typedef UpdateCacheHandler<TData, TVars> = void Function(
 /// Runs any specified [UpdateCacheHandler]s with a [CacheProxy] when
 ///   1. an optimistic response is received
 ///   2. the first time a non-optimistic response is received
-class UpdateCachePlugin extends Plugin {
+class UpdateCacheResponder extends Responder {
   final Cache cache;
 
   /// A Map of [UpdateCacheHandler]s that will be called on any
@@ -34,16 +90,18 @@ class UpdateCachePlugin extends Plugin {
   /// See https://github.com/leafpetersen/cast/issues/1.
   final Map<String, Function> updateCacheHandlers;
 
-  UpdateCachePlugin({
+  const UpdateCacheResponder({
     @required this.cache,
     @required this.updateCacheHandlers,
   });
 
   @override
-  StreamTransformer<OperationResponse<TData, TVars>,
-          OperationResponse<TData, TVars>>
-      buildResponseTransformer<TData, TVars>() =>
-          StreamTransformer.fromBind(_updateCacheHandlersStream);
+  Stream<OperationResponse<TData, TVars>> responseStream<TData, TVars>(
+    OperationRequest<TData, TVars> req, [
+    forward,
+  ]) =>
+      forward(req)
+          .transform(StreamTransformer.fromBind(_updateCacheHandlersStream));
 
   Stream<OperationResponse<TData, TVars>>
       _updateCacheHandlersStream<TData, TVars>(

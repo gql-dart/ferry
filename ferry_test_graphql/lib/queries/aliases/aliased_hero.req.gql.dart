@@ -27,7 +27,8 @@ abstract class GAliasedHeroReq
   static void _initializeBuilder(GAliasedHeroReqBuilder b) => b
     ..operation =
         _i4.Operation(document: _i5.document, operationName: 'AliasedHero')
-    ..requestId = _i6.Uuid().v1();
+    ..requestId = _i6.Uuid().v1()
+    ..executeOnListen = true;
   _i3.GAliasedHeroVars get vars;
   _i4.Operation get operation;
   _i4.Request get execRequest =>
@@ -46,6 +47,8 @@ abstract class GAliasedHeroReq
   Map<String, dynamic> get updateCacheHandlerContext;
   @nullable
   _i1.FetchPolicy get fetchPolicy;
+  @nullable
+  bool get executeOnListen;
   @override
   _i2.GAliasedHeroData parseData(Map<String, dynamic> json) =>
       _i2.GAliasedHeroData.fromJson(json);

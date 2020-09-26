@@ -1,6 +1,10 @@
 import 'package:test/test.dart';
 import 'package:gql_exec/gql_exec.dart';
-import 'package:ferry/ferry.dart';
+import 'package:gql_link/gql_link.dart';
+
+import 'package:ferry/src/responder.dart';
+
+import 'package:ferry/src/operation_response.dart';
 
 class TestLinkException implements LinkException {
   @override

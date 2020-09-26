@@ -117,6 +117,14 @@ Class _buildOperationReqClass(
       ),
       Method(
         (b) => b
+          ..annotations
+              .add(refer('nullable', 'package:built_value/built_value.dart'))
+          ..returns = refer('bool')
+          ..type = MethodType.getter
+          ..name = 'executeOnListen',
+      ),
+      Method(
+        (b) => b
           ..annotations.add(refer('override'))
           ..returns = dataTypeRef
           ..name = 'parseData'
@@ -143,6 +151,7 @@ Class _buildOperationReqClass(
           .call([])
           .property('v1')
           .call([]),
+      'executeOnListen': literalTrue,
     },
   ).rebuild(
     (b) => b

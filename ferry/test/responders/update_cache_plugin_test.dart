@@ -4,7 +4,7 @@ import 'package:mockito/mockito.dart';
 import 'package:gql_link/gql_link.dart';
 import 'package:gql_exec/gql_exec.dart';
 import 'package:ferry/ferry.dart';
-import 'package:ferry/plugins.dart';
+import 'package:ferry/responders.dart';
 import 'package:test/test.dart';
 
 import 'package:ferry_test_graphql/queries/variables/reviews.req.gql.dart';
@@ -69,38 +69,48 @@ void main() {
       final mockLink = MockLink();
       final req = GCreateReviewReq(
         (b) => b
+          ..executeOnListen = false
           ..updateCacheHandlerKey = 'createReviewHandler'
           ..vars.episode = GEpisode.NEWHOPE
           ..vars.review.stars = 5
           ..vars.review.commentary = 'Amazing!!!',
       );
       final linkController = StreamController<Response>();
-      final client = Client(link: mockLink);
-      final updateCachePlugin =
-          UpdateCachePlugin(cache: client.cache, updateCacheHandlers: {
+      final cache = Cache();
+      final updateCacheHandlers = {
         'createReviewHandler': createReviewHandler,
-      });
-      client.plugins.add(updateCachePlugin);
-      final queue = StreamQueue(client.responseStream(
-        req,
-        executeOnListen: false,
-      ));
+      };
+      final requestController = StreamController<OperationRequest>.broadcast();
+      final responder = Responder.from([
+        RequestControllerResponder(controller: requestController),
+        AddTypenameResponder(),
+        UpdateCacheResponder(
+          cache: cache,
+          updateCacheHandlers: updateCacheHandlers,
+        ),
+        LinkAndCacheResponder(
+          link: mockLink,
+          cache: cache,
+        ),
+      ]);
+
+      final queue = StreamQueue(responder.responseStream(req));
 
       when(mockLink.request(any, any)).thenAnswer((_) => linkController.stream);
 
       test('runs only on first non-optimistic', () async {
-        expect(client.cache.readQuery(reviewsReq), equals(null));
+        expect(cache.readQuery(reviewsReq), equals(null));
 
-        client.requestController.add(req);
+        requestController.add(req);
         linkController.add(Response(data: createReviewData.toJson()));
         await queue.next;
 
-        expect(client.cache.readQuery(reviewsReq).reviews.length, equals(1));
+        expect(cache.readQuery(reviewsReq).reviews.length, equals(1));
 
         linkController.add(Response(data: createReviewData.toJson()));
         await queue.next;
 
-        expect(client.cache.readQuery(reviewsReq).reviews.length, equals(1));
+        expect(cache.readQuery(reviewsReq).reviews.length, equals(1));
       });
     });
 
@@ -108,6 +118,7 @@ void main() {
       final mockLink = MockLink();
       final req = GCreateReviewReq(
         (b) => b
+          ..executeOnListen = false
           ..updateCacheHandlerKey = 'createReviewHandler'
           ..vars.episode = GEpisode.NEWHOPE
           ..vars.review.stars = 5
@@ -118,47 +129,57 @@ void main() {
           ..optimisticResponse.createReview.commentary = 'hi',
       );
       final linkController = StreamController<Response>();
-      final client = Client(link: mockLink);
-      final updateCachePlugin =
-          UpdateCachePlugin(cache: client.cache, updateCacheHandlers: {
+
+      final cache = Cache();
+      final updateCacheHandlers = {
         'createReviewHandler': createReviewHandler,
-      });
-      client.plugins.add(updateCachePlugin);
-      final queue = StreamQueue(client.responseStream(
-        req,
-        executeOnListen: false,
-      ));
+      };
+      final requestController = StreamController<OperationRequest>.broadcast();
+      final responder = Responder.from([
+        RequestControllerResponder(controller: requestController),
+        AddTypenameResponder(),
+        UpdateCacheResponder(
+          cache: cache,
+          updateCacheHandlers: updateCacheHandlers,
+        ),
+        LinkAndCacheResponder(
+          link: mockLink,
+          cache: cache,
+        ),
+      ]);
+
+      final queue = StreamQueue(responder.responseStream(req));
 
       when(mockLink.request(any, any)).thenAnswer((_) => linkController.stream);
 
       test('runs on optimistic response and first non-optimistic response',
           () async {
-        expect(client.cache.readQuery(reviewsReq), equals(null));
+        expect(cache.readQuery(reviewsReq), equals(null));
 
-        client.requestController.add(req);
+        requestController.add(req);
         await queue.next;
 
-        expect(client.cache.readQuery(reviewsReq).reviews.length, equals(1));
+        expect(cache.readQuery(reviewsReq).reviews.length, equals(1));
         expect(
-          client.cache.readQuery(reviewsReq).reviews.first.id,
+          cache.readQuery(reviewsReq).reviews.first.id,
           equals('456'),
         );
 
         linkController.add(Response(data: createReviewData.toJson()));
         await queue.next;
 
-        expect(client.cache.readQuery(reviewsReq).reviews.length, equals(1));
+        expect(cache.readQuery(reviewsReq).reviews.length, equals(1));
         expect(
-          client.cache.readQuery(reviewsReq).reviews.first.id,
+          cache.readQuery(reviewsReq).reviews.first.id,
           equals('123'),
         );
 
         linkController.add(Response(data: createReviewData.toJson()));
         await queue.next;
 
-        expect(client.cache.readQuery(reviewsReq).reviews.length, equals(1));
+        expect(cache.readQuery(reviewsReq).reviews.length, equals(1));
         expect(
-          client.cache.readQuery(reviewsReq).reviews.first.id,
+          cache.readQuery(reviewsReq).reviews.first.id,
           equals('123'),
         );
       });

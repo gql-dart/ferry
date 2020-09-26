@@ -32,6 +32,10 @@ abstract class OperationRequest<TData, TVars> {
   /// The [FetchPolicy] to be used when executing this operation
   FetchPolicy get fetchPolicy;
 
+  /// If set to `true`, this request will be automatically added to the request
+  /// controller when the responseStream is listened to
+  bool get executeOnListen;
+
   /// Parses data into a concrete type for the given operation
   ///
   /// This is a simple wrapper on the static fromJson method on the generated class.
