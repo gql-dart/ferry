@@ -7,14 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.5] - 2020-09-29
+
+### Changed
+
+- Bump `normalize` version
+
 ## [0.7.4] - 2020-09-10
 
 ### Changed
+
 - Bump `normalize` version
 
 ## [0.7.3] - 2020-09-09
 
 ### Changed
+
 - Bump `normalize` version
 - Export policies in ferry and cache
 
@@ -29,21 +37,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add `release` method
 
 ### Changed
+
 - Use latest `normalize` version
 - Expose store from cache
 
 ## [0.7.1] - 2020-09-07
 
 ### Changed
+
 - Use latest `normalize` version
 
 ## [0.7.0] - 2020-09-04
 
 ### Added
+
 - Implement plugin system
 - Add [OfflineMutationPlugin]
 
 ### Changed
+
 - Convert addTypename into plugin
 - Convert updateResult into plugin
 - Convert updateCache into plugin
@@ -51,6 +63,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.6.0] - 2020-08-30
 
 ### Added
+
 - Add `clear()` method to Cache
 - Add `dispose()` method to Cache
 
@@ -83,7 +96,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- use typed data in `CacheProxy` methods 
+- use typed data in `CacheProxy` methods
 - bump `normalize` version
 - bump `ferry_cache` version
 - rename `QueryRequest` and `QueryResponse` to `OperationRequest` and `OperationResponse`
