@@ -18,7 +18,6 @@ Class _buildOperationReqClass(
 ) {
   final dataTypeRef = refer('${builtClassName(node.name.value)}Data', '#data');
   final varTypeRef = refer('${builtClassName(node.name.value)}Vars', '#var');
-  final gqlClientUrl = 'package:ferry/ferry.dart';
 
   return builtClass(
     name: '${node.name.value}Req',
@@ -111,7 +110,7 @@ Class _buildOperationReqClass(
         (b) => b
           ..annotations
               .add(refer('nullable', 'package:built_value/built_value.dart'))
-          ..returns = refer('FetchPolicy', gqlClientUrl)
+          ..returns = refer('FetchPolicy', 'package:ferry_exec/ferry_exec.dart')
           ..type = MethodType.getter
           ..name = 'fetchPolicy',
       ),
@@ -159,7 +158,7 @@ Class _buildOperationReqClass(
         TypeReference(
           (b) => b
             ..symbol = 'OperationRequest'
-            ..url = gqlClientUrl
+            ..url = 'package:ferry_exec/ferry_exec.dart'
             ..types.addAll([
               dataTypeRef,
               varTypeRef,

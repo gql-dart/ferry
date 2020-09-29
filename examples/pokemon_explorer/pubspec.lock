@@ -196,7 +196,21 @@ packages:
       path: "../../ferry"
       relative: true
     source: path
-    version: "0.7.2"
+    version: "0.7.4"
+  ferry_cache:
+    dependency: "direct overridden"
+    description:
+      path: "../../ferry_cache"
+      relative: true
+    source: path
+    version: "0.3.0"
+  ferry_exec:
+    dependency: "direct overridden"
+    description:
+      path: "../../ferry_exec"
+      relative: true
+    source: path
+    version: "0.0.1"
   ferry_flutter:
     dependency: "direct main"
     description:
@@ -437,7 +451,7 @@ packages:
       path: "../../normalize"
       relative: true
     source: path
-    version: "0.3.3"
+    version: "0.4.1"
   package_config:
     dependency: transitive
     description:
@@ -563,7 +577,7 @@ packages:
       name: rxdart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.24.1"
+    version: "0.25.0-beta2"
   shelf:
     dependency: transitive
     description:

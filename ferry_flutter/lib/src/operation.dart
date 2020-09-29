@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ferry/ferry.dart';
+import 'package:ferry_exec/ferry_exec.dart';
 
 typedef OperationResponseBuilder<TData, TVars> = Widget Function(
   BuildContext context,
@@ -9,12 +9,12 @@ typedef OperationResponseBuilder<TData, TVars> = Widget Function(
 class Operation<TData, TVars> extends StatefulWidget {
   final OperationRequest<TData, TVars> operationRequest;
   final OperationResponseBuilder<TData, TVars> builder;
-  final Responder responder;
+  final TypedLink typedLink;
 
   Operation({
     @required this.operationRequest,
     @required this.builder,
-    @required this.responder,
+    @required this.typedLink,
   });
 
   @override
@@ -25,7 +25,7 @@ class _OperationState<TData, TVars> extends State<Operation<TData, TVars>> {
   Stream<OperationResponse<TData, TVars>> stream;
 
   Stream<OperationResponse<TData, TVars>> _getStream() =>
-      widget.responder.responseStream(widget.operationRequest).distinct();
+      widget.typedLink.request(widget.operationRequest).distinct();
 
   @override
   void initState() {
