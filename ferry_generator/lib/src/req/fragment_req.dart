@@ -17,7 +17,6 @@ Class _buildFragmentReqClass(
 ) {
   final dataTypeRef = refer('${builtClassName(node.name.value)}Data', '#data');
   final varTypeRef = refer('${builtClassName(node.name.value)}Vars', '#var');
-  final gqlClientUrl = 'package:ferry/ferry.dart';
 
   return builtClass(
     name: '${node.name.value}Req',
@@ -75,7 +74,7 @@ Class _buildFragmentReqClass(
         TypeReference(
           (b) => b
             ..symbol = 'FragmentRequest'
-            ..url = gqlClientUrl
+            ..url = 'package:ferry_exec/ferry_exec.dart'
             ..types.addAll([
               dataTypeRef,
               varTypeRef,

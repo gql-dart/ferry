@@ -9,14 +9,12 @@
 [license-link]: https://github.com/gql-dart/ferry/blob/master/LICENSE
 [prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge
 [prs-link]: https://github.com/gql-dart/ferry/issues
-
 [github-watch-badge]: https://img.shields.io/github/watchers/gql-dart/ferry.svg?style=for-the-badge&logo=github&logoColor=ffffff
 [github-watch-link]: https://github.com/gql-dart/ferry/watchers
 [github-star-badge]: https://img.shields.io/github/stars/gql-dart/ferry.svg?style=for-the-badge&logo=github&logoColor=ffffff
 [github-star-link]: https://github.com/gql-dart/ferry/stargazers
 [github-forks-badge]: https://img.shields.io/github/forks/gql-dart/ferry.svg?style=for-the-badge&logo=github&logoColor=ffffff
 [github-forks-link]: https://github.com/gql-dart/ferry/network/members
-
 [discord-badge]: https://img.shields.io/discord/559455668810153989.svg?style=for-the-badge&logo=discord&logoColor=ffffff
 [discord-link]: https://discord.gg/QRTfXE
 
@@ -46,12 +44,12 @@ Add the following to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  ferry:  #[latest-version]
-  gql_http_link:  #[latest-version]
+  ferry: #[latest-version]
+  gql_http_link: #[latest-version]
 
 dev_dependencies:
-  ferry_generator:  #[latest-version]
-  build_runner:  #[latest-version]
+  ferry_generator: #[latest-version]
+  build_runner: #[latest-version]
 ```
 
 ## Initialize the Client
@@ -159,10 +157,10 @@ final reviewsReq = GReviewsReq(
 );
 ```
 
-Now, all we need to do is listen to the `responseStream`.
+Now, all we need to do is listen to the Stream returned by `request()`.
 
 ```dart
-client.responseStream(reviewsReq).listen((response) => print(response));
+client.request(reviewsReq).listen((response) => print(response));
 ```
 
 [license-badge]: https://img.shields.io/github/license/gql-dart/ferry.svg?style=flat-square

@@ -1,0 +1,1 @@
+# Fully Typed GraphQL Cache

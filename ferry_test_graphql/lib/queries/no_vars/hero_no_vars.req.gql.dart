@@ -2,7 +2,7 @@
 
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:ferry/ferry.dart' as _i1;
+import 'package:ferry_exec/ferry_exec.dart' as _i1;
 import 'package:ferry_test_graphql/queries/no_vars/hero_no_vars.ast.gql.dart'
     as _i5;
 import 'package:ferry_test_graphql/queries/no_vars/hero_no_vars.data.gql.dart'
