@@ -1,8 +1,11 @@
 import 'dart:async';
 
+import 'package:gql_link/gql_link.dart';
 import 'package:gql_exec/gql_exec.dart';
 import 'package:gql_exec/src/response.dart';
 import 'package:test/test.dart';
+
+import 'package:ferry/ferry.dart';
 
 import 'package:ferry_test_graphql/queries/variables/human_with_args.req.gql.dart';
 
