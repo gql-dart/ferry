@@ -13,6 +13,7 @@ import 'package:ferry/src/cache_typed_link.dart';
 
 export 'package:ferry_cache/ferry_cache.dart';
 export 'package:gql_link/gql_link.dart';
+export 'package:ferry_exec/ferry_exec.dart';
 
 const _defaultFetchPolicies = {
   OperationType.query: FetchPolicy.CacheFirst,
