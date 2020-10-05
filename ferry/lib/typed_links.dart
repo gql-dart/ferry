@@ -6,3 +6,4 @@ export 'package:ferry/src/offline_mutation_typed_link.dart';
 export 'package:ferry/src/optimistic_typed_link.dart';
 export 'package:ferry/src/request_controller_typed_link.dart';
 export 'package:ferry/src/update_cache_typed_link.dart';
+export 'package:ferry/src/error_typed_link.dart';
