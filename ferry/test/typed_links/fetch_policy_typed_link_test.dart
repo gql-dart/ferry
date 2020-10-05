@@ -54,6 +54,12 @@ void main() {
       ]);
     });
 
+    tearDown(() {
+      requestController.close();
+      typedLink.dispose();
+      cache.dispose();
+    });
+
     group('.CacheFirst', () {
       final req = request.rebuild(
         (b) => b..fetchPolicy = FetchPolicy.CacheFirst,

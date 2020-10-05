@@ -24,7 +24,7 @@ class Client extends TypedLink {
   final Map<OperationType, FetchPolicy> defaultFetchPolicies;
   final bool addTypename;
 
-  TypedLink _link;
+  TypedLink _typedLink;
 
   Client({
     @required this.link,
@@ -36,7 +36,7 @@ class Client extends TypedLink {
     this.addTypename = true,
   })  : cache = cache ?? Cache(),
         requestController = requestController ?? StreamController.broadcast() {
-    _link = TypedLink.from([
+    _typedLink = TypedLink.from([
       RequestControllerTypedLink(this.requestController),
       if (addTypename) AddTypenameTypedLink(),
       if (updateCacheHandlers.isNotEmpty)
@@ -57,5 +57,5 @@ class Client extends TypedLink {
     OperationRequest<TData, TVars> request, [
     forward,
   ]) =>
-      _link.request(request, forward);
+      _typedLink.request(request, forward);
 }
