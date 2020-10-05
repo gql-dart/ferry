@@ -108,6 +108,13 @@ void main() {
       when(mockLink.request(any, any)).thenAnswer((_) => linkController.stream);
     });
 
+    tearDown(() {
+      linkController.close();
+      requestController.close();
+      typedLink.dispose();
+      cache.dispose();
+    });
+
     group('without optimistic response', () {
       test('runs only on first non-optimistic', () async {
         final queue = StreamQueue(typedLink.request(createReviewReq));
