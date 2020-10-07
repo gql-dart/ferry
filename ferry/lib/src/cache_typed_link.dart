@@ -3,7 +3,7 @@ import 'package:ferry_cache/ferry_cache.dart';
 
 export 'package:ferry_cache/ferry_cache.dart';
 
-/// Fetches the operation from the cache, mapping the result to a
+/// Fetches the operation from the cache, mapping the result to an
 /// [OperationResponse].
 class CacheTypedLink extends TypedLink {
   final Cache cache;

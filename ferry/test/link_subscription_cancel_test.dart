@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:ferry/typed_links.dart';
+import 'package:ferry/ferry.dart';
 import 'package:gql_link/gql_link.dart';
 import 'package:gql_exec/gql_exec.dart';
 import 'package:gql_exec/src/response.dart';
@@ -41,7 +41,7 @@ void main() {
       'Stream in Link is cancelled when no one is listening - for all FetchPolicies',
       () async {
     final link = _StreamCancelTestLink();
-    final client = FetchPolicyTypedLink(link: link);
+    final client = Client(link: link);
     // test all fetchpolicies except CacheOnly - CacheOnly does not actually the link
     for (final fetchPolicy in [
       FetchPolicy.NetworkOnly,
