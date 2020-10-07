@@ -30,10 +30,14 @@ class OfflineMutationTypedLink extends TypedLink {
   /// A callback used to customize behavior when a mutation execution results in a [LinkException].
   final LinkExceptionHandler linkExceptionHandler;
 
-  /// A [StreamController] that keeps track of network connection status.
-  ///
-  /// You must update this value when the network status changes.
-  final isConnectedController = BehaviorSubject<bool>.seeded(false);
+  bool _connected = false;
+
+  bool get connected => _connected;
+
+  set connected(bool isConnected) {
+    _connected = isConnected;
+    if (isConnected) _handleOnConnect();
+  }
 
   /// [OfflineMutationPlugin] can be used to maintain an Offline Mutation queue.
   ///
@@ -52,11 +56,7 @@ class OfflineMutationTypedLink extends TypedLink {
     @required this.cache,
     @required this.requestController,
     this.linkExceptionHandler,
-  }) {
-    isConnectedController.distinct().listen((isConnected) {
-      if (isConnected) _handleOnConnect();
-    });
-  }
+  });
 
   void _handleOnConnect() => mutationQueueBox.values.forEach((json) {
         final OperationRequest req = serializers.deserialize(json);
@@ -87,7 +87,7 @@ class OfflineMutationTypedLink extends TypedLink {
     if (_isMutation(request) == false) return forward(request);
 
     // If the client is online, execute the mutation
-    if (isConnectedController.value) return forward(request);
+    if (connected) return forward(request);
 
     // Save mutation to the queue
     mutationQueueBox.put(
@@ -128,7 +128,4 @@ class OfflineMutationTypedLink extends TypedLink {
               mutationQueueBox.delete(res.operationRequest.requestId);
             },
           );
-
-  @override
-  Future<void> dispose() => isConnectedController.close();
 }

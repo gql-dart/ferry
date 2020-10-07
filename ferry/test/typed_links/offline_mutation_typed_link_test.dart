@@ -3,6 +3,7 @@ import 'package:test/test.dart';
 import 'package:hive/hive.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:ferry_exec/ferry_exec.dart';
+import 'package:async/async.dart';
 
 import 'package:ferry/src/offline_mutation_typed_link.dart';
 
@@ -36,38 +37,62 @@ void main() {
     final requestController = StreamController<OperationRequest>();
     final cache = Cache();
 
-    final terminatingTypedLink = TypedLink.function(
+    final controllerLink = TypedLink.function(
       <TData, TVars>(request, [forward]) => requestController.stream
           .whereType<OperationRequest<TData, TVars>>()
           .switchMap(
-            (req) => Stream.value(
-              OperationResponse(
-                operationRequest: req,
-                data: data as TData,
-              ),
-            ),
-          ),
+            (req) => forward(request),
+          )
+          .doOnListen(
+        () {
+          if (request.executeOnListen) {
+            scheduleMicrotask(() => requestController.add(request));
+          }
+        },
+      ),
     );
 
-    final offlineMutationTypedLink = OfflineMutationTypedLink(
+    final offlineMutationLink = OfflineMutationTypedLink(
       mutationQueueBox: box,
       serializers: serializers,
       cache: cache,
       requestController: requestController,
     );
 
+    final terminatingLink =
+        TypedLink.function(<TData, TVars>(request, [forward]) => Stream.value(
+              OperationResponse(
+                operationRequest: request,
+                data: data as TData,
+              ),
+            ));
+
+    // offline mutation link must go between controller link and terminating link
     final typedLink = TypedLink.from([
-      offlineMutationTypedLink,
-      terminatingTypedLink,
+      controllerLink,
+      offlineMutationLink,
+      terminatingLink,
     ]);
 
+    // online, initial request is executed
+    offlineMutationLink.connected = true;
+
+    final queue = StreamQueue(typedLink.request(req));
+
+    expect((await queue.next).data, equals(data));
+
+    // client goes offline, subsequent request is queued
+    offlineMutationLink.connected = false;
+    requestController.add(req);
+    queue.hasNext;
     await Future.delayed(Duration.zero);
 
     expect(box.keys.length, equals(1));
 
-    offlineMutationTypedLink.isConnectedController.add(true);
+    // client comes back online, queued request is executed
+    offlineMutationLink.connected = true;
 
-    await expectLater(typedLink.request(req), emits(data));
+    expect((await queue.next).data, equals(data));
 
     expect(box.keys.length, equals(0));
   });
