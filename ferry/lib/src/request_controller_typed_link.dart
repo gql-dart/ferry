@@ -2,6 +2,17 @@ import 'dart:async';
 import 'package:rxdart/rxdart.dart';
 import 'package:ferry_exec/ferry_exec.dart';
 
+/// Allows multiple requests to be made by adding requests to the
+/// [requestController].
+///
+/// To refetch an operation, simply add a new request of the same type and with
+/// the same [OperationRequest.requestId].
+///
+/// To implement pagination, include an [OperationRequest.requestId] callback.
+///
+/// If [OperationRequest.executeOnListen] == `true`, the operation will be
+/// immediately executed when the stream returned by [request] is first
+/// listened to.
 class RequestControllerTypedLink extends TypedLink {
   final StreamController<OperationRequest> requestController;
 
@@ -25,7 +36,8 @@ class RequestControllerTypedLink extends TypedLink {
     return requestController.stream
         .whereType<OperationRequest<TData, TVars>>()
         .where((req) => request.requestId == req.requestId)
-        .doOnDone(cancelSubs)
+        // TODO
+        // .doOnCancel(cancelSubs)
         .switchMap(
       (req) {
         StreamSubscription sub;
@@ -50,7 +62,7 @@ class RequestControllerTypedLink extends TypedLink {
             ),
           );
         }
-        prev = stream.doOnDone(() => sub.cancel()).publishValue();
+        prev = stream.doOnCancel(() => sub.cancel()).publishValue();
         sub = prev.connect();
         subs.add(sub);
         return prev;

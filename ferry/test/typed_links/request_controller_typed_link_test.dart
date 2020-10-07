@@ -56,6 +56,7 @@ void main() {
         TypedLink.function(
           <TData, TVars>(request, [next]) => responseController.stream
               .whereType<OperationResponse<TData, TVars>>()
+              .where((res) => request == res.operationRequest)
               .startWith(OperationResponse(
                 operationRequest: request,
                 data: dataForRequest(request),
