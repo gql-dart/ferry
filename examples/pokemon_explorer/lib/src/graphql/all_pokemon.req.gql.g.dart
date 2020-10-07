@@ -58,6 +58,12 @@ class _$GAllPokemonReqSerializer
         ..add(serializers.serialize(object.fetchPolicy,
             specifiedType: const FullType(_i1.FetchPolicy)));
     }
+    if (object.executeOnListen != null) {
+      result
+        ..add('executeOnListen')
+        ..add(serializers.serialize(object.executeOnListen,
+            specifiedType: const FullType(bool)));
+    }
     return result;
   }
 
@@ -107,6 +113,10 @@ class _$GAllPokemonReqSerializer
                   specifiedType: const FullType(_i1.FetchPolicy))
               as _i1.FetchPolicy;
           break;
+        case 'executeOnListen':
+          result.executeOnListen = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool;
+          break;
       }
     }
 
@@ -132,6 +142,8 @@ class _$GAllPokemonReq extends GAllPokemonReq {
   final Map<String, dynamic> updateCacheHandlerContext;
   @override
   final _i1.FetchPolicy fetchPolicy;
+  @override
+  final bool executeOnListen;
 
   factory _$GAllPokemonReq([void Function(GAllPokemonReqBuilder) updates]) =>
       (new GAllPokemonReqBuilder()..update(updates)).build();
@@ -144,7 +156,8 @@ class _$GAllPokemonReq extends GAllPokemonReq {
       this.optimisticResponse,
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
-      this.fetchPolicy})
+      this.fetchPolicy,
+      this.executeOnListen})
       : super._() {
     if (vars == null) {
       throw new BuiltValueNullFieldError('GAllPokemonReq', 'vars');
@@ -174,7 +187,8 @@ class _$GAllPokemonReq extends GAllPokemonReq {
         optimisticResponse == other.optimisticResponse &&
         updateCacheHandlerKey == other.updateCacheHandlerKey &&
         updateCacheHandlerContext == other.updateCacheHandlerContext &&
-        fetchPolicy == other.fetchPolicy;
+        fetchPolicy == other.fetchPolicy &&
+        executeOnListen == other.executeOnListen;
   }
 
   @override
@@ -184,13 +198,15 @@ class _$GAllPokemonReq extends GAllPokemonReq {
             $jc(
                 $jc(
                     $jc(
-                        $jc($jc($jc(0, vars.hashCode), operation.hashCode),
-                            requestId.hashCode),
-                        updateResult.hashCode),
-                    optimisticResponse.hashCode),
-                updateCacheHandlerKey.hashCode),
-            updateCacheHandlerContext.hashCode),
-        fetchPolicy.hashCode));
+                        $jc(
+                            $jc($jc($jc(0, vars.hashCode), operation.hashCode),
+                                requestId.hashCode),
+                            updateResult.hashCode),
+                        optimisticResponse.hashCode),
+                    updateCacheHandlerKey.hashCode),
+                updateCacheHandlerContext.hashCode),
+            fetchPolicy.hashCode),
+        executeOnListen.hashCode));
   }
 
   @override
@@ -203,7 +219,8 @@ class _$GAllPokemonReq extends GAllPokemonReq {
           ..add('optimisticResponse', optimisticResponse)
           ..add('updateCacheHandlerKey', updateCacheHandlerKey)
           ..add('updateCacheHandlerContext', updateCacheHandlerContext)
-          ..add('fetchPolicy', fetchPolicy))
+          ..add('fetchPolicy', fetchPolicy)
+          ..add('executeOnListen', executeOnListen))
         .toString();
   }
 }
@@ -257,6 +274,11 @@ class GAllPokemonReqBuilder
   set fetchPolicy(_i1.FetchPolicy fetchPolicy) =>
       _$this._fetchPolicy = fetchPolicy;
 
+  bool _executeOnListen;
+  bool get executeOnListen => _$this._executeOnListen;
+  set executeOnListen(bool executeOnListen) =>
+      _$this._executeOnListen = executeOnListen;
+
   GAllPokemonReqBuilder() {
     GAllPokemonReq._initializeBuilder(this);
   }
@@ -271,6 +293,7 @@ class GAllPokemonReqBuilder
       _updateCacheHandlerKey = _$v.updateCacheHandlerKey;
       _updateCacheHandlerContext = _$v.updateCacheHandlerContext;
       _fetchPolicy = _$v.fetchPolicy;
+      _executeOnListen = _$v.executeOnListen;
       _$v = null;
     }
     return this;
@@ -302,7 +325,8 @@ class GAllPokemonReqBuilder
               optimisticResponse: _optimisticResponse?.build(),
               updateCacheHandlerKey: updateCacheHandlerKey,
               updateCacheHandlerContext: updateCacheHandlerContext,
-              fetchPolicy: fetchPolicy);
+              fetchPolicy: fetchPolicy,
+              executeOnListen: executeOnListen);
     } catch (_) {
       String _$failedField;
       try {

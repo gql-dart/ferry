@@ -2,7 +2,7 @@
 
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:ferry/ferry.dart' as _i1;
+import 'package:ferry_exec/ferry_exec.dart' as _i1;
 import 'package:gql/ast.dart' as _i5;
 import 'package:pokemon_explorer/serializers.gql.dart' as _i6;
 import 'package:pokemon_explorer/src/graphql/pokemon_card_fragment.ast.gql.dart'
