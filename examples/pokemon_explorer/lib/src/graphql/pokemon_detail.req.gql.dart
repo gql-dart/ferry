@@ -2,7 +2,7 @@
 
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:ferry/ferry.dart' as _i1;
+import 'package:ferry_exec/ferry_exec.dart' as _i1;
 import 'package:gql_exec/gql_exec.dart' as _i4;
 import 'package:pokemon_explorer/serializers.gql.dart' as _i7;
 import 'package:pokemon_explorer/src/graphql/pokemon_detail.ast.gql.dart'
@@ -27,7 +27,8 @@ abstract class GPokemonDetailReq
   static void _initializeBuilder(GPokemonDetailReqBuilder b) => b
     ..operation =
         _i4.Operation(document: _i5.document, operationName: 'PokemonDetail')
-    ..requestId = _i6.Uuid().v1();
+    ..requestId = _i6.Uuid().v1()
+    ..executeOnListen = true;
   _i3.GPokemonDetailVars get vars;
   _i4.Operation get operation;
   _i4.Request get execRequest =>
@@ -46,6 +47,8 @@ abstract class GPokemonDetailReq
   Map<String, dynamic> get updateCacheHandlerContext;
   @nullable
   _i1.FetchPolicy get fetchPolicy;
+  @nullable
+  bool get executeOnListen;
   @override
   _i2.GPokemonDetailData parseData(Map<String, dynamic> json) =>
       _i2.GPokemonDetailData.fromJson(json);

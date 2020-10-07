@@ -18,8 +18,8 @@ class AllPokemonScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('All Pokemon'),
       ),
-      body: Query(
-        client: client,
+      body: Operation(
+        typedLink: client,
         operationRequest: GAllPokemonReq(
           (b) => b..vars.first = 500,
         ),
