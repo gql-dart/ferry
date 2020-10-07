@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.6] - 2020-10-07
+
 ### Changed
 
 - Cache.watchQuery no longer depends on entire data object
