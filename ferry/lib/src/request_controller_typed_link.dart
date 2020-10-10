@@ -26,46 +26,41 @@ class RequestControllerTypedLink extends TypedLink {
     forward,
   ]) {
     var initial = true;
-    ValueConnectableStream<OperationResponse<TData, TVars>> prev;
-    final subs = <StreamSubscription>[];
-
-    final cancelSubs = () => subs
-      ..forEach((sub) => sub.cancel())
-      ..clear();
+    ValueStream<OperationResponse<TData, TVars>> prev;
+    StreamSubscription sub;
 
     return requestController.stream
         .whereType<OperationRequest<TData, TVars>>()
         .where((req) => request.requestId == req.requestId)
-        // TODO
-        // .doOnCancel(cancelSubs)
-        .switchMap(
+        .doOnData(
+      (_) {
+        /// Temporarily add a listener so that [prev] doesn't shut down when
+        /// switchMap is updating the stream.
+        sub = prev?.listen(null);
+        Future.delayed(Duration.zero).then((_) => sub?.cancel());
+      },
+    ).switchMap(
       (req) {
-        StreamSubscription sub;
-        Stream<OperationResponse<TData, TVars>> stream;
-        if (req.updateResult == null) {
-          stream = forward(req);
-          cancelSubs();
-        } else {
-          stream = CombineLatestStream.combine2<OperationResponse<TData, TVars>,
-              OperationResponse<TData, TVars>, OperationResponse<TData, TVars>>(
-            prev ?? Stream.value(null),
-            forward(req),
-            (previous, response) => OperationResponse(
-              operationRequest: response.operationRequest,
-              data: response.operationRequest.updateResult(
-                previous?.data,
-                response.data,
-              ),
-              dataSource: response.dataSource,
-              linkException: response.linkException,
-              graphqlErrors: response.graphqlErrors,
-            ),
-          );
-        }
-        prev = stream.doOnCancel(() => sub.cancel()).publishValue();
-        sub = prev.connect();
-        subs.add(sub);
-        return prev;
+        final stream = req.updateResult == null
+            ? forward(req)
+            : CombineLatestStream.combine2<
+                OperationResponse<TData, TVars>,
+                OperationResponse<TData, TVars>,
+                OperationResponse<TData, TVars>>(
+                prev ?? Stream.value(null),
+                forward(req),
+                (previous, response) => OperationResponse(
+                  operationRequest: response.operationRequest,
+                  data: response.operationRequest.updateResult(
+                    previous?.data,
+                    response.data,
+                  ),
+                  dataSource: response.dataSource,
+                  linkException: response.linkException,
+                  graphqlErrors: response.graphqlErrors,
+                ),
+              );
+        return prev = stream.shareValue();
       },
     ).doOnListen(
       () {
