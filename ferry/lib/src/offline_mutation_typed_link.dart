@@ -17,6 +17,11 @@ typedef LinkExceptionHandler<TData, TVars> = void Function(
   EventSink<OperationResponse<TData, TVars>> sink,
 );
 
+/// Caches mutations in a `hive` box when offline and re-runs them when
+/// re-connected.
+///
+/// This link must be between a `RequestControllerTypedLink` and the
+/// terminating link.
 class OfflineMutationTypedLink extends TypedLink {
   /// A [hive] box where the mutation will be stored.
   final Box<Map<String, dynamic>> mutationQueueBox;

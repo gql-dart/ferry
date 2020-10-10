@@ -4,8 +4,11 @@ import 'package:ferry_exec/ferry_exec.dart';
 
 export 'package:gql_link/gql_link.dart';
 
-/// Fetches the operation from the [link], mapping the result to an
-/// [OperationResponse].
+/// A terminating link which defers execution to the provided `gql_link`,
+/// mapping the result to an [OperationResponse].
+///
+/// Any errors received by the `gql_link` are included in the
+/// [OperationResponse.linkException].
 class GqlTypedLink extends TypedLink {
   final Link link;
 

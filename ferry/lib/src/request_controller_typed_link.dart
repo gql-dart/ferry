@@ -8,7 +8,7 @@ import 'package:ferry_exec/ferry_exec.dart';
 /// To refetch an operation, simply add a new request of the same type and with
 /// the same [OperationRequest.requestId].
 ///
-/// To implement pagination, include an [OperationRequest.requestId] callback.
+/// To implement pagination, include an [OperationRequest.updateResult] callback.
 ///
 /// If [OperationRequest.executeOnListen] == `true`, the operation will be
 /// immediately executed when the stream returned by [request] is first
