@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.0] - 2020-10-10
+
+### Changed
+
+- Client is now a `TypedLink`
+- All plugins reimplemented as `TypedLink`s
+- `Client.responseStream` is now `Client.request`
+
+### Removed
+
+- `OperationRequest`, `OperationResponse`, and `FragmentRequest` moved to `ferry_exec`
+
 ## [0.7.6] - 2020-10-07
 
 ### Changed

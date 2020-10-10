@@ -196,7 +196,7 @@ packages:
       path: "../../ferry"
       relative: true
     source: path
-    version: "0.7.4"
+    version: "0.8.0"
   ferry_cache:
     dependency: "direct overridden"
     description:
@@ -217,7 +217,7 @@ packages:
       path: "../../ferry_flutter"
       relative: true
     source: path
-    version: "0.2.2"
+    version: "0.3.0"
   ferry_generator:
     dependency: "direct main"
     description:
@@ -231,14 +231,14 @@ packages:
       path: "../../ferry_hive_store"
       relative: true
     source: path
-    version: "0.2.2"
+    version: "0.3.0"
   ferry_store:
     dependency: "direct overridden"
     description:
       path: "../../ferry_store"
       relative: true
     source: path
-    version: "0.2.1"
+    version: "0.3.0"
   ferry_test_graphql:
     dependency: "direct overridden"
     description:
@@ -451,7 +451,7 @@ packages:
       path: "../../normalize"
       relative: true
     source: path
-    version: "0.4.1"
+    version: "0.4.2"
   package_config:
     dependency: transitive
     description:
