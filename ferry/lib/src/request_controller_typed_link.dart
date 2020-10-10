@@ -27,7 +27,6 @@ class RequestControllerTypedLink extends TypedLink {
   ]) {
     var initial = true;
     ValueStream<OperationResponse<TData, TVars>> prev;
-    StreamSubscription sub;
 
     return requestController.stream
         .whereType<OperationRequest<TData, TVars>>()
@@ -36,7 +35,7 @@ class RequestControllerTypedLink extends TypedLink {
       (_) {
         /// Temporarily add a listener so that [prev] doesn't shut down when
         /// switchMap is updating the stream.
-        sub = prev?.listen(null);
+        final sub = prev?.listen(null);
         Future.delayed(Duration.zero).then((_) => sub?.cancel());
       },
     ).switchMap(
