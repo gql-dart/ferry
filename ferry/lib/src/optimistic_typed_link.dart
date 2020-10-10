@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:rxdart/rxdart.dart';
 import 'package:ferry_exec/ferry_exec.dart';
 
-/// Creates a response stream, starting with an optimistic [OperationResponse]
-/// if a [OperationRequest.optimisticResponse] is provided.
+/// Returns the response stream from the next link in the chain, immediately
+/// emitting a response with the optimistic data.
 class OptimisticTypedLink extends TypedLink {
   const OptimisticTypedLink();
 

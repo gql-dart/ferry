@@ -21,8 +21,9 @@ const _defaultFetchPolicies = {
   OperationType.subscription: FetchPolicy.CacheAndNetwork,
 };
 
-/// Determines how to resolve an operation based on the [FetchPolicy] and caches
-/// responses from the network if required by the policy.
+/// A terminating link that resolves an operation from the [link] or the
+/// [cache] based on the [OperationRequest.fetchPolicy], possibly caching the
+/// response
 class FetchPolicyTypedLink extends TypedLink {
   final Map<OperationType, FetchPolicy> defaultFetchPolicies;
   final Cache cache;
