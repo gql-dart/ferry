@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2020-10-10
+
+### Added
+
+- `Operation` widget. This can be used with Queries, Mutations, or Subscriptions
+
+### Removed
+
+- `Query` widget. Use `Operation` widget instead
+- `Mutation` widget. Use `Operation` widget instead
+
 ## [0.2.2] - 2020-09-03
 
 ### Updated
