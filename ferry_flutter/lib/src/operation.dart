@@ -9,12 +9,12 @@ typedef OperationResponseBuilder<TData, TVars> = Widget Function(
 class Operation<TData, TVars> extends StatefulWidget {
   final OperationRequest<TData, TVars> operationRequest;
   final OperationResponseBuilder<TData, TVars> builder;
-  final TypedLink typedLink;
+  final TypedLink client;
 
   Operation({
     @required this.operationRequest,
     @required this.builder,
-    @required this.typedLink,
+    @required this.client,
   });
 
   @override
@@ -25,7 +25,7 @@ class _OperationState<TData, TVars> extends State<Operation<TData, TVars>> {
   Stream<OperationResponse<TData, TVars>> stream;
 
   Stream<OperationResponse<TData, TVars>> _getStream() =>
-      widget.typedLink.request(widget.operationRequest).distinct();
+      widget.client.request(widget.operationRequest).distinct();
 
   @override
   void initState() {

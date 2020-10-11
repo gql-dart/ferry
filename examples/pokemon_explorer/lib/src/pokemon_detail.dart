@@ -18,7 +18,7 @@ class PokemonDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Operation(
-      typedLink: client,
+      client: client,
       operationRequest: GPokemonDetailReq(
         (b) => b..vars.id = id,
       ),
