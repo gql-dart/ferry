@@ -224,7 +224,7 @@ packages:
       path: "../../ferry_generator"
       relative: true
     source: path
-    version: "0.2.1"
+    version: "0.3.0"
   ferry_hive_store:
     dependency: "direct main"
     description:
