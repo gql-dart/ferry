@@ -295,15 +295,19 @@ class Cache {
   void release(String entityId) => _retainedEntityIds.remove(entityId);
 
   /// Removes all entities that cannot be reached from one of the root operations.
-  void gc() {
+  Set<String> gc() {
     final reachable = utils.reachableIds(
       (dataId) => store.get(dataId),
       typePolicies,
     );
-    final keysToRemove = store.keys.where(
-      (key) => !reachable.contains(key) && !_retainedEntityIds.contains(key),
-    );
+    final keysToRemove = store.keys
+        .where(
+          (key) =>
+              !reachable.contains(key) && !_retainedEntityIds.contains(key),
+        )
+        .toSet();
     store.deleteAll(keysToRemove);
+    return keysToRemove;
   }
 
   /// Removes all data from the store and from any optimistic patches.
