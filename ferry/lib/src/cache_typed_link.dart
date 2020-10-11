@@ -8,7 +8,9 @@ export 'package:ferry_cache/ferry_cache.dart';
 class CacheTypedLink extends TypedLink {
   final Cache cache;
 
-  CacheTypedLink(Cache cache) : cache = cache ?? Cache();
+  CacheTypedLink([
+    Cache cache,
+  ]) : cache = cache ?? Cache();
 
   @override
   Stream<OperationResponse<TData, TVars>> request<TData, TVars>(
