@@ -19,7 +19,7 @@ class AllPokemonScreen extends StatelessWidget {
         title: Text('All Pokemon'),
       ),
       body: Operation(
-        typedLink: client,
+        client: client,
         operationRequest: GAllPokemonReq(
           (b) => b..vars.first = 500,
         ),
