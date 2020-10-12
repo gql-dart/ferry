@@ -9,7 +9,7 @@ String identify(
   DataIdResolver dataIdFromObject,
 }) =>
     data.containsKey(referenceKey)
-        ? data
+        ? data[referenceKey]
         : resolveDataId(
             data: data,
             typePolicies: typePolicies,
