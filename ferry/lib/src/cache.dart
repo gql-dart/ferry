@@ -5,7 +5,6 @@ import 'package:normalize/normalize.dart';
 import 'package:normalize/utils.dart' as utils;
 import 'package:ferry_store/ferry_store.dart';
 
-import './utils/deep_merge.dart';
 import './operation_request.dart';
 import './fragment_request.dart';
 import './utils/data_ids_change_stream.dart';
@@ -39,7 +38,7 @@ class Cache {
         {dataId: store.get(dataId)},
         (merged, patch) => patch.containsKey(dataId)
             ? Map.from(
-                deepMerge(
+                utils.deepMerge(
                   merged,
                   {dataId: patch[dataId]},
                 ),
@@ -168,7 +167,7 @@ class Cache {
               {
                 ...optimisticPatchesStream.value,
                 requestId: Map.from(
-                  deepMerge(
+                  utils.deepMerge(
                     optimisticPatchesStream.value[requestId] ?? {},
                     data,
                   ),
@@ -181,7 +180,7 @@ class Cache {
                   (entry) => MapEntry(
                     entry.key,
                     Map.from(
-                      deepMerge(
+                      utils.deepMerge(
                         store.get(entry.key) ?? {},
                         entry.value,
                       ),
