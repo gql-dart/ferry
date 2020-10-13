@@ -74,24 +74,24 @@ Object normalizeNode({
           write: write,
         );
         if (fieldPolicy?.merge != null) {
-          return data
-            ..[fieldName] = deepMerge(
-              data[fieldName],
-              fieldPolicy.merge(
+          return deepMerge(
+            data,
+            {
+              fieldName: fieldPolicy.merge(
                 existingFieldData,
                 fieldData,
                 FieldFunctionOptions(
                   field: field,
                   config: config,
                 ),
-              ),
-            );
-        }
-        return data
-          ..[fieldName] = deepMerge(
-            data[fieldName],
-            fieldData,
+              )
+            },
           );
+        }
+        return deepMerge(
+          data,
+          {fieldName: fieldData},
+        );
       })
     };
 
