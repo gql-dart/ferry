@@ -11,3 +11,4 @@ export 'src/utils/reachable_ids.dart';
 export 'src/utils/get_fragment_map.dart';
 export 'src/utils/operation_field_names.dart';
 export 'src/utils/validate_structure.dart';
+export 'src/utils/deep_merge.dart';
