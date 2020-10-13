@@ -4,6 +4,7 @@ import 'package:meta/meta.dart';
 import 'package:normalize/src/utils/resolve_data_id.dart';
 import 'package:normalize/src/utils/field_key.dart';
 import 'package:normalize/src/utils/expand_fragments.dart';
+import 'package:normalize/src/utils/deep_merge.dart';
 import 'package:normalize/src/config/normalization_config.dart';
 import 'package:normalize/src/policies/field_policy.dart';
 
@@ -74,16 +75,23 @@ Object normalizeNode({
         );
         if (fieldPolicy?.merge != null) {
           return data
-            ..[fieldName] = fieldPolicy.merge(
-              existingFieldData,
-              fieldData,
-              FieldFunctionOptions(
-                field: field,
-                config: config,
+            ..[fieldName] = deepMerge(
+              data[fieldName],
+              fieldPolicy.merge(
+                existingFieldData,
+                fieldData,
+                FieldFunctionOptions(
+                  field: field,
+                  config: config,
+                ),
               ),
             );
         }
-        return data..[fieldName] = fieldData;
+        return data
+          ..[fieldName] = deepMerge(
+            data[fieldName],
+            fieldData,
+          );
       })
     };
 
