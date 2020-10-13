@@ -5,6 +5,7 @@ import 'package:normalize/src/utils/resolve_data_id.dart';
 import 'package:normalize/src/utils/field_key.dart';
 import 'package:normalize/src/utils/expand_fragments.dart';
 import 'package:normalize/src/utils/exceptions.dart';
+import 'package:normalize/src/utils/deep_merge.dart';
 import 'package:normalize/src/config/normalization_config.dart';
 import 'package:normalize/src/policies/field_policy.dart';
 
@@ -111,11 +112,16 @@ Object normalizeNode({
       })
     };
 
+    final mergedData = deepMerge(
+      Map.from(existingNormalizedData ?? {}),
+      dataToMerge,
+    );
+
     if (!root && dataId != null) {
-      write(dataId, dataToMerge);
+      write(dataId, mergedData);
       return {config.referenceKey: dataId};
     } else {
-      return dataToMerge;
+      return mergedData;
     }
   }
 

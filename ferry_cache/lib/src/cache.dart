@@ -6,7 +6,6 @@ import 'package:normalize/utils.dart' as utils;
 import 'package:ferry_store/ferry_store.dart';
 import 'package:ferry_exec/ferry_exec.dart';
 
-import './utils/deep_merge.dart';
 import './utils/data_ids_change_stream.dart';
 
 class Cache {
@@ -38,7 +37,7 @@ class Cache {
         {dataId: store.get(dataId)},
         (merged, patch) => patch.containsKey(dataId)
             ? Map.from(
-                deepMerge(
+                utils.deepMerge(
                   merged,
                   {dataId: patch[dataId]},
                 ),
@@ -119,46 +118,51 @@ class Cache {
     TData data, {
     bool optimistic = false,
     String requestId,
-  }) {
-    final normalizedResult = <String, Map<String, dynamic>>{};
-    normalizeOperation(
-      read: optimistic ? optimisticReader : (dataId) => store.get(dataId),
-      write: (dataId, value) => normalizedResult[dataId] = value,
-      document: request.operation.document,
-      operationName: request.operation.operationName,
-      // TODO: don't cast to dynamic
-      variables: (request.vars as dynamic)?.toJson(),
-      data: (data as dynamic)?.toJson(),
-      typePolicies: typePolicies,
-      addTypename: addTypename,
-    );
-    _writeData(normalizedResult, optimistic, requestId ?? request.requestId);
-  }
+  }) =>
+      normalizeOperation(
+        read: optimistic ? optimisticReader : (dataId) => store.get(dataId),
+        write: (dataId, value) => _writeData(
+          dataId,
+          value,
+          optimistic,
+          requestId ?? request.requestId,
+        ),
+        document: request.operation.document,
+        operationName: request.operation.operationName,
+        // TODO: don't cast to dynamic
+        variables: (request.vars as dynamic)?.toJson(),
+        data: (data as dynamic)?.toJson(),
+        typePolicies: typePolicies,
+        addTypename: addTypename,
+      );
 
   void writeFragment<TData, TVars>(
     FragmentRequest<TData, TVars> request,
     TData data, {
     bool optimistic = false,
     String requestId,
-  }) {
-    final normalizedResult = <String, Map<String, dynamic>>{};
-    normalizeFragment(
-      read: optimistic ? optimisticReader : (dataId) => store.get(dataId),
-      write: (dataId, value) => normalizedResult[dataId] = value,
-      document: request.document,
-      idFields: request.idFields,
-      fragmentName: request.fragmentName,
-      // TODO: don't cast to dynamic
-      variables: (request.vars as dynamic)?.toJson(),
-      data: (data as dynamic)?.toJson(),
-      typePolicies: typePolicies,
-      addTypename: addTypename,
-    );
-    _writeData(normalizedResult, optimistic, requestId);
-  }
+  }) =>
+      normalizeFragment(
+        read: optimistic ? optimisticReader : (dataId) => store.get(dataId),
+        write: (dataId, value) => _writeData(
+          dataId,
+          value,
+          optimistic,
+          requestId,
+        ),
+        document: request.document,
+        idFields: request.idFields,
+        fragmentName: request.fragmentName,
+        // TODO: don't cast to dynamic
+        variables: (request.vars as dynamic)?.toJson(),
+        data: (data as dynamic)?.toJson(),
+        typePolicies: typePolicies,
+        addTypename: addTypename,
+      );
 
   void _writeData(
-    Map<String, Map<String, dynamic>> data,
+    String dataId,
+    Map<String, dynamic> value,
     bool optimistic,
     String requestId,
   ) =>
@@ -166,29 +170,13 @@ class Cache {
           ? optimisticPatchesStream.add(
               {
                 ...optimisticPatchesStream.value,
-                requestId: Map.from(
-                  deepMerge(
-                    optimisticPatchesStream.value[requestId] ?? {},
-                    data,
-                  ),
-                ),
+                requestId: {
+                  ...optimisticPatchesStream.value[requestId] ?? const {},
+                  dataId: value
+                },
               },
             )
-          : store.putAll(
-              Map.fromEntries(
-                data.entries.map(
-                  (entry) => MapEntry(
-                    entry.key,
-                    Map.from(
-                      deepMerge(
-                        store.get(entry.key) ?? {},
-                        entry.value,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            );
+          : store.put(dataId, value);
 
   void removeOptimisticPatch(String requestId) {
     final patches = optimisticPatchesStream.value;
