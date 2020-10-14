@@ -50,8 +50,8 @@ class FieldFunctionOptions {
           fragmentMap: _config.fragmentMap,
           dataIdFromObject: _config.dataIdFromObject,
           addTypename: _config.addTypename,
+          allowPartialData: true,
         ),
-        returnPartialData: true,
       );
 }
 
