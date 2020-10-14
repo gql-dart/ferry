@@ -2,6 +2,7 @@ import 'package:test/test.dart';
 import 'package:gql/language.dart';
 
 import 'package:normalize/normalize.dart';
+import 'package:normalize/utils.dart';
 
 void main() {
   test('Accepts partial data by default', () {
@@ -135,6 +136,75 @@ void main() {
           'title': null,
         },
       }),
+    );
+  });
+
+  test('validateOperationDataStructure rejects partial data', () {
+    final data = {
+      '__typename': 'Query',
+      'posts': [
+        {
+          'id': '123',
+          '__typename': 'Post',
+        }
+      ]
+    };
+
+    final query = parseString('''
+      query TestQuery {
+        posts {
+          id
+          title
+        }
+      }
+    ''');
+
+    expect(
+      validateOperationDataStructure(
+        data: data,
+        document: query,
+        handleException: true,
+      ),
+      equals(false),
+    );
+
+    expect(
+      () => validateOperationDataStructure(
+        data: data,
+        document: query,
+      ),
+      throwsA(isA<PartialDataException>().having(
+        (e) => e.path,
+        'An accurate path',
+        ['posts', 'title'],
+      )),
+    );
+  });
+
+  test('validateOperationDataStructure accepts valid data', () {
+    final data = {
+      '__typename': 'Query',
+      'posts': [
+        {
+          'id': '123',
+          '__typename': 'Post',
+          'title': null,
+        }
+      ]
+    };
+
+    final query = parseString('''
+      query TestQuery {
+        posts {
+          id
+          title
+        }
+      }
+    ''');
+
+    expect(
+      validateOperationDataStructure(data: data, document: query),
+      equals(true),
     );
   });
 }
