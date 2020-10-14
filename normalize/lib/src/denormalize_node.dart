@@ -15,7 +15,6 @@ Object denormalizeNode({
   @required SelectionSetNode selectionSet,
   @required Object dataForNode,
   @required NormalizationConfig config,
-  @required bool returnPartialData,
 }) {
   if (dataForNode == null) return null;
 
@@ -27,7 +26,6 @@ Object denormalizeNode({
             selectionSet: selectionSet,
             dataForNode: data,
             config: config,
-            returnPartialData: returnPartialData,
           ),
         )
         .toList();
@@ -55,6 +53,7 @@ Object denormalizeNode({
       (result, fieldNode) {
         final fieldPolicy =
             (typePolicy?.fields ?? const {})[fieldNode.name.value];
+        final policyCanRead = fieldPolicy?.read != null;
 
         final fieldName = FieldKey(
           fieldNode,
@@ -64,26 +63,37 @@ Object denormalizeNode({
 
         final resultKey = fieldNode.alias?.value ?? fieldNode.name.value;
 
-        if (fieldPolicy?.read != null) {
-          return result
-            ..[resultKey] = fieldPolicy.read(
-              denormalizedData[fieldName],
-              FieldFunctionOptions(
-                field: fieldNode,
-                config: config,
-              ),
-            );
-        } else if (!denormalizedData.containsKey(fieldName)) {
-          if (!returnPartialData) throw PartialDataException();
-          return result;
-        } else {
+        /// If the policy can't read,
+        /// and the key is missing from the data,
+        /// we have partial data
+        if (!policyCanRead && !denormalizedData.containsKey(fieldName)) {
+          if (config.allowPartialData) {
+            return result;
+          }
+          throw PartialDataException(path: [resultKey]);
+        }
+
+        try {
+          if (policyCanRead) {
+            // we can denormalize missing fields with policies
+            // because they may be purely virtualized
+            return result
+              ..[resultKey] = fieldPolicy.read(
+                denormalizedData[fieldName],
+                FieldFunctionOptions(
+                  field: fieldNode,
+                  config: config,
+                ),
+              );
+          }
           return result
             ..[resultKey] = denormalizeNode(
               selectionSet: fieldNode.selectionSet,
               dataForNode: denormalizedData[fieldName],
               config: config,
-              returnPartialData: returnPartialData,
             );
+        } on PartialDataException catch (e) {
+          throw PartialDataException(path: [fieldName, ...e.path]);
         }
       },
     );
