@@ -10,3 +10,4 @@ export 'src/utils/identify.dart';
 export 'src/utils/reachable_ids.dart';
 export 'src/utils/get_fragment_map.dart';
 export 'src/utils/operation_field_names.dart';
+export 'src/utils/validate_structure.dart';
