@@ -35,6 +35,7 @@ Map<String, dynamic> denormalizeFragment({
   DataIdResolver dataIdFromObject,
   bool addTypename = false,
   bool returnPartialData = false,
+  bool handleException = true,
   String referenceKey = '\$ref',
 }) {
   if (addTypename) {
@@ -89,6 +90,9 @@ Map<String, dynamic> denormalizeFragment({
       config: config,
     );
   } on PartialDataException {
-    return null;
+    if (handleException) {
+      return null;
+    }
+    rethrow;
   }
 }
