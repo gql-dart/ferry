@@ -54,6 +54,7 @@ Map<String, dynamic> denormalizeOperation({
     fragmentMap: getFragmentMap(document),
     dataIdFromObject: dataIdFromObject,
     addTypename: addTypename,
+    allowPartialData: returnPartialData,
   );
 
   try {
@@ -61,7 +62,6 @@ Map<String, dynamic> denormalizeOperation({
       selectionSet: operationDefinition.selectionSet,
       dataForNode: read(rootTypename) ?? const {},
       config: config,
-      returnPartialData: returnPartialData,
     );
   } on PartialDataException {
     return null;
