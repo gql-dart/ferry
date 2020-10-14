@@ -34,6 +34,7 @@ void normalizeOperation({
   Map<String, TypePolicy> typePolicies = const {},
   DataIdResolver dataIdFromObject,
   bool addTypename = false,
+  bool acceptPartialData = true,
   String referenceKey = '\$ref',
 }) {
   if (addTypename) {
@@ -58,6 +59,7 @@ void normalizeOperation({
     fragmentMap: getFragmentMap(document),
     addTypename: addTypename,
     dataIdFromObject: dataIdFromObject,
+    allowPartialData: acceptPartialData,
   );
 
   write(

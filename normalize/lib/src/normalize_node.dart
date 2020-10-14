@@ -1,5 +1,6 @@
 import 'package:gql/ast.dart';
 import 'package:meta/meta.dart';
+import 'package:normalize/normalize.dart';
 
 import 'package:normalize/src/utils/resolve_data_id.dart';
 import 'package:normalize/src/utils/field_key.dart';
@@ -57,6 +58,7 @@ Object normalizeNode({
       if (config.addTypename && typename != null) '__typename': typename,
       ...subNodes.fold({}, (data, field) {
         final fieldPolicy = (typePolicy?.fields ?? const {})[field.name.value];
+        final policyCanMergeOrRead = fieldPolicy?.merge != null;
         final fieldName = FieldKey(
           field,
           config.variables,
@@ -65,25 +67,42 @@ Object normalizeNode({
         final existingFieldData = existingNormalizedData is Map
             ? existingNormalizedData[fieldName]
             : null;
-        final fieldData = normalizeNode(
-          selectionSet: field.selectionSet,
-          dataForNode: dataForNode[field.alias?.value ?? field.name.value],
-          existingNormalizedData: existingFieldData,
-          config: config,
-          write: write,
-        );
-        if (fieldPolicy?.merge != null) {
-          return data
-            ..[fieldName] = fieldPolicy.merge(
-              existingFieldData,
-              fieldData,
-              FieldFunctionOptions(
-                field: field,
-                config: config,
-              ),
-            );
+        final inputKey = field.alias?.value ?? field.name.value;
+
+        /// If the policy can't merge or read,
+        /// And the key is missing from the data,
+        /// we have partial data
+        if (!policyCanMergeOrRead && !dataForNode.containsKey(fieldName)) {
+          // if partial data is accepted, we proceed as usual
+          // and just write nulls where data is missing
+          if (!config.allowPartialData) {
+            throw PartialDataException(path: [inputKey]);
+          }
         }
-        return data..[fieldName] = fieldData;
+
+        try {
+          final fieldData = normalizeNode(
+            selectionSet: field.selectionSet,
+            dataForNode: dataForNode[inputKey],
+            existingNormalizedData: existingFieldData,
+            config: config,
+            write: write,
+          );
+          if (policyCanMergeOrRead) {
+            return data
+              ..[fieldName] = fieldPolicy.merge(
+                existingFieldData,
+                fieldData,
+                FieldFunctionOptions(
+                  field: field,
+                  config: config,
+                ),
+              );
+          }
+          return data..[fieldName] = fieldData;
+        } on PartialDataException catch (e) {
+          throw PartialDataException(path: [inputKey, ...e.path]);
+        }
       })
     };
 
