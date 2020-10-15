@@ -4,21 +4,37 @@ import 'package:gql/language.dart';
 import 'package:normalize/normalize.dart';
 import 'package:normalize/utils.dart';
 
-void main() {
-  test('Accepts partial data by default', () {
-    final normalizedResult = {};
-
-    final data = {
+Map<String, dynamic> get fullQueryData => {
       '__typename': 'Query',
       'posts': [
         {
           'id': '123',
           '__typename': 'Post',
+          'title': null,
         }
       ]
     };
 
-    final query = parseString('''
+Map<String, dynamic> get partialQueryData {
+  final partial = fullQueryData;
+  partial['posts'][0].remove('title');
+  return partial;
+}
+
+const normalizedQueryData = {
+  'Query': {
+    'posts': [
+      {'\$ref': 'Post:123'}
+    ]
+  },
+  'Post:123': {
+    'id': '123',
+    '__typename': 'Post',
+    'title': null,
+  },
+};
+
+final query = parseString('''
       query TestQuery {
         posts {
           __typename
@@ -28,183 +44,167 @@ void main() {
       }
     ''');
 
-    normalizeOperation(
-      read: (dataId) => normalizedResult[dataId],
-      write: (dataId, value) => normalizedResult[dataId] = value,
-      document: query,
-      data: data,
-    );
+void main() {
+  group('normalizeOperation acceptPartialData behavior', () {
+    test('Accepts partial data by default', () {
+      final normalizedResult = {};
 
-    expect(
-      normalizedResult,
-      equals({
-        'Query': {
-          'posts': [
-            {'\$ref': 'Post:123'}
-          ]
-        },
-        'Post:123': {
-          'id': '123',
-          '__typename': 'Post',
-          'title': null,
-        },
-      }),
-    );
-  });
-
-  test('Rejects partial data when acceptPartialData=false', () {
-    final normalizedResult = {};
-
-    final data = {
-      '__typename': 'Query',
-      'posts': [
-        {
-          'id': '123',
-          '__typename': 'Post',
-        }
-      ]
-    };
-
-    final query = parseString('''
-      query TestQuery {
-        posts {
-          id
-          title
-        }
-      }
-    ''');
-
-    expect(
-      () => normalizeOperation(
+      normalizeOperation(
         read: (dataId) => normalizedResult[dataId],
         write: (dataId, value) => normalizedResult[dataId] = value,
         document: query,
+        data: partialQueryData,
+      );
+
+      expect(
+        normalizedResult,
+        equals(normalizedQueryData),
+      );
+    });
+
+    test('Rejects partial data when acceptPartialData=false', () {
+      final normalizedResult = {};
+
+      expect(
+        () => normalizeOperation(
+          read: (dataId) => normalizedResult[dataId],
+          write: (dataId, value) => normalizedResult[dataId] = value,
+          acceptPartialData: false,
+          document: query,
+          data: partialQueryData,
+        ),
+        throwsA(isA<PartialDataException>().having(
+          (e) => e.path,
+          'An accurate path',
+          ['posts', 'title'],
+        )),
+      );
+    });
+
+    test('Accepts explicit null when acceptPartialData=false', () {
+      final normalizedResult = {};
+
+      normalizeOperation(
+        read: (dataId) => normalizedResult[dataId],
+        write: (dataId, value) => normalizedResult[dataId] = value,
         acceptPartialData: false,
-        data: data,
-      ),
-      throwsA(isA<PartialDataException>().having(
-        (e) => e.path,
-        'An accurate path',
-        ['posts', 'title'],
-      )),
-    );
-  });
-
-  test('Accepts explicit null when acceptPartialData=false', () {
-    final normalizedResult = {};
-
-    final data = {
-      '__typename': 'Query',
-      'posts': [
-        {
-          'id': '123',
-          '__typename': 'Post',
-          'title': null,
-        }
-      ]
-    };
-
-    final query = parseString('''
-      query TestQuery {
-        posts {
-          id
-          __typename
-          title
-        }
-      }
-    ''');
-
-    normalizeOperation(
-      read: (dataId) => normalizedResult[dataId],
-      write: (dataId, value) => normalizedResult[dataId] = value,
-      document: query,
-      data: data,
-      acceptPartialData: false,
-    );
-
-    expect(
-      normalizedResult,
-      equals({
-        'Query': {
-          'posts': [
-            {'\$ref': 'Post:123'}
-          ]
-        },
-        'Post:123': {
-          'id': '123',
-          '__typename': 'Post',
-          'title': null,
-        },
-      }),
-    );
-  });
-
-  test('validateOperationDataStructure rejects partial data', () {
-    final data = {
-      '__typename': 'Query',
-      'posts': [
-        {
-          'id': '123',
-          '__typename': 'Post',
-        }
-      ]
-    };
-
-    final query = parseString('''
-      query TestQuery {
-        posts {
-          id
-          title
-        }
-      }
-    ''');
-
-    expect(
-      validateOperationDataStructure(
-        data: data,
         document: query,
-        handleException: true,
-      ),
-      equals(false),
-    );
+        data: fullQueryData,
+      );
 
-    expect(
-      () => validateOperationDataStructure(
-        data: data,
-        document: query,
-      ),
-      throwsA(isA<PartialDataException>().having(
-        (e) => e.path,
-        'An accurate path',
-        ['posts', 'title'],
-      )),
-    );
+      expect(
+        normalizedResult,
+        equals(normalizedQueryData),
+      );
+    });
   });
 
-  test('validateOperationDataStructure accepts valid data', () {
-    final data = {
-      '__typename': 'Query',
-      'posts': [
-        {
-          'id': '123',
-          '__typename': 'Post',
-          'title': null,
-        }
-      ]
-    };
+  group('validateOperationDataStructure', () {
+    test('rejects partial data', () {
+      expect(
+        validateOperationDataStructure(
+          handleException: true,
+          document: query,
+          data: partialQueryData,
+        ),
+        equals(false),
+      );
 
-    final query = parseString('''
-      query TestQuery {
-        posts {
+      expect(
+        () => validateOperationDataStructure(
+          document: query,
+          data: partialQueryData,
+        ),
+        throwsA(isA<PartialDataException>().having(
+          (e) => e.path,
+          'An accurate path',
+          ['posts', 'title'],
+        )),
+      );
+    });
+
+    test('accepts valid data', () {
+      expect(
+        validateOperationDataStructure(
+          document: query,
+          data: fullQueryData,
+        ),
+        equals(true),
+      );
+    });
+
+    test('rejects null data', () {
+      expect(
+        () => validateOperationDataStructure(data: null, document: query),
+        throwsA(isA<PartialDataException>().having(
+          (e) => e.path,
+          'An empty path',
+          [],
+        )),
+      );
+    });
+  });
+
+  group('validateFragmentDataStructure', () {
+    final fragment = parseString('''
+      fragment foo on Post {
           id
           title
-        }
       }
     ''');
 
-    expect(
-      validateOperationDataStructure(data: data, document: query),
-      equals(true),
-    );
+    test('rejects partial data', () {
+      final partialFragmentData = {
+        'id': '123',
+        '__typename': 'Post',
+      };
+
+      expect(
+        validateFragmentDataStructure(
+          data: partialFragmentData,
+          document: fragment,
+          handleException: true,
+        ),
+        equals(false),
+      );
+
+      expect(
+        () => validateFragmentDataStructure(
+          data: partialFragmentData,
+          document: fragment,
+        ),
+        throwsA(isA<PartialDataException>().having(
+          (e) => e.path,
+          'An accurate path',
+          ['title'],
+        )),
+      );
+    });
+
+    test('accepts valid data', () {
+      final fullFragmentData = {
+        'id': '123',
+        '__typename': 'Post',
+        'title': null,
+      };
+
+      expect(
+        validateFragmentDataStructure(
+          data: fullFragmentData,
+          document: fragment,
+        ),
+        equals(true),
+      );
+    });
+    test('rejects null data', () {
+      expect(
+        () => validateFragmentDataStructure(data: null, document: fragment),
+        throwsA(isA<PartialDataException>().having(
+          (e) => e.path,
+          'An empty path',
+          [],
+        )),
+      );
+    });
   });
 }
