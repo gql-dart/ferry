@@ -10,7 +10,12 @@ import 'package:normalize/src/utils/exceptions.dart';
 /// Throws a [PartialDataException] if the data is invalid,
 /// unless `handleException=true`, in which case it returns `false`.
 ///
+/// Treats `null` data as invalid, thus distinguishing between _valid_ data,
+/// and data which is simply _not present_ as defined by the [spec].
+///
 /// Calls [denormalizeOperation] internally.
+///
+/// [spec]: https://spec.graphql.org/June2018/#sec-Data
 bool validateOperationDataStructure({
   @required DocumentNode document,
   @required Map<String, dynamic> data,
@@ -45,7 +50,7 @@ bool validateOperationDataStructure({
 /// unless `handleException=true`, in which case it returns `false`.
 ///
 /// **NOTE:** while `null` data is a theoretically acceptable value for any fragment in isolation,
-/// we treat it as invalid here.
+/// we treat it as invalid here, maintaining consistency with [denormalizeOperation].
 ///
 /// Calls [denormalizeFragment] internally.
 bool validateFragmentDataStructure({
