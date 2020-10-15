@@ -1,58 +1,80 @@
 import 'package:gql/ast.dart';
 import 'package:meta/meta.dart';
 
-import 'package:normalize/src/utils/add_typename_visitor.dart';
+import 'package:normalize/src/denormalize_operation.dart';
+import 'package:normalize/src/denormalize_fragment.dart';
 import 'package:normalize/src/utils/exceptions.dart';
-import 'package:normalize/src/utils/get_operation_definition.dart';
-import 'package:normalize/src/denormalize_node.dart';
-import 'package:normalize/src/config/normalization_config.dart';
-import 'package:normalize/src/utils/get_fragment_map.dart';
 
 /// Validates the structure of [data] against the operation [operationName] in [document].
 ///
 /// Throws a [PartialDataException] if the data is invalid,
-/// unless [handleException] is specified, in which case it returns `false`
+/// unless `handleException=true`, in which case it returns `false`.
 ///
-/// This is essentially a simplified version of [denormalizeOperation],
-/// but without any real denormalization logic
+/// Calls [denormalizeOperation] internally.
 bool validateOperationDataStructure({
   @required DocumentNode document,
+  @required Map<String, dynamic> data,
   String operationName,
   Map<String, dynamic> variables = const {},
-  Map<String, dynamic> data,
   bool addTypename = false,
   bool handleException = false,
 }) {
-  if (addTypename) {
-    document = transform(
-      document,
-      [AddTypenameVisitor()],
-    );
-  }
-
-  final operationDefinition = getOperationDefinition(document, operationName);
-
-  final config = NormalizationConfig(
-    read: (_) => data,
-    variables: variables,
-    typePolicies: const {},
-    referenceKey: '\$ref',
-    fragmentMap: getFragmentMap(document),
-    dataIdFromObject: (_) => null,
-    addTypename: addTypename,
-    allowPartialData: false,
-  );
-  try {
-    denormalizeNode(
-      selectionSet: operationDefinition.selectionSet,
-      dataForNode: data,
-      config: config,
-    );
-  } on PartialDataException {
+  if (data == null) {
     if (handleException) {
       return false;
     }
-    rethrow;
+    throw PartialDataException(path: []);
   }
-  return true;
+  return denormalizeOperation(
+        // get data at top level
+        read: (_) => data,
+        // "disable" normalization
+        dataIdFromObject: (_) => null,
+        document: document,
+        operationName: operationName,
+        variables: variables,
+        addTypename: addTypename,
+        handleException: handleException,
+      ) !=
+      null;
+}
+
+/// Validates the structure of [data] against the fragment [fragmentName] in [document].
+///
+/// Throws a [PartialDataException] if the data is invalid,
+/// unless `handleException=true`, in which case it returns `false`.
+///
+/// **NOTE:** while `null` data is a theoretically acceptable value for any fragment in isolation,
+/// we treat it as invalid here.
+///
+/// Calls [denormalizeFragment] internally.
+bool validateFragmentDataStructure({
+  @required DocumentNode document,
+  @required Map<String, dynamic> data,
+  String fragmentName,
+  Map<String, dynamic> variables = const {},
+  bool addTypename = false,
+  bool handleException = false,
+}) {
+  if (data == null) {
+    if (handleException) {
+      return false;
+    }
+    throw PartialDataException(path: []);
+  }
+
+  return denormalizeFragment(
+        // get data at top level
+        read: (_) => data,
+        // "disable" normalization
+        dataIdFromObject: (_) => null,
+        // idFields unnecessary without normalization
+        idFields: <String, dynamic>{},
+        document: document,
+        fragmentName: fragmentName,
+        variables: variables,
+        addTypename: addTypename,
+        handleException: handleException,
+      ) !=
+      null;
 }
