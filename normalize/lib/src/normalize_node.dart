@@ -89,7 +89,7 @@ Object normalizeNode({
     };
 
     final mergedData = deepMerge(
-      existingNormalizedData ?? {},
+      Map.from(existingNormalizedData ?? {}),
       dataToMerge,
     );
 
