@@ -16,7 +16,7 @@ typedef DataIdResolver = String Function(Map<String, dynamic> object);
 ///
 /// Returns [null] if this type should not be normalized.
 String resolveDataId({
-  @required Map data,
+  @required Map<String, dynamic> data,
   Map<String, TypePolicy> typePolicies,
   DataIdResolver dataIdFromObject,
 }) {
