@@ -6,6 +6,7 @@ repository: https://github.com/gql-dart/ferry
 environment: 
   sdk: '>=2.7.0 <3.0.0'
 dependencies: 
+  gql: ^0.12.3
   rxdart: ^0.25.0-beta3
   gql_link: ^0.3.0
   gql_exec: ^0.2.4
