@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Client is now a `TypedLink`
 - All plugins reimplemented as `TypedLink`s
 - `Client.responseStream` is now `Client.request`
+- upgrade `rxdart` to latest version
 
 ### Removed
 

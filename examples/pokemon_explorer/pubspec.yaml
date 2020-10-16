@@ -7,7 +7,7 @@ dependencies:
   gql_http_link: ^0.2.9
   ferry: ^0.8.0
   ferry_generator: ^0.3.0
-  ferry_hive_store: ^0.3.0
+  ferry_hive_store: ^0.3.1
   ferry_flutter: ^0.3.0
   hive: ^1.4.1+1
   hive_flutter: ^0.3.0+2
