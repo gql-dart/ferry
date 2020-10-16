@@ -11,6 +11,7 @@ dependencies:
   rxdart: ^0.25.0-beta3
   normalize: ^0.4.0
   ferry_store: ^0.3.1
+  collection: ^1.14.13
 dev_dependencies: 
   test: ^1.9.4
   pedantic: ^1.9.0
