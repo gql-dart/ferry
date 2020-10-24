@@ -72,7 +72,7 @@ Object normalizeNode({
         /// If the policy can't merge or read,
         /// And the key is missing from the data,
         /// we have partial data
-        if (!policyCanMergeOrRead && !dataForNode.containsKey(fieldName)) {
+        if (!policyCanMergeOrRead && !dataForNode.containsKey(inputKey)) {
           // if partial data is accepted, we proceed as usual
           // and just write nulls where data is missing
           if (!config.allowPartialData) {
