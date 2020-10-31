@@ -1,10 +1,10 @@
 import 'package:gql/ast.dart';
 import 'package:meta/meta.dart';
-import 'package:normalize/normalize.dart';
 
 import 'package:normalize/src/utils/resolve_data_id.dart';
 import 'package:normalize/src/utils/field_key.dart';
 import 'package:normalize/src/utils/expand_fragments.dart';
+import 'package:normalize/src/utils/exceptions.dart';
 import 'package:normalize/src/config/normalization_config.dart';
 import 'package:normalize/src/policies/field_policy.dart';
 
@@ -58,7 +58,8 @@ Object normalizeNode({
       if (config.addTypename && typename != null) '__typename': typename,
       ...subNodes.fold({}, (data, field) {
         final fieldPolicy = (typePolicy?.fields ?? const {})[field.name.value];
-        final policyCanMergeOrRead = fieldPolicy?.merge != null;
+        final policyCanMerge = fieldPolicy?.merge != null;
+        final policyCanRead = fieldPolicy?.read != null;
         final fieldName = FieldKey(
           field,
           config.variables,
@@ -71,8 +72,12 @@ Object normalizeNode({
 
         /// If the policy can't merge or read,
         /// And the key is missing from the data,
-        /// we have partial data
-        if (!policyCanMergeOrRead && !dataForNode.containsKey(inputKey)) {
+        /// we have partial data.
+        ///
+        /// We have to consider reads because maybe
+        /// this is a virtualized field, and thus can't be written regardless
+        if (!(policyCanMerge || policyCanRead) &&
+            !dataForNode.containsKey(inputKey)) {
           // if partial data is accepted, we proceed as usual
           // and just write nulls where data is missing
           if (!config.allowPartialData) {
@@ -88,7 +93,7 @@ Object normalizeNode({
             config: config,
             write: write,
           );
-          if (policyCanMergeOrRead) {
+          if (policyCanMerge) {
             return data
               ..[fieldName] = fieldPolicy.merge(
                 existingFieldData,
