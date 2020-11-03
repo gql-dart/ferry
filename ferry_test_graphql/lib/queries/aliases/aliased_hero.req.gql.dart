@@ -9,9 +9,8 @@ import 'package:ferry_test_graphql/queries/aliases/aliased_hero.data.gql.dart'
     as _i2;
 import 'package:ferry_test_graphql/queries/aliases/aliased_hero.var.gql.dart'
     as _i3;
-import 'package:ferry_test_graphql/schema/serializers.gql.dart' as _i7;
+import 'package:ferry_test_graphql/schema/serializers.gql.dart' as _i6;
 import 'package:gql_exec/gql_exec.dart' as _i4;
-import 'package:uuid/uuid.dart' as _i6;
 
 part 'aliased_hero.req.gql.g.dart';
 
@@ -27,7 +26,6 @@ abstract class GAliasedHeroReq
   static void _initializeBuilder(GAliasedHeroReqBuilder b) => b
     ..operation =
         _i4.Operation(document: _i5.document, operationName: 'AliasedHero')
-    ..requestId = _i6.Uuid().v1()
     ..executeOnListen = true;
   _i3.GAliasedHeroVars get vars;
   _i4.Operation get operation;
@@ -55,7 +53,7 @@ abstract class GAliasedHeroReq
   static Serializer<GAliasedHeroReq> get serializer =>
       _$gAliasedHeroReqSerializer;
   Map<String, dynamic> toJson() =>
-      _i7.serializers.serializeWith(GAliasedHeroReq.serializer, this);
+      _i6.serializers.serializeWith(GAliasedHeroReq.serializer, this);
   static GAliasedHeroReq fromJson(Map<String, dynamic> json) =>
-      _i7.serializers.deserializeWith(GAliasedHeroReq.serializer, json);
+      _i6.serializers.deserializeWith(GAliasedHeroReq.serializer, json);
 }

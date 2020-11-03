@@ -9,9 +9,8 @@ import 'package:ferry_test_graphql/mutations/scalars/review_with_date.data.gql.d
     as _i2;
 import 'package:ferry_test_graphql/mutations/scalars/review_with_date.var.gql.dart'
     as _i3;
-import 'package:ferry_test_graphql/schema/serializers.gql.dart' as _i7;
+import 'package:ferry_test_graphql/schema/serializers.gql.dart' as _i6;
 import 'package:gql_exec/gql_exec.dart' as _i4;
-import 'package:uuid/uuid.dart' as _i6;
 
 part 'review_with_date.req.gql.g.dart';
 
@@ -27,7 +26,6 @@ abstract class GReviewWithDateReq
   static void _initializeBuilder(GReviewWithDateReqBuilder b) => b
     ..operation =
         _i4.Operation(document: _i5.document, operationName: 'ReviewWithDate')
-    ..requestId = _i6.Uuid().v1()
     ..executeOnListen = true;
   _i3.GReviewWithDateVars get vars;
   _i4.Operation get operation;
@@ -55,7 +53,7 @@ abstract class GReviewWithDateReq
   static Serializer<GReviewWithDateReq> get serializer =>
       _$gReviewWithDateReqSerializer;
   Map<String, dynamic> toJson() =>
-      _i7.serializers.serializeWith(GReviewWithDateReq.serializer, this);
+      _i6.serializers.serializeWith(GReviewWithDateReq.serializer, this);
   static GReviewWithDateReq fromJson(Map<String, dynamic> json) =>
-      _i7.serializers.deserializeWith(GReviewWithDateReq.serializer, json);
+      _i6.serializers.deserializeWith(GReviewWithDateReq.serializer, json);
 }

@@ -9,10 +9,9 @@ import 'package:ferry_test_graphql/queries/interfaces/hero_for_episode.data.gql.
     as _i2;
 import 'package:ferry_test_graphql/queries/interfaces/hero_for_episode.var.gql.dart'
     as _i3;
-import 'package:ferry_test_graphql/schema/serializers.gql.dart' as _i7;
-import 'package:gql/ast.dart' as _i8;
+import 'package:ferry_test_graphql/schema/serializers.gql.dart' as _i6;
+import 'package:gql/ast.dart' as _i7;
 import 'package:gql_exec/gql_exec.dart' as _i4;
-import 'package:uuid/uuid.dart' as _i6;
 
 part 'hero_for_episode.req.gql.g.dart';
 
@@ -28,7 +27,6 @@ abstract class GHeroForEpisodeReq
   static void _initializeBuilder(GHeroForEpisodeReqBuilder b) => b
     ..operation =
         _i4.Operation(document: _i5.document, operationName: 'HeroForEpisode')
-    ..requestId = _i6.Uuid().v1()
     ..executeOnListen = true;
   _i3.GHeroForEpisodeVars get vars;
   _i4.Operation get operation;
@@ -56,9 +54,9 @@ abstract class GHeroForEpisodeReq
   static Serializer<GHeroForEpisodeReq> get serializer =>
       _$gHeroForEpisodeReqSerializer;
   Map<String, dynamic> toJson() =>
-      _i7.serializers.serializeWith(GHeroForEpisodeReq.serializer, this);
+      _i6.serializers.serializeWith(GHeroForEpisodeReq.serializer, this);
   static GHeroForEpisodeReq fromJson(Map<String, dynamic> json) =>
-      _i7.serializers.deserializeWith(GHeroForEpisodeReq.serializer, json);
+      _i6.serializers.deserializeWith(GHeroForEpisodeReq.serializer, json);
 }
 
 abstract class GDroidFragmentReq
@@ -74,7 +72,7 @@ abstract class GDroidFragmentReq
     ..document = _i5.document
     ..fragmentName = 'DroidFragment';
   _i3.GDroidFragmentVars get vars;
-  _i8.DocumentNode get document;
+  _i7.DocumentNode get document;
   String get fragmentName;
   Map<String, dynamic> get idFields;
   @override
@@ -83,7 +81,7 @@ abstract class GDroidFragmentReq
   static Serializer<GDroidFragmentReq> get serializer =>
       _$gDroidFragmentReqSerializer;
   Map<String, dynamic> toJson() =>
-      _i7.serializers.serializeWith(GDroidFragmentReq.serializer, this);
+      _i6.serializers.serializeWith(GDroidFragmentReq.serializer, this);
   static GDroidFragmentReq fromJson(Map<String, dynamic> json) =>
-      _i7.serializers.deserializeWith(GDroidFragmentReq.serializer, json);
+      _i6.serializers.deserializeWith(GDroidFragmentReq.serializer, json);
 }

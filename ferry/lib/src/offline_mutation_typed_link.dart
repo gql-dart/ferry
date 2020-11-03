@@ -95,18 +95,14 @@ class OfflineMutationTypedLink extends TypedLink {
     if (connected) return forward(request);
 
     // Save mutation to the queue
-    mutationQueueBox.put(
-      request.requestId,
-      serializers.serialize(request),
-    );
+    mutationQueueBox.add(serializers.serialize(request));
 
     // Add an optimistic patch to the cache, if necessary
     if (request.optimisticResponse != null) {
       cache.writeQuery(
         request,
         request.optimisticResponse,
-        optimistic: true,
-        requestId: request.requestId,
+        optimisticRequest: request,
       );
     }
 
@@ -130,7 +126,12 @@ class OfflineMutationTypedLink extends TypedLink {
 
               // Forward response and remove mutation from queue
               sink.add(res);
-              mutationQueueBox.delete(res.operationRequest.requestId);
+              final queueKey = mutationQueueBox.values.toList().indexWhere(
+                    (serialized) =>
+                        res.operationRequest ==
+                        serializers.deserialize(serialized),
+                  );
+              if (queueKey != -1) mutationQueueBox.delete(queueKey);
             },
           );
 }

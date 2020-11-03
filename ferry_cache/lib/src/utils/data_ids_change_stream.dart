@@ -12,7 +12,7 @@ Stream<Set<String>> dataIdsChangeStream<TData, TVars>(
   OperationRequest<TData, TVars> request,
   TData existingData,
   bool optimistic,
-  Stream<Map<String, Map<String, Map<String, dynamic>>>>
+  Stream<Map<OperationRequest, Map<String, Map<String, dynamic>>>>
       optimisticPatchesStream,
   Map<String, dynamic> Function(String dataId) optimisticReader,
   Store store,
@@ -94,7 +94,7 @@ Stream<Map<String, dynamic>> dataForIdStream(
   String dataId,
   Store store,
   bool optimistic,
-  Stream<Map<String, Map<String, Map<String, dynamic>>>>
+  Stream<Map<OperationRequest, Map<String, Map<String, dynamic>>>>
       optimisticPatchesStream,
   Map<String, dynamic> Function(String dataId) optimisticReader,
 ) =>

@@ -9,9 +9,8 @@ import 'package:ferry_test_graphql/queries/variables/human_with_args.data.gql.da
     as _i2;
 import 'package:ferry_test_graphql/queries/variables/human_with_args.var.gql.dart'
     as _i3;
-import 'package:ferry_test_graphql/schema/serializers.gql.dart' as _i7;
+import 'package:ferry_test_graphql/schema/serializers.gql.dart' as _i6;
 import 'package:gql_exec/gql_exec.dart' as _i4;
-import 'package:uuid/uuid.dart' as _i6;
 
 part 'human_with_args.req.gql.g.dart';
 
@@ -27,7 +26,6 @@ abstract class GHumanWithArgsReq
   static void _initializeBuilder(GHumanWithArgsReqBuilder b) => b
     ..operation =
         _i4.Operation(document: _i5.document, operationName: 'HumanWithArgs')
-    ..requestId = _i6.Uuid().v1()
     ..executeOnListen = true;
   _i3.GHumanWithArgsVars get vars;
   _i4.Operation get operation;
@@ -55,7 +53,7 @@ abstract class GHumanWithArgsReq
   static Serializer<GHumanWithArgsReq> get serializer =>
       _$gHumanWithArgsReqSerializer;
   Map<String, dynamic> toJson() =>
-      _i7.serializers.serializeWith(GHumanWithArgsReq.serializer, this);
+      _i6.serializers.serializeWith(GHumanWithArgsReq.serializer, this);
   static GHumanWithArgsReq fromJson(Map<String, dynamic> json) =>
-      _i7.serializers.deserializeWith(GHumanWithArgsReq.serializer, json);
+      _i6.serializers.deserializeWith(GHumanWithArgsReq.serializer, json);
 }

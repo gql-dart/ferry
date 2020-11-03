@@ -25,17 +25,11 @@ TData dataForRequest<TData, TVars>(OperationRequest<TData, TVars> request) {
     ])) as TData;
 }
 
-final req1 = GReviewsReq(
+final req = GReviewsReq(
   (b) => b
     ..vars.first = 3
     ..vars.offset = 0
     ..updateResult = updateResult,
-);
-final req2 = req1.rebuild(
-  (b) => b..vars.offset = 3,
-);
-final req3 = req1.rebuild(
-  (b) => b..vars.offset = 6,
 );
 
 final updateResult = (GReviewsData previous, GReviewsData result) =>
@@ -75,11 +69,11 @@ void main() {
       test(
           'requests with different requestIds are not returned in the same response stream',
           () async {
-        final queue = StreamQueue(typedLink.request(req1));
+        final queue = StreamQueue(typedLink.request(req));
 
         expect(await queue.next, isNotNull);
 
-        requestController.add(req1.rebuild((b) => b..requestId = 'another'));
+        requestController.add(req.rebuild((b) => b..requestId = 'another'));
 
         await responseController.close();
         requestController.close();
@@ -90,13 +84,46 @@ void main() {
       test(
           'requests with the same requestId but different variables are returned in the same response stream',
           () async {
-        final queue = StreamQueue(typedLink.request(req1));
+        final request = req.rebuild((b) => b..requestId = '123');
+        final queue = StreamQueue(typedLink.request(request));
 
         expect(await queue.next, isNotNull);
 
-        requestController.add(req2);
+        requestController.add(request.rebuild((b) => b..vars.offset = 3));
 
         expect((await queue.next).operationRequest.vars.offset, equals(3));
+
+        await responseController.close();
+        requestController.close();
+
+        expect(await queue.hasNext, equals(false));
+      });
+
+      test(
+          'requests with no requestId and different variables are not returned in the same response stream',
+          () async {
+        final queue = StreamQueue(typedLink.request(req));
+
+        expect(await queue.next, isNotNull);
+
+        requestController.add(req.rebuild((b) => b..vars.offset = 3));
+
+        await responseController.close();
+        requestController.close();
+
+        expect(await queue.hasNext, equals(false));
+      });
+
+      test(
+          'identical requests with no requestId are returned in the same response stream',
+          () async {
+        final queue = StreamQueue(typedLink.request(req));
+
+        expect(await queue.next, isNotNull);
+
+        requestController.add(req);
+
+        expect(await queue.next, isNotNull);
 
         await responseController.close();
         requestController.close();
@@ -107,17 +134,21 @@ void main() {
 
     group('updating result', () {
       test('correctly updates the result', () async {
+        final req1 = req.rebuild((b) => b..requestId = '123');
+
         final queue = StreamQueue(typedLink.request(req1));
 
         final reviews1 = dataForRequest(req1).reviews;
         expect((await queue.next).data.reviews, equals(reviews1));
 
+        final req2 = req1.rebuild((b) => b..vars.offset = 3);
         requestController.add(req2);
         final reviews2 = reviews1.rebuild(
           (b) => b..addAll(dataForRequest(req2).reviews),
         );
         expect((await queue.next).data.reviews, equals(reviews2));
 
+        final req3 = req1.rebuild((b) => b..vars.offset = 6);
         requestController.add(req3);
         final reviews3 = reviews2.rebuild(
           (b) => b..addAll(dataForRequest(req3).reviews),
@@ -131,11 +162,14 @@ void main() {
       });
 
       test('continues to track changes to previous', () async {
+        final req1 = req.rebuild((b) => b..requestId = '123');
+
         final queue = StreamQueue(typedLink.request(req1));
 
         final reviews1 = dataForRequest(req1).reviews;
         expect((await queue.next).data.reviews, equals(reviews1));
 
+        final req2 = req1.rebuild((b) => b..vars.offset = 3);
         requestController.add(req2);
         final reviews2 = reviews1.rebuild(
           (b) => b..addAll(dataForRequest(req2).reviews),
