@@ -58,7 +58,7 @@ void main() {
           ..human.height = 1.85,
       );
 
-      final cacheProxy = CacheProxy(cache, true, req.requestId);
+      final cacheProxy = CacheProxy(cache, req);
       test('can write queries', () {
         expect(cacheProxy.readQuery(req), equals(null));
         cacheProxy.writeQuery(req, data);

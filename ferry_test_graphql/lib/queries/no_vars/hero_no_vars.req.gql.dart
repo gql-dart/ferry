@@ -9,9 +9,8 @@ import 'package:ferry_test_graphql/queries/no_vars/hero_no_vars.data.gql.dart'
     as _i2;
 import 'package:ferry_test_graphql/queries/no_vars/hero_no_vars.var.gql.dart'
     as _i3;
-import 'package:ferry_test_graphql/schema/serializers.gql.dart' as _i7;
+import 'package:ferry_test_graphql/schema/serializers.gql.dart' as _i6;
 import 'package:gql_exec/gql_exec.dart' as _i4;
-import 'package:uuid/uuid.dart' as _i6;
 
 part 'hero_no_vars.req.gql.g.dart';
 
@@ -27,7 +26,6 @@ abstract class GHeroNoVarsReq
   static void _initializeBuilder(GHeroNoVarsReqBuilder b) => b
     ..operation =
         _i4.Operation(document: _i5.document, operationName: 'HeroNoVars')
-    ..requestId = _i6.Uuid().v1()
     ..executeOnListen = true;
   _i3.GHeroNoVarsVars get vars;
   _i4.Operation get operation;
@@ -55,7 +53,7 @@ abstract class GHeroNoVarsReq
   static Serializer<GHeroNoVarsReq> get serializer =>
       _$gHeroNoVarsReqSerializer;
   Map<String, dynamic> toJson() =>
-      _i7.serializers.serializeWith(GHeroNoVarsReq.serializer, this);
+      _i6.serializers.serializeWith(GHeroNoVarsReq.serializer, this);
   static GHeroNoVarsReq fromJson(Map<String, dynamic> json) =>
-      _i7.serializers.deserializeWith(GHeroNoVarsReq.serializer, json);
+      _i6.serializers.deserializeWith(GHeroNoVarsReq.serializer, json);
 }

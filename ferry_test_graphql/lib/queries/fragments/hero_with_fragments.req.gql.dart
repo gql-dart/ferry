@@ -9,10 +9,9 @@ import 'package:ferry_test_graphql/queries/fragments/hero_with_fragments.data.gq
     as _i2;
 import 'package:ferry_test_graphql/queries/fragments/hero_with_fragments.var.gql.dart'
     as _i3;
-import 'package:ferry_test_graphql/schema/serializers.gql.dart' as _i7;
-import 'package:gql/ast.dart' as _i8;
+import 'package:ferry_test_graphql/schema/serializers.gql.dart' as _i6;
+import 'package:gql/ast.dart' as _i7;
 import 'package:gql_exec/gql_exec.dart' as _i4;
-import 'package:uuid/uuid.dart' as _i6;
 
 part 'hero_with_fragments.req.gql.g.dart';
 
@@ -30,7 +29,6 @@ abstract class GHeroWithFragmentsReq
   static void _initializeBuilder(GHeroWithFragmentsReqBuilder b) => b
     ..operation = _i4.Operation(
         document: _i5.document, operationName: 'HeroWithFragments')
-    ..requestId = _i6.Uuid().v1()
     ..executeOnListen = true;
   _i3.GHeroWithFragmentsVars get vars;
   _i4.Operation get operation;
@@ -58,9 +56,9 @@ abstract class GHeroWithFragmentsReq
   static Serializer<GHeroWithFragmentsReq> get serializer =>
       _$gHeroWithFragmentsReqSerializer;
   Map<String, dynamic> toJson() =>
-      _i7.serializers.serializeWith(GHeroWithFragmentsReq.serializer, this);
+      _i6.serializers.serializeWith(GHeroWithFragmentsReq.serializer, this);
   static GHeroWithFragmentsReq fromJson(Map<String, dynamic> json) =>
-      _i7.serializers.deserializeWith(GHeroWithFragmentsReq.serializer, json);
+      _i6.serializers.deserializeWith(GHeroWithFragmentsReq.serializer, json);
 }
 
 abstract class GheroDataReq
@@ -76,7 +74,7 @@ abstract class GheroDataReq
     ..document = _i5.document
     ..fragmentName = 'heroData';
   _i3.GheroDataVars get vars;
-  _i8.DocumentNode get document;
+  _i7.DocumentNode get document;
   String get fragmentName;
   Map<String, dynamic> get idFields;
   @override
@@ -84,9 +82,9 @@ abstract class GheroDataReq
       _i2.GheroDataData.fromJson(json);
   static Serializer<GheroDataReq> get serializer => _$gheroDataReqSerializer;
   Map<String, dynamic> toJson() =>
-      _i7.serializers.serializeWith(GheroDataReq.serializer, this);
+      _i6.serializers.serializeWith(GheroDataReq.serializer, this);
   static GheroDataReq fromJson(Map<String, dynamic> json) =>
-      _i7.serializers.deserializeWith(GheroDataReq.serializer, json);
+      _i6.serializers.deserializeWith(GheroDataReq.serializer, json);
 }
 
 abstract class GcomparisonFieldsReq
@@ -104,7 +102,7 @@ abstract class GcomparisonFieldsReq
     ..document = _i5.document
     ..fragmentName = 'comparisonFields';
   _i3.GcomparisonFieldsVars get vars;
-  _i8.DocumentNode get document;
+  _i7.DocumentNode get document;
   String get fragmentName;
   Map<String, dynamic> get idFields;
   @override
@@ -113,7 +111,7 @@ abstract class GcomparisonFieldsReq
   static Serializer<GcomparisonFieldsReq> get serializer =>
       _$gcomparisonFieldsReqSerializer;
   Map<String, dynamic> toJson() =>
-      _i7.serializers.serializeWith(GcomparisonFieldsReq.serializer, this);
+      _i6.serializers.serializeWith(GcomparisonFieldsReq.serializer, this);
   static GcomparisonFieldsReq fromJson(Map<String, dynamic> json) =>
-      _i7.serializers.deserializeWith(GcomparisonFieldsReq.serializer, json);
+      _i6.serializers.deserializeWith(GcomparisonFieldsReq.serializer, json);
 }

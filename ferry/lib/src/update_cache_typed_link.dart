@@ -9,19 +9,18 @@ export 'package:ferry_cache/ferry_cache.dart';
 /// Provides an interface for interacting with the [Cache] from within
 /// [UpdateCacheHandler]s.
 ///
-/// Sets the [_optimistic] and [_requestId] properties based on the originating request.
+/// Sets the [_optimisticRequest] property based on the originating request.
 class CacheProxy {
   final Cache _cache;
-  final bool _optimistic;
-  final String _requestId;
+  final OperationRequest _optimisticRequest;
+
+  bool get _optimistic => _optimisticRequest != null;
 
   CacheProxy(
-    Cache cache,
-    bool optimistic,
-    String requestId,
-  )   : _cache = cache,
-        _optimistic = optimistic,
-        _requestId = requestId;
+    Cache cache, [
+    OperationRequest optimisticRequest,
+  ])  : _cache = cache,
+        _optimisticRequest = optimisticRequest;
 
   TData readQuery<TData, TVars>(
     OperationRequest<TData, TVars> request, {
@@ -48,8 +47,7 @@ class CacheProxy {
       _cache.writeQuery(
         request,
         data,
-        optimistic: _optimistic,
-        requestId: _requestId,
+        optimisticRequest: _optimisticRequest,
       );
 
   void writeFragment<TData, TVars>(
@@ -59,8 +57,7 @@ class CacheProxy {
       _cache.writeFragment(
         request,
         data,
-        optimistic: _optimistic,
-        requestId: _requestId,
+        optimisticRequest: _optimisticRequest,
       );
 }
 
@@ -116,11 +113,9 @@ class UpdateCacheTypedLink extends TypedLink {
           updateCacheHandlers[key] as UpdateCacheHandler<TData, TVars>;
       if (handler == null) throw Exception('No handler defined for key $key');
 
-      final proxy = CacheProxy(
-        cache,
-        res.dataSource == DataSource.Optimistic,
-        res.operationRequest.requestId,
-      );
+      final proxy = res.dataSource == DataSource.Optimistic
+          ? CacheProxy(cache, res.operationRequest)
+          : CacheProxy(cache);
 
       switch (res.dataSource) {
         case DataSource.Optimistic:

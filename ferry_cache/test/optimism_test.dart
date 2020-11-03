@@ -43,8 +43,7 @@ void main() {
       cache.writeQuery(
         mutation1,
         mutation1data,
-        optimistic: true,
-        requestId: mutation1.requestId,
+        optimisticRequest: mutation1,
       );
 
       test('data exists optimistically', () {
@@ -72,15 +71,13 @@ void main() {
       cache.writeQuery(
         mutation1,
         mutation1data,
-        optimistic: true,
-        requestId: mutation1.requestId,
+        optimisticRequest: mutation1,
       );
 
       cache.writeQuery(
         mutation2,
         mutation2data,
-        optimistic: true,
-        requestId: mutation2.requestId,
+        optimisticRequest: mutation2,
       );
       test('data exists optimistically', () {
         expect(
@@ -109,7 +106,7 @@ void main() {
       });
 
       test('can remove a single optimistic patch', () {
-        cache.removeOptimisticPatch(mutation1.requestId);
+        cache.removeOptimisticPatch(mutation1);
 
         expect(
           cache.readQuery(mutation1, optimistic: true),

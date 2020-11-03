@@ -146,10 +146,6 @@ Class _buildOperationReqClass(
           'operationName': literalString(node.name.value),
         },
       ),
-      'requestId': refer('Uuid', 'package:uuid/uuid.dart')
-          .call([])
-          .property('v1')
-          .call([]),
       'executeOnListen': literalTrue,
     },
   ).rebuild(

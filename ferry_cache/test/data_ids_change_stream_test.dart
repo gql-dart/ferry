@@ -223,7 +223,7 @@ void main() {
 
         await Future.delayed(Duration.zero);
         cache.optimisticPatchesStream.add({
-          'patch-1': {
+          reviewsReq: {
             'Query': {
               'someQuery': [
                 {'\$ref': 'Review:123'},
@@ -262,7 +262,7 @@ void main() {
 
         await Future.delayed(Duration.zero);
         cache.optimisticPatchesStream.add({
-          'patch-2': {
+          reviewsReq: {
             'Query': {
               'reviews({"episode":null,"first":null,"offset":null})': [
                 {'\$ref': 'Review:456'},
@@ -301,7 +301,7 @@ void main() {
 
         await Future.delayed(Duration.zero);
         cache.optimisticPatchesStream.add({
-          'patch-2': {
+          reviewsReq: {
             'Review:123': {
               '__typename': 'Review',
               'id': '123',

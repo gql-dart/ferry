@@ -111,7 +111,7 @@ class FetchPolicyTypedLink extends TypedLink {
   ) {
     if (response.dataSource != DataSource.Optimistic) {
       cache.removeOptimisticPatch(
-        response.operationRequest.requestId,
+        response.operationRequest,
       );
     }
   }
@@ -124,8 +124,9 @@ class FetchPolicyTypedLink extends TypedLink {
       cache.writeQuery(
         response.operationRequest,
         response.data,
-        optimistic: response.dataSource == DataSource.Optimistic,
-        requestId: response.operationRequest.requestId,
+        optimisticRequest: response.dataSource == DataSource.Optimistic
+            ? response.operationRequest
+            : null,
       );
     }
   }

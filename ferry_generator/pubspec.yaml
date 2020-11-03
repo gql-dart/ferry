@@ -12,7 +12,6 @@ dependencies:
   built_collection: ^4.3.2
   code_builder: ^3.2.1
   build: ^1.2.2
-  uuid: ^2.2.0
   path: ^1.7.0
   ferry_exec: ^0.0.1
 dev_dependencies: 

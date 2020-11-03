@@ -9,9 +9,8 @@ import 'package:ferry_test_graphql/queries/variables/reviews.data.gql.dart'
     as _i2;
 import 'package:ferry_test_graphql/queries/variables/reviews.var.gql.dart'
     as _i3;
-import 'package:ferry_test_graphql/schema/serializers.gql.dart' as _i7;
+import 'package:ferry_test_graphql/schema/serializers.gql.dart' as _i6;
 import 'package:gql_exec/gql_exec.dart' as _i4;
-import 'package:uuid/uuid.dart' as _i6;
 
 part 'reviews.req.gql.g.dart';
 
@@ -26,7 +25,6 @@ abstract class GReviewsReq
   static void _initializeBuilder(GReviewsReqBuilder b) => b
     ..operation =
         _i4.Operation(document: _i5.document, operationName: 'Reviews')
-    ..requestId = _i6.Uuid().v1()
     ..executeOnListen = true;
   _i3.GReviewsVars get vars;
   _i4.Operation get operation;
@@ -53,7 +51,7 @@ abstract class GReviewsReq
       _i2.GReviewsData.fromJson(json);
   static Serializer<GReviewsReq> get serializer => _$gReviewsReqSerializer;
   Map<String, dynamic> toJson() =>
-      _i7.serializers.serializeWith(GReviewsReq.serializer, this);
+      _i6.serializers.serializeWith(GReviewsReq.serializer, this);
   static GReviewsReq fromJson(Map<String, dynamic> json) =>
-      _i7.serializers.deserializeWith(GReviewsReq.serializer, json);
+      _i6.serializers.deserializeWith(GReviewsReq.serializer, json);
 }

@@ -14,7 +14,8 @@ class Cache {
   final Store store;
 
   @visibleForTesting
-  final BehaviorSubject<Map<String, Map<String, Map<String, dynamic>>>>
+  final BehaviorSubject<
+          Map<OperationRequest, Map<String, Map<String, dynamic>>>>
       optimisticPatchesStream;
 
   /// A set of entity IDs to retain when the cache is garbage collected.
@@ -45,6 +46,7 @@ class Cache {
             : merged,
       )[dataId];
 
+  /// Watches for changes to data in the Cache for the given operation.
   Stream<TData> watchQuery<TData, TVars>(
     OperationRequest<TData, TVars> request, {
     bool optimistic = true,
@@ -80,6 +82,7 @@ class Cache {
         ]);
       });
 
+  /// Reads denormalized data from the Cache for the given operation.
   TData readQuery<TData, TVars>(
     OperationRequest<TData, TVars> request, {
     bool optimistic = true,
@@ -96,6 +99,7 @@ class Cache {
     return json == null ? null : request.parseData(json);
   }
 
+  /// Reads denormalized data from the Cache for the given fragment.
   TData readFragment<TData, TVars>(
     FragmentRequest<TData, TVars> request, {
     bool optimistic = true,
@@ -113,19 +117,24 @@ class Cache {
     return json == null ? null : request.parseData(json);
   }
 
+  /// Normalizes [data] for the given operation and writes it to the [Store].
+  ///
+  /// If an [optimisticRequest] is provided, the changes will be written as an
+  /// optimistic patch and will be reverted once a non-optimistic response is
+  /// received for the [optimisticRequest].
   void writeQuery<TData, TVars>(
     OperationRequest<TData, TVars> request,
     TData data, {
-    bool optimistic = false,
-    String requestId,
+    OperationRequest optimisticRequest,
   }) =>
       normalizeOperation(
-        read: optimistic ? optimisticReader : (dataId) => store.get(dataId),
+        read: optimisticRequest != null
+            ? optimisticReader
+            : (dataId) => store.get(dataId),
         write: (dataId, value) => _writeData(
           dataId,
           value,
-          optimistic,
-          requestId ?? request.requestId,
+          optimisticRequest,
         ),
         document: request.operation.document,
         operationName: request.operation.operationName,
@@ -136,19 +145,24 @@ class Cache {
         addTypename: addTypename,
       );
 
+  /// Normalizes [data] for the given fragment and writes it to the [Store].
+  ///
+  /// If an [optimisticRequest] is provided, the changes will be written as an
+  /// optimistic patch and will be reverted once a non-optimistic response is
+  /// received for the [optimisticRequest].
   void writeFragment<TData, TVars>(
     FragmentRequest<TData, TVars> request,
     TData data, {
-    bool optimistic = false,
-    String requestId,
+    OperationRequest optimisticRequest,
   }) =>
       normalizeFragment(
-        read: optimistic ? optimisticReader : (dataId) => store.get(dataId),
+        read: optimisticRequest != null
+            ? optimisticReader
+            : (dataId) => store.get(dataId),
         write: (dataId, value) => _writeData(
           dataId,
           value,
-          optimistic,
-          requestId,
+          optimisticRequest,
         ),
         document: request.document,
         idFields: request.idFields,
@@ -163,27 +177,25 @@ class Cache {
   void _writeData(
     String dataId,
     Map<String, dynamic> value,
-    bool optimistic,
-    String requestId,
+    OperationRequest optimisticRequest,
   ) =>
-      optimistic
+      optimisticRequest != null
           ? optimisticPatchesStream.add(
               {
                 ...optimisticPatchesStream.value,
-                requestId: {
-                  ...optimisticPatchesStream.value[requestId] ?? const {},
-                  dataId: value
-                },
+                optimisticRequest: {
+                  ...optimisticPatchesStream.value[optimisticRequest] ??
+                      const {},
+                  dataId: value,
+                }
               },
             )
           : store.put(dataId, value);
 
-  void removeOptimisticPatch(String requestId) {
-    final patches = optimisticPatchesStream.value;
-    if (patches.containsKey(requestId)) {
-      patches.remove(requestId);
-      optimisticPatchesStream.add(patches);
-    }
+  void removeOptimisticPatch(OperationRequest request) {
+    optimisticPatchesStream.add(
+      optimisticPatchesStream.value..remove(request),
+    );
   }
 
   /// Returns the canonical ID for a given object or reference.
