@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.3-alpha] - 2020-11-06
+
+### Added
+
+- add a `path` to `PartialDataException` to surface invalid paths
+- add `acceptPartialData` option to `normalizeFragment` and `normalizeOperation` for rejecting partial `data`
+- add `handleException` option to `denormalizeFragment` and `denormalizeOperation` for throwing a `PartialDataException` instead of returning `null` on partial `data`
+- add a `validateOperationDataStructure` utility for validating structure against a document
+
 ## [0.4.2] - 2020-10-07
 
 ### Changed
