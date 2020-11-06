@@ -81,32 +81,21 @@ class FetchPolicyTypedLink extends TypedLink {
                           [_cacheTypedLink.request(operationRequest).skip(1)]),
             );
       case FetchPolicy.CacheAndNetwork:
-        {
-          final responseStreamFromNetwork =
-              _optimisticLinkTypedLink.request(operationRequest);
+        final sharedNetworkStream =
+            _optimisticLinkTypedLink.request(operationRequest).shareValue();
 
-          final controller =
-              StreamController<OperationResponse<TData, TVars>>();
-          final networkStreamSubscription = responseStreamFromNetwork
-              .listen(controller.add, onError: controller.addError);
-
-          final sharedNetworkStream = controller.stream.shareValue();
-
-          return _cacheTypedLink
-              .request(operationRequest)
-              .where((response) => response.data != null)
-              .takeUntil(sharedNetworkStream)
-              .concatWith([
-            sharedNetworkStream
-                .doOnData(_writeToCache)
-                .switchMap((networkResponse) => ConcatStream([
-                      Stream.value(networkResponse),
-                      _cacheTypedLink.request(operationRequest).skip(1),
-                    ]))
-          ]).doOnCancel(() {
-            networkStreamSubscription.cancel();
-          });
-        }
+        return _cacheTypedLink
+            .request(operationRequest)
+            .where((response) => response.data != null)
+            .takeUntil(sharedNetworkStream)
+            .concatWith([
+          sharedNetworkStream
+              .doOnData(_writeToCache)
+              .switchMap((networkResponse) => ConcatStream([
+                    Stream.value(networkResponse),
+                    _cacheTypedLink.request(operationRequest).skip(1),
+                  ]))
+        ]);
     }
     return null;
   }
