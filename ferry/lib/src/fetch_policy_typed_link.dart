@@ -62,10 +62,13 @@ class FetchPolicyTypedLink extends TypedLink {
 
     switch (fetchPolicy) {
       case FetchPolicy.NoCache:
-        return _optimisticLinkTypedLink.request(operationRequest);
+        return _optimisticLinkTypedLink
+            .request(operationRequest)
+            .doOnData(_removeOptimisticPatch);
       case FetchPolicy.NetworkOnly:
         return _optimisticLinkTypedLink
             .request(operationRequest)
+            .doOnData(_removeOptimisticPatch)
             .doOnData(_writeToCache);
       case FetchPolicy.CacheOnly:
         return _cacheTypedLink.request(operationRequest);
@@ -75,6 +78,7 @@ class FetchPolicyTypedLink extends TypedLink {
                   ? _cacheTypedLink.request(operationRequest)
                   : _optimisticLinkTypedLink
                       .request(operationRequest)
+                      .doOnData(_removeOptimisticPatch)
                       .doOnData(_writeToCache)
                       .take(1)
                       .concatWith(
@@ -90,6 +94,7 @@ class FetchPolicyTypedLink extends TypedLink {
             .takeUntil(sharedNetworkStream)
             .concatWith([
           sharedNetworkStream
+              .doOnData(_removeOptimisticPatch)
               .doOnData(_writeToCache)
               .switchMap((networkResponse) => ConcatStream([
                     Stream.value(networkResponse),
@@ -100,9 +105,8 @@ class FetchPolicyTypedLink extends TypedLink {
     return null;
   }
 
-  /// Writes data from [OperationResponse] to the cache, removing any previous
-  /// optimistic patches for the request.
-  void _writeToCache<TData, TVars>(
+  /// Removes any previous optimistic patch for the request.
+  void _removeOptimisticPatch<TData, TVars>(
     OperationResponse<TData, TVars> response,
   ) {
     if (response.dataSource != DataSource.Optimistic) {
@@ -110,6 +114,12 @@ class FetchPolicyTypedLink extends TypedLink {
         response.operationRequest.requestId,
       );
     }
+  }
+
+  /// Writes data from [OperationResponse] to the cache.
+  void _writeToCache<TData, TVars>(
+    OperationResponse<TData, TVars> response,
+  ) {
     if (response.data != null) {
       cache.writeQuery(
         response.operationRequest,
