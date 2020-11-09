@@ -1,12 +1,12 @@
 name: ferry_flutter
-version: 0.3.0
+version: 0.3.1
 homepage: https://ferrygraphql.com/
 description: Flutter widgets for the Ferry GraphQL client
 repository: https://github.com/gql-dart/ferry
 environment: 
   sdk: '>=2.7.0 <3.0.0'
 dependencies: 
-  ferry: ^0.8.0
+  ferry: ^0.9.0
   gql_exec: ^0.2.4
   ferry_exec: ^0.0.1
   flutter: 

@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.3] - 2020-11-09
+
+### Added
+
+- add `deepMerge` method
+- add a `path` to `PartialDataException` to surface invalid paths
+- add `acceptPartialData` option to `normalizeFragment` and `normalizeOperation` for rejecting partial `data`
+- add `handleException` option to `denormalizeFragment` and `denormalizeOperation` for throwing a `PartialDataException` instead of returning `null` on partial `data`
+- add a `validateOperationDataStructure` utility for validating structure against a document
+
+### Changed
+
+- fix: merge existing data before writing
+
 ## [0.4.3-alpha] - 2020-11-06
 
 ### Added

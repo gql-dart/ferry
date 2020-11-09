@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.0] - 2020-11-09
+
+### Changed
+
+- bump `ferry_cache` version
+- `OperationRequest.requestId` no longer assigned `uuid` by default
+- `CacheProxy.writeQuery` and `CacheProxy.writeFragment` now use the entire optimistic request rather than just the requestId
+- update `OfflineMutationTypedLink` to not depend on `requestId` as it is no longer assigned by default
+- bump `normalize` version
+
 ## [0.8.0] - 2020-10-10
 
 ### Changed
