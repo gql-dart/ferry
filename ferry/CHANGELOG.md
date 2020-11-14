@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.1] - 2020-11-14
+
+### Added
+
+- add eviction and garbage collection methods to `CacheProxy`
+- bump `ferry_cache` version
+
 ## [0.9.0] - 2020-11-09
 
 ### Changed

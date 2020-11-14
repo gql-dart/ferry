@@ -59,6 +59,28 @@ class CacheProxy {
         data,
         optimisticRequest: _optimisticRequest,
       );
+
+  String identify<TData>(TData data) => _cache.identify(data);
+
+  void evict(
+    String entityId, {
+    String fieldName,
+    Map<String, dynamic> args,
+  }) =>
+      _cache.evict(
+        entityId,
+        fieldName: fieldName,
+        args: args,
+        optimisticRequest: _optimisticRequest,
+      );
+
+  void retain(String entityId) => _cache.retain(entityId);
+
+  void release(String entityId) => _cache.release(entityId);
+
+  Set<String> gc() => _cache.gc();
+
+  void clear() => _cache.clear();
 }
 
 /// Updates the cache after receiving an [OperationResponse].

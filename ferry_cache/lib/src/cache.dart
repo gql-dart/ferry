@@ -213,67 +213,107 @@ class Cache {
   /// If a [fieldName] is provided, only that field will be removed. If an
   /// [args] Map is provided, only fields that include matching values for
   /// each arg will be removed.
+  ///
+  /// If an [optimisticRequest] is provided, the changes will be written as an
+  /// optimistic patch and will be reverted once a non-optimistic response is
+  /// received for the [optimisticRequest].
   void evict(
     String entityId, {
     String fieldName,
     Map<String, dynamic> args = const {},
+    OperationRequest optimisticRequest,
   }) =>
       fieldName == null
-          ? _evictEntity(entityId)
+          ? _evictEntity(
+              entityId,
+              optimisticRequest,
+            )
           : _evictField(
               entityId,
               fieldName,
               args,
+              optimisticRequest,
             );
 
-  /// Removes entity from [Store] and in optimistic patches.
-  void _evictEntity(String entityId) {
-    store.delete(entityId);
+  void _evictEntity(
+    String entityId,
+    OperationRequest optimisticRequest,
+  ) {
+    if (optimisticRequest != null) {
+      /// Set entity to `null` in optimistic patch
+      optimisticPatchesStream.add({
+        ...optimisticPatchesStream.value,
+        optimisticRequest: {
+          ...(optimisticPatchesStream.value[optimisticRequest] ?? {}),
+          entityId: null,
+        }
+      });
+    } else {
+      /// Remove entity from [Store] and in optimistic patches.
+      store.delete(entityId);
 
-    optimisticPatchesStream.add(
-      optimisticPatchesStream.value.map(
-        (patchKey, patch) => MapEntry(patchKey, patch..remove(entityId)),
-      ),
-    );
+      optimisticPatchesStream.add(
+        optimisticPatchesStream.value.map(
+          (patchKey, patch) => MapEntry(patchKey, patch..remove(entityId)),
+        ),
+      );
+    }
   }
 
-  /// Removes field from entity in [Store] and in optimistic patches.
   void _evictField(
     String entityId,
     String fieldName,
     Map<String, dynamic> args,
+    OperationRequest optimisticRequest,
   ) {
-    optimisticPatchesStream.add(
-      optimisticPatchesStream.value.map(
-        (patchKey, patch) {
-          if (!patch.containsKey(entityId)) return MapEntry(patchKey, patch);
-          return MapEntry(
-            patchKey,
-            patch
-              ..[entityId].removeWhere(
-                (key, value) => _fieldMatch(key, fieldName, args),
-              ),
-          );
-        },
-      ),
-    );
-
-    final entity = store.get(entityId);
-    if (entity != null) {
-      store.put(
-        entityId,
-        entity.map(
-          // NOTE: we need to set to null rather than removing altogether
-          // to ensure that denormalize doesn't throw a [PartialDataException]
-          (key, value) => _fieldMatch(
-            key,
-            fieldName,
-            args,
-          )
-              ? MapEntry(key, null)
-              : MapEntry(key, value),
+    if (optimisticRequest != null) {
+      /// Set field to `null` in optimistic patch
+      optimisticPatchesStream.add({
+        ...optimisticPatchesStream.value,
+        optimisticRequest: {
+          ...(optimisticPatchesStream.value[optimisticRequest] ?? {}),
+          entityId: {
+            ...((optimisticPatchesStream.value[optimisticRequest] ??
+                    {})[entityId]) ??
+                {},
+            utils.FieldKey.from(fieldName, args).toString(): null
+          },
+        }
+      });
+    } else {
+      /// Remove field from entity in [Store] and in optimistic patches.
+      optimisticPatchesStream.add(
+        optimisticPatchesStream.value.map(
+          (patchKey, patch) {
+            if (!patch.containsKey(entityId)) return MapEntry(patchKey, patch);
+            return MapEntry(
+              patchKey,
+              patch
+                ..[entityId].removeWhere(
+                  (key, value) => _fieldMatch(key, fieldName, args),
+                ),
+            );
+          },
         ),
       );
+
+      final entity = store.get(entityId);
+      if (entity != null) {
+        store.put(
+          entityId,
+          entity.map(
+            // NOTE: we need to set to null rather than removing altogether
+            // to ensure that denormalize doesn't throw a [PartialDataException]
+            (key, value) => _fieldMatch(
+              key,
+              fieldName,
+              args,
+            )
+                ? MapEntry(key, null)
+                : MapEntry(key, value),
+          ),
+        );
+      }
     }
   }
 
