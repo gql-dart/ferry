@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.1] - 2020-11-14
+
+### Added
+
+- Allow `evict()` method to accept an `optimisticRequest`
+- Add tests
+
 ## [0.4.0] - 2020-11-09
 
 ### Changed

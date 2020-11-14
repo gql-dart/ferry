@@ -51,6 +51,20 @@ void main() {
       expect(cache.readQuery(chewieReq), equals(chewieData));
     });
 
+    test('can evict entities optimistically', () {
+      final cache = Cache();
+      cache.writeQuery(hanReq, hanData);
+      expect(cache.readQuery(hanReq), equals(hanData));
+      final entityId = cache.identify(hanData.human);
+      cache.evict(
+        entityId,
+        optimisticRequest: hanReq,
+      );
+      expect(cache.readQuery(hanReq, optimistic: true), equals(null));
+      expect(cache.readQuery(hanReq, optimistic: false), equals(hanData));
+      expect(cache.store.get(entityId), isNotNull);
+    });
+
     test('can filter out dangling references', () {
       final cache = Cache();
       cache.writeQuery(hanReq, hanData);
@@ -74,6 +88,27 @@ void main() {
       cache.evict(entityId, fieldName: 'height');
       final result = cache.readQuery(hanReq);
       expect(result, equals(hanData.rebuild((b) => b..human.height = null)));
+    });
+
+    test('can evict fields optimistically', () {
+      final cache = Cache();
+      cache.writeQuery(hanReq, hanData);
+      final entityId = cache.identify(hanData.human);
+      cache.evict(
+        entityId,
+        fieldName: 'height',
+        optimisticRequest: hanReq,
+      );
+      final optimisticResult = cache.readQuery(hanReq, optimistic: true);
+      expect(
+        optimisticResult,
+        equals(hanData.rebuild((b) => b..human.height = null)),
+      );
+      final nonOptimisticResult = cache.readQuery(hanReq, optimistic: false);
+      expect(
+        nonOptimisticResult,
+        equals(hanData),
+      );
     });
 
     test('can evict only fields that include specific args', () {
