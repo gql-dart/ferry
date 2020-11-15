@@ -23,6 +23,7 @@ Set<String> reachableIds(
             read(rootTypename),
             read,
             referenceKey,
+            {},
           ),
         ),
     );
@@ -31,14 +32,17 @@ Set<String> _idsInObject(
   Object object,
   Map<String, dynamic> Function(String dataId) read,
   String referenceKey,
+  Set<String> visited,
 ) {
   if (object is Map) {
     if (object.containsKey(referenceKey)) {
+      if (visited.contains(object[referenceKey])) return {};
       return {object[referenceKey]}..addAll(
           _idsInObject(
             read(object[referenceKey]),
             read,
             referenceKey,
+            visited..add(object[referenceKey]),
           ),
         );
     }
@@ -50,6 +54,7 @@ Set<String> _idsInObject(
             element,
             read,
             referenceKey,
+            visited,
           ),
         ),
     );
@@ -62,6 +67,7 @@ Set<String> _idsInObject(
             element,
             read,
             referenceKey,
+            visited,
           ),
         ),
     );
