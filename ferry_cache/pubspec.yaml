@@ -9,7 +9,7 @@ dependencies:
   ferry_exec: ^0.0.1
   meta: ^1.1.8
   rxdart: ^0.25.0-beta3
-  normalize: ^0.4.3
+  normalize: ^0.4.4
   ferry_store: ^0.3.1
   collection: ^1.14.13
 dev_dependencies: 
