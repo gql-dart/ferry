@@ -1,12 +1,12 @@
 name: ferry_exec
-version: 0.0.1
+version: 0.0.2
 homepage: https://ferrygraphql.com/
 description: A strongly typed execution interface for GraphQL operations
 repository: https://github.com/gql-dart/ferry
 environment: 
   sdk: '>=2.7.0 <3.0.0'
 dependencies: 
-  gql: ^0.12.0
+  gql: ^0.12.4
   gql_exec: ^0.2.4
   gql_link: ^0.3.0
   meta: ^1.1.8
