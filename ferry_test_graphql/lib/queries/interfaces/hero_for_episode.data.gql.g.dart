@@ -331,16 +331,6 @@ class GHeroForEpisodeDataBuilder
   }
 }
 
-abstract class GHeroForEpisodeData_heroBuilder {
-  void replace(GHeroForEpisodeData_hero other);
-  void update(void Function(GHeroForEpisodeData_heroBuilder) updates);
-  String get G__typename;
-  set G__typename(String G__typename);
-
-  String get name;
-  set name(String name);
-}
-
 class _$GHeroForEpisodeData_hero__base extends GHeroForEpisodeData_hero__base {
   @override
   final String G__typename;
@@ -397,8 +387,7 @@ class _$GHeroForEpisodeData_hero__base extends GHeroForEpisodeData_hero__base {
 class GHeroForEpisodeData_hero__baseBuilder
     implements
         Builder<GHeroForEpisodeData_hero__base,
-            GHeroForEpisodeData_hero__baseBuilder>,
-        GHeroForEpisodeData_heroBuilder {
+            GHeroForEpisodeData_hero__baseBuilder> {
   _$GHeroForEpisodeData_hero__base _$v;
 
   String _G__typename;
@@ -423,7 +412,7 @@ class GHeroForEpisodeData_hero__baseBuilder
   }
 
   @override
-  void replace(covariant GHeroForEpisodeData_hero__base other) {
+  void replace(GHeroForEpisodeData_hero__base other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
@@ -508,8 +497,7 @@ class _$GHeroForEpisodeData_hero__asDroid
 class GHeroForEpisodeData_hero__asDroidBuilder
     implements
         Builder<GHeroForEpisodeData_hero__asDroid,
-            GHeroForEpisodeData_hero__asDroidBuilder>,
-        GHeroForEpisodeData_heroBuilder {
+            GHeroForEpisodeData_hero__asDroidBuilder> {
   _$GHeroForEpisodeData_hero__asDroid _$v;
 
   String _G__typename;
@@ -540,7 +528,7 @@ class GHeroForEpisodeData_hero__asDroidBuilder
   }
 
   @override
-  void replace(covariant GHeroForEpisodeData_hero__asDroid other) {
+  void replace(GHeroForEpisodeData_hero__asDroid other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }

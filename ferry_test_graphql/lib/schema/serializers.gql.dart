@@ -47,9 +47,9 @@ import 'package:ferry_test_graphql/queries/fragments/hero_with_fragments.var.gql
     show GHeroWithFragmentsVars, GcomparisonFieldsVars, GheroDataVars;
 import 'package:ferry_test_graphql/queries/interfaces/hero_for_episode.data.gql.dart'
     show
+        GHeroForEpisodeData_hero,
         GDroidFragmentData,
         GHeroForEpisodeData,
-        GHeroForEpisodeData_hero,
         GHeroForEpisodeData_hero__asDroid,
         GHeroForEpisodeData_hero__base;
 import 'package:ferry_test_graphql/queries/interfaces/hero_for_episode.req.gql.dart'
@@ -86,8 +86,9 @@ import 'package:gql_code_builder/src/serializers/operation_serializer.dart'
 part 'serializers.gql.g.dart';
 
 final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
-  ..add(DateSerializer())
   ..add(OperationSerializer())
+  ..add(DateSerializer())
+  ..add(GHeroForEpisodeData_hero.serializer)
   ..addPlugin(StandardJsonPlugin());
 @SerializersFor([
   GAliasedHeroData,
@@ -105,7 +106,6 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GDroidFragmentVars,
   GEpisode,
   GHeroForEpisodeData,
-  GHeroForEpisodeData_hero,
   GHeroForEpisodeData_hero__asDroid,
   GHeroForEpisodeData_hero__base,
   GHeroForEpisodeReq,
