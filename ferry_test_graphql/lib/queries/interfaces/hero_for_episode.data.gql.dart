@@ -4,8 +4,7 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:ferry_test_graphql/schema/serializers.gql.dart' as _i1;
 import 'package:gql_code_builder/src/serializers/inline_fragment_serializer.dart'
-    as _i3;
-import 'package:gql_code_builder/src/utils/built_faker.dart' as _i2;
+    as _i2;
 
 part 'hero_for_episode.data.gql.g.dart';
 
@@ -30,14 +29,12 @@ abstract class GHeroForEpisodeData
       _i1.serializers.deserializeWith(GHeroForEpisodeData.serializer, json);
 }
 
-@BuiltValue(instantiable: false)
-abstract class GHeroForEpisodeData_hero implements _i2.BuiltFaker {
+abstract class GHeroForEpisodeData_hero {
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get name;
-  @BuiltValueSerializer(custom: true)
   static Serializer<GHeroForEpisodeData_hero> get serializer =>
-      _i3.InlineFragmentSerializer<GHeroForEpisodeData_hero>(
+      _i2.InlineFragmentSerializer<GHeroForEpisodeData_hero>(
           'GHeroForEpisodeData_hero',
           GHeroForEpisodeData_hero__base,
           [GHeroForEpisodeData_hero__asDroid]);
