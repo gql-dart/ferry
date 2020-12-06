@@ -24,7 +24,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Activate multipack
         run: |
-          echo "::add-path::$HOME/.pub-cache/bin"
+          echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
           pub global activate multipack
       - name: Override local dependencies
         run: |

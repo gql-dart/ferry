@@ -1,5 +1,5 @@
 name: ferry_hive_store
-version: 0.3.1
+version: 0.3.2
 homepage: https://ferrygraphql.com/
 description: Hive-based Store implementation for Ferry GraphQL client
 repository: https://github.com/gql-dart/ferry
@@ -7,8 +7,8 @@ environment:
   sdk: '>=2.7.0 <3.0.0'
 dependencies: 
   hive: ^1.3.0
-  ferry_store: ^0.3.1
-  rxdart: ^0.25.0-beta3
+  ferry_store: ^0.3.2
+  rxdart: ^0.25.0
   collection: ^1.14.13
 dev_dependencies: 
   test: ^1.9.4

@@ -1,19 +1,19 @@
 name: ferry_generator
-version: 0.3.2
+version: 0.3.3
 homepage: https://ferrygraphql.com/
 description: Generated types for Ferry GraphQL Client
 repository: https://github.com/gql-dart/ferry
 environment: 
   sdk: '>=2.7.0 <3.0.0'
 dependencies: 
-  gql: ^0.12.0
-  gql_build: ^0.1.4+1
-  gql_code_builder: ^0.1.4
+  gql: ^0.12.4
+  gql_build: ^0.1.4+2
+  gql_code_builder: ^0.1.4+1
   built_collection: ^4.3.2
   code_builder: ^3.2.1
   build: ^1.2.2
   path: ^1.7.0
-  ferry_exec: ^0.0.1
+  ferry_exec: ^0.0.2
 dev_dependencies: 
   test: ^1.9.4
   build_runner: ^1.10.1
