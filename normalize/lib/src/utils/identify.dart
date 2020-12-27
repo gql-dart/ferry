@@ -11,7 +11,7 @@ String identify(
     data.containsKey(referenceKey)
         ? data[referenceKey]
         : resolveDataId(
-            data: data,
+            data: Map.from(data),
             typePolicies: typePolicies,
             dataIdFromObject: dataIdFromObject,
           );
