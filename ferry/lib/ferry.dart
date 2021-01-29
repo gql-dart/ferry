@@ -34,7 +34,11 @@ class Client extends TypedLink {
     this.updateCacheHandlers = const {},
     this.defaultFetchPolicies = const {},
     this.addTypename = true,
-  })  : cache = cache ?? Cache(),
+  })  : cache = cache ??
+            Cache(
+              typePolicies: typePolicies,
+              addTypename: addTypename,
+            ),
         requestController = requestController ?? StreamController.broadcast() {
     _typedLink = TypedLink.from([
       RequestControllerTypedLink(this.requestController),

@@ -12,7 +12,6 @@ dependencies:
   gql_exec: ^0.2.4
   meta: ^1.1.8
   collection: ^1.14.12
-  hive: ^1.4.4
   built_value: ^7.1.0
   ferry_exec: ^0.0.2
   normalize: ^0.4.5
