@@ -80,9 +80,10 @@ class FetchPolicyTypedLink extends TypedLink {
                       .request(operationRequest)
                       .doOnData(_removeOptimisticPatch)
                       .doOnData(_writeToCache)
-                      .take(1)
-                      .concatWith(
-                          [_cacheTypedLink.request(operationRequest).skip(1)]),
+                      .switchMap((result) => _cacheTypedLink
+                          .request(operationRequest)
+                          .skip(1)
+                          .startWith(result)),
             );
       case FetchPolicy.CacheAndNetwork:
         final sharedNetworkStream =
