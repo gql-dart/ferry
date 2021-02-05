@@ -31,9 +31,18 @@ void main() {
         ..human.height = 1.88,
     );
 
+    final newData = GHumanWithArgsData(
+      (b) => b
+        ..human.id = 'mark'
+        ..human.name = 'Mark Zuckerberg'
+        ..human.height = 1.71,
+    );
+
     when(mockLink.request(any, any)).thenAnswer(
-      (_) => Stream.value(Response(data: data.toJson())).delay(
-          Duration(milliseconds: 0)), //add delay to reliably test caching
+      (_) => Stream.fromIterable([
+        Response(data: data.toJson()),
+        Response(data: newData.toJson()),
+      ]).interval(Duration(milliseconds: 10)),
     );
 
     StreamController<OperationRequest> requestController;
@@ -80,6 +89,31 @@ void main() {
         final second = await queue.next;
         expect(second.dataSource, equals(DataSource.Cache));
       });
+
+      test('can return multiple responses from link', () async {
+        final stream = typedLink.request(req);
+        requestController.add(req);
+
+        expect(
+          stream,
+          emitsInOrder([
+            equals(
+              OperationResponse(
+                operationRequest: req,
+                dataSource: DataSource.Link,
+                data: data,
+              ),
+            ),
+            equals(
+              OperationResponse(
+                operationRequest: req,
+                dataSource: DataSource.Link,
+                data: newData,
+              ),
+            ),
+          ]),
+        );
+      });
     });
 
     group('.CacheAndNetwork', () {
@@ -102,6 +136,31 @@ void main() {
         expect(second.dataSource, equals(DataSource.Cache));
         final third = await queue.next;
         expect(third.dataSource, equals(DataSource.Link));
+      });
+
+      test('can return multiple responses from link', () async {
+        final stream = typedLink.request(req);
+        requestController.add(req);
+
+        expect(
+          stream,
+          emitsInOrder([
+            equals(
+              OperationResponse(
+                operationRequest: req,
+                dataSource: DataSource.Link,
+                data: data,
+              ),
+            ),
+            equals(
+              OperationResponse(
+                operationRequest: req,
+                dataSource: DataSource.Link,
+                data: newData,
+              ),
+            ),
+          ]),
+        );
       });
     });
 
