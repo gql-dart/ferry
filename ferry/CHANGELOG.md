@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.3]
+
+- fix bug causing `FetchPolicy.CacheFirst` & `FetchPolicy.CacheAndNetwork` to only receive the first response from Link
+
 ## [0.9.2]
 
 - update dependencies
