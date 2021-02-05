@@ -80,10 +80,12 @@ class FetchPolicyTypedLink extends TypedLink {
                       .request(operationRequest)
                       .doOnData(_removeOptimisticPatch)
                       .doOnData(_writeToCache)
-                      .switchMap((result) => _cacheTypedLink
-                          .request(operationRequest)
-                          .skip(1)
-                          .startWith(result)),
+                      .switchMap(
+                        (networkResponse) => ConcatStream([
+                          Stream.value(networkResponse),
+                          _cacheTypedLink.request(operationRequest).skip(1),
+                        ]),
+                      ),
             );
       case FetchPolicy.CacheAndNetwork:
         final sharedNetworkStream =
@@ -92,15 +94,25 @@ class FetchPolicyTypedLink extends TypedLink {
         return _cacheTypedLink
             .request(operationRequest)
             .where((response) => response.data != null)
-            .takeUntil(sharedNetworkStream)
-            .concatWith([
+            .takeUntil(
+          sharedNetworkStream.doOnData(
+            (_) {
+              /// Temporarily add a listener so that [sharedNetworkStream] doesn't shut down when
+              /// switchMap is updating the stream.
+              final sub = sharedNetworkStream.listen(null);
+              Future.delayed(Duration.zero).then((_) => sub.cancel());
+            },
+          ),
+        ).concatWith([
           sharedNetworkStream
               .doOnData(_removeOptimisticPatch)
               .doOnData(_writeToCache)
-              .switchMap((networkResponse) => ConcatStream([
-                    Stream.value(networkResponse),
-                    _cacheTypedLink.request(operationRequest).skip(1),
-                  ]))
+              .switchMap(
+                (networkResponse) => ConcatStream([
+                  Stream.value(networkResponse),
+                  _cacheTypedLink.request(operationRequest).skip(1),
+                ]),
+              )
         ]);
     }
     return null;
