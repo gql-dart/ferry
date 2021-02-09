@@ -28,6 +28,17 @@ Set<String> reachableIds(
         ),
     );
 
+/// Returns a set of all IDs reachable from the given data ID.
+///
+/// Includes the given [dataId] itself.
+Set<String> reachableIdsFromDataId(
+  String dataId,
+  Map<String, dynamic> Function(String dataId) read, [
+  String referenceKey = '\$ref',
+]) =>
+    _idsInObject(read(dataId), read, referenceKey, {})..add(dataId);
+
+/// Recursively finds reachable IDs in [object]
 Set<String> _idsInObject(
   Object object,
   Map<String, dynamic> Function(String dataId) read,
