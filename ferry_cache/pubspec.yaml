@@ -1,5 +1,5 @@
 name: ferry_cache
-version: 0.4.2
+version: 0.4.3
 homepage: https://ferrygraphql.com/
 description: A normalized, strongly typed, optimistic cache for GraphQL Operations and Fragments
 repository: https://github.com/gql-dart/ferry
@@ -9,10 +9,10 @@ dependencies:
   ferry_exec: ^0.0.2
   meta: ^1.1.8
   rxdart: ^0.25.0
-  normalize: ^0.4.5
+  normalize: ^0.4.7
   ferry_store: ^0.3.2
   collection: ^1.14.13
 dev_dependencies: 
   test: ^1.9.4
   pedantic: ^1.9.0
-  ferry_test_graphql: ^0.0.2
+  ferry_test_graphql: ^0.0.3

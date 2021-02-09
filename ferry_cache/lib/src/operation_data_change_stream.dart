@@ -6,11 +6,12 @@ import 'package:ferry_store/ferry_store.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'package:ferry_exec/ferry_exec.dart';
+import 'utils/data_for_id_stream.dart';
+import 'utils/operation_root_data.dart';
 
 /// Emits when the data for this request changes, returning a `Set` of changed IDs.
-Stream<Set<String>> dataIdsChangeStream<TData, TVars>(
+Stream<Set<String>> operationDataChangeStream<TData, TVars>(
   OperationRequest<TData, TVars> request,
-  TData existingData,
   bool optimistic,
   Stream<Map<OperationRequest, Map<String, Map<String, dynamic>>>>
       optimisticPatchesStream,
@@ -19,20 +20,6 @@ Stream<Set<String>> dataIdsChangeStream<TData, TVars>(
   Map<String, TypePolicy> typePolicies,
   bool addTypename,
 ) {
-  /// Get a set of all references used by the existing cached response
-  final dataIds = <String>{};
-  normalizeOperation(
-    read: optimistic ? optimisticReader : (dataId) => store.get(dataId),
-    write: (dataId, value) => dataIds.add(dataId),
-    document: request.operation.document,
-    operationName: request.operation.operationName,
-    // TODO: don't cast to dynamic
-    variables: (request.vars as dynamic)?.toJson(),
-    data: (existingData as dynamic)?.toJson(),
-    typePolicies: typePolicies,
-    addTypename: addTypename,
-  );
-
   final operationDefinition = getOperationDefinition(
     request.operation.document,
     request.operation.operationName,
@@ -41,11 +28,15 @@ Stream<Set<String>> dataIdsChangeStream<TData, TVars>(
     operationDefinition,
     typePolicies,
   );
+  final dataIds = reachableIdsFromDataId(
+    rootTypename,
+    optimistic ? optimisticReader : (dataId) => store.get(dataId),
+  );
 
   /// IDs that have changed
   final changed = <String>{};
 
-  /// Streams for each dataId referenced in [existingData], including the [rootTypename]
+  /// Streams for each dataId referenced in data, including the [rootTypename]
   final streams = dataIds.map((dataId) {
     var stream = dataForIdStream(
       dataId,
@@ -87,40 +78,4 @@ Stream<Set<String>> dataIdsChangeStream<TData, TVars>(
 
       /// Skip the first result since this returns the existsing data
       .skip(1);
-}
-
-/// Returns the normalized data for the given [dataId], optionally merging optimistic data.
-Stream<Map<String, dynamic>> dataForIdStream(
-  String dataId,
-  Store store,
-  bool optimistic,
-  Stream<Map<OperationRequest, Map<String, Map<String, dynamic>>>>
-      optimisticPatchesStream,
-  Map<String, dynamic> Function(String dataId) optimisticReader,
-) =>
-    optimistic
-        ? CombineLatestStream.combine2(
-            store.watch(dataId),
-            optimisticPatchesStream,
-            (_, __) => optimisticReader(dataId),
-          )
-        : store.watch(dataId);
-
-/// Returns a subset of the [data] with only the fields that this operation uses.
-Map<String, dynamic> operationRootData<TData, TVars>(
-  Map<String, dynamic> data,
-  OperationRequest<TData, TVars> request,
-  Map<String, TypePolicy> typePolicies,
-) {
-  final fieldNames = operationFieldNames(
-    request.operation.document,
-    request.operation.operationName,
-    (request.vars as dynamic).toJson(),
-    typePolicies,
-  );
-  return {
-    for (var fieldName in fieldNames)
-      if (data != null && data.containsKey(fieldName))
-        fieldName: data[fieldName]
-  };
 }

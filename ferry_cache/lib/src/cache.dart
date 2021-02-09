@@ -6,7 +6,8 @@ import 'package:normalize/utils.dart' as utils;
 import 'package:ferry_store/ferry_store.dart';
 import 'package:ferry_exec/ferry_exec.dart';
 
-import './utils/data_ids_change_stream.dart';
+import './operation_data_change_stream.dart';
+import './fragment_data_change_stream.dart';
 
 class Cache {
   final Map<String, TypePolicy> typePolicies;
@@ -52,16 +53,10 @@ class Cache {
     bool optimistic = true,
   }) =>
       DeferStream(() {
-        final data = readQuery(
-          request,
-          optimistic: optimistic,
-        );
-
         var closed = false;
 
-        final dataChanged = dataIdsChangeStream(
+        final dataChanged = operationDataChangeStream(
           request,
-          data,
           optimistic,
           optimisticPatchesStream,
           optimisticReader,
@@ -71,13 +66,53 @@ class Cache {
         ).doOnDone(() => closed = true);
 
         return NeverStream<TData>()
-            .startWith(data)
+            .startWith(
+              readQuery(
+                request,
+                optimistic: optimistic,
+              ),
+            )
             .takeUntil(dataChanged)
             .concatWith([
           DeferStream(
             () => closed
                 ? Stream.empty()
                 : watchQuery(request, optimistic: optimistic),
+          )
+        ]);
+      });
+
+  /// Watches for changes to data in the Cache for the given fragment.
+  Stream<TData> watchFragment<TData, TVars>(
+    FragmentRequest<TData, TVars> request, {
+    bool optimistic = true,
+  }) =>
+      DeferStream(() {
+        var closed = false;
+
+        final dataChanged = fragmentDataChangeStream(
+          request,
+          optimistic,
+          optimisticPatchesStream,
+          optimisticReader,
+          store,
+          typePolicies,
+          addTypename,
+        ).doOnDone(() => closed = true);
+
+        return NeverStream<TData>()
+            .startWith(
+              readFragment(
+                request,
+                optimistic: optimistic,
+              ),
+            )
+            .takeUntil(dataChanged)
+            .concatWith([
+          DeferStream(
+            () => closed
+                ? Stream.empty()
+                : watchFragment(request, optimistic: optimistic),
           )
         ]);
       });

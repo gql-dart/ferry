@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.3]
+
+- update internal watch logic
+- add `watchFragment` method
+
 ## [0.4.2]
 
 - update dependencies
