@@ -28,11 +28,11 @@ class _$GHeroWithFragmentsVarsSerializer
       Serializers serializers, GHeroWithFragmentsVars object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.first != null) {
+    if (object.episode != null) {
       result
-        ..add('first')
-        ..add(serializers.serialize(object.first,
-            specifiedType: const FullType(int)));
+        ..add('episode')
+        ..add(serializers.serialize(object.episode,
+            specifiedType: const FullType(_i1.GEpisode)));
     }
     return result;
   }
@@ -49,9 +49,9 @@ class _$GHeroWithFragmentsVarsSerializer
       iterator.moveNext();
       final dynamic value = iterator.current;
       switch (key) {
-        case 'first':
-          result.first = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+        case 'episode':
+          result.episode = serializers.deserialize(value,
+              specifiedType: const FullType(_i1.GEpisode)) as _i1.GEpisode;
           break;
       }
     }
@@ -129,13 +129,13 @@ class _$GcomparisonFieldsVarsSerializer
 
 class _$GHeroWithFragmentsVars extends GHeroWithFragmentsVars {
   @override
-  final int first;
+  final _i1.GEpisode episode;
 
   factory _$GHeroWithFragmentsVars(
           [void Function(GHeroWithFragmentsVarsBuilder) updates]) =>
       (new GHeroWithFragmentsVarsBuilder()..update(updates)).build();
 
-  _$GHeroWithFragmentsVars._({this.first}) : super._();
+  _$GHeroWithFragmentsVars._({this.episode}) : super._();
 
   @override
   GHeroWithFragmentsVars rebuild(
@@ -149,18 +149,18 @@ class _$GHeroWithFragmentsVars extends GHeroWithFragmentsVars {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GHeroWithFragmentsVars && first == other.first;
+    return other is GHeroWithFragmentsVars && episode == other.episode;
   }
 
   @override
   int get hashCode {
-    return $jf($jc(0, first.hashCode));
+    return $jf($jc(0, episode.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('GHeroWithFragmentsVars')
-          ..add('first', first))
+          ..add('episode', episode))
         .toString();
   }
 }
@@ -169,15 +169,15 @@ class GHeroWithFragmentsVarsBuilder
     implements Builder<GHeroWithFragmentsVars, GHeroWithFragmentsVarsBuilder> {
   _$GHeroWithFragmentsVars _$v;
 
-  int _first;
-  int get first => _$this._first;
-  set first(int first) => _$this._first = first;
+  _i1.GEpisode _episode;
+  _i1.GEpisode get episode => _$this._episode;
+  set episode(_i1.GEpisode episode) => _$this._episode = episode;
 
   GHeroWithFragmentsVarsBuilder();
 
   GHeroWithFragmentsVarsBuilder get _$this {
     if (_$v != null) {
-      _first = _$v.first;
+      _episode = _$v.episode;
       _$v = null;
     }
     return this;
@@ -198,7 +198,7 @@ class GHeroWithFragmentsVarsBuilder
 
   @override
   _$GHeroWithFragmentsVars build() {
-    final _$result = _$v ?? new _$GHeroWithFragmentsVars._(first: first);
+    final _$result = _$v ?? new _$GHeroWithFragmentsVars._(episode: episode);
     replace(_$result);
     return _$result;
   }

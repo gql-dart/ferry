@@ -1,10 +1,11 @@
-query HeroWithFragments($first: Int) {
-  hero(episode: JEDI) {
+query HeroWithFragments($episode: Episode) {
+  hero(episode: $episode) {
     ...comparisonFields
   }
 }
 
 fragment heroData on Character {
+  id
   name
 }
 
