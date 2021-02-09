@@ -132,6 +132,7 @@ abstract class GHeroWithFragmentsData_hero_friendsConnection_edges_node
       b..G__typename = 'Character';
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
+  String get id;
   String get name;
   static Serializer<GHeroWithFragmentsData_hero_friendsConnection_edges_node>
       get serializer =>
@@ -148,6 +149,7 @@ abstract class GHeroWithFragmentsData_hero_friendsConnection_edges_node
 
 abstract class GheroData {
   String get G__typename;
+  String get id;
   String get name;
   Map<String, dynamic> toJson();
 }
@@ -163,6 +165,7 @@ abstract class GheroDataData
       b..G__typename = 'Character';
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
+  String get id;
   String get name;
   static Serializer<GheroDataData> get serializer => _$gheroDataDataSerializer;
   Map<String, dynamic> toJson() =>
@@ -195,6 +198,7 @@ abstract class GcomparisonFields_friendsConnection_edges {
 abstract class GcomparisonFields_friendsConnection_edges_node
     implements GheroData {
   String get G__typename;
+  String get id;
   String get name;
   Map<String, dynamic> toJson();
 }
@@ -300,6 +304,7 @@ abstract class GcomparisonFieldsData_friendsConnection_edges_node
       b..G__typename = 'Character';
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
+  String get id;
   String get name;
   static Serializer<GcomparisonFieldsData_friendsConnection_edges_node>
       get serializer =>
