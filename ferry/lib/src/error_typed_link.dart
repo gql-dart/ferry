@@ -1,22 +1,6 @@
 import 'dart:async';
-import 'package:meta/meta.dart';
 import 'package:ferry_exec/ferry_exec.dart';
 import 'package:gql_link/gql_link.dart';
-
-/// A base class for exceptions thrown by [TypedLink]s
-@immutable
-class TypedLinkException extends LinkException {
-  const TypedLinkException(
-    dynamic originalException,
-  ) : super(originalException);
-
-  @override
-  bool operator ==(Object o) =>
-      o is TypedLinkException && o.originalException == originalException;
-
-  @override
-  int get hashCode => originalException.hashCode;
-}
 
 /// Catches [Exception]s in the link chain and converts them into data.
 ///
