@@ -4,6 +4,7 @@ import 'package:ferry_exec/ferry_exec.dart';
 typedef OperationResponseBuilder<TData, TVars> = Widget Function(
   BuildContext context,
   OperationResponse<TData, TVars> response,
+  Object error,
 );
 
 class Operation<TData, TVars> extends StatefulWidget {
@@ -52,6 +53,7 @@ class _OperationState<TData, TVars> extends State<Operation<TData, TVars>> {
       builder: (context, snapshot) => widget.builder(
         context,
         snapshot.data,
+        snapshot.error,
       ),
     );
   }
