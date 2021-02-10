@@ -14,7 +14,7 @@ dependencies:
   collection: ^1.14.12
   hive: ^1.4.4
   built_value: ^7.1.0
-  ferry_exec: ^0.0.2
+  ferry_exec: ^0.0.3
   normalize: ^0.4.7
   ferry_cache: ^0.4.3
 dev_dependencies: 
