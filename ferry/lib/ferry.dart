@@ -7,6 +7,7 @@ import 'package:ferry/src/add_typename_typed_link.dart';
 import 'package:ferry/src/fetch_policy_typed_link.dart';
 import 'package:ferry/src/request_controller_typed_link.dart';
 import 'package:ferry/src/update_cache_typed_link.dart';
+import 'package:ferry/src/error_typed_link.dart';
 
 export 'package:ferry_cache/ferry_cache.dart';
 export 'package:gql_link/gql_link.dart';
@@ -37,6 +38,7 @@ class Client extends TypedLink {
   })  : cache = cache ?? Cache(),
         requestController = requestController ?? StreamController.broadcast() {
     _typedLink = TypedLink.from([
+      ErrorTypedLink(),
       RequestControllerTypedLink(this.requestController),
       if (addTypename) AddTypenameTypedLink(),
       if (updateCacheHandlers.isNotEmpty)
