@@ -5,6 +5,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:ferry_exec/ferry_exec.dart';
 import 'package:async/async.dart';
 
+import 'package:ferry_offline_client/ferry_offline_client.dart';
 import 'package:ferry_offline_client/src/offline_mutation_typed_link.dart';
 
 import 'package:ferry_test_graphql/schema/serializers.gql.dart';
@@ -27,16 +28,18 @@ final data = GCreateReviewData(
     ..createReview.commentary = 'Amazing!!!',
 );
 
-void main() {
-  Hive.init('./test/__hive_data__');
+class MockClient extends OfflineClient {
+  @override
+  final StreamController<OperationRequest> requestController;
+  final TypedLink _link;
 
-  test('mutations get enqueued and dequeued', () async {
-    final box = await Hive.openBox<Map<String, dynamic>>('mutation_queue');
-    await box.clear();
+  MockClient(this.requestController, OfflineMutationTypedLink offlineLink)
+      : _link = createLink(requestController, offlineLink);
 
-    final requestController = StreamController<OperationRequest>();
-    final cache = Cache();
-
+  static TypedLink createLink(
+    StreamController<OperationRequest> requestController,
+    OfflineMutationTypedLink offlineLink,
+  ) {
     final controllerLink = TypedLink.function(
       <TData, TVars>(request, [forward]) => requestController.stream
           .whereType<OperationRequest<TData, TVars>>()
@@ -51,6 +54,40 @@ void main() {
         },
       ),
     );
+    final terminatingLink = TypedLink.function(
+      <TData, TVars>(request, [forward]) {
+        return Stream.value(
+          OperationResponse(
+            operationRequest: request,
+            data: data as TData,
+          ),
+        );
+      },
+    );
+    // offline mutation link must go between controller link and terminating link
+    return TypedLink.from([
+      controllerLink,
+      offlineLink,
+      terminatingLink,
+    ]);
+  }
+
+  @override
+  Stream<OperationResponse<TData, TVars>> request<TData, TVars>(req,
+      [forward]) {
+    return _link.request(req, forward);
+  }
+}
+
+void main() {
+  Hive.init('./test/__hive_data__');
+
+  test('mutations get enqueued and dequeued', () async {
+    final box = await Hive.openBox<Map<String, dynamic>>('mutation_queue');
+    await box.clear();
+
+    final requestController = StreamController<OperationRequest>.broadcast();
+    final cache = Cache();
 
     final offlineMutationLink = OfflineMutationTypedLink(
       mutationQueueBox: box,
@@ -59,31 +96,19 @@ void main() {
       requestController: requestController,
     );
 
-    final terminatingLink =
-        TypedLink.function(<TData, TVars>(request, [forward]) => Stream.value(
-              OperationResponse(
-                operationRequest: request,
-                data: data as TData,
-              ),
-            ));
-
-    // offline mutation link must go between controller link and terminating link
-    final typedLink = TypedLink.from([
-      controllerLink,
-      offlineMutationLink,
-      terminatingLink,
-    ]);
+    final client = MockClient(requestController, offlineMutationLink);
+    offlineMutationLink.client = client;
 
     // online, initial request is executed
     offlineMutationLink.connected = true;
 
-    final queue = StreamQueue(typedLink.request(req));
+    final queue = StreamQueue(client.request(req));
 
     expect((await queue.next).data, equals(data));
 
     // client goes offline, subsequent request is queued
     offlineMutationLink.connected = false;
-    requestController.add(req);
+    client.requestController.add(req);
     queue.hasNext;
     await Future.delayed(Duration.zero);
 

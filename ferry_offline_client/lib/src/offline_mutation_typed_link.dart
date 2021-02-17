@@ -76,8 +76,7 @@ class OfflineMutationTypedLink extends TypedLink {
     final queue = StreamQueue(Stream.fromIterable(mutationQueueBox.values));
     while (await queue.hasNext) {
       final json = await queue.next;
-      final req =
-          serializers.deserialize(json) as OperationRequest<Object, Object>;
+      final req = serializers.deserialize(json);
 
       // Run unexecuted mutations
       await client.request(req).firstWhere(
