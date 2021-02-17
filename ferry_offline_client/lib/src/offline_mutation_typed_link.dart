@@ -8,7 +8,6 @@ import 'package:rxdart/rxdart.dart';
 import 'package:normalize/utils.dart';
 import 'package:ferry_exec/ferry_exec.dart';
 import 'package:ferry_cache/ferry_cache.dart';
-import 'package:gql_link/gql_link.dart';
 import 'package:retry/retry.dart';
 import 'package:ferry_offline_client/ferry_offline_client.dart';
 
@@ -34,17 +33,7 @@ class OfflineMutationTypedLink extends TypedLink {
 
   final Cache cache;
   final StreamController<OperationRequest> requestController;
-
-  /// A callback used to customize behavior when a mutation execution results in a [LinkException].
-  final LinkExceptionHandler linkExceptionHandler;
-
-  /// The number of times to re-attempt a mutation if it fails on coming back
-  /// online
-  final int retryAttempts;
-
-  /// A callback used to decide what to do when all retries have been attempted
-  /// with no success
-  final FutureOr<void> Function(Exception) retriesExhaustedHandler;
+  final OfflineClientConfig config;
 
   OfflineClient client;
   bool _connected = false;
@@ -61,13 +50,11 @@ class OfflineMutationTypedLink extends TypedLink {
   /// Requests are tried sequentially using the client any errors will cancel
   /// the queue processing
   OfflineMutationTypedLink({
-    this.retryAttempts = 8,
     @required this.mutationQueueBox,
     @required this.serializers,
     @required this.cache,
     @required this.requestController,
-    this.linkExceptionHandler,
-    this.retriesExhaustedHandler,
+    this.config = const OfflineClientConfig(),
   });
 
   void _handleOnConnect() async {
@@ -75,11 +62,11 @@ class OfflineMutationTypedLink extends TypedLink {
     var count = 1;
     await retry(
       _processRequests,
-      maxAttempts: retryAttempts,
+      maxAttempts: config.retryAttempts,
       onRetry: (error) async {
         count++;
-        if (count == retryAttempts) {
-          await retriesExhaustedHandler(error);
+        if (count == config.retryAttempts) {
+          await config?.retriesExhaustedHandler(error);
         }
       },
     );
@@ -132,7 +119,7 @@ class OfflineMutationTypedLink extends TypedLink {
       cache.writeQuery(
         request,
         request.optimisticResponse,
-        optimisticRequest: request,
+        optimisticRequest: !config.persistOptimisticResponse ? request : null,
       );
     }
 
@@ -159,8 +146,8 @@ class OfflineMutationTypedLink extends TypedLink {
               // TODO decide if the error should be returned here so it bubbles
               // up by default or only explicitly by user intervention i.e.
               // adding it to the sink
-              if (res.hasErrors && linkExceptionHandler != null) {
-                return linkExceptionHandler(res, sink);
+              if (res.hasErrors && config?.linkExceptionHandler != null) {
+                return config.linkExceptionHandler(res, sink);
               }
 
               // Forward response and remove mutation from queue

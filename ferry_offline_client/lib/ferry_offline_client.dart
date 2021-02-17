@@ -17,10 +17,24 @@ import 'package:ferry_hive_store/ferry_hive_store.dart';
 import './src/offline_mutation_typed_link.dart';
 
 class OfflineClientConfig {
+  /// A callback used to customize behavior when a mutation execution results in a [LinkException].
   final LinkExceptionHandler linkExceptionHandler;
 
-  OfflineClientConfig({
+  /// The number of times to re-attempt a mutation if it fails on coming back
+  /// online
+  final int retryAttempts;
+
+  /// A callback used to decide what to do when all retries have been attempted
+  /// with no success
+  final FutureOr<void> Function(Exception) retriesExhaustedHandler;
+
+  final bool persistOptimisticResponse;
+
+  const OfflineClientConfig({
+    this.retryAttempts = 8,
     this.linkExceptionHandler,
+    this.retriesExhaustedHandler,
+    this.persistOptimisticResponse = false,
   });
 }
 
@@ -62,8 +76,8 @@ class OfflineClient extends TypedLink {
         cache: cache,
         mutationQueueBox: mutationQueueBox,
         serializers: serializers,
-        requestController: this.requestController,
-        linkExceptionHandler: offlineConfig?.linkExceptionHandler,
+        requestController: requestController,
+        config: offlineConfig,
       ),
       if (addTypename) AddTypenameTypedLink(),
       if (updateCacheHandlers.isNotEmpty)
@@ -92,10 +106,10 @@ class OfflineClient extends TypedLink {
     @required Serializers serializers,
     OfflineClientConfig offlineConfig,
     StreamController<OperationRequest> requestController,
-    Map<String, TypePolicy> typePolicies,
-    Map<String, Function> updateCacheHandlers,
-    Map<OperationType, FetchPolicy> defaultFetchPolicies,
-    bool addTypename,
+    Map<String, TypePolicy> typePolicies = const {},
+    Map<String, Function> updateCacheHandlers = const {},
+    Map<OperationType, FetchPolicy> defaultFetchPolicies = const {},
+    bool addTypename = true,
   }) async {
     await Hive.initFlutter();
     final storeBox = await Hive.openBox<Map<String, dynamic>>('ferry_store');
