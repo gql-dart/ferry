@@ -66,7 +66,7 @@ class OfflineMutationTypedLink extends TypedLink {
       onRetry: (error) async {
         count++;
         if (count == config.retryAttempts) {
-          await config?.retriesExhaustedHandler(error);
+          await config?.retriesExhaustedHandler?.call(error);
         }
       },
     );
