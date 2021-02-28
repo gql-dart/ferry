@@ -2,7 +2,7 @@ import 'package:normalize/src/config/normalization_config.dart';
 
 /// Determines whether the given [data] is a reference that points to a non-existent object.
 bool isDanglingReference(
-  Object data,
+  Object? data,
   NormalizationConfig config,
 ) {
   if (data is Map && data.containsKey(config.referenceKey)) {

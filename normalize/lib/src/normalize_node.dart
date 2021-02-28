@@ -1,23 +1,21 @@
 import 'package:gql/ast.dart';
-import 'package:meta/meta.dart';
-
-import 'package:normalize/src/utils/resolve_data_id.dart';
-import 'package:normalize/src/utils/field_key.dart';
-import 'package:normalize/src/utils/expand_fragments.dart';
-import 'package:normalize/src/utils/exceptions.dart';
-import 'package:normalize/src/utils/deep_merge.dart';
 import 'package:normalize/src/config/normalization_config.dart';
 import 'package:normalize/src/policies/field_policy.dart';
+import 'package:normalize/src/utils/deep_merge.dart';
+import 'package:normalize/src/utils/exceptions.dart';
+import 'package:normalize/src/utils/expand_fragments.dart';
+import 'package:normalize/src/utils/field_key.dart';
+import 'package:normalize/src/utils/resolve_data_id.dart';
 
 /// Returns a normalized object for a given [SelectionSetNode].
 ///
 /// This is called recursively as the AST is traversed.
-Object normalizeNode({
-  @required SelectionSetNode selectionSet,
-  @required Object dataForNode,
-  @required Object existingNormalizedData,
-  @required NormalizationConfig config,
-  @required void Function(String dataId, Map<String, dynamic> value) write,
+Object? normalizeNode({
+  required SelectionSetNode? selectionSet,
+  required Object? dataForNode,
+  required Object? existingNormalizedData,
+  required NormalizationConfig config,
+  required void Function(String dataId, Map<String, dynamic> value) write,
   bool root = false,
 }) {
   if (dataForNode == null) return null;
@@ -39,7 +37,7 @@ Object normalizeNode({
 
   if (dataForNode is Map) {
     final dataId = resolveDataId(
-      data: dataForNode,
+      data: dataForNode as Map<String, dynamic>,
       typePolicies: config.typePolicies,
       dataIdFromObject: config.dataIdFromObject,
     );
@@ -96,7 +94,7 @@ Object normalizeNode({
           );
           if (policyCanMerge) {
             return data
-              ..[fieldName] = fieldPolicy.merge(
+              ..[fieldName] = fieldPolicy!.merge!(
                 existingFieldData,
                 fieldData,
                 FieldFunctionOptions(
@@ -113,7 +111,7 @@ Object normalizeNode({
     };
 
     final mergedData = deepMerge(
-      Map.from(existingNormalizedData ?? {}),
+      Map.from(existingNormalizedData as Map<dynamic, dynamic>? ?? {}),
       dataToMerge,
     );
 

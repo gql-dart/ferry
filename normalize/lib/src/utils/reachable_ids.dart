@@ -2,8 +2,8 @@ import 'package:normalize/src/policies/type_policy.dart';
 import 'package:normalize/src/utils/resolve_root_typename.dart';
 
 /// Returns a set of dataIds that can be reached by any root query.
-Set<String> reachableIds(
-  Map<String, dynamic> Function(String dataId) read, [
+Set<String?> reachableIds(
+  Map<String, dynamic>? Function(String? dataId) read, [
   Map<String, TypePolicy> typePolicies = const {},
   String referenceKey = '\$ref',
 ]) =>
@@ -31,19 +31,19 @@ Set<String> reachableIds(
 /// Returns a set of all IDs reachable from the given data ID.
 ///
 /// Includes the given [dataId] itself.
-Set<String> reachableIdsFromDataId(
+Set<String?> reachableIdsFromDataId(
   String dataId,
-  Map<String, dynamic> Function(String dataId) read, [
+  Map<String, dynamic> Function(String? dataId) read, [
   String referenceKey = '\$ref',
 ]) =>
     _idsInObject(read(dataId), read, referenceKey, {})..add(dataId);
 
 /// Recursively finds reachable IDs in [object]
-Set<String> _idsInObject(
-  Object object,
-  Map<String, dynamic> Function(String dataId) read,
+Set<String?> _idsInObject(
+  Object? object,
+  Map<String, dynamic>? Function(String? dataId) read,
   String referenceKey,
-  Set<String> visited,
+  Set<String?> visited,
 ) {
   if (object is Map) {
     if (object.containsKey(referenceKey)) {

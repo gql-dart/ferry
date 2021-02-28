@@ -1,4 +1,6 @@
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:gql/ast.dart';
+
 import '../policies/type_policy.dart';
 
 final defaultRootTypenames = {
@@ -7,40 +9,36 @@ final defaultRootTypenames = {
   OperationType.subscription: 'Subscription',
 };
 
-String typenameForOperationType(
+String? typenameForOperationType(
   OperationType operationType,
   Map<String, TypePolicy> typePolicies,
 ) {
   switch (operationType) {
     case OperationType.query:
-      return typePolicies?.entries
-              ?.firstWhere(
+      return typePolicies.entries
+              .firstWhereOrNull(
                 (entry) => entry.value.queryType,
-                orElse: () => null,
               )
               ?.key ??
           defaultRootTypenames[OperationType.query];
     case OperationType.mutation:
-      return typePolicies?.entries
-              ?.firstWhere(
+      return typePolicies.entries
+              .firstWhereOrNull(
                 (entry) => entry.value.mutationType,
-                orElse: () => null,
               )
               ?.key ??
           defaultRootTypenames[OperationType.mutation];
     case OperationType.subscription:
-      return typePolicies?.entries
-              ?.firstWhere(
+      return typePolicies.entries
+              .firstWhereOrNull(
                 (entry) => entry.value.subscriptionType,
-                orElse: () => null,
               )
               ?.key ??
           defaultRootTypenames[OperationType.subscription];
   }
-  return null;
 }
 
-String resolveRootTypename(
+String? resolveRootTypename(
   OperationDefinitionNode operationDefinition,
   Map<String, TypePolicy> typePolicies,
 ) =>

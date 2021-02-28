@@ -1,10 +1,8 @@
 import 'package:gql/ast.dart';
-import 'package:meta/meta.dart';
-
-import 'package:normalize/src/utils/field_key.dart';
-import 'package:normalize/src/utils/resolve_data_id.dart';
 import 'package:normalize/src/config/normalization_config.dart';
 import 'package:normalize/src/denormalize_node.dart';
+import 'package:normalize/src/utils/field_key.dart';
+import 'package:normalize/src/utils/resolve_data_id.dart';
 
 class FieldFunctionOptions {
   final NormalizationConfig _config;
@@ -13,15 +11,15 @@ class FieldFunctionOptions {
   final FieldNode field;
 
   /// Any variables passed to the query that read this field
-  final Map<String, dynamic> variables;
+  final Map<String, dynamic>? variables;
 
   /// The final argument values passed to the field, after applying variables.
   final Map<String, dynamic> args;
 
   FieldFunctionOptions({
-    @required this.field,
-    @required NormalizationConfig config,
-  })  : _config = config,
+    required this.field,
+    required NormalizationConfig config,
+  })   : _config = config,
         variables = config.variables,
         args = argsWithValues(config.variables, field.arguments);
 
@@ -39,7 +37,7 @@ class FieldFunctionOptions {
       };
 
   /// Returns denormalized data for the given [field] and normalized [data], recursively resolving any references.
-  T readField<T>(FieldNode field, Object data) => denormalizeNode(
+  T? readField<T>(FieldNode field, Object? data) => denormalizeNode(
         selectionSet: field.selectionSet,
         dataForNode: data,
         config: NormalizationConfig(
@@ -52,7 +50,7 @@ class FieldFunctionOptions {
           addTypename: _config.addTypename,
           allowPartialData: true,
         ),
-      );
+      ) as T?;
 }
 
 typedef FieldReadFunction<TExisting, TReadResult> = TReadResult Function(
@@ -74,13 +72,13 @@ class FieldPolicy<TExisting, TIncoming, TReadResult> {
   /// By default, it is assumed that all field arguments might be important.
   ///
   /// If an empty [List] is provided, all arguments will be ignored.
-  List<String> keyArgs;
+  List<String>? keyArgs;
 
   /// Custom function to read existing field
-  FieldReadFunction<TExisting, TReadResult> read;
+  FieldReadFunction<TExisting, TReadResult>? read;
 
   /// Custom function to merge into existing field
-  FieldMergeFunction<TExisting, TIncoming> merge;
+  FieldMergeFunction<TExisting, TIncoming>? merge;
 
   FieldPolicy({this.keyArgs, this.read, this.merge});
 }

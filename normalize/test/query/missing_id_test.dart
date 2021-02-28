@@ -1,7 +1,6 @@
-import 'package:test/test.dart';
 import 'package:gql/language.dart';
-
 import 'package:normalize/normalize.dart';
+import 'package:test/test.dart';
 
 void main() {
   group(
@@ -92,12 +91,12 @@ void main() {
         'Author:2': {'id': '2', '__typename': 'Author', 'name': 'Nicole'},
       };
 
-      final normalizedResult = {};
+      final normalizedResult = <String, dynamic>{};
       normalizeOperation(
         read: (dataId) => normalizedResult[dataId],
         document: query,
         data: data,
-        write: (dataId, value) => normalizedResult[dataId] = value,
+        write: (dataId, value) => normalizedResult[dataId!] = value,
       );
 
       test(
@@ -117,7 +116,7 @@ void main() {
           expect(
             denormalizeOperation(
               document: query,
-              read: (dataId) => normalizedMap[dataId],
+              read: (dataId) => normalizedMap[dataId!],
             ),
             equals(data),
           );

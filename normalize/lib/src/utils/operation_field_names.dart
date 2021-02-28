@@ -28,7 +28,7 @@ List<String> operationFieldNames<TData, TVars>(
     selectionSet: operationDefinition.selectionSet,
     fragmentMap: fragmentMap,
   );
-  final typePolicy = typePolicies[rootTypename];
+  final typePolicy = typePolicies[rootTypename!];
   return fields.map((fieldNode) {
     final fieldPolicy = (typePolicy?.fields ?? const {})[fieldNode.name.value];
     return FieldKey(

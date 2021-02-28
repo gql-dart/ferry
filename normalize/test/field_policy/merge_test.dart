@@ -1,7 +1,6 @@
-import 'package:test/test.dart';
 import 'package:gql/language.dart';
-
 import 'package:normalize/normalize.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('FetchPolicy.merge', () {
@@ -24,7 +23,7 @@ void main() {
         ]
       };
 
-      final existing = {
+      final existing = <String, dynamic>{
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -60,7 +59,7 @@ void main() {
         data: response,
         document: query,
         read: (dataId) => existing[dataId],
-        write: (dataId, value) => existing[dataId] = value,
+        write: (dataId, value) => existing[dataId!] = value,
         typePolicies: {
           'Query': TypePolicy(
             queryType: true,
@@ -106,7 +105,7 @@ void main() {
         ]
       };
 
-      final existing = {
+      final existing = <String, dynamic>{
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -156,7 +155,7 @@ void main() {
         data: response,
         document: query,
         read: (dataId) => existing[dataId],
-        write: (dataId, value) => existing[dataId] = value,
+        write: (dataId, value) => existing[dataId!] = value,
         typePolicies: {
           'Post': TypePolicy(
             fields: {
@@ -201,7 +200,7 @@ void main() {
         ]
       };
 
-      final existing = {};
+      final existing = <String, dynamic>{};
 
       final result = {
         'Query': {
@@ -231,7 +230,7 @@ void main() {
         data: response,
         document: query,
         read: (dataId) => existing[dataId],
-        write: (dataId, value) => existing[dataId] = value,
+        write: (dataId, value) => existing[dataId!] = value,
         typePolicies: {
           'Post': TypePolicy(
             fields: {
@@ -274,7 +273,7 @@ void main() {
         ]
       };
 
-      final existing = {
+      final existing = <String, dynamic>{
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -314,7 +313,7 @@ void main() {
         data: response,
         document: query,
         read: (dataId) => existing[dataId],
-        write: (dataId, value) => existing[dataId] = value,
+        write: (dataId, value) => existing[dataId!] = value!,
         typePolicies: {
           'Post': TypePolicy(
             fields: {

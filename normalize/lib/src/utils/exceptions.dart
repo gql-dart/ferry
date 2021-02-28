@@ -1,11 +1,9 @@
-import 'package:meta/meta.dart';
 import 'package:normalize/utils.dart';
 
 /// Exception occurring when structurally valid data cannot be resolved
 /// for an expected field.
-@immutable
 class PartialDataException implements Exception {
-  PartialDataException({@required this.path});
+  PartialDataException({required this.path});
 
   /// Path to the first unfound subfield.
   ///

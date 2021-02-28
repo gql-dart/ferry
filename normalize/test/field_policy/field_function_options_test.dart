@@ -31,7 +31,7 @@ void main() {
         denormalizeOperation(
           addTypename: true,
           document: query,
-          read: (dataId) => sharedNormalizedMap[dataId],
+          read: (dataId) => sharedNormalizedMap[dataId!],
           typePolicies: {
             'Query': TypePolicy(
               queryType: true,

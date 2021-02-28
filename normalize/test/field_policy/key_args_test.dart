@@ -82,7 +82,7 @@ void main() {
       expect(
         denormalizeOperation(
           document: query,
-          read: (dataId) => normalizedMap[dataId],
+          read: (dataId) => normalizedMap[dataId!],
           typePolicies: typePolicies,
         ),
         equals(sharedResponse),

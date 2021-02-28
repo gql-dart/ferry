@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0-nullsafety.0]
+
+- migrate this package to null safety
+
 ## [0.4.7]
 
 - add `reachableIdsFromDataId` util

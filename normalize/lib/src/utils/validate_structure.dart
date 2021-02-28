@@ -1,8 +1,6 @@
 import 'package:gql/ast.dart';
-import 'package:meta/meta.dart';
-
-import 'package:normalize/src/denormalize_operation.dart';
 import 'package:normalize/src/denormalize_fragment.dart';
+import 'package:normalize/src/denormalize_operation.dart';
 import 'package:normalize/src/utils/exceptions.dart';
 
 /// Validates the structure of [data] against the operation [operationName] in [document].
@@ -17,9 +15,9 @@ import 'package:normalize/src/utils/exceptions.dart';
 ///
 /// [spec]: https://spec.graphql.org/June2018/#sec-Data
 bool validateOperationDataStructure({
-  @required DocumentNode document,
-  @required Map<String, dynamic> data,
-  String operationName,
+  required DocumentNode document,
+  required Map<String, dynamic>? data,
+  String? operationName,
   Map<String, dynamic> variables = const {},
   bool addTypename = false,
   bool handleException = false,
@@ -54,9 +52,9 @@ bool validateOperationDataStructure({
 ///
 /// Calls [denormalizeFragment] internally.
 bool validateFragmentDataStructure({
-  @required DocumentNode document,
-  @required Map<String, dynamic> data,
-  String fragmentName,
+  required DocumentNode document,
+  required Map<String, dynamic>? data,
+  String? fragmentName,
   Map<String, dynamic> variables = const {},
   bool addTypename = false,
   bool handleException = false,

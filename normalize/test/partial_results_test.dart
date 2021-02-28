@@ -36,7 +36,7 @@ void main() {
     expect(
       denormalizeOperation(
         document: query,
-        read: (dataId) => data[dataId],
+        read: (dataId) => data[dataId!],
         addTypename: true,
         returnPartialData: true,
       ),
@@ -68,7 +68,7 @@ void main() {
     expect(
       denormalizeOperation(
         document: query,
-        read: (dataId) => data[dataId],
+        read: (dataId) => data[dataId!],
         addTypename: true,
         returnPartialData: false,
       ),
@@ -111,7 +111,7 @@ void main() {
     expect(
       denormalizeOperation(
         document: query,
-        read: (dataId) => data[dataId],
+        read: (dataId) => data[dataId!],
         addTypename: true,
         returnPartialData: false,
       ),

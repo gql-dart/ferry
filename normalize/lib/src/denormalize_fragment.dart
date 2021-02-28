@@ -1,14 +1,12 @@
 import 'package:gql/ast.dart';
-import 'package:meta/meta.dart';
 import 'package:normalize/normalize.dart';
-
 import 'package:normalize/src/config/normalization_config.dart';
+import 'package:normalize/src/denormalize_node.dart';
 import 'package:normalize/src/policies/type_policy.dart';
-import 'package:normalize/src/utils/get_fragment_map.dart';
-import 'package:normalize/src/utils/resolve_data_id.dart';
 import 'package:normalize/src/utils/add_typename_visitor.dart';
 import 'package:normalize/src/utils/exceptions.dart';
-import 'package:normalize/src/denormalize_node.dart';
+import 'package:normalize/src/utils/get_fragment_map.dart';
+import 'package:normalize/src/utils/resolve_data_id.dart';
 
 /// Denormalizes data for a given fragment.
 ///
@@ -25,14 +23,14 @@ import 'package:normalize/src/denormalize_node.dart';
 ///
 /// Likewise, if a custom [referenceKey] was used to normalize the data, it
 /// must be provided. Otherwise, the default '$ref' key will be used.
-Map<String, dynamic> denormalizeFragment({
-  @required Map<String, dynamic> Function(String dataId) read,
-  @required DocumentNode document,
-  @required Map<String, dynamic> idFields,
-  String fragmentName,
+Map<String, dynamic>? denormalizeFragment({
+  required Map<String, dynamic>? Function(String? dataId) read,
+  required DocumentNode document,
+  required Map<String, dynamic> idFields,
+  String? fragmentName,
   Map<String, dynamic> variables = const {},
   Map<String, TypePolicy> typePolicies = const {},
-  DataIdResolver dataIdFromObject,
+  DataIdResolver? dataIdFromObject,
   bool addTypename = false,
   bool returnPartialData = false,
   bool handleException = true,
@@ -60,7 +58,7 @@ Map<String, dynamic> denormalizeFragment({
   }
 
   final fragmentDefinition = fragmentName != null
-      ? fragmentMap[fragmentName]
+      ? fragmentMap[fragmentName]!
       : fragmentMap.values.first;
 
   final dataId = resolveDataId(
@@ -88,7 +86,7 @@ Map<String, dynamic> denormalizeFragment({
       selectionSet: fragmentDefinition.selectionSet,
       dataForNode: read(dataId),
       config: config,
-    );
+    ) as Map<String, dynamic>?;
   } on PartialDataException {
     if (handleException) {
       return null;

@@ -1,12 +1,11 @@
 import 'package:gql/ast.dart';
-import 'package:meta/meta.dart';
 
 /// Adds fragment fields to selections if fragment type matches [typename]
 /// and deeply merges nested field nodes.
 List<FieldNode> expandFragments({
-  @required String typename,
-  @required SelectionSetNode selectionSet,
-  @required Map<String, FragmentDefinitionNode> fragmentMap,
+  required String? typename,
+  required SelectionSetNode selectionSet,
+  required Map<String, FragmentDefinitionNode> fragmentMap,
 }) {
   final fieldNodes = <FieldNode>[];
 
@@ -15,7 +14,7 @@ List<FieldNode> expandFragments({
       fieldNodes.add(selectionNode);
     } else if (selectionNode is InlineFragmentNode) {
       // Only include this fragment if the type name matches
-      if (selectionNode.typeCondition.on.name.value == typename) {
+      if (selectionNode.typeCondition!.on.name.value == typename) {
         fieldNodes.addAll(expandFragments(
           typename: typename,
           selectionSet: selectionNode.selectionSet,
@@ -23,7 +22,7 @@ List<FieldNode> expandFragments({
         ));
       }
     } else if (selectionNode is FragmentSpreadNode) {
-      final fragment = fragmentMap[selectionNode.name.value];
+      final fragment = fragmentMap[selectionNode.name.value]!;
       fieldNodes.addAll(expandFragments(
         typename: typename,
         selectionSet: fragment.selectionSet,
@@ -54,7 +53,7 @@ List<SelectionNode> _mergeSelections(
                 final existingNode = selectionMap[key];
                 final existingSelections = existingNode is FieldNode &&
                         existingNode.selectionSet != null
-                    ? existingNode.selectionSet.selections
+                    ? existingNode.selectionSet!.selections
                     : <SelectionNode>[];
                 final mergedField = FieldNode(
                   name: selection.name,
@@ -64,7 +63,7 @@ List<SelectionNode> _mergeSelections(
                     selections: _mergeSelections(
                       [
                         ...existingSelections,
-                        ...selection.selectionSet.selections
+                        ...selection.selectionSet!.selections
                       ],
                     ),
                   ),

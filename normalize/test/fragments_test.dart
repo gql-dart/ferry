@@ -22,7 +22,7 @@ void main() {
         denormalizeFragment(
           document: fragment,
           idFields: {'id': '1'},
-          read: (dataId) => normalizedMap[dataId],
+          read: (dataId) => normalizedMap[dataId!],
         ),
         equals(data),
       );
@@ -71,7 +71,7 @@ void main() {
         denormalizeFragment(
           document: fragment,
           idFields: {'id': '324'},
-          read: (dataId) => normalizedMap[dataId],
+          read: (dataId) => normalizedMap[dataId!],
         ),
         equals(data),
       );
@@ -121,7 +121,7 @@ void main() {
         denormalizeFragment(
           document: fragment,
           idFields: {'id': '324'},
-          read: (dataId) => normalizedMap[dataId],
+          read: (dataId) => normalizedMap[dataId!],
           addTypename: true,
         ),
         equals(data),
@@ -177,7 +177,7 @@ void main() {
           document: fragment,
           fragmentName: 'commentData',
           idFields: {'id': '324'},
-          read: (dataId) => normalizedMap[dataId],
+          read: (dataId) => normalizedMap[dataId!],
         ),
         equals(data),
       );

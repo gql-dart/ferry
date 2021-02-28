@@ -33,7 +33,7 @@ void main() {
           expect(
             denormalizeOperation(
               document: query,
-              read: (dataId) => sharedNormalizedMap[dataId],
+              read: (dataId) => sharedNormalizedMap[dataId!],
               addTypename: true,
             ),
             equals(sharedResponse),
@@ -82,7 +82,7 @@ void main() {
           expect(
             denormalizeOperation(
               document: query,
-              read: (dataId) => sharedNormalizedMap[dataId],
+              read: (dataId) => sharedNormalizedMap[dataId!],
               addTypename: true,
             ),
             equals(sharedResponse),
@@ -133,7 +133,7 @@ void main() {
           expect(
             denormalizeOperation(
               document: query,
-              read: (dataId) => sharedNormalizedMap[dataId],
+              read: (dataId) => sharedNormalizedMap[dataId!],
               addTypename: true,
             ),
             equals(sharedResponse),

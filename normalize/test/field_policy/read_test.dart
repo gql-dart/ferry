@@ -47,14 +47,14 @@ void main() {
           denormalizeOperation(
             addTypename: true,
             document: query,
-            read: (dataId) => normalized[dataId],
+            read: (dataId) => normalized[dataId!],
             typePolicies: {
               'Query': TypePolicy(
                 queryType: true,
                 fields: {
                   'posts': FieldPolicy(
                     read: (existing, options) => options
-                        .readField<List>(options.field, existing ?? [])
+                        .readField<List>(options.field, existing ?? [])!
                         .where((post) => post['id'] == '123')
                         .toList(),
                   )
@@ -104,7 +104,7 @@ void main() {
           denormalizeOperation(
             addTypename: true,
             document: query,
-            read: (dataId) => normalized[dataId],
+            read: (dataId) => normalized[dataId!],
             typePolicies: {
               'Post': TypePolicy(
                 fields: {

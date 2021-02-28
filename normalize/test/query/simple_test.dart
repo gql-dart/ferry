@@ -50,7 +50,7 @@ void main() {
       expect(
           denormalizeOperation(
             document: query,
-            read: (dataId) => sharedNormalizedMap[dataId],
+            read: (dataId) => sharedNormalizedMap[dataId!],
           ),
           equals(sharedResponse));
     });

@@ -100,7 +100,7 @@ void main() {
       expect(
         denormalizeOperation(
           document: query1,
-          read: (dataId) => normalizedMap[dataId],
+          read: (dataId) => normalizedMap[dataId!],
         ),
         equals(sharedResponse),
       );
@@ -108,7 +108,7 @@ void main() {
       expect(
         denormalizeOperation(
           document: query2,
-          read: (dataId) => normalizedMap[dataId],
+          read: (dataId) => normalizedMap[dataId!],
         ),
         equals(sharedResponse),
       );

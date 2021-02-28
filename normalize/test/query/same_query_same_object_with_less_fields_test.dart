@@ -1,7 +1,6 @@
-import 'package:test/test.dart';
 import 'package:gql/language.dart';
-
 import 'package:normalize/normalize.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('Same Object with less fields in the Same Operation', () {
@@ -44,10 +43,10 @@ void main() {
     };
 
     test('Doesn\'t lose fields', () {
-      final normalizedResult = {};
+      final normalizedResult = <String, dynamic>{};
       normalizeOperation(
         read: (dataId) => normalizedResult[dataId],
-        write: (dataId, value) => normalizedResult[dataId] = value,
+        write: (dataId, value) => normalizedResult[dataId!] = value,
         document: query,
         data: data,
       );
