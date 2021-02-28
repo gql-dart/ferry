@@ -24,7 +24,7 @@ import 'package:normalize/src/utils/resolve_data_id.dart';
 /// Likewise, if a custom [referenceKey] was used to normalize the data, it
 /// must be provided. Otherwise, the default '$ref' key will be used.
 Map<String, dynamic>? denormalizeFragment({
-  required Map<String, dynamic>? Function(String? dataId) read,
+  required Map<String, dynamic>? Function(String dataId) read,
   required DocumentNode document,
   required Map<String, dynamic> idFields,
   String? fragmentName,
@@ -68,7 +68,7 @@ Map<String, dynamic>? denormalizeFragment({
     },
     typePolicies: typePolicies,
     dataIdFromObject: dataIdFromObject,
-  );
+  )!;
 
   final config = NormalizationConfig(
     read: read,
