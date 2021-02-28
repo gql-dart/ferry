@@ -1,11 +1,10 @@
 import 'package:gql/ast.dart';
-
+import 'package:normalize/src/policies/type_policy.dart';
 import 'package:normalize/src/utils/expand_fragments.dart';
+import 'package:normalize/src/utils/field_key.dart';
 import 'package:normalize/src/utils/get_fragment_map.dart';
 import 'package:normalize/src/utils/get_operation_definition.dart';
-import 'package:normalize/src/utils/field_key.dart';
 import 'package:normalize/src/utils/resolve_root_typename.dart';
-import 'package:normalize/src/policies/type_policy.dart';
 
 /// Returns the root field names for a given operation.
 List<String> operationFieldNames<TData, TVars>(
@@ -28,7 +27,7 @@ List<String> operationFieldNames<TData, TVars>(
     selectionSet: operationDefinition.selectionSet,
     fragmentMap: fragmentMap,
   );
-  final typePolicy = typePolicies[rootTypename!];
+  final typePolicy = typePolicies[rootTypename];
   return fields.map((fieldNode) {
     final fieldPolicy = (typePolicy?.fields ?? const {})[fieldNode.name.value];
     return FieldKey(

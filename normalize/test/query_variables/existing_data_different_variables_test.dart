@@ -1,7 +1,6 @@
-import 'package:test/test.dart';
 import 'package:gql/language.dart';
-
 import 'package:normalize/normalize.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('Existing data different variables', () {
@@ -69,7 +68,7 @@ void main() {
       expect(
         denormalizeOperation(
             document: query,
-            read: (dataId) => normalizedMap[dataId!],
+            read: (dataId) => normalizedMap[dataId],
             variables: {'a': false}),
         equals(null),
       );
@@ -83,7 +82,7 @@ void main() {
       expect(
         denormalizeOperation(
             document: query,
-            read: (dataId) => normalizedMap[dataId!],
+            read: (dataId) => normalizedMap[dataId],
             variables: {'a': false}),
         equals({'posts': null}),
       );
@@ -153,7 +152,7 @@ void main() {
       expect(
         denormalizeOperation(
           document: query,
-          read: (dataId) => normalizedMap[dataId!],
+          read: (dataId) => normalizedMap[dataId],
           returnPartialData: true,
           variables: {'a': false},
         ),
@@ -202,7 +201,7 @@ void main() {
       expect(
         denormalizeOperation(
           document: query,
-          read: (dataId) => normalizedMap[dataId!],
+          read: (dataId) => normalizedMap[dataId],
           variables: {'a': false},
         ),
         equals(response),

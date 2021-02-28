@@ -1,7 +1,6 @@
-import 'package:test/test.dart';
 import 'package:gql/language.dart';
-
 import 'package:normalize/normalize.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('Root Array of Strings', () {
@@ -40,7 +39,7 @@ void main() {
       expect(
         denormalizeOperation(
           document: query,
-          read: (dataId) => normalizedMap[dataId!],
+          read: (dataId) => normalizedMap[dataId],
         ),
         equals(data),
       );

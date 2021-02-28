@@ -20,7 +20,7 @@ import 'package:normalize/src/utils/resolve_root_typename.dart';
 /// Likewise, if a custom [referenceKey] was used to normalize the data, it
 /// must be provided. Otherwise, the default '$ref' key will be used.
 Map<String, dynamic>? denormalizeOperation({
-  required Map<String, dynamic>? Function(String? dataId) read,
+  required Map<String, dynamic>? Function(String dataId) read,
   required DocumentNode document,
   String? operationName,
   Map<String, dynamic> variables = const {},

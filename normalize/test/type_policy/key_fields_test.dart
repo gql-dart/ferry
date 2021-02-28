@@ -1,7 +1,7 @@
-import 'package:test/test.dart';
 import 'package:gql/language.dart';
-
 import 'package:normalize/normalize.dart';
+import 'package:test/test.dart';
+
 import '../shared_data.dart';
 
 void main() {
@@ -93,7 +93,7 @@ void main() {
         expect(
           denormalizeOperation(
             document: query,
-            read: (dataId) => normalizedMap[dataId!],
+            read: (dataId) => normalizedMap[dataId],
             typePolicies: typePolicies,
           ),
           equals(sharedResponse),
@@ -161,7 +161,7 @@ void main() {
         expect(
           denormalizeOperation(
             document: query,
-            read: (dataId) => normalizedMap[dataId!],
+            read: (dataId) => normalizedMap[dataId],
             typePolicies: typePolicies,
           ),
           equals(sharedResponse),
@@ -226,7 +226,7 @@ void main() {
         expect(
           denormalizeOperation(
             document: query,
-            read: (dataId) => normalizedMap[dataId!],
+            read: (dataId) => normalizedMap[dataId],
             typePolicies: typePolicies,
           ),
           equals(sharedResponse),
@@ -285,7 +285,7 @@ void main() {
         expect(
           denormalizeOperation(
             document: query,
-            read: (dataId) => normalizedMap[dataId!],
+            read: (dataId) => normalizedMap[dataId],
             typePolicies: typePolicies,
           ),
           equals(sharedResponse),

@@ -1,7 +1,6 @@
-import 'package:test/test.dart';
 import 'package:gql/language.dart';
-
 import 'package:normalize/normalize.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('Deep Null', () {
@@ -76,7 +75,7 @@ void main() {
       expect(
         denormalizeOperation(
           document: query,
-          read: (dataId) => normalizedMap[dataId!],
+          read: (dataId) => normalizedMap[dataId],
         ),
         equals(data),
       );

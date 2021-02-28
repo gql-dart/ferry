@@ -65,7 +65,7 @@ void normalizeOperation({
     normalizeNode(
       selectionSet: operationDefinition.selectionSet,
       dataForNode: data,
-      existingNormalizedData: config.read(rootTypename!),
+      existingNormalizedData: config.read(rootTypename),
       config: config,
       write: write,
       root: true,

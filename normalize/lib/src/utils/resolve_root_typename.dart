@@ -9,7 +9,7 @@ final defaultRootTypenames = {
   OperationType.subscription: 'Subscription',
 };
 
-String? typenameForOperationType(
+String typenameForOperationType(
   OperationType operationType,
   Map<String, TypePolicy> typePolicies,
 ) {
@@ -20,25 +20,25 @@ String? typenameForOperationType(
                 (entry) => entry.value.queryType,
               )
               ?.key ??
-          defaultRootTypenames[OperationType.query];
+          defaultRootTypenames[OperationType.query]!;
     case OperationType.mutation:
       return typePolicies.entries
               .firstWhereOrNull(
                 (entry) => entry.value.mutationType,
               )
               ?.key ??
-          defaultRootTypenames[OperationType.mutation];
+          defaultRootTypenames[OperationType.mutation]!;
     case OperationType.subscription:
       return typePolicies.entries
               .firstWhereOrNull(
                 (entry) => entry.value.subscriptionType,
               )
               ?.key ??
-          defaultRootTypenames[OperationType.subscription];
+          defaultRootTypenames[OperationType.subscription]!;
   }
 }
 
-String? resolveRootTypename(
+String resolveRootTypename(
   OperationDefinitionNode operationDefinition,
   Map<String, TypePolicy> typePolicies,
 ) =>

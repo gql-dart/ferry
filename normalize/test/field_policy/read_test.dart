@@ -1,7 +1,6 @@
-import 'package:test/test.dart';
 import 'package:gql/language.dart';
-
 import 'package:normalize/normalize.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('FieldPolicy.read', () {
@@ -47,7 +46,7 @@ void main() {
           denormalizeOperation(
             addTypename: true,
             document: query,
-            read: (dataId) => normalized[dataId!],
+            read: (dataId) => normalized[dataId],
             typePolicies: {
               'Query': TypePolicy(
                 queryType: true,
@@ -104,7 +103,7 @@ void main() {
           denormalizeOperation(
             addTypename: true,
             document: query,
-            read: (dataId) => normalized[dataId!],
+            read: (dataId) => normalized[dataId],
             typePolicies: {
               'Post': TypePolicy(
                 fields: {
