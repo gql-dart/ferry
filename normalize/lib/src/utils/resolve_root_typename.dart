@@ -19,7 +19,8 @@ String typenameForOperationType(
                 orElse: () => null,
               )
               ?.key ??
-          defaultRootTypenames[OperationType.query];
+          defaultRootTypenames[OperationType.query] ??
+          'Query'; // TODO: Remove
     case OperationType.mutation:
       return typePolicies?.entries
               ?.firstWhere(
@@ -27,7 +28,8 @@ String typenameForOperationType(
                 orElse: () => null,
               )
               ?.key ??
-          defaultRootTypenames[OperationType.mutation];
+          defaultRootTypenames[OperationType.mutation] ??
+          'Query'; // TODO: Remove
     case OperationType.subscription:
       return typePolicies?.entries
               ?.firstWhere(
@@ -35,9 +37,9 @@ String typenameForOperationType(
                 orElse: () => null,
               )
               ?.key ??
-          defaultRootTypenames[OperationType.subscription];
+          defaultRootTypenames[OperationType.subscription] ??
+          'Query'; // TODO: Remove
   }
-  return null;
 }
 
 String resolveRootTypename(

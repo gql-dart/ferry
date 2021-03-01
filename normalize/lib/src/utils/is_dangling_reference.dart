@@ -6,7 +6,8 @@ bool isDanglingReference(
   NormalizationConfig config,
 ) {
   if (data is Map && data.containsKey(config.referenceKey)) {
-    final referencedData = config.read(data[config.referenceKey]);
+    final referencedData =
+        config.read(data[config.referenceKey] ?? ''); // TODO: Remove
     if (referencedData == null) return true;
   }
   return false;

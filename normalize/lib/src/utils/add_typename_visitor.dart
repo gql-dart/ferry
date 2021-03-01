@@ -31,11 +31,8 @@ class AddTypenameVisitor extends TransformingVisitor {
 
   @override
   FragmentDefinitionNode visitFragmentDefinitionNode(
-      FragmentDefinitionNode node) {
-    if (node.selectionSet == null) {
-      return node;
-    }
-
+    FragmentDefinitionNode node,
+  ) {
     final hasTypename = node.selectionSet.selections
         .whereType<FieldNode>()
         .any((node) => node.name.value == '__typename');
@@ -59,14 +56,11 @@ class AddTypenameVisitor extends TransformingVisitor {
 
   @override
   OperationDefinitionNode visitOperationDefinitionNode(
-      OperationDefinitionNode node) {
+    OperationDefinitionNode node,
+  ) {
     // Subscriptions can only have a single root type
     // https://spec.graphql.org/June2018/#example-2353b
     if (node.type == OperationType.subscription) {
-      return node;
-    }
-
-    if (node.selectionSet == null) {
       return node;
     }
 

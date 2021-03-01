@@ -48,12 +48,13 @@ Set<String> _idsInObject(
   if (object is Map) {
     if (object.containsKey(referenceKey)) {
       if (visited.contains(object[referenceKey])) return {};
-      return {object[referenceKey]}..addAll(
+      return {object[referenceKey] ?? ''}..addAll(
+          // TODO: remove
           _idsInObject(
-            read(object[referenceKey]),
+            read(object[referenceKey] ?? ''), // TODO: remove
             read,
             referenceKey,
-            visited..add(object[referenceKey]),
+            visited..add(object[referenceKey] ?? ''), // TODO: remove
           ),
         );
     }
