@@ -17,13 +17,13 @@ typedef DataIdResolver = String Function(Map<String, dynamic> object);
 /// Returns [null] if this type should not be normalized.
 String resolveDataId({
   @required Map<String, dynamic> data,
-  Map<String, TypePolicy> typePolicies,
+  @required Map<String, TypePolicy> typePolicies,
   DataIdResolver dataIdFromObject,
 }) {
   final typename = data['__typename'];
   if (typename == null) return null;
 
-  final typePolicy = (typePolicies ?? const {})[typename];
+  final typePolicy = typePolicies[typename];
 
   if (typePolicy?.keyFields != null) {
     if (typePolicy.keyFields.isEmpty) return null;

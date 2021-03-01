@@ -25,7 +25,7 @@ class FieldKey {
     Map<String, dynamic> variables,
     FieldPolicy fieldPolicy,
   ) {
-    final pertinentArguments = fieldPolicy == null
+    final pertinentArguments = fieldPolicy?.keyArgs == null
         ? fieldNode.arguments
         : fieldNode.arguments.where(
             (argument) => fieldPolicy.keyArgs.contains(argument.name.value));

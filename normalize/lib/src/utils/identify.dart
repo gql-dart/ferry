@@ -5,7 +5,7 @@ import './resolve_data_id.dart';
 String identify(
   Map data, {
   String referenceKey = '\$ref',
-  Map<String, TypePolicy> typePolicies,
+  Map<String, TypePolicy> typePolicies = const {},
   DataIdResolver dataIdFromObject,
 }) =>
     data.containsKey(referenceKey)

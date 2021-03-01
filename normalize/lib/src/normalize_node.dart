@@ -47,7 +47,7 @@ Object normalizeNode({
     if (dataId != null) existingNormalizedData = config.read(dataId);
 
     final typename = dataForNode['__typename'];
-    final typePolicy = (config.typePolicies ?? const {})[typename];
+    final typePolicy = config.typePolicies[typename];
 
     final subNodes = expandFragments(
       typename: typename,
