@@ -24,7 +24,7 @@ void main() {
         ]
       };
 
-      final existing = {
+      final existing = <String, dynamic>{
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -106,7 +106,7 @@ void main() {
         ]
       };
 
-      final existing = {
+      final existing = <String, dynamic>{
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -274,7 +274,7 @@ void main() {
         ]
       };
 
-      final existing = {
+      final existing = <String, dynamic>{
         'Query': {
           '__typename': 'Query',
           'posts': [
