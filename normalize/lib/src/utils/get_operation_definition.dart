@@ -3,7 +3,7 @@ import 'package:gql/ast.dart';
 /// Returns the AST Node for the GraphQL Operation.
 OperationDefinitionNode getOperationDefinition(
   DocumentNode document,
-  String operationName,
+  String? operationName,
 ) {
   if (operationName != null) {
     return document.definitions

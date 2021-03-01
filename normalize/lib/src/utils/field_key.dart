@@ -16,19 +16,19 @@ class FieldKey {
   FieldKey(
     FieldNode fieldNode,
     Map<String, dynamic> variables,
-    FieldPolicy fieldPolicy,
+    FieldPolicy? fieldPolicy,
   )   : fieldName = fieldNode.name.value,
         args = _initArgs(fieldNode, variables, fieldPolicy);
 
   static SplayTreeMap<String, dynamic> _initArgs(
     FieldNode fieldNode,
     Map<String, dynamic> variables,
-    FieldPolicy fieldPolicy,
+    FieldPolicy? fieldPolicy,
   ) {
     final pertinentArguments = fieldPolicy?.keyArgs == null
         ? fieldNode.arguments
         : fieldNode.arguments.where(
-            (argument) => fieldPolicy.keyArgs.contains(argument.name.value));
+            (argument) => fieldPolicy!.keyArgs!.contains(argument.name.value));
     return argsWithValues(variables, pertinentArguments);
   }
 
@@ -72,7 +72,7 @@ SplayTreeMap<String, dynamic> argsWithValues(
         ),
     );
 
-Object _resolveValueNode(
+Object? _resolveValueNode(
   ValueNode valueNode,
   Map<String, dynamic> variables,
 ) {

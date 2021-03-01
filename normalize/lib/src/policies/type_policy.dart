@@ -20,7 +20,7 @@ class TypePolicy {
   /// If you don't wish to normalize this type, simply pass an empty `Map`. In
   /// that case, we won't normalize this type and it will be reachable from its
   /// parent.
-  Map<String, dynamic> keyFields;
+  Map<String, dynamic>? keyFields;
 
   /// Set to `true` if this type is the root Query in your schema.
   bool queryType;
