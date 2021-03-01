@@ -15,20 +15,29 @@ List<FieldNode> expandFragments({
       fieldNodes.add(selectionNode);
     } else if (selectionNode is InlineFragmentNode) {
       // Only include this fragment if the type name matches
-      if (selectionNode.typeCondition.on.name.value == typename) {
-        fieldNodes.addAll(expandFragments(
-          typename: typename,
-          selectionSet: selectionNode.selectionSet,
-          fragmentMap: fragmentMap,
-        ));
+      if (selectionNode.typeCondition?.on?.name?.value == typename) {
+        fieldNodes.addAll(
+          expandFragments(
+            typename: typename,
+            selectionSet: selectionNode.selectionSet,
+            fragmentMap: fragmentMap,
+          ),
+        );
       }
     } else if (selectionNode is FragmentSpreadNode) {
       final fragment = fragmentMap[selectionNode.name.value];
-      fieldNodes.addAll(expandFragments(
-        typename: typename,
-        selectionSet: fragment.selectionSet,
-        fragmentMap: fragmentMap,
-      ));
+
+      if (fragment == null) {
+        throw Exception('Missing fragment ${selectionNode.name.value}');
+      }
+
+      fieldNodes.addAll(
+        expandFragments(
+          typename: typename,
+          selectionSet: fragment.selectionSet,
+          fragmentMap: fragmentMap,
+        ),
+      );
     } else {
       throw (FormatException('Unknown selection node type'));
     }

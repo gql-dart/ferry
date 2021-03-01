@@ -34,8 +34,8 @@ void normalizeFragment({
   @required Map<String, dynamic> idFields,
   @required Map<String, dynamic> data,
   String fragmentName,
-  Map<String, dynamic> variables,
-  Map<String, TypePolicy> typePolicies,
+  Map<String, dynamic> variables = const {},
+  Map<String, TypePolicy> typePolicies = const {},
   DataIdResolver dataIdFromObject,
   bool addTypename = false,
   String referenceKey = '\$ref',
@@ -83,6 +83,12 @@ void normalizeFragment({
     typePolicies: typePolicies,
     dataIdFromObject: dataIdFromObject,
   );
+
+  if (dataId == null) {
+    throw Exception(
+      'Unable to resolve data ID for type ${fragmentDefinition.typeCondition.on.name.value}. Please ensure that you are passing the correct ID fields',
+    );
+  }
 
   write(
     dataId,

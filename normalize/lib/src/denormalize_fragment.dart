@@ -72,6 +72,12 @@ Map<String, dynamic> denormalizeFragment({
     dataIdFromObject: dataIdFromObject,
   );
 
+  if (dataId == null) {
+    throw Exception(
+      'Unable to resolve data ID for type ${fragmentDefinition.typeCondition.on.name.value}. Please ensure that you are passing the correct ID fields',
+    );
+  }
+
   final config = NormalizationConfig(
     read: read,
     variables: variables,
