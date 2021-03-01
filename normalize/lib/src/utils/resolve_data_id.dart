@@ -1,12 +1,10 @@
 import 'dart:collection';
 import 'dart:convert';
 
-import 'package:meta/meta.dart';
-
 import '../policies/type_policy.dart';
 import './exceptions.dart';
 
-typedef DataIdResolver = String Function(Map<String, dynamic> object);
+typedef DataIdResolver = String? Function(Map<String, dynamic> object);
 
 /// Returns a unique ID to use to reference this normalized object.
 ///
@@ -15,10 +13,10 @@ typedef DataIdResolver = String Function(Map<String, dynamic> object);
 /// If none is provided, falls back to the 'id' or '_id' field, respectively.
 ///
 /// Returns [null] if this type should not be normalized.
-String resolveDataId({
-  @required Map<String, dynamic> data,
-  @required Map<String, TypePolicy> typePolicies,
-  DataIdResolver dataIdFromObject,
+String? resolveDataId({
+  required Map<String, dynamic> data,
+  required Map<String, TypePolicy> typePolicies,
+  DataIdResolver? dataIdFromObject,
 }) {
   final typename = data['__typename'];
   if (typename == null) return null;
@@ -26,10 +24,10 @@ String resolveDataId({
   final typePolicy = typePolicies[typename];
 
   if (typePolicy?.keyFields != null) {
-    if (typePolicy.keyFields.isEmpty) return null;
+    if (typePolicy!.keyFields!.isEmpty) return null;
 
     try {
-      final fields = keyFieldsWithArgs(typePolicy.keyFields, data);
+      final fields = keyFieldsWithArgs(typePolicy.keyFields!, data);
       return '$typename:${json.encode(fields)}';
     } on MissingKeyFieldException {
       return null;

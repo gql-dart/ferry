@@ -1,5 +1,4 @@
 import 'package:gql/ast.dart';
-import 'package:meta/meta.dart';
 
 import 'package:normalize/src/utils/resolve_data_id.dart';
 import 'package:normalize/src/policies/type_policy.dart';
@@ -28,15 +27,15 @@ import 'package:normalize/src/utils/get_fragment_map.dart';
 /// should begin with '$' since a graphl response object key cannot begin with
 /// that symbol. If none is provided, we will use '$ref' by default.
 void normalizeFragment({
-  @required void Function(String dataId, Map<String, dynamic> value) write,
-  @required Map<String, dynamic> Function(String dataId) read,
-  @required DocumentNode document,
-  @required Map<String, dynamic> idFields,
-  @required Map<String, dynamic> data,
-  String fragmentName,
+  required void Function(String dataId, Map<String, dynamic>? value) write,
+  required Map<String, dynamic>? Function(String dataId) read,
+  required DocumentNode document,
+  required Map<String, dynamic> idFields,
+  required Map<String, dynamic> data,
+  String? fragmentName,
   Map<String, dynamic> variables = const {},
   Map<String, TypePolicy> typePolicies = const {},
-  DataIdResolver dataIdFromObject,
+  DataIdResolver? dataIdFromObject,
   bool addTypename = false,
   String referenceKey = '\$ref',
   bool acceptPartialData = true,
@@ -58,7 +57,7 @@ void normalizeFragment({
   }
 
   final fragmentDefinition = fragmentName != null
-      ? fragmentMap[fragmentName]
+      ? fragmentMap[fragmentName]!
       : fragmentMap.values.first;
 
   final dataForFragment = {
@@ -99,6 +98,6 @@ void normalizeFragment({
       config: config,
       write: write,
       root: true,
-    ),
+    ) as Map<String, dynamic>?,
   );
 }

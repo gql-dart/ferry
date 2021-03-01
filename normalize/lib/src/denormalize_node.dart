@@ -1,5 +1,4 @@
 import 'package:gql/ast.dart';
-import 'package:meta/meta.dart';
 
 import 'package:normalize/src/utils/field_key.dart';
 import 'package:normalize/src/utils/expand_fragments.dart';
@@ -11,10 +10,10 @@ import 'package:normalize/src/policies/field_policy.dart';
 /// Returns a denormalized object for a given [SelectionSetNode].
 ///
 /// This is called recursively as the AST is traversed.
-Object denormalizeNode({
-  @required SelectionSetNode selectionSet,
-  @required Object dataForNode,
-  @required NormalizationConfig config,
+Object? denormalizeNode({
+  required SelectionSetNode? selectionSet,
+  required Object? dataForNode,
+  required NormalizationConfig config,
 }) {
   if (dataForNode == null) return null;
 
@@ -78,7 +77,7 @@ Object denormalizeNode({
             // we can denormalize missing fields with policies
             // because they may be purely virtualized
             return result
-              ..[resultKey] = fieldPolicy.read(
+              ..[resultKey] = fieldPolicy!.read!(
                 denormalizedData[fieldName],
                 FieldFunctionOptions(
                   field: fieldNode,

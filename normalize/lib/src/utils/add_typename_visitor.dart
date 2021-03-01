@@ -7,7 +7,7 @@ class AddTypenameVisitor extends TransformingVisitor {
       return node;
     }
 
-    final hasTypename = node.selectionSet.selections
+    final hasTypename = node.selectionSet!.selections
         .whereType<FieldNode>()
         .any((node) => node.name.value == '__typename');
 
@@ -23,7 +23,7 @@ class AddTypenameVisitor extends TransformingVisitor {
           FieldNode(
             name: NameNode(value: '__typename'),
           ),
-          ...node.selectionSet.selections,
+          ...node.selectionSet!.selections,
         ],
       ),
     );

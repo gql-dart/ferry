@@ -54,7 +54,7 @@ void main() {
                 fields: {
                   'posts': FieldPolicy(
                     read: (existing, options) => options
-                        .readField<List>(options.field, existing ?? [])
+                        .readField<List>(options.field, existing ?? [])!
                         .where((post) => post['id'] == '123')
                         .toList(),
                   )
