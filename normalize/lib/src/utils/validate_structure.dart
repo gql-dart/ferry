@@ -71,7 +71,7 @@ bool validateFragmentDataStructure({
         // get data at top level
         read: (_) => data,
         // "disable" normalization
-        dataIdFromObject: (_) => null,
+        dataIdFromObject: (_) => '',
         // idFields unnecessary without normalization
         idFields: <String, dynamic>{},
         document: document,
