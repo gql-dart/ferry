@@ -31,7 +31,7 @@ jobs:
           melos bs
       - name: Analyze package
         run: |
-          melos exec --scope=$PACKAGE -- flutter analyze
+          melos exec --scope=$PACKAGE -- flutter analyze --no-fatal-infos
       - name: Run tests
         run: |
           melos exec --scope=$PACKAGE --dir-exists=test -- flutter test
