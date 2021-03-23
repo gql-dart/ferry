@@ -22,28 +22,16 @@ jobs:
     steps:
       - name: Clone repository
         uses: actions/checkout@v2
-      - name: Activate multipack
+      - name: Activate melos
         run: |
           echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
-          pub global activate multipack
-      - name: Override local dependencies
+          pub global activate melos
+      - name: Bootstrap melos
         run: |
-          multipack pubspec hard_override
-      - name: Get dependencies
-        run: |
-          multipack --only $PACKAGE pub get
-      - name: Check formatting
-        run: |
-          echo ""
-          echo "A list of incorrectly formatted files may follow:"
-          echo ""
-          multipack --only $PACKAGE fmt -n . --set-exit-if-changed
-          echo ""
+          melos bs
       - name: Analyze package
         run: |
-          multipack --only $PACKAGE analyze --version
-          multipack --only $PACKAGE analyze --fatal-warnings --no-hints .
+          melos exec --scope=$PACKAGE -- dart analyze
       - name: Run tests
         run: |
-          multipack --only $PACKAGE exec [ ! -d ./test ] && exit 0
-          multipack --only $PACKAGE pub run test
+          melos exec --scope=$PACKAGE -- dart test
