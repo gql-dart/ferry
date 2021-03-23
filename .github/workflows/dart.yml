@@ -14,14 +14,14 @@ jobs:
           - ferry_store
           - normalize
     runs-on: ubuntu-latest
-    container:
-      image: google/dart:latest
     name: Check ${{ matrix.package }}
     env:
       PACKAGE: ${{ matrix.package }}
     steps:
-      - name: Clone repository
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: beta
       - name: Activate melos
         run: |
           echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
