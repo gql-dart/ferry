@@ -1,3 +1,8 @@
+## 0.1.0-1.0.nullsafety.0
+
+ - **FEAT**: migrate to null safety.
+ - **CHORE**: prepare changelogs for melos.
+
 ## [0.0.3]
 
 - add `TypedLinkException`
