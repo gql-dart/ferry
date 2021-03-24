@@ -10,6 +10,10 @@
  - **FEAT**: migrate to null safety.
  - **CHORE**: prepare changelogs for melos.
 
+## [0.5.0-nullsafety.0]
+
+- add initial support for null safety
+
 ## [0.4.3]
 
 - update internal watch logic

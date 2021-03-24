@@ -10,6 +10,14 @@
  - **FEAT**: migrate to null safety.
  - **CHORE**: prepare changelogs for melos.
 
+## [0.1.0-nullsafety.1]
+
+- allow fragment names to be nullable
+
+## [0.1.0-nullsafety.0]
+
+- initial null safety support
+
 ## [0.0.3]
 
 - add `TypedLinkException`

@@ -14,6 +14,10 @@
  - **FEAT**: migrate to null safety.
  - **CHORE**: prepare changelogs for melos.
 
+## [0.10.0-nullsafety.0]
+
+- add initial null safety support
+
 ## [0.9.4]
 
 - catch Stream error events in `ErrorTypedLink`
