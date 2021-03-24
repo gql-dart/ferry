@@ -16,32 +16,35 @@ class _$GReviewsVarsSerializer implements StructuredSerializer<GReviewsVars> {
   final String wireName = 'GReviewsVars';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GReviewsVars object,
+  Iterable<Object?> serialize(Serializers serializers, GReviewsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    if (object.episode != null) {
+    final result = <Object?>[];
+    Object? value;
+    value = object.episode;
+    if (value != null) {
       result
         ..add('episode')
-        ..add(serializers.serialize(object.episode,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i1.GEpisode)));
     }
-    if (object.first != null) {
+    value = object.first;
+    if (value != null) {
       result
         ..add('first')
-        ..add(serializers.serialize(object.first,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.offset != null) {
+    value = object.offset;
+    if (value != null) {
       result
         ..add('offset')
-        ..add(serializers.serialize(object.offset,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
     return result;
   }
 
   @override
-  GReviewsVars deserialize(Serializers serializers, Iterable<Object> serialized,
+  GReviewsVars deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GReviewsVarsBuilder();
 
@@ -49,7 +52,7 @@ class _$GReviewsVarsSerializer implements StructuredSerializer<GReviewsVars> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'episode':
           result.episode = serializers.deserialize(value,
@@ -72,13 +75,13 @@ class _$GReviewsVarsSerializer implements StructuredSerializer<GReviewsVars> {
 
 class _$GReviewsVars extends GReviewsVars {
   @override
-  final _i1.GEpisode episode;
+  final _i1.GEpisode? episode;
   @override
-  final int first;
+  final int? first;
   @override
-  final int offset;
+  final int? offset;
 
-  factory _$GReviewsVars([void Function(GReviewsVarsBuilder) updates]) =>
+  factory _$GReviewsVars([void Function(GReviewsVarsBuilder)? updates]) =>
       (new GReviewsVarsBuilder()..update(updates)).build();
 
   _$GReviewsVars._({this.episode, this.first, this.offset}) : super._();
@@ -117,27 +120,28 @@ class _$GReviewsVars extends GReviewsVars {
 
 class GReviewsVarsBuilder
     implements Builder<GReviewsVars, GReviewsVarsBuilder> {
-  _$GReviewsVars _$v;
+  _$GReviewsVars? _$v;
 
-  _i1.GEpisode _episode;
-  _i1.GEpisode get episode => _$this._episode;
-  set episode(_i1.GEpisode episode) => _$this._episode = episode;
+  _i1.GEpisode? _episode;
+  _i1.GEpisode? get episode => _$this._episode;
+  set episode(_i1.GEpisode? episode) => _$this._episode = episode;
 
-  int _first;
-  int get first => _$this._first;
-  set first(int first) => _$this._first = first;
+  int? _first;
+  int? get first => _$this._first;
+  set first(int? first) => _$this._first = first;
 
-  int _offset;
-  int get offset => _$this._offset;
-  set offset(int offset) => _$this._offset = offset;
+  int? _offset;
+  int? get offset => _$this._offset;
+  set offset(int? offset) => _$this._offset = offset;
 
   GReviewsVarsBuilder();
 
   GReviewsVarsBuilder get _$this {
-    if (_$v != null) {
-      _episode = _$v.episode;
-      _first = _$v.first;
-      _offset = _$v.offset;
+    final $v = _$v;
+    if ($v != null) {
+      _episode = $v.episode;
+      _first = $v.first;
+      _offset = $v.offset;
       _$v = null;
     }
     return this;
@@ -145,14 +149,12 @@ class GReviewsVarsBuilder
 
   @override
   void replace(GReviewsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GReviewsVars;
   }
 
   @override
-  void update(void Function(GReviewsVarsBuilder) updates) {
+  void update(void Function(GReviewsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 

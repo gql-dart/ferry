@@ -18,17 +18,19 @@ class _$GReviewsDataSerializer implements StructuredSerializer<GReviewsData> {
   final String wireName = 'GReviewsData';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GReviewsData object,
+  Iterable<Object?> serialize(Serializers serializers, GReviewsData object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       '__typename',
       serializers.serialize(object.G__typename,
           specifiedType: const FullType(String)),
     ];
-    if (object.reviews != null) {
+    Object? value;
+    value = object.reviews;
+    if (value != null) {
       result
         ..add('reviews')
-        ..add(serializers.serialize(object.reviews,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 BuiltList, const [const FullType(GReviewsData_reviews)])));
     }
@@ -36,7 +38,8 @@ class _$GReviewsDataSerializer implements StructuredSerializer<GReviewsData> {
   }
 
   @override
-  GReviewsData deserialize(Serializers serializers, Iterable<Object> serialized,
+  GReviewsData deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GReviewsDataBuilder();
 
@@ -44,7 +47,7 @@ class _$GReviewsDataSerializer implements StructuredSerializer<GReviewsData> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case '__typename':
           result.G__typename = serializers.deserialize(value,
@@ -53,7 +56,7 @@ class _$GReviewsDataSerializer implements StructuredSerializer<GReviewsData> {
         case 'reviews':
           result.reviews.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
-                      BuiltList, const [const FullType(GReviewsData_reviews)]))
+                      BuiltList, const [const FullType(GReviewsData_reviews)]))!
               as BuiltList<Object>);
           break;
       }
@@ -74,10 +77,10 @@ class _$GReviewsData_reviewsSerializer
   final String wireName = 'GReviewsData_reviews';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GReviewsData_reviews object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       '__typename',
       serializers.serialize(object.G__typename,
           specifiedType: const FullType(String)),
@@ -90,22 +93,26 @@ class _$GReviewsData_reviewsSerializer
           specifiedType:
               const FullType(BuiltList, const [const FullType(DateTime)])),
     ];
-    if (object.episode != null) {
+    Object? value;
+    value = object.episode;
+    if (value != null) {
       result
         ..add('episode')
-        ..add(serializers.serialize(object.episode,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i2.GEpisode)));
     }
-    if (object.commentary != null) {
+    value = object.commentary;
+    if (value != null) {
       result
         ..add('commentary')
-        ..add(serializers.serialize(object.commentary,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.createdAt != null) {
+    value = object.createdAt;
+    if (value != null) {
       result
         ..add('createdAt')
-        ..add(serializers.serialize(object.createdAt,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
     }
     return result;
@@ -113,7 +120,7 @@ class _$GReviewsData_reviewsSerializer
 
   @override
   GReviewsData_reviews deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GReviewsData_reviewsBuilder();
 
@@ -121,7 +128,7 @@ class _$GReviewsData_reviewsSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case '__typename':
           result.G__typename = serializers.deserialize(value,
@@ -150,7 +157,7 @@ class _$GReviewsData_reviewsSerializer
         case 'seenOn':
           result.seenOn.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
-                      BuiltList, const [const FullType(DateTime)]))
+                      BuiltList, const [const FullType(DateTime)]))!
               as BuiltList<Object>);
           break;
       }
@@ -164,15 +171,14 @@ class _$GReviewsData extends GReviewsData {
   @override
   final String G__typename;
   @override
-  final BuiltList<GReviewsData_reviews> reviews;
+  final BuiltList<GReviewsData_reviews>? reviews;
 
-  factory _$GReviewsData([void Function(GReviewsDataBuilder) updates]) =>
+  factory _$GReviewsData([void Function(GReviewsDataBuilder)? updates]) =>
       (new GReviewsDataBuilder()..update(updates)).build();
 
-  _$GReviewsData._({this.G__typename, this.reviews}) : super._() {
-    if (G__typename == null) {
-      throw new BuiltValueNullFieldError('GReviewsData', 'G__typename');
-    }
+  _$GReviewsData._({required this.G__typename, this.reviews}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, 'GReviewsData', 'G__typename');
   }
 
   @override
@@ -206,16 +212,16 @@ class _$GReviewsData extends GReviewsData {
 
 class GReviewsDataBuilder
     implements Builder<GReviewsData, GReviewsDataBuilder> {
-  _$GReviewsData _$v;
+  _$GReviewsData? _$v;
 
-  String _G__typename;
-  String get G__typename => _$this._G__typename;
-  set G__typename(String G__typename) => _$this._G__typename = G__typename;
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
 
-  ListBuilder<GReviewsData_reviews> _reviews;
+  ListBuilder<GReviewsData_reviews>? _reviews;
   ListBuilder<GReviewsData_reviews> get reviews =>
       _$this._reviews ??= new ListBuilder<GReviewsData_reviews>();
-  set reviews(ListBuilder<GReviewsData_reviews> reviews) =>
+  set reviews(ListBuilder<GReviewsData_reviews>? reviews) =>
       _$this._reviews = reviews;
 
   GReviewsDataBuilder() {
@@ -223,9 +229,10 @@ class GReviewsDataBuilder
   }
 
   GReviewsDataBuilder get _$this {
-    if (_$v != null) {
-      _G__typename = _$v.G__typename;
-      _reviews = _$v.reviews?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _reviews = $v.reviews?.toBuilder();
       _$v = null;
     }
     return this;
@@ -233,14 +240,12 @@ class GReviewsDataBuilder
 
   @override
   void replace(GReviewsData other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GReviewsData;
   }
 
   @override
-  void update(void Function(GReviewsDataBuilder) updates) {
+  void update(void Function(GReviewsDataBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -250,9 +255,11 @@ class GReviewsDataBuilder
     try {
       _$result = _$v ??
           new _$GReviewsData._(
-              G__typename: G__typename, reviews: _reviews?.build());
+              G__typename: BuiltValueNullFieldError.checkNotNull(
+                  G__typename, 'GReviewsData', 'G__typename'),
+              reviews: _reviews?.build());
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'reviews';
         _reviews?.build();
@@ -273,41 +280,36 @@ class _$GReviewsData_reviews extends GReviewsData_reviews {
   @override
   final String id;
   @override
-  final _i2.GEpisode episode;
+  final _i2.GEpisode? episode;
   @override
   final int stars;
   @override
-  final String commentary;
+  final String? commentary;
   @override
-  final DateTime createdAt;
+  final DateTime? createdAt;
   @override
   final BuiltList<DateTime> seenOn;
 
   factory _$GReviewsData_reviews(
-          [void Function(GReviewsData_reviewsBuilder) updates]) =>
+          [void Function(GReviewsData_reviewsBuilder)? updates]) =>
       (new GReviewsData_reviewsBuilder()..update(updates)).build();
 
   _$GReviewsData_reviews._(
-      {this.G__typename,
-      this.id,
+      {required this.G__typename,
+      required this.id,
       this.episode,
-      this.stars,
+      required this.stars,
       this.commentary,
       this.createdAt,
-      this.seenOn})
+      required this.seenOn})
       : super._() {
-    if (G__typename == null) {
-      throw new BuiltValueNullFieldError('GReviewsData_reviews', 'G__typename');
-    }
-    if (id == null) {
-      throw new BuiltValueNullFieldError('GReviewsData_reviews', 'id');
-    }
-    if (stars == null) {
-      throw new BuiltValueNullFieldError('GReviewsData_reviews', 'stars');
-    }
-    if (seenOn == null) {
-      throw new BuiltValueNullFieldError('GReviewsData_reviews', 'seenOn');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, 'GReviewsData_reviews', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(id, 'GReviewsData_reviews', 'id');
+    BuiltValueNullFieldError.checkNotNull(
+        stars, 'GReviewsData_reviews', 'stars');
+    BuiltValueNullFieldError.checkNotNull(
+        seenOn, 'GReviewsData_reviews', 'seenOn');
   }
 
   @override
@@ -362,50 +364,51 @@ class _$GReviewsData_reviews extends GReviewsData_reviews {
 
 class GReviewsData_reviewsBuilder
     implements Builder<GReviewsData_reviews, GReviewsData_reviewsBuilder> {
-  _$GReviewsData_reviews _$v;
+  _$GReviewsData_reviews? _$v;
 
-  String _G__typename;
-  String get G__typename => _$this._G__typename;
-  set G__typename(String G__typename) => _$this._G__typename = G__typename;
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
 
-  String _id;
-  String get id => _$this._id;
-  set id(String id) => _$this._id = id;
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
 
-  _i2.GEpisode _episode;
-  _i2.GEpisode get episode => _$this._episode;
-  set episode(_i2.GEpisode episode) => _$this._episode = episode;
+  _i2.GEpisode? _episode;
+  _i2.GEpisode? get episode => _$this._episode;
+  set episode(_i2.GEpisode? episode) => _$this._episode = episode;
 
-  int _stars;
-  int get stars => _$this._stars;
-  set stars(int stars) => _$this._stars = stars;
+  int? _stars;
+  int? get stars => _$this._stars;
+  set stars(int? stars) => _$this._stars = stars;
 
-  String _commentary;
-  String get commentary => _$this._commentary;
-  set commentary(String commentary) => _$this._commentary = commentary;
+  String? _commentary;
+  String? get commentary => _$this._commentary;
+  set commentary(String? commentary) => _$this._commentary = commentary;
 
-  DateTime _createdAt;
-  DateTime get createdAt => _$this._createdAt;
-  set createdAt(DateTime createdAt) => _$this._createdAt = createdAt;
+  DateTime? _createdAt;
+  DateTime? get createdAt => _$this._createdAt;
+  set createdAt(DateTime? createdAt) => _$this._createdAt = createdAt;
 
-  ListBuilder<DateTime> _seenOn;
+  ListBuilder<DateTime>? _seenOn;
   ListBuilder<DateTime> get seenOn =>
       _$this._seenOn ??= new ListBuilder<DateTime>();
-  set seenOn(ListBuilder<DateTime> seenOn) => _$this._seenOn = seenOn;
+  set seenOn(ListBuilder<DateTime>? seenOn) => _$this._seenOn = seenOn;
 
   GReviewsData_reviewsBuilder() {
     GReviewsData_reviews._initializeBuilder(this);
   }
 
   GReviewsData_reviewsBuilder get _$this {
-    if (_$v != null) {
-      _G__typename = _$v.G__typename;
-      _id = _$v.id;
-      _episode = _$v.episode;
-      _stars = _$v.stars;
-      _commentary = _$v.commentary;
-      _createdAt = _$v.createdAt;
-      _seenOn = _$v.seenOn?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _id = $v.id;
+      _episode = $v.episode;
+      _stars = $v.stars;
+      _commentary = $v.commentary;
+      _createdAt = $v.createdAt;
+      _seenOn = $v.seenOn.toBuilder();
       _$v = null;
     }
     return this;
@@ -413,14 +416,12 @@ class GReviewsData_reviewsBuilder
 
   @override
   void replace(GReviewsData_reviews other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GReviewsData_reviews;
   }
 
   @override
-  void update(void Function(GReviewsData_reviewsBuilder) updates) {
+  void update(void Function(GReviewsData_reviewsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -430,15 +431,18 @@ class GReviewsData_reviewsBuilder
     try {
       _$result = _$v ??
           new _$GReviewsData_reviews._(
-              G__typename: G__typename,
-              id: id,
+              G__typename: BuiltValueNullFieldError.checkNotNull(
+                  G__typename, 'GReviewsData_reviews', 'G__typename'),
+              id: BuiltValueNullFieldError.checkNotNull(
+                  id, 'GReviewsData_reviews', 'id'),
               episode: episode,
-              stars: stars,
+              stars: BuiltValueNullFieldError.checkNotNull(
+                  stars, 'GReviewsData_reviews', 'stars'),
               commentary: commentary,
               createdAt: createdAt,
               seenOn: seenOn.build());
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'seenOn';
         seenOn.build();

@@ -18,7 +18,8 @@ abstract class GAliasedHeroVars
   static Serializer<GAliasedHeroVars> get serializer =>
       _$gAliasedHeroVarsSerializer;
   Map<String, dynamic> toJson() =>
-      _i2.serializers.serializeWith(GAliasedHeroVars.serializer, this);
-  static GAliasedHeroVars fromJson(Map<String, dynamic> json) =>
+      (_i2.serializers.serializeWith(GAliasedHeroVars.serializer, this)
+          as Map<String, dynamic>);
+  static GAliasedHeroVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(GAliasedHeroVars.serializer, json);
 }

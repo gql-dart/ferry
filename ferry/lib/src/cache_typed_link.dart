@@ -9,7 +9,7 @@ class CacheTypedLink extends TypedLink {
   final Cache cache;
 
   CacheTypedLink([
-    Cache cache,
+    Cache? cache,
   ]) : cache = cache ?? Cache();
 
   @override

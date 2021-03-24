@@ -18,13 +18,13 @@ abstract class GCreateReviewData
       b..G__typename = 'Mutation';
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
-  @nullable
-  GCreateReviewData_createReview get createReview;
+  GCreateReviewData_createReview? get createReview;
   static Serializer<GCreateReviewData> get serializer =>
       _$gCreateReviewDataSerializer;
   Map<String, dynamic> toJson() =>
-      _i1.serializers.serializeWith(GCreateReviewData.serializer, this);
-  static GCreateReviewData fromJson(Map<String, dynamic> json) =>
+      (_i1.serializers.serializeWith(GCreateReviewData.serializer, this)
+          as Map<String, dynamic>);
+  static GCreateReviewData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(GCreateReviewData.serializer, json);
 }
 
@@ -43,16 +43,14 @@ abstract class GCreateReviewData_createReview
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
-  @nullable
-  _i2.GEpisode get episode;
+  _i2.GEpisode? get episode;
   int get stars;
-  @nullable
-  String get commentary;
+  String? get commentary;
   static Serializer<GCreateReviewData_createReview> get serializer =>
       _$gCreateReviewDataCreateReviewSerializer;
-  Map<String, dynamic> toJson() => _i1.serializers
-      .serializeWith(GCreateReviewData_createReview.serializer, this);
-  static GCreateReviewData_createReview fromJson(Map<String, dynamic> json) =>
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+      GCreateReviewData_createReview.serializer, this) as Map<String, dynamic>);
+  static GCreateReviewData_createReview? fromJson(Map<String, dynamic> json) =>
       _i1.serializers
           .deserializeWith(GCreateReviewData_createReview.serializer, json);
 }

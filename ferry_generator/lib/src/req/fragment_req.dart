@@ -38,7 +38,11 @@ Class _buildFragmentReqClass(
       ),
       Method(
         (b) => b
-          ..returns = refer('String')
+          ..returns = TypeReference(
+            (b) => b
+              ..symbol = 'String'
+              ..isNullable = true,
+          )
           ..type = MethodType.getter
           ..name = 'fragmentName',
       ),
@@ -51,7 +55,12 @@ Class _buildFragmentReqClass(
       Method(
         (b) => b
           ..annotations.add(refer('override'))
-          ..returns = dataTypeRef
+          ..returns = TypeReference(
+            (b) => b
+              ..symbol = dataTypeRef.symbol
+              ..url = dataTypeRef.url
+              ..isNullable = true,
+          )
           ..name = 'parseData'
           ..requiredParameters.add(
             Parameter(

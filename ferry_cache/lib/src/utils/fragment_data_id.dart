@@ -5,14 +5,14 @@ import 'package:normalize/normalize.dart';
 import 'package:ferry_exec/ferry_exec.dart';
 
 /// Returns the dataId for the given fragment request
-String fragmentDataId(
+String? fragmentDataId(
   FragmentRequest req,
   Map<String, TypePolicy> typePolicies,
 ) {
   final fragmentMap = getFragmentMap(req.document);
 
   final fragmentDefinition = req.fragmentName != null
-      ? fragmentMap[req.fragmentName]
+      ? fragmentMap[req.fragmentName!]!
       : fragmentMap.values.first;
 
   return resolveDataId(

@@ -20,17 +20,19 @@ class _$GCreateReviewDataSerializer
   final String wireName = 'GCreateReviewData';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GCreateReviewData object,
+  Iterable<Object?> serialize(Serializers serializers, GCreateReviewData object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       '__typename',
       serializers.serialize(object.G__typename,
           specifiedType: const FullType(String)),
     ];
-    if (object.createReview != null) {
+    Object? value;
+    value = object.createReview;
+    if (value != null) {
       result
         ..add('createReview')
-        ..add(serializers.serialize(object.createReview,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(GCreateReviewData_createReview)));
     }
     return result;
@@ -38,7 +40,7 @@ class _$GCreateReviewDataSerializer
 
   @override
   GCreateReviewData deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GCreateReviewDataBuilder();
 
@@ -46,7 +48,7 @@ class _$GCreateReviewDataSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case '__typename':
           result.G__typename = serializers.deserialize(value,
@@ -54,7 +56,8 @@ class _$GCreateReviewDataSerializer
           break;
         case 'createReview':
           result.createReview.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(GCreateReviewData_createReview))
+                  specifiedType:
+                      const FullType(GCreateReviewData_createReview))!
               as GCreateReviewData_createReview);
           break;
       }
@@ -75,10 +78,10 @@ class _$GCreateReviewData_createReviewSerializer
   final String wireName = 'GCreateReviewData_createReview';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GCreateReviewData_createReview object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       '__typename',
       serializers.serialize(object.G__typename,
           specifiedType: const FullType(String)),
@@ -87,16 +90,19 @@ class _$GCreateReviewData_createReviewSerializer
       'stars',
       serializers.serialize(object.stars, specifiedType: const FullType(int)),
     ];
-    if (object.episode != null) {
+    Object? value;
+    value = object.episode;
+    if (value != null) {
       result
         ..add('episode')
-        ..add(serializers.serialize(object.episode,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i2.GEpisode)));
     }
-    if (object.commentary != null) {
+    value = object.commentary;
+    if (value != null) {
       result
         ..add('commentary')
-        ..add(serializers.serialize(object.commentary,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -104,7 +110,7 @@ class _$GCreateReviewData_createReviewSerializer
 
   @override
   GCreateReviewData_createReview deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GCreateReviewData_createReviewBuilder();
 
@@ -112,7 +118,7 @@ class _$GCreateReviewData_createReviewSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case '__typename':
           result.G__typename = serializers.deserialize(value,
@@ -145,16 +151,16 @@ class _$GCreateReviewData extends GCreateReviewData {
   @override
   final String G__typename;
   @override
-  final GCreateReviewData_createReview createReview;
+  final GCreateReviewData_createReview? createReview;
 
   factory _$GCreateReviewData(
-          [void Function(GCreateReviewDataBuilder) updates]) =>
+          [void Function(GCreateReviewDataBuilder)? updates]) =>
       (new GCreateReviewDataBuilder()..update(updates)).build();
 
-  _$GCreateReviewData._({this.G__typename, this.createReview}) : super._() {
-    if (G__typename == null) {
-      throw new BuiltValueNullFieldError('GCreateReviewData', 'G__typename');
-    }
+  _$GCreateReviewData._({required this.G__typename, this.createReview})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, 'GCreateReviewData', 'G__typename');
   }
 
   @override
@@ -189,16 +195,16 @@ class _$GCreateReviewData extends GCreateReviewData {
 
 class GCreateReviewDataBuilder
     implements Builder<GCreateReviewData, GCreateReviewDataBuilder> {
-  _$GCreateReviewData _$v;
+  _$GCreateReviewData? _$v;
 
-  String _G__typename;
-  String get G__typename => _$this._G__typename;
-  set G__typename(String G__typename) => _$this._G__typename = G__typename;
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
 
-  GCreateReviewData_createReviewBuilder _createReview;
+  GCreateReviewData_createReviewBuilder? _createReview;
   GCreateReviewData_createReviewBuilder get createReview =>
       _$this._createReview ??= new GCreateReviewData_createReviewBuilder();
-  set createReview(GCreateReviewData_createReviewBuilder createReview) =>
+  set createReview(GCreateReviewData_createReviewBuilder? createReview) =>
       _$this._createReview = createReview;
 
   GCreateReviewDataBuilder() {
@@ -206,9 +212,10 @@ class GCreateReviewDataBuilder
   }
 
   GCreateReviewDataBuilder get _$this {
-    if (_$v != null) {
-      _G__typename = _$v.G__typename;
-      _createReview = _$v.createReview?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _createReview = $v.createReview?.toBuilder();
       _$v = null;
     }
     return this;
@@ -216,14 +223,12 @@ class GCreateReviewDataBuilder
 
   @override
   void replace(GCreateReviewData other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GCreateReviewData;
   }
 
   @override
-  void update(void Function(GCreateReviewDataBuilder) updates) {
+  void update(void Function(GCreateReviewDataBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -233,9 +238,11 @@ class GCreateReviewDataBuilder
     try {
       _$result = _$v ??
           new _$GCreateReviewData._(
-              G__typename: G__typename, createReview: _createReview?.build());
+              G__typename: BuiltValueNullFieldError.checkNotNull(
+                  G__typename, 'GCreateReviewData', 'G__typename'),
+              createReview: _createReview?.build());
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'createReview';
         _createReview?.build();
@@ -256,31 +263,29 @@ class _$GCreateReviewData_createReview extends GCreateReviewData_createReview {
   @override
   final String id;
   @override
-  final _i2.GEpisode episode;
+  final _i2.GEpisode? episode;
   @override
   final int stars;
   @override
-  final String commentary;
+  final String? commentary;
 
   factory _$GCreateReviewData_createReview(
-          [void Function(GCreateReviewData_createReviewBuilder) updates]) =>
+          [void Function(GCreateReviewData_createReviewBuilder)? updates]) =>
       (new GCreateReviewData_createReviewBuilder()..update(updates)).build();
 
   _$GCreateReviewData_createReview._(
-      {this.G__typename, this.id, this.episode, this.stars, this.commentary})
+      {required this.G__typename,
+      required this.id,
+      this.episode,
+      required this.stars,
+      this.commentary})
       : super._() {
-    if (G__typename == null) {
-      throw new BuiltValueNullFieldError(
-          'GCreateReviewData_createReview', 'G__typename');
-    }
-    if (id == null) {
-      throw new BuiltValueNullFieldError(
-          'GCreateReviewData_createReview', 'id');
-    }
-    if (stars == null) {
-      throw new BuiltValueNullFieldError(
-          'GCreateReviewData_createReview', 'stars');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, 'GCreateReviewData_createReview', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        id, 'GCreateReviewData_createReview', 'id');
+    BuiltValueNullFieldError.checkNotNull(
+        stars, 'GCreateReviewData_createReview', 'stars');
   }
 
   @override
@@ -329,39 +334,40 @@ class GCreateReviewData_createReviewBuilder
     implements
         Builder<GCreateReviewData_createReview,
             GCreateReviewData_createReviewBuilder> {
-  _$GCreateReviewData_createReview _$v;
+  _$GCreateReviewData_createReview? _$v;
 
-  String _G__typename;
-  String get G__typename => _$this._G__typename;
-  set G__typename(String G__typename) => _$this._G__typename = G__typename;
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
 
-  String _id;
-  String get id => _$this._id;
-  set id(String id) => _$this._id = id;
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
 
-  _i2.GEpisode _episode;
-  _i2.GEpisode get episode => _$this._episode;
-  set episode(_i2.GEpisode episode) => _$this._episode = episode;
+  _i2.GEpisode? _episode;
+  _i2.GEpisode? get episode => _$this._episode;
+  set episode(_i2.GEpisode? episode) => _$this._episode = episode;
 
-  int _stars;
-  int get stars => _$this._stars;
-  set stars(int stars) => _$this._stars = stars;
+  int? _stars;
+  int? get stars => _$this._stars;
+  set stars(int? stars) => _$this._stars = stars;
 
-  String _commentary;
-  String get commentary => _$this._commentary;
-  set commentary(String commentary) => _$this._commentary = commentary;
+  String? _commentary;
+  String? get commentary => _$this._commentary;
+  set commentary(String? commentary) => _$this._commentary = commentary;
 
   GCreateReviewData_createReviewBuilder() {
     GCreateReviewData_createReview._initializeBuilder(this);
   }
 
   GCreateReviewData_createReviewBuilder get _$this {
-    if (_$v != null) {
-      _G__typename = _$v.G__typename;
-      _id = _$v.id;
-      _episode = _$v.episode;
-      _stars = _$v.stars;
-      _commentary = _$v.commentary;
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _id = $v.id;
+      _episode = $v.episode;
+      _stars = $v.stars;
+      _commentary = $v.commentary;
       _$v = null;
     }
     return this;
@@ -369,14 +375,12 @@ class GCreateReviewData_createReviewBuilder
 
   @override
   void replace(GCreateReviewData_createReview other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GCreateReviewData_createReview;
   }
 
   @override
-  void update(void Function(GCreateReviewData_createReviewBuilder) updates) {
+  void update(void Function(GCreateReviewData_createReviewBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -384,10 +388,13 @@ class GCreateReviewData_createReviewBuilder
   _$GCreateReviewData_createReview build() {
     final _$result = _$v ??
         new _$GCreateReviewData_createReview._(
-            G__typename: G__typename,
-            id: id,
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename, 'GCreateReviewData_createReview', 'G__typename'),
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, 'GCreateReviewData_createReview', 'id'),
             episode: episode,
-            stars: stars,
+            stars: BuiltValueNullFieldError.checkNotNull(
+                stars, 'GCreateReviewData_createReview', 'stars'),
             commentary: commentary);
     replace(_$result);
     return _$result;

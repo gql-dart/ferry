@@ -41,7 +41,7 @@ void main() {
       <TData, TVars>(request, [forward]) => requestController.stream
           .whereType<OperationRequest<TData, TVars>>()
           .switchMap(
-            (req) => forward(request),
+            (req) => forward!(request),
           )
           .doOnListen(
         () {

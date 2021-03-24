@@ -1,9 +1,10 @@
 import 'package:test/test.dart';
 import 'package:normalize/src/utils/field_key.dart';
 
-import 'package:ferry_cache/ferry_cache.dart';
 import 'package:ferry_test_graphql/queries/variables/human_with_args.data.gql.dart';
 import 'package:ferry_test_graphql/queries/variables/human_with_args.req.gql.dart';
+
+import 'package:ferry_cache/ferry_cache.dart';
 
 void main() {
   final chewieReq = GHumanWithArgsReq((b) => b..vars.id = 'chewie');
@@ -32,10 +33,10 @@ void main() {
       ..human.friendsConnection.friends.addAll([
         GHumanWithArgsData_human_friendsConnection_friends.fromJson(
           lukeData.human.toJson(),
-        ),
+        )!,
         GHumanWithArgsData_human_friendsConnection_friends.fromJson(
           chewieData.human.toJson(),
-        ),
+        )!,
       ]),
   );
   group('Evicting entities', () {
@@ -44,7 +45,7 @@ void main() {
       cache.writeQuery(hanReq, hanData);
       cache.writeQuery(chewieReq, chewieData);
       expect(cache.readQuery(hanReq), equals(hanData));
-      final entityId = cache.identify(hanData.human);
+      final entityId = cache.identify(hanData.human)!;
       cache.evict(entityId);
       expect(cache.readQuery(hanReq), equals(null));
       expect(cache.store.get(entityId), equals(null));
@@ -55,7 +56,7 @@ void main() {
       final cache = Cache();
       cache.writeQuery(hanReq, hanData);
       expect(cache.readQuery(hanReq), equals(hanData));
-      final entityId = cache.identify(hanData.human);
+      final entityId = cache.identify(hanData.human)!;
       cache.evict(
         entityId,
         optimisticRequest: hanReq,
@@ -69,12 +70,12 @@ void main() {
       final cache = Cache();
       cache.writeQuery(hanReq, hanData);
       expect(
-        cache.readQuery(hanReq).human.friendsConnection.friends.length,
+        cache.readQuery(hanReq)!.human.friendsConnection.friends!.length,
         equals(2),
       );
-      cache.evict(cache.identify(chewieData.human));
+      cache.evict(cache.identify(chewieData.human)!);
       expect(
-        cache.readQuery(hanReq).human.friendsConnection.friends.length,
+        cache.readQuery(hanReq)!.human.friendsConnection.friends!.length,
         equals(1),
       );
     });
@@ -84,7 +85,7 @@ void main() {
     test('can evict fields', () {
       final cache = Cache();
       cache.writeQuery(hanReq, hanData);
-      final entityId = cache.identify(hanData.human);
+      final entityId = cache.identify(hanData.human)!;
       cache.evict(entityId, fieldName: 'height');
       final result = cache.readQuery(hanReq);
       expect(result, equals(hanData.rebuild((b) => b..human.height = null)));
@@ -93,7 +94,7 @@ void main() {
     test('can evict fields optimistically', () {
       final cache = Cache();
       cache.writeQuery(hanReq, hanData);
-      final entityId = cache.identify(hanData.human);
+      final entityId = cache.identify(hanData.human)!;
       cache.evict(
         entityId,
         fieldName: 'height',
@@ -121,17 +122,17 @@ void main() {
         hanReq.rebuild((b) => b..vars.friendsAfter = 'chewie'),
         hanData,
       );
-      final entityId = cache.identify(hanData.human);
+      final entityId = cache.identify(hanData.human)!;
       final keyLuke =
           FieldKey.from('friendsConnection', {'first': 10, 'after': 'luke'});
       final keyChewie =
           FieldKey.from('friendsConnection', {'first': 10, 'after': 'chewie'});
-      expect(cache.store.get(entityId)[keyLuke.toString()], isNotNull);
-      expect(cache.store.get(entityId)[keyChewie.toString()], isNotNull);
+      expect(cache.store.get(entityId)![keyLuke.toString()], isNotNull);
+      expect(cache.store.get(entityId)![keyChewie.toString()], isNotNull);
       cache.evict(entityId,
           fieldName: 'friendsConnection', args: {'after': 'luke'});
-      expect(cache.store.get(entityId)[keyLuke.toString()], isNull);
-      expect(cache.store.get(entityId)[keyChewie.toString()], isNotNull);
+      expect(cache.store.get(entityId)![keyLuke.toString()], isNull);
+      expect(cache.store.get(entityId)![keyChewie.toString()], isNotNull);
     });
   });
 

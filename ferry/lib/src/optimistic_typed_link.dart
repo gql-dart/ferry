@@ -13,8 +13,8 @@ class OptimisticTypedLink extends TypedLink {
     forward,
   ]) =>
       request.optimisticResponse == null
-          ? forward(request)
-          : forward(request).startWith(
+          ? forward!(request)
+          : forward!(request).startWith(
               OperationResponse(
                 operationRequest: request,
                 data: request.optimisticResponse,

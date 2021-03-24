@@ -97,28 +97,32 @@ class _$GReviewInputSerializer implements StructuredSerializer<GReviewInput> {
   final String wireName = 'GReviewInput';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GReviewInput object,
+  Iterable<Object?> serialize(Serializers serializers, GReviewInput object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'stars',
       serializers.serialize(object.stars, specifiedType: const FullType(int)),
     ];
-    if (object.commentary != null) {
+    Object? value;
+    value = object.commentary;
+    if (value != null) {
       result
         ..add('commentary')
-        ..add(serializers.serialize(object.commentary,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.favorite_color != null) {
+    value = object.favorite_color;
+    if (value != null) {
       result
         ..add('favorite_color')
-        ..add(serializers.serialize(object.favorite_color,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(GColorInput)));
     }
-    if (object.seenOn != null) {
+    value = object.seenOn;
+    if (value != null) {
       result
         ..add('seenOn')
-        ..add(serializers.serialize(object.seenOn,
+        ..add(serializers.serialize(value,
             specifiedType:
                 const FullType(BuiltList, const [const FullType(DateTime)])));
     }
@@ -126,7 +130,8 @@ class _$GReviewInputSerializer implements StructuredSerializer<GReviewInput> {
   }
 
   @override
-  GReviewInput deserialize(Serializers serializers, Iterable<Object> serialized,
+  GReviewInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GReviewInputBuilder();
 
@@ -134,7 +139,7 @@ class _$GReviewInputSerializer implements StructuredSerializer<GReviewInput> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'stars':
           result.stars = serializers.deserialize(value,
@@ -146,12 +151,12 @@ class _$GReviewInputSerializer implements StructuredSerializer<GReviewInput> {
           break;
         case 'favorite_color':
           result.favorite_color.replace(serializers.deserialize(value,
-              specifiedType: const FullType(GColorInput)) as GColorInput);
+              specifiedType: const FullType(GColorInput))! as GColorInput);
           break;
         case 'seenOn':
           result.seenOn.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
-                      BuiltList, const [const FullType(DateTime)]))
+                      BuiltList, const [const FullType(DateTime)]))!
               as BuiltList<Object>);
           break;
       }
@@ -168,9 +173,9 @@ class _$GColorInputSerializer implements StructuredSerializer<GColorInput> {
   final String wireName = 'GColorInput';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GColorInput object,
+  Iterable<Object?> serialize(Serializers serializers, GColorInput object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'red',
       serializers.serialize(object.red, specifiedType: const FullType(int)),
       'green',
@@ -183,7 +188,7 @@ class _$GColorInputSerializer implements StructuredSerializer<GColorInput> {
   }
 
   @override
-  GColorInput deserialize(Serializers serializers, Iterable<Object> serialized,
+  GColorInput deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GColorInputBuilder();
 
@@ -191,7 +196,7 @@ class _$GColorInputSerializer implements StructuredSerializer<GColorInput> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'red':
           result.red = serializers.deserialize(value,
@@ -216,21 +221,19 @@ class _$GReviewInput extends GReviewInput {
   @override
   final int stars;
   @override
-  final String commentary;
+  final String? commentary;
   @override
-  final GColorInput favorite_color;
+  final GColorInput? favorite_color;
   @override
-  final BuiltList<DateTime> seenOn;
+  final BuiltList<DateTime>? seenOn;
 
-  factory _$GReviewInput([void Function(GReviewInputBuilder) updates]) =>
+  factory _$GReviewInput([void Function(GReviewInputBuilder)? updates]) =>
       (new GReviewInputBuilder()..update(updates)).build();
 
   _$GReviewInput._(
-      {this.stars, this.commentary, this.favorite_color, this.seenOn})
+      {required this.stars, this.commentary, this.favorite_color, this.seenOn})
       : super._() {
-    if (stars == null) {
-      throw new BuiltValueNullFieldError('GReviewInput', 'stars');
-    }
+    BuiltValueNullFieldError.checkNotNull(stars, 'GReviewInput', 'stars');
   }
 
   @override
@@ -271,35 +274,36 @@ class _$GReviewInput extends GReviewInput {
 
 class GReviewInputBuilder
     implements Builder<GReviewInput, GReviewInputBuilder> {
-  _$GReviewInput _$v;
+  _$GReviewInput? _$v;
 
-  int _stars;
-  int get stars => _$this._stars;
-  set stars(int stars) => _$this._stars = stars;
+  int? _stars;
+  int? get stars => _$this._stars;
+  set stars(int? stars) => _$this._stars = stars;
 
-  String _commentary;
-  String get commentary => _$this._commentary;
-  set commentary(String commentary) => _$this._commentary = commentary;
+  String? _commentary;
+  String? get commentary => _$this._commentary;
+  set commentary(String? commentary) => _$this._commentary = commentary;
 
-  GColorInputBuilder _favorite_color;
+  GColorInputBuilder? _favorite_color;
   GColorInputBuilder get favorite_color =>
       _$this._favorite_color ??= new GColorInputBuilder();
-  set favorite_color(GColorInputBuilder favorite_color) =>
+  set favorite_color(GColorInputBuilder? favorite_color) =>
       _$this._favorite_color = favorite_color;
 
-  ListBuilder<DateTime> _seenOn;
+  ListBuilder<DateTime>? _seenOn;
   ListBuilder<DateTime> get seenOn =>
       _$this._seenOn ??= new ListBuilder<DateTime>();
-  set seenOn(ListBuilder<DateTime> seenOn) => _$this._seenOn = seenOn;
+  set seenOn(ListBuilder<DateTime>? seenOn) => _$this._seenOn = seenOn;
 
   GReviewInputBuilder();
 
   GReviewInputBuilder get _$this {
-    if (_$v != null) {
-      _stars = _$v.stars;
-      _commentary = _$v.commentary;
-      _favorite_color = _$v.favorite_color?.toBuilder();
-      _seenOn = _$v.seenOn?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _stars = $v.stars;
+      _commentary = $v.commentary;
+      _favorite_color = $v.favorite_color?.toBuilder();
+      _seenOn = $v.seenOn?.toBuilder();
       _$v = null;
     }
     return this;
@@ -307,14 +311,12 @@ class GReviewInputBuilder
 
   @override
   void replace(GReviewInput other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GReviewInput;
   }
 
   @override
-  void update(void Function(GReviewInputBuilder) updates) {
+  void update(void Function(GReviewInputBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -324,12 +326,13 @@ class GReviewInputBuilder
     try {
       _$result = _$v ??
           new _$GReviewInput._(
-              stars: stars,
+              stars: BuiltValueNullFieldError.checkNotNull(
+                  stars, 'GReviewInput', 'stars'),
               commentary: commentary,
               favorite_color: _favorite_color?.build(),
               seenOn: _seenOn?.build());
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'favorite_color';
         _favorite_color?.build();
@@ -354,19 +357,14 @@ class _$GColorInput extends GColorInput {
   @override
   final int blue;
 
-  factory _$GColorInput([void Function(GColorInputBuilder) updates]) =>
+  factory _$GColorInput([void Function(GColorInputBuilder)? updates]) =>
       (new GColorInputBuilder()..update(updates)).build();
 
-  _$GColorInput._({this.red, this.green, this.blue}) : super._() {
-    if (red == null) {
-      throw new BuiltValueNullFieldError('GColorInput', 'red');
-    }
-    if (green == null) {
-      throw new BuiltValueNullFieldError('GColorInput', 'green');
-    }
-    if (blue == null) {
-      throw new BuiltValueNullFieldError('GColorInput', 'blue');
-    }
+  _$GColorInput._({required this.red, required this.green, required this.blue})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(red, 'GColorInput', 'red');
+    BuiltValueNullFieldError.checkNotNull(green, 'GColorInput', 'green');
+    BuiltValueNullFieldError.checkNotNull(blue, 'GColorInput', 'blue');
   }
 
   @override
@@ -401,27 +399,28 @@ class _$GColorInput extends GColorInput {
 }
 
 class GColorInputBuilder implements Builder<GColorInput, GColorInputBuilder> {
-  _$GColorInput _$v;
+  _$GColorInput? _$v;
 
-  int _red;
-  int get red => _$this._red;
-  set red(int red) => _$this._red = red;
+  int? _red;
+  int? get red => _$this._red;
+  set red(int? red) => _$this._red = red;
 
-  int _green;
-  int get green => _$this._green;
-  set green(int green) => _$this._green = green;
+  int? _green;
+  int? get green => _$this._green;
+  set green(int? green) => _$this._green = green;
 
-  int _blue;
-  int get blue => _$this._blue;
-  set blue(int blue) => _$this._blue = blue;
+  int? _blue;
+  int? get blue => _$this._blue;
+  set blue(int? blue) => _$this._blue = blue;
 
   GColorInputBuilder();
 
   GColorInputBuilder get _$this {
-    if (_$v != null) {
-      _red = _$v.red;
-      _green = _$v.green;
-      _blue = _$v.blue;
+    final $v = _$v;
+    if ($v != null) {
+      _red = $v.red;
+      _green = $v.green;
+      _blue = $v.blue;
       _$v = null;
     }
     return this;
@@ -429,21 +428,25 @@ class GColorInputBuilder implements Builder<GColorInput, GColorInputBuilder> {
 
   @override
   void replace(GColorInput other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GColorInput;
   }
 
   @override
-  void update(void Function(GColorInputBuilder) updates) {
+  void update(void Function(GColorInputBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$GColorInput build() {
-    final _$result =
-        _$v ?? new _$GColorInput._(red: red, green: green, blue: blue);
+    final _$result = _$v ??
+        new _$GColorInput._(
+            red: BuiltValueNullFieldError.checkNotNull(
+                red, 'GColorInput', 'red'),
+            green: BuiltValueNullFieldError.checkNotNull(
+                green, 'GColorInput', 'green'),
+            blue: BuiltValueNullFieldError.checkNotNull(
+                blue, 'GColorInput', 'blue'));
     replace(_$result);
     return _$result;
   }
@@ -453,13 +456,11 @@ class _$GISODate extends GISODate {
   @override
   final String value;
 
-  factory _$GISODate([void Function(GISODateBuilder) updates]) =>
+  factory _$GISODate([void Function(GISODateBuilder)? updates]) =>
       (new GISODateBuilder()..update(updates)).build();
 
-  _$GISODate._({this.value}) : super._() {
-    if (value == null) {
-      throw new BuiltValueNullFieldError('GISODate', 'value');
-    }
+  _$GISODate._({required this.value}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(value, 'GISODate', 'value');
   }
 
   @override
@@ -488,17 +489,18 @@ class _$GISODate extends GISODate {
 }
 
 class GISODateBuilder implements Builder<GISODate, GISODateBuilder> {
-  _$GISODate _$v;
+  _$GISODate? _$v;
 
-  String _value;
-  String get value => _$this._value;
-  set value(String value) => _$this._value = value;
+  String? _value;
+  String? get value => _$this._value;
+  set value(String? value) => _$this._value = value;
 
   GISODateBuilder();
 
   GISODateBuilder get _$this {
-    if (_$v != null) {
-      _value = _$v.value;
+    final $v = _$v;
+    if ($v != null) {
+      _value = $v.value;
       _$v = null;
     }
     return this;
@@ -506,20 +508,21 @@ class GISODateBuilder implements Builder<GISODate, GISODateBuilder> {
 
   @override
   void replace(GISODate other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GISODate;
   }
 
   @override
-  void update(void Function(GISODateBuilder) updates) {
+  void update(void Function(GISODateBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$GISODate build() {
-    final _$result = _$v ?? new _$GISODate._(value: value);
+    final _$result = _$v ??
+        new _$GISODate._(
+            value: BuiltValueNullFieldError.checkNotNull(
+                value, 'GISODate', 'value'));
     replace(_$result);
     return _$result;
   }

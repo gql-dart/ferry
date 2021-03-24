@@ -17,21 +17,21 @@ class _$GHeroNoVarsVarsSerializer
   final String wireName = 'GHeroNoVarsVars';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GHeroNoVarsVars object,
+  Iterable<Object?> serialize(Serializers serializers, GHeroNoVarsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GHeroNoVarsVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GHeroNoVarsVarsBuilder().build();
   }
 }
 
 class _$GHeroNoVarsVars extends GHeroNoVarsVars {
-  factory _$GHeroNoVarsVars([void Function(GHeroNoVarsVarsBuilder) updates]) =>
+  factory _$GHeroNoVarsVars([void Function(GHeroNoVarsVarsBuilder)? updates]) =>
       (new GHeroNoVarsVarsBuilder()..update(updates)).build();
 
   _$GHeroNoVarsVars._() : super._();
@@ -63,20 +63,18 @@ class _$GHeroNoVarsVars extends GHeroNoVarsVars {
 
 class GHeroNoVarsVarsBuilder
     implements Builder<GHeroNoVarsVars, GHeroNoVarsVarsBuilder> {
-  _$GHeroNoVarsVars _$v;
+  _$GHeroNoVarsVars? _$v;
 
   GHeroNoVarsVarsBuilder();
 
   @override
   void replace(GHeroNoVarsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GHeroNoVarsVars;
   }
 
   @override
-  void update(void Function(GHeroNoVarsVarsBuilder) updates) {
+  void update(void Function(GHeroNoVarsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 

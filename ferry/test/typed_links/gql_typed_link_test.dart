@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:mockito/mockito.dart';
+import 'package:mockito/annotations.dart';
 import 'package:gql_link/gql_link.dart';
 import 'package:gql_exec/gql_exec.dart';
 import 'package:test/test.dart';
@@ -8,8 +9,9 @@ import 'package:ferry_exec/ferry_exec.dart';
 import 'package:ferry/src/gql_typed_link.dart';
 import 'package:ferry_test_graphql/queries/variables/human_with_args.req.gql.dart';
 
-class MockLink extends Mock implements Link {}
+import './gql_typed_link_test.mocks.dart';
 
+@GenerateMocks([Link])
 void main() {
   group('GraphQL Errors', () {
     test('Returns a response with GraphQL errors', () async {

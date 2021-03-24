@@ -19,59 +19,63 @@ class _$GHeroForEpisodeReqSerializer
   final String wireName = 'GHeroForEpisodeReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GHeroForEpisodeReq object,
+  Iterable<Object?> serialize(
+      Serializers serializers, GHeroForEpisodeReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GHeroForEpisodeVars)),
       'operation',
       serializers.serialize(object.operation,
           specifiedType: const FullType(_i4.Operation)),
+      'executeOnListen',
+      serializers.serialize(object.executeOnListen,
+          specifiedType: const FullType(bool)),
     ];
-    if (object.requestId != null) {
+    Object? value;
+    value = object.requestId;
+    if (value != null) {
       result
         ..add('requestId')
-        ..add(serializers.serialize(object.requestId,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.optimisticResponse != null) {
+    value = object.optimisticResponse;
+    if (value != null) {
       result
         ..add('optimisticResponse')
-        ..add(serializers.serialize(object.optimisticResponse,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i2.GHeroForEpisodeData)));
     }
-    if (object.updateCacheHandlerKey != null) {
+    value = object.updateCacheHandlerKey;
+    if (value != null) {
       result
         ..add('updateCacheHandlerKey')
-        ..add(serializers.serialize(object.updateCacheHandlerKey,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.updateCacheHandlerContext != null) {
+    value = object.updateCacheHandlerContext;
+    if (value != null) {
       result
         ..add('updateCacheHandlerContext')
-        ..add(serializers.serialize(object.updateCacheHandlerContext,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 Map, const [const FullType(String), const FullType(dynamic)])));
     }
-    if (object.fetchPolicy != null) {
+    value = object.fetchPolicy;
+    if (value != null) {
       result
         ..add('fetchPolicy')
-        ..add(serializers.serialize(object.fetchPolicy,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i1.FetchPolicy)));
-    }
-    if (object.executeOnListen != null) {
-      result
-        ..add('executeOnListen')
-        ..add(serializers.serialize(object.executeOnListen,
-            specifiedType: const FullType(bool)));
     }
     return result;
   }
 
   @override
   GHeroForEpisodeReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GHeroForEpisodeReqBuilder();
 
@@ -79,11 +83,11 @@ class _$GHeroForEpisodeReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GHeroForEpisodeVars))
+                  specifiedType: const FullType(_i3.GHeroForEpisodeVars))!
               as _i3.GHeroForEpisodeVars);
           break;
         case 'operation':
@@ -96,7 +100,7 @@ class _$GHeroForEpisodeReqSerializer
           break;
         case 'optimisticResponse':
           result.optimisticResponse.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i2.GHeroForEpisodeData))
+                  specifiedType: const FullType(_i2.GHeroForEpisodeData))!
               as _i2.GHeroForEpisodeData);
           break;
         case 'updateCacheHandlerKey':
@@ -134,30 +138,34 @@ class _$GDroidFragmentReqSerializer
   final String wireName = 'GDroidFragmentReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GDroidFragmentReq object,
+  Iterable<Object?> serialize(Serializers serializers, GDroidFragmentReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GDroidFragmentVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GDroidFragmentReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GDroidFragmentReqBuilder();
 
@@ -165,11 +173,11 @@ class _$GDroidFragmentReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GDroidFragmentVars))
+                  specifiedType: const FullType(_i3.GDroidFragmentVars))!
               as _i3.GDroidFragmentVars);
           break;
         case 'document':
@@ -201,42 +209,41 @@ class _$GHeroForEpisodeReq extends GHeroForEpisodeReq {
   @override
   final _i4.Operation operation;
   @override
-  final String requestId;
+  final String? requestId;
   @override
-  final _i2.GHeroForEpisodeData Function(
-      _i2.GHeroForEpisodeData, _i2.GHeroForEpisodeData) updateResult;
+  final _i2.GHeroForEpisodeData? Function(
+      _i2.GHeroForEpisodeData?, _i2.GHeroForEpisodeData?)? updateResult;
   @override
-  final _i2.GHeroForEpisodeData optimisticResponse;
+  final _i2.GHeroForEpisodeData? optimisticResponse;
   @override
-  final String updateCacheHandlerKey;
+  final String? updateCacheHandlerKey;
   @override
-  final Map<String, dynamic> updateCacheHandlerContext;
+  final Map<String, dynamic>? updateCacheHandlerContext;
   @override
-  final _i1.FetchPolicy fetchPolicy;
+  final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
 
   factory _$GHeroForEpisodeReq(
-          [void Function(GHeroForEpisodeReqBuilder) updates]) =>
+          [void Function(GHeroForEpisodeReqBuilder)? updates]) =>
       (new GHeroForEpisodeReqBuilder()..update(updates)).build();
 
   _$GHeroForEpisodeReq._(
-      {this.vars,
-      this.operation,
+      {required this.vars,
+      required this.operation,
       this.requestId,
       this.updateResult,
       this.optimisticResponse,
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      this.executeOnListen})
+      required this.executeOnListen})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GHeroForEpisodeReq', 'vars');
-    }
-    if (operation == null) {
-      throw new BuiltValueNullFieldError('GHeroForEpisodeReq', 'operation');
-    }
+    BuiltValueNullFieldError.checkNotNull(vars, 'GHeroForEpisodeReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        operation, 'GHeroForEpisodeReq', 'operation');
+    BuiltValueNullFieldError.checkNotNull(
+        executeOnListen, 'GHeroForEpisodeReq', 'executeOnListen');
   }
 
   @override
@@ -300,58 +307,58 @@ class _$GHeroForEpisodeReq extends GHeroForEpisodeReq {
 
 class GHeroForEpisodeReqBuilder
     implements Builder<GHeroForEpisodeReq, GHeroForEpisodeReqBuilder> {
-  _$GHeroForEpisodeReq _$v;
+  _$GHeroForEpisodeReq? _$v;
 
-  _i3.GHeroForEpisodeVarsBuilder _vars;
+  _i3.GHeroForEpisodeVarsBuilder? _vars;
   _i3.GHeroForEpisodeVarsBuilder get vars =>
       _$this._vars ??= new _i3.GHeroForEpisodeVarsBuilder();
-  set vars(_i3.GHeroForEpisodeVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GHeroForEpisodeVarsBuilder? vars) => _$this._vars = vars;
 
-  _i4.Operation _operation;
-  _i4.Operation get operation => _$this._operation;
-  set operation(_i4.Operation operation) => _$this._operation = operation;
+  _i4.Operation? _operation;
+  _i4.Operation? get operation => _$this._operation;
+  set operation(_i4.Operation? operation) => _$this._operation = operation;
 
-  String _requestId;
-  String get requestId => _$this._requestId;
-  set requestId(String requestId) => _$this._requestId = requestId;
+  String? _requestId;
+  String? get requestId => _$this._requestId;
+  set requestId(String? requestId) => _$this._requestId = requestId;
 
-  _i2.GHeroForEpisodeData Function(
-      _i2.GHeroForEpisodeData, _i2.GHeroForEpisodeData) _updateResult;
-  _i2.GHeroForEpisodeData Function(
-          _i2.GHeroForEpisodeData, _i2.GHeroForEpisodeData)
+  _i2.GHeroForEpisodeData? Function(
+      _i2.GHeroForEpisodeData?, _i2.GHeroForEpisodeData?)? _updateResult;
+  _i2.GHeroForEpisodeData? Function(
+          _i2.GHeroForEpisodeData?, _i2.GHeroForEpisodeData?)?
       get updateResult => _$this._updateResult;
   set updateResult(
-          _i2.GHeroForEpisodeData Function(
-                  _i2.GHeroForEpisodeData, _i2.GHeroForEpisodeData)
+          _i2.GHeroForEpisodeData? Function(
+                  _i2.GHeroForEpisodeData?, _i2.GHeroForEpisodeData?)?
               updateResult) =>
       _$this._updateResult = updateResult;
 
-  _i2.GHeroForEpisodeDataBuilder _optimisticResponse;
+  _i2.GHeroForEpisodeDataBuilder? _optimisticResponse;
   _i2.GHeroForEpisodeDataBuilder get optimisticResponse =>
       _$this._optimisticResponse ??= new _i2.GHeroForEpisodeDataBuilder();
-  set optimisticResponse(_i2.GHeroForEpisodeDataBuilder optimisticResponse) =>
+  set optimisticResponse(_i2.GHeroForEpisodeDataBuilder? optimisticResponse) =>
       _$this._optimisticResponse = optimisticResponse;
 
-  String _updateCacheHandlerKey;
-  String get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
-  set updateCacheHandlerKey(String updateCacheHandlerKey) =>
+  String? _updateCacheHandlerKey;
+  String? get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
+  set updateCacheHandlerKey(String? updateCacheHandlerKey) =>
       _$this._updateCacheHandlerKey = updateCacheHandlerKey;
 
-  Map<String, dynamic> _updateCacheHandlerContext;
-  Map<String, dynamic> get updateCacheHandlerContext =>
+  Map<String, dynamic>? _updateCacheHandlerContext;
+  Map<String, dynamic>? get updateCacheHandlerContext =>
       _$this._updateCacheHandlerContext;
   set updateCacheHandlerContext(
-          Map<String, dynamic> updateCacheHandlerContext) =>
+          Map<String, dynamic>? updateCacheHandlerContext) =>
       _$this._updateCacheHandlerContext = updateCacheHandlerContext;
 
-  _i1.FetchPolicy _fetchPolicy;
-  _i1.FetchPolicy get fetchPolicy => _$this._fetchPolicy;
-  set fetchPolicy(_i1.FetchPolicy fetchPolicy) =>
+  _i1.FetchPolicy? _fetchPolicy;
+  _i1.FetchPolicy? get fetchPolicy => _$this._fetchPolicy;
+  set fetchPolicy(_i1.FetchPolicy? fetchPolicy) =>
       _$this._fetchPolicy = fetchPolicy;
 
-  bool _executeOnListen;
-  bool get executeOnListen => _$this._executeOnListen;
-  set executeOnListen(bool executeOnListen) =>
+  bool? _executeOnListen;
+  bool? get executeOnListen => _$this._executeOnListen;
+  set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
   GHeroForEpisodeReqBuilder() {
@@ -359,16 +366,17 @@ class GHeroForEpisodeReqBuilder
   }
 
   GHeroForEpisodeReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _operation = _$v.operation;
-      _requestId = _$v.requestId;
-      _updateResult = _$v.updateResult;
-      _optimisticResponse = _$v.optimisticResponse?.toBuilder();
-      _updateCacheHandlerKey = _$v.updateCacheHandlerKey;
-      _updateCacheHandlerContext = _$v.updateCacheHandlerContext;
-      _fetchPolicy = _$v.fetchPolicy;
-      _executeOnListen = _$v.executeOnListen;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _operation = $v.operation;
+      _requestId = $v.requestId;
+      _updateResult = $v.updateResult;
+      _optimisticResponse = $v.optimisticResponse?.toBuilder();
+      _updateCacheHandlerKey = $v.updateCacheHandlerKey;
+      _updateCacheHandlerContext = $v.updateCacheHandlerContext;
+      _fetchPolicy = $v.fetchPolicy;
+      _executeOnListen = $v.executeOnListen;
       _$v = null;
     }
     return this;
@@ -376,14 +384,12 @@ class GHeroForEpisodeReqBuilder
 
   @override
   void replace(GHeroForEpisodeReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GHeroForEpisodeReq;
   }
 
   @override
-  void update(void Function(GHeroForEpisodeReqBuilder) updates) {
+  void update(void Function(GHeroForEpisodeReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -394,16 +400,18 @@ class GHeroForEpisodeReqBuilder
       _$result = _$v ??
           new _$GHeroForEpisodeReq._(
               vars: vars.build(),
-              operation: operation,
+              operation: BuiltValueNullFieldError.checkNotNull(
+                  operation, 'GHeroForEpisodeReq', 'operation'),
               requestId: requestId,
               updateResult: updateResult,
               optimisticResponse: _optimisticResponse?.build(),
               updateCacheHandlerKey: updateCacheHandlerKey,
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
-              executeOnListen: executeOnListen);
+              executeOnListen: BuiltValueNullFieldError.checkNotNull(
+                  executeOnListen, 'GHeroForEpisodeReq', 'executeOnListen'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -427,29 +435,25 @@ class _$GDroidFragmentReq extends GDroidFragmentReq {
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
   factory _$GDroidFragmentReq(
-          [void Function(GDroidFragmentReqBuilder) updates]) =>
+          [void Function(GDroidFragmentReqBuilder)? updates]) =>
       (new GDroidFragmentReqBuilder()..update(updates)).build();
 
   _$GDroidFragmentReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GDroidFragmentReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError('GDroidFragmentReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError('GDroidFragmentReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError('GDroidFragmentReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(vars, 'GDroidFragmentReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GDroidFragmentReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GDroidFragmentReq', 'idFields');
   }
 
   @override
@@ -491,35 +495,36 @@ class _$GDroidFragmentReq extends GDroidFragmentReq {
 
 class GDroidFragmentReqBuilder
     implements Builder<GDroidFragmentReq, GDroidFragmentReqBuilder> {
-  _$GDroidFragmentReq _$v;
+  _$GDroidFragmentReq? _$v;
 
-  _i3.GDroidFragmentVarsBuilder _vars;
+  _i3.GDroidFragmentVarsBuilder? _vars;
   _i3.GDroidFragmentVarsBuilder get vars =>
       _$this._vars ??= new _i3.GDroidFragmentVarsBuilder();
-  set vars(_i3.GDroidFragmentVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GDroidFragmentVarsBuilder? vars) => _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GDroidFragmentReqBuilder() {
     GDroidFragmentReq._initializeBuilder(this);
   }
 
   GDroidFragmentReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -527,14 +532,12 @@ class GDroidFragmentReqBuilder
 
   @override
   void replace(GDroidFragmentReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GDroidFragmentReq;
   }
 
   @override
-  void update(void Function(GDroidFragmentReqBuilder) updates) {
+  void update(void Function(GDroidFragmentReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -545,11 +548,13 @@ class GDroidFragmentReqBuilder
       _$result = _$v ??
           new _$GDroidFragmentReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GDroidFragmentReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GDroidFragmentReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();

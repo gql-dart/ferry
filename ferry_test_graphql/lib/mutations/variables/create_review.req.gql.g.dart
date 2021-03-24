@@ -17,59 +17,62 @@ class _$GCreateReviewReqSerializer
   final String wireName = 'GCreateReviewReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GCreateReviewReq object,
+  Iterable<Object?> serialize(Serializers serializers, GCreateReviewReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GCreateReviewVars)),
       'operation',
       serializers.serialize(object.operation,
           specifiedType: const FullType(_i4.Operation)),
+      'executeOnListen',
+      serializers.serialize(object.executeOnListen,
+          specifiedType: const FullType(bool)),
     ];
-    if (object.requestId != null) {
+    Object? value;
+    value = object.requestId;
+    if (value != null) {
       result
         ..add('requestId')
-        ..add(serializers.serialize(object.requestId,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.optimisticResponse != null) {
+    value = object.optimisticResponse;
+    if (value != null) {
       result
         ..add('optimisticResponse')
-        ..add(serializers.serialize(object.optimisticResponse,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i2.GCreateReviewData)));
     }
-    if (object.updateCacheHandlerKey != null) {
+    value = object.updateCacheHandlerKey;
+    if (value != null) {
       result
         ..add('updateCacheHandlerKey')
-        ..add(serializers.serialize(object.updateCacheHandlerKey,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.updateCacheHandlerContext != null) {
+    value = object.updateCacheHandlerContext;
+    if (value != null) {
       result
         ..add('updateCacheHandlerContext')
-        ..add(serializers.serialize(object.updateCacheHandlerContext,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 Map, const [const FullType(String), const FullType(dynamic)])));
     }
-    if (object.fetchPolicy != null) {
+    value = object.fetchPolicy;
+    if (value != null) {
       result
         ..add('fetchPolicy')
-        ..add(serializers.serialize(object.fetchPolicy,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i1.FetchPolicy)));
-    }
-    if (object.executeOnListen != null) {
-      result
-        ..add('executeOnListen')
-        ..add(serializers.serialize(object.executeOnListen,
-            specifiedType: const FullType(bool)));
     }
     return result;
   }
 
   @override
   GCreateReviewReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GCreateReviewReqBuilder();
 
@@ -77,11 +80,11 @@ class _$GCreateReviewReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GCreateReviewVars))
+                  specifiedType: const FullType(_i3.GCreateReviewVars))!
               as _i3.GCreateReviewVars);
           break;
         case 'operation':
@@ -94,7 +97,7 @@ class _$GCreateReviewReqSerializer
           break;
         case 'optimisticResponse':
           result.optimisticResponse.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i2.GCreateReviewData))
+                  specifiedType: const FullType(_i2.GCreateReviewData))!
               as _i2.GCreateReviewData);
           break;
         case 'updateCacheHandlerKey':
@@ -130,42 +133,41 @@ class _$GCreateReviewReq extends GCreateReviewReq {
   @override
   final _i4.Operation operation;
   @override
-  final String requestId;
+  final String? requestId;
   @override
-  final _i2.GCreateReviewData Function(
-      _i2.GCreateReviewData, _i2.GCreateReviewData) updateResult;
+  final _i2.GCreateReviewData? Function(
+      _i2.GCreateReviewData?, _i2.GCreateReviewData?)? updateResult;
   @override
-  final _i2.GCreateReviewData optimisticResponse;
+  final _i2.GCreateReviewData? optimisticResponse;
   @override
-  final String updateCacheHandlerKey;
+  final String? updateCacheHandlerKey;
   @override
-  final Map<String, dynamic> updateCacheHandlerContext;
+  final Map<String, dynamic>? updateCacheHandlerContext;
   @override
-  final _i1.FetchPolicy fetchPolicy;
+  final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
 
   factory _$GCreateReviewReq(
-          [void Function(GCreateReviewReqBuilder) updates]) =>
+          [void Function(GCreateReviewReqBuilder)? updates]) =>
       (new GCreateReviewReqBuilder()..update(updates)).build();
 
   _$GCreateReviewReq._(
-      {this.vars,
-      this.operation,
+      {required this.vars,
+      required this.operation,
       this.requestId,
       this.updateResult,
       this.optimisticResponse,
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      this.executeOnListen})
+      required this.executeOnListen})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GCreateReviewReq', 'vars');
-    }
-    if (operation == null) {
-      throw new BuiltValueNullFieldError('GCreateReviewReq', 'operation');
-    }
+    BuiltValueNullFieldError.checkNotNull(vars, 'GCreateReviewReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        operation, 'GCreateReviewReq', 'operation');
+    BuiltValueNullFieldError.checkNotNull(
+        executeOnListen, 'GCreateReviewReq', 'executeOnListen');
   }
 
   @override
@@ -228,57 +230,58 @@ class _$GCreateReviewReq extends GCreateReviewReq {
 
 class GCreateReviewReqBuilder
     implements Builder<GCreateReviewReq, GCreateReviewReqBuilder> {
-  _$GCreateReviewReq _$v;
+  _$GCreateReviewReq? _$v;
 
-  _i3.GCreateReviewVarsBuilder _vars;
+  _i3.GCreateReviewVarsBuilder? _vars;
   _i3.GCreateReviewVarsBuilder get vars =>
       _$this._vars ??= new _i3.GCreateReviewVarsBuilder();
-  set vars(_i3.GCreateReviewVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GCreateReviewVarsBuilder? vars) => _$this._vars = vars;
 
-  _i4.Operation _operation;
-  _i4.Operation get operation => _$this._operation;
-  set operation(_i4.Operation operation) => _$this._operation = operation;
+  _i4.Operation? _operation;
+  _i4.Operation? get operation => _$this._operation;
+  set operation(_i4.Operation? operation) => _$this._operation = operation;
 
-  String _requestId;
-  String get requestId => _$this._requestId;
-  set requestId(String requestId) => _$this._requestId = requestId;
+  String? _requestId;
+  String? get requestId => _$this._requestId;
+  set requestId(String? requestId) => _$this._requestId = requestId;
 
-  _i2.GCreateReviewData Function(_i2.GCreateReviewData, _i2.GCreateReviewData)
-      _updateResult;
-  _i2.GCreateReviewData Function(_i2.GCreateReviewData, _i2.GCreateReviewData)
+  _i2.GCreateReviewData? Function(
+      _i2.GCreateReviewData?, _i2.GCreateReviewData?)? _updateResult;
+  _i2.GCreateReviewData? Function(
+          _i2.GCreateReviewData?, _i2.GCreateReviewData?)?
       get updateResult => _$this._updateResult;
   set updateResult(
-          _i2.GCreateReviewData Function(
-                  _i2.GCreateReviewData, _i2.GCreateReviewData)
+          _i2.GCreateReviewData? Function(
+                  _i2.GCreateReviewData?, _i2.GCreateReviewData?)?
               updateResult) =>
       _$this._updateResult = updateResult;
 
-  _i2.GCreateReviewDataBuilder _optimisticResponse;
+  _i2.GCreateReviewDataBuilder? _optimisticResponse;
   _i2.GCreateReviewDataBuilder get optimisticResponse =>
       _$this._optimisticResponse ??= new _i2.GCreateReviewDataBuilder();
-  set optimisticResponse(_i2.GCreateReviewDataBuilder optimisticResponse) =>
+  set optimisticResponse(_i2.GCreateReviewDataBuilder? optimisticResponse) =>
       _$this._optimisticResponse = optimisticResponse;
 
-  String _updateCacheHandlerKey;
-  String get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
-  set updateCacheHandlerKey(String updateCacheHandlerKey) =>
+  String? _updateCacheHandlerKey;
+  String? get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
+  set updateCacheHandlerKey(String? updateCacheHandlerKey) =>
       _$this._updateCacheHandlerKey = updateCacheHandlerKey;
 
-  Map<String, dynamic> _updateCacheHandlerContext;
-  Map<String, dynamic> get updateCacheHandlerContext =>
+  Map<String, dynamic>? _updateCacheHandlerContext;
+  Map<String, dynamic>? get updateCacheHandlerContext =>
       _$this._updateCacheHandlerContext;
   set updateCacheHandlerContext(
-          Map<String, dynamic> updateCacheHandlerContext) =>
+          Map<String, dynamic>? updateCacheHandlerContext) =>
       _$this._updateCacheHandlerContext = updateCacheHandlerContext;
 
-  _i1.FetchPolicy _fetchPolicy;
-  _i1.FetchPolicy get fetchPolicy => _$this._fetchPolicy;
-  set fetchPolicy(_i1.FetchPolicy fetchPolicy) =>
+  _i1.FetchPolicy? _fetchPolicy;
+  _i1.FetchPolicy? get fetchPolicy => _$this._fetchPolicy;
+  set fetchPolicy(_i1.FetchPolicy? fetchPolicy) =>
       _$this._fetchPolicy = fetchPolicy;
 
-  bool _executeOnListen;
-  bool get executeOnListen => _$this._executeOnListen;
-  set executeOnListen(bool executeOnListen) =>
+  bool? _executeOnListen;
+  bool? get executeOnListen => _$this._executeOnListen;
+  set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
   GCreateReviewReqBuilder() {
@@ -286,16 +289,17 @@ class GCreateReviewReqBuilder
   }
 
   GCreateReviewReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _operation = _$v.operation;
-      _requestId = _$v.requestId;
-      _updateResult = _$v.updateResult;
-      _optimisticResponse = _$v.optimisticResponse?.toBuilder();
-      _updateCacheHandlerKey = _$v.updateCacheHandlerKey;
-      _updateCacheHandlerContext = _$v.updateCacheHandlerContext;
-      _fetchPolicy = _$v.fetchPolicy;
-      _executeOnListen = _$v.executeOnListen;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _operation = $v.operation;
+      _requestId = $v.requestId;
+      _updateResult = $v.updateResult;
+      _optimisticResponse = $v.optimisticResponse?.toBuilder();
+      _updateCacheHandlerKey = $v.updateCacheHandlerKey;
+      _updateCacheHandlerContext = $v.updateCacheHandlerContext;
+      _fetchPolicy = $v.fetchPolicy;
+      _executeOnListen = $v.executeOnListen;
       _$v = null;
     }
     return this;
@@ -303,14 +307,12 @@ class GCreateReviewReqBuilder
 
   @override
   void replace(GCreateReviewReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GCreateReviewReq;
   }
 
   @override
-  void update(void Function(GCreateReviewReqBuilder) updates) {
+  void update(void Function(GCreateReviewReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -321,16 +323,18 @@ class GCreateReviewReqBuilder
       _$result = _$v ??
           new _$GCreateReviewReq._(
               vars: vars.build(),
-              operation: operation,
+              operation: BuiltValueNullFieldError.checkNotNull(
+                  operation, 'GCreateReviewReq', 'operation'),
               requestId: requestId,
               updateResult: updateResult,
               optimisticResponse: _optimisticResponse?.build(),
               updateCacheHandlerKey: updateCacheHandlerKey,
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
-              executeOnListen: executeOnListen);
+              executeOnListen: BuiltValueNullFieldError.checkNotNull(
+                  executeOnListen, 'GCreateReviewReq', 'executeOnListen'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();

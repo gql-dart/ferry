@@ -31,29 +31,23 @@ abstract class GHumanWithArgsReq
   _i4.Operation get operation;
   _i4.Request get execRequest =>
       _i4.Request(operation: operation, variables: vars.toJson());
-  @nullable
-  String get requestId;
-  @nullable
+  String? get requestId;
   @BuiltValueField(serialize: false)
-  _i2.GHumanWithArgsData Function(
-      _i2.GHumanWithArgsData, _i2.GHumanWithArgsData) get updateResult;
-  @nullable
-  _i2.GHumanWithArgsData get optimisticResponse;
-  @nullable
-  String get updateCacheHandlerKey;
-  @nullable
-  Map<String, dynamic> get updateCacheHandlerContext;
-  @nullable
-  _i1.FetchPolicy get fetchPolicy;
-  @nullable
+  _i2.GHumanWithArgsData? Function(
+      _i2.GHumanWithArgsData?, _i2.GHumanWithArgsData?)? get updateResult;
+  _i2.GHumanWithArgsData? get optimisticResponse;
+  String? get updateCacheHandlerKey;
+  Map<String, dynamic>? get updateCacheHandlerContext;
+  _i1.FetchPolicy? get fetchPolicy;
   bool get executeOnListen;
   @override
-  _i2.GHumanWithArgsData parseData(Map<String, dynamic> json) =>
+  _i2.GHumanWithArgsData? parseData(Map<String, dynamic> json) =>
       _i2.GHumanWithArgsData.fromJson(json);
   static Serializer<GHumanWithArgsReq> get serializer =>
       _$gHumanWithArgsReqSerializer;
   Map<String, dynamic> toJson() =>
-      _i6.serializers.serializeWith(GHumanWithArgsReq.serializer, this);
-  static GHumanWithArgsReq fromJson(Map<String, dynamic> json) =>
+      (_i6.serializers.serializeWith(GHumanWithArgsReq.serializer, this)
+          as Map<String, dynamic>);
+  static GHumanWithArgsReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(GHumanWithArgsReq.serializer, json);
 }

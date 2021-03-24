@@ -15,13 +15,13 @@ abstract class GHeroWithFragmentsVars
           [Function(GHeroWithFragmentsVarsBuilder b) updates]) =
       _$GHeroWithFragmentsVars;
 
-  @nullable
-  _i1.GEpisode get episode;
+  _i1.GEpisode? get episode;
   static Serializer<GHeroWithFragmentsVars> get serializer =>
       _$gHeroWithFragmentsVarsSerializer;
   Map<String, dynamic> toJson() =>
-      _i2.serializers.serializeWith(GHeroWithFragmentsVars.serializer, this);
-  static GHeroWithFragmentsVars fromJson(Map<String, dynamic> json) =>
+      (_i2.serializers.serializeWith(GHeroWithFragmentsVars.serializer, this)
+          as Map<String, dynamic>);
+  static GHeroWithFragmentsVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(GHeroWithFragmentsVars.serializer, json);
 }
 
@@ -34,8 +34,9 @@ abstract class GheroDataVars
 
   static Serializer<GheroDataVars> get serializer => _$gheroDataVarsSerializer;
   Map<String, dynamic> toJson() =>
-      _i2.serializers.serializeWith(GheroDataVars.serializer, this);
-  static GheroDataVars fromJson(Map<String, dynamic> json) =>
+      (_i2.serializers.serializeWith(GheroDataVars.serializer, this)
+          as Map<String, dynamic>);
+  static GheroDataVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(GheroDataVars.serializer, json);
 }
 
@@ -47,12 +48,12 @@ abstract class GcomparisonFieldsVars
           [Function(GcomparisonFieldsVarsBuilder b) updates]) =
       _$GcomparisonFieldsVars;
 
-  @nullable
-  int get first;
+  int? get first;
   static Serializer<GcomparisonFieldsVars> get serializer =>
       _$gcomparisonFieldsVarsSerializer;
   Map<String, dynamic> toJson() =>
-      _i2.serializers.serializeWith(GcomparisonFieldsVars.serializer, this);
-  static GcomparisonFieldsVars fromJson(Map<String, dynamic> json) =>
+      (_i2.serializers.serializeWith(GcomparisonFieldsVars.serializer, this)
+          as Map<String, dynamic>);
+  static GcomparisonFieldsVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(GcomparisonFieldsVars.serializer, json);
 }

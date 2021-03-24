@@ -16,7 +16,7 @@ TData dataForRequest<TData, TVars>(OperationRequest<TData, TVars> request) {
   final first = req.vars.first;
   return GReviewsData((b) => b
     ..reviews.addAll([
-      for (int i = offset; i < offset + first; i++)
+      for (int i = offset; i < offset + first!; i++)
         GReviewsData_reviews(
           (b) => b
             ..id = '$i'
@@ -32,14 +32,14 @@ final req = GReviewsReq(
     ..updateResult = updateResult,
 );
 
-final updateResult = (GReviewsData previous, GReviewsData result) =>
-    previous?.rebuild((b) => b..reviews.addAll(result.reviews)) ?? result;
+final updateResult = (GReviewsData? previous, GReviewsData? result) =>
+    previous?.rebuild((b) => b..reviews.addAll(result!.reviews!)) ?? result;
 
 void main() {
   group('RequestControllerTypedLink', () {
-    StreamController<OperationRequest> requestController;
-    StreamController<OperationResponse> responseController;
-    TypedLink typedLink;
+    late StreamController<OperationRequest> requestController;
+    late StreamController<OperationResponse> responseController;
+    late TypedLink typedLink;
 
     setUp(() {
       requestController = StreamController();
@@ -138,22 +138,22 @@ void main() {
 
         final queue = StreamQueue(typedLink.request(req1));
 
-        final reviews1 = dataForRequest(req1).reviews;
-        expect((await queue.next).data.reviews, equals(reviews1));
+        final reviews1 = dataForRequest(req1).reviews!;
+        expect((await queue.next).data!.reviews, equals(reviews1));
 
         final req2 = req1.rebuild((b) => b..vars.offset = 3);
         requestController.add(req2);
         final reviews2 = reviews1.rebuild(
-          (b) => b..addAll(dataForRequest(req2).reviews),
+          (b) => b..addAll(dataForRequest(req2).reviews!),
         );
-        expect((await queue.next).data.reviews, equals(reviews2));
+        expect((await queue.next).data!.reviews, equals(reviews2));
 
         final req3 = req1.rebuild((b) => b..vars.offset = 6);
         requestController.add(req3);
         final reviews3 = reviews2.rebuild(
-          (b) => b..addAll(dataForRequest(req3).reviews),
+          (b) => b..addAll(dataForRequest(req3).reviews!),
         );
-        expect((await queue.next).data.reviews, equals(reviews3));
+        expect((await queue.next).data!.reviews, equals(reviews3));
 
         await responseController.close();
         requestController.close();
@@ -166,15 +166,15 @@ void main() {
 
         final queue = StreamQueue(typedLink.request(req1));
 
-        final reviews1 = dataForRequest(req1).reviews;
-        expect((await queue.next).data.reviews, equals(reviews1));
+        final reviews1 = dataForRequest(req1).reviews!;
+        expect((await queue.next).data!.reviews, equals(reviews1));
 
         final req2 = req1.rebuild((b) => b..vars.offset = 3);
         requestController.add(req2);
         final reviews2 = reviews1.rebuild(
-          (b) => b..addAll(dataForRequest(req2).reviews),
+          (b) => b..addAll(dataForRequest(req2).reviews!),
         );
-        expect((await queue.next).data.reviews, equals(reviews2));
+        expect((await queue.next).data!.reviews, equals(reviews2));
 
         responseController.add(
           OperationResponse<GReviewsData, GReviewsVars>(
@@ -185,7 +185,7 @@ void main() {
             ),
           ),
         );
-        expect((await queue.next).data.reviews.first.stars, equals(1));
+        expect((await queue.next).data!.reviews!.first.stars, equals(1));
 
         await responseController.close();
         requestController.close();

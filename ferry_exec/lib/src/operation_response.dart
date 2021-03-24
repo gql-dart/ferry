@@ -30,13 +30,13 @@ class OperationResponse<TData, TVars> {
   final DataSource dataSource;
 
   /// The typed data of this response.
-  final TData data;
+  final TData? data;
 
   /// The list of errors in this response.
-  final List<GraphQLError> graphqlErrors;
+  final List<GraphQLError>? graphqlErrors;
 
   /// Any error returned by [Link]
-  final LinkException linkException;
+  final LinkException? linkException;
 
   // TODO: is there a better way to implement loading?
   bool get loading => linkException == null && data == null;
@@ -44,18 +44,18 @@ class OperationResponse<TData, TVars> {
   /// If this response has any error.
   bool get hasErrors =>
       linkException != null ||
-      (graphqlErrors != null && graphqlErrors.isNotEmpty);
+      (graphqlErrors != null && graphqlErrors!.isNotEmpty);
 
   /// Instantiates a GraphQL response.
   const OperationResponse({
-    @required this.operationRequest,
+    required this.operationRequest,
     this.dataSource = DataSource.None,
     this.data,
     this.graphqlErrors,
     this.linkException,
   });
 
-  List<Object> _getChildren() => [
+  List<Object?> _getChildren() => [
         operationRequest,
         dataSource,
         data,

@@ -13,7 +13,7 @@ class AddTypenameTypedLink extends TypedLink {
     OperationRequest<TData, TVars> req, [
     forward,
   ]) =>
-      forward(_addTypename(req));
+      forward!(_addTypename(req));
 
   OperationRequest<TData, TVars> _addTypename<TData, TVars>(
     OperationRequest<TData, TVars> request,

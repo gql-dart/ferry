@@ -33,7 +33,7 @@ Set<String> reachableIds(
 /// Includes the given [dataId] itself.
 Set<String> reachableIdsFromDataId(
   String dataId,
-  Map<String, dynamic> Function(String dataId) read, [
+  Map<String, dynamic>? Function(String dataId) read, [
   String referenceKey = '\$ref',
 ]) =>
     _idsInObject(read(dataId), read, referenceKey, {})..add(dataId);

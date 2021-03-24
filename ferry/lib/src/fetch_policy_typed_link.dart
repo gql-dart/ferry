@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:meta/meta.dart';
 import 'package:gql_link/gql_link.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:normalize/utils.dart';
@@ -28,12 +27,12 @@ class FetchPolicyTypedLink extends TypedLink {
   final Map<OperationType, FetchPolicy> defaultFetchPolicies;
   final Cache cache;
 
-  TypedLink _optimisticLinkTypedLink;
-  CacheTypedLink _cacheTypedLink;
+  late TypedLink _optimisticLinkTypedLink;
+  late CacheTypedLink _cacheTypedLink;
 
   FetchPolicyTypedLink({
-    @required Link link,
-    Cache cache,
+    required Link link,
+    Cache? cache,
     Map<OperationType, FetchPolicy> defaultFetchPolicies = const {},
   })  : cache = cache ?? Cache(),
         defaultFetchPolicies = {
@@ -114,8 +113,9 @@ class FetchPolicyTypedLink extends TypedLink {
                 ]),
               )
         ]);
+      default:
+        throw Exception('Unrecognized FetchPolicy');
     }
-    return null;
   }
 
   /// Removes any previous optimistic patch for the request.

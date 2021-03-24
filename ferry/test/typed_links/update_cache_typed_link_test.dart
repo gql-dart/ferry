@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:async/async.dart';
 import 'package:mockito/mockito.dart';
+import 'package:mockito/annotations.dart';
 import 'package:gql_link/gql_link.dart';
 import 'package:gql_exec/gql_exec.dart';
 import 'package:test/test.dart';
@@ -20,7 +21,7 @@ import 'package:ferry_test_graphql/schema/schema.schema.gql.dart';
 import 'package:ferry_test_graphql/queries/variables/human_with_args.req.gql.dart';
 import 'package:ferry_test_graphql/queries/variables/human_with_args.data.gql.dart';
 
-class MockLink extends Mock implements Link {}
+import './update_cache_typed_link_test.mocks.dart';
 
 final createReviewData = GCreateReviewData(
   (b) => b
@@ -40,11 +41,12 @@ UpdateCacheHandler<GCreateReviewData, GCreateReviewVars> createReviewHandler = (
   proxy.writeQuery(
     reviewsReq,
     reviews.rebuild((b) => b
-      ..reviews.add(
-          GReviewsData_reviews.fromJson(response.data.createReview.toJson()))),
+      ..reviews.add(GReviewsData_reviews.fromJson(
+          response.data!.createReview!.toJson())!)),
   );
 };
 
+@GenerateMocks([Link])
 void main() {
   group('CacheProxy', () {
     group('writing queries', () {
@@ -78,10 +80,10 @@ void main() {
     );
 
     MockLink mockLink;
-    StreamController<Response> linkController;
-    Cache cache;
-    StreamController<OperationRequest> requestController;
-    TypedLink typedLink;
+    late StreamController<Response> linkController;
+    late Cache cache;
+    late StreamController<OperationRequest> requestController;
+    late TypedLink typedLink;
 
     final updateCacheHandlers = {
       'createReviewHandler': createReviewHandler,
@@ -125,12 +127,12 @@ void main() {
         linkController.add(Response(data: createReviewData.toJson()));
         await queue.next;
 
-        expect(cache.readQuery(reviewsReq).reviews.length, equals(1));
+        expect(cache.readQuery(reviewsReq)!.reviews!.length, equals(1));
 
         linkController.add(Response(data: createReviewData.toJson()));
         await queue.next;
 
-        expect(cache.readQuery(reviewsReq).reviews.length, equals(1));
+        expect(cache.readQuery(reviewsReq)!.reviews!.length, equals(1));
       });
     });
 
@@ -152,27 +154,27 @@ void main() {
         requestController.add(req);
         await queue.next;
 
-        expect(cache.readQuery(reviewsReq).reviews.length, equals(1));
+        expect(cache.readQuery(reviewsReq)!.reviews!.length, equals(1));
         expect(
-          cache.readQuery(reviewsReq).reviews.first.id,
+          cache.readQuery(reviewsReq)!.reviews!.first.id,
           equals('456'),
         );
 
         linkController.add(Response(data: createReviewData.toJson()));
         await queue.next;
 
-        expect(cache.readQuery(reviewsReq).reviews.length, equals(1));
+        expect(cache.readQuery(reviewsReq)!.reviews!.length, equals(1));
         expect(
-          cache.readQuery(reviewsReq).reviews.first.id,
+          cache.readQuery(reviewsReq)!.reviews!.first.id,
           equals('123'),
         );
 
         linkController.add(Response(data: createReviewData.toJson()));
         await queue.next;
 
-        expect(cache.readQuery(reviewsReq).reviews.length, equals(1));
+        expect(cache.readQuery(reviewsReq)!.reviews!.length, equals(1));
         expect(
-          cache.readQuery(reviewsReq).reviews.first.id,
+          cache.readQuery(reviewsReq)!.reviews!.first.id,
           equals('123'),
         );
       });

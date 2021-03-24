@@ -16,11 +16,18 @@ List<Class> buildOperationReqClasses(
 Class _buildOperationReqClass(
   OperationDefinitionNode node,
 ) {
-  final dataTypeRef = refer('${builtClassName(node.name.value)}Data', '#data');
-  final varTypeRef = refer('${builtClassName(node.name.value)}Vars', '#var');
+  final dataTypeRef = refer('${builtClassName(node.name!.value)}Data', '#data');
+  final nullableDataTypeRef = TypeReference(
+    (b) => b
+      ..symbol = dataTypeRef.symbol
+      ..url = dataTypeRef.url
+      ..isNullable = true,
+  );
+
+  final varTypeRef = refer('${builtClassName(node.name!.value)}Vars', '#var');
 
   return builtClass(
-    name: '${node.name.value}Req',
+    name: '${node.name!.value}Req',
     getters: [
       Method(
         (b) => b
@@ -56,16 +63,17 @@ Class _buildOperationReqClass(
       ),
       Method(
         (b) => b
-          ..annotations
-              .add(refer('nullable', 'package:built_value/built_value.dart'))
-          ..returns = refer('String')
+          ..returns = TypeReference(
+            (b) => b
+              ..symbol = 'String'
+              ..isNullable = true,
+          )
           ..type = MethodType.getter
           ..name = 'requestId',
       ),
       Method(
         (b) => b
           ..annotations.addAll([
-            refer('nullable', 'package:built_value/built_value.dart'),
             refer('BuiltValueField', 'package:built_value/built_value.dart')
                 .call([], {
               'serialize': refer('false'),
@@ -73,10 +81,11 @@ Class _buildOperationReqClass(
           ])
           ..returns = FunctionType(
             (b) => b
-              ..returnType = dataTypeRef
+              ..isNullable = true
+              ..returnType = nullableDataTypeRef
               ..requiredParameters = ListBuilder<Reference>([
-                dataTypeRef,
-                dataTypeRef,
+                nullableDataTypeRef,
+                nullableDataTypeRef,
               ]),
           )
           ..type = MethodType.getter
@@ -84,40 +93,43 @@ Class _buildOperationReqClass(
       ),
       Method(
         (b) => b
-          ..annotations
-              .add(refer('nullable', 'package:built_value/built_value.dart'))
-          ..returns = dataTypeRef
+          ..returns = nullableDataTypeRef
           ..type = MethodType.getter
           ..name = 'optimisticResponse',
       ),
       Method(
         (b) => b
-          ..annotations
-              .add(refer('nullable', 'package:built_value/built_value.dart'))
-          ..returns = refer('String')
+          ..returns = TypeReference(
+            (b) => b
+              ..symbol = 'String'
+              ..isNullable = true,
+          )
           ..type = MethodType.getter
           ..name = 'updateCacheHandlerKey',
       ),
       Method(
         (b) => b
-          ..annotations
-              .add(refer('nullable', 'package:built_value/built_value.dart'))
-          ..returns = refer('Map<String, dynamic>')
+          ..returns = TypeReference(
+            (b) => b
+              ..symbol = 'Map<String, dynamic>'
+              ..isNullable = true,
+          )
           ..type = MethodType.getter
           ..name = 'updateCacheHandlerContext',
       ),
       Method(
         (b) => b
-          ..annotations
-              .add(refer('nullable', 'package:built_value/built_value.dart'))
-          ..returns = refer('FetchPolicy', 'package:ferry_exec/ferry_exec.dart')
+          ..returns = TypeReference(
+            (b) => b
+              ..symbol = 'FetchPolicy'
+              ..url = 'package:ferry_exec/ferry_exec.dart'
+              ..isNullable = true,
+          )
           ..type = MethodType.getter
           ..name = 'fetchPolicy',
       ),
       Method(
         (b) => b
-          ..annotations
-              .add(refer('nullable', 'package:built_value/built_value.dart'))
           ..returns = refer('bool')
           ..type = MethodType.getter
           ..name = 'executeOnListen',
@@ -125,7 +137,7 @@ Class _buildOperationReqClass(
       Method(
         (b) => b
           ..annotations.add(refer('override'))
-          ..returns = dataTypeRef
+          ..returns = nullableDataTypeRef
           ..name = 'parseData'
           ..requiredParameters.add(
             Parameter(
@@ -143,7 +155,7 @@ Class _buildOperationReqClass(
         [],
         {
           'document': refer('document', '#ast'),
-          'operationName': literalString(node.name.value),
+          'operationName': literalString(node.name!.value),
         },
       ),
       'executeOnListen': literalTrue,

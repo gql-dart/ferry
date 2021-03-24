@@ -3,8 +3,8 @@ import 'package:ferry_exec/ferry_exec.dart';
 
 typedef OperationResponseBuilder<TData, TVars> = Widget Function(
   BuildContext context,
-  OperationResponse<TData, TVars> response,
-  Object error,
+  OperationResponse<TData, TVars>? response,
+  Object? error,
 );
 
 class Operation<TData, TVars> extends StatefulWidget {
@@ -13,9 +13,9 @@ class Operation<TData, TVars> extends StatefulWidget {
   final TypedLink client;
 
   Operation({
-    @required this.operationRequest,
-    @required this.builder,
-    @required this.client,
+    required this.operationRequest,
+    required this.builder,
+    required this.client,
   });
 
   @override
@@ -23,7 +23,7 @@ class Operation<TData, TVars> extends StatefulWidget {
 }
 
 class _OperationState<TData, TVars> extends State<Operation<TData, TVars>> {
-  Stream<OperationResponse<TData, TVars>> stream;
+  Stream<OperationResponse<TData, TVars>>? stream;
 
   Stream<OperationResponse<TData, TVars>> _getStream() =>
       widget.client.request(widget.operationRequest).distinct();

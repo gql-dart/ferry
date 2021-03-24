@@ -43,16 +43,14 @@ abstract class GReviewInput
       _$GReviewInput;
 
   int get stars;
-  @nullable
-  String get commentary;
-  @nullable
-  GColorInput get favorite_color;
-  @nullable
-  BuiltList<DateTime> get seenOn;
+  String? get commentary;
+  GColorInput? get favorite_color;
+  BuiltList<DateTime>? get seenOn;
   static Serializer<GReviewInput> get serializer => _$gReviewInputSerializer;
   Map<String, dynamic> toJson() =>
-      _i1.serializers.serializeWith(GReviewInput.serializer, this);
-  static GReviewInput fromJson(Map<String, dynamic> json) =>
+      (_i1.serializers.serializeWith(GReviewInput.serializer, this)
+          as Map<String, dynamic>);
+  static GReviewInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(GReviewInput.serializer, json);
 }
 
@@ -66,20 +64,21 @@ abstract class GColorInput implements Built<GColorInput, GColorInputBuilder> {
   int get blue;
   static Serializer<GColorInput> get serializer => _$gColorInputSerializer;
   Map<String, dynamic> toJson() =>
-      _i1.serializers.serializeWith(GColorInput.serializer, this);
-  static GColorInput fromJson(Map<String, dynamic> json) =>
+      (_i1.serializers.serializeWith(GColorInput.serializer, this)
+          as Map<String, dynamic>);
+  static GColorInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(GColorInput.serializer, json);
 }
 
 abstract class GISODate implements Built<GISODate, GISODateBuilder> {
   GISODate._();
 
-  factory GISODate([String value]) =>
+  factory GISODate([String? value]) =>
       _$GISODate((b) => value != null ? (b..value = value) : b);
 
   String get value;
   @BuiltValueSerializer(custom: true)
   static Serializer<GISODate> get serializer =>
       _i2.DefaultScalarSerializer<GISODate>(
-          (Object serialized) => GISODate(serialized));
+          (Object serialized) => GISODate((serialized as String?)));
 }

@@ -19,15 +19,14 @@ abstract class GAliasedHeroData
       b..G__typename = 'Query';
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
-  @nullable
-  GAliasedHeroData_empireHero get empireHero;
-  @nullable
-  GAliasedHeroData_jediHero get jediHero;
+  GAliasedHeroData_empireHero? get empireHero;
+  GAliasedHeroData_jediHero? get jediHero;
   static Serializer<GAliasedHeroData> get serializer =>
       _$gAliasedHeroDataSerializer;
   Map<String, dynamic> toJson() =>
-      _i1.serializers.serializeWith(GAliasedHeroData.serializer, this);
-  static GAliasedHeroData fromJson(Map<String, dynamic> json) =>
+      (_i1.serializers.serializeWith(GAliasedHeroData.serializer, this)
+          as Map<String, dynamic>);
+  static GAliasedHeroData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(GAliasedHeroData.serializer, json);
 }
 
@@ -46,13 +45,12 @@ abstract class GAliasedHeroData_empireHero
   String get G__typename;
   String get id;
   String get name;
-  @nullable
   BuiltList<_i2.GEpisode> get from;
   static Serializer<GAliasedHeroData_empireHero> get serializer =>
       _$gAliasedHeroDataEmpireHeroSerializer;
-  Map<String, dynamic> toJson() => _i1.serializers
-      .serializeWith(GAliasedHeroData_empireHero.serializer, this);
-  static GAliasedHeroData_empireHero fromJson(Map<String, dynamic> json) =>
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+      GAliasedHeroData_empireHero.serializer, this) as Map<String, dynamic>);
+  static GAliasedHeroData_empireHero? fromJson(Map<String, dynamic> json) =>
       _i1.serializers
           .deserializeWith(GAliasedHeroData_empireHero.serializer, json);
 }
@@ -72,13 +70,13 @@ abstract class GAliasedHeroData_jediHero
   String get G__typename;
   String get id;
   String get name;
-  @nullable
   BuiltList<_i2.GEpisode> get from;
   static Serializer<GAliasedHeroData_jediHero> get serializer =>
       _$gAliasedHeroDataJediHeroSerializer;
   Map<String, dynamic> toJson() =>
-      _i1.serializers.serializeWith(GAliasedHeroData_jediHero.serializer, this);
-  static GAliasedHeroData_jediHero fromJson(Map<String, dynamic> json) =>
+      (_i1.serializers.serializeWith(GAliasedHeroData_jediHero.serializer, this)
+          as Map<String, dynamic>);
+  static GAliasedHeroData_jediHero? fromJson(Map<String, dynamic> json) =>
       _i1.serializers
           .deserializeWith(GAliasedHeroData_jediHero.serializer, json);
 }

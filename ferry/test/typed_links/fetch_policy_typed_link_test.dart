@@ -1,19 +1,20 @@
 import 'dart:async';
 import 'package:async/async.dart';
 import 'package:mockito/mockito.dart';
+import 'package:mockito/annotations.dart';
 import 'package:gql_link/gql_link.dart';
 import 'package:gql_exec/gql_exec.dart';
 import 'package:test/test.dart';
 import 'package:rxdart/rxdart.dart';
+
 import 'package:ferry_exec/ferry_exec.dart';
-
 import 'package:ferry/src/fetch_policy_typed_link.dart';
-
 import 'package:ferry_test_graphql/queries/variables/human_with_args.req.gql.dart';
 import 'package:ferry_test_graphql/queries/variables/human_with_args.data.gql.dart';
 
-class MockLink extends Mock implements Link {}
+import './fetch_policy_typed_link_test.mocks.dart';
 
+@GenerateMocks([Link])
 void main() {
   group('Fetch Policy', () {
     final mockLink = MockLink();
@@ -45,9 +46,9 @@ void main() {
       ]).interval(Duration(milliseconds: 10)),
     );
 
-    StreamController<OperationRequest> requestController;
-    TypedLink typedLink;
-    Cache cache;
+    late StreamController<OperationRequest> requestController;
+    late TypedLink typedLink;
+    late Cache cache;
 
     setUp(() {
       requestController = StreamController<OperationRequest>();
@@ -57,7 +58,7 @@ void main() {
           <TData, TVars>(req, [forward]) => requestController.stream
               .whereType<OperationRequest<TData, TVars>>()
               .switchMap(
-                (req) => forward(req),
+                (req) => forward!(req),
               ),
         ),
         FetchPolicyTypedLink(link: mockLink, cache: cache),

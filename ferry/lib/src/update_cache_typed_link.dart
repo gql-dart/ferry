@@ -12,28 +12,28 @@ export 'package:ferry_cache/ferry_cache.dart';
 /// Sets the [_optimisticRequest] property based on the originating request.
 class CacheProxy {
   final Cache _cache;
-  final OperationRequest _optimisticRequest;
+  final OperationRequest? _optimisticRequest;
 
   bool get _optimistic => _optimisticRequest != null;
 
   CacheProxy(
     Cache cache, [
-    OperationRequest optimisticRequest,
+    OperationRequest? optimisticRequest,
   ])  : _cache = cache,
         _optimisticRequest = optimisticRequest;
 
-  TData readQuery<TData, TVars>(
+  TData? readQuery<TData, TVars>(
     OperationRequest<TData, TVars> request, {
-    bool optimistic,
+    bool? optimistic,
   }) =>
       _cache.readQuery(
         request,
         optimistic: optimistic ?? _optimistic,
       );
 
-  TData readFragment<TData, TVars>(
+  TData? readFragment<TData, TVars>(
     FragmentRequest<TData, TVars> request, {
-    bool optimistic,
+    bool? optimistic,
   }) =>
       _cache.readFragment(
         request,
@@ -60,12 +60,12 @@ class CacheProxy {
         optimisticRequest: _optimisticRequest,
       );
 
-  String identify<TData>(TData data) => _cache.identify(data);
+  String? identify<TData>(TData data) => _cache.identify(data);
 
   void evict(
     String entityId, {
-    String fieldName,
-    Map<String, dynamic> args,
+    String? fieldName,
+    Map<String, dynamic> args = const {},
   }) =>
       _cache.evict(
         entityId,
@@ -109,8 +109,8 @@ class UpdateCacheTypedLink extends TypedLink {
   final Map<String, Function> updateCacheHandlers;
 
   const UpdateCacheTypedLink({
-    @required this.cache,
-    @required this.updateCacheHandlers,
+    required this.cache,
+    required this.updateCacheHandlers,
   });
 
   @override
@@ -118,7 +118,7 @@ class UpdateCacheTypedLink extends TypedLink {
     OperationRequest<TData, TVars> req, [
     forward,
   ]) =>
-      forward(req)
+      forward!(req)
           .transform(StreamTransformer.fromBind(_updateCacheHandlersStream));
 
   Stream<OperationResponse<TData, TVars>>
@@ -132,7 +132,7 @@ class UpdateCacheTypedLink extends TypedLink {
       if (key == null) return;
 
       final handler =
-          updateCacheHandlers[key] as UpdateCacheHandler<TData, TVars>;
+          updateCacheHandlers[key] as UpdateCacheHandler<TData, TVars>?;
       if (handler == null) throw Exception('No handler defined for key $key');
 
       final proxy = res.dataSource == DataSource.Optimistic

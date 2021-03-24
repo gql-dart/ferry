@@ -1,3 +1,5 @@
+import 'package:meta/meta.dart';
+
 import './operation_request.dart';
 import './operation_response.dart';
 
@@ -20,7 +22,7 @@ typedef TypedLinkRouter<TData, TVars> = TypedLink Function(
 typedef TypedLinkFunction = Stream<OperationResponse<TData, TVars>>
     Function<TData, TVars>(
   OperationRequest<TData, TVars> request, [
-  NextTypedLink<TData, TVars> forward,
+  NextTypedLink<TData, TVars>? forward,
 ]);
 
 /// A fully typed implementation of gql_link
@@ -59,10 +61,11 @@ abstract class TypedLink {
   factory TypedLink.split(
     bool Function<TData, TVars>(OperationRequest<TData, TVars> request) test,
     TypedLink left, [
-    TypedLink right,
+    TypedLink right = const PassthroughTypedLink(),
   ]) =>
       _RouterTypedLink(
-          (request) => test(request) ? left : right ?? _PassthroughTypedLink());
+        (request) => test(request) ? left : right,
+      );
 
   /// Adds [next] after this typedLink
   TypedLink concat(
@@ -80,11 +83,11 @@ abstract class TypedLink {
   TypedLink split(
     bool Function<TData, TVars>(OperationRequest<TData, TVars> request) test,
     TypedLink left, [
-    TypedLink right,
+    TypedLink right = const PassthroughTypedLink(),
   ]) =>
       concat(
         _RouterTypedLink(
-          (request) => test(request) ? left : right ?? _PassthroughTypedLink(),
+          (request) => test(request) ? left : right,
         ),
       );
 
@@ -97,7 +100,7 @@ abstract class TypedLink {
     /// the next [TypedLink]
     ///
     /// Terminating [TypedLink]s do not call this function.
-    NextTypedLink<TData, TVars> forward,
+    NextTypedLink<TData, TVars>? forward,
   ]);
 
   Future<void> dispose() async => null;
@@ -111,7 +114,7 @@ class _FunctionTypedLink extends TypedLink {
   @override
   Stream<OperationResponse<TData, TVars>> request<TData, TVars>(
     OperationRequest<TData, TVars> request, [
-    NextTypedLink<TData, TVars> forward,
+    NextTypedLink<TData, TVars>? forward,
   ]) =>
       function<TData, TVars>(request, forward);
 }
@@ -124,27 +127,28 @@ class _TypedLinkChain extends TypedLink {
   @override
   Stream<OperationResponse<TData, TVars>> request<TData, TVars>(
     OperationRequest<TData, TVars> request, [
-    NextTypedLink<TData, TVars> forward,
+    NextTypedLink<TData, TVars>? forward,
   ]) =>
-      typedLinks.reversed.fold<NextTypedLink<TData, TVars>>(
+      typedLinks.reversed.fold<NextTypedLink<TData, TVars>?>(
         forward,
         (fw, typedLink) => (op) => typedLink.request(op, fw),
-      )(request);
+      )!(request);
 
   @override
   Future<void> dispose() =>
       Future.wait(typedLinks.map((typedLink) => typedLink.dispose()));
 }
 
-class _PassthroughTypedLink extends TypedLink {
-  const _PassthroughTypedLink();
+@visibleForTesting
+class PassthroughTypedLink extends TypedLink {
+  const PassthroughTypedLink();
 
   @override
   Stream<OperationResponse<TData, TVars>> request<TData, TVars>(
     OperationRequest<TData, TVars> request, [
-    NextTypedLink<TData, TVars> forward,
+    NextTypedLink<TData, TVars>? forward,
   ]) =>
-      forward(request);
+      forward!(request);
 }
 
 class _RouterTypedLink extends TypedLink {
@@ -152,12 +156,12 @@ class _RouterTypedLink extends TypedLink {
 
   const _RouterTypedLink(
     this.routeFn,
-  ) : assert(routeFn != null);
+  );
 
   @override
   Stream<OperationResponse<TData, TVars>> request<TData, TVars>(
     OperationRequest<TData, TVars> request, [
-    NextTypedLink<TData, TVars> forward,
+    NextTypedLink<TData, TVars>? forward,
   ]) async* {
     final typedLink = routeFn(request);
 

@@ -31,29 +31,23 @@ abstract class GCreateReviewReq
   _i4.Operation get operation;
   _i4.Request get execRequest =>
       _i4.Request(operation: operation, variables: vars.toJson());
-  @nullable
-  String get requestId;
-  @nullable
+  String? get requestId;
   @BuiltValueField(serialize: false)
-  _i2.GCreateReviewData Function(_i2.GCreateReviewData, _i2.GCreateReviewData)
-      get updateResult;
-  @nullable
-  _i2.GCreateReviewData get optimisticResponse;
-  @nullable
-  String get updateCacheHandlerKey;
-  @nullable
-  Map<String, dynamic> get updateCacheHandlerContext;
-  @nullable
-  _i1.FetchPolicy get fetchPolicy;
-  @nullable
+  _i2.GCreateReviewData? Function(
+      _i2.GCreateReviewData?, _i2.GCreateReviewData?)? get updateResult;
+  _i2.GCreateReviewData? get optimisticResponse;
+  String? get updateCacheHandlerKey;
+  Map<String, dynamic>? get updateCacheHandlerContext;
+  _i1.FetchPolicy? get fetchPolicy;
   bool get executeOnListen;
   @override
-  _i2.GCreateReviewData parseData(Map<String, dynamic> json) =>
+  _i2.GCreateReviewData? parseData(Map<String, dynamic> json) =>
       _i2.GCreateReviewData.fromJson(json);
   static Serializer<GCreateReviewReq> get serializer =>
       _$gCreateReviewReqSerializer;
   Map<String, dynamic> toJson() =>
-      _i6.serializers.serializeWith(GCreateReviewReq.serializer, this);
-  static GCreateReviewReq fromJson(Map<String, dynamic> json) =>
+      (_i6.serializers.serializeWith(GCreateReviewReq.serializer, this)
+          as Map<String, dynamic>);
+  static GCreateReviewReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(GCreateReviewReq.serializer, json);
 }

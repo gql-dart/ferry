@@ -31,29 +31,23 @@ abstract class GAliasedHeroReq
   _i4.Operation get operation;
   _i4.Request get execRequest =>
       _i4.Request(operation: operation, variables: vars.toJson());
-  @nullable
-  String get requestId;
-  @nullable
+  String? get requestId;
   @BuiltValueField(serialize: false)
-  _i2.GAliasedHeroData Function(_i2.GAliasedHeroData, _i2.GAliasedHeroData)
+  _i2.GAliasedHeroData? Function(_i2.GAliasedHeroData?, _i2.GAliasedHeroData?)?
       get updateResult;
-  @nullable
-  _i2.GAliasedHeroData get optimisticResponse;
-  @nullable
-  String get updateCacheHandlerKey;
-  @nullable
-  Map<String, dynamic> get updateCacheHandlerContext;
-  @nullable
-  _i1.FetchPolicy get fetchPolicy;
-  @nullable
+  _i2.GAliasedHeroData? get optimisticResponse;
+  String? get updateCacheHandlerKey;
+  Map<String, dynamic>? get updateCacheHandlerContext;
+  _i1.FetchPolicy? get fetchPolicy;
   bool get executeOnListen;
   @override
-  _i2.GAliasedHeroData parseData(Map<String, dynamic> json) =>
+  _i2.GAliasedHeroData? parseData(Map<String, dynamic> json) =>
       _i2.GAliasedHeroData.fromJson(json);
   static Serializer<GAliasedHeroReq> get serializer =>
       _$gAliasedHeroReqSerializer;
   Map<String, dynamic> toJson() =>
-      _i6.serializers.serializeWith(GAliasedHeroReq.serializer, this);
-  static GAliasedHeroReq fromJson(Map<String, dynamic> json) =>
+      (_i6.serializers.serializeWith(GAliasedHeroReq.serializer, this)
+          as Map<String, dynamic>);
+  static GAliasedHeroReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(GAliasedHeroReq.serializer, json);
 }

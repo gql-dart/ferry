@@ -13,9 +13,9 @@ class HiveStore extends Store {
   Iterable<String> get keys => List.from(box.keys);
 
   @override
-  Stream<Map<String, dynamic>> watch(String dataId) => box
+  Stream<Map<String, dynamic>?> watch(String dataId) => box
       .watch(key: dataId)
-      .map<Map<String, dynamic>>(
+      .map<Map<String, dynamic>?>(
           (event) => event.value == null ? null : Map.from(event.value))
       .startWith(get(dataId))
       .distinct(
@@ -26,14 +26,15 @@ class HiveStore extends Store {
       );
 
   @override
-  Map<String, dynamic> get(String dataId) =>
+  Map<String, dynamic>? get(String dataId) =>
       box.get(dataId) == null ? null : Map.from(box.get(dataId));
 
   @override
-  void put(String dataId, Map<String, dynamic> value) => box.put(dataId, value);
+  void put(String dataId, Map<String, dynamic>? value) =>
+      box.put(dataId, value);
 
   @override
-  void putAll(Map<String, Map<String, dynamic>> data) => box.putAll(data);
+  void putAll(Map<String, Map<String, dynamic>?> data) => box.putAll(data);
 
   @override
   void delete(String dataId) => box.delete(dataId);

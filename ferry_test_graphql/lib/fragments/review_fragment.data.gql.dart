@@ -9,7 +9,7 @@ part 'review_fragment.data.gql.g.dart';
 abstract class GReviewFragment {
   String get G__typename;
   int get stars;
-  String get commentary;
+  String? get commentary;
   Map<String, dynamic> toJson();
 }
 
@@ -27,12 +27,12 @@ abstract class GReviewFragmentData
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   int get stars;
-  @nullable
-  String get commentary;
+  String? get commentary;
   static Serializer<GReviewFragmentData> get serializer =>
       _$gReviewFragmentDataSerializer;
   Map<String, dynamic> toJson() =>
-      _i1.serializers.serializeWith(GReviewFragmentData.serializer, this);
-  static GReviewFragmentData fromJson(Map<String, dynamic> json) =>
+      (_i1.serializers.serializeWith(GReviewFragmentData.serializer, this)
+          as Map<String, dynamic>);
+  static GReviewFragmentData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(GReviewFragmentData.serializer, json);
 }

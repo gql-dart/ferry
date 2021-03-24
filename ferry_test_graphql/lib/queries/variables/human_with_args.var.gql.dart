@@ -14,12 +14,12 @@ abstract class GHumanWithArgsVars
       _$GHumanWithArgsVars;
 
   String get id;
-  @nullable
-  String get friendsAfter;
+  String? get friendsAfter;
   static Serializer<GHumanWithArgsVars> get serializer =>
       _$gHumanWithArgsVarsSerializer;
   Map<String, dynamic> toJson() =>
-      _i1.serializers.serializeWith(GHumanWithArgsVars.serializer, this);
-  static GHumanWithArgsVars fromJson(Map<String, dynamic> json) =>
+      (_i1.serializers.serializeWith(GHumanWithArgsVars.serializer, this)
+          as Map<String, dynamic>);
+  static GHumanWithArgsVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(GHumanWithArgsVars.serializer, json);
 }

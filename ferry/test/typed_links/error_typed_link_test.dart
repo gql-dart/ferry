@@ -1,19 +1,21 @@
 import 'package:test/test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:rxdart/rxdart.dart';
+import 'package:mockito/annotations.dart';
 
+import 'package:rxdart/rxdart.dart';
 import 'package:ferry/ferry.dart';
 import 'package:ferry/src/error_typed_link.dart';
 import 'package:ferry_test_graphql/queries/variables/human_with_args.req.gql.dart';
 import 'package:ferry_test_graphql/queries/variables/human_with_args.data.gql.dart';
 
-class MockTypedLink extends Mock implements TypedLink {}
+import './error_typed_link_test.mocks.dart';
 
+@GenerateMocks([TypedLink])
 void main() {
   final req = GHumanWithArgsReq((b) => b..vars.id = '123');
   final mockTypedLink = MockTypedLink();
 
-  TypedLink client;
+  late TypedLink client;
 
   group('Error Catching', () {
     setUpAll(() {

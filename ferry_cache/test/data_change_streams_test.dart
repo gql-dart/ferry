@@ -29,7 +29,7 @@ final han = GHeroWithFragmentsData_hero(
         .add(GHeroWithFragmentsData_hero_friendsConnection_edges(
           (b) => b
             ..node = GHeroWithFragmentsData_hero_friendsConnection_edges_node
-                    .fromJson(luke.toJson())
+                    .fromJson(luke.toJson())!
                 .toBuilder(),
         )),
 );
@@ -40,7 +40,7 @@ final heroReq = GHeroWithFragmentsReq((b) => b..vars.episode = GEpisode.EMPIRE);
 final heroData = GHeroWithFragmentsData((b) => b..hero = han.toBuilder());
 
 void main() {
-  Cache cache;
+  late Cache cache;
 
   setUp(() {
     cache = Cache()

@@ -17,30 +17,35 @@ class _$GReviewFragmentReqSerializer
   final String wireName = 'GReviewFragmentReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GReviewFragmentReq object,
+  Iterable<Object?> serialize(
+      Serializers serializers, GReviewFragmentReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GReviewFragmentVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i5.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GReviewFragmentReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GReviewFragmentReqBuilder();
 
@@ -48,11 +53,11 @@ class _$GReviewFragmentReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GReviewFragmentVars))
+                  specifiedType: const FullType(_i3.GReviewFragmentVars))!
               as _i3.GReviewFragmentVars);
           break;
         case 'document':
@@ -84,29 +89,25 @@ class _$GReviewFragmentReq extends GReviewFragmentReq {
   @override
   final _i5.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
   factory _$GReviewFragmentReq(
-          [void Function(GReviewFragmentReqBuilder) updates]) =>
+          [void Function(GReviewFragmentReqBuilder)? updates]) =>
       (new GReviewFragmentReqBuilder()..update(updates)).build();
 
   _$GReviewFragmentReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GReviewFragmentReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError('GReviewFragmentReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError('GReviewFragmentReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError('GReviewFragmentReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(vars, 'GReviewFragmentReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GReviewFragmentReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GReviewFragmentReq', 'idFields');
   }
 
   @override
@@ -149,35 +150,36 @@ class _$GReviewFragmentReq extends GReviewFragmentReq {
 
 class GReviewFragmentReqBuilder
     implements Builder<GReviewFragmentReq, GReviewFragmentReqBuilder> {
-  _$GReviewFragmentReq _$v;
+  _$GReviewFragmentReq? _$v;
 
-  _i3.GReviewFragmentVarsBuilder _vars;
+  _i3.GReviewFragmentVarsBuilder? _vars;
   _i3.GReviewFragmentVarsBuilder get vars =>
       _$this._vars ??= new _i3.GReviewFragmentVarsBuilder();
-  set vars(_i3.GReviewFragmentVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GReviewFragmentVarsBuilder? vars) => _$this._vars = vars;
 
-  _i5.DocumentNode _document;
-  _i5.DocumentNode get document => _$this._document;
-  set document(_i5.DocumentNode document) => _$this._document = document;
+  _i5.DocumentNode? _document;
+  _i5.DocumentNode? get document => _$this._document;
+  set document(_i5.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GReviewFragmentReqBuilder() {
     GReviewFragmentReq._initializeBuilder(this);
   }
 
   GReviewFragmentReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -185,14 +187,12 @@ class GReviewFragmentReqBuilder
 
   @override
   void replace(GReviewFragmentReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GReviewFragmentReq;
   }
 
   @override
-  void update(void Function(GReviewFragmentReqBuilder) updates) {
+  void update(void Function(GReviewFragmentReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -203,11 +203,13 @@ class GReviewFragmentReqBuilder
       _$result = _$v ??
           new _$GReviewFragmentReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GReviewFragmentReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GReviewFragmentReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
