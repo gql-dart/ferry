@@ -28,15 +28,16 @@ abstract class GReviewFragmentReq
     ..fragmentName = 'ReviewFragment';
   _i3.GReviewFragmentVars get vars;
   _i5.DocumentNode get document;
-  String get fragmentName;
+  String? get fragmentName;
   Map<String, dynamic> get idFields;
   @override
-  _i2.GReviewFragmentData parseData(Map<String, dynamic> json) =>
+  _i2.GReviewFragmentData? parseData(Map<String, dynamic> json) =>
       _i2.GReviewFragmentData.fromJson(json);
   static Serializer<GReviewFragmentReq> get serializer =>
       _$gReviewFragmentReqSerializer;
   Map<String, dynamic> toJson() =>
-      _i6.serializers.serializeWith(GReviewFragmentReq.serializer, this);
-  static GReviewFragmentReq fromJson(Map<String, dynamic> json) =>
+      (_i6.serializers.serializeWith(GReviewFragmentReq.serializer, this)
+          as Map<String, dynamic>);
+  static GReviewFragmentReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(GReviewFragmentReq.serializer, json);
 }

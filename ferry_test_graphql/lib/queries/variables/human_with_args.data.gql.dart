@@ -22,8 +22,9 @@ abstract class GHumanWithArgsData
   static Serializer<GHumanWithArgsData> get serializer =>
       _$gHumanWithArgsDataSerializer;
   Map<String, dynamic> toJson() =>
-      _i1.serializers.serializeWith(GHumanWithArgsData.serializer, this);
-  static GHumanWithArgsData fromJson(Map<String, dynamic> json) =>
+      (_i1.serializers.serializeWith(GHumanWithArgsData.serializer, this)
+          as Map<String, dynamic>);
+  static GHumanWithArgsData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(GHumanWithArgsData.serializer, json);
 }
 
@@ -42,14 +43,14 @@ abstract class GHumanWithArgsData_human
   String get G__typename;
   String get id;
   String get name;
-  @nullable
-  double get height;
+  double? get height;
   GHumanWithArgsData_human_friendsConnection get friendsConnection;
   static Serializer<GHumanWithArgsData_human> get serializer =>
       _$gHumanWithArgsDataHumanSerializer;
   Map<String, dynamic> toJson() =>
-      _i1.serializers.serializeWith(GHumanWithArgsData_human.serializer, this);
-  static GHumanWithArgsData_human fromJson(Map<String, dynamic> json) =>
+      (_i1.serializers.serializeWith(GHumanWithArgsData_human.serializer, this)
+          as Map<String, dynamic>);
+  static GHumanWithArgsData_human? fromJson(Map<String, dynamic> json) =>
       _i1.serializers
           .deserializeWith(GHumanWithArgsData_human.serializer, json);
 }
@@ -69,13 +70,13 @@ abstract class GHumanWithArgsData_human_friendsConnection
       b..G__typename = 'FriendsConnection';
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
-  @nullable
-  BuiltList<GHumanWithArgsData_human_friendsConnection_friends> get friends;
+  BuiltList<GHumanWithArgsData_human_friendsConnection_friends>? get friends;
   static Serializer<GHumanWithArgsData_human_friendsConnection>
       get serializer => _$gHumanWithArgsDataHumanFriendsConnectionSerializer;
-  Map<String, dynamic> toJson() => _i1.serializers.serializeWith(
-      GHumanWithArgsData_human_friendsConnection.serializer, this);
-  static GHumanWithArgsData_human_friendsConnection fromJson(
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+          GHumanWithArgsData_human_friendsConnection.serializer, this)
+      as Map<String, dynamic>);
+  static GHumanWithArgsData_human_friendsConnection? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
           GHumanWithArgsData_human_friendsConnection.serializer, json);
@@ -101,9 +102,10 @@ abstract class GHumanWithArgsData_human_friendsConnection_friends
   static Serializer<GHumanWithArgsData_human_friendsConnection_friends>
       get serializer =>
           _$gHumanWithArgsDataHumanFriendsConnectionFriendsSerializer;
-  Map<String, dynamic> toJson() => _i1.serializers.serializeWith(
-      GHumanWithArgsData_human_friendsConnection_friends.serializer, this);
-  static GHumanWithArgsData_human_friendsConnection_friends fromJson(
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+          GHumanWithArgsData_human_friendsConnection_friends.serializer, this)
+      as Map<String, dynamic>);
+  static GHumanWithArgsData_human_friendsConnection_friends? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
           GHumanWithArgsData_human_friendsConnection_friends.serializer, json);

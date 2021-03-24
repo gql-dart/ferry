@@ -32,30 +32,24 @@ abstract class GHeroForEpisodeReq
   _i4.Operation get operation;
   _i4.Request get execRequest =>
       _i4.Request(operation: operation, variables: vars.toJson());
-  @nullable
-  String get requestId;
-  @nullable
+  String? get requestId;
   @BuiltValueField(serialize: false)
-  _i2.GHeroForEpisodeData Function(
-      _i2.GHeroForEpisodeData, _i2.GHeroForEpisodeData) get updateResult;
-  @nullable
-  _i2.GHeroForEpisodeData get optimisticResponse;
-  @nullable
-  String get updateCacheHandlerKey;
-  @nullable
-  Map<String, dynamic> get updateCacheHandlerContext;
-  @nullable
-  _i1.FetchPolicy get fetchPolicy;
-  @nullable
+  _i2.GHeroForEpisodeData? Function(
+      _i2.GHeroForEpisodeData?, _i2.GHeroForEpisodeData?)? get updateResult;
+  _i2.GHeroForEpisodeData? get optimisticResponse;
+  String? get updateCacheHandlerKey;
+  Map<String, dynamic>? get updateCacheHandlerContext;
+  _i1.FetchPolicy? get fetchPolicy;
   bool get executeOnListen;
   @override
-  _i2.GHeroForEpisodeData parseData(Map<String, dynamic> json) =>
+  _i2.GHeroForEpisodeData? parseData(Map<String, dynamic> json) =>
       _i2.GHeroForEpisodeData.fromJson(json);
   static Serializer<GHeroForEpisodeReq> get serializer =>
       _$gHeroForEpisodeReqSerializer;
   Map<String, dynamic> toJson() =>
-      _i6.serializers.serializeWith(GHeroForEpisodeReq.serializer, this);
-  static GHeroForEpisodeReq fromJson(Map<String, dynamic> json) =>
+      (_i6.serializers.serializeWith(GHeroForEpisodeReq.serializer, this)
+          as Map<String, dynamic>);
+  static GHeroForEpisodeReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(GHeroForEpisodeReq.serializer, json);
 }
 
@@ -73,15 +67,16 @@ abstract class GDroidFragmentReq
     ..fragmentName = 'DroidFragment';
   _i3.GDroidFragmentVars get vars;
   _i7.DocumentNode get document;
-  String get fragmentName;
+  String? get fragmentName;
   Map<String, dynamic> get idFields;
   @override
-  _i2.GDroidFragmentData parseData(Map<String, dynamic> json) =>
+  _i2.GDroidFragmentData? parseData(Map<String, dynamic> json) =>
       _i2.GDroidFragmentData.fromJson(json);
   static Serializer<GDroidFragmentReq> get serializer =>
       _$gDroidFragmentReqSerializer;
   Map<String, dynamic> toJson() =>
-      _i6.serializers.serializeWith(GDroidFragmentReq.serializer, this);
-  static GDroidFragmentReq fromJson(Map<String, dynamic> json) =>
+      (_i6.serializers.serializeWith(GDroidFragmentReq.serializer, this)
+          as Map<String, dynamic>);
+  static GDroidFragmentReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(GDroidFragmentReq.serializer, json);
 }

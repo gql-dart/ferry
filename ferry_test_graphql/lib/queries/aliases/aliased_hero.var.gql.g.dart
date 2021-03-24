@@ -17,9 +17,9 @@ class _$GAliasedHeroVarsSerializer
   final String wireName = 'GAliasedHeroVars';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GAliasedHeroVars object,
+  Iterable<Object?> serialize(Serializers serializers, GAliasedHeroVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'ep',
       serializers.serialize(object.ep,
           specifiedType: const FullType(_i1.GEpisode)),
@@ -30,7 +30,7 @@ class _$GAliasedHeroVarsSerializer
 
   @override
   GAliasedHeroVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GAliasedHeroVarsBuilder();
 
@@ -38,7 +38,7 @@ class _$GAliasedHeroVarsSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'ep':
           result.ep = serializers.deserialize(value,
@@ -56,13 +56,11 @@ class _$GAliasedHeroVars extends GAliasedHeroVars {
   final _i1.GEpisode ep;
 
   factory _$GAliasedHeroVars(
-          [void Function(GAliasedHeroVarsBuilder) updates]) =>
+          [void Function(GAliasedHeroVarsBuilder)? updates]) =>
       (new GAliasedHeroVarsBuilder()..update(updates)).build();
 
-  _$GAliasedHeroVars._({this.ep}) : super._() {
-    if (ep == null) {
-      throw new BuiltValueNullFieldError('GAliasedHeroVars', 'ep');
-    }
+  _$GAliasedHeroVars._({required this.ep}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(ep, 'GAliasedHeroVars', 'ep');
   }
 
   @override
@@ -93,17 +91,18 @@ class _$GAliasedHeroVars extends GAliasedHeroVars {
 
 class GAliasedHeroVarsBuilder
     implements Builder<GAliasedHeroVars, GAliasedHeroVarsBuilder> {
-  _$GAliasedHeroVars _$v;
+  _$GAliasedHeroVars? _$v;
 
-  _i1.GEpisode _ep;
-  _i1.GEpisode get ep => _$this._ep;
-  set ep(_i1.GEpisode ep) => _$this._ep = ep;
+  _i1.GEpisode? _ep;
+  _i1.GEpisode? get ep => _$this._ep;
+  set ep(_i1.GEpisode? ep) => _$this._ep = ep;
 
   GAliasedHeroVarsBuilder();
 
   GAliasedHeroVarsBuilder get _$this {
-    if (_$v != null) {
-      _ep = _$v.ep;
+    final $v = _$v;
+    if ($v != null) {
+      _ep = $v.ep;
       _$v = null;
     }
     return this;
@@ -111,20 +110,21 @@ class GAliasedHeroVarsBuilder
 
   @override
   void replace(GAliasedHeroVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GAliasedHeroVars;
   }
 
   @override
-  void update(void Function(GAliasedHeroVarsBuilder) updates) {
+  void update(void Function(GAliasedHeroVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$GAliasedHeroVars build() {
-    final _$result = _$v ?? new _$GAliasedHeroVars._(ep: ep);
+    final _$result = _$v ??
+        new _$GAliasedHeroVars._(
+            ep: BuiltValueNullFieldError.checkNotNull(
+                ep, 'GAliasedHeroVars', 'ep'));
     replace(_$result);
     return _$result;
   }

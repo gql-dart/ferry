@@ -24,14 +24,16 @@ class _$GHeroWithFragmentsVarsSerializer
   final String wireName = 'GHeroWithFragmentsVars';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GHeroWithFragmentsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    if (object.episode != null) {
+    final result = <Object?>[];
+    Object? value;
+    value = object.episode;
+    if (value != null) {
       result
         ..add('episode')
-        ..add(serializers.serialize(object.episode,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i1.GEpisode)));
     }
     return result;
@@ -39,7 +41,7 @@ class _$GHeroWithFragmentsVarsSerializer
 
   @override
   GHeroWithFragmentsVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GHeroWithFragmentsVarsBuilder();
 
@@ -47,7 +49,7 @@ class _$GHeroWithFragmentsVarsSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'episode':
           result.episode = serializers.deserialize(value,
@@ -67,14 +69,14 @@ class _$GheroDataVarsSerializer implements StructuredSerializer<GheroDataVars> {
   final String wireName = 'GheroDataVars';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GheroDataVars object,
+  Iterable<Object?> serialize(Serializers serializers, GheroDataVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GheroDataVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GheroDataVarsBuilder().build();
   }
@@ -91,22 +93,23 @@ class _$GcomparisonFieldsVarsSerializer
   final String wireName = 'GcomparisonFieldsVars';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GcomparisonFieldsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    if (object.first != null) {
+    final result = <Object?>[];
+    Object? value;
+    value = object.first;
+    if (value != null) {
       result
         ..add('first')
-        ..add(serializers.serialize(object.first,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
     return result;
   }
 
   @override
   GcomparisonFieldsVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GcomparisonFieldsVarsBuilder();
 
@@ -114,7 +117,7 @@ class _$GcomparisonFieldsVarsSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'first':
           result.first = serializers.deserialize(value,
@@ -129,10 +132,10 @@ class _$GcomparisonFieldsVarsSerializer
 
 class _$GHeroWithFragmentsVars extends GHeroWithFragmentsVars {
   @override
-  final _i1.GEpisode episode;
+  final _i1.GEpisode? episode;
 
   factory _$GHeroWithFragmentsVars(
-          [void Function(GHeroWithFragmentsVarsBuilder) updates]) =>
+          [void Function(GHeroWithFragmentsVarsBuilder)? updates]) =>
       (new GHeroWithFragmentsVarsBuilder()..update(updates)).build();
 
   _$GHeroWithFragmentsVars._({this.episode}) : super._();
@@ -167,17 +170,18 @@ class _$GHeroWithFragmentsVars extends GHeroWithFragmentsVars {
 
 class GHeroWithFragmentsVarsBuilder
     implements Builder<GHeroWithFragmentsVars, GHeroWithFragmentsVarsBuilder> {
-  _$GHeroWithFragmentsVars _$v;
+  _$GHeroWithFragmentsVars? _$v;
 
-  _i1.GEpisode _episode;
-  _i1.GEpisode get episode => _$this._episode;
-  set episode(_i1.GEpisode episode) => _$this._episode = episode;
+  _i1.GEpisode? _episode;
+  _i1.GEpisode? get episode => _$this._episode;
+  set episode(_i1.GEpisode? episode) => _$this._episode = episode;
 
   GHeroWithFragmentsVarsBuilder();
 
   GHeroWithFragmentsVarsBuilder get _$this {
-    if (_$v != null) {
-      _episode = _$v.episode;
+    final $v = _$v;
+    if ($v != null) {
+      _episode = $v.episode;
       _$v = null;
     }
     return this;
@@ -185,14 +189,12 @@ class GHeroWithFragmentsVarsBuilder
 
   @override
   void replace(GHeroWithFragmentsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GHeroWithFragmentsVars;
   }
 
   @override
-  void update(void Function(GHeroWithFragmentsVarsBuilder) updates) {
+  void update(void Function(GHeroWithFragmentsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -205,7 +207,7 @@ class GHeroWithFragmentsVarsBuilder
 }
 
 class _$GheroDataVars extends GheroDataVars {
-  factory _$GheroDataVars([void Function(GheroDataVarsBuilder) updates]) =>
+  factory _$GheroDataVars([void Function(GheroDataVarsBuilder)? updates]) =>
       (new GheroDataVarsBuilder()..update(updates)).build();
 
   _$GheroDataVars._() : super._();
@@ -236,20 +238,18 @@ class _$GheroDataVars extends GheroDataVars {
 
 class GheroDataVarsBuilder
     implements Builder<GheroDataVars, GheroDataVarsBuilder> {
-  _$GheroDataVars _$v;
+  _$GheroDataVars? _$v;
 
   GheroDataVarsBuilder();
 
   @override
   void replace(GheroDataVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GheroDataVars;
   }
 
   @override
-  void update(void Function(GheroDataVarsBuilder) updates) {
+  void update(void Function(GheroDataVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -263,10 +263,10 @@ class GheroDataVarsBuilder
 
 class _$GcomparisonFieldsVars extends GcomparisonFieldsVars {
   @override
-  final int first;
+  final int? first;
 
   factory _$GcomparisonFieldsVars(
-          [void Function(GcomparisonFieldsVarsBuilder) updates]) =>
+          [void Function(GcomparisonFieldsVarsBuilder)? updates]) =>
       (new GcomparisonFieldsVarsBuilder()..update(updates)).build();
 
   _$GcomparisonFieldsVars._({this.first}) : super._();
@@ -301,17 +301,18 @@ class _$GcomparisonFieldsVars extends GcomparisonFieldsVars {
 
 class GcomparisonFieldsVarsBuilder
     implements Builder<GcomparisonFieldsVars, GcomparisonFieldsVarsBuilder> {
-  _$GcomparisonFieldsVars _$v;
+  _$GcomparisonFieldsVars? _$v;
 
-  int _first;
-  int get first => _$this._first;
-  set first(int first) => _$this._first = first;
+  int? _first;
+  int? get first => _$this._first;
+  set first(int? first) => _$this._first = first;
 
   GcomparisonFieldsVarsBuilder();
 
   GcomparisonFieldsVarsBuilder get _$this {
-    if (_$v != null) {
-      _first = _$v.first;
+    final $v = _$v;
+    if ($v != null) {
+      _first = $v.first;
       _$v = null;
     }
     return this;
@@ -319,14 +320,12 @@ class GcomparisonFieldsVarsBuilder
 
   @override
   void replace(GcomparisonFieldsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GcomparisonFieldsVars;
   }
 
   @override
-  void update(void Function(GcomparisonFieldsVarsBuilder) updates) {
+  void update(void Function(GcomparisonFieldsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 

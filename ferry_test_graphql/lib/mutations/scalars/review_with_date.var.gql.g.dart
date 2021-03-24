@@ -20,24 +20,27 @@ class _$GReviewWithDateVarsSerializer
   final String wireName = 'GReviewWithDateVars';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GReviewWithDateVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'review',
       serializers.serialize(object.review,
           specifiedType: const FullType(_i1.GReviewInput)),
     ];
-    if (object.episode != null) {
+    Object? value;
+    value = object.episode;
+    if (value != null) {
       result
         ..add('episode')
-        ..add(serializers.serialize(object.episode,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i1.GEpisode)));
     }
-    if (object.createdAt != null) {
+    value = object.createdAt;
+    if (value != null) {
       result
         ..add('createdAt')
-        ..add(serializers.serialize(object.createdAt,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
     }
     return result;
@@ -45,7 +48,7 @@ class _$GReviewWithDateVarsSerializer
 
   @override
   GReviewWithDateVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GReviewWithDateVarsBuilder();
 
@@ -53,7 +56,7 @@ class _$GReviewWithDateVarsSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'episode':
           result.episode = serializers.deserialize(value,
@@ -61,7 +64,7 @@ class _$GReviewWithDateVarsSerializer
           break;
         case 'review':
           result.review.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i1.GReviewInput))
+                  specifiedType: const FullType(_i1.GReviewInput))!
               as _i1.GReviewInput);
           break;
         case 'createdAt':
@@ -77,21 +80,20 @@ class _$GReviewWithDateVarsSerializer
 
 class _$GReviewWithDateVars extends GReviewWithDateVars {
   @override
-  final _i1.GEpisode episode;
+  final _i1.GEpisode? episode;
   @override
   final _i1.GReviewInput review;
   @override
-  final DateTime createdAt;
+  final DateTime? createdAt;
 
   factory _$GReviewWithDateVars(
-          [void Function(GReviewWithDateVarsBuilder) updates]) =>
+          [void Function(GReviewWithDateVarsBuilder)? updates]) =>
       (new GReviewWithDateVarsBuilder()..update(updates)).build();
 
-  _$GReviewWithDateVars._({this.episode, this.review, this.createdAt})
+  _$GReviewWithDateVars._({this.episode, required this.review, this.createdAt})
       : super._() {
-    if (review == null) {
-      throw new BuiltValueNullFieldError('GReviewWithDateVars', 'review');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        review, 'GReviewWithDateVars', 'review');
   }
 
   @override
@@ -130,28 +132,29 @@ class _$GReviewWithDateVars extends GReviewWithDateVars {
 
 class GReviewWithDateVarsBuilder
     implements Builder<GReviewWithDateVars, GReviewWithDateVarsBuilder> {
-  _$GReviewWithDateVars _$v;
+  _$GReviewWithDateVars? _$v;
 
-  _i1.GEpisode _episode;
-  _i1.GEpisode get episode => _$this._episode;
-  set episode(_i1.GEpisode episode) => _$this._episode = episode;
+  _i1.GEpisode? _episode;
+  _i1.GEpisode? get episode => _$this._episode;
+  set episode(_i1.GEpisode? episode) => _$this._episode = episode;
 
-  _i1.GReviewInputBuilder _review;
+  _i1.GReviewInputBuilder? _review;
   _i1.GReviewInputBuilder get review =>
       _$this._review ??= new _i1.GReviewInputBuilder();
-  set review(_i1.GReviewInputBuilder review) => _$this._review = review;
+  set review(_i1.GReviewInputBuilder? review) => _$this._review = review;
 
-  DateTime _createdAt;
-  DateTime get createdAt => _$this._createdAt;
-  set createdAt(DateTime createdAt) => _$this._createdAt = createdAt;
+  DateTime? _createdAt;
+  DateTime? get createdAt => _$this._createdAt;
+  set createdAt(DateTime? createdAt) => _$this._createdAt = createdAt;
 
   GReviewWithDateVarsBuilder();
 
   GReviewWithDateVarsBuilder get _$this {
-    if (_$v != null) {
-      _episode = _$v.episode;
-      _review = _$v.review?.toBuilder();
-      _createdAt = _$v.createdAt;
+    final $v = _$v;
+    if ($v != null) {
+      _episode = $v.episode;
+      _review = $v.review.toBuilder();
+      _createdAt = $v.createdAt;
       _$v = null;
     }
     return this;
@@ -159,14 +162,12 @@ class GReviewWithDateVarsBuilder
 
   @override
   void replace(GReviewWithDateVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GReviewWithDateVars;
   }
 
   @override
-  void update(void Function(GReviewWithDateVarsBuilder) updates) {
+  void update(void Function(GReviewWithDateVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -178,7 +179,7 @@ class GReviewWithDateVarsBuilder
           new _$GReviewWithDateVars._(
               episode: episode, review: review.build(), createdAt: createdAt);
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'review';
         review.build();

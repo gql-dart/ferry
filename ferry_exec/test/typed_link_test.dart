@@ -12,7 +12,7 @@ final _TerminatingTypedLink = TypedLink.function(
 
 final _Req2TypedLink = TypedLink.function(
   <TData, TVars>(request, [next]) =>
-      next((request as dynamic).rebuild((b) => b..requestId = '2')).map(
+      next!((request as dynamic).rebuild((b) => b..requestId = '2')).map(
     (response) => OperationResponse(
       operationRequest: response.operationRequest,
       dataSource: DataSource.Cache,
@@ -22,7 +22,7 @@ final _Req2TypedLink = TypedLink.function(
 
 final _Req3TypedLink = TypedLink.function(
   <TData, TVars>(request, [next]) =>
-      next((request as dynamic).rebuild((b) => b..requestId = '3')).map(
+      next!((request as dynamic).rebuild((b) => b..requestId = '3')).map(
     (response) => OperationResponse(
       operationRequest: response.operationRequest,
       dataSource: DataSource.Link,

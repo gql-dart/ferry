@@ -20,15 +20,15 @@ class _$GReviewFragmentVarsSerializer
   final String wireName = 'GReviewFragmentVars';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GReviewFragmentVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GReviewFragmentVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GReviewFragmentVarsBuilder().build();
   }
@@ -36,7 +36,7 @@ class _$GReviewFragmentVarsSerializer
 
 class _$GReviewFragmentVars extends GReviewFragmentVars {
   factory _$GReviewFragmentVars(
-          [void Function(GReviewFragmentVarsBuilder) updates]) =>
+          [void Function(GReviewFragmentVarsBuilder)? updates]) =>
       (new GReviewFragmentVarsBuilder()..update(updates)).build();
 
   _$GReviewFragmentVars._() : super._();
@@ -69,20 +69,18 @@ class _$GReviewFragmentVars extends GReviewFragmentVars {
 
 class GReviewFragmentVarsBuilder
     implements Builder<GReviewFragmentVars, GReviewFragmentVarsBuilder> {
-  _$GReviewFragmentVars _$v;
+  _$GReviewFragmentVars? _$v;
 
   GReviewFragmentVarsBuilder();
 
   @override
   void replace(GReviewFragmentVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GReviewFragmentVars;
   }
 
   @override
-  void update(void Function(GReviewFragmentVarsBuilder) updates) {
+  void update(void Function(GReviewFragmentVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 

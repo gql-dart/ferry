@@ -13,9 +13,9 @@ import 'utils/operation_root_data.dart';
 Stream<Set<String>> operationDataChangeStream<TData, TVars>(
   OperationRequest<TData, TVars> request,
   bool optimistic,
-  Stream<Map<OperationRequest, Map<String, Map<String, dynamic>>>>
+  Stream<Map<OperationRequest, Map<String, Map<String, dynamic>?>>?>
       optimisticPatchesStream,
-  Map<String, dynamic> Function(String dataId) optimisticReader,
+  Map<String, dynamic>? Function(String dataId) optimisticReader,
   Store store,
   Map<String, TypePolicy> typePolicies,
   bool addTypename,
@@ -67,7 +67,7 @@ Stream<Set<String>> operationDataChangeStream<TData, TVars>(
         .doOnData((_) => changed.add(dataId));
   });
 
-  return CombineLatestStream<Map<String, dynamic>, Set<String>>(
+  return CombineLatestStream<Map<String, dynamic>?, Set<String>>(
     streams,
     (_) {
       final result = {...changed};

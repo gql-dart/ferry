@@ -17,7 +17,7 @@ class RequestControllerTypedLink extends TypedLink {
   final StreamController<OperationRequest> requestController;
 
   RequestControllerTypedLink([
-    StreamController<OperationRequest> controller,
+    StreamController<OperationRequest>? controller,
   ]) : requestController = controller ?? StreamController.broadcast();
 
   @override
@@ -26,7 +26,7 @@ class RequestControllerTypedLink extends TypedLink {
     forward,
   ]) {
     var initial = true;
-    ValueStream<OperationResponse<TData, TVars>> prev;
+    ValueStream<OperationResponse<TData, TVars>>? prev;
 
     return requestController.stream
         .whereType<OperationRequest<TData, TVars>>()
@@ -45,16 +45,16 @@ class RequestControllerTypedLink extends TypedLink {
     ).switchMap(
       (req) {
         final stream = req.updateResult == null
-            ? forward(req)
+            ? forward!(req)
             : CombineLatestStream.combine2<
-                OperationResponse<TData, TVars>,
+                OperationResponse<TData, TVars>?,
                 OperationResponse<TData, TVars>,
                 OperationResponse<TData, TVars>>(
                 prev ?? Stream.value(null),
-                forward(req),
-                (previous, response) => OperationResponse(
+                forward!(req),
+                (previous, response) => OperationResponse<TData, TVars>(
                   operationRequest: response.operationRequest,
-                  data: response.operationRequest.updateResult(
+                  data: response.operationRequest.updateResult!(
                     previous?.data,
                     response.data,
                   ),

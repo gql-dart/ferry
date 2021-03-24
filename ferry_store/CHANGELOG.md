@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0-nullsafety.1]
+
+- fix: allow put of null
+
+## [0.4.0-nullsafety.0]
+
+- initial support for null safety
+
 ## [0.3.2]
 
 - update dependencies
@@ -16,7 +24,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - upgrade `rxdart` to latest version
-
 
 ## [0.3.0] - 2020-10-07
 

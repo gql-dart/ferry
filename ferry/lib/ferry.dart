@@ -25,12 +25,12 @@ class Client extends TypedLink {
   final Map<OperationType, FetchPolicy> defaultFetchPolicies;
   final bool addTypename;
 
-  TypedLink _typedLink;
+  late TypedLink _typedLink;
 
   Client({
-    @required this.link,
-    Cache cache,
-    StreamController<OperationRequest> requestController,
+    required this.link,
+    Cache? cache,
+    StreamController<OperationRequest>? requestController,
     this.typePolicies = const {},
     this.updateCacheHandlers = const {},
     this.defaultFetchPolicies = const {},

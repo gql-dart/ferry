@@ -7,8 +7,11 @@ class DateSerializer implements PrimitiveSerializer<DateTime> {
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    assert(serialized is int,
-        "DateSerializer expected 'int' but got ${serialized.runtimeType}");
+    if (!(serialized is int)) {
+      throw Exception(
+        "DateSerializer expected 'int' but got ${serialized.runtimeType}",
+      );
+    }
     return DateTime.fromMillisecondsSinceEpoch(serialized);
   }
 
@@ -24,5 +27,5 @@ class DateSerializer implements PrimitiveSerializer<DateTime> {
   Iterable<Type> get types => [DateTime];
 
   @override
-  String get wireName => "Date";
+  String get wireName => 'Date';
 }

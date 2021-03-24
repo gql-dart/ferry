@@ -30,28 +30,22 @@ abstract class GReviewsReq
   _i4.Operation get operation;
   _i4.Request get execRequest =>
       _i4.Request(operation: operation, variables: vars.toJson());
-  @nullable
-  String get requestId;
-  @nullable
+  String? get requestId;
   @BuiltValueField(serialize: false)
-  _i2.GReviewsData Function(_i2.GReviewsData, _i2.GReviewsData)
+  _i2.GReviewsData? Function(_i2.GReviewsData?, _i2.GReviewsData?)?
       get updateResult;
-  @nullable
-  _i2.GReviewsData get optimisticResponse;
-  @nullable
-  String get updateCacheHandlerKey;
-  @nullable
-  Map<String, dynamic> get updateCacheHandlerContext;
-  @nullable
-  _i1.FetchPolicy get fetchPolicy;
-  @nullable
+  _i2.GReviewsData? get optimisticResponse;
+  String? get updateCacheHandlerKey;
+  Map<String, dynamic>? get updateCacheHandlerContext;
+  _i1.FetchPolicy? get fetchPolicy;
   bool get executeOnListen;
   @override
-  _i2.GReviewsData parseData(Map<String, dynamic> json) =>
+  _i2.GReviewsData? parseData(Map<String, dynamic> json) =>
       _i2.GReviewsData.fromJson(json);
   static Serializer<GReviewsReq> get serializer => _$gReviewsReqSerializer;
   Map<String, dynamic> toJson() =>
-      _i6.serializers.serializeWith(GReviewsReq.serializer, this);
-  static GReviewsReq fromJson(Map<String, dynamic> json) =>
+      (_i6.serializers.serializeWith(GReviewsReq.serializer, this)
+          as Map<String, dynamic>);
+  static GReviewsReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(GReviewsReq.serializer, json);
 }

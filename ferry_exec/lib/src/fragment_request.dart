@@ -5,7 +5,7 @@ abstract class FragmentRequest<TData, TVars> {
 
   DocumentNode get document;
 
-  String get fragmentName;
+  String? get fragmentName;
 
   /// A map of id fields, based on [TypePolicy.keyFields] for the given type,
   /// and their respective values. By default, `id` or `_id` are used.
@@ -19,5 +19,5 @@ abstract class FragmentRequest<TData, TVars> {
   Map<String, dynamic> get idFields;
 
   /// This is a simple wrapper on the static fromJson method on the generated class.
-  TData parseData(Map<String, dynamic> json);
+  TData? parseData(Map<String, dynamic> json);
 }

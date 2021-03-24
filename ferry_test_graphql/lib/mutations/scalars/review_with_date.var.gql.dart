@@ -14,15 +14,14 @@ abstract class GReviewWithDateVars
   factory GReviewWithDateVars(
       [Function(GReviewWithDateVarsBuilder b) updates]) = _$GReviewWithDateVars;
 
-  @nullable
-  _i1.GEpisode get episode;
+  _i1.GEpisode? get episode;
   _i1.GReviewInput get review;
-  @nullable
-  DateTime get createdAt;
+  DateTime? get createdAt;
   static Serializer<GReviewWithDateVars> get serializer =>
       _$gReviewWithDateVarsSerializer;
   Map<String, dynamic> toJson() =>
-      _i2.serializers.serializeWith(GReviewWithDateVars.serializer, this);
-  static GReviewWithDateVars fromJson(Map<String, dynamic> json) =>
+      (_i2.serializers.serializeWith(GReviewWithDateVars.serializer, this)
+          as Map<String, dynamic>);
+  static GReviewWithDateVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(GReviewWithDateVars.serializer, json);
 }

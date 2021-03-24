@@ -17,13 +17,13 @@ abstract class GHeroNoVarsData
       b..G__typename = 'Query';
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
-  @nullable
-  GHeroNoVarsData_hero get hero;
+  GHeroNoVarsData_hero? get hero;
   static Serializer<GHeroNoVarsData> get serializer =>
       _$gHeroNoVarsDataSerializer;
   Map<String, dynamic> toJson() =>
-      _i1.serializers.serializeWith(GHeroNoVarsData.serializer, this);
-  static GHeroNoVarsData fromJson(Map<String, dynamic> json) =>
+      (_i1.serializers.serializeWith(GHeroNoVarsData.serializer, this)
+          as Map<String, dynamic>);
+  static GHeroNoVarsData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(GHeroNoVarsData.serializer, json);
 }
 
@@ -44,7 +44,8 @@ abstract class GHeroNoVarsData_hero
   static Serializer<GHeroNoVarsData_hero> get serializer =>
       _$gHeroNoVarsDataHeroSerializer;
   Map<String, dynamic> toJson() =>
-      _i1.serializers.serializeWith(GHeroNoVarsData_hero.serializer, this);
-  static GHeroNoVarsData_hero fromJson(Map<String, dynamic> json) =>
+      (_i1.serializers.serializeWith(GHeroNoVarsData_hero.serializer, this)
+          as Map<String, dynamic>);
+  static GHeroNoVarsData_hero? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(GHeroNoVarsData_hero.serializer, json);
 }

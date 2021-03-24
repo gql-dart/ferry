@@ -28,18 +28,20 @@ class _$GHeroForEpisodeDataSerializer
   final String wireName = 'GHeroForEpisodeData';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GHeroForEpisodeData object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       '__typename',
       serializers.serialize(object.G__typename,
           specifiedType: const FullType(String)),
     ];
-    if (object.hero != null) {
+    Object? value;
+    value = object.hero;
+    if (value != null) {
       result
         ..add('hero')
-        ..add(serializers.serialize(object.hero,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(GHeroForEpisodeData_hero)));
     }
     return result;
@@ -47,7 +49,7 @@ class _$GHeroForEpisodeDataSerializer
 
   @override
   GHeroForEpisodeData deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GHeroForEpisodeDataBuilder();
 
@@ -55,7 +57,7 @@ class _$GHeroForEpisodeDataSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case '__typename':
           result.G__typename = serializers.deserialize(value,
@@ -84,10 +86,10 @@ class _$GHeroForEpisodeData_hero__baseSerializer
   final String wireName = 'GHeroForEpisodeData_hero__base';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GHeroForEpisodeData_hero__base object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       '__typename',
       serializers.serialize(object.G__typename,
           specifiedType: const FullType(String)),
@@ -100,7 +102,7 @@ class _$GHeroForEpisodeData_hero__baseSerializer
 
   @override
   GHeroForEpisodeData_hero__base deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GHeroForEpisodeData_hero__baseBuilder();
 
@@ -108,7 +110,7 @@ class _$GHeroForEpisodeData_hero__baseSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case '__typename':
           result.G__typename = serializers.deserialize(value,
@@ -136,20 +138,22 @@ class _$GHeroForEpisodeData_hero__asDroidSerializer
   final String wireName = 'GHeroForEpisodeData_hero__asDroid';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GHeroForEpisodeData_hero__asDroid object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       '__typename',
       serializers.serialize(object.G__typename,
           specifiedType: const FullType(String)),
       'name',
       serializers.serialize(object.name, specifiedType: const FullType(String)),
     ];
-    if (object.primaryFunction != null) {
+    Object? value;
+    value = object.primaryFunction;
+    if (value != null) {
       result
         ..add('primaryFunction')
-        ..add(serializers.serialize(object.primaryFunction,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -157,7 +161,7 @@ class _$GHeroForEpisodeData_hero__asDroidSerializer
 
   @override
   GHeroForEpisodeData_hero__asDroid deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GHeroForEpisodeData_hero__asDroidBuilder();
 
@@ -165,7 +169,7 @@ class _$GHeroForEpisodeData_hero__asDroidSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case '__typename':
           result.G__typename = serializers.deserialize(value,
@@ -194,17 +198,20 @@ class _$GDroidFragmentDataSerializer
   final String wireName = 'GDroidFragmentData';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GDroidFragmentData object,
+  Iterable<Object?> serialize(
+      Serializers serializers, GDroidFragmentData object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       '__typename',
       serializers.serialize(object.G__typename,
           specifiedType: const FullType(String)),
     ];
-    if (object.primaryFunction != null) {
+    Object? value;
+    value = object.primaryFunction;
+    if (value != null) {
       result
         ..add('primaryFunction')
-        ..add(serializers.serialize(object.primaryFunction,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -212,7 +219,7 @@ class _$GDroidFragmentDataSerializer
 
   @override
   GDroidFragmentData deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GDroidFragmentDataBuilder();
 
@@ -220,7 +227,7 @@ class _$GDroidFragmentDataSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case '__typename':
           result.G__typename = serializers.deserialize(value,
@@ -241,16 +248,15 @@ class _$GHeroForEpisodeData extends GHeroForEpisodeData {
   @override
   final String G__typename;
   @override
-  final GHeroForEpisodeData_hero hero;
+  final GHeroForEpisodeData_hero? hero;
 
   factory _$GHeroForEpisodeData(
-          [void Function(GHeroForEpisodeDataBuilder) updates]) =>
+          [void Function(GHeroForEpisodeDataBuilder)? updates]) =>
       (new GHeroForEpisodeDataBuilder()..update(updates)).build();
 
-  _$GHeroForEpisodeData._({this.G__typename, this.hero}) : super._() {
-    if (G__typename == null) {
-      throw new BuiltValueNullFieldError('GHeroForEpisodeData', 'G__typename');
-    }
+  _$GHeroForEpisodeData._({required this.G__typename, this.hero}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, 'GHeroForEpisodeData', 'G__typename');
   }
 
   @override
@@ -286,24 +292,25 @@ class _$GHeroForEpisodeData extends GHeroForEpisodeData {
 
 class GHeroForEpisodeDataBuilder
     implements Builder<GHeroForEpisodeData, GHeroForEpisodeDataBuilder> {
-  _$GHeroForEpisodeData _$v;
+  _$GHeroForEpisodeData? _$v;
 
-  String _G__typename;
-  String get G__typename => _$this._G__typename;
-  set G__typename(String G__typename) => _$this._G__typename = G__typename;
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
 
-  GHeroForEpisodeData_hero _hero;
-  GHeroForEpisodeData_hero get hero => _$this._hero;
-  set hero(GHeroForEpisodeData_hero hero) => _$this._hero = hero;
+  GHeroForEpisodeData_hero? _hero;
+  GHeroForEpisodeData_hero? get hero => _$this._hero;
+  set hero(GHeroForEpisodeData_hero? hero) => _$this._hero = hero;
 
   GHeroForEpisodeDataBuilder() {
     GHeroForEpisodeData._initializeBuilder(this);
   }
 
   GHeroForEpisodeDataBuilder get _$this {
-    if (_$v != null) {
-      _G__typename = _$v.G__typename;
-      _hero = _$v.hero;
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _hero = $v.hero;
       _$v = null;
     }
     return this;
@@ -311,21 +318,22 @@ class GHeroForEpisodeDataBuilder
 
   @override
   void replace(GHeroForEpisodeData other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GHeroForEpisodeData;
   }
 
   @override
-  void update(void Function(GHeroForEpisodeDataBuilder) updates) {
+  void update(void Function(GHeroForEpisodeDataBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$GHeroForEpisodeData build() {
     final _$result = _$v ??
-        new _$GHeroForEpisodeData._(G__typename: G__typename, hero: hero);
+        new _$GHeroForEpisodeData._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename, 'GHeroForEpisodeData', 'G__typename'),
+            hero: hero);
     replace(_$result);
     return _$result;
   }
@@ -338,19 +346,16 @@ class _$GHeroForEpisodeData_hero__base extends GHeroForEpisodeData_hero__base {
   final String name;
 
   factory _$GHeroForEpisodeData_hero__base(
-          [void Function(GHeroForEpisodeData_hero__baseBuilder) updates]) =>
+          [void Function(GHeroForEpisodeData_hero__baseBuilder)? updates]) =>
       (new GHeroForEpisodeData_hero__baseBuilder()..update(updates)).build();
 
-  _$GHeroForEpisodeData_hero__base._({this.G__typename, this.name})
+  _$GHeroForEpisodeData_hero__base._(
+      {required this.G__typename, required this.name})
       : super._() {
-    if (G__typename == null) {
-      throw new BuiltValueNullFieldError(
-          'GHeroForEpisodeData_hero__base', 'G__typename');
-    }
-    if (name == null) {
-      throw new BuiltValueNullFieldError(
-          'GHeroForEpisodeData_hero__base', 'name');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, 'GHeroForEpisodeData_hero__base', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        name, 'GHeroForEpisodeData_hero__base', 'name');
   }
 
   @override
@@ -388,24 +393,25 @@ class GHeroForEpisodeData_hero__baseBuilder
     implements
         Builder<GHeroForEpisodeData_hero__base,
             GHeroForEpisodeData_hero__baseBuilder> {
-  _$GHeroForEpisodeData_hero__base _$v;
+  _$GHeroForEpisodeData_hero__base? _$v;
 
-  String _G__typename;
-  String get G__typename => _$this._G__typename;
-  set G__typename(String G__typename) => _$this._G__typename = G__typename;
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
 
-  String _name;
-  String get name => _$this._name;
-  set name(String name) => _$this._name = name;
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
 
   GHeroForEpisodeData_hero__baseBuilder() {
     GHeroForEpisodeData_hero__base._initializeBuilder(this);
   }
 
   GHeroForEpisodeData_hero__baseBuilder get _$this {
-    if (_$v != null) {
-      _G__typename = _$v.G__typename;
-      _name = _$v.name;
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _name = $v.name;
       _$v = null;
     }
     return this;
@@ -413,14 +419,12 @@ class GHeroForEpisodeData_hero__baseBuilder
 
   @override
   void replace(GHeroForEpisodeData_hero__base other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GHeroForEpisodeData_hero__base;
   }
 
   @override
-  void update(void Function(GHeroForEpisodeData_hero__baseBuilder) updates) {
+  void update(void Function(GHeroForEpisodeData_hero__baseBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -428,7 +432,10 @@ class GHeroForEpisodeData_hero__baseBuilder
   _$GHeroForEpisodeData_hero__base build() {
     final _$result = _$v ??
         new _$GHeroForEpisodeData_hero__base._(
-            G__typename: G__typename, name: name);
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename, 'GHeroForEpisodeData_hero__base', 'G__typename'),
+            name: BuiltValueNullFieldError.checkNotNull(
+                name, 'GHeroForEpisodeData_hero__base', 'name'));
     replace(_$result);
     return _$result;
   }
@@ -441,23 +448,19 @@ class _$GHeroForEpisodeData_hero__asDroid
   @override
   final String name;
   @override
-  final String primaryFunction;
+  final String? primaryFunction;
 
   factory _$GHeroForEpisodeData_hero__asDroid(
-          [void Function(GHeroForEpisodeData_hero__asDroidBuilder) updates]) =>
+          [void Function(GHeroForEpisodeData_hero__asDroidBuilder)? updates]) =>
       (new GHeroForEpisodeData_hero__asDroidBuilder()..update(updates)).build();
 
   _$GHeroForEpisodeData_hero__asDroid._(
-      {this.G__typename, this.name, this.primaryFunction})
+      {required this.G__typename, required this.name, this.primaryFunction})
       : super._() {
-    if (G__typename == null) {
-      throw new BuiltValueNullFieldError(
-          'GHeroForEpisodeData_hero__asDroid', 'G__typename');
-    }
-    if (name == null) {
-      throw new BuiltValueNullFieldError(
-          'GHeroForEpisodeData_hero__asDroid', 'name');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, 'GHeroForEpisodeData_hero__asDroid', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        name, 'GHeroForEpisodeData_hero__asDroid', 'name');
   }
 
   @override
@@ -498,19 +501,19 @@ class GHeroForEpisodeData_hero__asDroidBuilder
     implements
         Builder<GHeroForEpisodeData_hero__asDroid,
             GHeroForEpisodeData_hero__asDroidBuilder> {
-  _$GHeroForEpisodeData_hero__asDroid _$v;
+  _$GHeroForEpisodeData_hero__asDroid? _$v;
 
-  String _G__typename;
-  String get G__typename => _$this._G__typename;
-  set G__typename(String G__typename) => _$this._G__typename = G__typename;
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
 
-  String _name;
-  String get name => _$this._name;
-  set name(String name) => _$this._name = name;
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
 
-  String _primaryFunction;
-  String get primaryFunction => _$this._primaryFunction;
-  set primaryFunction(String primaryFunction) =>
+  String? _primaryFunction;
+  String? get primaryFunction => _$this._primaryFunction;
+  set primaryFunction(String? primaryFunction) =>
       _$this._primaryFunction = primaryFunction;
 
   GHeroForEpisodeData_hero__asDroidBuilder() {
@@ -518,10 +521,11 @@ class GHeroForEpisodeData_hero__asDroidBuilder
   }
 
   GHeroForEpisodeData_hero__asDroidBuilder get _$this {
-    if (_$v != null) {
-      _G__typename = _$v.G__typename;
-      _name = _$v.name;
-      _primaryFunction = _$v.primaryFunction;
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _name = $v.name;
+      _primaryFunction = $v.primaryFunction;
       _$v = null;
     }
     return this;
@@ -529,14 +533,13 @@ class GHeroForEpisodeData_hero__asDroidBuilder
 
   @override
   void replace(GHeroForEpisodeData_hero__asDroid other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GHeroForEpisodeData_hero__asDroid;
   }
 
   @override
-  void update(void Function(GHeroForEpisodeData_hero__asDroidBuilder) updates) {
+  void update(
+      void Function(GHeroForEpisodeData_hero__asDroidBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -544,8 +547,10 @@ class GHeroForEpisodeData_hero__asDroidBuilder
   _$GHeroForEpisodeData_hero__asDroid build() {
     final _$result = _$v ??
         new _$GHeroForEpisodeData_hero__asDroid._(
-            G__typename: G__typename,
-            name: name,
+            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
+                'GHeroForEpisodeData_hero__asDroid', 'G__typename'),
+            name: BuiltValueNullFieldError.checkNotNull(
+                name, 'GHeroForEpisodeData_hero__asDroid', 'name'),
             primaryFunction: primaryFunction);
     replace(_$result);
     return _$result;
@@ -556,16 +561,16 @@ class _$GDroidFragmentData extends GDroidFragmentData {
   @override
   final String G__typename;
   @override
-  final String primaryFunction;
+  final String? primaryFunction;
 
   factory _$GDroidFragmentData(
-          [void Function(GDroidFragmentDataBuilder) updates]) =>
+          [void Function(GDroidFragmentDataBuilder)? updates]) =>
       (new GDroidFragmentDataBuilder()..update(updates)).build();
 
-  _$GDroidFragmentData._({this.G__typename, this.primaryFunction}) : super._() {
-    if (G__typename == null) {
-      throw new BuiltValueNullFieldError('GDroidFragmentData', 'G__typename');
-    }
+  _$GDroidFragmentData._({required this.G__typename, this.primaryFunction})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, 'GDroidFragmentData', 'G__typename');
   }
 
   @override
@@ -601,15 +606,15 @@ class _$GDroidFragmentData extends GDroidFragmentData {
 
 class GDroidFragmentDataBuilder
     implements Builder<GDroidFragmentData, GDroidFragmentDataBuilder> {
-  _$GDroidFragmentData _$v;
+  _$GDroidFragmentData? _$v;
 
-  String _G__typename;
-  String get G__typename => _$this._G__typename;
-  set G__typename(String G__typename) => _$this._G__typename = G__typename;
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
 
-  String _primaryFunction;
-  String get primaryFunction => _$this._primaryFunction;
-  set primaryFunction(String primaryFunction) =>
+  String? _primaryFunction;
+  String? get primaryFunction => _$this._primaryFunction;
+  set primaryFunction(String? primaryFunction) =>
       _$this._primaryFunction = primaryFunction;
 
   GDroidFragmentDataBuilder() {
@@ -617,9 +622,10 @@ class GDroidFragmentDataBuilder
   }
 
   GDroidFragmentDataBuilder get _$this {
-    if (_$v != null) {
-      _G__typename = _$v.G__typename;
-      _primaryFunction = _$v.primaryFunction;
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _primaryFunction = $v.primaryFunction;
       _$v = null;
     }
     return this;
@@ -627,14 +633,12 @@ class GDroidFragmentDataBuilder
 
   @override
   void replace(GDroidFragmentData other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GDroidFragmentData;
   }
 
   @override
-  void update(void Function(GDroidFragmentDataBuilder) updates) {
+  void update(void Function(GDroidFragmentDataBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -642,7 +646,9 @@ class GDroidFragmentDataBuilder
   _$GDroidFragmentData build() {
     final _$result = _$v ??
         new _$GDroidFragmentData._(
-            G__typename: G__typename, primaryFunction: primaryFunction);
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename, 'GDroidFragmentData', 'G__typename'),
+            primaryFunction: primaryFunction);
     replace(_$result);
     return _$result;
   }

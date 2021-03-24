@@ -23,18 +23,20 @@ class _$GReviewWithDateDataSerializer
   final String wireName = 'GReviewWithDateData';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GReviewWithDateData object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       '__typename',
       serializers.serialize(object.G__typename,
           specifiedType: const FullType(String)),
     ];
-    if (object.createReview != null) {
+    Object? value;
+    value = object.createReview;
+    if (value != null) {
       result
         ..add('createReview')
-        ..add(serializers.serialize(object.createReview,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(GReviewWithDateData_createReview)));
     }
     return result;
@@ -42,7 +44,7 @@ class _$GReviewWithDateDataSerializer
 
   @override
   GReviewWithDateData deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GReviewWithDateDataBuilder();
 
@@ -50,7 +52,7 @@ class _$GReviewWithDateDataSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case '__typename':
           result.G__typename = serializers.deserialize(value,
@@ -59,7 +61,7 @@ class _$GReviewWithDateDataSerializer
         case 'createReview':
           result.createReview.replace(serializers.deserialize(value,
                   specifiedType:
-                      const FullType(GReviewWithDateData_createReview))
+                      const FullType(GReviewWithDateData_createReview))!
               as GReviewWithDateData_createReview);
           break;
       }
@@ -80,10 +82,10 @@ class _$GReviewWithDateData_createReviewSerializer
   final String wireName = 'GReviewWithDateData_createReview';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GReviewWithDateData_createReview object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       '__typename',
       serializers.serialize(object.G__typename,
           specifiedType: const FullType(String)),
@@ -94,22 +96,26 @@ class _$GReviewWithDateData_createReviewSerializer
           specifiedType:
               const FullType(BuiltList, const [const FullType(DateTime)])),
     ];
-    if (object.episode != null) {
+    Object? value;
+    value = object.episode;
+    if (value != null) {
       result
         ..add('episode')
-        ..add(serializers.serialize(object.episode,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i2.GEpisode)));
     }
-    if (object.commentary != null) {
+    value = object.commentary;
+    if (value != null) {
       result
         ..add('commentary')
-        ..add(serializers.serialize(object.commentary,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.createdAt != null) {
+    value = object.createdAt;
+    if (value != null) {
       result
         ..add('createdAt')
-        ..add(serializers.serialize(object.createdAt,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
     }
     return result;
@@ -117,7 +123,7 @@ class _$GReviewWithDateData_createReviewSerializer
 
   @override
   GReviewWithDateData_createReview deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GReviewWithDateData_createReviewBuilder();
 
@@ -125,7 +131,7 @@ class _$GReviewWithDateData_createReviewSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case '__typename':
           result.G__typename = serializers.deserialize(value,
@@ -150,7 +156,7 @@ class _$GReviewWithDateData_createReviewSerializer
         case 'seenOn':
           result.seenOn.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
-                      BuiltList, const [const FullType(DateTime)]))
+                      BuiltList, const [const FullType(DateTime)]))!
               as BuiltList<Object>);
           break;
       }
@@ -164,16 +170,16 @@ class _$GReviewWithDateData extends GReviewWithDateData {
   @override
   final String G__typename;
   @override
-  final GReviewWithDateData_createReview createReview;
+  final GReviewWithDateData_createReview? createReview;
 
   factory _$GReviewWithDateData(
-          [void Function(GReviewWithDateDataBuilder) updates]) =>
+          [void Function(GReviewWithDateDataBuilder)? updates]) =>
       (new GReviewWithDateDataBuilder()..update(updates)).build();
 
-  _$GReviewWithDateData._({this.G__typename, this.createReview}) : super._() {
-    if (G__typename == null) {
-      throw new BuiltValueNullFieldError('GReviewWithDateData', 'G__typename');
-    }
+  _$GReviewWithDateData._({required this.G__typename, this.createReview})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, 'GReviewWithDateData', 'G__typename');
   }
 
   @override
@@ -209,16 +215,16 @@ class _$GReviewWithDateData extends GReviewWithDateData {
 
 class GReviewWithDateDataBuilder
     implements Builder<GReviewWithDateData, GReviewWithDateDataBuilder> {
-  _$GReviewWithDateData _$v;
+  _$GReviewWithDateData? _$v;
 
-  String _G__typename;
-  String get G__typename => _$this._G__typename;
-  set G__typename(String G__typename) => _$this._G__typename = G__typename;
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
 
-  GReviewWithDateData_createReviewBuilder _createReview;
+  GReviewWithDateData_createReviewBuilder? _createReview;
   GReviewWithDateData_createReviewBuilder get createReview =>
       _$this._createReview ??= new GReviewWithDateData_createReviewBuilder();
-  set createReview(GReviewWithDateData_createReviewBuilder createReview) =>
+  set createReview(GReviewWithDateData_createReviewBuilder? createReview) =>
       _$this._createReview = createReview;
 
   GReviewWithDateDataBuilder() {
@@ -226,9 +232,10 @@ class GReviewWithDateDataBuilder
   }
 
   GReviewWithDateDataBuilder get _$this {
-    if (_$v != null) {
-      _G__typename = _$v.G__typename;
-      _createReview = _$v.createReview?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _createReview = $v.createReview?.toBuilder();
       _$v = null;
     }
     return this;
@@ -236,14 +243,12 @@ class GReviewWithDateDataBuilder
 
   @override
   void replace(GReviewWithDateData other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GReviewWithDateData;
   }
 
   @override
-  void update(void Function(GReviewWithDateDataBuilder) updates) {
+  void update(void Function(GReviewWithDateDataBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -253,9 +258,11 @@ class GReviewWithDateDataBuilder
     try {
       _$result = _$v ??
           new _$GReviewWithDateData._(
-              G__typename: G__typename, createReview: _createReview?.build());
+              G__typename: BuiltValueNullFieldError.checkNotNull(
+                  G__typename, 'GReviewWithDateData', 'G__typename'),
+              createReview: _createReview?.build());
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'createReview';
         _createReview?.build();
@@ -275,40 +282,34 @@ class _$GReviewWithDateData_createReview
   @override
   final String G__typename;
   @override
-  final _i2.GEpisode episode;
+  final _i2.GEpisode? episode;
   @override
   final int stars;
   @override
-  final String commentary;
+  final String? commentary;
   @override
-  final DateTime createdAt;
+  final DateTime? createdAt;
   @override
   final BuiltList<DateTime> seenOn;
 
   factory _$GReviewWithDateData_createReview(
-          [void Function(GReviewWithDateData_createReviewBuilder) updates]) =>
+          [void Function(GReviewWithDateData_createReviewBuilder)? updates]) =>
       (new GReviewWithDateData_createReviewBuilder()..update(updates)).build();
 
   _$GReviewWithDateData_createReview._(
-      {this.G__typename,
+      {required this.G__typename,
       this.episode,
-      this.stars,
+      required this.stars,
       this.commentary,
       this.createdAt,
-      this.seenOn})
+      required this.seenOn})
       : super._() {
-    if (G__typename == null) {
-      throw new BuiltValueNullFieldError(
-          'GReviewWithDateData_createReview', 'G__typename');
-    }
-    if (stars == null) {
-      throw new BuiltValueNullFieldError(
-          'GReviewWithDateData_createReview', 'stars');
-    }
-    if (seenOn == null) {
-      throw new BuiltValueNullFieldError(
-          'GReviewWithDateData_createReview', 'seenOn');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, 'GReviewWithDateData_createReview', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        stars, 'GReviewWithDateData_createReview', 'stars');
+    BuiltValueNullFieldError.checkNotNull(
+        seenOn, 'GReviewWithDateData_createReview', 'seenOn');
   }
 
   @override
@@ -361,45 +362,46 @@ class GReviewWithDateData_createReviewBuilder
     implements
         Builder<GReviewWithDateData_createReview,
             GReviewWithDateData_createReviewBuilder> {
-  _$GReviewWithDateData_createReview _$v;
+  _$GReviewWithDateData_createReview? _$v;
 
-  String _G__typename;
-  String get G__typename => _$this._G__typename;
-  set G__typename(String G__typename) => _$this._G__typename = G__typename;
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
 
-  _i2.GEpisode _episode;
-  _i2.GEpisode get episode => _$this._episode;
-  set episode(_i2.GEpisode episode) => _$this._episode = episode;
+  _i2.GEpisode? _episode;
+  _i2.GEpisode? get episode => _$this._episode;
+  set episode(_i2.GEpisode? episode) => _$this._episode = episode;
 
-  int _stars;
-  int get stars => _$this._stars;
-  set stars(int stars) => _$this._stars = stars;
+  int? _stars;
+  int? get stars => _$this._stars;
+  set stars(int? stars) => _$this._stars = stars;
 
-  String _commentary;
-  String get commentary => _$this._commentary;
-  set commentary(String commentary) => _$this._commentary = commentary;
+  String? _commentary;
+  String? get commentary => _$this._commentary;
+  set commentary(String? commentary) => _$this._commentary = commentary;
 
-  DateTime _createdAt;
-  DateTime get createdAt => _$this._createdAt;
-  set createdAt(DateTime createdAt) => _$this._createdAt = createdAt;
+  DateTime? _createdAt;
+  DateTime? get createdAt => _$this._createdAt;
+  set createdAt(DateTime? createdAt) => _$this._createdAt = createdAt;
 
-  ListBuilder<DateTime> _seenOn;
+  ListBuilder<DateTime>? _seenOn;
   ListBuilder<DateTime> get seenOn =>
       _$this._seenOn ??= new ListBuilder<DateTime>();
-  set seenOn(ListBuilder<DateTime> seenOn) => _$this._seenOn = seenOn;
+  set seenOn(ListBuilder<DateTime>? seenOn) => _$this._seenOn = seenOn;
 
   GReviewWithDateData_createReviewBuilder() {
     GReviewWithDateData_createReview._initializeBuilder(this);
   }
 
   GReviewWithDateData_createReviewBuilder get _$this {
-    if (_$v != null) {
-      _G__typename = _$v.G__typename;
-      _episode = _$v.episode;
-      _stars = _$v.stars;
-      _commentary = _$v.commentary;
-      _createdAt = _$v.createdAt;
-      _seenOn = _$v.seenOn?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _episode = $v.episode;
+      _stars = $v.stars;
+      _commentary = $v.commentary;
+      _createdAt = $v.createdAt;
+      _seenOn = $v.seenOn.toBuilder();
       _$v = null;
     }
     return this;
@@ -407,14 +409,12 @@ class GReviewWithDateData_createReviewBuilder
 
   @override
   void replace(GReviewWithDateData_createReview other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GReviewWithDateData_createReview;
   }
 
   @override
-  void update(void Function(GReviewWithDateData_createReviewBuilder) updates) {
+  void update(void Function(GReviewWithDateData_createReviewBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -424,14 +424,16 @@ class GReviewWithDateData_createReviewBuilder
     try {
       _$result = _$v ??
           new _$GReviewWithDateData_createReview._(
-              G__typename: G__typename,
+              G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
+                  'GReviewWithDateData_createReview', 'G__typename'),
               episode: episode,
-              stars: stars,
+              stars: BuiltValueNullFieldError.checkNotNull(
+                  stars, 'GReviewWithDateData_createReview', 'stars'),
               commentary: commentary,
               createdAt: createdAt,
               seenOn: seenOn.build());
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'seenOn';
         seenOn.build();

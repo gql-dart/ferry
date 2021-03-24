@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0-nullsafety.1]
+
+- allow fragment names to be nullable
+
+## [0.4.0-nullsafety.0]
+
+- initial null safety support
+
 ## [0.3.3]
 
 - update dependencies

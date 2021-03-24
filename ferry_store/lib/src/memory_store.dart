@@ -4,16 +4,16 @@ import 'package:collection/collection.dart';
 import 'package:ferry_store/ferry_store.dart';
 
 class MemoryStore extends Store {
-  final BehaviorSubject<Map<String, Map<String, dynamic>>> _valueStream;
+  final BehaviorSubject<Map<String, Map<String, dynamic>?>> _valueStream;
 
-  MemoryStore([Map<String, Map<String, dynamic>> initialData])
-      : _valueStream = BehaviorSubject.seeded(initialData ?? {});
-
-  @override
-  Iterable<String> get keys => _valueStream.value.keys;
+  MemoryStore([Map<String, Map<String, dynamic>> initialData = const {}])
+      : _valueStream = BehaviorSubject.seeded(initialData);
 
   @override
-  Stream<Map<String, dynamic>> watch(String dataId) =>
+  Iterable<String> get keys => _valueStream.value!.keys;
+
+  @override
+  Stream<Map<String, dynamic>?> watch(String dataId) =>
       _valueStream.map((data) => data[dataId]).distinct(
             (prev, next) => const DeepCollectionEquality().equals(
               prev,
@@ -22,26 +22,31 @@ class MemoryStore extends Store {
           );
 
   @override
-  Map<String, dynamic> get(String dataId) => _valueStream.value[dataId];
+  Map<String, dynamic>? get(String dataId) => _valueStream.value![dataId];
 
   @override
-  void put(String dataId, Map<String, dynamic> value) =>
-      _valueStream.add(_valueStream.value..[dataId] = value);
+  void put(String dataId, Map<String, dynamic>? value) => _valueStream.add(
+        Map.from(_valueStream.value!)..addAll({dataId: value}),
+      );
 
   @override
-  void putAll(Map<String, Map<String, dynamic>> data) =>
-      _valueStream.add(_valueStream.value..addAll(data));
+  void putAll(Map<String, Map<String, dynamic>?> data) => _valueStream.add(
+        Map.from(_valueStream.value!)..addAll(data),
+      );
 
   @override
-  void delete(String dataId) =>
-      _valueStream.add(_valueStream.value..remove(dataId));
+  void delete(String dataId) => _valueStream.add(
+        Map.from(_valueStream.value!)..remove(dataId),
+      );
 
   @override
-  void deleteAll(Iterable<String> dataIds) => _valueStream
-      .add(_valueStream.value..removeWhere((key, _) => dataIds.contains(key)));
+  void deleteAll(Iterable<String> dataIds) => _valueStream.add(
+        Map.from(_valueStream.value!)
+          ..removeWhere((key, _) => dataIds.contains(key)),
+      );
 
   @override
-  void clear() => _valueStream.add(_valueStream.value..clear());
+  void clear() => _valueStream.add({});
 
   @override
   Future<void> dispose() => _valueStream.close();

@@ -14,7 +14,7 @@ class _StreamCancelTestLink extends Link {
   @override
   Stream<Response> request(Request request, [forward]) async* {
     var controller = StreamController<Response>();
-    StreamSubscription sub;
+    StreamSubscription? sub;
     try {
       //simulate events coming in, e.g. from a websocket
       sub =
@@ -56,7 +56,7 @@ void main() {
       );
 
       expect(link.hasCanceledStreamCompleter.isCompleted, isFalse);
-      StreamSubscription subscription;
+      late StreamSubscription subscription;
       subscription = client
           .request(req)
           .where((event) => event.dataSource == DataSource.Link)

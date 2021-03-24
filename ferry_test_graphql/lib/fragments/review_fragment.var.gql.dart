@@ -16,7 +16,8 @@ abstract class GReviewFragmentVars
   static Serializer<GReviewFragmentVars> get serializer =>
       _$gReviewFragmentVarsSerializer;
   Map<String, dynamic> toJson() =>
-      _i1.serializers.serializeWith(GReviewFragmentVars.serializer, this);
-  static GReviewFragmentVars fromJson(Map<String, dynamic> json) =>
+      (_i1.serializers.serializeWith(GReviewFragmentVars.serializer, this)
+          as Map<String, dynamic>);
+  static GReviewFragmentVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(GReviewFragmentVars.serializer, json);
 }

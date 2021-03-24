@@ -17,59 +17,62 @@ class _$GHumanWithArgsReqSerializer
   final String wireName = 'GHumanWithArgsReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GHumanWithArgsReq object,
+  Iterable<Object?> serialize(Serializers serializers, GHumanWithArgsReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GHumanWithArgsVars)),
       'operation',
       serializers.serialize(object.operation,
           specifiedType: const FullType(_i4.Operation)),
+      'executeOnListen',
+      serializers.serialize(object.executeOnListen,
+          specifiedType: const FullType(bool)),
     ];
-    if (object.requestId != null) {
+    Object? value;
+    value = object.requestId;
+    if (value != null) {
       result
         ..add('requestId')
-        ..add(serializers.serialize(object.requestId,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.optimisticResponse != null) {
+    value = object.optimisticResponse;
+    if (value != null) {
       result
         ..add('optimisticResponse')
-        ..add(serializers.serialize(object.optimisticResponse,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i2.GHumanWithArgsData)));
     }
-    if (object.updateCacheHandlerKey != null) {
+    value = object.updateCacheHandlerKey;
+    if (value != null) {
       result
         ..add('updateCacheHandlerKey')
-        ..add(serializers.serialize(object.updateCacheHandlerKey,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.updateCacheHandlerContext != null) {
+    value = object.updateCacheHandlerContext;
+    if (value != null) {
       result
         ..add('updateCacheHandlerContext')
-        ..add(serializers.serialize(object.updateCacheHandlerContext,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 Map, const [const FullType(String), const FullType(dynamic)])));
     }
-    if (object.fetchPolicy != null) {
+    value = object.fetchPolicy;
+    if (value != null) {
       result
         ..add('fetchPolicy')
-        ..add(serializers.serialize(object.fetchPolicy,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i1.FetchPolicy)));
-    }
-    if (object.executeOnListen != null) {
-      result
-        ..add('executeOnListen')
-        ..add(serializers.serialize(object.executeOnListen,
-            specifiedType: const FullType(bool)));
     }
     return result;
   }
 
   @override
   GHumanWithArgsReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GHumanWithArgsReqBuilder();
 
@@ -77,11 +80,11 @@ class _$GHumanWithArgsReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GHumanWithArgsVars))
+                  specifiedType: const FullType(_i3.GHumanWithArgsVars))!
               as _i3.GHumanWithArgsVars);
           break;
         case 'operation':
@@ -94,7 +97,7 @@ class _$GHumanWithArgsReqSerializer
           break;
         case 'optimisticResponse':
           result.optimisticResponse.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i2.GHumanWithArgsData))
+                  specifiedType: const FullType(_i2.GHumanWithArgsData))!
               as _i2.GHumanWithArgsData);
           break;
         case 'updateCacheHandlerKey':
@@ -130,42 +133,41 @@ class _$GHumanWithArgsReq extends GHumanWithArgsReq {
   @override
   final _i4.Operation operation;
   @override
-  final String requestId;
+  final String? requestId;
   @override
-  final _i2.GHumanWithArgsData Function(
-      _i2.GHumanWithArgsData, _i2.GHumanWithArgsData) updateResult;
+  final _i2.GHumanWithArgsData? Function(
+      _i2.GHumanWithArgsData?, _i2.GHumanWithArgsData?)? updateResult;
   @override
-  final _i2.GHumanWithArgsData optimisticResponse;
+  final _i2.GHumanWithArgsData? optimisticResponse;
   @override
-  final String updateCacheHandlerKey;
+  final String? updateCacheHandlerKey;
   @override
-  final Map<String, dynamic> updateCacheHandlerContext;
+  final Map<String, dynamic>? updateCacheHandlerContext;
   @override
-  final _i1.FetchPolicy fetchPolicy;
+  final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
 
   factory _$GHumanWithArgsReq(
-          [void Function(GHumanWithArgsReqBuilder) updates]) =>
+          [void Function(GHumanWithArgsReqBuilder)? updates]) =>
       (new GHumanWithArgsReqBuilder()..update(updates)).build();
 
   _$GHumanWithArgsReq._(
-      {this.vars,
-      this.operation,
+      {required this.vars,
+      required this.operation,
       this.requestId,
       this.updateResult,
       this.optimisticResponse,
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      this.executeOnListen})
+      required this.executeOnListen})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GHumanWithArgsReq', 'vars');
-    }
-    if (operation == null) {
-      throw new BuiltValueNullFieldError('GHumanWithArgsReq', 'operation');
-    }
+    BuiltValueNullFieldError.checkNotNull(vars, 'GHumanWithArgsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        operation, 'GHumanWithArgsReq', 'operation');
+    BuiltValueNullFieldError.checkNotNull(
+        executeOnListen, 'GHumanWithArgsReq', 'executeOnListen');
   }
 
   @override
@@ -228,58 +230,58 @@ class _$GHumanWithArgsReq extends GHumanWithArgsReq {
 
 class GHumanWithArgsReqBuilder
     implements Builder<GHumanWithArgsReq, GHumanWithArgsReqBuilder> {
-  _$GHumanWithArgsReq _$v;
+  _$GHumanWithArgsReq? _$v;
 
-  _i3.GHumanWithArgsVarsBuilder _vars;
+  _i3.GHumanWithArgsVarsBuilder? _vars;
   _i3.GHumanWithArgsVarsBuilder get vars =>
       _$this._vars ??= new _i3.GHumanWithArgsVarsBuilder();
-  set vars(_i3.GHumanWithArgsVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GHumanWithArgsVarsBuilder? vars) => _$this._vars = vars;
 
-  _i4.Operation _operation;
-  _i4.Operation get operation => _$this._operation;
-  set operation(_i4.Operation operation) => _$this._operation = operation;
+  _i4.Operation? _operation;
+  _i4.Operation? get operation => _$this._operation;
+  set operation(_i4.Operation? operation) => _$this._operation = operation;
 
-  String _requestId;
-  String get requestId => _$this._requestId;
-  set requestId(String requestId) => _$this._requestId = requestId;
+  String? _requestId;
+  String? get requestId => _$this._requestId;
+  set requestId(String? requestId) => _$this._requestId = requestId;
 
-  _i2.GHumanWithArgsData Function(
-      _i2.GHumanWithArgsData, _i2.GHumanWithArgsData) _updateResult;
-  _i2.GHumanWithArgsData Function(
-          _i2.GHumanWithArgsData, _i2.GHumanWithArgsData)
+  _i2.GHumanWithArgsData? Function(
+      _i2.GHumanWithArgsData?, _i2.GHumanWithArgsData?)? _updateResult;
+  _i2.GHumanWithArgsData? Function(
+          _i2.GHumanWithArgsData?, _i2.GHumanWithArgsData?)?
       get updateResult => _$this._updateResult;
   set updateResult(
-          _i2.GHumanWithArgsData Function(
-                  _i2.GHumanWithArgsData, _i2.GHumanWithArgsData)
+          _i2.GHumanWithArgsData? Function(
+                  _i2.GHumanWithArgsData?, _i2.GHumanWithArgsData?)?
               updateResult) =>
       _$this._updateResult = updateResult;
 
-  _i2.GHumanWithArgsDataBuilder _optimisticResponse;
+  _i2.GHumanWithArgsDataBuilder? _optimisticResponse;
   _i2.GHumanWithArgsDataBuilder get optimisticResponse =>
       _$this._optimisticResponse ??= new _i2.GHumanWithArgsDataBuilder();
-  set optimisticResponse(_i2.GHumanWithArgsDataBuilder optimisticResponse) =>
+  set optimisticResponse(_i2.GHumanWithArgsDataBuilder? optimisticResponse) =>
       _$this._optimisticResponse = optimisticResponse;
 
-  String _updateCacheHandlerKey;
-  String get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
-  set updateCacheHandlerKey(String updateCacheHandlerKey) =>
+  String? _updateCacheHandlerKey;
+  String? get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
+  set updateCacheHandlerKey(String? updateCacheHandlerKey) =>
       _$this._updateCacheHandlerKey = updateCacheHandlerKey;
 
-  Map<String, dynamic> _updateCacheHandlerContext;
-  Map<String, dynamic> get updateCacheHandlerContext =>
+  Map<String, dynamic>? _updateCacheHandlerContext;
+  Map<String, dynamic>? get updateCacheHandlerContext =>
       _$this._updateCacheHandlerContext;
   set updateCacheHandlerContext(
-          Map<String, dynamic> updateCacheHandlerContext) =>
+          Map<String, dynamic>? updateCacheHandlerContext) =>
       _$this._updateCacheHandlerContext = updateCacheHandlerContext;
 
-  _i1.FetchPolicy _fetchPolicy;
-  _i1.FetchPolicy get fetchPolicy => _$this._fetchPolicy;
-  set fetchPolicy(_i1.FetchPolicy fetchPolicy) =>
+  _i1.FetchPolicy? _fetchPolicy;
+  _i1.FetchPolicy? get fetchPolicy => _$this._fetchPolicy;
+  set fetchPolicy(_i1.FetchPolicy? fetchPolicy) =>
       _$this._fetchPolicy = fetchPolicy;
 
-  bool _executeOnListen;
-  bool get executeOnListen => _$this._executeOnListen;
-  set executeOnListen(bool executeOnListen) =>
+  bool? _executeOnListen;
+  bool? get executeOnListen => _$this._executeOnListen;
+  set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
   GHumanWithArgsReqBuilder() {
@@ -287,16 +289,17 @@ class GHumanWithArgsReqBuilder
   }
 
   GHumanWithArgsReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _operation = _$v.operation;
-      _requestId = _$v.requestId;
-      _updateResult = _$v.updateResult;
-      _optimisticResponse = _$v.optimisticResponse?.toBuilder();
-      _updateCacheHandlerKey = _$v.updateCacheHandlerKey;
-      _updateCacheHandlerContext = _$v.updateCacheHandlerContext;
-      _fetchPolicy = _$v.fetchPolicy;
-      _executeOnListen = _$v.executeOnListen;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _operation = $v.operation;
+      _requestId = $v.requestId;
+      _updateResult = $v.updateResult;
+      _optimisticResponse = $v.optimisticResponse?.toBuilder();
+      _updateCacheHandlerKey = $v.updateCacheHandlerKey;
+      _updateCacheHandlerContext = $v.updateCacheHandlerContext;
+      _fetchPolicy = $v.fetchPolicy;
+      _executeOnListen = $v.executeOnListen;
       _$v = null;
     }
     return this;
@@ -304,14 +307,12 @@ class GHumanWithArgsReqBuilder
 
   @override
   void replace(GHumanWithArgsReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GHumanWithArgsReq;
   }
 
   @override
-  void update(void Function(GHumanWithArgsReqBuilder) updates) {
+  void update(void Function(GHumanWithArgsReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -322,16 +323,18 @@ class GHumanWithArgsReqBuilder
       _$result = _$v ??
           new _$GHumanWithArgsReq._(
               vars: vars.build(),
-              operation: operation,
+              operation: BuiltValueNullFieldError.checkNotNull(
+                  operation, 'GHumanWithArgsReq', 'operation'),
               requestId: requestId,
               updateResult: updateResult,
               optimisticResponse: _optimisticResponse?.build(),
               updateCacheHandlerKey: updateCacheHandlerKey,
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
-              executeOnListen: executeOnListen);
+              executeOnListen: BuiltValueNullFieldError.checkNotNull(
+                  executeOnListen, 'GHumanWithArgsReq', 'executeOnListen'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();

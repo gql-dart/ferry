@@ -16,26 +16,25 @@ class Cache {
 
   @visibleForTesting
   final BehaviorSubject<
-          Map<OperationRequest, Map<String, Map<String, dynamic>>>>
+          Map<OperationRequest, Map<String, Map<String, dynamic>?>>?>
       optimisticPatchesStream;
 
   /// A set of entity IDs to retain when the cache is garbage collected.
   final Set<String> _retainedEntityIds = {};
 
   Cache({
-    Store store,
+    Store? store,
     this.typePolicies = const {},
     this.addTypename = true,
-    Map<String, Map<String, Map<String, dynamic>>> seedOptimisticPatches,
+    Map<OperationRequest, Map<String, Map<String, dynamic>?>>
+        seedOptimisticPatches = const {},
   })  : store = store ?? MemoryStore(),
-        optimisticPatchesStream = BehaviorSubject.seeded(
-          seedOptimisticPatches ?? {},
-        );
+        optimisticPatchesStream = BehaviorSubject.seeded(seedOptimisticPatches);
 
   /// Reads data for the given [dataId] from the [Store], merging in any data from optimistic patches
   @visibleForTesting
-  Map<String, dynamic> optimisticReader(String dataId) =>
-      optimisticPatchesStream.value.values.fold<Map<String, dynamic>>(
+  Map<String, dynamic>? optimisticReader(String dataId) =>
+      optimisticPatchesStream.value!.values.fold<Map<String, dynamic>>(
         {dataId: store.get(dataId)},
         (merged, patch) => patch.containsKey(dataId)
             ? Map.from(
@@ -48,7 +47,7 @@ class Cache {
       )[dataId];
 
   /// Watches for changes to data in the Cache for the given operation.
-  Stream<TData> watchQuery<TData, TVars>(
+  Stream<TData?> watchQuery<TData, TVars>(
     OperationRequest<TData, TVars> request, {
     bool optimistic = true,
   }) =>
@@ -65,7 +64,7 @@ class Cache {
           addTypename,
         ).doOnDone(() => closed = true);
 
-        return NeverStream<TData>()
+        return NeverStream<TData?>()
             .startWith(
               readQuery(
                 request,
@@ -83,7 +82,7 @@ class Cache {
       });
 
   /// Watches for changes to data in the Cache for the given fragment.
-  Stream<TData> watchFragment<TData, TVars>(
+  Stream<TData?> watchFragment<TData, TVars>(
     FragmentRequest<TData, TVars> request, {
     bool optimistic = true,
   }) =>
@@ -100,7 +99,7 @@ class Cache {
           addTypename,
         ).doOnDone(() => closed = true);
 
-        return NeverStream<TData>()
+        return NeverStream<TData?>()
             .startWith(
               readFragment(
                 request,
@@ -118,7 +117,7 @@ class Cache {
       });
 
   /// Reads denormalized data from the Cache for the given operation.
-  TData readQuery<TData, TVars>(
+  TData? readQuery<TData, TVars>(
     OperationRequest<TData, TVars> request, {
     bool optimistic = true,
   }) {
@@ -135,7 +134,7 @@ class Cache {
   }
 
   /// Reads denormalized data from the Cache for the given fragment.
-  TData readFragment<TData, TVars>(
+  TData? readFragment<TData, TVars>(
     FragmentRequest<TData, TVars> request, {
     bool optimistic = true,
   }) {
@@ -160,7 +159,7 @@ class Cache {
   void writeQuery<TData, TVars>(
     OperationRequest<TData, TVars> request,
     TData data, {
-    OperationRequest optimisticRequest,
+    OperationRequest? optimisticRequest,
   }) =>
       normalizeOperation(
         read: optimisticRequest != null
@@ -188,7 +187,7 @@ class Cache {
   void writeFragment<TData, TVars>(
     FragmentRequest<TData, TVars> request,
     TData data, {
-    OperationRequest optimisticRequest,
+    OperationRequest? optimisticRequest,
   }) =>
       normalizeFragment(
         read: optimisticRequest != null
@@ -211,15 +210,15 @@ class Cache {
 
   void _writeData(
     String dataId,
-    Map<String, dynamic> value,
-    OperationRequest optimisticRequest,
+    Map<String, dynamic>? value,
+    OperationRequest? optimisticRequest,
   ) =>
       optimisticRequest != null
           ? optimisticPatchesStream.add(
               {
-                ...optimisticPatchesStream.value,
+                ...optimisticPatchesStream.value!,
                 optimisticRequest: {
-                  ...optimisticPatchesStream.value[optimisticRequest] ??
+                  ...optimisticPatchesStream.value![optimisticRequest] ??
                       const {},
                   dataId: value,
                 }
@@ -229,12 +228,12 @@ class Cache {
 
   void removeOptimisticPatch(OperationRequest request) {
     optimisticPatchesStream.add(
-      optimisticPatchesStream.value..remove(request),
+      Map.from(optimisticPatchesStream.value!)..remove(request),
     );
   }
 
   /// Returns the canonical ID for a given object or reference.
-  String identify<TData>(TData data) => utils.identify(
+  String? identify<TData>(TData data) => utils.identify(
         // TODO: don't cast to dynamic
         (data as dynamic)?.toJson(),
         typePolicies: typePolicies,
@@ -254,9 +253,9 @@ class Cache {
   /// received for the [optimisticRequest].
   void evict(
     String entityId, {
-    String fieldName,
+    String? fieldName,
     Map<String, dynamic> args = const {},
-    OperationRequest optimisticRequest,
+    OperationRequest? optimisticRequest,
   }) =>
       fieldName == null
           ? _evictEntity(
@@ -272,14 +271,14 @@ class Cache {
 
   void _evictEntity(
     String entityId,
-    OperationRequest optimisticRequest,
+    OperationRequest? optimisticRequest,
   ) {
     if (optimisticRequest != null) {
       /// Set entity to `null` in optimistic patch
       optimisticPatchesStream.add({
-        ...optimisticPatchesStream.value,
+        ...optimisticPatchesStream.value!,
         optimisticRequest: {
-          ...(optimisticPatchesStream.value[optimisticRequest] ?? {}),
+          ...(optimisticPatchesStream.value![optimisticRequest] ?? const {}),
           entityId: null,
         }
       });
@@ -288,7 +287,7 @@ class Cache {
       store.delete(entityId);
 
       optimisticPatchesStream.add(
-        optimisticPatchesStream.value.map(
+        optimisticPatchesStream.value!.map(
           (patchKey, patch) => MapEntry(patchKey, patch..remove(entityId)),
         ),
       );
@@ -299,16 +298,16 @@ class Cache {
     String entityId,
     String fieldName,
     Map<String, dynamic> args,
-    OperationRequest optimisticRequest,
+    OperationRequest? optimisticRequest,
   ) {
     if (optimisticRequest != null) {
       /// Set field to `null` in optimistic patch
       optimisticPatchesStream.add({
-        ...optimisticPatchesStream.value,
+        ...optimisticPatchesStream.value!,
         optimisticRequest: {
-          ...(optimisticPatchesStream.value[optimisticRequest] ?? {}),
+          ...(optimisticPatchesStream.value![optimisticRequest] ?? {}),
           entityId: {
-            ...((optimisticPatchesStream.value[optimisticRequest] ??
+            ...((optimisticPatchesStream.value![optimisticRequest] ??
                     {})[entityId]) ??
                 {},
             utils.FieldKey.from(fieldName, args).toString(): null
@@ -318,13 +317,13 @@ class Cache {
     } else {
       /// Remove field from entity in [Store] and in optimistic patches.
       optimisticPatchesStream.add(
-        optimisticPatchesStream.value.map(
+        optimisticPatchesStream.value!.map(
           (patchKey, patch) {
             if (!patch.containsKey(entityId)) return MapEntry(patchKey, patch);
             return MapEntry(
               patchKey,
               patch
-                ..[entityId].removeWhere(
+                ..[entityId]!.removeWhere(
                   (key, value) => _fieldMatch(key, fieldName, args),
                 ),
             );

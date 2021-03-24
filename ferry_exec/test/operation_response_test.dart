@@ -3,35 +3,39 @@ import 'package:gql_exec/gql_exec.dart';
 import 'package:gql_link/gql_link.dart';
 
 import 'package:ferry_exec/src/operation_response.dart';
+import 'package:ferry_test_graphql/queries/no_vars/hero_no_vars.req.gql.dart';
 
-class TestLinkException implements LinkException {
-  @override
-  Exception get originalException => null;
+class TestLinkException extends LinkException {
+  const TestLinkException({
+    dynamic originalException,
+  }) : super(originalException);
 }
 
 void main() {
+  final req = GHeroNoVarsReq();
+
   group('OperationResponse', () {
     group('hasErrors', () {
       test('is true when linkException not null', () {
         final res = OperationResponse(
-          operationRequest: null,
-          dataSource: null,
+          operationRequest: req,
+          dataSource: DataSource.Link,
           linkException: TestLinkException(),
         );
         expect(res.hasErrors, true);
       });
       test('is false when graphqlErrors not null and empty', () {
         final res = OperationResponse(
-          operationRequest: null,
-          dataSource: null,
+          operationRequest: req,
+          dataSource: DataSource.Link,
           graphqlErrors: [],
         );
         expect(res.hasErrors, false);
       });
       test('is true when graphqlErrors not null and not empty', () {
         final res = OperationResponse(
-          operationRequest: null,
-          dataSource: null,
+          operationRequest: req,
+          dataSource: DataSource.Link,
           graphqlErrors: [GraphQLError(message: '')],
         );
         expect(res.hasErrors, true);

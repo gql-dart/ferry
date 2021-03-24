@@ -14,15 +14,13 @@ abstract class GReviewsVars
   factory GReviewsVars([Function(GReviewsVarsBuilder b) updates]) =
       _$GReviewsVars;
 
-  @nullable
-  _i1.GEpisode get episode;
-  @nullable
-  int get first;
-  @nullable
-  int get offset;
+  _i1.GEpisode? get episode;
+  int? get first;
+  int? get offset;
   static Serializer<GReviewsVars> get serializer => _$gReviewsVarsSerializer;
   Map<String, dynamic> toJson() =>
-      _i2.serializers.serializeWith(GReviewsVars.serializer, this);
-  static GReviewsVars fromJson(Map<String, dynamic> json) =>
+      (_i2.serializers.serializeWith(GReviewsVars.serializer, this)
+          as Map<String, dynamic>);
+  static GReviewsVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(GReviewsVars.serializer, json);
 }

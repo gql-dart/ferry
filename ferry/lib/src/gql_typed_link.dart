@@ -24,9 +24,9 @@ class GqlTypedLink extends TypedLink {
               handleData: (response, sink) => sink.add(
                 OperationResponse(
                   operationRequest: operationRequest,
-                  data: (response.data == null || response.data.isEmpty)
+                  data: (response.data == null || response.data!.isEmpty)
                       ? null
-                      : operationRequest.parseData(response.data),
+                      : operationRequest.parseData(response.data!),
                   graphqlErrors: response.errors,
                   dataSource: DataSource.Link,
                 ),

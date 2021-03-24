@@ -22,7 +22,7 @@ class ErrorTypedLink extends TypedLink {
     forward,
   ]) {
     try {
-      return forward(operationRequest).transform(
+      return forward!(operationRequest).transform(
         StreamTransformer.fromHandlers(
           handleError: (error, stackTrace, sink) => sink.add(
             OperationResponse(

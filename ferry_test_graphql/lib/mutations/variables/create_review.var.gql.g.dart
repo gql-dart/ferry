@@ -17,17 +17,19 @@ class _$GCreateReviewVarsSerializer
   final String wireName = 'GCreateReviewVars';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GCreateReviewVars object,
+  Iterable<Object?> serialize(Serializers serializers, GCreateReviewVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'review',
       serializers.serialize(object.review,
           specifiedType: const FullType(_i1.GReviewInput)),
     ];
-    if (object.episode != null) {
+    Object? value;
+    value = object.episode;
+    if (value != null) {
       result
         ..add('episode')
-        ..add(serializers.serialize(object.episode,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i1.GEpisode)));
     }
     return result;
@@ -35,7 +37,7 @@ class _$GCreateReviewVarsSerializer
 
   @override
   GCreateReviewVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GCreateReviewVarsBuilder();
 
@@ -43,7 +45,7 @@ class _$GCreateReviewVarsSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'episode':
           result.episode = serializers.deserialize(value,
@@ -51,7 +53,7 @@ class _$GCreateReviewVarsSerializer
           break;
         case 'review':
           result.review.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i1.GReviewInput))
+                  specifiedType: const FullType(_i1.GReviewInput))!
               as _i1.GReviewInput);
           break;
       }
@@ -63,18 +65,17 @@ class _$GCreateReviewVarsSerializer
 
 class _$GCreateReviewVars extends GCreateReviewVars {
   @override
-  final _i1.GEpisode episode;
+  final _i1.GEpisode? episode;
   @override
   final _i1.GReviewInput review;
 
   factory _$GCreateReviewVars(
-          [void Function(GCreateReviewVarsBuilder) updates]) =>
+          [void Function(GCreateReviewVarsBuilder)? updates]) =>
       (new GCreateReviewVarsBuilder()..update(updates)).build();
 
-  _$GCreateReviewVars._({this.episode, this.review}) : super._() {
-    if (review == null) {
-      throw new BuiltValueNullFieldError('GCreateReviewVars', 'review');
-    }
+  _$GCreateReviewVars._({this.episode, required this.review}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        review, 'GCreateReviewVars', 'review');
   }
 
   @override
@@ -109,23 +110,24 @@ class _$GCreateReviewVars extends GCreateReviewVars {
 
 class GCreateReviewVarsBuilder
     implements Builder<GCreateReviewVars, GCreateReviewVarsBuilder> {
-  _$GCreateReviewVars _$v;
+  _$GCreateReviewVars? _$v;
 
-  _i1.GEpisode _episode;
-  _i1.GEpisode get episode => _$this._episode;
-  set episode(_i1.GEpisode episode) => _$this._episode = episode;
+  _i1.GEpisode? _episode;
+  _i1.GEpisode? get episode => _$this._episode;
+  set episode(_i1.GEpisode? episode) => _$this._episode = episode;
 
-  _i1.GReviewInputBuilder _review;
+  _i1.GReviewInputBuilder? _review;
   _i1.GReviewInputBuilder get review =>
       _$this._review ??= new _i1.GReviewInputBuilder();
-  set review(_i1.GReviewInputBuilder review) => _$this._review = review;
+  set review(_i1.GReviewInputBuilder? review) => _$this._review = review;
 
   GCreateReviewVarsBuilder();
 
   GCreateReviewVarsBuilder get _$this {
-    if (_$v != null) {
-      _episode = _$v.episode;
-      _review = _$v.review?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _episode = $v.episode;
+      _review = $v.review.toBuilder();
       _$v = null;
     }
     return this;
@@ -133,14 +135,12 @@ class GCreateReviewVarsBuilder
 
   @override
   void replace(GCreateReviewVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GCreateReviewVars;
   }
 
   @override
-  void update(void Function(GCreateReviewVarsBuilder) updates) {
+  void update(void Function(GCreateReviewVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -151,7 +151,7 @@ class GCreateReviewVarsBuilder
       _$result = _$v ??
           new _$GCreateReviewVars._(episode: episode, review: review.build());
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'review';
         review.build();

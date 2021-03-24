@@ -17,16 +17,19 @@ class _$GHumanWithArgsVarsSerializer
   final String wireName = 'GHumanWithArgsVars';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GHumanWithArgsVars object,
+  Iterable<Object?> serialize(
+      Serializers serializers, GHumanWithArgsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(String)),
     ];
-    if (object.friendsAfter != null) {
+    Object? value;
+    value = object.friendsAfter;
+    if (value != null) {
       result
         ..add('friendsAfter')
-        ..add(serializers.serialize(object.friendsAfter,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -34,7 +37,7 @@ class _$GHumanWithArgsVarsSerializer
 
   @override
   GHumanWithArgsVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GHumanWithArgsVarsBuilder();
 
@@ -42,7 +45,7 @@ class _$GHumanWithArgsVarsSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
@@ -63,16 +66,14 @@ class _$GHumanWithArgsVars extends GHumanWithArgsVars {
   @override
   final String id;
   @override
-  final String friendsAfter;
+  final String? friendsAfter;
 
   factory _$GHumanWithArgsVars(
-          [void Function(GHumanWithArgsVarsBuilder) updates]) =>
+          [void Function(GHumanWithArgsVarsBuilder)? updates]) =>
       (new GHumanWithArgsVarsBuilder()..update(updates)).build();
 
-  _$GHumanWithArgsVars._({this.id, this.friendsAfter}) : super._() {
-    if (id == null) {
-      throw new BuiltValueNullFieldError('GHumanWithArgsVars', 'id');
-    }
+  _$GHumanWithArgsVars._({required this.id, this.friendsAfter}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(id, 'GHumanWithArgsVars', 'id');
   }
 
   @override
@@ -108,22 +109,23 @@ class _$GHumanWithArgsVars extends GHumanWithArgsVars {
 
 class GHumanWithArgsVarsBuilder
     implements Builder<GHumanWithArgsVars, GHumanWithArgsVarsBuilder> {
-  _$GHumanWithArgsVars _$v;
+  _$GHumanWithArgsVars? _$v;
 
-  String _id;
-  String get id => _$this._id;
-  set id(String id) => _$this._id = id;
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
 
-  String _friendsAfter;
-  String get friendsAfter => _$this._friendsAfter;
-  set friendsAfter(String friendsAfter) => _$this._friendsAfter = friendsAfter;
+  String? _friendsAfter;
+  String? get friendsAfter => _$this._friendsAfter;
+  set friendsAfter(String? friendsAfter) => _$this._friendsAfter = friendsAfter;
 
   GHumanWithArgsVarsBuilder();
 
   GHumanWithArgsVarsBuilder get _$this {
-    if (_$v != null) {
-      _id = _$v.id;
-      _friendsAfter = _$v.friendsAfter;
+    final $v = _$v;
+    if ($v != null) {
+      _id = $v.id;
+      _friendsAfter = $v.friendsAfter;
       _$v = null;
     }
     return this;
@@ -131,21 +133,22 @@ class GHumanWithArgsVarsBuilder
 
   @override
   void replace(GHumanWithArgsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GHumanWithArgsVars;
   }
 
   @override
-  void update(void Function(GHumanWithArgsVarsBuilder) updates) {
+  void update(void Function(GHumanWithArgsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$GHumanWithArgsVars build() {
-    final _$result =
-        _$v ?? new _$GHumanWithArgsVars._(id: id, friendsAfter: friendsAfter);
+    final _$result = _$v ??
+        new _$GHumanWithArgsVars._(
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, 'GHumanWithArgsVars', 'id'),
+            friendsAfter: friendsAfter);
     replace(_$result);
     return _$result;
   }

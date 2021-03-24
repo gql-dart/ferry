@@ -13,15 +13,15 @@ import './utils/fragment_data_id.dart';
 Stream<Set<String>> fragmentDataChangeStream<TData, TVars>(
   FragmentRequest<TData, TVars> request,
   bool optimistic,
-  Stream<Map<OperationRequest, Map<String, Map<String, dynamic>>>>
+  Stream<Map<OperationRequest, Map<String, Map<String, dynamic>?>>?>
       optimisticPatchesStream,
-  Map<String, dynamic> Function(String dataId) optimisticReader,
+  Map<String, dynamic>? Function(String dataId) optimisticReader,
   Store store,
   Map<String, TypePolicy> typePolicies,
   bool addTypename,
 ) {
   final dataIds = reachableIdsFromDataId(
-    fragmentDataId(request, typePolicies),
+    fragmentDataId(request, typePolicies)!,
     optimistic ? optimisticReader : (dataId) => store.get(dataId),
   );
 
@@ -48,7 +48,7 @@ Stream<Set<String>> fragmentDataChangeStream<TData, TVars>(
         .doOnData((_) => changed.add(dataId));
   });
 
-  return CombineLatestStream<Map<String, dynamic>, Set<String>>(
+  return CombineLatestStream<Map<String, dynamic>?, Set<String>>(
     streams,
     (_) {
       final result = {...changed};
