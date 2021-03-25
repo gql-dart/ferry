@@ -1,3 +1,10 @@
+## 0.10.1-0.1.nullsafety.0
+
+ - **FEAT**: migrate to null safety.
+ - **CHORE**: bump versions to match melos style.
+ - **CHORE**: publish packages.
+ - **CHORE**: prepare changelogs for melos.
+
 ## 0.10.0-1.0.nullsafety.0
 
  - **FEAT**: migrate to null safety.
