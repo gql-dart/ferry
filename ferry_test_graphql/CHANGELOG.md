@@ -1,3 +1,9 @@
+## 0.1.1-0.1.nullsafety.0
+
+ - **FEAT**: migrate to null safety.
+ - **CHORE**: bump versions to match melos style.
+ - **CHORE**: prepare changelogs for melos.
+
 ## [0.0.3]
 
 - update hero fragment
