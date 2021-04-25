@@ -1,3 +1,4 @@
+// ignore_for_file: unawaited_futures
 import 'dart:async';
 import 'package:ferry/typed_links.dart';
 import 'package:test/test.dart';
@@ -24,26 +25,72 @@ final req1 = GCreateReviewReq(
 
 final req2 = GCreateReviewReq(
   (b) => b
-    ..requestId = 'test4'
+    ..requestId = 'test2'
     ..vars.review.stars = 3
     ..vars.episode = GEpisode.JEDI
     ..vars.review.commentary = 'This was meh',
 );
 
+final req3 = GCreateReviewReq(
+  (b) => b
+    ..requestId = 'test3'
+    ..vars.review.stars = 4
+    ..vars.episode = GEpisode.NEWHOPE
+    ..vars.review.commentary = 'This was the beginning',
+);
+
+final req4 = GCreateReviewReq(
+  (b) => b
+    ..requestId = 'test4'
+    ..vars.review.stars = 5
+    ..vars.episode = GEpisode.EMPIRE
+    ..vars.review.commentary = 'This was sooo good',
+);
+
+class MockException extends LinkException {
+  MockException(originalException) : super(originalException);
+}
+
 final data = {
-  [req1.requestId]: GCreateReviewData(
-    (b) => b
-      ..createReview.id = '123'
-      ..createReview.stars = 5
-      ..createReview.episode = GEpisode.NEWHOPE
-      ..createReview.commentary = 'Amazing!!!',
+  req1.requestId: OperationResponse(
+    operationRequest: req1,
+    dataSource: DataSource.Link,
+    data: GCreateReviewData(
+      (b) => b
+        ..createReview.id = '120'
+        ..createReview.stars = 5
+        ..createReview.episode = GEpisode.NEWHOPE
+        ..createReview.commentary = 'Amazing!!!',
+    ),
   ),
-  [req2.requestId]: GCreateReviewData(
-    (b) => b
-      ..createReview.id = '120'
-      ..createReview.stars = 3
-      ..createReview.episode = GEpisode.JEDI
-      ..createReview.commentary = 'This was meh',
+  req2.requestId: OperationResponse(
+    operationRequest: req2,
+    dataSource: DataSource.Link,
+    data: GCreateReviewData(
+      (b) => b
+        ..createReview.id = '121'
+        ..createReview.stars = 3
+        ..createReview.episode = GEpisode.JEDI
+        ..createReview.commentary = 'This was meh',
+    ),
+  ),
+  req3.requestId: OperationResponse(
+    operationRequest: req3,
+    dataSource: DataSource.Link,
+    linkException: MockException('This is a retry error'),
+    data: null,
+  ),
+  req4.requestId: OperationResponse(
+    operationRequest: req4,
+    dataSource: DataSource.Link,
+    linkException: MockException('This is an error'),
+    data: GCreateReviewData(
+      (b) => b
+        ..createReview.id = '120'
+        ..createReview.stars = 3
+        ..createReview.episode = GEpisode.JEDI
+        ..createReview.commentary = 'This was meh',
+    ),
   )
 };
 
@@ -81,11 +128,7 @@ class MockClient extends OfflineClient {
     final terminatingLink = TypedLink.function(
       <TData, TVars>(request, [forward]) {
         return Stream.value(
-          OperationResponse(
-            operationRequest: request,
-            data: data[request.requestId] as TData,
-            dataSource: DataSource.Link,
-          ),
+          data[request.requestId] as OperationResponse<TData, TVars>,
         );
       },
     );
@@ -135,7 +178,7 @@ void main() {
 
     final queue = StreamQueue(client.request(req1));
 
-    expect((await queue.next).data, equals(data[req1.requestId]));
+    expect((await queue.next).data, equals(data[req1.requestId].data));
 
     // client goes offline, subsequent request is queued
     offlineLink.connected = false;
@@ -148,7 +191,7 @@ void main() {
     // client comes back online, queued request is executed
     offlineLink.connected = true;
 
-    expect((await queue.next).data, equals(data[req1.requestId]));
+    expect((await queue.next).data, equals(data[req1.requestId].data));
 
     expect(box.keys.length, equals(0));
   });
