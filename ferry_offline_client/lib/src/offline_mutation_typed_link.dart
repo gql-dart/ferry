@@ -142,11 +142,13 @@ class OfflineMutationTypedLink extends TypedLink {
               // do not allow any requests that have errors to be removed from
               // the queue as these need to be retried
               //
-              // TODO decide if the error should be returned here so it bubbles
-              // up by default or only explicitly by user intervention i.e.
-              // adding it to the sink
-              if (res.hasErrors && config?.linkExceptionHandler != null) {
-                return config.linkExceptionHandler(res, sink);
+              // TODO figure out how to handle responses from offline mutations
+              // not being removed if the error doesn't warrant retrying
+              if (res.hasErrors) {
+                if (config?.linkExceptionHandler != null) {
+                  config.linkExceptionHandler(res, sink);
+                }
+                return sink.addError(res.graphqlErrors ?? res.linkException);
               }
 
               // Forward response and remove mutation from queue

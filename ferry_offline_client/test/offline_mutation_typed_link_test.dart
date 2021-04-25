@@ -220,4 +220,43 @@ void main() {
       ]),
     );
   });
+
+  test('ensure failed mutations are retried', () async {
+    final requestController = StreamController<OperationRequest>.broadcast();
+    final cache = Cache();
+    offlineLink = OfflineMutationTypedLink(
+      requestController: requestController,
+      mutationQueueBox: box,
+      serializers: serializers,
+      cache: cache,
+      config: OfflineClientConfig(
+        retryAttempts: 4,
+        // TODO: figure out how to test that this handler is called
+        // retriesExhaustedHandler: (_) {
+        //
+        // },
+      ),
+    );
+
+    client = MockClient(requestController, offlineLink);
+    offlineLink.client = client;
+    offlineLink.connected = false;
+    expect(box.keys.length, 0);
+    final queue = StreamQueue(client.request(req3));
+    queue.hasNext;
+    await Future.delayed(Duration.zero);
+    expect(box.keys.length, 1);
+    offlineLink.connected = true;
+
+    final retryMatcher = isA<Exception>().having(
+      (e) => e.toString(),
+      'message',
+      contains('retry'),
+    );
+    expect(queue.next, throwsA(retryMatcher));
+    await queue.hasNext;
+    expect(queue.next, throwsA(retryMatcher));
+    await queue.hasNext;
+    expect(queue.next, throwsA(retryMatcher));
+  });
 }
