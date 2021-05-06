@@ -57,6 +57,7 @@ class OperationResponse<TData, TVars> {
 
   List<Object> _getChildren() => [
         operationRequest,
+        dataSource,
         data,
         graphqlErrors,
         linkException,
