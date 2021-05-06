@@ -72,47 +72,35 @@ class FetchPolicyTypedLink extends TypedLink {
       case FetchPolicy.CacheOnly:
         return _cacheTypedLink.request(operationRequest);
       case FetchPolicy.CacheFirst:
-        return _cacheTypedLink.request(operationRequest).take(1).switchMap(
-              (result) => result.data != null
-                  ? _cacheTypedLink.request(operationRequest)
-                  : _optimisticLinkTypedLink
-                      .request(operationRequest)
-                      .doOnData(_removeOptimisticPatch)
-                      .doOnData(_writeToCache)
-                      .switchMap(
-                        (networkResponse) => ConcatStream([
-                          Stream.value(networkResponse),
-                          _cacheTypedLink.request(operationRequest).skip(1),
-                        ]),
-                      ),
-            );
-      case FetchPolicy.CacheAndNetwork:
-        final sharedNetworkStream =
-            _optimisticLinkTypedLink.request(operationRequest).shareValue();
+        final controller = StreamController<OperationResponse<TData, TVars>>();
+        var isInitial = true;
 
         return _cacheTypedLink
             .request(operationRequest)
+            .doOnData((result) {
+              if (isInitial) {
+                isInitial = false;
+                if (result.data == null) {
+                  controller.addStream(_optimisticLinkTypedLink
+                      .request(operationRequest)
+                      .doOnData(_removeOptimisticPatch)
+                      .doOnData(_writeToCache));
+                }
+              }
+            })
             .where((response) => response.data != null)
-            .takeUntil(
-          sharedNetworkStream.doOnData(
-            (_) {
-              /// Temporarily add a listener so that [sharedNetworkStream] doesn't shut down when
-              /// switchMap is updating the stream.
-              final sub = sharedNetworkStream.listen(null);
-              Future.delayed(Duration.zero).then((_) => sub.cancel());
-            },
-          ),
-        ).concatWith([
-          sharedNetworkStream
+            .mergeWith([controller.stream])
+            .distinct();
+      case FetchPolicy.CacheAndNetwork:
+        return _cacheTypedLink
+            .request(operationRequest)
+            .where((response) => response.data != null)
+            .mergeWith([
+          _optimisticLinkTypedLink
+              .request(operationRequest)
               .doOnData(_removeOptimisticPatch)
               .doOnData(_writeToCache)
-              .switchMap(
-                (networkResponse) => ConcatStream([
-                  Stream.value(networkResponse),
-                  _cacheTypedLink.request(operationRequest).skip(1),
-                ]),
-              )
-        ]);
+        ]).distinct();
       default:
         throw Exception('Unrecognized FetchPolicy');
     }
