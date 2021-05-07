@@ -5,7 +5,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:ferry_exec/ferry_exec.dart';
 import 'package:async/async.dart';
 
-import 'package:ferry/src/offline_mutation_typed_link.dart';
+import 'package:ferry_offline_client/src/offline_mutation_typed_link.dart';
 
 import 'package:ferry_test_graphql/schema/serializers.gql.dart';
 import 'package:ferry_test_graphql/mutations/variables/create_review.req.gql.dart';
