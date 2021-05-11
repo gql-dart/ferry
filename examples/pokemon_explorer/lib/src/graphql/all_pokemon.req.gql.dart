@@ -28,29 +28,23 @@ abstract class GAllPokemonReq
   _i4.Operation get operation;
   _i4.Request get execRequest =>
       _i4.Request(operation: operation, variables: vars.toJson());
-  @nullable
-  String get requestId;
-  @nullable
+  String? get requestId;
   @BuiltValueField(serialize: false)
-  _i2.GAllPokemonData Function(_i2.GAllPokemonData, _i2.GAllPokemonData)
+  _i2.GAllPokemonData? Function(_i2.GAllPokemonData?, _i2.GAllPokemonData?)?
       get updateResult;
-  @nullable
-  _i2.GAllPokemonData get optimisticResponse;
-  @nullable
-  String get updateCacheHandlerKey;
-  @nullable
-  Map<String, dynamic> get updateCacheHandlerContext;
-  @nullable
-  _i1.FetchPolicy get fetchPolicy;
-  @nullable
+  _i2.GAllPokemonData? get optimisticResponse;
+  String? get updateCacheHandlerKey;
+  Map<String, dynamic>? get updateCacheHandlerContext;
+  _i1.FetchPolicy? get fetchPolicy;
   bool get executeOnListen;
   @override
-  _i2.GAllPokemonData parseData(Map<String, dynamic> json) =>
+  _i2.GAllPokemonData? parseData(Map<String, dynamic> json) =>
       _i2.GAllPokemonData.fromJson(json);
   static Serializer<GAllPokemonReq> get serializer =>
       _$gAllPokemonReqSerializer;
   Map<String, dynamic> toJson() =>
-      _i6.serializers.serializeWith(GAllPokemonReq.serializer, this);
-  static GAllPokemonReq fromJson(Map<String, dynamic> json) =>
+      (_i6.serializers.serializeWith(GAllPokemonReq.serializer, this)
+          as Map<String, dynamic>);
+  static GAllPokemonReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(GAllPokemonReq.serializer, json);
 }

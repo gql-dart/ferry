@@ -1,10 +1,15 @@
 fragment NestedFragment on Pokemon {
   id
   name
+  avatar
 }
 
 fragment PokemonCard on Pokemon {
   ...NestedFragment
-  maxHP
-  image
+  height {
+    in_meter
+  }
+  weight {
+    in_kg
+  }
 }

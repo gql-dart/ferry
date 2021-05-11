@@ -1,15 +1,11 @@
 # import './pokemon_card_fragment.graphql'
 
-query PokemonDetail($id: String) {
-  getPokemon(id: $id) {
+query PokemonDetail($id: ID!) {
+  pokemon(id: $id) {
     ...PokemonCard
-    weight {
-      minimum
-      maximum
-    }
-    height {
-      minimum
-      maximum
+    stats {
+      id
+      name
     }
   }
 }

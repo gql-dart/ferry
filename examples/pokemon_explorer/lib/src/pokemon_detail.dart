@@ -11,33 +11,31 @@ import './pokemon_card.dart';
 class PokemonDetailScreen extends StatelessWidget {
   final client = GetIt.I<Client>();
 
-  final String id;
+  final int id;
 
-  PokemonDetailScreen({this.id});
+  PokemonDetailScreen({required this.id});
 
   @override
   Widget build(BuildContext context) {
-    return Operation(
+    return Operation<GPokemonDetailData, GPokemonDetailVars>(
       client: client,
       operationRequest: GPokemonDetailReq(
-        (b) => b..vars.id = id,
+        (b) => b..vars.id = id.toString(),
       ),
       builder: (
-        BuildContext context,
-        OperationResponse<GPokemonDetailData, GPokemonDetailVars> response,
+        context,
+        response,
+        error,
       ) {
-        if (response.loading)
+        if (response!.loading)
           return Scaffold(
               appBar: AppBar(),
               body: Center(child: CircularProgressIndicator()));
 
-        final pokemon = response.data?.getPokemon;
+        final pokemon = response.data?.pokemon;
 
         return Scaffold(
-          appBar: AppBar(
-              title: Text(
-            pokemon?.name,
-          )),
+          appBar: AppBar(title: Text(pokemon?.name ?? '')),
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
@@ -52,8 +50,8 @@ class PokemonDetailScreen extends StatelessWidget {
                 'Height',
                 style: Theme.of(context).textTheme.title,
               ),
-              if (pokemon != null) Text('min: ${pokemon.height.minimum}'),
-              if (pokemon != null) Text('max: ${pokemon.height.maximum}'),
+              if (pokemon != null)
+                Text('${pokemon.height?.in_meter ?? 0} meters'),
               Padding(
                 padding: const EdgeInsets.all(8.0),
               ),
@@ -61,8 +59,7 @@ class PokemonDetailScreen extends StatelessWidget {
                 'Weight',
                 style: Theme.of(context).textTheme.title,
               ),
-              if (pokemon != null) Text('min: ${pokemon.weight.minimum}'),
-              if (pokemon != null) Text('max: ${pokemon.weight.maximum}'),
+              if (pokemon != null) Text('${pokemon.weight?.in_kg ?? 0} kilos'),
             ],
           ),
         );

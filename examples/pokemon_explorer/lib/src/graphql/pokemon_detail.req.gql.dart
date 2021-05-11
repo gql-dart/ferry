@@ -31,29 +31,23 @@ abstract class GPokemonDetailReq
   _i4.Operation get operation;
   _i4.Request get execRequest =>
       _i4.Request(operation: operation, variables: vars.toJson());
-  @nullable
-  String get requestId;
-  @nullable
+  String? get requestId;
   @BuiltValueField(serialize: false)
-  _i2.GPokemonDetailData Function(
-      _i2.GPokemonDetailData, _i2.GPokemonDetailData) get updateResult;
-  @nullable
-  _i2.GPokemonDetailData get optimisticResponse;
-  @nullable
-  String get updateCacheHandlerKey;
-  @nullable
-  Map<String, dynamic> get updateCacheHandlerContext;
-  @nullable
-  _i1.FetchPolicy get fetchPolicy;
-  @nullable
+  _i2.GPokemonDetailData? Function(
+      _i2.GPokemonDetailData?, _i2.GPokemonDetailData?)? get updateResult;
+  _i2.GPokemonDetailData? get optimisticResponse;
+  String? get updateCacheHandlerKey;
+  Map<String, dynamic>? get updateCacheHandlerContext;
+  _i1.FetchPolicy? get fetchPolicy;
   bool get executeOnListen;
   @override
-  _i2.GPokemonDetailData parseData(Map<String, dynamic> json) =>
+  _i2.GPokemonDetailData? parseData(Map<String, dynamic> json) =>
       _i2.GPokemonDetailData.fromJson(json);
   static Serializer<GPokemonDetailReq> get serializer =>
       _$gPokemonDetailReqSerializer;
   Map<String, dynamic> toJson() =>
-      _i6.serializers.serializeWith(GPokemonDetailReq.serializer, this);
-  static GPokemonDetailReq fromJson(Map<String, dynamic> json) =>
+      (_i6.serializers.serializeWith(GPokemonDetailReq.serializer, this)
+          as Map<String, dynamic>);
+  static GPokemonDetailReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(GPokemonDetailReq.serializer, json);
 }

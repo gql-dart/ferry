@@ -20,6 +20,12 @@ const NestedFragment = _i1.FragmentDefinitionNode(
           alias: null,
           arguments: [],
           directives: [],
+          selectionSet: null),
+      _i1.FieldNode(
+          name: _i1.NameNode(value: 'avatar'),
+          alias: null,
+          arguments: [],
+          directives: [],
           selectionSet: null)
     ]));
 const PokemonCard = _i1.FragmentDefinitionNode(
@@ -32,16 +38,30 @@ const PokemonCard = _i1.FragmentDefinitionNode(
       _i1.FragmentSpreadNode(
           name: _i1.NameNode(value: 'NestedFragment'), directives: []),
       _i1.FieldNode(
-          name: _i1.NameNode(value: 'maxHP'),
+          name: _i1.NameNode(value: 'height'),
           alias: null,
           arguments: [],
           directives: [],
-          selectionSet: null),
+          selectionSet: _i1.SelectionSetNode(selections: [
+            _i1.FieldNode(
+                name: _i1.NameNode(value: 'in_meter'),
+                alias: null,
+                arguments: [],
+                directives: [],
+                selectionSet: null)
+          ])),
       _i1.FieldNode(
-          name: _i1.NameNode(value: 'image'),
+          name: _i1.NameNode(value: 'weight'),
           alias: null,
           arguments: [],
           directives: [],
-          selectionSet: null)
+          selectionSet: _i1.SelectionSetNode(selections: [
+            _i1.FieldNode(
+                name: _i1.NameNode(value: 'in_kg'),
+                alias: null,
+                arguments: [],
+                directives: [],
+                selectionSet: null)
+          ]))
     ]));
 const document = _i1.DocumentNode(definitions: [NestedFragment, PokemonCard]);
