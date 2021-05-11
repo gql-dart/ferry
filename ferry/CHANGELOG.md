@@ -1,3 +1,11 @@
+## 0.10.2
+
+ - **FIX**: resolve static analysis issues.
+ - **FEAT**: migrate to null safety.
+ - **FEAT**: migrate to null safety.
+ - **CHORE**: publish packages.
+ - **CHORE**: publish packages.
+
 ## 0.10.1
 
  - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.
