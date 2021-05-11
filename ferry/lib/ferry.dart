@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:meta/meta.dart';
 import 'package:ferry_exec/ferry_exec.dart';
 import 'package:gql/ast.dart';
 

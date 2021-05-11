@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:ferry_exec/ferry_exec.dart';
 import 'package:ferry_cache/ferry_cache.dart';
