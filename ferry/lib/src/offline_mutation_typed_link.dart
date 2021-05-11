@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:meta/meta.dart';
 import 'package:hive/hive.dart';
 import 'package:built_value/serializer.dart';
 import 'package:gql/ast.dart';
@@ -64,7 +63,8 @@ class OfflineMutationTypedLink extends TypedLink {
   });
 
   void _handleOnConnect() => mutationQueueBox.values.forEach((json) {
-        final OperationRequest req = serializers.deserialize(json) as OperationRequest<dynamic, dynamic>;
+        final req =
+            serializers.deserialize(json) as OperationRequest<dynamic, dynamic>;
 
         // Run unexecuted mutations
         requestController.add(req);
@@ -95,7 +95,8 @@ class OfflineMutationTypedLink extends TypedLink {
     if (connected) return forward!(request);
 
     // Save mutation to the queue
-    mutationQueueBox.add(serializers.serialize(request) as Map<String, dynamic>?);
+    mutationQueueBox
+        .add(serializers.serialize(request) as Map<String, dynamic>?);
 
     // Add an optimistic patch to the cache, if necessary
     if (request.optimisticResponse != null) {

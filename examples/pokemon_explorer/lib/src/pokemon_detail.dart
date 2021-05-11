@@ -48,7 +48,7 @@ class PokemonDetailScreen extends StatelessWidget {
               ),
               Text(
                 'Height',
-                style: Theme.of(context).textTheme.title,
+                style: Theme.of(context).textTheme.headline6,
               ),
               if (pokemon != null) Text('${pokemon.height?.in_meter ?? 0}'),
               Padding(
@@ -56,7 +56,7 @@ class PokemonDetailScreen extends StatelessWidget {
               ),
               Text(
                 'Weight',
-                style: Theme.of(context).textTheme.title,
+                style: Theme.of(context).textTheme.headline6,
               ),
               if (pokemon != null) Text('${pokemon.weight?.in_kg ?? 0}'),
             ],
