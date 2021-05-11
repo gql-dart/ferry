@@ -1,5 +1,5 @@
 name: ferry_generator
-version: 0.4.1-0.1.nullsafety.1
+version: 0.4.1
 homepage: https://ferrygraphql.com/
 description: Generated types for Ferry GraphQL Client
 repository: https://github.com/gql-dart/ferry
@@ -13,7 +13,7 @@ dependencies:
   code_builder: ^4.0.0
   build: ^2.0.0
   path: ^1.8.0
-  ferry_exec: '>=0.1.1-0.1.nullsafety.0 <0.1.1-1.0.nullsafety.0'
+  ferry_exec: ^0.1.1
 dev_dependencies:
   test: ^1.16.8
   build_runner: ^2.0.2

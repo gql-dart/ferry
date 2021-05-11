@@ -1,3 +1,7 @@
+## 0.1.1
+
+ - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.
+
 ## 0.1.1-0.1.nullsafety.0
 
  - **FEAT**: migrate to null safety.

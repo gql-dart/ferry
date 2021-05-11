@@ -1,3 +1,7 @@
+## 0.10.1
+
+ - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.
+
 ## 0.10.1-0.1.nullsafety.1
 
  - **FIX**: update build_runner.
