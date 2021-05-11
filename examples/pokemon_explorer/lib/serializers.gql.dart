@@ -4,50 +4,24 @@ import 'package:built_value/standard_json_plugin.dart' show StandardJsonPlugin;
 import 'package:gql_code_builder/src/serializers/operation_serializer.dart'
     show OperationSerializer;
 import 'package:pokemon_explorer/schema.schema.gql.dart'
-    show
-        GAddAttackInput,
-        GAddPokemonAttackInput,
-        GAddPokemonDimensionInput,
-        GAddPokemonEvolutionRequirementInput,
-        GAddPokemonInput,
-        GAttackOrder,
-        GAttackOrderable,
-        GAttackRef,
-        GAuthRule,
-        GCustomHTTP,
-        GDateTime,
-        GDateTimeFilter,
-        GDgraphIndex,
-        GFloatFilter,
-        GHTTPMethod,
-        GIntFilter,
-        GMode,
-        GPokemonAttackRef,
-        GPokemonDimensionOrder,
-        GPokemonDimensionOrderable,
-        GPokemonDimensionRef,
-        GPokemonEvolutionRequirementOrder,
-        GPokemonEvolutionRequirementOrderable,
-        GPokemonEvolutionRequirementRef,
-        GPokemonFilter,
-        GPokemonOrder,
-        GPokemonOrderable,
-        GPokemonPatch,
-        GPokemonRef,
-        GStringExactFilter,
-        GStringFullTextFilter,
-        GStringHashFilter,
-        GStringRegExpFilter,
-        GStringTermFilter,
-        GUpdatePokemonInput;
+    show GCacheControlScope, GUpload;
 import 'package:pokemon_explorer/src/graphql/all_pokemon.data.gql.dart'
-    show GAllPokemonData, GAllPokemonData_queryPokemon;
+    show
+        GAllPokemonData,
+        GAllPokemonData_pokemons,
+        GAllPokemonData_pokemons_results,
+        GAllPokemonData_pokemons_results_height,
+        GAllPokemonData_pokemons_results_weight;
 import 'package:pokemon_explorer/src/graphql/all_pokemon.req.gql.dart'
     show GAllPokemonReq;
 import 'package:pokemon_explorer/src/graphql/all_pokemon.var.gql.dart'
     show GAllPokemonVars;
 import 'package:pokemon_explorer/src/graphql/pokemon_card_fragment.data.gql.dart'
-    show GNestedFragmentData, GPokemonCardData;
+    show
+        GNestedFragmentData,
+        GPokemonCardData,
+        GPokemonCardData_height,
+        GPokemonCardData_weight;
 import 'package:pokemon_explorer/src/graphql/pokemon_card_fragment.req.gql.dart'
     show GNestedFragmentReq, GPokemonCardReq;
 import 'package:pokemon_explorer/src/graphql/pokemon_card_fragment.var.gql.dart'
@@ -55,9 +29,10 @@ import 'package:pokemon_explorer/src/graphql/pokemon_card_fragment.var.gql.dart'
 import 'package:pokemon_explorer/src/graphql/pokemon_detail.data.gql.dart'
     show
         GPokemonDetailData,
-        GPokemonDetailData_getPokemon,
-        GPokemonDetailData_getPokemon_height,
-        GPokemonDetailData_getPokemon_weight;
+        GPokemonDetailData_pokemon,
+        GPokemonDetailData_pokemon_height,
+        GPokemonDetailData_pokemon_stats,
+        GPokemonDetailData_pokemon_weight;
 import 'package:pokemon_explorer/src/graphql/pokemon_detail.req.gql.dart'
     show GPokemonDetailReq;
 import 'package:pokemon_explorer/src/graphql/pokemon_detail.var.gql.dart'
@@ -69,56 +44,29 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   ..add(OperationSerializer())
   ..addPlugin(StandardJsonPlugin());
 @SerializersFor([
-  GAddAttackInput,
-  GAddPokemonAttackInput,
-  GAddPokemonDimensionInput,
-  GAddPokemonEvolutionRequirementInput,
-  GAddPokemonInput,
   GAllPokemonData,
-  GAllPokemonData_queryPokemon,
+  GAllPokemonData_pokemons,
+  GAllPokemonData_pokemons_results,
+  GAllPokemonData_pokemons_results_height,
+  GAllPokemonData_pokemons_results_weight,
   GAllPokemonReq,
   GAllPokemonVars,
-  GAttackOrder,
-  GAttackOrderable,
-  GAttackRef,
-  GAuthRule,
-  GCustomHTTP,
-  GDateTime,
-  GDateTimeFilter,
-  GDgraphIndex,
-  GFloatFilter,
-  GHTTPMethod,
-  GIntFilter,
-  GMode,
+  GCacheControlScope,
   GNestedFragmentData,
   GNestedFragmentReq,
   GNestedFragmentVars,
-  GPokemonAttackRef,
   GPokemonCardData,
+  GPokemonCardData_height,
+  GPokemonCardData_weight,
   GPokemonCardReq,
   GPokemonCardVars,
   GPokemonDetailData,
-  GPokemonDetailData_getPokemon,
-  GPokemonDetailData_getPokemon_height,
-  GPokemonDetailData_getPokemon_weight,
+  GPokemonDetailData_pokemon,
+  GPokemonDetailData_pokemon_height,
+  GPokemonDetailData_pokemon_stats,
+  GPokemonDetailData_pokemon_weight,
   GPokemonDetailReq,
   GPokemonDetailVars,
-  GPokemonDimensionOrder,
-  GPokemonDimensionOrderable,
-  GPokemonDimensionRef,
-  GPokemonEvolutionRequirementOrder,
-  GPokemonEvolutionRequirementOrderable,
-  GPokemonEvolutionRequirementRef,
-  GPokemonFilter,
-  GPokemonOrder,
-  GPokemonOrderable,
-  GPokemonPatch,
-  GPokemonRef,
-  GStringExactFilter,
-  GStringFullTextFilter,
-  GStringHashFilter,
-  GStringRegExpFilter,
-  GStringTermFilter,
-  GUpdatePokemonInput
+  GUpload
 ])
 final Serializers serializers = _serializersBuilder.build();

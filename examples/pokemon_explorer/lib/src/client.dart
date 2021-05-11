@@ -15,7 +15,7 @@ Future<Client> initClient() async {
 
   final cache = Cache(store: store);
 
-  final link = HttpLink("https://ferry.us-west-2.aws.cloud.dgraph.io/graphql");
+  final link = HttpLink("https://pokeapi.dev");
 
   final client = Client(
     link: link,

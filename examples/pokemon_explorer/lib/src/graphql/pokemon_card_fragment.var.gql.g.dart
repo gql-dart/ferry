@@ -22,15 +22,15 @@ class _$GNestedFragmentVarsSerializer
   final String wireName = 'GNestedFragmentVars';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GNestedFragmentVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GNestedFragmentVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GNestedFragmentVarsBuilder().build();
   }
@@ -44,14 +44,14 @@ class _$GPokemonCardVarsSerializer
   final String wireName = 'GPokemonCardVars';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GPokemonCardVars object,
+  Iterable<Object?> serialize(Serializers serializers, GPokemonCardVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GPokemonCardVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GPokemonCardVarsBuilder().build();
   }
@@ -59,7 +59,7 @@ class _$GPokemonCardVarsSerializer
 
 class _$GNestedFragmentVars extends GNestedFragmentVars {
   factory _$GNestedFragmentVars(
-          [void Function(GNestedFragmentVarsBuilder) updates]) =>
+          [void Function(GNestedFragmentVarsBuilder)? updates]) =>
       (new GNestedFragmentVarsBuilder()..update(updates)).build();
 
   _$GNestedFragmentVars._() : super._();
@@ -92,20 +92,18 @@ class _$GNestedFragmentVars extends GNestedFragmentVars {
 
 class GNestedFragmentVarsBuilder
     implements Builder<GNestedFragmentVars, GNestedFragmentVarsBuilder> {
-  _$GNestedFragmentVars _$v;
+  _$GNestedFragmentVars? _$v;
 
   GNestedFragmentVarsBuilder();
 
   @override
   void replace(GNestedFragmentVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GNestedFragmentVars;
   }
 
   @override
-  void update(void Function(GNestedFragmentVarsBuilder) updates) {
+  void update(void Function(GNestedFragmentVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -119,7 +117,7 @@ class GNestedFragmentVarsBuilder
 
 class _$GPokemonCardVars extends GPokemonCardVars {
   factory _$GPokemonCardVars(
-          [void Function(GPokemonCardVarsBuilder) updates]) =>
+          [void Function(GPokemonCardVarsBuilder)? updates]) =>
       (new GPokemonCardVarsBuilder()..update(updates)).build();
 
   _$GPokemonCardVars._() : super._();
@@ -151,20 +149,18 @@ class _$GPokemonCardVars extends GPokemonCardVars {
 
 class GPokemonCardVarsBuilder
     implements Builder<GPokemonCardVars, GPokemonCardVarsBuilder> {
-  _$GPokemonCardVars _$v;
+  _$GPokemonCardVars? _$v;
 
   GPokemonCardVarsBuilder();
 
   @override
   void replace(GPokemonCardVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GPokemonCardVars;
   }
 
   @override
-  void update(void Function(GPokemonCardVarsBuilder) updates) {
+  void update(void Function(GPokemonCardVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 

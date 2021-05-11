@@ -17,21 +17,20 @@ class _$GPokemonDetailVarsSerializer
   final String wireName = 'GPokemonDetailVars';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GPokemonDetailVars object,
+  Iterable<Object?> serialize(
+      Serializers serializers, GPokemonDetailVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    if (object.id != null) {
-      result
-        ..add('id')
-        ..add(serializers.serialize(object.id,
-            specifiedType: const FullType(String)));
-    }
+    final result = <Object?>[
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
+    ];
+
     return result;
   }
 
   @override
   GPokemonDetailVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GPokemonDetailVarsBuilder();
 
@@ -39,7 +38,7 @@ class _$GPokemonDetailVarsSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
@@ -57,10 +56,12 @@ class _$GPokemonDetailVars extends GPokemonDetailVars {
   final String id;
 
   factory _$GPokemonDetailVars(
-          [void Function(GPokemonDetailVarsBuilder) updates]) =>
+          [void Function(GPokemonDetailVarsBuilder)? updates]) =>
       (new GPokemonDetailVarsBuilder()..update(updates)).build();
 
-  _$GPokemonDetailVars._({this.id}) : super._();
+  _$GPokemonDetailVars._({required this.id}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(id, 'GPokemonDetailVars', 'id');
+  }
 
   @override
   GPokemonDetailVars rebuild(
@@ -91,17 +92,18 @@ class _$GPokemonDetailVars extends GPokemonDetailVars {
 
 class GPokemonDetailVarsBuilder
     implements Builder<GPokemonDetailVars, GPokemonDetailVarsBuilder> {
-  _$GPokemonDetailVars _$v;
+  _$GPokemonDetailVars? _$v;
 
-  String _id;
-  String get id => _$this._id;
-  set id(String id) => _$this._id = id;
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
 
   GPokemonDetailVarsBuilder();
 
   GPokemonDetailVarsBuilder get _$this {
-    if (_$v != null) {
-      _id = _$v.id;
+    final $v = _$v;
+    if ($v != null) {
+      _id = $v.id;
       _$v = null;
     }
     return this;
@@ -109,20 +111,21 @@ class GPokemonDetailVarsBuilder
 
   @override
   void replace(GPokemonDetailVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GPokemonDetailVars;
   }
 
   @override
-  void update(void Function(GPokemonDetailVarsBuilder) updates) {
+  void update(void Function(GPokemonDetailVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$GPokemonDetailVars build() {
-    final _$result = _$v ?? new _$GPokemonDetailVars._(id: id);
+    final _$result = _$v ??
+        new _$GPokemonDetailVars._(
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, 'GPokemonDetailVars', 'id'));
     replace(_$result);
     return _$result;
   }

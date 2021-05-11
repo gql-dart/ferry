@@ -1,7 +1,9 @@
 # import './pokemon_card_fragment.graphql'
 
-query AllPokemon($first: Int!) {
-  queryPokemon(first: $first) {
-    ...PokemonCard
+query AllPokemon($limit: Int!, $offset: Int!) {
+  pokemons(limit: $limit, offset: $offset) {
+    results {
+      ...PokemonCard
+    }
   }
 }

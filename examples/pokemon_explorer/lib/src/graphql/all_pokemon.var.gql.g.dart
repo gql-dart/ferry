@@ -17,11 +17,13 @@ class _$GAllPokemonVarsSerializer
   final String wireName = 'GAllPokemonVars';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GAllPokemonVars object,
+  Iterable<Object?> serialize(Serializers serializers, GAllPokemonVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
-      'first',
-      serializers.serialize(object.first, specifiedType: const FullType(int)),
+    final result = <Object?>[
+      'limit',
+      serializers.serialize(object.limit, specifiedType: const FullType(int)),
+      'offset',
+      serializers.serialize(object.offset, specifiedType: const FullType(int)),
     ];
 
     return result;
@@ -29,7 +31,7 @@ class _$GAllPokemonVarsSerializer
 
   @override
   GAllPokemonVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GAllPokemonVarsBuilder();
 
@@ -37,10 +39,14 @@ class _$GAllPokemonVarsSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
-        case 'first':
-          result.first = serializers.deserialize(value,
+        case 'limit':
+          result.limit = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'offset':
+          result.offset = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
           break;
       }
@@ -52,15 +58,16 @@ class _$GAllPokemonVarsSerializer
 
 class _$GAllPokemonVars extends GAllPokemonVars {
   @override
-  final int first;
+  final int limit;
+  @override
+  final int offset;
 
-  factory _$GAllPokemonVars([void Function(GAllPokemonVarsBuilder) updates]) =>
+  factory _$GAllPokemonVars([void Function(GAllPokemonVarsBuilder)? updates]) =>
       (new GAllPokemonVarsBuilder()..update(updates)).build();
 
-  _$GAllPokemonVars._({this.first}) : super._() {
-    if (first == null) {
-      throw new BuiltValueNullFieldError('GAllPokemonVars', 'first');
-    }
+  _$GAllPokemonVars._({required this.limit, required this.offset}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(limit, 'GAllPokemonVars', 'limit');
+    BuiltValueNullFieldError.checkNotNull(offset, 'GAllPokemonVars', 'offset');
   }
 
   @override
@@ -74,34 +81,44 @@ class _$GAllPokemonVars extends GAllPokemonVars {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GAllPokemonVars && first == other.first;
+    return other is GAllPokemonVars &&
+        limit == other.limit &&
+        offset == other.offset;
   }
 
   @override
   int get hashCode {
-    return $jf($jc(0, first.hashCode));
+    return $jf($jc($jc(0, limit.hashCode), offset.hashCode));
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GAllPokemonVars')..add('first', first))
+    return (newBuiltValueToStringHelper('GAllPokemonVars')
+          ..add('limit', limit)
+          ..add('offset', offset))
         .toString();
   }
 }
 
 class GAllPokemonVarsBuilder
     implements Builder<GAllPokemonVars, GAllPokemonVarsBuilder> {
-  _$GAllPokemonVars _$v;
+  _$GAllPokemonVars? _$v;
 
-  int _first;
-  int get first => _$this._first;
-  set first(int first) => _$this._first = first;
+  int? _limit;
+  int? get limit => _$this._limit;
+  set limit(int? limit) => _$this._limit = limit;
+
+  int? _offset;
+  int? get offset => _$this._offset;
+  set offset(int? offset) => _$this._offset = offset;
 
   GAllPokemonVarsBuilder();
 
   GAllPokemonVarsBuilder get _$this {
-    if (_$v != null) {
-      _first = _$v.first;
+    final $v = _$v;
+    if ($v != null) {
+      _limit = $v.limit;
+      _offset = $v.offset;
       _$v = null;
     }
     return this;
@@ -109,20 +126,23 @@ class GAllPokemonVarsBuilder
 
   @override
   void replace(GAllPokemonVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GAllPokemonVars;
   }
 
   @override
-  void update(void Function(GAllPokemonVarsBuilder) updates) {
+  void update(void Function(GAllPokemonVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$GAllPokemonVars build() {
-    final _$result = _$v ?? new _$GAllPokemonVars._(first: first);
+    final _$result = _$v ??
+        new _$GAllPokemonVars._(
+            limit: BuiltValueNullFieldError.checkNotNull(
+                limit, 'GAllPokemonVars', 'limit'),
+            offset: BuiltValueNullFieldError.checkNotNull(
+                offset, 'GAllPokemonVars', 'offset'));
     replace(_$result);
     return _$result;
   }
