@@ -1,3 +1,7 @@
+## 0.5.1-0.1.nullsafety.1
+
+ - Update a dependency to the latest release.
+
 ## 0.5.1-0.1.nullsafety.0
 
  - **FEAT**: migrate to null safety.
