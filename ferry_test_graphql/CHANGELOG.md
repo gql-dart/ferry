@@ -1,3 +1,7 @@
+## 0.1.1-0.1.nullsafety.1
+
+ - **FIX**: update build_runner.
+
 ## 0.1.1-0.1.nullsafety.0
 
  - **FEAT**: migrate to null safety.
