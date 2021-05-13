@@ -8,7 +8,6 @@ import 'package:rxdart/rxdart.dart';
 import 'package:normalize/utils.dart';
 import 'package:ferry_exec/ferry_exec.dart';
 import 'package:ferry_cache/ferry_cache.dart';
-import 'package:retry/retry.dart';
 import 'package:ferry_offline_client/ferry_offline_client.dart';
 
 export 'package:hive/hive.dart';
@@ -58,21 +57,6 @@ class OfflineMutationTypedLink extends TypedLink {
   });
 
   void _handleOnConnect() async {
-    // start at one since the first attempt is the first call
-    var count = 1;
-    await retry(
-      _processRequests,
-      maxAttempts: config.retryAttempts,
-      onRetry: (error) async {
-        count++;
-        if (count == config.retryAttempts) {
-          await config?.retriesExhaustedHandler?.call(error);
-        }
-      },
-    );
-  }
-
-  Future<void> _processRequests() async {
     final queue = StreamQueue(Stream.fromIterable(mutationQueueBox.values));
     while (await queue.hasNext) {
       final json = await queue.next;
@@ -139,16 +123,14 @@ class OfflineMutationTypedLink extends TypedLink {
               }
 
               // if there are any response error pass them to the exception handler
-              // do not allow any requests that have errors to be removed from
-              // the queue as these need to be retried
-              //
-              // TODO figure out how to handle responses from offline mutations
-              // not being removed if the error doesn't warrant retrying
               if (res.hasErrors) {
-                if (config?.linkExceptionHandler != null) {
-                  config.linkExceptionHandler(res, sink);
+                config.linkExceptionHandler?.call(res, sink);
+                // If specified do not allow any requests that have errors to be removed from
+                // the queue as these need to be retried
+                if (config.shouldDequeueRequest?.call(res) == true ||
+                    !config.dequeueOnError) {
+                  return sink.addError(res.linkException);
                 }
-                return sink.addError(res.graphqlErrors ?? res.linkException);
               }
 
               // Forward response and remove mutation from queue

@@ -77,13 +77,17 @@ final data = {
   req3.requestId: OperationResponse(
     operationRequest: req3,
     dataSource: DataSource.Link,
-    linkException: MockException('This is a retry error'),
-    data: null,
+    data: GCreateReviewData(
+      (b) => b
+        ..createReview.id = '121'
+        ..createReview.stars = 3
+        ..createReview.episode = GEpisode.JEDI
+        ..createReview.commentary = 'This was meh',
+    ),
   ),
   req4.requestId: OperationResponse(
     operationRequest: req4,
     dataSource: DataSource.Link,
-    linkException: MockException('This is an error'),
     data: GCreateReviewData(
       (b) => b
         ..createReview.id = '120'
@@ -201,8 +205,10 @@ void main() {
     expect(box.keys.length, 0);
     client.request(req1).first;
     client.request(req2).first;
-    await client.requestController.stream.take(2).toList();
-    expect(box.keys.length, 2);
+    client.request(req3).first;
+    client.request(req4).first;
+    await client.requestController.stream.take(4).toList();
+    expect(box.keys.length, 4);
     offlineLink.connected = true;
     await expectLater(
       client.requestController.stream,
@@ -217,46 +223,17 @@ void main() {
           'requestId',
           equals(req2.requestId),
         ),
+        isA<GCreateReviewReq>().having(
+          (req) => req.requestId,
+          'requestId',
+          equals(req3.requestId),
+        ),
+        isA<GCreateReviewReq>().having(
+          (req) => req.requestId,
+          'requestId',
+          equals(req4.requestId),
+        ),
       ]),
     );
-  });
-
-  test('ensure failed mutations are retried', () async {
-    final requestController = StreamController<OperationRequest>.broadcast();
-    final cache = Cache();
-    offlineLink = OfflineMutationTypedLink(
-      requestController: requestController,
-      mutationQueueBox: box,
-      serializers: serializers,
-      cache: cache,
-      config: OfflineClientConfig(
-        retryAttempts: 4,
-        // TODO: figure out how to test that this handler is called
-        // retriesExhaustedHandler: (_) {
-        //
-        // },
-      ),
-    );
-
-    client = MockClient(requestController, offlineLink);
-    offlineLink.client = client;
-    offlineLink.connected = false;
-    expect(box.keys.length, 0);
-    final queue = StreamQueue(client.request(req3));
-    queue.hasNext;
-    await Future.delayed(Duration.zero);
-    expect(box.keys.length, 1);
-    offlineLink.connected = true;
-
-    final retryMatcher = isA<Exception>().having(
-      (e) => e.toString(),
-      'message',
-      contains('retry'),
-    );
-    expect(queue.next, throwsA(retryMatcher));
-    await queue.hasNext;
-    expect(queue.next, throwsA(retryMatcher));
-    await queue.hasNext;
-    expect(queue.next, throwsA(retryMatcher));
   });
 }

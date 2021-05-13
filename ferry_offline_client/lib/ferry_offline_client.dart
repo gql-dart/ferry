@@ -20,22 +20,29 @@ class OfflineClientConfig {
   /// A callback used to customize behavior when a mutation execution results in a [LinkException].
   final LinkExceptionHandler linkExceptionHandler;
 
-  /// The number of times to re-attempt a mutation if it fails on coming back
-  /// online
-  final int retryAttempts;
-
   /// A callback used to decide what to do when all retries have been attempted
   /// with no success
   final FutureOr<void> Function(Exception) retriesExhaustedHandler;
 
   final bool persistOptimisticResponse;
 
+  /// if set to true then all failed offline mutations are prevent from being
+  /// removed from the queue so they can be retried
+  final bool dequeueOnError;
+
+  /// This is an optional function a user can pass in to specify whether or not
+  /// a type of error should cause the offline mutation should be removed
+  /// from the queue
+  final bool Function(OperationResponse) shouldDequeueRequest;
+
   const OfflineClientConfig({
-    this.retryAttempts = 8,
     this.linkExceptionHandler,
     this.retriesExhaustedHandler,
+    this.shouldDequeueRequest,
+    this.dequeueOnError = true,
     this.persistOptimisticResponse = false,
   });
+
 }
 
 class OfflineClient extends TypedLink {
