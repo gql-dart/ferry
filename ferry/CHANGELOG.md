@@ -1,3 +1,12 @@
+## 0.10.2+1
+
+ - **FIX**: resolve static analysis issues.
+ - **FIX**: resolve static analysis issues.
+ - **CHORE**: publish packages.
+ - **CHORE**: publish packages.
+ - **CHORE**: publish packages.
+ - **CHORE**: publish packages.
+
 ## 0.10.2
 
  - **FIX**: resolve static analysis issues.

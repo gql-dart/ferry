@@ -1,3 +1,11 @@
+## 0.5.2+1
+
+ - **FIX**: resolve issue with data change streams.
+ - **CHORE**: publish packages.
+ - **CHORE**: publish packages.
+ - **CHORE**: publish packages.
+ - **CHORE**: publish packages.
+
 ## 0.5.2
 
  - **FEAT**: migrate to null safety.
