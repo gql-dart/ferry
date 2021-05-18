@@ -6,8 +6,8 @@ import 'package:ferry_store/ferry_store.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'package:ferry_exec/ferry_exec.dart';
-import 'utils/data_for_id_stream.dart';
-import 'utils/operation_root_data.dart';
+import './utils/data_for_id_stream.dart';
+import './utils/operation_root_data.dart';
 
 /// Emits when the data for this request changes, returning a `Set` of changed IDs.
 Stream<Set<String>> operationDataChangeStream<TData, TVars>(
@@ -28,9 +28,21 @@ Stream<Set<String>> operationDataChangeStream<TData, TVars>(
     operationDefinition,
     typePolicies,
   );
-  final dataIds = reachableIdsFromDataId(
-    rootTypename,
-    optimistic ? optimisticReader : (dataId) => store.get(dataId),
+
+  final dataIds = <String>{};
+
+  denormalizeOperation(
+    read: (dataId) {
+      dataIds.add(dataId);
+      return optimistic ? optimisticReader(dataId) : store.get(dataId);
+    },
+    document: request.operation.document,
+    operationName: request.operation.operationName,
+    // TODO: don't cast to dynamic
+    variables: (request.vars as dynamic)?.toJson(),
+    typePolicies: typePolicies,
+    addTypename: addTypename,
+    returnPartialData: true,
   );
 
   /// IDs that have changed

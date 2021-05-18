@@ -1,5 +1,4 @@
 import 'package:normalize/policies.dart';
-import 'package:normalize/utils.dart';
 import 'package:normalize/normalize.dart';
 import 'package:collection/collection.dart';
 import 'package:ferry_store/ferry_store.dart';
@@ -7,7 +6,6 @@ import 'package:rxdart/rxdart.dart';
 
 import 'package:ferry_exec/ferry_exec.dart';
 import './utils/data_for_id_stream.dart';
-import './utils/fragment_data_id.dart';
 
 /// Emits when the data for this fragment changes, returning a `Set` of changed IDs.
 Stream<Set<String>> fragmentDataChangeStream<TData, TVars>(
@@ -20,9 +18,21 @@ Stream<Set<String>> fragmentDataChangeStream<TData, TVars>(
   Map<String, TypePolicy> typePolicies,
   bool addTypename,
 ) {
-  final dataIds = reachableIdsFromDataId(
-    fragmentDataId(request, typePolicies)!,
-    optimistic ? optimisticReader : (dataId) => store.get(dataId),
+  final dataIds = <String>{};
+
+  denormalizeFragment(
+    read: (dataId) {
+      dataIds.add(dataId);
+      return optimistic ? optimisticReader(dataId) : store.get(dataId);
+    },
+    idFields: request.idFields,
+    fragmentName: request.fragmentName,
+    document: request.document,
+    // TODO: don't cast to dynamic
+    variables: (request.vars as dynamic)?.toJson(),
+    typePolicies: typePolicies,
+    addTypename: addTypename,
+    returnPartialData: true,
   );
 
   /// IDs that have changed
