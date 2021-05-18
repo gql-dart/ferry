@@ -48,6 +48,10 @@ void main() {
       ..writeQuery(
         GHeroWithFragmentsReq((b) => b..vars.episode = GEpisode.NEWHOPE),
         GHeroWithFragmentsData((b) => b..hero = luke.toBuilder()),
+      )
+      ..writeQuery(
+        GHeroWithFragmentsReq((b) => b..vars.episode = GEpisode.JEDI),
+        GHeroWithFragmentsData((b) => b..hero = vader.toBuilder()),
       );
   });
 
@@ -112,6 +116,29 @@ void main() {
 
         await Future.delayed(Duration.zero);
         cache.writeQuery(heroReq, heroData);
+
+        await Future.delayed(Duration.zero);
+        await cache.dispose();
+      });
+
+      test("doesn't trigger with changes to unrelated data", () async {
+        final stream = operationDataChangeStream(
+          heroReq,
+          true,
+          cache.optimisticPatchesStream,
+          cache.optimisticReader,
+          cache.store,
+          {},
+          true,
+        );
+
+        expect(stream, emitsInOrder([emitsDone]));
+
+        await Future.delayed(Duration.zero);
+        cache.writeFragment(
+          GheroDataReq((b) => b..idFields = {'id': 'vader'}),
+          vader.rebuild((b) => b..name = 'Anakin'),
+        );
 
         await Future.delayed(Duration.zero);
         await cache.dispose();
