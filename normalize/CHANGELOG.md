@@ -1,18 +1,22 @@
+## 0.5.2
+
+- allow overriding of `__typename` when reading fragments
+
 ## 0.5.1
 
- - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.
+- Graduate package to a stable release. See pre-releases prior to this version for changelog entries.
 
 ## 0.5.1-0.1.nullsafety.0
 
- - **FEAT**: migrate to null safety.
- - **CHORE**: bump versions to match melos style.
- - **CHORE**: publish packages.
- - **CHORE**: prepare changelogs for melos.
+- **FEAT**: migrate to null safety.
+- **CHORE**: bump versions to match melos style.
+- **CHORE**: publish packages.
+- **CHORE**: prepare changelogs for melos.
 
 ## 0.5.0-1.0.nullsafety.0
 
- - **FEAT**: migrate to null safety.
- - **CHORE**: prepare changelogs for melos.
+- **FEAT**: migrate to null safety.
+- **CHORE**: prepare changelogs for melos.
 
 ## [0.4.7]
 
