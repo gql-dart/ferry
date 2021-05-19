@@ -11,15 +11,15 @@ import './utils/operation_root_data.dart';
 
 /// Emits when the data for this request changes, returning a `Set` of changed IDs.
 Stream<Set<String>> operationDataChangeStream<TData, TVars>(
-  OperationRequest<TData, TVars> request,
-  bool optimistic,
-  Stream<Map<OperationRequest, Map<String, Map<String, dynamic>?>>?>
-      optimisticPatchesStream,
-  Map<String, dynamic>? Function(String dataId) optimisticReader,
-  Store store,
-  Map<String, TypePolicy> typePolicies,
-  bool addTypename,
-) {
+    OperationRequest<TData, TVars> request,
+    bool optimistic,
+    Stream<Map<OperationRequest, Map<String, Map<String, dynamic>?>>?>
+        optimisticPatchesStream,
+    Map<String, dynamic>? Function(String dataId) optimisticReader,
+    Store store,
+    Map<String, TypePolicy> typePolicies,
+    bool addTypename,
+    {DataIdResolver? dataIdFromObject}) {
   final operationDefinition = getOperationDefinition(
     request.operation.document,
     request.operation.operationName,
@@ -43,6 +43,7 @@ Stream<Set<String>> operationDataChangeStream<TData, TVars>(
     typePolicies: typePolicies,
     addTypename: addTypename,
     returnPartialData: true,
+    dataIdFromObject: dataIdFromObject,
   );
 
   /// IDs that have changed

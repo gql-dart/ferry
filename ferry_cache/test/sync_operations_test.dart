@@ -44,6 +44,20 @@ void main() {
       expect(cache.readFragment(reviewFragmentReq), equals(reviewFragmentData));
     });
 
+    test('dataIdFromObject overrides cache.identify', () {
+      final cache = Cache(dataIdFromObject: (object) => 'OVERRIDE');
+      expect(cache.identify(reviewFragmentData), equals('OVERRIDE'));
+    });
+
+    test('can read and write with a data id override', () {
+      final cache = Cache(dataIdFromObject: (object) => 'OVERRIDE');
+      cache.writeFragment(reviewFragmentReq, reviewFragmentData);
+
+      reviewFragmentReq.idFields['id'] = 'OVERRIDE';
+
+      expect(cache.readFragment(reviewFragmentReq), equals(reviewFragmentData));
+    });
+
     test('can clear cache', () {
       final cache = Cache();
 

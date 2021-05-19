@@ -13,6 +13,7 @@ class Cache {
   final Map<String, TypePolicy> typePolicies;
   final bool addTypename;
   final Store store;
+  final utils.DataIdResolver? dataIdFromObject;
 
   @visibleForTesting
   final BehaviorSubject<
@@ -24,12 +25,14 @@ class Cache {
 
   Cache({
     Store? store,
+    utils.DataIdResolver? dataIdFromObject,
     this.typePolicies = const {},
     this.addTypename = true,
     Map<OperationRequest, Map<String, Map<String, dynamic>?>>
         seedOptimisticPatches = const {},
   })  : store = store ?? MemoryStore(),
-        optimisticPatchesStream = BehaviorSubject.seeded(seedOptimisticPatches);
+        optimisticPatchesStream = BehaviorSubject.seeded(seedOptimisticPatches),
+        dataIdFromObject = dataIdFromObject;
 
   /// Reads data for the given [dataId] from the [Store], merging in any data from optimistic patches
   @visibleForTesting
@@ -62,6 +65,7 @@ class Cache {
           store,
           typePolicies,
           addTypename,
+          dataIdFromObject: dataIdFromObject,
         ).doOnDone(() => closed = true);
 
         return NeverStream<TData?>()
@@ -97,6 +101,7 @@ class Cache {
           store,
           typePolicies,
           addTypename,
+          dataIdFromObject: dataIdFromObject,
         ).doOnDone(() => closed = true);
 
         return NeverStream<TData?>()
@@ -129,6 +134,7 @@ class Cache {
       // TODO: don't cast to dynamic
       variables: (request.vars as dynamic)?.toJson(),
       typePolicies: typePolicies,
+      dataIdFromObject: dataIdFromObject,
     );
     return json == null ? null : request.parseData(json);
   }
@@ -147,6 +153,7 @@ class Cache {
       variables: (request.vars as dynamic)?.toJson(),
       typePolicies: typePolicies,
       addTypename: addTypename,
+      dataIdFromObject: dataIdFromObject,
     );
     return json == null ? null : request.parseData(json);
   }
@@ -177,6 +184,7 @@ class Cache {
         data: (data as dynamic)?.toJson(),
         typePolicies: typePolicies,
         addTypename: addTypename,
+        dataIdFromObject: dataIdFromObject,
       );
 
   /// Normalizes [data] for the given fragment and writes it to the [Store].
@@ -206,6 +214,7 @@ class Cache {
         data: (data as dynamic)?.toJson(),
         typePolicies: typePolicies,
         addTypename: addTypename,
+        dataIdFromObject: dataIdFromObject,
       );
 
   void _writeData(
@@ -237,6 +246,7 @@ class Cache {
         // TODO: don't cast to dynamic
         (data as dynamic)?.toJson(),
         typePolicies: typePolicies,
+        dataIdFromObject: dataIdFromObject,
       );
 
   /// Removes the entity from the [Store] as well as from any optimistic

@@ -197,5 +197,28 @@ void main() {
         equals(normalizedMap),
       );
     });
+
+    test('Override __typename on denormalize', () {
+      final fragment = parseString('''
+        fragment user on Author {
+          id
+          name
+        }
+      ''');
+      final data = {'id': '1', 'name': 'Paul'};
+
+      final normalizedMap = {
+        'NotAuthor:1': {'id': '1', '__typename': 'Author', 'name': 'Paul'},
+      };
+
+      expect(
+        denormalizeFragment(
+          document: fragment,
+          idFields: {'id': '1', '__typename': 'NotAuthor'},
+          read: (dataId) => normalizedMap[dataId],
+        ),
+        equals(data),
+      );
+    });
   });
 }
