@@ -64,8 +64,8 @@ Map<String, dynamic>? denormalizeFragment({
 
   final dataId = resolveDataId(
     data: {
-      ...idFields,
       '__typename': fragmentDefinition.typeCondition.on.name.value,
+      ...idFields,
     },
     typePolicies: typePolicies,
     dataIdFromObject: dataIdFromObject,
