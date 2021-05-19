@@ -1,33 +1,38 @@
+## 0.5.3
+
+- add support for `dataIdFromObject`
+- bump `normalize` version
+
 ## 0.5.2+1
 
- - **FIX**: resolve issue with data change streams.
- - **CHORE**: publish packages.
- - **CHORE**: publish packages.
- - **CHORE**: publish packages.
- - **CHORE**: publish packages.
+- **FIX**: resolve issue with data change streams.
+- **CHORE**: publish packages.
+- **CHORE**: publish packages.
+- **CHORE**: publish packages.
+- **CHORE**: publish packages.
 
 ## 0.5.2
 
- - **FEAT**: migrate to null safety.
- - **FEAT**: migrate to null safety.
- - **CHORE**: publish packages.
- - **CHORE**: publish packages.
+- **FEAT**: migrate to null safety.
+- **FEAT**: migrate to null safety.
+- **CHORE**: publish packages.
+- **CHORE**: publish packages.
 
 ## 0.5.1
 
- - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.
+- Graduate package to a stable release. See pre-releases prior to this version for changelog entries.
 
 ## 0.5.1-0.1.nullsafety.0
 
- - **FEAT**: migrate to null safety.
- - **CHORE**: bump versions to match melos style.
- - **CHORE**: publish packages.
- - **CHORE**: prepare changelogs for melos.
+- **FEAT**: migrate to null safety.
+- **CHORE**: bump versions to match melos style.
+- **CHORE**: publish packages.
+- **CHORE**: prepare changelogs for melos.
 
 ## 0.5.0-1.0.nullsafety.0
 
- - **FEAT**: migrate to null safety.
- - **CHORE**: prepare changelogs for melos.
+- **FEAT**: migrate to null safety.
+- **CHORE**: prepare changelogs for melos.
 
 ## [0.5.0-nullsafety.0]
 
