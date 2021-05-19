@@ -25,14 +25,13 @@ class Cache {
 
   Cache({
     Store? store,
-    utils.DataIdResolver? dataIdFromObject,
+    this.dataIdFromObject,
     this.typePolicies = const {},
     this.addTypename = true,
     Map<OperationRequest, Map<String, Map<String, dynamic>?>>
         seedOptimisticPatches = const {},
   })  : store = store ?? MemoryStore(),
-        optimisticPatchesStream = BehaviorSubject.seeded(seedOptimisticPatches),
-        dataIdFromObject = dataIdFromObject;
+        optimisticPatchesStream = BehaviorSubject.seeded(seedOptimisticPatches);
 
   /// Reads data for the given [dataId] from the [Store], merging in any data from optimistic patches
   @visibleForTesting
@@ -65,7 +64,7 @@ class Cache {
           store,
           typePolicies,
           addTypename,
-          dataIdFromObject: dataIdFromObject,
+          dataIdFromObject,
         ).doOnDone(() => closed = true);
 
         return NeverStream<TData?>()
@@ -101,7 +100,7 @@ class Cache {
           store,
           typePolicies,
           addTypename,
-          dataIdFromObject: dataIdFromObject,
+          dataIdFromObject,
         ).doOnDone(() => closed = true);
 
         return NeverStream<TData?>()

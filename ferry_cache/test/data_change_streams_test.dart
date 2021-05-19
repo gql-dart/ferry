@@ -65,6 +65,7 @@ void main() {
         cache.store,
         {},
         true,
+        null,
       );
 
       expect(
@@ -87,6 +88,7 @@ void main() {
           cache.store,
           {},
           true,
+          null,
         );
 
         expect(stream, emitsInOrder([emitsDone]));
@@ -110,6 +112,7 @@ void main() {
           cache.store,
           {},
           true,
+          null,
         );
 
         expect(stream, emitsInOrder([emitsDone]));
@@ -130,6 +133,7 @@ void main() {
           cache.store,
           {},
           true,
+          null,
         );
 
         expect(stream, emitsInOrder([emitsDone]));
@@ -153,6 +157,7 @@ void main() {
           cache.store,
           {},
           true,
+          null,
         );
 
         expect(
@@ -184,6 +189,7 @@ void main() {
           cache.store,
           {},
           true,
+          null,
         );
 
         expect(
@@ -218,6 +224,7 @@ void main() {
           cache.store,
           {},
           true,
+          null,
         );
 
         expect(stream, emitsInOrder([emitsDone]));
@@ -247,6 +254,7 @@ void main() {
           cache.store,
           {},
           true,
+          null,
         );
 
         expect(
@@ -282,6 +290,7 @@ void main() {
           cache.store,
           {},
           true,
+          null,
         );
 
         expect(
@@ -318,6 +327,7 @@ void main() {
           cache.store,
           {},
           true,
+          null,
         );
 
         expect(
@@ -338,6 +348,7 @@ void main() {
           cache.store,
           {},
           true,
+          null,
         );
 
         expect(stream, emitsInOrder([emitsDone]));
@@ -358,6 +369,7 @@ void main() {
           cache.store,
           {},
           true,
+          null,
         );
 
         expect(
@@ -388,6 +400,7 @@ void main() {
           cache.store,
           {},
           true,
+          null,
         );
 
         expect(
