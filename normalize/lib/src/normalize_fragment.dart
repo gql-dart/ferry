@@ -39,6 +39,7 @@ void normalizeFragment({
   bool addTypename = false,
   String referenceKey = '\$ref',
   bool acceptPartialData = true,
+  Map<String, Set<String>> possibleTypeOf = const {},
 }) {
   // Always add typenames to ensure data is stored with typename
   document = transform(
@@ -75,6 +76,7 @@ void normalizeFragment({
     addTypename: addTypename,
     dataIdFromObject: dataIdFromObject,
     allowPartialData: acceptPartialData,
+    possibleTypeOf: possibleTypeOf,
   );
 
   final dataId = resolveDataId(

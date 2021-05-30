@@ -2,11 +2,9 @@ import 'package:gql/ast.dart';
 import 'package:normalize/normalize.dart';
 
 import 'package:normalize/src/config/normalization_config.dart';
-import 'package:normalize/src/policies/type_policy.dart';
 import 'package:normalize/src/utils/get_fragment_map.dart';
 import 'package:normalize/src/utils/resolve_data_id.dart';
 import 'package:normalize/src/utils/add_typename_visitor.dart';
-import 'package:normalize/src/utils/exceptions.dart';
 import 'package:normalize/src/denormalize_node.dart';
 
 /// Denormalizes data for a given fragment.
@@ -36,6 +34,7 @@ Map<String, dynamic>? denormalizeFragment({
   bool returnPartialData = false,
   bool handleException = true,
   String referenceKey = '\$ref',
+  Map<String, Set<String>> possibleTypeOf = const {},
 }) {
   if (addTypename) {
     document = transform(
@@ -86,6 +85,7 @@ Map<String, dynamic>? denormalizeFragment({
     dataIdFromObject: dataIdFromObject,
     addTypename: addTypename,
     allowPartialData: returnPartialData,
+    possibleTypeOf: possibleTypeOf,
   );
 
   try {

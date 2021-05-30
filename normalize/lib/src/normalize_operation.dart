@@ -35,6 +35,7 @@ void normalizeOperation({
   bool addTypename = false,
   bool acceptPartialData = true,
   String referenceKey = '\$ref',
+  Map<String, Set<String>> possibleTypeOf = const {},
 }) {
   if (addTypename) {
     document = transform(
@@ -59,6 +60,7 @@ void normalizeOperation({
     addTypename: addTypename,
     dataIdFromObject: dataIdFromObject,
     allowPartialData: acceptPartialData,
+    possibleTypeOf: possibleTypeOf,
   );
 
   write(

@@ -6,39 +6,49 @@ List<FieldNode> expandFragments({
   required String? typename,
   required SelectionSetNode selectionSet,
   required Map<String, FragmentDefinitionNode> fragmentMap,
+  required Map<String, Set<String>> possibleTypeOf,
 }) {
   final fieldNodes = <FieldNode>[];
 
   for (var selectionNode in selectionSet.selections) {
     if (selectionNode is FieldNode) {
       fieldNodes.add(selectionNode);
-    } else if (selectionNode is InlineFragmentNode) {
-      // Only include this fragment if the type name matches
-      if (selectionNode.typeCondition?.on.name.value == typename) {
-        fieldNodes.addAll(
-          expandFragments(
-            typename: typename,
-            selectionSet: selectionNode.selectionSet,
-            fragmentMap: fragmentMap,
-          ),
-        );
-      }
+      continue;
+    }
+    if (typename == null) {
+      continue;
+    }
+    String fragmentOnName;
+    SelectionSetNode fragmentSelectionSet;
+    if (selectionNode is InlineFragmentNode) {
+      fragmentOnName = selectionNode.typeCondition?.on.name.value ?? typename;
+      fragmentSelectionSet = selectionNode.selectionSet;
     } else if (selectionNode is FragmentSpreadNode) {
       final fragment = fragmentMap[selectionNode.name.value];
-
       if (fragment == null) {
         throw Exception('Missing fragment ${selectionNode.name.value}');
       }
+      fragmentOnName = fragment.typeCondition.on.name.value;
+      fragmentSelectionSet = fragment.selectionSet;
+    } else {
+      throw (FormatException('Unknown selection node type'));
+    }
 
+    // We'll add the fields if
+    //  - We know the current type (typename != null)
+    // and
+    //  - If the fragment and current type are the same (fragmentOnName == typename)
+    //  - Or the current type is a type of the fragment target
+    if (fragmentOnName == typename ||
+        possibleTypeOf[typename]?.contains(fragmentOnName) == true) {
       fieldNodes.addAll(
         expandFragments(
           typename: typename,
-          selectionSet: fragment.selectionSet,
+          selectionSet: fragmentSelectionSet,
           fragmentMap: fragmentMap,
+          possibleTypeOf: possibleTypeOf,
         ),
       );
-    } else {
-      throw (FormatException('Unknown selection node type'));
     }
   }
   return List.from(_mergeSelections(fieldNodes));

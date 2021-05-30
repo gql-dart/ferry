@@ -45,6 +45,7 @@ Object? denormalizeNode({
       typename: typename,
       selectionSet: selectionSet,
       fragmentMap: config.fragmentMap,
+      possibleTypeOf: config.possibleTypeOf,
     );
 
     final result = subNodes.fold<Map<String, dynamic>>(
