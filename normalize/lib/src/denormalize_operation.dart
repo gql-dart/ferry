@@ -1,10 +1,8 @@
 import 'package:gql/ast.dart';
 import 'package:normalize/normalize.dart';
 
-import 'package:normalize/src/policies/type_policy.dart';
 import 'package:normalize/src/utils/resolve_root_typename.dart';
 import 'package:normalize/src/utils/add_typename_visitor.dart';
-import 'package:normalize/src/utils/exceptions.dart';
 import 'package:normalize/src/utils/get_operation_definition.dart';
 import 'package:normalize/src/denormalize_node.dart';
 import 'package:normalize/src/config/normalization_config.dart';
@@ -31,6 +29,7 @@ Map<String, dynamic>? denormalizeOperation({
   bool returnPartialData = false,
   bool handleException = true,
   String referenceKey = '\$ref',
+  Map<String, Set<String>> possibleTypeOf = const {},
 }) {
   if (addTypename) {
     document = transform(
@@ -55,6 +54,7 @@ Map<String, dynamic>? denormalizeOperation({
     dataIdFromObject: dataIdFromObject,
     addTypename: addTypename,
     allowPartialData: returnPartialData,
+    possibleTypeOf: possibleTypeOf,
   );
 
   try {

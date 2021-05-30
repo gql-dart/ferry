@@ -20,7 +20,7 @@ class FieldFunctionOptions {
   FieldFunctionOptions({
     required this.field,
     required NormalizationConfig config,
-  })   : _config = config,
+  })  : _config = config,
         variables = config.variables,
         args = argsWithValues(config.variables, field.arguments);
 
@@ -50,6 +50,7 @@ class FieldFunctionOptions {
           dataIdFromObject: _config.dataIdFromObject,
           addTypename: _config.addTypename,
           allowPartialData: true,
+          possibleTypeOf: _config.possibleTypeOf,
         ),
       ) as T?;
 }

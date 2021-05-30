@@ -26,6 +26,8 @@ class NormalizationConfig {
   /// Whether to accept or return partial data.
   final bool allowPartialData;
 
+  final Map<String, Set<String>> possibleTypeOf;
+
   NormalizationConfig({
     required this.read,
     required this.variables,
@@ -35,5 +37,6 @@ class NormalizationConfig {
     required this.dataIdFromObject,
     required this.addTypename,
     required this.allowPartialData,
+    required this.possibleTypeOf,
   });
 }
