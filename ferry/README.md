@@ -67,7 +67,7 @@ final client = Client(link: link);
 
 ## Download Your GraphQL Schema
 
-To generate our classes, we first need to downoad our GraphQL in SDL format to any location within the `lib` project directory. You can use the [get-graphql-schema](https://github.com/prisma-labs/get-graphql-schema) tool to download a schema from a GraphQL endpoint:
+To generate our classes, we first need to download our GraphQL in SDL format to any location within the `lib` project directory. You can use the [get-graphql-schema](https://github.com/prisma-labs/get-graphql-schema) tool to download a schema from a GraphQL endpoint:
 
 First, install the tool:
 
