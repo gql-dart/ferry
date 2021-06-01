@@ -15,6 +15,7 @@ Map<String, dynamic> operationRootData<TData, TVars>(
     request.operation.operationName!,
     (request.vars as dynamic).toJson(),
     typePolicies,
+    {},
   );
   return {
     for (var fieldName in fieldNames)
