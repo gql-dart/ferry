@@ -20,6 +20,7 @@ Stream<Set<String>> operationDataChangeStream<TData, TVars>(
   Map<String, TypePolicy> typePolicies,
   bool addTypename,
   DataIdResolver? dataIdFromObject,
+  Map<String, Set<String>> possibleTypes,
 ) {
   final operationDefinition = getOperationDefinition(
     request.operation.document,
@@ -67,6 +68,7 @@ Stream<Set<String>> operationDataChangeStream<TData, TVars>(
           data,
           request,
           typePolicies,
+          possibleTypes,
         ),
       );
     }

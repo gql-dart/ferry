@@ -13,7 +13,7 @@ List<String> operationFieldNames<TData, TVars>(
   String operationName,
   Map<String, dynamic> vars,
   Map<String, TypePolicy> typePolicies,
-  Map<String, Set<String>> possibleTypeOf,
+  Map<String, Set<String>> possibleTypes,
 ) {
   final operationDefinition = getOperationDefinition(
     document,
@@ -28,7 +28,7 @@ List<String> operationFieldNames<TData, TVars>(
     typename: rootTypename,
     selectionSet: operationDefinition.selectionSet,
     fragmentMap: fragmentMap,
-    possibleTypeOf: possibleTypeOf,
+    possibleTypes: possibleTypes,
   );
   final typePolicy = typePolicies[rootTypename];
   return fields.map((fieldNode) {

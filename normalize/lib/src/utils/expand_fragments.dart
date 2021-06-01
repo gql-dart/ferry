@@ -6,7 +6,7 @@ List<FieldNode> expandFragments({
   required String? typename,
   required SelectionSetNode selectionSet,
   required Map<String, FragmentDefinitionNode> fragmentMap,
-  required Map<String, Set<String>> possibleTypeOf,
+  required Map<String, Set<String>> possibleTypes,
 }) {
   final fieldNodes = <FieldNode>[];
 
@@ -40,13 +40,13 @@ List<FieldNode> expandFragments({
     //  - If the fragment and current type are the same (fragmentOnName == typename)
     //  - Or the current type is a type of the fragment target
     if (fragmentOnName == typename ||
-        possibleTypeOf[typename]?.contains(fragmentOnName) == true) {
+        possibleTypes[fragmentOnName]?.contains(typename) == true) {
       fieldNodes.addAll(
         expandFragments(
           typename: typename,
           selectionSet: fragmentSelectionSet,
           fragmentMap: fragmentMap,
-          possibleTypeOf: possibleTypeOf,
+          possibleTypes: possibleTypes,
         ),
       );
     }

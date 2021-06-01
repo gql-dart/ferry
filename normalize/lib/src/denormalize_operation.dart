@@ -29,7 +29,7 @@ Map<String, dynamic>? denormalizeOperation({
   bool returnPartialData = false,
   bool handleException = true,
   String referenceKey = '\$ref',
-  Map<String, Set<String>> possibleTypeOf = const {},
+  Map<String, Set<String>> possibleTypes = const {},
 }) {
   if (addTypename) {
     document = transform(
@@ -54,7 +54,7 @@ Map<String, dynamic>? denormalizeOperation({
     dataIdFromObject: dataIdFromObject,
     addTypename: addTypename,
     allowPartialData: returnPartialData,
-    possibleTypeOf: possibleTypeOf,
+    possibleTypes: possibleTypes,
   );
 
   try {

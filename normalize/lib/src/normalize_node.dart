@@ -52,7 +52,7 @@ Object? normalizeNode({
       typename: typename,
       selectionSet: selectionSet,
       fragmentMap: config.fragmentMap,
-      possibleTypeOf: config.possibleTypeOf,
+      possibleTypes: config.possibleTypes,
     );
 
     final dataToMerge = <String, dynamic>{

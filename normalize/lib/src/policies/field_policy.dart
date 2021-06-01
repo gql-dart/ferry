@@ -50,7 +50,7 @@ class FieldFunctionOptions {
           dataIdFromObject: _config.dataIdFromObject,
           addTypename: _config.addTypename,
           allowPartialData: true,
-          possibleTypeOf: _config.possibleTypeOf,
+          possibleTypes: _config.possibleTypes,
         ),
       ) as T?;
 }
