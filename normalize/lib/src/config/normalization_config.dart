@@ -26,7 +26,8 @@ class NormalizationConfig {
   /// Whether to accept or return partial data.
   final bool allowPartialData;
 
-  final Map<String, Set<String>> possibleTypeOf;
+  /// A map from an interface/union to possible types.
+  final Map<String, Set<String>> possibleTypes;
 
   NormalizationConfig({
     required this.read,
@@ -37,6 +38,6 @@ class NormalizationConfig {
     required this.dataIdFromObject,
     required this.addTypename,
     required this.allowPartialData,
-    required this.possibleTypeOf,
+    required this.possibleTypes,
   });
 }

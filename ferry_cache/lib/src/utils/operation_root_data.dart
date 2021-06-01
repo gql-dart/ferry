@@ -9,13 +9,14 @@ Map<String, dynamic> operationRootData<TData, TVars>(
   Map<String, dynamic>? data,
   OperationRequest<TData, TVars> request,
   Map<String, TypePolicy> typePolicies,
+  Map<String, Set<String>> possibleTypes,
 ) {
   final fieldNames = operationFieldNames(
     request.operation.document,
     request.operation.operationName!,
     (request.vars as dynamic).toJson(),
     typePolicies,
-    {},
+    possibleTypes,
   );
   return {
     for (var fieldName in fieldNames)

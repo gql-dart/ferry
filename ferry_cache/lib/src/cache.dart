@@ -11,6 +11,7 @@ import './fragment_data_change_stream.dart';
 
 class Cache {
   final Map<String, TypePolicy> typePolicies;
+  final Map<String, Set<String>> possibleTypes;
   final bool addTypename;
   final Store store;
   final utils.DataIdResolver? dataIdFromObject;
@@ -27,6 +28,7 @@ class Cache {
     Store? store,
     this.dataIdFromObject,
     this.typePolicies = const {},
+    this.possibleTypes = const {},
     this.addTypename = true,
     Map<OperationRequest, Map<String, Map<String, dynamic>?>>
         seedOptimisticPatches = const {},
@@ -65,6 +67,7 @@ class Cache {
           typePolicies,
           addTypename,
           dataIdFromObject,
+          possibleTypes,
         ).doOnDone(() => closed = true);
 
         return NeverStream<TData?>()

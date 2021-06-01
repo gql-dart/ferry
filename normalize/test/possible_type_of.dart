@@ -6,9 +6,8 @@ import 'package:normalize/normalize.dart';
 void main() {
   group('Normalizing and denormalizing with possible type of', () {
     test('Mutiple fragments', () {
-      final possibleTypeOf = {
-        'Author': {'User'},
-        'Audience': {'User'},
+      final possibleTypes = {
+        'User': {'Author', 'Audience'},
       };
       final document = parseString('''
         fragment FAudience on Audience {
@@ -80,7 +79,7 @@ void main() {
         document: document,
         data: data,
         acceptPartialData: false,
-        possibleTypeOf: possibleTypeOf,
+        possibleTypes: possibleTypes,
       );
       expect(
         normalizedResult,
@@ -92,7 +91,7 @@ void main() {
           document: document,
           handleException: false,
           read: (dataId) => normalizedMap[dataId],
-          possibleTypeOf: possibleTypeOf,
+          possibleTypes: possibleTypes,
         ),
         equals(data),
       );

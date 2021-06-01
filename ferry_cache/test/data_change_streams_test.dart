@@ -66,6 +66,7 @@ void main() {
         {},
         true,
         null,
+        {},
       );
 
       expect(
@@ -89,6 +90,7 @@ void main() {
           {},
           true,
           null,
+          {},
         );
 
         expect(stream, emitsInOrder([emitsDone]));
@@ -113,6 +115,7 @@ void main() {
           {},
           true,
           null,
+          {},
         );
 
         expect(stream, emitsInOrder([emitsDone]));
@@ -134,6 +137,7 @@ void main() {
           {},
           true,
           null,
+          {},
         );
 
         expect(stream, emitsInOrder([emitsDone]));
@@ -158,6 +162,7 @@ void main() {
           {},
           true,
           null,
+          {},
         );
 
         expect(
@@ -190,6 +195,7 @@ void main() {
           {},
           true,
           null,
+          {},
         );
 
         expect(
@@ -225,6 +231,7 @@ void main() {
           {},
           true,
           null,
+          {},
         );
 
         expect(stream, emitsInOrder([emitsDone]));
@@ -255,6 +262,7 @@ void main() {
           {},
           true,
           null,
+          {},
         );
 
         expect(
@@ -291,6 +299,7 @@ void main() {
           {},
           true,
           null,
+          {},
         );
 
         expect(
