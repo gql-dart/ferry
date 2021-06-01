@@ -1,3 +1,11 @@
+## 0.5.3+1
+
+ - **FIX**: Supply empty possibleTypeOf map `operationFieldNames`.
+ - **FIX**: resolve issue with data change streams.
+ - **FIX**: resolve issue with data change streams.
+ - **CHORE**: publish packages.
+ - **CHORE**: publish packages.
+
 ## 0.5.3
 
 - add support for `dataIdFromObject`

@@ -1,3 +1,9 @@
+## 0.5.3
+
+ - **FEAT**: Add support for better fragment type resolution.
+ - **CHORE**: publish packages.
+ - **CHORE**: publish packages.
+
 ## 0.5.2
 
 - allow overriding of `__typename` when reading fragments
