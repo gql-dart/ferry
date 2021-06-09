@@ -1,3 +1,9 @@
+## 0.5.3
+
+ - **FEAT**: update dependences.
+ - **CHORE**: publish packages.
+ - **CHORE**: publish packages.
+
 ## 0.5.2+1
 
  - Update a dependency to the latest release.

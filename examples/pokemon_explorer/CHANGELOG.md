@@ -1,3 +1,9 @@
+## 0.0.2
+
+ - **FEAT**: update dependences.
+ - **CHORE**: publish packages.
+ - **CHORE**: publish packages.
+
 ## 0.0.1+4
 
  - **FIX**: resolve static analysis issues.
