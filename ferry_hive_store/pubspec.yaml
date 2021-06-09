@@ -8,7 +8,7 @@ environment:
 dependencies:
   hive: ^2.0.0
   ferry_store: ^0.4.2
-  rxdart: ^0.26.0
+  rxdart: ^0.27.1
   collection: ^1.15.0
 dev_dependencies:
   test: ^1.16.8

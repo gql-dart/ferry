@@ -10,7 +10,7 @@ class MemoryStore extends Store {
       : _valueStream = BehaviorSubject.seeded(initialData);
 
   @override
-  Iterable<String> get keys => _valueStream.value!.keys;
+  Iterable<String> get keys => _valueStream.value.keys;
 
   @override
   Stream<Map<String, dynamic>?> watch(String dataId) =>
@@ -22,26 +22,26 @@ class MemoryStore extends Store {
           );
 
   @override
-  Map<String, dynamic>? get(String dataId) => _valueStream.value![dataId];
+  Map<String, dynamic>? get(String dataId) => _valueStream.value[dataId];
 
   @override
   void put(String dataId, Map<String, dynamic>? value) => _valueStream.add(
-        Map.from(_valueStream.value!)..addAll({dataId: value}),
+        Map.from(_valueStream.value)..addAll({dataId: value}),
       );
 
   @override
   void putAll(Map<String, Map<String, dynamic>?> data) => _valueStream.add(
-        Map.from(_valueStream.value!)..addAll(data),
+        Map.from(_valueStream.value)..addAll(data),
       );
 
   @override
   void delete(String dataId) => _valueStream.add(
-        Map.from(_valueStream.value!)..remove(dataId),
+        Map.from(_valueStream.value)..remove(dataId),
       );
 
   @override
   void deleteAll(Iterable<String> dataIds) => _valueStream.add(
-        Map.from(_valueStream.value!)
+        Map.from(_valueStream.value)
           ..removeWhere((key, _) => dataIds.contains(key)),
       );
 

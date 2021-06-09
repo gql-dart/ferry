@@ -7,21 +7,21 @@ packages:
       name: _fe_analyzer_shared
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "21.0.0"
+    version: "22.0.0"
   analyzer:
     dependency: transitive
     description:
       name: analyzer
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.5.0"
+    version: "1.7.1"
   args:
     dependency: transitive
     description:
       name: args
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.1"
   async:
     dependency: transitive
     description:
@@ -42,7 +42,7 @@ packages:
       name: build
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.1"
+    version: "2.0.2"
   build_config:
     dependency: transitive
     description:
@@ -63,14 +63,14 @@ packages:
       name: build_resolvers
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.1"
+    version: "2.0.3"
   build_runner:
     dependency: "direct dev"
     description:
       name: build_runner
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.2"
+    version: "2.0.4"
   build_runner_core:
     dependency: transitive
     description:
@@ -179,66 +179,66 @@ packages:
   ferry:
     dependency: "direct main"
     description:
-      name: ferry
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.10.1-0.1.nullsafety.1"
+      path: "../../ferry"
+      relative: true
+    source: path
+    version: "0.10.2+2"
   ferry_cache:
     dependency: transitive
     description:
-      name: ferry_cache
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.5.1-0.1.nullsafety.0"
+      path: "../../ferry_cache"
+      relative: true
+    source: path
+    version: "0.5.3+1"
   ferry_exec:
     dependency: transitive
     description:
-      name: ferry_exec
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.1-0.1.nullsafety.0"
+      path: "../../ferry_exec"
+      relative: true
+    source: path
+    version: "0.1.2"
   ferry_flutter:
     dependency: "direct main"
     description:
-      name: ferry_flutter
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.5.1-0.1.nullsafety.1"
+      path: "../../ferry_flutter"
+      relative: true
+    source: path
+    version: "0.5.2+1"
   ferry_generator:
     dependency: "direct dev"
     description:
-      name: ferry_generator
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.4.1-0.1.nullsafety.1"
+      path: "../../ferry_generator"
+      relative: true
+    source: path
+    version: "0.4.2"
   ferry_hive_store:
     dependency: "direct main"
     description:
-      name: ferry_hive_store
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.4.1-0.1.nullsafety.0"
+      path: "../../ferry_hive_store"
+      relative: true
+    source: path
+    version: "0.4.2"
   ferry_store:
     dependency: transitive
     description:
-      name: ferry_store
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.4.1-0.1.nullsafety.0"
+      path: "../../ferry_store"
+      relative: true
+    source: path
+    version: "0.4.2"
   ffi:
     dependency: transitive
     description:
       name: ffi
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0"
+    version: "1.1.2"
   file:
     dependency: transitive
     description:
       name: file
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.1.0"
+    version: "6.1.1"
   fixnum:
     dependency: transitive
     description:
@@ -283,42 +283,42 @@ packages:
       name: gql
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.13.0-nullsafety.2"
+    version: "0.13.0"
   gql_build:
     dependency: "direct dev"
     description:
       name: gql_build
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.0-nullsafety.1"
+    version: "0.2.0"
   gql_code_builder:
     dependency: "direct dev"
     description:
       name: gql_code_builder
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.0-nullsafety.1"
+    version: "0.2.0"
   gql_exec:
     dependency: transitive
     description:
       name: gql_exec
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.0-nullsafety.2"
+    version: "0.3.0"
   gql_http_link:
     dependency: "direct main"
     description:
       name: gql_http_link
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.0-nullsafety.1"
+    version: "0.4.0"
   gql_link:
     dependency: "direct main"
     description:
       name: gql_link
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.0-nullsafety.3"
+    version: "0.4.0"
   graphs:
     dependency: transitive
     description:
@@ -413,10 +413,10 @@ packages:
   normalize:
     dependency: transitive
     description:
-      name: normalize
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.5.1-0.1.nullsafety.0"
+      path: "../../normalize"
+      relative: true
+    source: path
+    version: "0.5.3"
   package_config:
     dependency: transitive
     description:
@@ -437,7 +437,7 @@ packages:
       name: path_provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.1"
+    version: "2.0.2"
   path_provider_linux:
     dependency: transitive
     description:
@@ -535,14 +535,14 @@ packages:
       name: rxdart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.26.0"
+    version: "0.27.1"
   shelf:
     dependency: transitive
     description:
       name: shelf
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.2"
+    version: "1.1.4"
   shelf_web_socket:
     dependency: transitive
     description:
@@ -561,7 +561,7 @@ packages:
       name: source_gen
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0"
+    version: "1.0.1"
   source_span:
     dependency: transitive
     description:
