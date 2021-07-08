@@ -9,7 +9,7 @@ import './graphql/all_pokemon.req.gql.dart';
 import './graphql/all_pokemon.var.gql.dart';
 import './pokemon_card.dart';
 
-class AllPokemonScreen extends StatelessWidget {
+class PokemonListScreen extends StatelessWidget {
   final client = GetIt.I<Client>();
 
   @override
