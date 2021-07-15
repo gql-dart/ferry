@@ -1,3 +1,11 @@
+## 0.5.5
+
+ - **FIX**: allow inline fragments for subtypes without passing possibleTypes.
+ - **FEAT**: update dependences.
+ - **FEAT**: update dependences.
+ - **CHORE**: publish packages.
+ - **CHORE**: publish packages.
+
 ## 0.5.4
 
  - **FEAT**: update dependences.
