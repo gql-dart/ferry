@@ -1,3 +1,10 @@
+## 0.4.4
+
+ - **FEAT**: update dependences.
+ - **FEAT**: update dependences.
+ - **CHORE**: publish packages.
+ - **CHORE**: publish packages.
+
 ## 0.4.3
 
  - **FEAT**: update dependences.
