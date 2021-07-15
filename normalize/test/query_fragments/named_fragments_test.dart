@@ -13,7 +13,7 @@ void main() {
           id
           __typename
           author {
-            ...olle
+            ...authorFragment
           }
           title
           comments {
@@ -28,9 +28,13 @@ void main() {
         }
       }
 
-      fragment olle on Author {
+      fragment authorFragment on Author {
         id
         __typename
+        ...personFragment
+      }
+
+      fragment personFragment on Person {
         name
       }
     ''');
