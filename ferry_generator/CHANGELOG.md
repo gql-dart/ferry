@@ -1,3 +1,11 @@
+## 0.5.0-dev.0
+
+> Note: This release has breaking changes.
+
+ - **CHORE**: publish packages.
+ - **CHORE**: publish packages.
+ - **BREAKING** **FEAT**: build generated files to __generated__ subdirectory.
+
 ## 0.4.4-dev.0+1
 
  - **FIX**: move pedantic to dependency (#257).
