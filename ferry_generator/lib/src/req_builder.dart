@@ -30,7 +30,7 @@ class ReqBuilder implements Builder {
 
   @override
   Map<String, List<String>> get buildExtensions => {
-        sourceExtension: [reqExtension],
+        inputPattern: [outputPattern(reqExtension)],
       };
 
   @override
@@ -51,7 +51,7 @@ class ReqBuilder implements Builder {
       library,
       buildStep,
       reqExtension,
-      schemaId.changeExtension(schemaExtension).uri.toString(),
+      outputAssetId(schemaId, schemaExtension).uri.toString(),
     );
   }
 }
