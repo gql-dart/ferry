@@ -21,7 +21,7 @@
 [github-forks-badge]: https://img.shields.io/github/forks/gql-dart/ferry.svg?style=for-the-badge&logo=github&logoColor=ffffff
 [github-forks-link]: https://github.com/gql-dart/ferry/network/members
 [discord-badge]: https://img.shields.io/discord/559455668810153989.svg?style=for-the-badge&logo=discord&logoColor=ffffff
-[discord-link]: https://discord.gg/NryjpVa
+[discord-link]: https://discord.com/invite/tXTtBfC
 
 # [Documentation](https://ferrygraphql.com/) 📖
 

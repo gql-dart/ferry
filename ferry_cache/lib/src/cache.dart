@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:meta/meta.dart';
+import 'package:pedantic/pedantic.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:normalize/normalize.dart';
 import 'package:normalize/utils.dart' as utils;
@@ -55,10 +56,8 @@ class Cache {
     OperationRequest<TData, TVars> request, {
     bool optimistic = true,
   }) =>
-      DeferStream(() {
-        var closed = false;
-
-        final dataChanged = operationDataChangeStream(
+      _watch(
+        getChangeStream: () => operationDataChangeStream(
           request,
           optimistic,
           optimisticPatchesStream,
@@ -68,34 +67,17 @@ class Cache {
           addTypename,
           dataIdFromObject,
           possibleTypes,
-        ).doOnDone(() => closed = true);
-
-        return NeverStream<TData?>()
-            .startWith(
-              readQuery(
-                request,
-                optimistic: optimistic,
-              ),
-            )
-            .takeUntil(dataChanged)
-            .concatWith([
-          DeferStream(
-            () => closed
-                ? Stream.empty()
-                : watchQuery(request, optimistic: optimistic),
-          )
-        ]);
-      });
+        ),
+        getData: () => readQuery(request, optimistic: optimistic),
+      );
 
   /// Watches for changes to data in the Cache for the given fragment.
   Stream<TData?> watchFragment<TData, TVars>(
     FragmentRequest<TData, TVars> request, {
     bool optimistic = true,
   }) =>
-      DeferStream(() {
-        var closed = false;
-
-        final dataChanged = fragmentDataChangeStream(
+      _watch(
+        getChangeStream: () => fragmentDataChangeStream(
           request,
           optimistic,
           optimisticPatchesStream,
@@ -104,24 +86,42 @@ class Cache {
           typePolicies,
           addTypename,
           dataIdFromObject,
-        ).doOnDone(() => closed = true);
+        ),
+        getData: () => readFragment(request, optimistic: optimistic),
+      );
 
-        return NeverStream<TData?>()
-            .startWith(
-              readFragment(
-                request,
-                optimistic: optimistic,
-              ),
-            )
-            .takeUntil(dataChanged)
-            .concatWith([
-          DeferStream(
-            () => closed
-                ? Stream.empty()
-                : watchFragment(request, optimistic: optimistic),
-          )
-        ]);
-      });
+  Stream<TData?> _watch<TData>({
+    required Stream Function() getChangeStream,
+    required TData? Function() getData,
+  }) {
+    late StreamController<TData?> sc;
+
+    Future<void> addNext() async {
+      try {
+        if (sc.isClosed) return;
+
+        sc.add(getData());
+        if (await getChangeStream().isEmpty) {
+          unawaited(sc.close());
+          return;
+        }
+
+        unawaited(addNext());
+      } catch (err, st) {
+        if (!sc.isClosed) {
+          sc.addError(err, st);
+          unawaited(addNext());
+        }
+      }
+    }
+
+    sc = StreamController<TData?>(
+      onListen: () => addNext(),
+      onCancel: () => unawaited(sc.close()),
+    );
+
+    return sc.stream;
+  }
 
   /// Reads denormalized data from the Cache for the given operation.
   TData? readQuery<TData, TVars>(
