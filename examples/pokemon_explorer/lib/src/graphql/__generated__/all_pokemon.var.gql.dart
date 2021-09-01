@@ -2,7 +2,7 @@
 
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:pokemon_explorer/serializers.gql.dart' as _i1;
+import 'package:pokemon_explorer/__generated__/serializers.gql.dart' as _i1;
 
 part 'all_pokemon.var.gql.g.dart';
 

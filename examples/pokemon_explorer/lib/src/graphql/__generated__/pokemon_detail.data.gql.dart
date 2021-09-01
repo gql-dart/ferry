@@ -3,8 +3,8 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:pokemon_explorer/serializers.gql.dart' as _i1;
-import 'package:pokemon_explorer/src/graphql/pokemon_card_fragment.data.gql.dart'
+import 'package:pokemon_explorer/__generated__/serializers.gql.dart' as _i1;
+import 'package:pokemon_explorer/src/graphql/__generated__/pokemon_card_fragment.data.gql.dart'
     as _i2;
 
 part 'pokemon_detail.data.gql.g.dart';

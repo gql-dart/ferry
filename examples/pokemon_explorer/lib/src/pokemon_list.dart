@@ -4,9 +4,9 @@ import 'package:get_it/get_it.dart';
 import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:built_collection/built_collection.dart';
 
-import './graphql/all_pokemon.data.gql.dart';
-import './graphql/all_pokemon.req.gql.dart';
-import './graphql/all_pokemon.var.gql.dart';
+import './graphql/__generated__/all_pokemon.data.gql.dart';
+import './graphql/__generated__/all_pokemon.req.gql.dart';
+import './graphql/__generated__/all_pokemon.var.gql.dart';
 import './pokemon_card.dart';
 
 class PokemonListScreen extends StatelessWidget {

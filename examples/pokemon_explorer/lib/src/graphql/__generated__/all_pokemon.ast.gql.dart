@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 import 'package:gql/ast.dart' as _i1;
-import 'package:pokemon_explorer/src/graphql/pokemon_card_fragment.ast.gql.dart'
+import 'package:pokemon_explorer/src/graphql/__generated__/pokemon_card_fragment.ast.gql.dart'
     as _i2;
 
 const AllPokemon = _i1.OperationDefinitionNode(

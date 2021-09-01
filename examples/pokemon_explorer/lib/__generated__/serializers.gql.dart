@@ -3,39 +3,39 @@ import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart' show StandardJsonPlugin;
 import 'package:gql_code_builder/src/serializers/operation_serializer.dart'
     show OperationSerializer;
-import 'package:pokemon_explorer/schema.schema.gql.dart'
+import 'package:pokemon_explorer/__generated__/schema.schema.gql.dart'
     show GCacheControlScope, GUpload;
-import 'package:pokemon_explorer/src/graphql/all_pokemon.data.gql.dart'
+import 'package:pokemon_explorer/src/graphql/__generated__/all_pokemon.data.gql.dart'
     show
         GAllPokemonData,
         GAllPokemonData_pokemons,
         GAllPokemonData_pokemons_results,
         GAllPokemonData_pokemons_results_height,
         GAllPokemonData_pokemons_results_weight;
-import 'package:pokemon_explorer/src/graphql/all_pokemon.req.gql.dart'
+import 'package:pokemon_explorer/src/graphql/__generated__/all_pokemon.req.gql.dart'
     show GAllPokemonReq;
-import 'package:pokemon_explorer/src/graphql/all_pokemon.var.gql.dart'
+import 'package:pokemon_explorer/src/graphql/__generated__/all_pokemon.var.gql.dart'
     show GAllPokemonVars;
-import 'package:pokemon_explorer/src/graphql/pokemon_card_fragment.data.gql.dart'
+import 'package:pokemon_explorer/src/graphql/__generated__/pokemon_card_fragment.data.gql.dart'
     show
         GNestedFragmentData,
         GPokemonCardData,
         GPokemonCardData_height,
         GPokemonCardData_weight;
-import 'package:pokemon_explorer/src/graphql/pokemon_card_fragment.req.gql.dart'
+import 'package:pokemon_explorer/src/graphql/__generated__/pokemon_card_fragment.req.gql.dart'
     show GNestedFragmentReq, GPokemonCardReq;
-import 'package:pokemon_explorer/src/graphql/pokemon_card_fragment.var.gql.dart'
+import 'package:pokemon_explorer/src/graphql/__generated__/pokemon_card_fragment.var.gql.dart'
     show GNestedFragmentVars, GPokemonCardVars;
-import 'package:pokemon_explorer/src/graphql/pokemon_detail.data.gql.dart'
+import 'package:pokemon_explorer/src/graphql/__generated__/pokemon_detail.data.gql.dart'
     show
         GPokemonDetailData,
         GPokemonDetailData_pokemon,
         GPokemonDetailData_pokemon_height,
         GPokemonDetailData_pokemon_stats,
         GPokemonDetailData_pokemon_weight;
-import 'package:pokemon_explorer/src/graphql/pokemon_detail.req.gql.dart'
+import 'package:pokemon_explorer/src/graphql/__generated__/pokemon_detail.req.gql.dart'
     show GPokemonDetailReq;
-import 'package:pokemon_explorer/src/graphql/pokemon_detail.var.gql.dart'
+import 'package:pokemon_explorer/src/graphql/__generated__/pokemon_detail.var.gql.dart'
     show GPokemonDetailVars;
 
 part 'serializers.gql.g.dart';
