@@ -1,8 +1,8 @@
 import 'package:test/test.dart';
 import 'package:normalize/src/utils/field_key.dart';
 
-import 'package:ferry_test_graphql/queries/variables/human_with_args.data.gql.dart';
-import 'package:ferry_test_graphql/queries/variables/human_with_args.req.gql.dart';
+import 'package:ferry_test_graphql/queries/__generated__/human_with_args.data.gql.dart';
+import 'package:ferry_test_graphql/queries/__generated__/human_with_args.req.gql.dart';
 
 import 'package:ferry_cache/ferry_cache.dart';
 

@@ -12,14 +12,14 @@ import 'package:ferry/src/update_cache_typed_link.dart';
 import 'package:ferry/src/request_controller_typed_link.dart';
 import 'package:ferry/src/fetch_policy_typed_link.dart';
 
-import 'package:ferry_test_graphql/queries/variables/reviews.req.gql.dart';
-import 'package:ferry_test_graphql/queries/variables/reviews.data.gql.dart';
-import 'package:ferry_test_graphql/mutations/variables/create_review.req.gql.dart';
-import 'package:ferry_test_graphql/mutations/variables/create_review.var.gql.dart';
-import 'package:ferry_test_graphql/mutations/variables/create_review.data.gql.dart';
-import 'package:ferry_test_graphql/schema/schema.schema.gql.dart';
-import 'package:ferry_test_graphql/queries/variables/human_with_args.req.gql.dart';
-import 'package:ferry_test_graphql/queries/variables/human_with_args.data.gql.dart';
+import 'package:ferry_test_graphql/queries/__generated__/reviews.req.gql.dart';
+import 'package:ferry_test_graphql/queries/__generated__/reviews.data.gql.dart';
+import 'package:ferry_test_graphql/mutations/__generated__/create_review.req.gql.dart';
+import 'package:ferry_test_graphql/mutations/__generated__/create_review.var.gql.dart';
+import 'package:ferry_test_graphql/mutations/__generated__/create_review.data.gql.dart';
+import 'package:ferry_test_graphql/schema/__generated__/schema.schema.gql.dart';
+import 'package:ferry_test_graphql/queries/__generated__/human_with_args.req.gql.dart';
+import 'package:ferry_test_graphql/queries/__generated__/human_with_args.data.gql.dart';
 
 import './update_cache_typed_link_test.mocks.dart';
 

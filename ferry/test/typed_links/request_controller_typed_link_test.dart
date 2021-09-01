@@ -6,9 +6,9 @@ import 'package:rxdart/rxdart.dart';
 
 import 'package:ferry/src/request_controller_typed_link.dart';
 
-import 'package:ferry_test_graphql/queries/variables/reviews.req.gql.dart';
-import 'package:ferry_test_graphql/queries/variables/reviews.data.gql.dart';
-import 'package:ferry_test_graphql/queries/variables/reviews.var.gql.dart';
+import 'package:ferry_test_graphql/queries/__generated__/reviews.req.gql.dart';
+import 'package:ferry_test_graphql/queries/__generated__/reviews.data.gql.dart';
+import 'package:ferry_test_graphql/queries/__generated__/reviews.var.gql.dart';
 
 TData dataForRequest<TData, TVars>(OperationRequest<TData, TVars> request) {
   final req = request as GReviewsReq;
