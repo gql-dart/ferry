@@ -1,7 +1,6 @@
 name: ferry
 
 packages:
-  - examples/**
   - ferry/*
   - ferry_cache/*
   - ferry_exec/*
