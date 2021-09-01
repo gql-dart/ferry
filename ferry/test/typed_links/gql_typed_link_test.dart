@@ -7,7 +7,7 @@ import 'package:test/test.dart';
 import 'package:ferry_exec/ferry_exec.dart';
 
 import 'package:ferry/src/gql_typed_link.dart';
-import 'package:ferry_test_graphql/queries/variables/human_with_args.req.gql.dart';
+import 'package:ferry_test_graphql/queries/__generated__/human_with_args.req.gql.dart';
 
 import './gql_typed_link_test.mocks.dart';
 

@@ -7,10 +7,10 @@ import 'package:async/async.dart';
 
 import 'package:ferry/src/offline_mutation_typed_link.dart';
 
-import 'package:ferry_test_graphql/schema/serializers.gql.dart';
-import 'package:ferry_test_graphql/mutations/variables/create_review.req.gql.dart';
-import 'package:ferry_test_graphql/mutations/variables/create_review.data.gql.dart';
-import 'package:ferry_test_graphql/schema/schema.schema.gql.dart';
+import 'package:ferry_test_graphql/schema/__generated__/serializers.gql.dart';
+import 'package:ferry_test_graphql/mutations/__generated__/create_review.req.gql.dart';
+import 'package:ferry_test_graphql/mutations/__generated__/create_review.data.gql.dart';
+import 'package:ferry_test_graphql/schema/__generated__/schema.schema.gql.dart';
 
 final req = GCreateReviewReq(
   (b) => b

@@ -3,9 +3,9 @@ import 'package:test/test.dart';
 import 'package:ferry_cache/src/operation_data_change_stream.dart';
 import 'package:ferry_cache/src/fragment_data_change_stream.dart';
 import 'package:ferry_cache/ferry_cache.dart';
-import 'package:ferry_test_graphql/schema/schema.schema.gql.dart';
-import 'package:ferry_test_graphql/queries/fragments/hero_with_fragments.req.gql.dart';
-import 'package:ferry_test_graphql/queries/fragments/hero_with_fragments.data.gql.dart';
+import 'package:ferry_test_graphql/schema/__generated__/schema.schema.gql.dart';
+import 'package:ferry_test_graphql/queries/__generated__/hero_with_fragments.req.gql.dart';
+import 'package:ferry_test_graphql/queries/__generated__/hero_with_fragments.data.gql.dart';
 
 final luke = GHeroWithFragmentsData_hero(
   (b) => b

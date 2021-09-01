@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:test/test.dart';
 import 'package:ferry_cache/ferry_cache.dart';
 
-import 'package:ferry_test_graphql/queries/variables/reviews.req.gql.dart';
-import 'package:ferry_test_graphql/queries/variables/reviews.data.gql.dart';
+import 'package:ferry_test_graphql/queries/__generated__/reviews.req.gql.dart';
+import 'package:ferry_test_graphql/queries/__generated__/reviews.data.gql.dart';
 
 final reviewsReq = GReviewsReq();
 

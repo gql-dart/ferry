@@ -2,7 +2,7 @@ import 'package:async/async.dart';
 import 'package:test/test.dart';
 
 import 'package:ferry_exec/ferry_exec.dart';
-import 'package:ferry_test_graphql/queries/no_vars/hero_no_vars.req.gql.dart';
+import 'package:ferry_test_graphql/queries/__generated__/hero_no_vars.req.gql.dart';
 
 final _TerminatingTypedLink = TypedLink.function(
   <TData, TVars>(request, [next]) => Stream.value(

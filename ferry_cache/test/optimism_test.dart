@@ -1,9 +1,9 @@
 import 'package:ferry_cache/ferry_cache.dart';
 import 'package:test/test.dart';
 
-import 'package:ferry_test_graphql/mutations/variables/create_review.req.gql.dart';
-import 'package:ferry_test_graphql/mutations/variables/create_review.data.gql.dart';
-import 'package:ferry_test_graphql/schema/schema.schema.gql.dart';
+import 'package:ferry_test_graphql/mutations/__generated__/create_review.req.gql.dart';
+import 'package:ferry_test_graphql/mutations/__generated__/create_review.data.gql.dart';
+import 'package:ferry_test_graphql/schema/__generated__/schema.schema.gql.dart';
 
 void main() {
   group('Optimism', () {

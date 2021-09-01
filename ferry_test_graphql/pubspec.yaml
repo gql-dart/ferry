@@ -10,9 +10,9 @@ dependencies:
   ferry_exec: ^0.1.4-dev.0+1
   built_value: ^8.0.4
   built_collection: ^5.0.0
-  gql_code_builder: ^0.2.0
+  gql_code_builder: ^0.3.0-alpha.0
 dev_dependencies:
   build_runner: ^2.0.2
-  gql_build: ^0.2.0
+  gql_build: ^0.3.0-alpha.0
   pedantic: ^1.11.0
-  ferry_generator: ^0.4.4-dev.0+1
+  ferry_generator: ^0.5.0-dev.0
