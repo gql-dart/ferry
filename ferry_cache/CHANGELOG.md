@@ -1,3 +1,9 @@
+## 0.5.5-dev.1
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **FEAT**: build generated files to __generated__ subdirectory.
+
 ## 0.5.5-dev.0+1
 
  - **FIX**: move pedantic to dependency (#257).
