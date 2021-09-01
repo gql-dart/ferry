@@ -12,7 +12,7 @@ dependencies:
   normalize: ^0.5.5
   ferry_store: ^0.4.4
   collection: ^1.15.0
+  pedantic: ^1.11.0
 dev_dependencies:
   test: ^1.16.8
-  pedantic: ^1.11.0
   ferry_test_graphql: ^0.1.4
