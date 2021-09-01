@@ -1,3 +1,7 @@
+## 0.1.4-dev.0+1
+
+ - **FIX**: move pedantic to dependency (#257).
+
 ## 0.1.4
 
  - **FEAT**: update dependences.
