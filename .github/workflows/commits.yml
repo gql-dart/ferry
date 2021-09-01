@@ -1,0 +1,13 @@
+on:
+  pull_request:
+    types: [opened, reopened, ready_for_review] # Currently, this action only support these events
+
+jobs:
+  hqprs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Conventional PRs
+        uses: Namchee/conventional-pr@v0.4.1
+        with:
+          access_token: ${{ secrets.GITHUB_TOKEN }}
+          link_issue: false
