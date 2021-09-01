@@ -32,6 +32,9 @@ class OperationResponse<TData, TVars> {
   /// The typed data of this response.
   final TData? data;
 
+  /// Extension data returned with the response
+  final dynamic? extensions;
+
   /// The list of errors in this response.
   final List<GraphQLError>? graphqlErrors;
 
@@ -51,6 +54,7 @@ class OperationResponse<TData, TVars> {
     required this.operationRequest,
     this.dataSource = DataSource.None,
     this.data,
+    this.extensions,
     this.graphqlErrors,
     this.linkException,
   });
@@ -59,6 +63,7 @@ class OperationResponse<TData, TVars> {
         operationRequest,
         dataSource,
         data,
+        extensions,
         graphqlErrors,
         linkException,
       ];

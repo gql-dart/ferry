@@ -3,6 +3,7 @@ import 'package:gql_link/gql_link.dart';
 import 'package:ferry_exec/ferry_exec.dart';
 
 export 'package:gql_link/gql_link.dart';
+import 'package:gql_exec/gql_exec.dart';
 
 /// A terminating link which defers execution to the provided `gql_link`,
 /// mapping the result to an [OperationResponse].
@@ -27,6 +28,8 @@ class GqlTypedLink extends TypedLink {
                   data: (response.data == null || response.data!.isEmpty)
                       ? null
                       : operationRequest.parseData(response.data!),
+                  extensions:
+                      response.context.entry<ResponseExtensions>()?.extensions,
                   graphqlErrors: response.errors,
                   dataSource: DataSource.Link,
                 ),
