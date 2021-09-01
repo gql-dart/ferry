@@ -39,6 +39,36 @@ void main() {
     });
   });
 
+  group('GraphQL Extensions', () {
+    test('Returns extension data', () async {
+      final mockLink = MockLink();
+
+      final req = GHumanWithArgsReq((b) => b..vars.id = '123');
+
+      final extensionData = {'myKey': 123};
+
+      when(mockLink.request(req.execRequest, any)).thenAnswer(
+        (_) => Stream.value(
+          Response(
+            context: Context().withEntry<ResponseExtensions>(
+              ResponseExtensions(extensionData),
+            ),
+          ),
+        ),
+      );
+
+      final typedLink = GqlTypedLink(mockLink);
+
+      final response = OperationResponse(
+        operationRequest: req,
+        extensions: extensionData,
+        dataSource: DataSource.Link,
+      );
+
+      expect(typedLink.request(req), emits(response));
+    });
+  });
+
   group('Network Errors', () {
     test('Wraps error events of a stream into OperationResponse', () async {
       final mockLink = MockLink();
