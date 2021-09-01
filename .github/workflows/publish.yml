@@ -1,0 +1,22 @@
+name: Publish Alpha
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  publish_alpha:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Activate melos
+        run: |
+          echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
+          pub global activate melos
+      - name: Configure git user
+        run: |
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+      - run: melos version -p
+      - run: melos publish --ignore="examples/**" --no-dry-run
+      - run: git push
