@@ -1,3 +1,7 @@
+## 0.5.0-dev.2
+
+ - **FEAT**: add extensions to response (#259).
+
 ## 0.5.0-dev.1
 
 > Note: This release has breaking changes.
