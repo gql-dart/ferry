@@ -27,6 +27,25 @@ jobs:
       - name: Analyze package
         run: melos exec -- flutter analyze --no-fatal-infos
 
+  format:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: beta
+      - name: Activate melos
+        run: |
+          echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
+          pub global activate melos
+      - name: Bootstrap melos
+        run: melos bs
+      - name: Validate formatting
+        run: |
+          melos exec -- dart format -o write .
+          ./.github/workflows/scripts/validate-formatting.sh
+
   test:
     runs-on: ubuntu-latest
     steps:
