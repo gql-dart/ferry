@@ -1,3 +1,7 @@
+## 0.1.4-dev.3
+
+ - **FEAT**: add github action for validating formatting (#260).
+
 ## 0.1.4-dev.2
 
  - **FEAT**: add extensions to response (#259).
