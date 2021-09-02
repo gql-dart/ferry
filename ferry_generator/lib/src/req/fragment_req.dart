@@ -23,12 +23,14 @@ Class _buildFragmentReqClass(
     getters: [
       Method(
         (b) => b
+          ..annotations.add(refer('override'))
           ..returns = varTypeRef
           ..type = MethodType.getter
           ..name = 'vars',
       ),
       Method(
         (b) => b
+          ..annotations.add(refer('override'))
           ..returns = refer(
             'DocumentNode',
             'package:gql/ast.dart',
@@ -38,6 +40,7 @@ Class _buildFragmentReqClass(
       ),
       Method(
         (b) => b
+          ..annotations.add(refer('override'))
           ..returns = TypeReference(
             (b) => b
               ..symbol = 'String'
@@ -48,6 +51,7 @@ Class _buildFragmentReqClass(
       ),
       Method(
         (b) => b
+          ..annotations.add(refer('override'))
           ..returns = refer('Map<String, dynamic>')
           ..type = MethodType.getter
           ..name = 'idFields',

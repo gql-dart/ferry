@@ -29,18 +29,28 @@ abstract class GHeroForEpisodeReq
     ..operation =
         _i4.Operation(document: _i5.document, operationName: 'HeroForEpisode')
     ..executeOnListen = true;
+  @override
   _i3.GHeroForEpisodeVars get vars;
+  @override
   _i4.Operation get operation;
+  @override
   _i4.Request get execRequest =>
       _i4.Request(operation: operation, variables: vars.toJson());
+  @override
   String? get requestId;
+  @override
   @BuiltValueField(serialize: false)
   _i2.GHeroForEpisodeData? Function(
       _i2.GHeroForEpisodeData?, _i2.GHeroForEpisodeData?)? get updateResult;
+  @override
   _i2.GHeroForEpisodeData? get optimisticResponse;
+  @override
   String? get updateCacheHandlerKey;
+  @override
   Map<String, dynamic>? get updateCacheHandlerContext;
+  @override
   _i1.FetchPolicy? get fetchPolicy;
+  @override
   bool get executeOnListen;
   @override
   _i2.GHeroForEpisodeData? parseData(Map<String, dynamic> json) =>
@@ -66,9 +76,13 @@ abstract class GDroidFragmentReq
   static void _initializeBuilder(GDroidFragmentReqBuilder b) => b
     ..document = _i5.document
     ..fragmentName = 'DroidFragment';
+  @override
   _i3.GDroidFragmentVars get vars;
+  @override
   _i7.DocumentNode get document;
+  @override
   String? get fragmentName;
+  @override
   Map<String, dynamic> get idFields;
   @override
   _i2.GDroidFragmentData? parseData(Map<String, dynamic> json) =>
