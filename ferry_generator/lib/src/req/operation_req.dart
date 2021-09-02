@@ -31,12 +31,14 @@ Class _buildOperationReqClass(
     getters: [
       Method(
         (b) => b
+          ..annotations.add(refer('override'))
           ..returns = varTypeRef
           ..type = MethodType.getter
           ..name = 'vars',
       ),
       Method(
         (b) => b
+          ..annotations.add(refer('override'))
           ..returns = refer(
             'Operation',
             'package:gql_exec/gql_exec.dart',
@@ -46,6 +48,7 @@ Class _buildOperationReqClass(
       ),
       Method(
         (b) => b
+          ..annotations.add(refer('override'))
           ..returns = refer(
             'Request',
             'package:gql_exec/gql_exec.dart',
@@ -63,6 +66,7 @@ Class _buildOperationReqClass(
       ),
       Method(
         (b) => b
+          ..annotations.add(refer('override'))
           ..returns = TypeReference(
             (b) => b
               ..symbol = 'String'
@@ -74,6 +78,7 @@ Class _buildOperationReqClass(
       Method(
         (b) => b
           ..annotations.addAll([
+            refer('override'),
             refer('BuiltValueField', 'package:built_value/built_value.dart')
                 .call([], {
               'serialize': refer('false'),
@@ -93,12 +98,14 @@ Class _buildOperationReqClass(
       ),
       Method(
         (b) => b
+          ..annotations.add(refer('override'))
           ..returns = nullableDataTypeRef
           ..type = MethodType.getter
           ..name = 'optimisticResponse',
       ),
       Method(
         (b) => b
+          ..annotations.add(refer('override'))
           ..returns = TypeReference(
             (b) => b
               ..symbol = 'String'
@@ -109,6 +116,7 @@ Class _buildOperationReqClass(
       ),
       Method(
         (b) => b
+          ..annotations.add(refer('override'))
           ..returns = TypeReference(
             (b) => b
               ..symbol = 'Map<String, dynamic>'
@@ -119,6 +127,7 @@ Class _buildOperationReqClass(
       ),
       Method(
         (b) => b
+          ..annotations.add(refer('override'))
           ..returns = TypeReference(
             (b) => b
               ..symbol = 'FetchPolicy'
@@ -130,6 +139,7 @@ Class _buildOperationReqClass(
       ),
       Method(
         (b) => b
+          ..annotations.add(refer('override'))
           ..returns = refer('bool')
           ..type = MethodType.getter
           ..name = 'executeOnListen',

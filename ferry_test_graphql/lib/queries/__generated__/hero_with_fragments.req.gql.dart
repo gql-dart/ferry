@@ -31,19 +31,29 @@ abstract class GHeroWithFragmentsReq
     ..operation = _i4.Operation(
         document: _i5.document, operationName: 'HeroWithFragments')
     ..executeOnListen = true;
+  @override
   _i3.GHeroWithFragmentsVars get vars;
+  @override
   _i4.Operation get operation;
+  @override
   _i4.Request get execRequest =>
       _i4.Request(operation: operation, variables: vars.toJson());
+  @override
   String? get requestId;
+  @override
   @BuiltValueField(serialize: false)
   _i2.GHeroWithFragmentsData? Function(
           _i2.GHeroWithFragmentsData?, _i2.GHeroWithFragmentsData?)?
       get updateResult;
+  @override
   _i2.GHeroWithFragmentsData? get optimisticResponse;
+  @override
   String? get updateCacheHandlerKey;
+  @override
   Map<String, dynamic>? get updateCacheHandlerContext;
+  @override
   _i1.FetchPolicy? get fetchPolicy;
+  @override
   bool get executeOnListen;
   @override
   _i2.GHeroWithFragmentsData? parseData(Map<String, dynamic> json) =>
@@ -69,9 +79,13 @@ abstract class GheroDataReq
   static void _initializeBuilder(GheroDataReqBuilder b) => b
     ..document = _i5.document
     ..fragmentName = 'heroData';
+  @override
   _i3.GheroDataVars get vars;
+  @override
   _i7.DocumentNode get document;
+  @override
   String? get fragmentName;
+  @override
   Map<String, dynamic> get idFields;
   @override
   _i2.GheroDataData? parseData(Map<String, dynamic> json) =>
@@ -98,9 +112,13 @@ abstract class GcomparisonFieldsReq
   static void _initializeBuilder(GcomparisonFieldsReqBuilder b) => b
     ..document = _i5.document
     ..fragmentName = 'comparisonFields';
+  @override
   _i3.GcomparisonFieldsVars get vars;
+  @override
   _i7.DocumentNode get document;
+  @override
   String? get fragmentName;
+  @override
   Map<String, dynamic> get idFields;
   @override
   _i2.GcomparisonFieldsData? parseData(Map<String, dynamic> json) =>

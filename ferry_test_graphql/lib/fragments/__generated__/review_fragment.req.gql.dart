@@ -27,9 +27,13 @@ abstract class GReviewFragmentReq
   static void _initializeBuilder(GReviewFragmentReqBuilder b) => b
     ..document = _i4.document
     ..fragmentName = 'ReviewFragment';
+  @override
   _i3.GReviewFragmentVars get vars;
+  @override
   _i5.DocumentNode get document;
+  @override
   String? get fragmentName;
+  @override
   Map<String, dynamic> get idFields;
   @override
   _i2.GReviewFragmentData? parseData(Map<String, dynamic> json) =>
