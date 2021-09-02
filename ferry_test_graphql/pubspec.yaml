@@ -1,5 +1,5 @@
 name: ferry_test_graphql
-version: 0.1.4-dev.3
+version: 0.1.4-dev.4
 description: Example GraphQL Operations, used in Ferry tests
 repository: https://github.com/gql-dart/ferry
 environment:
@@ -7,7 +7,7 @@ environment:
 dependencies:
   gql: ^0.13.0
   gql_exec: ^0.3.0
-  ferry_exec: ^0.1.4-dev.3
+  ferry_exec: ^0.1.4-dev.4
   built_value: ^8.0.4
   built_collection: ^5.0.0
   gql_code_builder: ^0.3.0-alpha.0
@@ -15,4 +15,4 @@ dev_dependencies:
   build_runner: ^2.0.2
   gql_build: ^0.3.0-alpha.0
   pedantic: ^1.11.0
-  ferry_generator: ^0.5.0-dev.3
+  ferry_generator: ^0.5.0-dev.4

@@ -1,3 +1,7 @@
+## 0.4.4-dev.4
+
+ - **FIX**: add missing override annotations (#261).
+
 ## 0.4.4-dev.3
 
  - **FEAT**: add github action for validating formatting (#260).
