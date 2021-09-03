@@ -3,17 +3,22 @@ targets:
     sources:
       - lib/**
 builders:
-  req_builder:
-    import: 'package:ferry_generator/src/req_builder.dart'
-    builder_factories: ['reqBuilder']
+  graphql_builder:
+    import: 'package:ferry_generator/graphql_builder.dart'
+    builder_factories: ['graphqlBuilder']
     build_extensions:
       {
-        '{{dir}}/{{file}}.graphql':
-          ['{{dir}}/__generated__/{{file}}.req.gql.dart'],
+        '{{inputDir}}/{{file}}.graphql':
+          [
+            '{{dir}}/__generated__/{{file}}.ast.gql.dart',
+            '{{dir}}/__generated__/{{file}}.data.gql.dart',
+            '{{dir}}/__generated__/{{file}}.var.gql.dart',
+            '{{dir}}/__generated__/{{file}}.req.gql.dart',
+            '{{dir}}/__generated__/{{file}}.schema.gql.dart',
+          ],
+        '.gql.dart': ['.serializer.gql.dart'],
       }
     auto_apply: none
     build_to: source
-    applies_builders:
-      ['gql_build|serializer_builder', 'built_value_generator|built_value']
-    runs_before:
-      ['gql_build|serializer_builder', 'built_value_generator|built_value']
+    applies_builders: ['built_value_generator|built_value']
+    runs_before: ['built_value_generator|built_value']
