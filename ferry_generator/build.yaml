@@ -16,7 +16,27 @@ builders:
             '{{dir}}/__generated__/{{file}}.req.gql.dart',
             '{{dir}}/__generated__/{{file}}.schema.gql.dart',
           ],
-        '.gql.dart': ['.serializer.gql.dart'],
+      }
+    auto_apply: none
+    build_to: source
+    applies_builders:
+      [
+        'ferry_generator|serializer_builder',
+        'built_value_generator|built_value',
+      ]
+    runs_before:
+      [
+        'ferry_generator|serializer_builder',
+        'built_value_generator|built_value',
+      ]
+
+  serializer_builder:
+    import: 'package:ferry_generator/serializer_builder.dart'
+    builder_factories: ['serializerBuilder']
+    build_extensions:
+      {
+        '{{dir}}/{{file}}.graphql':
+          ['{{dir}}/__generated__/{{file}}.serializer.gql.dart'],
       }
     auto_apply: none
     build_to: source

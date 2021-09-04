@@ -1,6 +1,9 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart' show StandardJsonPlugin;
+import 'package:ferry_exec/ferry_exec.dart';
 import 'package:ferry_test_graphql/date_serializer.dart' show DateSerializer;
 import 'package:ferry_test_graphql/fragments/__generated__/review_fragment.data.gql.dart'
     show GReviewFragmentData;

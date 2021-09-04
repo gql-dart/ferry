@@ -20,18 +20,6 @@ AssetId outputAssetId(
       outputPath(inputAssetId.path, outputDir),
     ).changeExtension(extension);
 
-// create a path for the serializers output in same directory as schema
-List<String> getSerializerPathSegments(
-  AssetId schemaId,
-  String outputDir,
-) =>
-    AssetId(
-      schemaId.package,
-      outputPath(schemaId.path, outputDir),
-    ).pathSegments
-      ..removeLast()
-      ..add('serializers.gql.dart');
-
 /// The path to the generated '.g.dart' file for a given input
 String generatedFilePath(
   AssetId inputId,
