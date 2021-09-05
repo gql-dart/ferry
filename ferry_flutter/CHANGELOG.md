@@ -1,3 +1,7 @@
+## 0.5.4-dev.5
+
+ - **FIX**: add missing dependencies (#267).
+
 ## 0.5.4-dev.4
 
  - **FIX**: add missing override annotations (#261).
