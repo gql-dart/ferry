@@ -17,6 +17,8 @@ dependencies:
   dart_style: ^2.0.3
   analyzer: ^1.7.2
   glob: ^2.0.1
+  built_value_generator: ^8.1.1
+  built_value: ^8.1.2
 dev_dependencies:
   test: ^1.16.8
   build_runner: ^2.0.2
