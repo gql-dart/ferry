@@ -12,7 +12,8 @@ dependencies:
   built_collection: ^5.0.0
   gql_code_builder: ^0.3.0-alpha.0
 dev_dependencies:
+  test: ^1.16.8
   build_runner: ^2.0.2
-  gql_build: ^0.3.0-alpha.0
   pedantic: ^1.11.0
   ferry_generator: ^0.5.0-dev.4
+  built_value_generator: ^8.1.1
