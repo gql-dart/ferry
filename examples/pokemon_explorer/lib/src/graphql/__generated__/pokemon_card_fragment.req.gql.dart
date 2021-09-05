@@ -26,9 +26,13 @@ abstract class GNestedFragmentReq
   static void _initializeBuilder(GNestedFragmentReqBuilder b) => b
     ..document = _i4.document
     ..fragmentName = 'NestedFragment';
+  @override
   _i3.GNestedFragmentVars get vars;
+  @override
   _i5.DocumentNode get document;
+  @override
   String? get fragmentName;
+  @override
   Map<String, dynamic> get idFields;
   @override
   _i2.GNestedFragmentData? parseData(Map<String, dynamic> json) =>
@@ -54,9 +58,13 @@ abstract class GPokemonCardReq
   static void _initializeBuilder(GPokemonCardReqBuilder b) => b
     ..document = _i4.document
     ..fragmentName = 'PokemonCard';
+  @override
   _i3.GPokemonCardVars get vars;
+  @override
   _i5.DocumentNode get document;
+  @override
   String? get fragmentName;
+  @override
   Map<String, dynamic> get idFields;
   @override
   _i2.GPokemonCardData? parseData(Map<String, dynamic> json) =>

@@ -27,18 +27,28 @@ abstract class GAllPokemonReq
     ..operation =
         _i4.Operation(document: _i5.document, operationName: 'AllPokemon')
     ..executeOnListen = true;
+  @override
   _i3.GAllPokemonVars get vars;
+  @override
   _i4.Operation get operation;
+  @override
   _i4.Request get execRequest =>
       _i4.Request(operation: operation, variables: vars.toJson());
+  @override
   String? get requestId;
+  @override
   @BuiltValueField(serialize: false)
   _i2.GAllPokemonData? Function(_i2.GAllPokemonData?, _i2.GAllPokemonData?)?
       get updateResult;
+  @override
   _i2.GAllPokemonData? get optimisticResponse;
+  @override
   String? get updateCacheHandlerKey;
+  @override
   Map<String, dynamic>? get updateCacheHandlerContext;
+  @override
   _i1.FetchPolicy? get fetchPolicy;
+  @override
   bool get executeOnListen;
   @override
   _i2.GAllPokemonData? parseData(Map<String, dynamic> json) =>
