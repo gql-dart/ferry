@@ -1,3 +1,7 @@
+## 0.5.4-dev.6
+
+ - **FIX**: add missing dependencies (#268).
+
 ## 0.5.4-dev.5
 
  - **FIX**: add missing dependencies (#267).
