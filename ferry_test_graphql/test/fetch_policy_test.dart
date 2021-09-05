@@ -7,10 +7,11 @@ void main() {
     final req =
         GReviewsReq((b) => b..fetchPolicy = FetchPolicy.CacheAndNetwork);
 
-    final json = <String, dynamic>{};
+    final json = req.toJson();
+    final deserialized = GReviewsReq.fromJson(json);
+
     test('can serialize and deserialize a request with its fetch policy', () {
-      expect(req.toJson(), equals(json));
-      expect(GReviewsReq.fromJson(json), equals(req));
+      expect(req, equals(deserialized));
     });
   });
 }
