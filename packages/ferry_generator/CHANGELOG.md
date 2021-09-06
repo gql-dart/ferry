@@ -1,3 +1,7 @@
+## 0.5.0-dev.8
+
+ - **DOCS**: remove stale code (#271).
+
 ## 0.5.0-dev.7
 
  - **FIX**: add dispose method to TypedLinks (#272).

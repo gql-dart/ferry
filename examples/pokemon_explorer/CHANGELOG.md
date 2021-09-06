@@ -1,3 +1,7 @@
+## 0.0.3-dev.1
+
+ - **DOCS**: remove stale code (#271).
+
 ## 0.0.3-dev.0+1
 
  - **FIX**: add dispose method to TypedLinks (#272).
