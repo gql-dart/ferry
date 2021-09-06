@@ -14,11 +14,16 @@ import 'package:ferry_exec/ferry_exec.dart';
 /// immediately executed when the stream returned by [request] is first
 /// listened to.
 class RequestControllerTypedLink extends TypedLink {
-  final StreamController<OperationRequest> requestController;
+  late StreamController<OperationRequest> requestController;
+  StreamController<OperationRequest>? _defaultRequestController;
 
   RequestControllerTypedLink([
     StreamController<OperationRequest>? controller,
-  ]) : requestController = controller ?? StreamController.broadcast();
+  ]) {
+    /// Set default request controller if none is provided
+    requestController =
+        controller ??= _defaultRequestController = StreamController.broadcast();
+  }
 
   @override
   Stream<OperationResponse<TData, TVars>> request<TData, TVars>(
@@ -76,5 +81,7 @@ class RequestControllerTypedLink extends TypedLink {
   }
 
   @override
-  Future<void> dispose() => requestController.close();
+  Future<void> dispose() async {
+    await _defaultRequestController?.close();
+  }
 }
