@@ -1,3 +1,7 @@
+## 0.5.5-dev.7
+
+ - **FIX**: add dispose method to TypedLinks (#272).
+
 ## 0.5.5-dev.6
 
  - **FIX**: add missing dependencies (#268).

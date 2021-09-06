@@ -1,3 +1,7 @@
+## 0.0.3-dev.0+1
+
+ - **FIX**: add dispose method to TypedLinks (#272).
+
 ## 0.0.3
 
  - **FEAT**: update dependences.
