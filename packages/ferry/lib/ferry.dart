@@ -17,12 +17,16 @@ export 'package:gql/ast.dart' show OperationType;
 
 class Client extends TypedLink {
   final Link link;
-  final Cache cache;
-  final StreamController<OperationRequest> requestController;
   final Map<String, TypePolicy> typePolicies;
   final Map<String, Function> updateCacheHandlers;
   final Map<OperationType, FetchPolicy> defaultFetchPolicies;
   final bool addTypename;
+
+  late Cache cache;
+  Cache? _defaultCache;
+
+  late StreamController<OperationRequest> requestController;
+  StreamController<OperationRequest>? _defaultRequestController;
 
   late TypedLink _typedLink;
 
@@ -34,8 +38,10 @@ class Client extends TypedLink {
     this.updateCacheHandlers = const {},
     this.defaultFetchPolicies = const {},
     this.addTypename = true,
-  })  : cache = cache ?? Cache(),
-        requestController = requestController ?? StreamController.broadcast() {
+  }) {
+    this.cache = cache ??= _defaultCache = Cache();
+    this.requestController = requestController ??=
+        _defaultRequestController = StreamController.broadcast();
     _typedLink = TypedLink.from([
       ErrorTypedLink(),
       RequestControllerTypedLink(this.requestController),
@@ -51,6 +57,12 @@ class Client extends TypedLink {
         defaultFetchPolicies: defaultFetchPolicies,
       )
     ]);
+  }
+
+  @override
+  Future<void> dispose() async {
+    await _defaultCache?.dispose();
+    await _defaultRequestController?.close();
   }
 
   @override

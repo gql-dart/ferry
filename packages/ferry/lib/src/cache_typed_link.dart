@@ -6,11 +6,20 @@ export 'package:ferry_cache/ferry_cache.dart';
 /// A terminating link that fetches the operation from the Cache, mapping the
 /// result to an [OperationResponse].
 class CacheTypedLink extends TypedLink {
-  final Cache cache;
+  late Cache cache;
+  Cache? _defaultCache;
 
   CacheTypedLink([
     Cache? cache,
-  ]) : cache = cache ?? Cache();
+  ]) {
+    /// Set default cache if none is provided
+    this.cache = cache ??= _defaultCache = Cache();
+  }
+
+  @override
+  Future<void> dispose() async {
+    await _defaultCache?.dispose();
+  }
 
   @override
   Stream<OperationResponse<TData, TVars>> request<TData, TVars>(

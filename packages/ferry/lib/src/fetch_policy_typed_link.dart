@@ -25,7 +25,9 @@ const _defaultFetchPolicies = {
 /// response
 class FetchPolicyTypedLink extends TypedLink {
   final Map<OperationType, FetchPolicy> defaultFetchPolicies;
-  final Cache cache;
+
+  late Cache cache;
+  Cache? _defaultCache;
 
   late TypedLink _optimisticLinkTypedLink;
   late CacheTypedLink _cacheTypedLink;
@@ -34,11 +36,13 @@ class FetchPolicyTypedLink extends TypedLink {
     required Link link,
     Cache? cache,
     Map<OperationType, FetchPolicy> defaultFetchPolicies = const {},
-  })  : cache = cache ?? Cache(),
-        defaultFetchPolicies = {
+  }) : defaultFetchPolicies = {
           ..._defaultFetchPolicies,
           ...defaultFetchPolicies
         } {
+    /// Set default cache if none is provided
+    this.cache = cache ??= _defaultCache = Cache();
+
     _optimisticLinkTypedLink = TypedLink.from([
       const OptimisticTypedLink(),
       GqlTypedLink(link),
@@ -145,5 +149,7 @@ class FetchPolicyTypedLink extends TypedLink {
   }
 
   @override
-  Future<void> dispose() => cache.dispose();
+  Future<void> dispose() async {
+    await _defaultCache?.dispose();
+  }
 }
