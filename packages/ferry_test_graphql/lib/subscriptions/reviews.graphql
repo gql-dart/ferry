@@ -1,0 +1,10 @@
+subscription Reviews($episode: Episode) {
+  reviewAdded(episode: $episode) {
+    id
+    episode
+    stars
+    commentary
+    createdAt
+    seenOn
+  }
+}

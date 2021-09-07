@@ -1,5 +1,5 @@
 name: ferry_exec
-version: 0.1.4-dev.8
+version: 0.1.5-dev.0
 homepage: https://ferrygraphql.com/
 description: A strongly typed execution interface for GraphQL operations
 repository: https://github.com/gql-dart/ferry
