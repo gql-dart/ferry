@@ -18,6 +18,8 @@ jobs:
         run: |
           echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
           pub global activate melos
+      - name: Bootstrap melos
+        run: melos bs
       - name: Configure git user
         run: |
           git config user.name github-actions
