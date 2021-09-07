@@ -27,6 +27,8 @@ jobs:
           git config user.email github-actions@github.com
       - run: melos version --yes -p
       - name: Set Pub.dev credentials
-        run: echo "{\"accessToken\":\"$PUB_ACCESS_TOKEN\",\"refreshToken\":\"$PUB_REFRESH_TOKEN\",\"idToken\":null,\"tokenEndpoint\":\"https://accounts.google.com/o/oauth2/token\",\"scopes\":[\"openid\",\"https://www.googleapis.com/auth/userinfo.email\"],\"expiration\":1630507080060}" > $HOME/.pub-cache/credentials.json
+        run: |
+          mkdir $HOME/.pub-cache
+          echo "{\"accessToken\":\"$PUB_ACCESS_TOKEN\",\"refreshToken\":\"$PUB_REFRESH_TOKEN\",\"idToken\":null,\"tokenEndpoint\":\"https://accounts.google.com/o/oauth2/token\",\"scopes\":[\"openid\",\"https://www.googleapis.com/auth/userinfo.email\"],\"expiration\":1630507080060}" > $HOME/.pub-cache/credentials.json
       - run: melos publish --yes --no-dry-run --ignore="*pokemon*"
       - run: git push
