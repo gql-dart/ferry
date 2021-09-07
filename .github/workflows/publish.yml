@@ -7,8 +7,6 @@ on:
 jobs:
   publish_alpha:
     runs-on: ubuntu-latest
-    container:
-      image: google/dart:latest
     env:
       PUB_ACCESS_TOKEN: ${{ secrets.PUB_ACCESS_TOKEN }}
       PUB_REFRESH_TOKEN: ${{ secrets.PUB_REFRESH_TOKEN }}
