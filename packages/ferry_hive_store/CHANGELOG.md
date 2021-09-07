@@ -1,3 +1,10 @@
+## 0.4.5-dev.1
+
+ - **FEAT**: add Reviews subscription to test graphql.
+ - **CHORE**: publish packages.
+ - **CHORE**: publish packages.
+ - **CHORE**: restructure repo (#269).
+
 ## 0.4.4-dev.8
 
  - **DOCS**: remove stale code (#271).
