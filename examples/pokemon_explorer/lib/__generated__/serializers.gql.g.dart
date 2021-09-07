@@ -7,6 +7,7 @@ part of 'serializers.gql.dart';
 // **************************************************************************
 
 Serializers _$serializers = (new Serializers().toBuilder()
+      ..add(FetchPolicy.serializer)
       ..add(GAllPokemonData.serializer)
       ..add(GAllPokemonData_pokemons.serializer)
       ..add(GAllPokemonData_pokemons_results.serializer)
