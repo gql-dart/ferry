@@ -1,3 +1,22 @@
+## 0.0.3-dev.2
+
+> Note: This release has breaking changes.
+
+ - **FIX**: resolve static analysis issues.
+ - **FIX**: fix example units.
+ - **FIX**: update example.
+ - **FEAT**: update dependences.
+ - **CHORE**: publish packages.
+ - **CHORE**: publish packages.
+ - **CHORE**: restructure repo (#269).
+ - **CHORE**: publish packages.
+ - **CHORE**: publish packages.
+ - **CHORE**: publish packages.
+ - **CHORE**: publish packages.
+ - **CHORE**: publish packages.
+ - **CHORE**: publish packages.
+ - **BREAKING** **FEAT**: build generated files to __generated__ subdirectory.
+
 ## 0.0.3-dev.1
 
  - **DOCS**: remove stale code (#271).

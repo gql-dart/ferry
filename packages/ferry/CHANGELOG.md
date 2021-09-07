@@ -1,3 +1,12 @@
+## 0.10.5-dev.1
+
+ - **FIX**: add dispose method to TypedLinks (#272).
+ - **FEAT**: add Reviews subscription to test graphql.
+ - **DOCS**: remove stale code (#271).
+ - **CHORE**: publish packages.
+ - **CHORE**: publish packages.
+ - **CHORE**: restructure repo (#269).
+
 ## 0.10.4-dev.8
 
  - **DOCS**: remove stale code (#271).
