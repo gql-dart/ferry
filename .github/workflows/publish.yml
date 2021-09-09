@@ -30,7 +30,7 @@ jobs:
           PUB_ACCESS_TOKEN: ${{ secrets.PUB_ACCESS_TOKEN }}
           PUB_REFRESH_TOKEN: ${{ secrets.PUB_REFRESH_TOKEN }}
         run: |
-          sh ./scripts/pub_login.sh
+          sh ./.github/workflows/scripts/pub_login.sh
       - run: melos publish --yes --dry-run --ignore="*pokemon*"
       - run: melos publish --yes --no-dry-run --ignore="*pokemon*"
       - run: git push
