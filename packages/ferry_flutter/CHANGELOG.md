@@ -1,3 +1,7 @@
+## 0.5.5-dev.2
+
+ - Update a dependency to the latest release.
+
 ## 0.5.5-dev.1
 
  - **FEAT**: add Reviews subscription to test graphql.
