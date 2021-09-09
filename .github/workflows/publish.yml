@@ -7,12 +7,10 @@ on:
 jobs:
   publish_alpha:
     runs-on: ubuntu-latest
-    env:
-      PUB_ACCESS_TOKEN: ${{ secrets.PUB_ACCESS_TOKEN }}
-      PUB_REFRESH_TOKEN: ${{ secrets.PUB_REFRESH_TOKEN }}
     steps:
-      - uses: actions/checkout@v2
-      - uses: subosito/flutter-action@v1
+      - uses: actions/checkout@v1
+      - name: Install Flutter
+        uses: subosito/flutter-action@v1
         with:
           channel: beta
       - name: Activate melos
@@ -26,8 +24,13 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
       - run: melos version --yes -p
-      - name: Publish packages
+      - name: Setup Pub Credentials
+        shell: bash
+        env:
+          PUB_ACCESS_TOKEN: ${{ secrets.PUB_ACCESS_TOKEN }}
+          PUB_REFRESH_TOKEN: ${{ secrets.PUB_REFRESH_TOKEN }}
         run: |
-          echo "{\"accessToken\":\"$PUB_ACCESS_TOKEN\",\"refreshToken\":\"$PUB_REFRESH_TOKEN\",\"idToken\":null,\"tokenEndpoint\":\"https://accounts.google.com/o/oauth2/token\",\"scopes\":[\"openid\",\"https://www.googleapis.com/auth/userinfo.email\"],\"expiration\":1630507080060}" > $HOME/.pub-cache/credentials.json
-          melos publish --yes --no-dry-run --ignore="*pokemon*"
+          sh ./scripts/pub_login.sh
+      - run: melos publish --yes --dry-run --ignore="*pokemon*"
+      - run: melos publish --yes --no-dry-run --ignore="*pokemon*"
       - run: git push
