@@ -117,27 +117,26 @@ void main() {
       cache.dispose();
     });
 
-    group('without optimistic response', () {
-      test('runs only on first non-optimistic', () async {
-        final queue = StreamQueue(typedLink.request(createReviewReq));
+    test('calls handler with multiple responses from DataSource.Link',
+        () async {
+      final queue = StreamQueue(typedLink.request(createReviewReq));
 
-        expect(cache.readQuery(reviewsReq), equals(null));
+      expect(cache.readQuery(reviewsReq), equals(null));
 
-        requestController.add(createReviewReq);
-        linkController.add(Response(data: createReviewData.toJson()));
-        await queue.next;
+      requestController.add(createReviewReq);
+      linkController.add(Response(data: createReviewData.toJson()));
+      await queue.next;
 
-        expect(cache.readQuery(reviewsReq)!.reviews!.length, equals(1));
+      expect(cache.readQuery(reviewsReq)!.reviews!.length, equals(1));
 
-        linkController.add(Response(data: createReviewData.toJson()));
-        await queue.next;
+      linkController.add(Response(data: createReviewData.toJson()));
+      await queue.next;
 
-        expect(cache.readQuery(reviewsReq)!.reviews!.length, equals(1));
-      });
+      expect(cache.readQuery(reviewsReq)!.reviews!.length, equals(2));
     });
 
     group('with optimistic response', () {
-      test('runs on optimistic response and first non-optimistic response',
+      test('can run handler optimistically followed by non-optimistically',
           () async {
         final req = createReviewReq.rebuild(
           (b) => b
@@ -152,8 +151,9 @@ void main() {
         expect(cache.readQuery(reviewsReq), equals(null));
 
         requestController.add(req);
-        await queue.next;
+        final res1 = await queue.next;
 
+        expect(res1.dataSource, equals(DataSource.Optimistic));
         expect(cache.readQuery(reviewsReq)!.reviews!.length, equals(1));
         expect(
           cache.readQuery(reviewsReq)!.reviews!.first.id,
@@ -161,17 +161,9 @@ void main() {
         );
 
         linkController.add(Response(data: createReviewData.toJson()));
-        await queue.next;
+        final res2 = await queue.next;
 
-        expect(cache.readQuery(reviewsReq)!.reviews!.length, equals(1));
-        expect(
-          cache.readQuery(reviewsReq)!.reviews!.first.id,
-          equals('123'),
-        );
-
-        linkController.add(Response(data: createReviewData.toJson()));
-        await queue.next;
-
+        expect(res2.dataSource, equals(DataSource.Link));
         expect(cache.readQuery(reviewsReq)!.reviews!.length, equals(1));
         expect(
           cache.readQuery(reviewsReq)!.reviews!.first.id,

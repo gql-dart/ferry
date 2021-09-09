@@ -55,7 +55,6 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GReviewWithDateReq.serializer)
       ..add(GReviewWithDateVars.serializer)
       ..add(GReviewsData.serializer)
-      ..add(GReviewsData_reviewAdded.serializer)
       ..add(GReviewsData_reviews.serializer)
       ..add(GReviewsReq.serializer)
       ..add(GReviewsVars.serializer)
@@ -68,9 +67,6 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GheroDataData.serializer)
       ..add(GheroDataReq.serializer)
       ..add(GheroDataVars.serializer)
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(DateTime)]),
-          () => new ListBuilder<DateTime>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(DateTime)]),
           () => new ListBuilder<DateTime>())
