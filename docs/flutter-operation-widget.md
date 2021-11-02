@@ -68,7 +68,7 @@ final createReviewReq = GCreateReviewReq(
 );
 
 final result = await client
-  .request(mutation)
+  .request(createReviewReq)
   .firstWhere((response) => response.dataSource != DataSource.Optimistic);
 ```
 
