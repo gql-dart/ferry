@@ -18,41 +18,35 @@ List<FieldNode> expandFragments({
     if (typename == null) {
       continue;
     }
+    String fragmentOnName;
+    SelectionSetNode fragmentSelectionSet;
     if (selectionNode is InlineFragmentNode) {
-      final fragmentOnName =
-          selectionNode.typeCondition?.on.name.value ?? typename;
-
-      // We'll add the fields if
-      //  - We know the current type (typename != null)
-      // and
-      //  - If the fragment and current type are the same (fragmentOnName == typename)
-      //  - Or the current type is a type of the fragment target
-      if (fragmentOnName == typename ||
-          possibleTypes[fragmentOnName]?.contains(typename) == true) {
-        fieldNodes.addAll(
-          expandFragments(
-            typename: typename,
-            selectionSet: selectionNode.selectionSet,
-            fragmentMap: fragmentMap,
-            possibleTypes: possibleTypes,
-          ),
-        );
-      }
+      fragmentOnName = selectionNode.typeCondition?.on.name.value ?? typename;
+      fragmentSelectionSet = selectionNode.selectionSet;
     } else if (selectionNode is FragmentSpreadNode) {
       final fragment = fragmentMap[selectionNode.name.value];
       if (fragment == null) {
         throw Exception('Missing fragment ${selectionNode.name.value}');
       }
+      fragmentOnName = fragment.typeCondition.on.name.value;
+      fragmentSelectionSet = fragment.selectionSet;
+    } else {
+      throw (FormatException('Unknown selection node type'));
+    }
+    // We'll add the fields if
+    //  - We know the current type (typename != null) AND
+    //    - If the fragment and current type are the same (fragmentOnName == typename) OR
+    //    - the current type is a type of the fragment target
+    if (fragmentOnName == typename ||
+        possibleTypes[fragmentOnName]?.contains(typename) == true) {
       fieldNodes.addAll(
         expandFragments(
           typename: typename,
-          selectionSet: fragment.selectionSet,
+          selectionSet: fragmentSelectionSet,
           fragmentMap: fragmentMap,
           possibleTypes: possibleTypes,
         ),
       );
-    } else {
-      throw (FormatException('Unknown selection node type'));
     }
   }
   return List.from(_mergeSelections(fieldNodes));

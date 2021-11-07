@@ -4,7 +4,7 @@ import 'package:gql/language.dart';
 import 'package:normalize/normalize.dart';
 
 void main() {
-  group('Union Type Inline Fragments', () {
+  group('Union Type Inline Fragments With Possible Types', () {
     final query = parseString('''
       query TestQuery {
         booksAndAuthors {
@@ -22,30 +22,8 @@ void main() {
 
     final data = {
       'booksAndAuthors': [
-        {
-          'id': '123',
-          '__typename': 'Book',
-          'title': 'My awesome blog post',
-        },
-        {
-          'id': '324',
-          '__typename': 'Author',
-          'name': 'Nicole',
-        }
-      ]
-    };
-    final denormalizedData = {
-      'booksAndAuthors': [
-        {
-          'id': '123',
-          '__typename': 'Book',
-          'title': 'My awesome blog post',
-        },
-        {
-          'id': '324',
-          '__typename': 'Author',
-          'name': 'Nicole',
-        }
+        {'id': '123', '__typename': 'Book', 'title': 'My awesome blog post'},
+        {'id': '324', '__typename': 'Author', 'name': 'Nicole'}
       ]
     };
 
@@ -59,15 +37,13 @@ void main() {
       'Book:123': {
         'id': '123',
         '__typename': 'Book',
-        'title': 'My awesome blog post',
+        'title': 'My awesome blog post'
       },
-      'Author:324': {
-        'id': '324',
-        '__typename': 'Author',
-        'name': 'Nicole',
-      }
+      'Author:324': {'id': '324', '__typename': 'Author', 'name': 'Nicole'}
     };
-
+    final possibleTypes = {
+      'BookAndAuthor': {'Book', 'Author'}
+    };
     test('Produces correct normalized object', () {
       final normalizedResult = {};
       normalizeOperation(
@@ -75,6 +51,7 @@ void main() {
         write: (dataId, value) => normalizedResult[dataId] = value,
         document: query,
         data: data,
+        possibleTypes: possibleTypes,
       );
 
       expect(
@@ -88,8 +65,9 @@ void main() {
         denormalizeOperation(
           document: query,
           read: (dataId) => normalizedMap[dataId],
+          possibleTypes: possibleTypes,
         ),
-        equals(denormalizedData),
+        equals(data),
       );
     });
   });
