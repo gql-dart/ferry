@@ -42,11 +42,13 @@ void main() {
     test('Produces correct normalized object', () {
       final normalizedResult = {};
       normalizeOperation(
-        read: (dataId) => normalizedResult[dataId],
-        write: (dataId, value) => normalizedResult[dataId] = value,
-        document: query,
-        data: sharedResponse,
-      );
+          read: (dataId) => normalizedResult[dataId],
+          write: (dataId, value) => normalizedResult[dataId] = value,
+          document: query,
+          data: sharedResponse,
+          possibleTypes: {
+            'Person': {'Author'}
+          });
 
       expect(
         normalizedResult,
@@ -57,9 +59,11 @@ void main() {
     test('Produces correct nested data object', () {
       expect(
         denormalizeOperation(
-          document: query,
-          read: (dataId) => sharedNormalizedMap[dataId],
-        ),
+            document: query,
+            read: (dataId) => sharedNormalizedMap[dataId],
+            possibleTypes: {
+              'Person': {'Author'}
+            }),
         equals(sharedResponse),
       );
     });
