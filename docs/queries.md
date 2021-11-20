@@ -6,8 +6,8 @@ title: Queries
 Executing a GraphQL Query with Ferry is as easy as:
 
 1. Creating an instance of the [generated](codegen.md) request class for your Query.
-2. Call `Client.request()` with your request.
-3. Listen to the returned Stream.
+2. Calling `Client.request()` with your request instance.
+3. Listening to the returned Stream.
 
 ## Creating a Request
 
