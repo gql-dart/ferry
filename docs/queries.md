@@ -36,7 +36,7 @@ final reviewsReq = GReviewsReq(
 
 :::note
 
-Notice how we can chain-assign nested values. Ferry's generated classes are based on `built_value` which uses the Builder Pattern.
+Notice how we can chain-assign nested values. Ferry's generated classes are based on [https://pub.dev/packages/built_value](built_value) which uses the Builder Pattern.
 
 Check out [this post](https://medium.com/dartlang/darts-built-value-for-immutable-object-models-83e2497922d4) for more information on `built_value` classes and how to use them.
 
