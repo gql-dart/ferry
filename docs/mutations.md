@@ -133,7 +133,6 @@ import 'package:ferry/ferry.dart';
 import 'package:ferry/plugins.dart';
 
 final link = HttpLink("[path/to/endpoint]");
-final client = Client(link: link);
 
 final client = Client(
   link: link,
