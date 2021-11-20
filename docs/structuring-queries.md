@@ -120,7 +120,7 @@ A naive implementation of this (don't do this) might be to:
 
 However, this would result in a seperate network request (and subsequent database query) for each Pokemon in the list. Not very efficient.
 
-Istead, we can extract our `PokemonCard`'s data requirements into a Fragment:
+Instead, we can extract our `PokemonCard`'s data requirements into a Fragment:
 
 ```graphql
 fragment PokemonCardFragment on Pokemon {
