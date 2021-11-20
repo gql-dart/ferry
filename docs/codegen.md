@@ -97,7 +97,7 @@ If your operations have dependencies in other `.graphql` files, you can import t
 
 ## Build Generated Classes
 
-Now that we've [downloaded our GraphQL schema](codegen.md#download-your-graphql-schema) and [saved our GraphQL Operations](codegen.md#create-graphql-files) to `.graphql` files, we're almost ready to run the generator. The final step is to add a configuration file so that `built_runner` knows which generators to run and where to find our schema.
+Now that we've [downloaded our GraphQL schema](codegen.md#download-your-graphql-schema) and [saved our GraphQL Operations](codegen.md#create-graphql-files) to `.graphql` files, we're almost ready to run the generator. The final step is to add a configuration file so that `build_runner` knows which generators to run and where to find our schema.
 
 Add a `build.yaml` file to your project root with the following contents, **replacing `your_package_name` and the path to your schema file** accordingly.
 
