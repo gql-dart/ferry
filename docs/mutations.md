@@ -6,7 +6,7 @@ title: Mutations
 Mutations are executed exactly the same way as [queries](queries.md):
 
 1. Create an instance of the [generated](codegen.md) request class for your Mutation.
-2. Call `Client.request()` with your request.
+2. Call `Client.request()` with your request instance.
 3. Listen to the returned Stream.
 
 ### Creating a Request
