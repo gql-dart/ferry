@@ -8,7 +8,7 @@ A request's `FetchPolicy` determines how it is resolved by Ferry, either from th
 For example, executing the following `reviewsReq` will bypass the cache and return results only from the network.
 
 ```dart
-final reviewsReq = GAllPokemonReq(
+final reviewsReq = GReviewsReq(
   (b) => b
     ..fetchPolicy = FetchPolicy.NetworkOnly
     ..vars.first = 10

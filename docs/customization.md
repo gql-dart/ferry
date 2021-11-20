@@ -41,7 +41,7 @@ class CacheTypedLink extends TypedLink {
 
 Not all links need to resolve the request directly. Some links simply modify the request or response stream by calling the `forward()` callback on the `request()` method. This defers resolution of the request to the next link in the chain.
 
-For example, ferry uses the following link to automatically add "___typename_" fields to each node of the GraphQL operation.
+For example, ferry uses the following link to automatically add "_\_\_typename_" fields to each node of the GraphQL operation.
 
 ```dart
 import 'dart:async';
@@ -81,7 +81,7 @@ class AddTypenameTypedLink extends TypedLink {
 
 TypedLinks can be chained together using the `TypedLink.from()` method.
 
-The following will create a link that adds "___typename_" fields to the request, then resolves the request from the Cache:
+The following will create a link that adds "_\_\_typename_" fields to the request, then resolves the request from the Cache:
 
 ```dart
 final myTypedLink = TypedLink.from([
@@ -95,8 +95,6 @@ You can then use this link to execute requests by listening to the Stream return
 ```dart
 myTypedLink.request(GMyQueryReq()).listen((data) => print(data));
 ```
-
-
 
 ### Ordering Your TypedLink Chains
 
@@ -120,7 +118,7 @@ Instead, you can simply use the [underlying links that Client composes](https://
 The ferry Client is created by composing these core TypedLinks.
 
 - **Client**: The Ferry Client itself is a TypedLink, implemented by composing other core TypedLinks.
-- **AddTypenameTypedLink**: Adds "___typename_" to each node of the operation.
+- **AddTypenameTypedLink**: Adds "_\_\_typename_" to each node of the operation.
 - **CacheTypedLink**: A terminating link that fetches the operation from the Cache.
 - **FetchPolicyTypedLink**: A terminating link that resolves an operation from the Link or the Cache based on the request's `FetchPolicy`, possibly caching the response.
 - **GqlTypedLink**: A terminating link which defers execution to the provided [gql_link](https://pub.dev/packages/gql_link). Any errors received by the [gql_link](https://pub.dev/packages/gql_link) are included in the `OperationResponse.linkException`.

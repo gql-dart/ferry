@@ -37,14 +37,14 @@ gql_build|schema_builder:
     type_overrides:
       Date:
         name: DateTime
-        import: 'package:my_date_library/date_time.dart'
+        import: "package:my_date_library/date_time.dart"
 ```
 
 ### Configure Custom Serializer
 
-If our Dart type is not a Dart Data Type, we also need to [define a custom serializer](#create-a-custom-serializer) so that the generated classes can be correctly serialized & deserialized the data.
+If our Dart type is not a Dart Data Type, we also need to [define a custom serializer](#create-a-custom-serializer) so that the generated classes can correctly serialize & deserialize the data.
 
-Assuming we've created a [`DateSerializer`](#create-a-custom-serializer) for our custom `Date` scalar, we will need to include it in our `serializer_builder`.
+Assuming we've created a [`DateSerializer`](#create-a-custom-serializer) for our custom `Date` scalar, we will need to include it in our `serializer_builder`:
 
 ```yaml
 gql_build|serializer_builder:
@@ -52,7 +52,7 @@ gql_build|serializer_builder:
   options:
     schema: my_project|lib/graphql/schema.graphql
     custom_serializers:
-      - import: 'package:path/to/date_serializer.dart'
+      - import: "package:path/to/date_serializer.dart"
         name: DateSerializer
 ```
 
@@ -92,7 +92,7 @@ targets:
         options:
           schema: my_project|lib/schema.graphql
           custom_serializers:
-            - import: 'package:path/to/date_serializer.dart'
+            - import: "package:path/to/date_serializer.dart"
               name: DateSerializer
 
       ferry_generator|req_builder:
@@ -104,11 +104,11 @@ targets:
               name: DateTime
 ```
 
-## Create a Custom Serializer
+## Creating a Custom Serializer
 
-In order for us to instantiate our generated Dart Classes with data from our GraphQL server, we will need to create a custom `built_value` serializer for our custom `scalar` type.
+For Ferry to create instances of our generated Dart classes, with data from a GraphQL server, we'll need to create a custom `built_value` serializer to handle the custom `scalar` type.
 
-In this case, let's assume that our GraphQL server will return our `Date` scalar as an `int` timestamp.
+Let's assume that our GraphQL server returns our `Date` scalar as an `int` timestamp. Then, a custom serializer can look like this:
 
 ```dart
 import 'package:built_value/serializer.dart';
@@ -141,13 +141,13 @@ class DateSerializer implements PrimitiveSerializer<DateTime> {
 }
 ```
 
-And that's it! Now when we run our `pub run build_runner build` command, ferry's generators will automatically override our GraphQL `Date` scalar with the Dart `DateTime` type and use our `DateSerializer` to serialize & deserialize data.
+And that's it! Now when we run our `pub run build_runner build` command, Ferry's generators will automatically override our GraphQL `Date` scalar with the Dart `DateTime` type and use our `DateSerializer` to serialize & deserialize data.
 
 ### Using `StructuredSerializer`s
 
 We've implemented the above `DateSerializer` using the `PrimitiveSerializer` from `built_value`. However, if we were building a serializer for a non-primitive Dart type, we'd probably want to use the `StructuredSerializer` instead.
 
-Since `built_value` doesn't use standard Json by default, rather than implementing `StructuredSerializer` directly, we may prefer to extend the `JsonSerializer` from `gql_code_builder`. For example, here's a serializer for the `Operation` type from `gql_exec` that ferry's generaters use internally.
+Since `built_value` doesn't use standard Json by default, rather than implementing `StructuredSerializer` directly, we may prefer to extend the `JsonSerializer` from `gql_code_builder`. For example, here's a serializer for the `Operation` type from `gql_exec` that Ferry's generators use internally.
 
 ```dart
 import "package:built_value/serializer.dart";
