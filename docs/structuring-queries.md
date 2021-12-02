@@ -185,7 +185,7 @@ This pattern leads to code that is easier to maintain, test, and reason about.
 
 ## Fragments on Root Query
 
-The above pattern works even if your data requriements for a single screen include multiple GraphQL queries since you can include Fragments on any GraphQL type, including the root `Query` type.
+The above pattern works even if your data requirements for a single screen include multiple GraphQL queries since you can include Fragments on any GraphQL type, including the root `Query` type.
 
 For example, let's say you want to add a user avatar Widget to the header of your `PokemonListScreen` that shows the currently logged-in user.
 
