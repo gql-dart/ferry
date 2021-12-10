@@ -38,7 +38,7 @@ Object? normalizeNode({
 
   if (dataForNode is Map) {
     final dataId = resolveDataId(
-      data: dataForNode as Map<String, dynamic>,
+      data: Map<String, dynamic>.from(dataForNode),
       typePolicies: config.typePolicies,
       dataIdFromObject: config.dataIdFromObject,
     );
