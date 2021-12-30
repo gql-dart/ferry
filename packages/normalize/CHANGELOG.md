@@ -1,68 +1,72 @@
+## 0.6.0
+
+- Require possible types map to correctly disambiguate fragments
+
 ## 0.5.6-dev.1
 
- - **FIX**: add dispose method to TypedLinks (#272).
- - **FEAT**: add Reviews subscription to test graphql.
- - **CHORE**: publish packages.
- - **CHORE**: publish packages.
- - **CHORE**: restructure repo (#269).
+- **FIX**: add dispose method to TypedLinks (#272).
+- **FEAT**: add Reviews subscription to test graphql.
+- **CHORE**: publish packages.
+- **CHORE**: publish packages.
+- **CHORE**: restructure repo (#269).
 
 ## 0.5.5-dev.8
 
- - **DOCS**: remove stale code (#271).
+- **DOCS**: remove stale code (#271).
 
 ## 0.5.5-dev.7
 
- - **FIX**: add dispose method to TypedLinks (#272).
+- **FIX**: add dispose method to TypedLinks (#272).
 
 ## 0.5.5-dev.6
 
- - **FIX**: add missing dependencies (#268).
+- **FIX**: add missing dependencies (#268).
 
 ## 0.5.5-dev.5
 
- - **FIX**: add missing dependencies (#267).
+- **FIX**: add missing dependencies (#267).
 
 ## 0.5.5-dev.4
 
- - **FIX**: add missing override annotations (#261).
+- **FIX**: add missing override annotations (#261).
 
 ## 0.5.5-dev.3
 
- - **FEAT**: add github action for validating formatting (#260).
+- **FEAT**: add github action for validating formatting (#260).
 
 ## 0.5.5-dev.2
 
- - **FEAT**: add extensions to response (#259).
+- **FEAT**: add extensions to response (#259).
 
 ## 0.5.5-dev.1
 
 > Note: This release has breaking changes.
 
- - **BREAKING** **FEAT**: build generated files to __generated__ subdirectory.
+- **BREAKING** **FEAT**: build generated files to **generated** subdirectory.
 
 ## 0.5.5-dev.0+1
 
- - **FIX**: move pedantic to dependency (#257).
+- **FIX**: move pedantic to dependency (#257).
 
 ## 0.5.5
 
- - **FIX**: allow inline fragments for subtypes without passing possibleTypes.
- - **FEAT**: update dependences.
- - **FEAT**: update dependences.
- - **CHORE**: publish packages.
- - **CHORE**: publish packages.
+- **FIX**: allow inline fragments for subtypes without passing possibleTypes.
+- **FEAT**: update dependences.
+- **FEAT**: update dependences.
+- **CHORE**: publish packages.
+- **CHORE**: publish packages.
 
 ## 0.5.4
 
- - **FEAT**: update dependences.
- - **CHORE**: publish packages.
- - **CHORE**: publish packages.
+- **FEAT**: update dependences.
+- **CHORE**: publish packages.
+- **CHORE**: publish packages.
 
 ## 0.5.3
 
- - **FEAT**: Add support for better fragment type resolution.
- - **CHORE**: publish packages.
- - **CHORE**: publish packages.
+- **FEAT**: Add support for better fragment type resolution.
+- **CHORE**: publish packages.
+- **CHORE**: publish packages.
 
 ## 0.5.2
 
