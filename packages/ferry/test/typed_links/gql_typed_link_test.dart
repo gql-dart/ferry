@@ -24,7 +24,7 @@ void main() {
       ];
 
       when(mockLink.request(req.execRequest, any)).thenAnswer(
-        (_) => Stream.value(Response(errors: graphQLErrors)),
+        (_) => Stream.value(Response(errors: graphQLErrors, response: {})),
       );
 
       final typedLink = GqlTypedLink(mockLink);
@@ -50,10 +50,10 @@ void main() {
       when(mockLink.request(req.execRequest, any)).thenAnswer(
         (_) => Stream.value(
           Response(
-            context: Context().withEntry<ResponseExtensions>(
-              ResponseExtensions(extensionData),
-            ),
-          ),
+              context: Context().withEntry<ResponseExtensions>(
+                ResponseExtensions(extensionData),
+              ),
+              response: {}),
         ),
       );
 
@@ -79,7 +79,7 @@ void main() {
           ..fetchPolicy = FetchPolicy.NetworkOnly,
       );
 
-      final exception = ServerException(parsedResponse: Response());
+      final exception = ServerException(parsedResponse: Response(response: {}));
 
       when(mockLink.request(req.execRequest, any))
           .thenAnswer((_) => Stream.error(exception));
@@ -106,7 +106,7 @@ void main() {
         final controller = StreamController<Response>();
 
         controller.addError('error');
-        controller.add(Response(data: {}));
+        controller.add(Response(data: {}, response: {}));
         controller.close();
 
         yield* controller.stream;

@@ -36,6 +36,7 @@ class AutoResponderLink extends Link {
               ..human.id = req.variables['id']
               ..human.name = 'Luke',
           ).toJson(),
+          response: {},
         ),
       );
 }
