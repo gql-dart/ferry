@@ -124,12 +124,14 @@ void main() {
       expect(cache.readQuery(reviewsReq), equals(null));
 
       requestController.add(createReviewReq);
-      linkController.add(Response(data: createReviewData.toJson()));
+      linkController
+          .add(Response(data: createReviewData.toJson(), response: {}));
       await queue.next;
 
       expect(cache.readQuery(reviewsReq)!.reviews!.length, equals(1));
 
-      linkController.add(Response(data: createReviewData.toJson()));
+      linkController
+          .add(Response(data: createReviewData.toJson(), response: {}));
       await queue.next;
 
       expect(cache.readQuery(reviewsReq)!.reviews!.length, equals(2));
@@ -160,7 +162,8 @@ void main() {
           equals('456'),
         );
 
-        linkController.add(Response(data: createReviewData.toJson()));
+        linkController
+            .add(Response(data: createReviewData.toJson(), response: {}));
         final res2 = await queue.next;
 
         expect(res2.dataSource, equals(DataSource.Link));

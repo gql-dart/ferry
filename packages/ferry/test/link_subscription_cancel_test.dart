@@ -17,9 +17,8 @@ class _StreamCancelTestLink extends Link {
     StreamSubscription? sub;
     try {
       //simulate events coming in, e.g. from a websocket
-      sub =
-          Stream.periodic(Duration(microseconds: 1), (_) => Response(data: {}))
-              .listen(controller.add);
+      sub = Stream.periodic(Duration(microseconds: 1),
+          (_) => Response(data: {}, response: {})).listen(controller.add);
       //yield* should finish when the client stops listening
       yield* controller.stream;
     } finally {
