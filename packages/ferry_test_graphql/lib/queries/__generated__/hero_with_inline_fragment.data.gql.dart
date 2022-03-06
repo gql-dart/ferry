@@ -60,14 +60,11 @@ abstract class GHeroForEpisodeData_hero__base
 
   static void _initializeBuilder(GHeroForEpisodeData_hero__baseBuilder b) =>
       b..G__typename = 'Character';
-  @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
-  @override
   String get name;
   static Serializer<GHeroForEpisodeData_hero__base> get serializer =>
       _$gHeroForEpisodeDataHeroBaseSerializer;
-  @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
       GHeroForEpisodeData_hero__base.serializer, this) as Map<String, dynamic>);
   static GHeroForEpisodeData_hero__base? fromJson(Map<String, dynamic> json) =>
@@ -89,16 +86,12 @@ abstract class GHeroForEpisodeData_hero__asDroid
 
   static void _initializeBuilder(GHeroForEpisodeData_hero__asDroidBuilder b) =>
       b..G__typename = 'Droid';
-  @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
-  @override
   String get name;
-  @override
   String? get primaryFunction;
   static Serializer<GHeroForEpisodeData_hero__asDroid> get serializer =>
       _$gHeroForEpisodeDataHeroAsDroidSerializer;
-  @override
   Map<String, dynamic> toJson() => (_i1.serializers
           .serializeWith(GHeroForEpisodeData_hero__asDroid.serializer, this)
       as Map<String, dynamic>);
@@ -125,14 +118,11 @@ abstract class GDroidFragmentData
 
   static void _initializeBuilder(GDroidFragmentDataBuilder b) =>
       b..G__typename = 'Droid';
-  @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
-  @override
   String? get primaryFunction;
   static Serializer<GDroidFragmentData> get serializer =>
       _$gDroidFragmentDataSerializer;
-  @override
   Map<String, dynamic> toJson() =>
       (_i1.serializers.serializeWith(GDroidFragmentData.serializer, this)
           as Map<String, dynamic>);

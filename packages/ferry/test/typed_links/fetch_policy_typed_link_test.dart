@@ -41,8 +41,8 @@ void main() {
 
     when(mockLink.request(any, any)).thenAnswer(
       (_) => Stream.fromIterable([
-        Response(data: data.toJson()),
-        Response(data: newData.toJson()),
+        Response(data: data.toJson(), response: {}),
+        Response(data: newData.toJson(), response: {}),
       ]).interval(Duration(milliseconds: 10)),
     );
 

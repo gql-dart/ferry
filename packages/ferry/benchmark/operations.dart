@@ -31,6 +31,7 @@ class AutoResponderLink extends Link {
   ]) =>
       Stream.value(
         Response(
+          response: {},
           data: GHumanWithArgsData(
             (b) => b
               ..human.id = req.variables['id']
