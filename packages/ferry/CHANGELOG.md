@@ -1,3 +1,9 @@
+## 0.10.5-dev.3
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **CHORE**: update gql_code_builder, gql_exec and vestigial analyzer pubspec entry.
+
 ## 0.10.5-dev.2
 
  - **TEST**: add back test.
