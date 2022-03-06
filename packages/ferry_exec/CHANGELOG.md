@@ -1,3 +1,12 @@
+## 0.1.5-dev.2
+
+> Note: This release has breaking changes.
+
+ - **CHORE**: publish packages.
+ - **CHORE**: publish packages.
+ - **CHORE**: publish packages.
+ - **BREAKING** **CHORE**: update gql_code_builder, gql_exec and vestigial analyzer pubspec entry.
+
 ## 0.1.5-dev.1
 
  - **FEAT**: add Reviews subscription to test graphql.

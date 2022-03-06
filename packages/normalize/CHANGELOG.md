@@ -1,3 +1,10 @@
+## 0.6.0+1
+
+ - **TEST**: add fragment variable test.
+ - **FIX**: Broken fragment spreads.
+ - **CHORE**: publish packages.
+ - **CHORE**: publish packages.
+
 ## 0.6.0
 
 - Require possible types map to correctly disambiguate fragments
