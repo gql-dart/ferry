@@ -1,6 +1,7 @@
 import 'dart:async';
-import 'package:rxdart/rxdart.dart';
+
 import 'package:ferry_exec/ferry_exec.dart';
+import 'package:rxdart/rxdart.dart';
 
 /// Allows multiple requests to be made by adding requests to the
 /// [requestController].
@@ -37,7 +38,7 @@ class RequestControllerTypedLink extends TypedLink {
         .whereType<OperationRequest<TData, TVars>>()
         .where(
           (req) => req.requestId == null
-              ? req == request
+              ? identical(req, request)
               : req.requestId == request.requestId,
         )
         .doOnData(
