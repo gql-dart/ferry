@@ -1,14 +1,13 @@
 import 'dart:async';
+
 import 'package:async/async.dart';
-import 'package:test/test.dart';
-import 'package:ferry_exec/ferry_exec.dart';
-import 'package:rxdart/rxdart.dart';
-
 import 'package:ferry/src/request_controller_typed_link.dart';
-
-import 'package:ferry_test_graphql/queries/__generated__/reviews.req.gql.dart';
+import 'package:ferry_exec/ferry_exec.dart';
 import 'package:ferry_test_graphql/queries/__generated__/reviews.data.gql.dart';
+import 'package:ferry_test_graphql/queries/__generated__/reviews.req.gql.dart';
 import 'package:ferry_test_graphql/queries/__generated__/reviews.var.gql.dart';
+import 'package:rxdart/rxdart.dart';
+import 'package:test/test.dart';
 
 TData dataForRequest<TData, TVars>(OperationRequest<TData, TVars> request) {
   final req = request as GReviewsReq;
@@ -42,7 +41,7 @@ void main() {
     late TypedLink typedLink;
 
     setUp(() {
-      requestController = StreamController();
+      requestController = StreamController.broadcast();
       responseController = StreamController.broadcast();
 
       typedLink = TypedLink.from([
@@ -129,6 +128,30 @@ void main() {
         requestController.close();
 
         expect(await queue.hasNext, equals(false));
+      });
+
+      test(
+          'separate requests with previously used parameters should return only 1 item per stream',
+          () async {
+        final queue = StreamQueue(typedLink.request(req));
+
+        //build a request with the same parameters, but a different instance.  req and reqTwo
+        //will be equivalent, but still should not interfere with each others streams
+        final reqTwo = GReviewsReq((b) => b
+          ..vars.offset = req.vars.offset
+          ..vars.first = req.vars.first
+          ..updateResult = req.updateResult);
+
+        final queue2 = StreamQueue(typedLink.request(reqTwo));
+
+        expect(await queue.next, isNotNull);
+        expect(await queue2.next, isNotNull);
+
+        await responseController.close();
+        await requestController.close();
+
+        expect(await queue.hasNext, equals(false));
+        expect(await queue2.hasNext, equals(false));
       });
     });
 
