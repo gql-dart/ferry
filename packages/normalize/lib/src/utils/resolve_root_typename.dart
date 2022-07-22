@@ -37,6 +37,17 @@ String typenameForOperationType(
   }
 }
 
+Set<String> allRootTypenames(Map<String, TypePolicy> typePolicies) {
+  return {
+    ...OperationType.values.map(
+      (operationType) => typenameForOperationType(
+        operationType,
+        typePolicies,
+      ),
+    )
+  };
+}
+
 String resolveRootTypename(
   OperationDefinitionNode operationDefinition,
   Map<String, TypePolicy> typePolicies,

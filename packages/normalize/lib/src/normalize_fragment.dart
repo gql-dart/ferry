@@ -1,4 +1,5 @@
 import 'package:gql/ast.dart';
+import 'package:normalize/src/utils/constants.dart';
 
 import 'package:normalize/src/utils/resolve_data_id.dart';
 import 'package:normalize/src/policies/type_policy.dart';
@@ -37,7 +38,7 @@ void normalizeFragment({
   Map<String, TypePolicy> typePolicies = const {},
   DataIdResolver? dataIdFromObject,
   bool addTypename = false,
-  String referenceKey = '\$ref',
+  String referenceKey = kDefaultReferenceKey,
   bool acceptPartialData = true,
   Map<String, Set<String>> possibleTypes = const {},
 }) {

@@ -1,6 +1,8 @@
 import 'dart:collection';
 import 'dart:convert';
 
+import 'package:normalize/utils.dart';
+
 import '../policies/type_policy.dart';
 import './exceptions.dart';
 
@@ -22,12 +24,12 @@ String? resolveDataId({
   if (typename == null) return null;
 
   final typePolicy = typePolicies[typename];
-
-  if (typePolicy?.keyFields != null) {
-    if (typePolicy!.keyFields!.isEmpty) return null;
+  final keyFields = typePolicy?.keyFields;
+  if (keyFields != null) {
+    if (keyFields.isEmpty) return null;
 
     try {
-      final fields = keyFieldsWithArgs(typePolicy.keyFields!, data);
+      final fields = keyFieldsWithArgs(keyFields, data);
       return '$typename:${json.encode(fields)}';
     } on MissingKeyFieldException {
       return null;
@@ -35,6 +37,10 @@ String? resolveDataId({
   }
 
   if (dataIdFromObject != null) return dataIdFromObject(data);
+
+  if (allRootTypenames(typePolicies).contains(typename)) {
+    return typename;
+  }
 
   final id = data['id'] ?? data['_id'];
   return id == null ? null : '$typename:$id';

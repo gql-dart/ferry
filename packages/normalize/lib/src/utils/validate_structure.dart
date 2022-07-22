@@ -1,8 +1,17 @@
 import 'package:gql/ast.dart';
+import 'package:normalize/src/denormalize_node.dart';
 
 import 'package:normalize/src/denormalize_operation.dart';
 import 'package:normalize/src/denormalize_fragment.dart';
+import 'package:normalize/src/utils/constants.dart';
 import 'package:normalize/src/utils/exceptions.dart';
+import 'package:normalize/utils.dart';
+
+Map<String, dynamic>? _unsupportedRead(String _key) {
+  throw UnsupportedError('Should never read while validating');
+}
+
+String? _stubDataIdFromObject(Map<String, dynamic> _data) => null;
 
 /// Validates the structure of [data] against the operation [operationName] in [document].
 ///
@@ -23,24 +32,15 @@ bool validateOperationDataStructure({
   bool addTypename = false,
   bool handleException = false,
 }) {
-  if (data == null) {
-    if (handleException) {
-      return false;
-    }
-    throw PartialDataException(path: []);
-  }
-  return denormalizeOperation(
-        // get data at top level
-        read: (_) => data,
-        // "disable" normalization
-        dataIdFromObject: (_) => null,
-        document: document,
-        operationName: operationName,
-        variables: variables,
-        addTypename: addTypename,
-        handleException: handleException,
-      ) !=
-      null;
+  return _validateSelectionSet(
+    document: document,
+    getSelectionSet: ({required document, required fragmentMap}) =>
+        getOperationDefinition(document, operationName).selectionSet,
+    data: data,
+    variables: variables,
+    addTypename: addTypename,
+    handleException: handleException,
+  );
 }
 
 /// Validates the structure of [data] against the fragment [fragmentName] in [document].
@@ -60,6 +60,34 @@ bool validateFragmentDataStructure({
   bool addTypename = false,
   bool handleException = false,
 }) {
+  return _validateSelectionSet(
+    document: document,
+    getSelectionSet: ({required document, required fragmentMap}) {
+      return findFragmentInFragmentMap(
+        fragmentMap: fragmentMap,
+        fragmentName: fragmentName,
+      ).selectionSet;
+    },
+    data: data,
+    variables: variables,
+    addTypename: addTypename,
+    handleException: handleException,
+  );
+}
+
+typedef SelectionSetFinder = SelectionSetNode Function({
+  required DocumentNode document,
+  required Map<String, FragmentDefinitionNode> fragmentMap,
+});
+
+bool _validateSelectionSet({
+  required DocumentNode document,
+  required SelectionSetFinder getSelectionSet,
+  required Map<String, dynamic>? data,
+  required Map<String, dynamic> variables,
+  required bool addTypename,
+  required bool handleException,
+}) {
   if (data == null) {
     if (handleException) {
       return false;
@@ -67,18 +95,38 @@ bool validateFragmentDataStructure({
     throw PartialDataException(path: []);
   }
 
-  return denormalizeFragment(
-        // get data at top level
-        read: (_) => data,
-        // "disable" normalization
-        dataIdFromObject: (_) => '',
-        // idFields unnecessary without normalization
-        idFields: <String, dynamic>{},
-        document: document,
-        fragmentName: fragmentName,
-        variables: variables,
-        addTypename: addTypename,
-        handleException: handleException,
-      ) !=
-      null;
+  if (addTypename) {
+    document = transform(
+      document,
+      [AddTypenameVisitor()],
+    );
+  }
+  final fragmentMap = getFragmentMap(document);
+  final config = NormalizationConfig(
+    read: _unsupportedRead,
+    variables: variables,
+    typePolicies: const {},
+    referenceKey: kDefaultReferenceKey,
+    fragmentMap: fragmentMap,
+    dataIdFromObject: _stubDataIdFromObject,
+    addTypename: addTypename,
+    allowPartialData: false,
+    possibleTypes: const {},
+  );
+  try {
+    return denormalizeNode(
+          selectionSet: getSelectionSet(
+            document: document,
+            fragmentMap: fragmentMap,
+          ),
+          dataForNode: data,
+          config: config,
+        ) !=
+        null;
+  } on PartialDataException {
+    if (handleException) {
+      return false;
+    }
+    rethrow;
+  }
 }

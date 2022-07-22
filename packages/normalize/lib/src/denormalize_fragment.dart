@@ -2,6 +2,7 @@ import 'package:gql/ast.dart';
 import 'package:normalize/normalize.dart';
 
 import 'package:normalize/src/config/normalization_config.dart';
+import 'package:normalize/src/utils/constants.dart';
 import 'package:normalize/src/utils/get_fragment_map.dart';
 import 'package:normalize/src/utils/resolve_data_id.dart';
 import 'package:normalize/src/utils/add_typename_visitor.dart';
@@ -33,7 +34,7 @@ Map<String, dynamic>? denormalizeFragment({
   bool addTypename = false,
   bool returnPartialData = false,
   bool handleException = true,
-  String referenceKey = '\$ref',
+  String referenceKey = kDefaultReferenceKey,
   Map<String, Set<String>> possibleTypes = const {},
 }) {
   if (addTypename) {
@@ -42,24 +43,11 @@ Map<String, dynamic>? denormalizeFragment({
       [AddTypenameVisitor()],
     );
   }
-
   final fragmentMap = getFragmentMap(document);
-
-  if (fragmentMap.length > 1 && fragmentName == null) {
-    throw Exception(
-      'Multiple fragments defined, but no fragmentName provided',
-    );
-  }
-
-  if (fragmentName != null && fragmentMap[fragmentName] == null) {
-    throw Exception(
-      'Fragment "$fragmentName" not found',
-    );
-  }
-
-  final fragmentDefinition = fragmentName != null
-      ? fragmentMap[fragmentName]!
-      : fragmentMap.values.first;
+  final fragmentDefinition = findFragmentInFragmentMap(
+    fragmentMap: fragmentMap,
+    fragmentName: fragmentName,
+  );
 
   final dataId = resolveDataId(
     data: {

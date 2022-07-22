@@ -1,4 +1,5 @@
 import 'package:gql/ast.dart';
+import 'package:normalize/src/utils/constants.dart';
 
 import 'package:normalize/src/utils/resolve_data_id.dart';
 import 'package:normalize/src/policies/type_policy.dart';
@@ -34,7 +35,7 @@ void normalizeOperation({
   DataIdResolver? dataIdFromObject,
   bool addTypename = false,
   bool acceptPartialData = true,
-  String referenceKey = '\$ref',
+  String referenceKey = kDefaultReferenceKey,
   Map<String, Set<String>> possibleTypes = const {},
 }) {
   if (addTypename) {
@@ -45,12 +46,22 @@ void normalizeOperation({
   }
 
   final operationDefinition = getOperationDefinition(document, operationName);
+  final rootTypeName = resolveRootTypename(operationDefinition, typePolicies);
 
-  final rootTypename = resolveRootTypename(
-    operationDefinition,
-    typePolicies,
+  final dataId = resolveDataId(
+    data: {
+      '__typename': rootTypeName,
+      ...data,
+    },
+    typePolicies: typePolicies,
+    dataIdFromObject: dataIdFromObject,
   );
 
+  if (dataId == null) {
+    throw Exception(
+      'Unable to resolve data ID for type $rootTypeName. Please ensure that you are handling operation types appropriatelya',
+    );
+  }
   final config = NormalizationConfig(
     read: read,
     variables: variables,
@@ -64,11 +75,11 @@ void normalizeOperation({
   );
 
   write(
-    rootTypename,
+    dataId,
     normalizeNode(
       selectionSet: operationDefinition.selectionSet,
       dataForNode: data,
-      existingNormalizedData: config.read(rootTypename),
+      existingNormalizedData: config.read(dataId),
       config: config,
       write: write,
       root: true,
