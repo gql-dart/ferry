@@ -4,6 +4,8 @@ import 'pokemon_list.dart';
 import './pokemon_detail.dart';
 
 class App extends StatelessWidget {
+  const App({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -11,13 +13,18 @@ class App extends StatelessWidget {
       onGenerateRoute: (settings) {
         switch (settings.name) {
           case '/':
-            return MaterialPageRoute(builder: (_) => PokemonListScreen());
+            return MaterialPageRoute(
+              builder: (_) => PokemonListScreen(),
+            );
           case 'detail':
             return MaterialPageRoute(
-                builder: (_) => PokemonDetailScreen(
-                    id: (settings.arguments as Map)["id"]!));
+              builder: (_) =>
+                  PokemonDetailScreen(id: (settings.arguments as Map)["id"]!),
+            );
           default:
-            return MaterialPageRoute(builder: (_) => Scaffold());
+            return MaterialPageRoute(
+              builder: (_) => const Scaffold(body: Text('Route not found.')),
+            );
         }
       },
     );

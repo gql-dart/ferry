@@ -8,5 +8,5 @@ import './src/app.dart';
 void main() async {
   final client = await initClient();
   GetIt.I.registerLazySingleton<Client>(() => client);
-  runApp(App());
+  runApp(const App());
 }

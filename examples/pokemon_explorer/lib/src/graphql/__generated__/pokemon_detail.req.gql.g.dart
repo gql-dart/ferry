@@ -78,7 +78,7 @@ class _$GPokemonDetailReqSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
@@ -89,7 +89,7 @@ class _$GPokemonDetailReqSerializer
           break;
         case 'operation':
           result.operation = serializers.deserialize(value,
-              specifiedType: const FullType(_i4.Operation)) as _i4.Operation;
+              specifiedType: const FullType(_i4.Operation))! as _i4.Operation;
           break;
         case 'requestId':
           result.requestId = serializers.deserialize(value,
@@ -118,7 +118,7 @@ class _$GPokemonDetailReqSerializer
           break;
         case 'executeOnListen':
           result.executeOnListen = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool))! as bool;
           break;
       }
     }
@@ -150,7 +150,7 @@ class _$GPokemonDetailReq extends GPokemonDetailReq {
 
   factory _$GPokemonDetailReq(
           [void Function(GPokemonDetailReqBuilder)? updates]) =>
-      (new GPokemonDetailReqBuilder()..update(updates)).build();
+      (new GPokemonDetailReqBuilder()..update(updates))._build();
 
   _$GPokemonDetailReq._(
       {required this.vars,
@@ -163,11 +163,11 @@ class _$GPokemonDetailReq extends GPokemonDetailReq {
       this.fetchPolicy,
       required this.executeOnListen})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(vars, 'GPokemonDetailReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(vars, r'GPokemonDetailReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
-        operation, 'GPokemonDetailReq', 'operation');
+        operation, r'GPokemonDetailReq', 'operation');
     BuiltValueNullFieldError.checkNotNull(
-        executeOnListen, 'GPokemonDetailReq', 'executeOnListen');
+        executeOnListen, r'GPokemonDetailReq', 'executeOnListen');
   }
 
   @override
@@ -214,7 +214,7 @@ class _$GPokemonDetailReq extends GPokemonDetailReq {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GPokemonDetailReq')
+    return (newBuiltValueToStringHelper(r'GPokemonDetailReq')
           ..add('vars', vars)
           ..add('operation', operation)
           ..add('requestId', requestId)
@@ -317,14 +317,16 @@ class GPokemonDetailReqBuilder
   }
 
   @override
-  _$GPokemonDetailReq build() {
+  GPokemonDetailReq build() => _build();
+
+  _$GPokemonDetailReq _build() {
     _$GPokemonDetailReq _$result;
     try {
       _$result = _$v ??
           new _$GPokemonDetailReq._(
               vars: vars.build(),
               operation: BuiltValueNullFieldError.checkNotNull(
-                  operation, 'GPokemonDetailReq', 'operation'),
+                  operation, r'GPokemonDetailReq', 'operation'),
               requestId: requestId,
               updateResult: updateResult,
               optimisticResponse: _optimisticResponse?.build(),
@@ -332,7 +334,7 @@ class GPokemonDetailReqBuilder
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
               executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, 'GPokemonDetailReq', 'executeOnListen'));
+                  executeOnListen, r'GPokemonDetailReq', 'executeOnListen'));
     } catch (_) {
       late String _$failedField;
       try {
@@ -343,7 +345,7 @@ class GPokemonDetailReqBuilder
         _optimisticResponse?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GPokemonDetailReq', _$failedField, e.toString());
+            r'GPokemonDetailReq', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -352,4 +354,4 @@ class GPokemonDetailReqBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas
