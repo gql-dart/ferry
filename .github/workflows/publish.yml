@@ -27,10 +27,9 @@ jobs:
       - name: Setup Pub Credentials
         shell: bash
         env:
-          PUB_ACCESS_TOKEN: ${{ secrets.PUB_ACCESS_TOKEN }}
-          PUB_REFRESH_TOKEN: ${{ secrets.PUB_REFRESH_TOKEN }}
+          CREDENTIALS_JSON: ${{ secrets.CREDENTIALS_JSON }}
         run: |
-          sh ./.github/workflows/scripts/pub_login.sh
+          echo $CREDENTIALS_JSON > $XDG_CONFIG_HOME/dart/pub-credentials.json
       - run: melos publish --yes --dry-run --ignore="*pokemon*"
       - run: melos publish --yes --no-dry-run --ignore="*pokemon*"
       - run: git push
