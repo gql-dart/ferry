@@ -1,3 +1,10 @@
+## 0.7.0-dev.1
+
+ - **FIX**: Streamline typename handling.
+ - **FIX**: Broken fragment spreads.
+ - **FIX**: add dispose method to TypedLinks (#272).
+ - **FEAT**: add Reviews subscription to test graphql.
+
 ## 0.6.0+1
 
  - **TEST**: add fragment variable test.
