@@ -69,12 +69,12 @@ class SerializerBuilder implements Builder {
     await for (final input in buildStep.findAssets(_generatedFiles)) {
       final lib = await buildStep.resolver.libraryFor(input);
       lib.units
-          .expand((cu) => cu.types)
+          .expand((cu) => cu.classes)
           .where((c) => hasSerializer(c) && isBuiltValue(c))
           .forEach(builtClasses.add);
 
       lib.units
-          .expand((cu) => cu.types)
+          .expand((cu) => cu.classes)
           .where(
             (c) => hasSerializer(c) && !isBuiltValue(c),
           )

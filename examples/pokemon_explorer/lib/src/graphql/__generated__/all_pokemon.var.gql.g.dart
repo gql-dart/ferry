@@ -37,17 +37,17 @@ class _$GAllPokemonVarsSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case 'limit':
           result.limit = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int))! as int;
           break;
         case 'offset':
           result.offset = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int))! as int;
           break;
       }
     }
@@ -63,11 +63,11 @@ class _$GAllPokemonVars extends GAllPokemonVars {
   final int offset;
 
   factory _$GAllPokemonVars([void Function(GAllPokemonVarsBuilder)? updates]) =>
-      (new GAllPokemonVarsBuilder()..update(updates)).build();
+      (new GAllPokemonVarsBuilder()..update(updates))._build();
 
   _$GAllPokemonVars._({required this.limit, required this.offset}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(limit, 'GAllPokemonVars', 'limit');
-    BuiltValueNullFieldError.checkNotNull(offset, 'GAllPokemonVars', 'offset');
+    BuiltValueNullFieldError.checkNotNull(limit, r'GAllPokemonVars', 'limit');
+    BuiltValueNullFieldError.checkNotNull(offset, r'GAllPokemonVars', 'offset');
   }
 
   @override
@@ -93,7 +93,7 @@ class _$GAllPokemonVars extends GAllPokemonVars {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GAllPokemonVars')
+    return (newBuiltValueToStringHelper(r'GAllPokemonVars')
           ..add('limit', limit)
           ..add('offset', offset))
         .toString();
@@ -136,16 +136,18 @@ class GAllPokemonVarsBuilder
   }
 
   @override
-  _$GAllPokemonVars build() {
+  GAllPokemonVars build() => _build();
+
+  _$GAllPokemonVars _build() {
     final _$result = _$v ??
         new _$GAllPokemonVars._(
             limit: BuiltValueNullFieldError.checkNotNull(
-                limit, 'GAllPokemonVars', 'limit'),
+                limit, r'GAllPokemonVars', 'limit'),
             offset: BuiltValueNullFieldError.checkNotNull(
-                offset, 'GAllPokemonVars', 'offset'));
+                offset, r'GAllPokemonVars', 'offset'));
     replace(_$result);
     return _$result;
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

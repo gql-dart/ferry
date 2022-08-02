@@ -10,4 +10,4 @@ dependencies:
   collection: ^1.15.0
 dev_dependencies:
   test: ^1.16.4
-  pedantic: ^1.10.0
+  lints: ^2.0.0

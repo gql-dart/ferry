@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:gql/ast.dart' as _i1;
 import 'package:pokemon_explorer/src/graphql/__generated__/pokemon_card_fragment.ast.gql.dart'
     as _i2;

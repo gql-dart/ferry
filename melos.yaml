@@ -3,3 +3,7 @@ name: ferry
 packages:
   - packages/**
   - examples/**
+
+command:
+  bootstrap:
+    usePubspecOverrides: true

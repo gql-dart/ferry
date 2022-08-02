@@ -86,7 +86,7 @@ class _$GHeroWithFragmentsReqSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
@@ -97,7 +97,7 @@ class _$GHeroWithFragmentsReqSerializer
           break;
         case 'operation':
           result.operation = serializers.deserialize(value,
-              specifiedType: const FullType(_i4.Operation)) as _i4.Operation;
+              specifiedType: const FullType(_i4.Operation))! as _i4.Operation;
           break;
         case 'requestId':
           result.requestId = serializers.deserialize(value,
@@ -126,7 +126,7 @@ class _$GHeroWithFragmentsReqSerializer
           break;
         case 'executeOnListen':
           result.executeOnListen = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool))! as bool;
           break;
       }
     }
@@ -175,7 +175,7 @@ class _$GheroDataReqSerializer implements StructuredSerializer<GheroDataReq> {
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
@@ -186,7 +186,7 @@ class _$GheroDataReqSerializer implements StructuredSerializer<GheroDataReq> {
           break;
         case 'document':
           result.document = serializers.deserialize(value,
-                  specifiedType: const FullType(_i7.DocumentNode))
+                  specifiedType: const FullType(_i7.DocumentNode))!
               as _i7.DocumentNode;
           break;
         case 'fragmentName':
@@ -198,7 +198,7 @@ class _$GheroDataReqSerializer implements StructuredSerializer<GheroDataReq> {
               specifiedType: const FullType(Map, const [
                 const FullType(String),
                 const FullType(dynamic)
-              ])) as Map<String, dynamic>;
+              ]))! as Map<String, dynamic>;
           break;
       }
     }
@@ -252,7 +252,7 @@ class _$GcomparisonFieldsReqSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
@@ -263,7 +263,7 @@ class _$GcomparisonFieldsReqSerializer
           break;
         case 'document':
           result.document = serializers.deserialize(value,
-                  specifiedType: const FullType(_i7.DocumentNode))
+                  specifiedType: const FullType(_i7.DocumentNode))!
               as _i7.DocumentNode;
           break;
         case 'fragmentName':
@@ -275,7 +275,7 @@ class _$GcomparisonFieldsReqSerializer
               specifiedType: const FullType(Map, const [
                 const FullType(String),
                 const FullType(dynamic)
-              ])) as Map<String, dynamic>;
+              ]))! as Map<String, dynamic>;
           break;
       }
     }
@@ -307,7 +307,7 @@ class _$GHeroWithFragmentsReq extends GHeroWithFragmentsReq {
 
   factory _$GHeroWithFragmentsReq(
           [void Function(GHeroWithFragmentsReqBuilder)? updates]) =>
-      (new GHeroWithFragmentsReqBuilder()..update(updates)).build();
+      (new GHeroWithFragmentsReqBuilder()..update(updates))._build();
 
   _$GHeroWithFragmentsReq._(
       {required this.vars,
@@ -321,11 +321,11 @@ class _$GHeroWithFragmentsReq extends GHeroWithFragmentsReq {
       required this.executeOnListen})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        vars, 'GHeroWithFragmentsReq', 'vars');
+        vars, r'GHeroWithFragmentsReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
-        operation, 'GHeroWithFragmentsReq', 'operation');
+        operation, r'GHeroWithFragmentsReq', 'operation');
     BuiltValueNullFieldError.checkNotNull(
-        executeOnListen, 'GHeroWithFragmentsReq', 'executeOnListen');
+        executeOnListen, r'GHeroWithFragmentsReq', 'executeOnListen');
   }
 
   @override
@@ -373,7 +373,7 @@ class _$GHeroWithFragmentsReq extends GHeroWithFragmentsReq {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GHeroWithFragmentsReq')
+    return (newBuiltValueToStringHelper(r'GHeroWithFragmentsReq')
           ..add('vars', vars)
           ..add('operation', operation)
           ..add('requestId', requestId)
@@ -477,14 +477,16 @@ class GHeroWithFragmentsReqBuilder
   }
 
   @override
-  _$GHeroWithFragmentsReq build() {
+  GHeroWithFragmentsReq build() => _build();
+
+  _$GHeroWithFragmentsReq _build() {
     _$GHeroWithFragmentsReq _$result;
     try {
       _$result = _$v ??
           new _$GHeroWithFragmentsReq._(
               vars: vars.build(),
               operation: BuiltValueNullFieldError.checkNotNull(
-                  operation, 'GHeroWithFragmentsReq', 'operation'),
+                  operation, r'GHeroWithFragmentsReq', 'operation'),
               requestId: requestId,
               updateResult: updateResult,
               optimisticResponse: _optimisticResponse?.build(),
@@ -492,7 +494,9 @@ class GHeroWithFragmentsReqBuilder
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
               executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, 'GHeroWithFragmentsReq', 'executeOnListen'));
+                  executeOnListen,
+                  r'GHeroWithFragmentsReq',
+                  'executeOnListen'));
     } catch (_) {
       late String _$failedField;
       try {
@@ -503,7 +507,7 @@ class GHeroWithFragmentsReqBuilder
         _optimisticResponse?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GHeroWithFragmentsReq', _$failedField, e.toString());
+            r'GHeroWithFragmentsReq', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -523,7 +527,7 @@ class _$GheroDataReq extends GheroDataReq {
   final Map<String, dynamic> idFields;
 
   factory _$GheroDataReq([void Function(GheroDataReqBuilder)? updates]) =>
-      (new GheroDataReqBuilder()..update(updates)).build();
+      (new GheroDataReqBuilder()..update(updates))._build();
 
   _$GheroDataReq._(
       {required this.vars,
@@ -531,9 +535,11 @@ class _$GheroDataReq extends GheroDataReq {
       this.fragmentName,
       required this.idFields})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(vars, 'GheroDataReq', 'vars');
-    BuiltValueNullFieldError.checkNotNull(document, 'GheroDataReq', 'document');
-    BuiltValueNullFieldError.checkNotNull(idFields, 'GheroDataReq', 'idFields');
+    BuiltValueNullFieldError.checkNotNull(vars, r'GheroDataReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, r'GheroDataReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, r'GheroDataReq', 'idFields');
   }
 
   @override
@@ -563,7 +569,7 @@ class _$GheroDataReq extends GheroDataReq {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GheroDataReq')
+    return (newBuiltValueToStringHelper(r'GheroDataReq')
           ..add('vars', vars)
           ..add('document', document)
           ..add('fragmentName', fragmentName)
@@ -621,17 +627,19 @@ class GheroDataReqBuilder
   }
 
   @override
-  _$GheroDataReq build() {
+  GheroDataReq build() => _build();
+
+  _$GheroDataReq _build() {
     _$GheroDataReq _$result;
     try {
       _$result = _$v ??
           new _$GheroDataReq._(
               vars: vars.build(),
               document: BuiltValueNullFieldError.checkNotNull(
-                  document, 'GheroDataReq', 'document'),
+                  document, r'GheroDataReq', 'document'),
               fragmentName: fragmentName,
               idFields: BuiltValueNullFieldError.checkNotNull(
-                  idFields, 'GheroDataReq', 'idFields'));
+                  idFields, r'GheroDataReq', 'idFields'));
     } catch (_) {
       late String _$failedField;
       try {
@@ -639,7 +647,7 @@ class GheroDataReqBuilder
         vars.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GheroDataReq', _$failedField, e.toString());
+            r'GheroDataReq', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -660,7 +668,7 @@ class _$GcomparisonFieldsReq extends GcomparisonFieldsReq {
 
   factory _$GcomparisonFieldsReq(
           [void Function(GcomparisonFieldsReqBuilder)? updates]) =>
-      (new GcomparisonFieldsReqBuilder()..update(updates)).build();
+      (new GcomparisonFieldsReqBuilder()..update(updates))._build();
 
   _$GcomparisonFieldsReq._(
       {required this.vars,
@@ -668,11 +676,12 @@ class _$GcomparisonFieldsReq extends GcomparisonFieldsReq {
       this.fragmentName,
       required this.idFields})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(vars, 'GcomparisonFieldsReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
-        document, 'GcomparisonFieldsReq', 'document');
+        vars, r'GcomparisonFieldsReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
-        idFields, 'GcomparisonFieldsReq', 'idFields');
+        document, r'GcomparisonFieldsReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, r'GcomparisonFieldsReq', 'idFields');
   }
 
   @override
@@ -704,7 +713,7 @@ class _$GcomparisonFieldsReq extends GcomparisonFieldsReq {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GcomparisonFieldsReq')
+    return (newBuiltValueToStringHelper(r'GcomparisonFieldsReq')
           ..add('vars', vars)
           ..add('document', document)
           ..add('fragmentName', fragmentName)
@@ -762,17 +771,19 @@ class GcomparisonFieldsReqBuilder
   }
 
   @override
-  _$GcomparisonFieldsReq build() {
+  GcomparisonFieldsReq build() => _build();
+
+  _$GcomparisonFieldsReq _build() {
     _$GcomparisonFieldsReq _$result;
     try {
       _$result = _$v ??
           new _$GcomparisonFieldsReq._(
               vars: vars.build(),
               document: BuiltValueNullFieldError.checkNotNull(
-                  document, 'GcomparisonFieldsReq', 'document'),
+                  document, r'GcomparisonFieldsReq', 'document'),
               fragmentName: fragmentName,
               idFields: BuiltValueNullFieldError.checkNotNull(
-                  idFields, 'GcomparisonFieldsReq', 'idFields'));
+                  idFields, r'GcomparisonFieldsReq', 'idFields'));
     } catch (_) {
       late String _$failedField;
       try {
@@ -780,7 +791,7 @@ class GcomparisonFieldsReqBuilder
         vars.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GcomparisonFieldsReq', _$failedField, e.toString());
+            r'GcomparisonFieldsReq', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -789,4 +800,4 @@ class GcomparisonFieldsReqBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

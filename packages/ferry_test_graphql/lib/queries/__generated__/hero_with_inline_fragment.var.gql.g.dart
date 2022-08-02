@@ -42,13 +42,13 @@ class _$GHeroForEpisodeVarsSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case 'ep':
           result.ep = serializers.deserialize(value,
-              specifiedType: const FullType(_i1.GEpisode)) as _i1.GEpisode;
+              specifiedType: const FullType(_i1.GEpisode))! as _i1.GEpisode;
           break;
       }
     }
@@ -85,10 +85,10 @@ class _$GHeroForEpisodeVars extends GHeroForEpisodeVars {
 
   factory _$GHeroForEpisodeVars(
           [void Function(GHeroForEpisodeVarsBuilder)? updates]) =>
-      (new GHeroForEpisodeVarsBuilder()..update(updates)).build();
+      (new GHeroForEpisodeVarsBuilder()..update(updates))._build();
 
   _$GHeroForEpisodeVars._({required this.ep}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(ep, 'GHeroForEpisodeVars', 'ep');
+    BuiltValueNullFieldError.checkNotNull(ep, r'GHeroForEpisodeVars', 'ep');
   }
 
   @override
@@ -113,7 +113,7 @@ class _$GHeroForEpisodeVars extends GHeroForEpisodeVars {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GHeroForEpisodeVars')..add('ep', ep))
+    return (newBuiltValueToStringHelper(r'GHeroForEpisodeVars')..add('ep', ep))
         .toString();
   }
 }
@@ -149,11 +149,13 @@ class GHeroForEpisodeVarsBuilder
   }
 
   @override
-  _$GHeroForEpisodeVars build() {
+  GHeroForEpisodeVars build() => _build();
+
+  _$GHeroForEpisodeVars _build() {
     final _$result = _$v ??
         new _$GHeroForEpisodeVars._(
             ep: BuiltValueNullFieldError.checkNotNull(
-                ep, 'GHeroForEpisodeVars', 'ep'));
+                ep, r'GHeroForEpisodeVars', 'ep'));
     replace(_$result);
     return _$result;
   }
@@ -162,7 +164,7 @@ class GHeroForEpisodeVarsBuilder
 class _$GDroidFragmentVars extends GDroidFragmentVars {
   factory _$GDroidFragmentVars(
           [void Function(GDroidFragmentVarsBuilder)? updates]) =>
-      (new GDroidFragmentVarsBuilder()..update(updates)).build();
+      (new GDroidFragmentVarsBuilder()..update(updates))._build();
 
   _$GDroidFragmentVars._() : super._();
 
@@ -188,7 +190,7 @@ class _$GDroidFragmentVars extends GDroidFragmentVars {
 
   @override
   String toString() {
-    return newBuiltValueToStringHelper('GDroidFragmentVars').toString();
+    return newBuiltValueToStringHelper(r'GDroidFragmentVars').toString();
   }
 }
 
@@ -210,11 +212,13 @@ class GDroidFragmentVarsBuilder
   }
 
   @override
-  _$GDroidFragmentVars build() {
+  GDroidFragmentVars build() => _build();
+
+  _$GDroidFragmentVars _build() {
     final _$result = _$v ?? new _$GDroidFragmentVars._();
     replace(_$result);
     return _$result;
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

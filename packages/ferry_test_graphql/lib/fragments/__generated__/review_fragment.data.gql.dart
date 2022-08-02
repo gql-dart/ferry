@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:ferry_test_graphql/schema/__generated__/serializers.gql.dart'
@@ -25,12 +26,16 @@ abstract class GReviewFragmentData
 
   static void _initializeBuilder(GReviewFragmentDataBuilder b) =>
       b..G__typename = 'Review';
+  @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
+  @override
   int get stars;
+  @override
   String? get commentary;
   static Serializer<GReviewFragmentData> get serializer =>
       _$gReviewFragmentDataSerializer;
+  @override
   Map<String, dynamic> toJson() =>
       (_i1.serializers.serializeWith(GReviewFragmentData.serializer, this)
           as Map<String, dynamic>);

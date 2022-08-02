@@ -78,7 +78,7 @@ class _$GAliasedHeroReqSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
@@ -89,7 +89,7 @@ class _$GAliasedHeroReqSerializer
           break;
         case 'operation':
           result.operation = serializers.deserialize(value,
-              specifiedType: const FullType(_i4.Operation)) as _i4.Operation;
+              specifiedType: const FullType(_i4.Operation))! as _i4.Operation;
           break;
         case 'requestId':
           result.requestId = serializers.deserialize(value,
@@ -118,7 +118,7 @@ class _$GAliasedHeroReqSerializer
           break;
         case 'executeOnListen':
           result.executeOnListen = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool))! as bool;
           break;
       }
     }
@@ -149,7 +149,7 @@ class _$GAliasedHeroReq extends GAliasedHeroReq {
   final bool executeOnListen;
 
   factory _$GAliasedHeroReq([void Function(GAliasedHeroReqBuilder)? updates]) =>
-      (new GAliasedHeroReqBuilder()..update(updates)).build();
+      (new GAliasedHeroReqBuilder()..update(updates))._build();
 
   _$GAliasedHeroReq._(
       {required this.vars,
@@ -162,11 +162,11 @@ class _$GAliasedHeroReq extends GAliasedHeroReq {
       this.fetchPolicy,
       required this.executeOnListen})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(vars, 'GAliasedHeroReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(vars, r'GAliasedHeroReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
-        operation, 'GAliasedHeroReq', 'operation');
+        operation, r'GAliasedHeroReq', 'operation');
     BuiltValueNullFieldError.checkNotNull(
-        executeOnListen, 'GAliasedHeroReq', 'executeOnListen');
+        executeOnListen, r'GAliasedHeroReq', 'executeOnListen');
   }
 
   @override
@@ -213,7 +213,7 @@ class _$GAliasedHeroReq extends GAliasedHeroReq {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GAliasedHeroReq')
+    return (newBuiltValueToStringHelper(r'GAliasedHeroReq')
           ..add('vars', vars)
           ..add('operation', operation)
           ..add('requestId', requestId)
@@ -315,14 +315,16 @@ class GAliasedHeroReqBuilder
   }
 
   @override
-  _$GAliasedHeroReq build() {
+  GAliasedHeroReq build() => _build();
+
+  _$GAliasedHeroReq _build() {
     _$GAliasedHeroReq _$result;
     try {
       _$result = _$v ??
           new _$GAliasedHeroReq._(
               vars: vars.build(),
               operation: BuiltValueNullFieldError.checkNotNull(
-                  operation, 'GAliasedHeroReq', 'operation'),
+                  operation, r'GAliasedHeroReq', 'operation'),
               requestId: requestId,
               updateResult: updateResult,
               optimisticResponse: _optimisticResponse?.build(),
@@ -330,7 +332,7 @@ class GAliasedHeroReqBuilder
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
               executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, 'GAliasedHeroReq', 'executeOnListen'));
+                  executeOnListen, r'GAliasedHeroReq', 'executeOnListen'));
     } catch (_) {
       late String _$failedField;
       try {
@@ -341,7 +343,7 @@ class GAliasedHeroReqBuilder
         _optimisticResponse?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GAliasedHeroReq', _$failedField, e.toString());
+            r'GAliasedHeroReq', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -350,4 +352,4 @@ class GAliasedHeroReqBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

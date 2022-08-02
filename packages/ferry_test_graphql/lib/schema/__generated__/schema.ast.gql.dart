@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:gql/ast.dart' as _i1;
 
 const schema = _i1.SchemaDefinitionNode(directives: [], operationTypes: [
@@ -193,6 +194,7 @@ const Episode = _i1.EnumTypeDefinitionNode(
 const Character = _i1.InterfaceTypeDefinitionNode(
     name: _i1.NameNode(value: 'Character'),
     directives: [],
+    interfaces: [],
     fields: [
       _i1.FieldDefinitionNode(
           name: _i1.NameNode(value: 'id'),
