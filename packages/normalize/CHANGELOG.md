@@ -1,3 +1,8 @@
+## 0.7.0-dev.1
+
+ - **FIX**: Streamline typename handling (#359).
+ - **FIX**: Streamline typename handling.
+
 ## 0.6.0+1
 
  - **TEST**: add fragment variable test.
