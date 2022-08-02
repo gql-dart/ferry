@@ -1,11 +1,13 @@
 import 'package:normalize/src/policies/type_policy.dart';
 import 'package:normalize/src/utils/resolve_root_typename.dart';
 
+import 'constants.dart';
+
 /// Returns a set of dataIds that can be reached by any root query.
 Set<String> reachableIds(
   Map<String, dynamic>? Function(String dataId) read, [
   Map<String, TypePolicy> typePolicies = const {},
-  String referenceKey = '\$ref',
+  String referenceKey = kDefaultReferenceKey,
 ]) =>
     defaultRootTypenames.keys
         .map(
@@ -34,7 +36,7 @@ Set<String> reachableIds(
 Set<String> reachableIdsFromDataId(
   String dataId,
   Map<String, dynamic>? Function(String dataId) read, [
-  String referenceKey = '\$ref',
+  String referenceKey = kDefaultReferenceKey,
 ]) =>
     _idsInObject(read(dataId), read, referenceKey, {})..add(dataId);
 

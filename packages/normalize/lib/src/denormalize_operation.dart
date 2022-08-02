@@ -1,5 +1,6 @@
 import 'package:gql/ast.dart';
 import 'package:normalize/normalize.dart';
+import 'package:normalize/src/utils/constants.dart';
 
 import 'package:normalize/src/utils/resolve_root_typename.dart';
 import 'package:normalize/src/utils/add_typename_visitor.dart';
@@ -28,7 +29,7 @@ Map<String, dynamic>? denormalizeOperation({
   bool addTypename = false,
   bool returnPartialData = false,
   bool handleException = true,
-  String referenceKey = '\$ref',
+  String referenceKey = kDefaultReferenceKey,
   Map<String, Set<String>> possibleTypes = const {},
 }) {
   if (addTypename) {
@@ -40,10 +41,18 @@ Map<String, dynamic>? denormalizeOperation({
 
   final operationDefinition = getOperationDefinition(document, operationName);
 
-  final rootTypename = resolveRootTypename(
-    operationDefinition,
-    typePolicies,
+  final rootTypeName = resolveRootTypename(operationDefinition, typePolicies);
+  final dataId = resolveDataId(
+    data: {'__typename': rootTypeName},
+    typePolicies: typePolicies,
+    dataIdFromObject: dataIdFromObject,
   );
+
+  if (dataId == null) {
+    throw Exception(
+      'Unable to resolve data ID for type $rootTypeName. Please ensure that you are handling operation types appropriatelya',
+    );
+  }
 
   final config = NormalizationConfig(
     read: read,
@@ -60,7 +69,7 @@ Map<String, dynamic>? denormalizeOperation({
   try {
     return denormalizeNode(
       selectionSet: operationDefinition.selectionSet,
-      dataForNode: read(rootTypename) ?? const {},
+      dataForNode: read(dataId),
       config: config,
     ) as Map<String, dynamic>?;
   } on PartialDataException {
