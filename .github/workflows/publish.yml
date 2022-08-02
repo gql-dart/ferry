@@ -29,6 +29,7 @@ jobs:
         env:
           CREDENTIALS_JSON: ${{ secrets.CREDENTIALS_JSON }}
         run: |
+          mkdir -p $XDG_CONFIG_HOME/dart/
           echo $CREDENTIALS_JSON > $XDG_CONFIG_HOME/dart/pub-credentials.json
       - run: melos publish --yes --dry-run --ignore="*pokemon*"
       - run: melos publish --yes --no-dry-run --ignore="*pokemon*"
