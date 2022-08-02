@@ -53,25 +53,25 @@ class _$GNestedFragmentDataSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case '__typename':
           result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'id':
           result.id = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int))! as int;
           break;
         case 'name':
           result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'avatar':
           result.avatar = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
       }
     }
@@ -128,25 +128,25 @@ class _$GPokemonCardDataSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case '__typename':
           result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'id':
           result.id = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int))! as int;
           break;
         case 'name':
           result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'avatar':
           result.avatar = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'height':
           result.height.replace(serializers.deserialize(value,
@@ -203,13 +203,13 @@ class _$GPokemonCardData_heightSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case '__typename':
           result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'in_meter':
           result.in_meter = serializers.deserialize(value,
@@ -260,13 +260,13 @@ class _$GPokemonCardData_weightSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case '__typename':
           result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'in_kg':
           result.in_kg = serializers.deserialize(value,
@@ -291,7 +291,7 @@ class _$GNestedFragmentData extends GNestedFragmentData {
 
   factory _$GNestedFragmentData(
           [void Function(GNestedFragmentDataBuilder)? updates]) =>
-      (new GNestedFragmentDataBuilder()..update(updates)).build();
+      (new GNestedFragmentDataBuilder()..update(updates))._build();
 
   _$GNestedFragmentData._(
       {required this.G__typename,
@@ -300,11 +300,11 @@ class _$GNestedFragmentData extends GNestedFragmentData {
       required this.avatar})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, 'GNestedFragmentData', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(id, 'GNestedFragmentData', 'id');
-    BuiltValueNullFieldError.checkNotNull(name, 'GNestedFragmentData', 'name');
+        G__typename, r'GNestedFragmentData', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(id, r'GNestedFragmentData', 'id');
+    BuiltValueNullFieldError.checkNotNull(name, r'GNestedFragmentData', 'name');
     BuiltValueNullFieldError.checkNotNull(
-        avatar, 'GNestedFragmentData', 'avatar');
+        avatar, r'GNestedFragmentData', 'avatar');
   }
 
   @override
@@ -335,7 +335,7 @@ class _$GNestedFragmentData extends GNestedFragmentData {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GNestedFragmentData')
+    return (newBuiltValueToStringHelper(r'GNestedFragmentData')
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('name', name)
@@ -392,17 +392,19 @@ class GNestedFragmentDataBuilder
   }
 
   @override
-  _$GNestedFragmentData build() {
+  GNestedFragmentData build() => _build();
+
+  _$GNestedFragmentData _build() {
     final _$result = _$v ??
         new _$GNestedFragmentData._(
             G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, 'GNestedFragmentData', 'G__typename'),
+                G__typename, r'GNestedFragmentData', 'G__typename'),
             id: BuiltValueNullFieldError.checkNotNull(
-                id, 'GNestedFragmentData', 'id'),
+                id, r'GNestedFragmentData', 'id'),
             name: BuiltValueNullFieldError.checkNotNull(
-                name, 'GNestedFragmentData', 'name'),
+                name, r'GNestedFragmentData', 'name'),
             avatar: BuiltValueNullFieldError.checkNotNull(
-                avatar, 'GNestedFragmentData', 'avatar'));
+                avatar, r'GNestedFragmentData', 'avatar'));
     replace(_$result);
     return _$result;
   }
@@ -424,7 +426,7 @@ class _$GPokemonCardData extends GPokemonCardData {
 
   factory _$GPokemonCardData(
           [void Function(GPokemonCardDataBuilder)? updates]) =>
-      (new GPokemonCardDataBuilder()..update(updates)).build();
+      (new GPokemonCardDataBuilder()..update(updates))._build();
 
   _$GPokemonCardData._(
       {required this.G__typename,
@@ -435,10 +437,11 @@ class _$GPokemonCardData extends GPokemonCardData {
       this.weight})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, 'GPokemonCardData', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(id, 'GPokemonCardData', 'id');
-    BuiltValueNullFieldError.checkNotNull(name, 'GPokemonCardData', 'name');
-    BuiltValueNullFieldError.checkNotNull(avatar, 'GPokemonCardData', 'avatar');
+        G__typename, r'GPokemonCardData', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(id, r'GPokemonCardData', 'id');
+    BuiltValueNullFieldError.checkNotNull(name, r'GPokemonCardData', 'name');
+    BuiltValueNullFieldError.checkNotNull(
+        avatar, r'GPokemonCardData', 'avatar');
   }
 
   @override
@@ -475,7 +478,7 @@ class _$GPokemonCardData extends GPokemonCardData {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GPokemonCardData')
+    return (newBuiltValueToStringHelper(r'GPokemonCardData')
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('name', name)
@@ -546,19 +549,21 @@ class GPokemonCardDataBuilder
   }
 
   @override
-  _$GPokemonCardData build() {
+  GPokemonCardData build() => _build();
+
+  _$GPokemonCardData _build() {
     _$GPokemonCardData _$result;
     try {
       _$result = _$v ??
           new _$GPokemonCardData._(
               G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, 'GPokemonCardData', 'G__typename'),
+                  G__typename, r'GPokemonCardData', 'G__typename'),
               id: BuiltValueNullFieldError.checkNotNull(
-                  id, 'GPokemonCardData', 'id'),
+                  id, r'GPokemonCardData', 'id'),
               name: BuiltValueNullFieldError.checkNotNull(
-                  name, 'GPokemonCardData', 'name'),
+                  name, r'GPokemonCardData', 'name'),
               avatar: BuiltValueNullFieldError.checkNotNull(
-                  avatar, 'GPokemonCardData', 'avatar'),
+                  avatar, r'GPokemonCardData', 'avatar'),
               height: _height?.build(),
               weight: _weight?.build());
     } catch (_) {
@@ -570,7 +575,7 @@ class GPokemonCardDataBuilder
         _weight?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GPokemonCardData', _$failedField, e.toString());
+            r'GPokemonCardData', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -587,12 +592,12 @@ class _$GPokemonCardData_height extends GPokemonCardData_height {
 
   factory _$GPokemonCardData_height(
           [void Function(GPokemonCardData_heightBuilder)? updates]) =>
-      (new GPokemonCardData_heightBuilder()..update(updates)).build();
+      (new GPokemonCardData_heightBuilder()..update(updates))._build();
 
   _$GPokemonCardData_height._({required this.G__typename, this.in_meter})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, 'GPokemonCardData_height', 'G__typename');
+        G__typename, r'GPokemonCardData_height', 'G__typename');
   }
 
   @override
@@ -619,7 +624,7 @@ class _$GPokemonCardData_height extends GPokemonCardData_height {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GPokemonCardData_height')
+    return (newBuiltValueToStringHelper(r'GPokemonCardData_height')
           ..add('G__typename', G__typename)
           ..add('in_meter', in_meter))
         .toString();
@@ -665,11 +670,13 @@ class GPokemonCardData_heightBuilder
   }
 
   @override
-  _$GPokemonCardData_height build() {
+  GPokemonCardData_height build() => _build();
+
+  _$GPokemonCardData_height _build() {
     final _$result = _$v ??
         new _$GPokemonCardData_height._(
             G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, 'GPokemonCardData_height', 'G__typename'),
+                G__typename, r'GPokemonCardData_height', 'G__typename'),
             in_meter: in_meter);
     replace(_$result);
     return _$result;
@@ -684,12 +691,12 @@ class _$GPokemonCardData_weight extends GPokemonCardData_weight {
 
   factory _$GPokemonCardData_weight(
           [void Function(GPokemonCardData_weightBuilder)? updates]) =>
-      (new GPokemonCardData_weightBuilder()..update(updates)).build();
+      (new GPokemonCardData_weightBuilder()..update(updates))._build();
 
   _$GPokemonCardData_weight._({required this.G__typename, this.in_kg})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, 'GPokemonCardData_weight', 'G__typename');
+        G__typename, r'GPokemonCardData_weight', 'G__typename');
   }
 
   @override
@@ -716,7 +723,7 @@ class _$GPokemonCardData_weight extends GPokemonCardData_weight {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GPokemonCardData_weight')
+    return (newBuiltValueToStringHelper(r'GPokemonCardData_weight')
           ..add('G__typename', G__typename)
           ..add('in_kg', in_kg))
         .toString();
@@ -762,15 +769,17 @@ class GPokemonCardData_weightBuilder
   }
 
   @override
-  _$GPokemonCardData_weight build() {
+  GPokemonCardData_weight build() => _build();
+
+  _$GPokemonCardData_weight _build() {
     final _$result = _$v ??
         new _$GPokemonCardData_weight._(
             G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, 'GPokemonCardData_weight', 'G__typename'),
+                G__typename, r'GPokemonCardData_weight', 'G__typename'),
             in_kg: in_kg);
     replace(_$result);
     return _$result;
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

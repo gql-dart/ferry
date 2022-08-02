@@ -79,7 +79,7 @@ class _$GReviewWithDateReqSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
@@ -90,7 +90,7 @@ class _$GReviewWithDateReqSerializer
           break;
         case 'operation':
           result.operation = serializers.deserialize(value,
-              specifiedType: const FullType(_i4.Operation)) as _i4.Operation;
+              specifiedType: const FullType(_i4.Operation))! as _i4.Operation;
           break;
         case 'requestId':
           result.requestId = serializers.deserialize(value,
@@ -119,7 +119,7 @@ class _$GReviewWithDateReqSerializer
           break;
         case 'executeOnListen':
           result.executeOnListen = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool))! as bool;
           break;
       }
     }
@@ -151,7 +151,7 @@ class _$GReviewWithDateReq extends GReviewWithDateReq {
 
   factory _$GReviewWithDateReq(
           [void Function(GReviewWithDateReqBuilder)? updates]) =>
-      (new GReviewWithDateReqBuilder()..update(updates)).build();
+      (new GReviewWithDateReqBuilder()..update(updates))._build();
 
   _$GReviewWithDateReq._(
       {required this.vars,
@@ -164,11 +164,11 @@ class _$GReviewWithDateReq extends GReviewWithDateReq {
       this.fetchPolicy,
       required this.executeOnListen})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(vars, 'GReviewWithDateReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(vars, r'GReviewWithDateReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
-        operation, 'GReviewWithDateReq', 'operation');
+        operation, r'GReviewWithDateReq', 'operation');
     BuiltValueNullFieldError.checkNotNull(
-        executeOnListen, 'GReviewWithDateReq', 'executeOnListen');
+        executeOnListen, r'GReviewWithDateReq', 'executeOnListen');
   }
 
   @override
@@ -216,7 +216,7 @@ class _$GReviewWithDateReq extends GReviewWithDateReq {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GReviewWithDateReq')
+    return (newBuiltValueToStringHelper(r'GReviewWithDateReq')
           ..add('vars', vars)
           ..add('operation', operation)
           ..add('requestId', requestId)
@@ -319,14 +319,16 @@ class GReviewWithDateReqBuilder
   }
 
   @override
-  _$GReviewWithDateReq build() {
+  GReviewWithDateReq build() => _build();
+
+  _$GReviewWithDateReq _build() {
     _$GReviewWithDateReq _$result;
     try {
       _$result = _$v ??
           new _$GReviewWithDateReq._(
               vars: vars.build(),
               operation: BuiltValueNullFieldError.checkNotNull(
-                  operation, 'GReviewWithDateReq', 'operation'),
+                  operation, r'GReviewWithDateReq', 'operation'),
               requestId: requestId,
               updateResult: updateResult,
               optimisticResponse: _optimisticResponse?.build(),
@@ -334,7 +336,7 @@ class GReviewWithDateReqBuilder
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
               executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, 'GReviewWithDateReq', 'executeOnListen'));
+                  executeOnListen, r'GReviewWithDateReq', 'executeOnListen'));
     } catch (_) {
       late String _$failedField;
       try {
@@ -345,7 +347,7 @@ class GReviewWithDateReqBuilder
         _optimisticResponse?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GReviewWithDateReq', _$failedField, e.toString());
+            r'GReviewWithDateReq', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -354,4 +356,4 @@ class GReviewWithDateReqBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

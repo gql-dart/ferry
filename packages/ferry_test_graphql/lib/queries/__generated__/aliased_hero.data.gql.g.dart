@@ -54,13 +54,13 @@ class _$GAliasedHeroDataSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case '__typename':
           result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'empireHero':
           result.empireHero.replace(serializers.deserialize(value,
@@ -118,21 +118,21 @@ class _$GAliasedHeroData_empireHeroSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case '__typename':
           result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'id':
           result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'name':
           result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'from':
           result.from.replace(serializers.deserialize(value,
@@ -186,21 +186,21 @@ class _$GAliasedHeroData_jediHeroSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case '__typename':
           result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'id':
           result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'name':
           result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'from':
           result.from.replace(serializers.deserialize(value,
@@ -225,13 +225,13 @@ class _$GAliasedHeroData extends GAliasedHeroData {
 
   factory _$GAliasedHeroData(
           [void Function(GAliasedHeroDataBuilder)? updates]) =>
-      (new GAliasedHeroDataBuilder()..update(updates)).build();
+      (new GAliasedHeroDataBuilder()..update(updates))._build();
 
   _$GAliasedHeroData._(
       {required this.G__typename, this.empireHero, this.jediHero})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, 'GAliasedHeroData', 'G__typename');
+        G__typename, r'GAliasedHeroData', 'G__typename');
   }
 
   @override
@@ -259,7 +259,7 @@ class _$GAliasedHeroData extends GAliasedHeroData {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GAliasedHeroData')
+    return (newBuiltValueToStringHelper(r'GAliasedHeroData')
           ..add('G__typename', G__typename)
           ..add('empireHero', empireHero)
           ..add('jediHero', jediHero))
@@ -314,13 +314,15 @@ class GAliasedHeroDataBuilder
   }
 
   @override
-  _$GAliasedHeroData build() {
+  GAliasedHeroData build() => _build();
+
+  _$GAliasedHeroData _build() {
     _$GAliasedHeroData _$result;
     try {
       _$result = _$v ??
           new _$GAliasedHeroData._(
               G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, 'GAliasedHeroData', 'G__typename'),
+                  G__typename, r'GAliasedHeroData', 'G__typename'),
               empireHero: _empireHero?.build(),
               jediHero: _jediHero?.build());
     } catch (_) {
@@ -332,7 +334,7 @@ class GAliasedHeroDataBuilder
         _jediHero?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GAliasedHeroData', _$failedField, e.toString());
+            r'GAliasedHeroData', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -353,7 +355,7 @@ class _$GAliasedHeroData_empireHero extends GAliasedHeroData_empireHero {
 
   factory _$GAliasedHeroData_empireHero(
           [void Function(GAliasedHeroData_empireHeroBuilder)? updates]) =>
-      (new GAliasedHeroData_empireHeroBuilder()..update(updates)).build();
+      (new GAliasedHeroData_empireHeroBuilder()..update(updates))._build();
 
   _$GAliasedHeroData_empireHero._(
       {required this.G__typename,
@@ -362,13 +364,13 @@ class _$GAliasedHeroData_empireHero extends GAliasedHeroData_empireHero {
       required this.from})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, 'GAliasedHeroData_empireHero', 'G__typename');
+        G__typename, r'GAliasedHeroData_empireHero', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
-        id, 'GAliasedHeroData_empireHero', 'id');
+        id, r'GAliasedHeroData_empireHero', 'id');
     BuiltValueNullFieldError.checkNotNull(
-        name, 'GAliasedHeroData_empireHero', 'name');
+        name, r'GAliasedHeroData_empireHero', 'name');
     BuiltValueNullFieldError.checkNotNull(
-        from, 'GAliasedHeroData_empireHero', 'from');
+        from, r'GAliasedHeroData_empireHero', 'from');
   }
 
   @override
@@ -399,7 +401,7 @@ class _$GAliasedHeroData_empireHero extends GAliasedHeroData_empireHero {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GAliasedHeroData_empireHero')
+    return (newBuiltValueToStringHelper(r'GAliasedHeroData_empireHero')
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('name', name)
@@ -459,17 +461,19 @@ class GAliasedHeroData_empireHeroBuilder
   }
 
   @override
-  _$GAliasedHeroData_empireHero build() {
+  GAliasedHeroData_empireHero build() => _build();
+
+  _$GAliasedHeroData_empireHero _build() {
     _$GAliasedHeroData_empireHero _$result;
     try {
       _$result = _$v ??
           new _$GAliasedHeroData_empireHero._(
               G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, 'GAliasedHeroData_empireHero', 'G__typename'),
+                  G__typename, r'GAliasedHeroData_empireHero', 'G__typename'),
               id: BuiltValueNullFieldError.checkNotNull(
-                  id, 'GAliasedHeroData_empireHero', 'id'),
+                  id, r'GAliasedHeroData_empireHero', 'id'),
               name: BuiltValueNullFieldError.checkNotNull(
-                  name, 'GAliasedHeroData_empireHero', 'name'),
+                  name, r'GAliasedHeroData_empireHero', 'name'),
               from: from.build());
     } catch (_) {
       late String _$failedField;
@@ -478,7 +482,7 @@ class GAliasedHeroData_empireHeroBuilder
         from.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GAliasedHeroData_empireHero', _$failedField, e.toString());
+            r'GAliasedHeroData_empireHero', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -499,7 +503,7 @@ class _$GAliasedHeroData_jediHero extends GAliasedHeroData_jediHero {
 
   factory _$GAliasedHeroData_jediHero(
           [void Function(GAliasedHeroData_jediHeroBuilder)? updates]) =>
-      (new GAliasedHeroData_jediHeroBuilder()..update(updates)).build();
+      (new GAliasedHeroData_jediHeroBuilder()..update(updates))._build();
 
   _$GAliasedHeroData_jediHero._(
       {required this.G__typename,
@@ -508,13 +512,13 @@ class _$GAliasedHeroData_jediHero extends GAliasedHeroData_jediHero {
       required this.from})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, 'GAliasedHeroData_jediHero', 'G__typename');
+        G__typename, r'GAliasedHeroData_jediHero', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
-        id, 'GAliasedHeroData_jediHero', 'id');
+        id, r'GAliasedHeroData_jediHero', 'id');
     BuiltValueNullFieldError.checkNotNull(
-        name, 'GAliasedHeroData_jediHero', 'name');
+        name, r'GAliasedHeroData_jediHero', 'name');
     BuiltValueNullFieldError.checkNotNull(
-        from, 'GAliasedHeroData_jediHero', 'from');
+        from, r'GAliasedHeroData_jediHero', 'from');
   }
 
   @override
@@ -545,7 +549,7 @@ class _$GAliasedHeroData_jediHero extends GAliasedHeroData_jediHero {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GAliasedHeroData_jediHero')
+    return (newBuiltValueToStringHelper(r'GAliasedHeroData_jediHero')
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('name', name)
@@ -604,17 +608,19 @@ class GAliasedHeroData_jediHeroBuilder
   }
 
   @override
-  _$GAliasedHeroData_jediHero build() {
+  GAliasedHeroData_jediHero build() => _build();
+
+  _$GAliasedHeroData_jediHero _build() {
     _$GAliasedHeroData_jediHero _$result;
     try {
       _$result = _$v ??
           new _$GAliasedHeroData_jediHero._(
               G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, 'GAliasedHeroData_jediHero', 'G__typename'),
+                  G__typename, r'GAliasedHeroData_jediHero', 'G__typename'),
               id: BuiltValueNullFieldError.checkNotNull(
-                  id, 'GAliasedHeroData_jediHero', 'id'),
+                  id, r'GAliasedHeroData_jediHero', 'id'),
               name: BuiltValueNullFieldError.checkNotNull(
-                  name, 'GAliasedHeroData_jediHero', 'name'),
+                  name, r'GAliasedHeroData_jediHero', 'name'),
               from: from.build());
     } catch (_) {
       late String _$failedField;
@@ -623,7 +629,7 @@ class GAliasedHeroData_jediHeroBuilder
         from.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GAliasedHeroData_jediHero', _$failedField, e.toString());
+            r'GAliasedHeroData_jediHero', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -632,4 +638,4 @@ class GAliasedHeroData_jediHeroBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

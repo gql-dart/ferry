@@ -51,7 +51,7 @@ class _$GReviewFragmentReqSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
@@ -62,7 +62,7 @@ class _$GReviewFragmentReqSerializer
           break;
         case 'document':
           result.document = serializers.deserialize(value,
-                  specifiedType: const FullType(_i5.DocumentNode))
+                  specifiedType: const FullType(_i5.DocumentNode))!
               as _i5.DocumentNode;
           break;
         case 'fragmentName':
@@ -74,7 +74,7 @@ class _$GReviewFragmentReqSerializer
               specifiedType: const FullType(Map, const [
                 const FullType(String),
                 const FullType(dynamic)
-              ])) as Map<String, dynamic>;
+              ]))! as Map<String, dynamic>;
           break;
       }
     }
@@ -95,7 +95,7 @@ class _$GReviewFragmentReq extends GReviewFragmentReq {
 
   factory _$GReviewFragmentReq(
           [void Function(GReviewFragmentReqBuilder)? updates]) =>
-      (new GReviewFragmentReqBuilder()..update(updates)).build();
+      (new GReviewFragmentReqBuilder()..update(updates))._build();
 
   _$GReviewFragmentReq._(
       {required this.vars,
@@ -103,11 +103,11 @@ class _$GReviewFragmentReq extends GReviewFragmentReq {
       this.fragmentName,
       required this.idFields})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(vars, 'GReviewFragmentReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(vars, r'GReviewFragmentReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
-        document, 'GReviewFragmentReq', 'document');
+        document, r'GReviewFragmentReq', 'document');
     BuiltValueNullFieldError.checkNotNull(
-        idFields, 'GReviewFragmentReq', 'idFields');
+        idFields, r'GReviewFragmentReq', 'idFields');
   }
 
   @override
@@ -139,7 +139,7 @@ class _$GReviewFragmentReq extends GReviewFragmentReq {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GReviewFragmentReq')
+    return (newBuiltValueToStringHelper(r'GReviewFragmentReq')
           ..add('vars', vars)
           ..add('document', document)
           ..add('fragmentName', fragmentName)
@@ -197,17 +197,19 @@ class GReviewFragmentReqBuilder
   }
 
   @override
-  _$GReviewFragmentReq build() {
+  GReviewFragmentReq build() => _build();
+
+  _$GReviewFragmentReq _build() {
     _$GReviewFragmentReq _$result;
     try {
       _$result = _$v ??
           new _$GReviewFragmentReq._(
               vars: vars.build(),
               document: BuiltValueNullFieldError.checkNotNull(
-                  document, 'GReviewFragmentReq', 'document'),
+                  document, r'GReviewFragmentReq', 'document'),
               fragmentName: fragmentName,
               idFields: BuiltValueNullFieldError.checkNotNull(
-                  idFields, 'GReviewFragmentReq', 'idFields'));
+                  idFields, r'GReviewFragmentReq', 'idFields'));
     } catch (_) {
       late String _$failedField;
       try {
@@ -215,7 +217,7 @@ class GReviewFragmentReqBuilder
         vars.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GReviewFragmentReq', _$failedField, e.toString());
+            r'GReviewFragmentReq', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -224,4 +226,4 @@ class GReviewFragmentReqBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

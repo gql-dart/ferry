@@ -45,13 +45,13 @@ class _$GHeroNoVarsDataSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case '__typename':
           result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'hero':
           result.hero.replace(serializers.deserialize(value,
@@ -100,21 +100,21 @@ class _$GHeroNoVarsData_heroSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case '__typename':
           result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'id':
           result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'name':
           result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
       }
     }
@@ -130,11 +130,11 @@ class _$GHeroNoVarsData extends GHeroNoVarsData {
   final GHeroNoVarsData_hero? hero;
 
   factory _$GHeroNoVarsData([void Function(GHeroNoVarsDataBuilder)? updates]) =>
-      (new GHeroNoVarsDataBuilder()..update(updates)).build();
+      (new GHeroNoVarsDataBuilder()..update(updates))._build();
 
   _$GHeroNoVarsData._({required this.G__typename, this.hero}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, 'GHeroNoVarsData', 'G__typename');
+        G__typename, r'GHeroNoVarsData', 'G__typename');
   }
 
   @override
@@ -160,7 +160,7 @@ class _$GHeroNoVarsData extends GHeroNoVarsData {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GHeroNoVarsData')
+    return (newBuiltValueToStringHelper(r'GHeroNoVarsData')
           ..add('G__typename', G__typename)
           ..add('hero', hero))
         .toString();
@@ -206,13 +206,15 @@ class GHeroNoVarsDataBuilder
   }
 
   @override
-  _$GHeroNoVarsData build() {
+  GHeroNoVarsData build() => _build();
+
+  _$GHeroNoVarsData _build() {
     _$GHeroNoVarsData _$result;
     try {
       _$result = _$v ??
           new _$GHeroNoVarsData._(
               G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, 'GHeroNoVarsData', 'G__typename'),
+                  G__typename, r'GHeroNoVarsData', 'G__typename'),
               hero: _hero?.build());
     } catch (_) {
       late String _$failedField;
@@ -221,7 +223,7 @@ class GHeroNoVarsDataBuilder
         _hero?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GHeroNoVarsData', _$failedField, e.toString());
+            r'GHeroNoVarsData', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -240,15 +242,16 @@ class _$GHeroNoVarsData_hero extends GHeroNoVarsData_hero {
 
   factory _$GHeroNoVarsData_hero(
           [void Function(GHeroNoVarsData_heroBuilder)? updates]) =>
-      (new GHeroNoVarsData_heroBuilder()..update(updates)).build();
+      (new GHeroNoVarsData_heroBuilder()..update(updates))._build();
 
   _$GHeroNoVarsData_hero._(
       {required this.G__typename, required this.id, required this.name})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, 'GHeroNoVarsData_hero', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(id, 'GHeroNoVarsData_hero', 'id');
-    BuiltValueNullFieldError.checkNotNull(name, 'GHeroNoVarsData_hero', 'name');
+        G__typename, r'GHeroNoVarsData_hero', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(id, r'GHeroNoVarsData_hero', 'id');
+    BuiltValueNullFieldError.checkNotNull(
+        name, r'GHeroNoVarsData_hero', 'name');
   }
 
   @override
@@ -277,7 +280,7 @@ class _$GHeroNoVarsData_hero extends GHeroNoVarsData_hero {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GHeroNoVarsData_hero')
+    return (newBuiltValueToStringHelper(r'GHeroNoVarsData_hero')
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('name', name))
@@ -328,18 +331,20 @@ class GHeroNoVarsData_heroBuilder
   }
 
   @override
-  _$GHeroNoVarsData_hero build() {
+  GHeroNoVarsData_hero build() => _build();
+
+  _$GHeroNoVarsData_hero _build() {
     final _$result = _$v ??
         new _$GHeroNoVarsData_hero._(
             G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, 'GHeroNoVarsData_hero', 'G__typename'),
+                G__typename, r'GHeroNoVarsData_hero', 'G__typename'),
             id: BuiltValueNullFieldError.checkNotNull(
-                id, 'GHeroNoVarsData_hero', 'id'),
+                id, r'GHeroNoVarsData_hero', 'id'),
             name: BuiltValueNullFieldError.checkNotNull(
-                name, 'GHeroNoVarsData_hero', 'name'));
+                name, r'GHeroNoVarsData_hero', 'name'));
     replace(_$result);
     return _$result;
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

@@ -53,7 +53,7 @@ class _$GNestedFragmentReqSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
@@ -64,7 +64,7 @@ class _$GNestedFragmentReqSerializer
           break;
         case 'document':
           result.document = serializers.deserialize(value,
-                  specifiedType: const FullType(_i5.DocumentNode))
+                  specifiedType: const FullType(_i5.DocumentNode))!
               as _i5.DocumentNode;
           break;
         case 'fragmentName':
@@ -76,7 +76,7 @@ class _$GNestedFragmentReqSerializer
               specifiedType: const FullType(Map, const [
                 const FullType(String),
                 const FullType(dynamic)
-              ])) as Map<String, dynamic>;
+              ]))! as Map<String, dynamic>;
           break;
       }
     }
@@ -126,7 +126,7 @@ class _$GPokemonCardReqSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
@@ -137,7 +137,7 @@ class _$GPokemonCardReqSerializer
           break;
         case 'document':
           result.document = serializers.deserialize(value,
-                  specifiedType: const FullType(_i5.DocumentNode))
+                  specifiedType: const FullType(_i5.DocumentNode))!
               as _i5.DocumentNode;
           break;
         case 'fragmentName':
@@ -149,7 +149,7 @@ class _$GPokemonCardReqSerializer
               specifiedType: const FullType(Map, const [
                 const FullType(String),
                 const FullType(dynamic)
-              ])) as Map<String, dynamic>;
+              ]))! as Map<String, dynamic>;
           break;
       }
     }
@@ -170,7 +170,7 @@ class _$GNestedFragmentReq extends GNestedFragmentReq {
 
   factory _$GNestedFragmentReq(
           [void Function(GNestedFragmentReqBuilder)? updates]) =>
-      (new GNestedFragmentReqBuilder()..update(updates)).build();
+      (new GNestedFragmentReqBuilder()..update(updates))._build();
 
   _$GNestedFragmentReq._(
       {required this.vars,
@@ -178,11 +178,11 @@ class _$GNestedFragmentReq extends GNestedFragmentReq {
       this.fragmentName,
       required this.idFields})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(vars, 'GNestedFragmentReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(vars, r'GNestedFragmentReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
-        document, 'GNestedFragmentReq', 'document');
+        document, r'GNestedFragmentReq', 'document');
     BuiltValueNullFieldError.checkNotNull(
-        idFields, 'GNestedFragmentReq', 'idFields');
+        idFields, r'GNestedFragmentReq', 'idFields');
   }
 
   @override
@@ -214,7 +214,7 @@ class _$GNestedFragmentReq extends GNestedFragmentReq {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GNestedFragmentReq')
+    return (newBuiltValueToStringHelper(r'GNestedFragmentReq')
           ..add('vars', vars)
           ..add('document', document)
           ..add('fragmentName', fragmentName)
@@ -272,17 +272,19 @@ class GNestedFragmentReqBuilder
   }
 
   @override
-  _$GNestedFragmentReq build() {
+  GNestedFragmentReq build() => _build();
+
+  _$GNestedFragmentReq _build() {
     _$GNestedFragmentReq _$result;
     try {
       _$result = _$v ??
           new _$GNestedFragmentReq._(
               vars: vars.build(),
               document: BuiltValueNullFieldError.checkNotNull(
-                  document, 'GNestedFragmentReq', 'document'),
+                  document, r'GNestedFragmentReq', 'document'),
               fragmentName: fragmentName,
               idFields: BuiltValueNullFieldError.checkNotNull(
-                  idFields, 'GNestedFragmentReq', 'idFields'));
+                  idFields, r'GNestedFragmentReq', 'idFields'));
     } catch (_) {
       late String _$failedField;
       try {
@@ -290,7 +292,7 @@ class GNestedFragmentReqBuilder
         vars.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GNestedFragmentReq', _$failedField, e.toString());
+            r'GNestedFragmentReq', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -310,7 +312,7 @@ class _$GPokemonCardReq extends GPokemonCardReq {
   final Map<String, dynamic> idFields;
 
   factory _$GPokemonCardReq([void Function(GPokemonCardReqBuilder)? updates]) =>
-      (new GPokemonCardReqBuilder()..update(updates)).build();
+      (new GPokemonCardReqBuilder()..update(updates))._build();
 
   _$GPokemonCardReq._(
       {required this.vars,
@@ -318,11 +320,11 @@ class _$GPokemonCardReq extends GPokemonCardReq {
       this.fragmentName,
       required this.idFields})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(vars, 'GPokemonCardReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(vars, r'GPokemonCardReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
-        document, 'GPokemonCardReq', 'document');
+        document, r'GPokemonCardReq', 'document');
     BuiltValueNullFieldError.checkNotNull(
-        idFields, 'GPokemonCardReq', 'idFields');
+        idFields, r'GPokemonCardReq', 'idFields');
   }
 
   @override
@@ -353,7 +355,7 @@ class _$GPokemonCardReq extends GPokemonCardReq {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GPokemonCardReq')
+    return (newBuiltValueToStringHelper(r'GPokemonCardReq')
           ..add('vars', vars)
           ..add('document', document)
           ..add('fragmentName', fragmentName)
@@ -411,17 +413,19 @@ class GPokemonCardReqBuilder
   }
 
   @override
-  _$GPokemonCardReq build() {
+  GPokemonCardReq build() => _build();
+
+  _$GPokemonCardReq _build() {
     _$GPokemonCardReq _$result;
     try {
       _$result = _$v ??
           new _$GPokemonCardReq._(
               vars: vars.build(),
               document: BuiltValueNullFieldError.checkNotNull(
-                  document, 'GPokemonCardReq', 'document'),
+                  document, r'GPokemonCardReq', 'document'),
               fragmentName: fragmentName,
               idFields: BuiltValueNullFieldError.checkNotNull(
-                  idFields, 'GPokemonCardReq', 'idFields'));
+                  idFields, r'GPokemonCardReq', 'idFields'));
     } catch (_) {
       late String _$failedField;
       try {
@@ -429,7 +433,7 @@ class GPokemonCardReqBuilder
         vars.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GPokemonCardReq', _$failedField, e.toString());
+            r'GPokemonCardReq', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -438,4 +442,4 @@ class GPokemonCardReqBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

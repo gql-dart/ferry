@@ -45,13 +45,13 @@ class _$GReviewsDataSerializer implements StructuredSerializer<GReviewsData> {
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case '__typename':
           result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'reviews':
           result.reviews.replace(serializers.deserialize(value,
@@ -126,17 +126,17 @@ class _$GReviewsData_reviewsSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case '__typename':
           result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'id':
           result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'episode':
           result.episode = serializers.deserialize(value,
@@ -144,7 +144,7 @@ class _$GReviewsData_reviewsSerializer
           break;
         case 'stars':
           result.stars = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int))! as int;
           break;
         case 'commentary':
           result.commentary = serializers.deserialize(value,
@@ -174,11 +174,11 @@ class _$GReviewsData extends GReviewsData {
   final BuiltList<GReviewsData_reviews>? reviews;
 
   factory _$GReviewsData([void Function(GReviewsDataBuilder)? updates]) =>
-      (new GReviewsDataBuilder()..update(updates)).build();
+      (new GReviewsDataBuilder()..update(updates))._build();
 
   _$GReviewsData._({required this.G__typename, this.reviews}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, 'GReviewsData', 'G__typename');
+        G__typename, r'GReviewsData', 'G__typename');
   }
 
   @override
@@ -203,7 +203,7 @@ class _$GReviewsData extends GReviewsData {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GReviewsData')
+    return (newBuiltValueToStringHelper(r'GReviewsData')
           ..add('G__typename', G__typename)
           ..add('reviews', reviews))
         .toString();
@@ -250,13 +250,15 @@ class GReviewsDataBuilder
   }
 
   @override
-  _$GReviewsData build() {
+  GReviewsData build() => _build();
+
+  _$GReviewsData _build() {
     _$GReviewsData _$result;
     try {
       _$result = _$v ??
           new _$GReviewsData._(
               G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, 'GReviewsData', 'G__typename'),
+                  G__typename, r'GReviewsData', 'G__typename'),
               reviews: _reviews?.build());
     } catch (_) {
       late String _$failedField;
@@ -265,7 +267,7 @@ class GReviewsDataBuilder
         _reviews?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GReviewsData', _$failedField, e.toString());
+            r'GReviewsData', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -292,7 +294,7 @@ class _$GReviewsData_reviews extends GReviewsData_reviews {
 
   factory _$GReviewsData_reviews(
           [void Function(GReviewsData_reviewsBuilder)? updates]) =>
-      (new GReviewsData_reviewsBuilder()..update(updates)).build();
+      (new GReviewsData_reviewsBuilder()..update(updates))._build();
 
   _$GReviewsData_reviews._(
       {required this.G__typename,
@@ -304,12 +306,12 @@ class _$GReviewsData_reviews extends GReviewsData_reviews {
       required this.seenOn})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, 'GReviewsData_reviews', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(id, 'GReviewsData_reviews', 'id');
+        G__typename, r'GReviewsData_reviews', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(id, r'GReviewsData_reviews', 'id');
     BuiltValueNullFieldError.checkNotNull(
-        stars, 'GReviewsData_reviews', 'stars');
+        stars, r'GReviewsData_reviews', 'stars');
     BuiltValueNullFieldError.checkNotNull(
-        seenOn, 'GReviewsData_reviews', 'seenOn');
+        seenOn, r'GReviewsData_reviews', 'seenOn');
   }
 
   @override
@@ -350,7 +352,7 @@ class _$GReviewsData_reviews extends GReviewsData_reviews {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GReviewsData_reviews')
+    return (newBuiltValueToStringHelper(r'GReviewsData_reviews')
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('episode', episode)
@@ -426,18 +428,20 @@ class GReviewsData_reviewsBuilder
   }
 
   @override
-  _$GReviewsData_reviews build() {
+  GReviewsData_reviews build() => _build();
+
+  _$GReviewsData_reviews _build() {
     _$GReviewsData_reviews _$result;
     try {
       _$result = _$v ??
           new _$GReviewsData_reviews._(
               G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, 'GReviewsData_reviews', 'G__typename'),
+                  G__typename, r'GReviewsData_reviews', 'G__typename'),
               id: BuiltValueNullFieldError.checkNotNull(
-                  id, 'GReviewsData_reviews', 'id'),
+                  id, r'GReviewsData_reviews', 'id'),
               episode: episode,
               stars: BuiltValueNullFieldError.checkNotNull(
-                  stars, 'GReviewsData_reviews', 'stars'),
+                  stars, r'GReviewsData_reviews', 'stars'),
               commentary: commentary,
               createdAt: createdAt,
               seenOn: seenOn.build());
@@ -448,7 +452,7 @@ class GReviewsData_reviewsBuilder
         seenOn.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GReviewsData_reviews', _$failedField, e.toString());
+            r'GReviewsData_reviews', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -457,4 +461,4 @@ class GReviewsData_reviewsBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

@@ -49,17 +49,17 @@ class _$GReviewFragmentDataSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case '__typename':
           result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'stars':
           result.stars = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int))! as int;
           break;
         case 'commentary':
           result.commentary = serializers.deserialize(value,
@@ -82,15 +82,15 @@ class _$GReviewFragmentData extends GReviewFragmentData {
 
   factory _$GReviewFragmentData(
           [void Function(GReviewFragmentDataBuilder)? updates]) =>
-      (new GReviewFragmentDataBuilder()..update(updates)).build();
+      (new GReviewFragmentDataBuilder()..update(updates))._build();
 
   _$GReviewFragmentData._(
       {required this.G__typename, required this.stars, this.commentary})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, 'GReviewFragmentData', 'G__typename');
+        G__typename, r'GReviewFragmentData', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
-        stars, 'GReviewFragmentData', 'stars');
+        stars, r'GReviewFragmentData', 'stars');
   }
 
   @override
@@ -119,7 +119,7 @@ class _$GReviewFragmentData extends GReviewFragmentData {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GReviewFragmentData')
+    return (newBuiltValueToStringHelper(r'GReviewFragmentData')
           ..add('G__typename', G__typename)
           ..add('stars', stars)
           ..add('commentary', commentary))
@@ -170,17 +170,19 @@ class GReviewFragmentDataBuilder
   }
 
   @override
-  _$GReviewFragmentData build() {
+  GReviewFragmentData build() => _build();
+
+  _$GReviewFragmentData _build() {
     final _$result = _$v ??
         new _$GReviewFragmentData._(
             G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, 'GReviewFragmentData', 'G__typename'),
+                G__typename, r'GReviewFragmentData', 'G__typename'),
             stars: BuiltValueNullFieldError.checkNotNull(
-                stars, 'GReviewFragmentData', 'stars'),
+                stars, r'GReviewFragmentData', 'stars'),
             commentary: commentary);
     replace(_$result);
     return _$result;
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

@@ -48,13 +48,13 @@ class _$GHumanWithArgsDataSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case '__typename':
           result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'human':
           result.human.replace(serializers.deserialize(value,
@@ -114,21 +114,21 @@ class _$GHumanWithArgsData_humanSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case '__typename':
           result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'id':
           result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'name':
           result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'height':
           result.height = serializers.deserialize(value,
@@ -188,13 +188,13 @@ class _$GHumanWithArgsData_human_friendsConnectionSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case '__typename':
           result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'friends':
           result.friends.replace(serializers.deserialize(value,
@@ -248,21 +248,21 @@ class _$GHumanWithArgsData_human_friendsConnection_friendsSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case '__typename':
           result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'id':
           result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'name':
           result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
       }
     }
@@ -279,13 +279,14 @@ class _$GHumanWithArgsData extends GHumanWithArgsData {
 
   factory _$GHumanWithArgsData(
           [void Function(GHumanWithArgsDataBuilder)? updates]) =>
-      (new GHumanWithArgsDataBuilder()..update(updates)).build();
+      (new GHumanWithArgsDataBuilder()..update(updates))._build();
 
   _$GHumanWithArgsData._({required this.G__typename, required this.human})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, 'GHumanWithArgsData', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(human, 'GHumanWithArgsData', 'human');
+        G__typename, r'GHumanWithArgsData', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        human, r'GHumanWithArgsData', 'human');
   }
 
   @override
@@ -312,7 +313,7 @@ class _$GHumanWithArgsData extends GHumanWithArgsData {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GHumanWithArgsData')
+    return (newBuiltValueToStringHelper(r'GHumanWithArgsData')
           ..add('G__typename', G__typename)
           ..add('human', human))
         .toString();
@@ -358,13 +359,15 @@ class GHumanWithArgsDataBuilder
   }
 
   @override
-  _$GHumanWithArgsData build() {
+  GHumanWithArgsData build() => _build();
+
+  _$GHumanWithArgsData _build() {
     _$GHumanWithArgsData _$result;
     try {
       _$result = _$v ??
           new _$GHumanWithArgsData._(
               G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, 'GHumanWithArgsData', 'G__typename'),
+                  G__typename, r'GHumanWithArgsData', 'G__typename'),
               human: human.build());
     } catch (_) {
       late String _$failedField;
@@ -373,7 +376,7 @@ class GHumanWithArgsDataBuilder
         human.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GHumanWithArgsData', _$failedField, e.toString());
+            r'GHumanWithArgsData', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -396,7 +399,7 @@ class _$GHumanWithArgsData_human extends GHumanWithArgsData_human {
 
   factory _$GHumanWithArgsData_human(
           [void Function(GHumanWithArgsData_humanBuilder)? updates]) =>
-      (new GHumanWithArgsData_humanBuilder()..update(updates)).build();
+      (new GHumanWithArgsData_humanBuilder()..update(updates))._build();
 
   _$GHumanWithArgsData_human._(
       {required this.G__typename,
@@ -406,12 +409,13 @@ class _$GHumanWithArgsData_human extends GHumanWithArgsData_human {
       required this.friendsConnection})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, 'GHumanWithArgsData_human', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(id, 'GHumanWithArgsData_human', 'id');
+        G__typename, r'GHumanWithArgsData_human', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
-        name, 'GHumanWithArgsData_human', 'name');
+        id, r'GHumanWithArgsData_human', 'id');
     BuiltValueNullFieldError.checkNotNull(
-        friendsConnection, 'GHumanWithArgsData_human', 'friendsConnection');
+        name, r'GHumanWithArgsData_human', 'name');
+    BuiltValueNullFieldError.checkNotNull(
+        friendsConnection, r'GHumanWithArgsData_human', 'friendsConnection');
   }
 
   @override
@@ -444,7 +448,7 @@ class _$GHumanWithArgsData_human extends GHumanWithArgsData_human {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GHumanWithArgsData_human')
+    return (newBuiltValueToStringHelper(r'GHumanWithArgsData_human')
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('name', name)
@@ -513,17 +517,19 @@ class GHumanWithArgsData_humanBuilder
   }
 
   @override
-  _$GHumanWithArgsData_human build() {
+  GHumanWithArgsData_human build() => _build();
+
+  _$GHumanWithArgsData_human _build() {
     _$GHumanWithArgsData_human _$result;
     try {
       _$result = _$v ??
           new _$GHumanWithArgsData_human._(
               G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, 'GHumanWithArgsData_human', 'G__typename'),
+                  G__typename, r'GHumanWithArgsData_human', 'G__typename'),
               id: BuiltValueNullFieldError.checkNotNull(
-                  id, 'GHumanWithArgsData_human', 'id'),
+                  id, r'GHumanWithArgsData_human', 'id'),
               name: BuiltValueNullFieldError.checkNotNull(
-                  name, 'GHumanWithArgsData_human', 'name'),
+                  name, r'GHumanWithArgsData_human', 'name'),
               height: height,
               friendsConnection: friendsConnection.build());
     } catch (_) {
@@ -533,7 +539,7 @@ class GHumanWithArgsData_humanBuilder
         friendsConnection.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GHumanWithArgsData_human', _$failedField, e.toString());
+            r'GHumanWithArgsData_human', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -553,13 +559,13 @@ class _$GHumanWithArgsData_human_friendsConnection
           [void Function(GHumanWithArgsData_human_friendsConnectionBuilder)?
               updates]) =>
       (new GHumanWithArgsData_human_friendsConnectionBuilder()..update(updates))
-          .build();
+          ._build();
 
   _$GHumanWithArgsData_human_friendsConnection._(
       {required this.G__typename, this.friends})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(G__typename,
-        'GHumanWithArgsData_human_friendsConnection', 'G__typename');
+        r'GHumanWithArgsData_human_friendsConnection', 'G__typename');
   }
 
   @override
@@ -588,7 +594,7 @@ class _$GHumanWithArgsData_human_friendsConnection
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            'GHumanWithArgsData_human_friendsConnection')
+            r'GHumanWithArgsData_human_friendsConnection')
           ..add('G__typename', G__typename)
           ..add('friends', friends))
         .toString();
@@ -642,13 +648,15 @@ class GHumanWithArgsData_human_friendsConnectionBuilder
   }
 
   @override
-  _$GHumanWithArgsData_human_friendsConnection build() {
+  GHumanWithArgsData_human_friendsConnection build() => _build();
+
+  _$GHumanWithArgsData_human_friendsConnection _build() {
     _$GHumanWithArgsData_human_friendsConnection _$result;
     try {
       _$result = _$v ??
           new _$GHumanWithArgsData_human_friendsConnection._(
               G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                  'GHumanWithArgsData_human_friendsConnection', 'G__typename'),
+                  r'GHumanWithArgsData_human_friendsConnection', 'G__typename'),
               friends: _friends?.build());
     } catch (_) {
       late String _$failedField;
@@ -657,7 +665,7 @@ class GHumanWithArgsData_human_friendsConnectionBuilder
         _friends?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GHumanWithArgsData_human_friendsConnection',
+            r'GHumanWithArgsData_human_friendsConnection',
             _$failedField,
             e.toString());
       }
@@ -683,17 +691,17 @@ class _$GHumanWithArgsData_human_friendsConnection_friends
               updates]) =>
       (new GHumanWithArgsData_human_friendsConnection_friendsBuilder()
             ..update(updates))
-          .build();
+          ._build();
 
   _$GHumanWithArgsData_human_friendsConnection_friends._(
       {required this.G__typename, required this.id, required this.name})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(G__typename,
-        'GHumanWithArgsData_human_friendsConnection_friends', 'G__typename');
+        r'GHumanWithArgsData_human_friendsConnection_friends', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
-        id, 'GHumanWithArgsData_human_friendsConnection_friends', 'id');
+        id, r'GHumanWithArgsData_human_friendsConnection_friends', 'id');
     BuiltValueNullFieldError.checkNotNull(
-        name, 'GHumanWithArgsData_human_friendsConnection_friends', 'name');
+        name, r'GHumanWithArgsData_human_friendsConnection_friends', 'name');
   }
 
   @override
@@ -726,7 +734,7 @@ class _$GHumanWithArgsData_human_friendsConnection_friends
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            'GHumanWithArgsData_human_friendsConnection_friends')
+            r'GHumanWithArgsData_human_friendsConnection_friends')
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('name', name))
@@ -781,20 +789,22 @@ class GHumanWithArgsData_human_friendsConnection_friendsBuilder
   }
 
   @override
-  _$GHumanWithArgsData_human_friendsConnection_friends build() {
+  GHumanWithArgsData_human_friendsConnection_friends build() => _build();
+
+  _$GHumanWithArgsData_human_friendsConnection_friends _build() {
     final _$result = _$v ??
         new _$GHumanWithArgsData_human_friendsConnection_friends._(
             G__typename: BuiltValueNullFieldError.checkNotNull(
                 G__typename,
-                'GHumanWithArgsData_human_friendsConnection_friends',
+                r'GHumanWithArgsData_human_friendsConnection_friends',
                 'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, 'GHumanWithArgsData_human_friendsConnection_friends', 'id'),
+            id: BuiltValueNullFieldError.checkNotNull(id,
+                r'GHumanWithArgsData_human_friendsConnection_friends', 'id'),
             name: BuiltValueNullFieldError.checkNotNull(name,
-                'GHumanWithArgsData_human_friendsConnection_friends', 'name'));
+                r'GHumanWithArgsData_human_friendsConnection_friends', 'name'));
     replace(_$result);
     return _$result;
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

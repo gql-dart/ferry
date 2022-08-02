@@ -78,7 +78,7 @@ class _$GCreateReviewReqSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
@@ -89,7 +89,7 @@ class _$GCreateReviewReqSerializer
           break;
         case 'operation':
           result.operation = serializers.deserialize(value,
-              specifiedType: const FullType(_i4.Operation)) as _i4.Operation;
+              specifiedType: const FullType(_i4.Operation))! as _i4.Operation;
           break;
         case 'requestId':
           result.requestId = serializers.deserialize(value,
@@ -118,7 +118,7 @@ class _$GCreateReviewReqSerializer
           break;
         case 'executeOnListen':
           result.executeOnListen = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool))! as bool;
           break;
       }
     }
@@ -150,7 +150,7 @@ class _$GCreateReviewReq extends GCreateReviewReq {
 
   factory _$GCreateReviewReq(
           [void Function(GCreateReviewReqBuilder)? updates]) =>
-      (new GCreateReviewReqBuilder()..update(updates)).build();
+      (new GCreateReviewReqBuilder()..update(updates))._build();
 
   _$GCreateReviewReq._(
       {required this.vars,
@@ -163,11 +163,11 @@ class _$GCreateReviewReq extends GCreateReviewReq {
       this.fetchPolicy,
       required this.executeOnListen})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(vars, 'GCreateReviewReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(vars, r'GCreateReviewReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
-        operation, 'GCreateReviewReq', 'operation');
+        operation, r'GCreateReviewReq', 'operation');
     BuiltValueNullFieldError.checkNotNull(
-        executeOnListen, 'GCreateReviewReq', 'executeOnListen');
+        executeOnListen, r'GCreateReviewReq', 'executeOnListen');
   }
 
   @override
@@ -214,7 +214,7 @@ class _$GCreateReviewReq extends GCreateReviewReq {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GCreateReviewReq')
+    return (newBuiltValueToStringHelper(r'GCreateReviewReq')
           ..add('vars', vars)
           ..add('operation', operation)
           ..add('requestId', requestId)
@@ -317,14 +317,16 @@ class GCreateReviewReqBuilder
   }
 
   @override
-  _$GCreateReviewReq build() {
+  GCreateReviewReq build() => _build();
+
+  _$GCreateReviewReq _build() {
     _$GCreateReviewReq _$result;
     try {
       _$result = _$v ??
           new _$GCreateReviewReq._(
               vars: vars.build(),
               operation: BuiltValueNullFieldError.checkNotNull(
-                  operation, 'GCreateReviewReq', 'operation'),
+                  operation, r'GCreateReviewReq', 'operation'),
               requestId: requestId,
               updateResult: updateResult,
               optimisticResponse: _optimisticResponse?.build(),
@@ -332,7 +334,7 @@ class GCreateReviewReqBuilder
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
               executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, 'GCreateReviewReq', 'executeOnListen'));
+                  executeOnListen, r'GCreateReviewReq', 'executeOnListen'));
     } catch (_) {
       late String _$failedField;
       try {
@@ -343,7 +345,7 @@ class GCreateReviewReqBuilder
         _optimisticResponse?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GCreateReviewReq', _$failedField, e.toString());
+            r'GCreateReviewReq', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -352,4 +354,4 @@ class GCreateReviewReqBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

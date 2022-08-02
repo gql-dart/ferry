@@ -55,13 +55,13 @@ class _$GHeroForEpisodeDataSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case '__typename':
           result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'hero':
           result.hero = serializers.deserialize(value,
@@ -108,17 +108,17 @@ class _$GHeroForEpisodeData_hero__baseSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case '__typename':
           result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'name':
           result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
       }
     }
@@ -167,17 +167,17 @@ class _$GHeroForEpisodeData_hero__asDroidSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case '__typename':
           result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'name':
           result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'primaryFunction':
           result.primaryFunction = serializers.deserialize(value,
@@ -225,13 +225,13 @@ class _$GDroidFragmentDataSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case '__typename':
           result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'primaryFunction':
           result.primaryFunction = serializers.deserialize(value,
@@ -252,11 +252,11 @@ class _$GHeroForEpisodeData extends GHeroForEpisodeData {
 
   factory _$GHeroForEpisodeData(
           [void Function(GHeroForEpisodeDataBuilder)? updates]) =>
-      (new GHeroForEpisodeDataBuilder()..update(updates)).build();
+      (new GHeroForEpisodeDataBuilder()..update(updates))._build();
 
   _$GHeroForEpisodeData._({required this.G__typename, this.hero}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, 'GHeroForEpisodeData', 'G__typename');
+        G__typename, r'GHeroForEpisodeData', 'G__typename');
   }
 
   @override
@@ -283,7 +283,7 @@ class _$GHeroForEpisodeData extends GHeroForEpisodeData {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GHeroForEpisodeData')
+    return (newBuiltValueToStringHelper(r'GHeroForEpisodeData')
           ..add('G__typename', G__typename)
           ..add('hero', hero))
         .toString();
@@ -328,11 +328,13 @@ class GHeroForEpisodeDataBuilder
   }
 
   @override
-  _$GHeroForEpisodeData build() {
+  GHeroForEpisodeData build() => _build();
+
+  _$GHeroForEpisodeData _build() {
     final _$result = _$v ??
         new _$GHeroForEpisodeData._(
             G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, 'GHeroForEpisodeData', 'G__typename'),
+                G__typename, r'GHeroForEpisodeData', 'G__typename'),
             hero: hero);
     replace(_$result);
     return _$result;
@@ -347,15 +349,15 @@ class _$GHeroForEpisodeData_hero__base extends GHeroForEpisodeData_hero__base {
 
   factory _$GHeroForEpisodeData_hero__base(
           [void Function(GHeroForEpisodeData_hero__baseBuilder)? updates]) =>
-      (new GHeroForEpisodeData_hero__baseBuilder()..update(updates)).build();
+      (new GHeroForEpisodeData_hero__baseBuilder()..update(updates))._build();
 
   _$GHeroForEpisodeData_hero__base._(
       {required this.G__typename, required this.name})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, 'GHeroForEpisodeData_hero__base', 'G__typename');
+        G__typename, r'GHeroForEpisodeData_hero__base', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
-        name, 'GHeroForEpisodeData_hero__base', 'name');
+        name, r'GHeroForEpisodeData_hero__base', 'name');
   }
 
   @override
@@ -382,7 +384,7 @@ class _$GHeroForEpisodeData_hero__base extends GHeroForEpisodeData_hero__base {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GHeroForEpisodeData_hero__base')
+    return (newBuiltValueToStringHelper(r'GHeroForEpisodeData_hero__base')
           ..add('G__typename', G__typename)
           ..add('name', name))
         .toString();
@@ -429,13 +431,15 @@ class GHeroForEpisodeData_hero__baseBuilder
   }
 
   @override
-  _$GHeroForEpisodeData_hero__base build() {
+  GHeroForEpisodeData_hero__base build() => _build();
+
+  _$GHeroForEpisodeData_hero__base _build() {
     final _$result = _$v ??
         new _$GHeroForEpisodeData_hero__base._(
             G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, 'GHeroForEpisodeData_hero__base', 'G__typename'),
+                G__typename, r'GHeroForEpisodeData_hero__base', 'G__typename'),
             name: BuiltValueNullFieldError.checkNotNull(
-                name, 'GHeroForEpisodeData_hero__base', 'name'));
+                name, r'GHeroForEpisodeData_hero__base', 'name'));
     replace(_$result);
     return _$result;
   }
@@ -452,15 +456,16 @@ class _$GHeroForEpisodeData_hero__asDroid
 
   factory _$GHeroForEpisodeData_hero__asDroid(
           [void Function(GHeroForEpisodeData_hero__asDroidBuilder)? updates]) =>
-      (new GHeroForEpisodeData_hero__asDroidBuilder()..update(updates)).build();
+      (new GHeroForEpisodeData_hero__asDroidBuilder()..update(updates))
+          ._build();
 
   _$GHeroForEpisodeData_hero__asDroid._(
       {required this.G__typename, required this.name, this.primaryFunction})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, 'GHeroForEpisodeData_hero__asDroid', 'G__typename');
+        G__typename, r'GHeroForEpisodeData_hero__asDroid', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
-        name, 'GHeroForEpisodeData_hero__asDroid', 'name');
+        name, r'GHeroForEpisodeData_hero__asDroid', 'name');
   }
 
   @override
@@ -489,7 +494,7 @@ class _$GHeroForEpisodeData_hero__asDroid
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GHeroForEpisodeData_hero__asDroid')
+    return (newBuiltValueToStringHelper(r'GHeroForEpisodeData_hero__asDroid')
           ..add('G__typename', G__typename)
           ..add('name', name)
           ..add('primaryFunction', primaryFunction))
@@ -544,13 +549,15 @@ class GHeroForEpisodeData_hero__asDroidBuilder
   }
 
   @override
-  _$GHeroForEpisodeData_hero__asDroid build() {
+  GHeroForEpisodeData_hero__asDroid build() => _build();
+
+  _$GHeroForEpisodeData_hero__asDroid _build() {
     final _$result = _$v ??
         new _$GHeroForEpisodeData_hero__asDroid._(
             G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                'GHeroForEpisodeData_hero__asDroid', 'G__typename'),
+                r'GHeroForEpisodeData_hero__asDroid', 'G__typename'),
             name: BuiltValueNullFieldError.checkNotNull(
-                name, 'GHeroForEpisodeData_hero__asDroid', 'name'),
+                name, r'GHeroForEpisodeData_hero__asDroid', 'name'),
             primaryFunction: primaryFunction);
     replace(_$result);
     return _$result;
@@ -565,12 +572,12 @@ class _$GDroidFragmentData extends GDroidFragmentData {
 
   factory _$GDroidFragmentData(
           [void Function(GDroidFragmentDataBuilder)? updates]) =>
-      (new GDroidFragmentDataBuilder()..update(updates)).build();
+      (new GDroidFragmentDataBuilder()..update(updates))._build();
 
   _$GDroidFragmentData._({required this.G__typename, this.primaryFunction})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, 'GDroidFragmentData', 'G__typename');
+        G__typename, r'GDroidFragmentData', 'G__typename');
   }
 
   @override
@@ -597,7 +604,7 @@ class _$GDroidFragmentData extends GDroidFragmentData {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GDroidFragmentData')
+    return (newBuiltValueToStringHelper(r'GDroidFragmentData')
           ..add('G__typename', G__typename)
           ..add('primaryFunction', primaryFunction))
         .toString();
@@ -643,15 +650,17 @@ class GDroidFragmentDataBuilder
   }
 
   @override
-  _$GDroidFragmentData build() {
+  GDroidFragmentData build() => _build();
+
+  _$GDroidFragmentData _build() {
     final _$result = _$v ??
         new _$GDroidFragmentData._(
             G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, 'GDroidFragmentData', 'G__typename'),
+                G__typename, r'GDroidFragmentData', 'G__typename'),
             primaryFunction: primaryFunction);
     replace(_$result);
     return _$result;
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

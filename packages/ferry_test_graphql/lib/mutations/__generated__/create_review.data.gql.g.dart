@@ -46,13 +46,13 @@ class _$GCreateReviewDataSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case '__typename':
           result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'createReview':
           result.createReview.replace(serializers.deserialize(value,
@@ -116,17 +116,17 @@ class _$GCreateReviewData_createReviewSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case '__typename':
           result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'id':
           result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'episode':
           result.episode = serializers.deserialize(value,
@@ -134,7 +134,7 @@ class _$GCreateReviewData_createReviewSerializer
           break;
         case 'stars':
           result.stars = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int))! as int;
           break;
         case 'commentary':
           result.commentary = serializers.deserialize(value,
@@ -155,12 +155,12 @@ class _$GCreateReviewData extends GCreateReviewData {
 
   factory _$GCreateReviewData(
           [void Function(GCreateReviewDataBuilder)? updates]) =>
-      (new GCreateReviewDataBuilder()..update(updates)).build();
+      (new GCreateReviewDataBuilder()..update(updates))._build();
 
   _$GCreateReviewData._({required this.G__typename, this.createReview})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, 'GCreateReviewData', 'G__typename');
+        G__typename, r'GCreateReviewData', 'G__typename');
   }
 
   @override
@@ -186,7 +186,7 @@ class _$GCreateReviewData extends GCreateReviewData {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GCreateReviewData')
+    return (newBuiltValueToStringHelper(r'GCreateReviewData')
           ..add('G__typename', G__typename)
           ..add('createReview', createReview))
         .toString();
@@ -233,13 +233,15 @@ class GCreateReviewDataBuilder
   }
 
   @override
-  _$GCreateReviewData build() {
+  GCreateReviewData build() => _build();
+
+  _$GCreateReviewData _build() {
     _$GCreateReviewData _$result;
     try {
       _$result = _$v ??
           new _$GCreateReviewData._(
               G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, 'GCreateReviewData', 'G__typename'),
+                  G__typename, r'GCreateReviewData', 'G__typename'),
               createReview: _createReview?.build());
     } catch (_) {
       late String _$failedField;
@@ -248,7 +250,7 @@ class GCreateReviewDataBuilder
         _createReview?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GCreateReviewData', _$failedField, e.toString());
+            r'GCreateReviewData', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -271,7 +273,7 @@ class _$GCreateReviewData_createReview extends GCreateReviewData_createReview {
 
   factory _$GCreateReviewData_createReview(
           [void Function(GCreateReviewData_createReviewBuilder)? updates]) =>
-      (new GCreateReviewData_createReviewBuilder()..update(updates)).build();
+      (new GCreateReviewData_createReviewBuilder()..update(updates))._build();
 
   _$GCreateReviewData_createReview._(
       {required this.G__typename,
@@ -281,11 +283,11 @@ class _$GCreateReviewData_createReview extends GCreateReviewData_createReview {
       this.commentary})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, 'GCreateReviewData_createReview', 'G__typename');
+        G__typename, r'GCreateReviewData_createReview', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
-        id, 'GCreateReviewData_createReview', 'id');
+        id, r'GCreateReviewData_createReview', 'id');
     BuiltValueNullFieldError.checkNotNull(
-        stars, 'GCreateReviewData_createReview', 'stars');
+        stars, r'GCreateReviewData_createReview', 'stars');
   }
 
   @override
@@ -320,7 +322,7 @@ class _$GCreateReviewData_createReview extends GCreateReviewData_createReview {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GCreateReviewData_createReview')
+    return (newBuiltValueToStringHelper(r'GCreateReviewData_createReview')
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('episode', episode)
@@ -385,20 +387,22 @@ class GCreateReviewData_createReviewBuilder
   }
 
   @override
-  _$GCreateReviewData_createReview build() {
+  GCreateReviewData_createReview build() => _build();
+
+  _$GCreateReviewData_createReview _build() {
     final _$result = _$v ??
         new _$GCreateReviewData_createReview._(
             G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, 'GCreateReviewData_createReview', 'G__typename'),
+                G__typename, r'GCreateReviewData_createReview', 'G__typename'),
             id: BuiltValueNullFieldError.checkNotNull(
-                id, 'GCreateReviewData_createReview', 'id'),
+                id, r'GCreateReviewData_createReview', 'id'),
             episode: episode,
             stars: BuiltValueNullFieldError.checkNotNull(
-                stars, 'GCreateReviewData_createReview', 'stars'),
+                stars, r'GCreateReviewData_createReview', 'stars'),
             commentary: commentary);
     replace(_$result);
     return _$result;
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

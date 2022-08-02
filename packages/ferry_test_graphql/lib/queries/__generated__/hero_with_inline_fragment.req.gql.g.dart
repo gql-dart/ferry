@@ -81,7 +81,7 @@ class _$GHeroForEpisodeReqSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
@@ -92,7 +92,7 @@ class _$GHeroForEpisodeReqSerializer
           break;
         case 'operation':
           result.operation = serializers.deserialize(value,
-              specifiedType: const FullType(_i4.Operation)) as _i4.Operation;
+              specifiedType: const FullType(_i4.Operation))! as _i4.Operation;
           break;
         case 'requestId':
           result.requestId = serializers.deserialize(value,
@@ -121,7 +121,7 @@ class _$GHeroForEpisodeReqSerializer
           break;
         case 'executeOnListen':
           result.executeOnListen = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool))! as bool;
           break;
       }
     }
@@ -171,7 +171,7 @@ class _$GDroidFragmentReqSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
@@ -182,7 +182,7 @@ class _$GDroidFragmentReqSerializer
           break;
         case 'document':
           result.document = serializers.deserialize(value,
-                  specifiedType: const FullType(_i7.DocumentNode))
+                  specifiedType: const FullType(_i7.DocumentNode))!
               as _i7.DocumentNode;
           break;
         case 'fragmentName':
@@ -194,7 +194,7 @@ class _$GDroidFragmentReqSerializer
               specifiedType: const FullType(Map, const [
                 const FullType(String),
                 const FullType(dynamic)
-              ])) as Map<String, dynamic>;
+              ]))! as Map<String, dynamic>;
           break;
       }
     }
@@ -226,7 +226,7 @@ class _$GHeroForEpisodeReq extends GHeroForEpisodeReq {
 
   factory _$GHeroForEpisodeReq(
           [void Function(GHeroForEpisodeReqBuilder)? updates]) =>
-      (new GHeroForEpisodeReqBuilder()..update(updates)).build();
+      (new GHeroForEpisodeReqBuilder()..update(updates))._build();
 
   _$GHeroForEpisodeReq._(
       {required this.vars,
@@ -239,11 +239,11 @@ class _$GHeroForEpisodeReq extends GHeroForEpisodeReq {
       this.fetchPolicy,
       required this.executeOnListen})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(vars, 'GHeroForEpisodeReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(vars, r'GHeroForEpisodeReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
-        operation, 'GHeroForEpisodeReq', 'operation');
+        operation, r'GHeroForEpisodeReq', 'operation');
     BuiltValueNullFieldError.checkNotNull(
-        executeOnListen, 'GHeroForEpisodeReq', 'executeOnListen');
+        executeOnListen, r'GHeroForEpisodeReq', 'executeOnListen');
   }
 
   @override
@@ -291,7 +291,7 @@ class _$GHeroForEpisodeReq extends GHeroForEpisodeReq {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GHeroForEpisodeReq')
+    return (newBuiltValueToStringHelper(r'GHeroForEpisodeReq')
           ..add('vars', vars)
           ..add('operation', operation)
           ..add('requestId', requestId)
@@ -394,14 +394,16 @@ class GHeroForEpisodeReqBuilder
   }
 
   @override
-  _$GHeroForEpisodeReq build() {
+  GHeroForEpisodeReq build() => _build();
+
+  _$GHeroForEpisodeReq _build() {
     _$GHeroForEpisodeReq _$result;
     try {
       _$result = _$v ??
           new _$GHeroForEpisodeReq._(
               vars: vars.build(),
               operation: BuiltValueNullFieldError.checkNotNull(
-                  operation, 'GHeroForEpisodeReq', 'operation'),
+                  operation, r'GHeroForEpisodeReq', 'operation'),
               requestId: requestId,
               updateResult: updateResult,
               optimisticResponse: _optimisticResponse?.build(),
@@ -409,7 +411,7 @@ class GHeroForEpisodeReqBuilder
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
               executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, 'GHeroForEpisodeReq', 'executeOnListen'));
+                  executeOnListen, r'GHeroForEpisodeReq', 'executeOnListen'));
     } catch (_) {
       late String _$failedField;
       try {
@@ -420,7 +422,7 @@ class GHeroForEpisodeReqBuilder
         _optimisticResponse?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GHeroForEpisodeReq', _$failedField, e.toString());
+            r'GHeroForEpisodeReq', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -441,7 +443,7 @@ class _$GDroidFragmentReq extends GDroidFragmentReq {
 
   factory _$GDroidFragmentReq(
           [void Function(GDroidFragmentReqBuilder)? updates]) =>
-      (new GDroidFragmentReqBuilder()..update(updates)).build();
+      (new GDroidFragmentReqBuilder()..update(updates))._build();
 
   _$GDroidFragmentReq._(
       {required this.vars,
@@ -449,11 +451,11 @@ class _$GDroidFragmentReq extends GDroidFragmentReq {
       this.fragmentName,
       required this.idFields})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(vars, 'GDroidFragmentReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(vars, r'GDroidFragmentReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
-        document, 'GDroidFragmentReq', 'document');
+        document, r'GDroidFragmentReq', 'document');
     BuiltValueNullFieldError.checkNotNull(
-        idFields, 'GDroidFragmentReq', 'idFields');
+        idFields, r'GDroidFragmentReq', 'idFields');
   }
 
   @override
@@ -484,7 +486,7 @@ class _$GDroidFragmentReq extends GDroidFragmentReq {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GDroidFragmentReq')
+    return (newBuiltValueToStringHelper(r'GDroidFragmentReq')
           ..add('vars', vars)
           ..add('document', document)
           ..add('fragmentName', fragmentName)
@@ -542,17 +544,19 @@ class GDroidFragmentReqBuilder
   }
 
   @override
-  _$GDroidFragmentReq build() {
+  GDroidFragmentReq build() => _build();
+
+  _$GDroidFragmentReq _build() {
     _$GDroidFragmentReq _$result;
     try {
       _$result = _$v ??
           new _$GDroidFragmentReq._(
               vars: vars.build(),
               document: BuiltValueNullFieldError.checkNotNull(
-                  document, 'GDroidFragmentReq', 'document'),
+                  document, r'GDroidFragmentReq', 'document'),
               fragmentName: fragmentName,
               idFields: BuiltValueNullFieldError.checkNotNull(
-                  idFields, 'GDroidFragmentReq', 'idFields'));
+                  idFields, r'GDroidFragmentReq', 'idFields'));
     } catch (_) {
       late String _$failedField;
       try {
@@ -560,7 +564,7 @@ class GDroidFragmentReqBuilder
         vars.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GDroidFragmentReq', _$failedField, e.toString());
+            r'GDroidFragmentReq', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -569,4 +573,4 @@ class GDroidFragmentReqBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

@@ -43,7 +43,7 @@ class _$GCreateReviewVarsSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
@@ -71,11 +71,11 @@ class _$GCreateReviewVars extends GCreateReviewVars {
 
   factory _$GCreateReviewVars(
           [void Function(GCreateReviewVarsBuilder)? updates]) =>
-      (new GCreateReviewVarsBuilder()..update(updates)).build();
+      (new GCreateReviewVarsBuilder()..update(updates))._build();
 
   _$GCreateReviewVars._({this.episode, required this.review}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        review, 'GCreateReviewVars', 'review');
+        review, r'GCreateReviewVars', 'review');
   }
 
   @override
@@ -101,7 +101,7 @@ class _$GCreateReviewVars extends GCreateReviewVars {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GCreateReviewVars')
+    return (newBuiltValueToStringHelper(r'GCreateReviewVars')
           ..add('episode', episode)
           ..add('review', review))
         .toString();
@@ -145,7 +145,9 @@ class GCreateReviewVarsBuilder
   }
 
   @override
-  _$GCreateReviewVars build() {
+  GCreateReviewVars build() => _build();
+
+  _$GCreateReviewVars _build() {
     _$GCreateReviewVars _$result;
     try {
       _$result = _$v ??
@@ -157,7 +159,7 @@ class GCreateReviewVarsBuilder
         review.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GCreateReviewVars', _$failedField, e.toString());
+            r'GCreateReviewVars', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -166,4 +168,4 @@ class GCreateReviewVarsBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

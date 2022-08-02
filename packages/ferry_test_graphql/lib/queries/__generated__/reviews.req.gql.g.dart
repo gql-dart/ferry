@@ -75,7 +75,7 @@ class _$GReviewsReqSerializer implements StructuredSerializer<GReviewsReq> {
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
@@ -86,7 +86,7 @@ class _$GReviewsReqSerializer implements StructuredSerializer<GReviewsReq> {
           break;
         case 'operation':
           result.operation = serializers.deserialize(value,
-              specifiedType: const FullType(_i4.Operation)) as _i4.Operation;
+              specifiedType: const FullType(_i4.Operation))! as _i4.Operation;
           break;
         case 'requestId':
           result.requestId = serializers.deserialize(value,
@@ -115,7 +115,7 @@ class _$GReviewsReqSerializer implements StructuredSerializer<GReviewsReq> {
           break;
         case 'executeOnListen':
           result.executeOnListen = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool))! as bool;
           break;
       }
     }
@@ -146,7 +146,7 @@ class _$GReviewsReq extends GReviewsReq {
   final bool executeOnListen;
 
   factory _$GReviewsReq([void Function(GReviewsReqBuilder)? updates]) =>
-      (new GReviewsReqBuilder()..update(updates)).build();
+      (new GReviewsReqBuilder()..update(updates))._build();
 
   _$GReviewsReq._(
       {required this.vars,
@@ -159,11 +159,11 @@ class _$GReviewsReq extends GReviewsReq {
       this.fetchPolicy,
       required this.executeOnListen})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(vars, 'GReviewsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(vars, r'GReviewsReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
-        operation, 'GReviewsReq', 'operation');
+        operation, r'GReviewsReq', 'operation');
     BuiltValueNullFieldError.checkNotNull(
-        executeOnListen, 'GReviewsReq', 'executeOnListen');
+        executeOnListen, r'GReviewsReq', 'executeOnListen');
   }
 
   @override
@@ -209,7 +209,7 @@ class _$GReviewsReq extends GReviewsReq {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GReviewsReq')
+    return (newBuiltValueToStringHelper(r'GReviewsReq')
           ..add('vars', vars)
           ..add('operation', operation)
           ..add('requestId', requestId)
@@ -309,14 +309,16 @@ class GReviewsReqBuilder implements Builder<GReviewsReq, GReviewsReqBuilder> {
   }
 
   @override
-  _$GReviewsReq build() {
+  GReviewsReq build() => _build();
+
+  _$GReviewsReq _build() {
     _$GReviewsReq _$result;
     try {
       _$result = _$v ??
           new _$GReviewsReq._(
               vars: vars.build(),
               operation: BuiltValueNullFieldError.checkNotNull(
-                  operation, 'GReviewsReq', 'operation'),
+                  operation, r'GReviewsReq', 'operation'),
               requestId: requestId,
               updateResult: updateResult,
               optimisticResponse: _optimisticResponse?.build(),
@@ -324,7 +326,7 @@ class GReviewsReqBuilder implements Builder<GReviewsReq, GReviewsReqBuilder> {
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
               executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, 'GReviewsReq', 'executeOnListen'));
+                  executeOnListen, r'GReviewsReq', 'executeOnListen'));
     } catch (_) {
       late String _$failedField;
       try {
@@ -335,7 +337,7 @@ class GReviewsReqBuilder implements Builder<GReviewsReq, GReviewsReqBuilder> {
         _optimisticResponse?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GReviewsReq', _$failedField, e.toString());
+            r'GReviewsReq', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -344,4 +346,4 @@ class GReviewsReqBuilder implements Builder<GReviewsReq, GReviewsReqBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

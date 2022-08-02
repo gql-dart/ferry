@@ -54,13 +54,13 @@ class _$GAllPokemonDataSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case '__typename':
           result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'pokemons':
           result.pokemons.replace(serializers.deserialize(value,
@@ -113,13 +113,13 @@ class _$GAllPokemonData_pokemonsSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case '__typename':
           result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'results':
           result.results.replace(serializers.deserialize(value,
@@ -188,25 +188,25 @@ class _$GAllPokemonData_pokemons_resultsSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case '__typename':
           result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'id':
           result.id = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int))! as int;
           break;
         case 'name':
           result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'avatar':
           result.avatar = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'height':
           result.height.replace(serializers.deserialize(value,
@@ -265,13 +265,13 @@ class _$GAllPokemonData_pokemons_results_heightSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case '__typename':
           result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'in_meter':
           result.in_meter = serializers.deserialize(value,
@@ -322,13 +322,13 @@ class _$GAllPokemonData_pokemons_results_weightSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case '__typename':
           result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'in_kg':
           result.in_kg = serializers.deserialize(value,
@@ -348,11 +348,11 @@ class _$GAllPokemonData extends GAllPokemonData {
   final GAllPokemonData_pokemons? pokemons;
 
   factory _$GAllPokemonData([void Function(GAllPokemonDataBuilder)? updates]) =>
-      (new GAllPokemonDataBuilder()..update(updates)).build();
+      (new GAllPokemonDataBuilder()..update(updates))._build();
 
   _$GAllPokemonData._({required this.G__typename, this.pokemons}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, 'GAllPokemonData', 'G__typename');
+        G__typename, r'GAllPokemonData', 'G__typename');
   }
 
   @override
@@ -378,7 +378,7 @@ class _$GAllPokemonData extends GAllPokemonData {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GAllPokemonData')
+    return (newBuiltValueToStringHelper(r'GAllPokemonData')
           ..add('G__typename', G__typename)
           ..add('pokemons', pokemons))
         .toString();
@@ -425,13 +425,15 @@ class GAllPokemonDataBuilder
   }
 
   @override
-  _$GAllPokemonData build() {
+  GAllPokemonData build() => _build();
+
+  _$GAllPokemonData _build() {
     _$GAllPokemonData _$result;
     try {
       _$result = _$v ??
           new _$GAllPokemonData._(
               G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, 'GAllPokemonData', 'G__typename'),
+                  G__typename, r'GAllPokemonData', 'G__typename'),
               pokemons: _pokemons?.build());
     } catch (_) {
       late String _$failedField;
@@ -440,7 +442,7 @@ class GAllPokemonDataBuilder
         _pokemons?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GAllPokemonData', _$failedField, e.toString());
+            r'GAllPokemonData', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -457,12 +459,12 @@ class _$GAllPokemonData_pokemons extends GAllPokemonData_pokemons {
 
   factory _$GAllPokemonData_pokemons(
           [void Function(GAllPokemonData_pokemonsBuilder)? updates]) =>
-      (new GAllPokemonData_pokemonsBuilder()..update(updates)).build();
+      (new GAllPokemonData_pokemonsBuilder()..update(updates))._build();
 
   _$GAllPokemonData_pokemons._({required this.G__typename, this.results})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, 'GAllPokemonData_pokemons', 'G__typename');
+        G__typename, r'GAllPokemonData_pokemons', 'G__typename');
   }
 
   @override
@@ -489,7 +491,7 @@ class _$GAllPokemonData_pokemons extends GAllPokemonData_pokemons {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GAllPokemonData_pokemons')
+    return (newBuiltValueToStringHelper(r'GAllPokemonData_pokemons')
           ..add('G__typename', G__typename)
           ..add('results', results))
         .toString();
@@ -537,13 +539,15 @@ class GAllPokemonData_pokemonsBuilder
   }
 
   @override
-  _$GAllPokemonData_pokemons build() {
+  GAllPokemonData_pokemons build() => _build();
+
+  _$GAllPokemonData_pokemons _build() {
     _$GAllPokemonData_pokemons _$result;
     try {
       _$result = _$v ??
           new _$GAllPokemonData_pokemons._(
               G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, 'GAllPokemonData_pokemons', 'G__typename'),
+                  G__typename, r'GAllPokemonData_pokemons', 'G__typename'),
               results: _results?.build());
     } catch (_) {
       late String _$failedField;
@@ -552,7 +556,7 @@ class GAllPokemonData_pokemonsBuilder
         _results?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GAllPokemonData_pokemons', _$failedField, e.toString());
+            r'GAllPokemonData_pokemons', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -578,7 +582,7 @@ class _$GAllPokemonData_pokemons_results
 
   factory _$GAllPokemonData_pokemons_results(
           [void Function(GAllPokemonData_pokemons_resultsBuilder)? updates]) =>
-      (new GAllPokemonData_pokemons_resultsBuilder()..update(updates)).build();
+      (new GAllPokemonData_pokemons_resultsBuilder()..update(updates))._build();
 
   _$GAllPokemonData_pokemons_results._(
       {required this.G__typename,
@@ -589,13 +593,13 @@ class _$GAllPokemonData_pokemons_results
       this.weight})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, 'GAllPokemonData_pokemons_results', 'G__typename');
+        G__typename, r'GAllPokemonData_pokemons_results', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
-        id, 'GAllPokemonData_pokemons_results', 'id');
+        id, r'GAllPokemonData_pokemons_results', 'id');
     BuiltValueNullFieldError.checkNotNull(
-        name, 'GAllPokemonData_pokemons_results', 'name');
+        name, r'GAllPokemonData_pokemons_results', 'name');
     BuiltValueNullFieldError.checkNotNull(
-        avatar, 'GAllPokemonData_pokemons_results', 'avatar');
+        avatar, r'GAllPokemonData_pokemons_results', 'avatar');
   }
 
   @override
@@ -633,7 +637,7 @@ class _$GAllPokemonData_pokemons_results
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GAllPokemonData_pokemons_results')
+    return (newBuiltValueToStringHelper(r'GAllPokemonData_pokemons_results')
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('name', name)
@@ -708,19 +712,21 @@ class GAllPokemonData_pokemons_resultsBuilder
   }
 
   @override
-  _$GAllPokemonData_pokemons_results build() {
+  GAllPokemonData_pokemons_results build() => _build();
+
+  _$GAllPokemonData_pokemons_results _build() {
     _$GAllPokemonData_pokemons_results _$result;
     try {
       _$result = _$v ??
           new _$GAllPokemonData_pokemons_results._(
               G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                  'GAllPokemonData_pokemons_results', 'G__typename'),
+                  r'GAllPokemonData_pokemons_results', 'G__typename'),
               id: BuiltValueNullFieldError.checkNotNull(
-                  id, 'GAllPokemonData_pokemons_results', 'id'),
+                  id, r'GAllPokemonData_pokemons_results', 'id'),
               name: BuiltValueNullFieldError.checkNotNull(
-                  name, 'GAllPokemonData_pokemons_results', 'name'),
+                  name, r'GAllPokemonData_pokemons_results', 'name'),
               avatar: BuiltValueNullFieldError.checkNotNull(
-                  avatar, 'GAllPokemonData_pokemons_results', 'avatar'),
+                  avatar, r'GAllPokemonData_pokemons_results', 'avatar'),
               height: _height?.build(),
               weight: _weight?.build());
     } catch (_) {
@@ -732,7 +738,7 @@ class GAllPokemonData_pokemons_resultsBuilder
         _weight?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GAllPokemonData_pokemons_results', _$failedField, e.toString());
+            r'GAllPokemonData_pokemons_results', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -752,13 +758,13 @@ class _$GAllPokemonData_pokemons_results_height
           [void Function(GAllPokemonData_pokemons_results_heightBuilder)?
               updates]) =>
       (new GAllPokemonData_pokemons_results_heightBuilder()..update(updates))
-          .build();
+          ._build();
 
   _$GAllPokemonData_pokemons_results_height._(
       {required this.G__typename, this.in_meter})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, 'GAllPokemonData_pokemons_results_height', 'G__typename');
+        G__typename, r'GAllPokemonData_pokemons_results_height', 'G__typename');
   }
 
   @override
@@ -787,7 +793,7 @@ class _$GAllPokemonData_pokemons_results_height
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            'GAllPokemonData_pokemons_results_height')
+            r'GAllPokemonData_pokemons_results_height')
           ..add('G__typename', G__typename)
           ..add('in_meter', in_meter))
         .toString();
@@ -835,11 +841,13 @@ class GAllPokemonData_pokemons_results_heightBuilder
   }
 
   @override
-  _$GAllPokemonData_pokemons_results_height build() {
+  GAllPokemonData_pokemons_results_height build() => _build();
+
+  _$GAllPokemonData_pokemons_results_height _build() {
     final _$result = _$v ??
         new _$GAllPokemonData_pokemons_results_height._(
             G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                'GAllPokemonData_pokemons_results_height', 'G__typename'),
+                r'GAllPokemonData_pokemons_results_height', 'G__typename'),
             in_meter: in_meter);
     replace(_$result);
     return _$result;
@@ -857,13 +865,13 @@ class _$GAllPokemonData_pokemons_results_weight
           [void Function(GAllPokemonData_pokemons_results_weightBuilder)?
               updates]) =>
       (new GAllPokemonData_pokemons_results_weightBuilder()..update(updates))
-          .build();
+          ._build();
 
   _$GAllPokemonData_pokemons_results_weight._(
       {required this.G__typename, this.in_kg})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, 'GAllPokemonData_pokemons_results_weight', 'G__typename');
+        G__typename, r'GAllPokemonData_pokemons_results_weight', 'G__typename');
   }
 
   @override
@@ -892,7 +900,7 @@ class _$GAllPokemonData_pokemons_results_weight
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            'GAllPokemonData_pokemons_results_weight')
+            r'GAllPokemonData_pokemons_results_weight')
           ..add('G__typename', G__typename)
           ..add('in_kg', in_kg))
         .toString();
@@ -940,15 +948,17 @@ class GAllPokemonData_pokemons_results_weightBuilder
   }
 
   @override
-  _$GAllPokemonData_pokemons_results_weight build() {
+  GAllPokemonData_pokemons_results_weight build() => _build();
+
+  _$GAllPokemonData_pokemons_results_weight _build() {
     final _$result = _$v ??
         new _$GAllPokemonData_pokemons_results_weight._(
             G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                'GAllPokemonData_pokemons_results_weight', 'G__typename'),
+                r'GAllPokemonData_pokemons_results_weight', 'G__typename'),
             in_kg: in_kg);
     replace(_$result);
     return _$result;
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas
