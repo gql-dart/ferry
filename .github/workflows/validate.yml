@@ -59,7 +59,5 @@ jobs:
           dart pub global activate melos
       - name: Bootstrap melos
         run: melos bs
-      - name: Run build runner
-        run: melos exec -- "flutter pub run build_runner build --delete-conflicting-outputs"
       - name: Run tests
         run: melos exec --dir-exists=test -- flutter test
