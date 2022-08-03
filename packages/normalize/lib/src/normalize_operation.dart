@@ -49,19 +49,15 @@ void normalizeOperation({
   final rootTypeName = resolveRootTypename(operationDefinition, typePolicies);
 
   final dataId = resolveDataId(
-    data: {
-      '__typename': rootTypeName,
-      ...data,
-    },
-    typePolicies: typePolicies,
-    dataIdFromObject: dataIdFromObject,
-  );
+        data: {
+          '__typename': rootTypeName,
+          ...data,
+        },
+        typePolicies: typePolicies,
+        dataIdFromObject: dataIdFromObject,
+      ) ??
+      rootTypeName;
 
-  if (dataId == null) {
-    throw Exception(
-      'Unable to resolve data ID for type $rootTypeName. Please ensure that you are handling operation types appropriatelya',
-    );
-  }
   final config = NormalizationConfig(
     read: read,
     variables: variables,
