@@ -1,3 +1,9 @@
+## 0.6.1
+
+ - **FIX**: Preserve backwards compatibility with dataIdFromObject (#368).
+ - **FIX**: Streamline typename handling (#359).
+ - **FIX**: Streamline typename handling.
+
 ## 0.7.0-dev.1
 
  - **FIX**: Streamline typename handling (#359).
