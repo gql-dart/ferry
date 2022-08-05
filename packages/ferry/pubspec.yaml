@@ -6,7 +6,7 @@ repository: https://github.com/gql-dart/ferry
 environment:
   sdk: '>=2.12.0 <3.0.0'
 dependencies:
-  gql: ^0.13.0
+  gql: ^0.14.0
   rxdart: ^0.27.1
   gql_link: ^0.4.0
   gql_exec: ^0.4.0
@@ -15,7 +15,7 @@ dependencies:
   hive: ^2.0.0
   built_value: ^8.0.4
   ferry_exec: ^0.1.5-dev.2
-  normalize: ^0.6.1
+  normalize: ^0.7.0
   ferry_cache: ^0.5.5-dev.10
 dev_dependencies:
   test: ^1.16.8
