@@ -43,16 +43,11 @@ Map<String, dynamic>? denormalizeOperation({
 
   final rootTypeName = resolveRootTypename(operationDefinition, typePolicies);
   final dataId = resolveDataId(
-    data: {'__typename': rootTypeName},
-    typePolicies: typePolicies,
-    dataIdFromObject: dataIdFromObject,
-  );
-
-  if (dataId == null) {
-    throw Exception(
-      'Unable to resolve data ID for type $rootTypeName. Please ensure that you are handling operation types appropriatelya',
-    );
-  }
+        data: {'__typename': rootTypeName},
+        typePolicies: typePolicies,
+        dataIdFromObject: dataIdFromObject,
+      ) ??
+      rootTypeName;
 
   final config = NormalizationConfig(
     read: read,
