@@ -7,7 +7,7 @@ String outputPath(
 ) {
   final pathSegments = p.url.split(inputPath);
   pathSegments.insert(pathSegments.length - 1, outputDir);
-  return p.joinAll(pathSegments);
+  return p.posix.joinAll(pathSegments);
 }
 
 AssetId outputAssetId(
