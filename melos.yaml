@@ -7,3 +7,9 @@ packages:
 command:
   bootstrap:
     usePubspecOverrides: true
+
+scripts:
+  build:
+    exec: dart pub run build_runner build --delete-conflicting-outputs
+    select-package:
+      depends-on: build_runner
