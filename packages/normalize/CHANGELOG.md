@@ -1,6 +1,6 @@
 ## 0.7.0
 
- - Bump "normalize" to `0.7.0`.
+ - Streamline typename handling #359
 
 ## 0.6.1
 
