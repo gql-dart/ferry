@@ -23,7 +23,8 @@ class BuilderConfig {
       : schemaId = AssetId.parse(config['schema'] as String),
         shouldAddTypenames = config['add_typenames'] ?? true,
         typeOverrides = _getTypeOverrides(config['type_overrides']),
-        shouldGeneratePossibleTypes = config['generate_possible_types_map'] ?? true,
+        shouldGeneratePossibleTypes =
+            config['generate_possible_types_map'] ?? true,
         customSerializers = _getCustomSerializers(config['custom_serializers']),
         enumFallbackConfig = _getEnumFallbackConfig(config),
         outputDir = config['output_dir'] ?? '__generated__',
