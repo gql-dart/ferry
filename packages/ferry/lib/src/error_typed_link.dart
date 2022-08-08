@@ -28,18 +28,18 @@ class ErrorTypedLink extends TypedLink {
             OperationResponse(
               operationRequest: operationRequest,
               linkException:
-                  error is LinkException ? error : TypedLinkException(error),
+                  error is LinkException ? error : TypedLinkException(error, stackTrace),
               dataSource: DataSource.None,
             ),
           ),
         ),
       );
-    } catch (error) {
+    } catch (error, stackTrace) {
       return Stream.value(
         OperationResponse(
           operationRequest: operationRequest,
           linkException:
-              error is LinkException ? error : TypedLinkException(error),
+              error is LinkException ? error : TypedLinkException(error, stackTrace),
           dataSource: DataSource.None,
         ),
       );
