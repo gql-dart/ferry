@@ -71,6 +71,7 @@ class GraphqlBuilder implements Builder {
         p.basename(generatedFilePath(buildStep.inputId, schemaExtension)),
         config.typeOverrides,
         config.enumFallbackConfig,
+        generatePossibleTypesMap: config.shouldGeneratePossibleTypes,
       ),
     };
 

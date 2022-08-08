@@ -27,19 +27,21 @@ class ErrorTypedLink extends TypedLink {
           handleError: (error, stackTrace, sink) => sink.add(
             OperationResponse(
               operationRequest: operationRequest,
-              linkException:
-                  error is LinkException ? error : TypedLinkException(error),
+              linkException: error is LinkException
+                  ? error
+                  : TypedLinkException(error, stackTrace),
               dataSource: DataSource.None,
             ),
           ),
         ),
       );
-    } catch (error) {
+    } catch (error, stackTrace) {
       return Stream.value(
         OperationResponse(
           operationRequest: operationRequest,
-          linkException:
-              error is LinkException ? error : TypedLinkException(error),
+          linkException: error is LinkException
+              ? error
+              : TypedLinkException(error, stackTrace),
           dataSource: DataSource.None,
         ),
       );

@@ -6,9 +6,9 @@ import 'package:ferry_exec/src/operation_response.dart';
 import 'package:ferry_test_graphql/queries/__generated__/hero_no_vars.req.gql.dart';
 
 class TestLinkException extends LinkException {
-  const TestLinkException({
+  TestLinkException({
     dynamic originalException,
-  }) : super(originalException);
+  }) : super(originalException, StackTrace.current);
 }
 
 void main() {

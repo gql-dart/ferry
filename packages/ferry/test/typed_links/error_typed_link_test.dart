@@ -34,11 +34,20 @@ void main() {
         expect(
           client.request(req),
           emitsInOrder([
-            OperationResponse(
-              operationRequest: req,
-              linkException: TypedLinkException(exception),
-              dataSource: DataSource.None,
-            ),
+            isA<OperationResponse>()
+                .having((resp) => resp.dataSource, 'datasource matches',
+                    equals(DataSource.None))
+                .having((resp) => resp.operationRequest, 'request matches',
+                    equals(req))
+                .having(
+                  (resp) => resp.linkException,
+                  'exception matches',
+                  isA<TypedLinkException>().having(
+                    (e) => e.originalException,
+                    'original exception matches',
+                    equals(exception),
+                  ),
+                ),
             emitsDone,
           ]),
         );
@@ -55,11 +64,20 @@ void main() {
         expect(
           client.request(req),
           emitsInOrder([
-            OperationResponse(
-              operationRequest: req,
-              linkException: TypedLinkException(exception),
-              dataSource: DataSource.None,
-            ),
+            isA<OperationResponse>()
+                .having((resp) => resp.dataSource, 'datasource matches',
+                    equals(DataSource.None))
+                .having((resp) => resp.operationRequest, 'request matches',
+                    equals(req))
+                .having(
+                  (resp) => resp.linkException,
+                  'exception matches',
+                  isA<TypedLinkException>().having(
+                    (e) => e.originalException,
+                    'original exception matches',
+                    equals(exception),
+                  ),
+                ),
             emitsDone,
           ]),
         );
@@ -70,12 +88,6 @@ void main() {
       'can emit data after emitting errors',
       () async {
         final exception = Exception('something went wrong');
-
-        final exceptionResponse = OperationResponse(
-          operationRequest: req,
-          linkException: TypedLinkException(exception),
-          dataSource: DataSource.None,
-        );
 
         final dataResponse = OperationResponse(
           operationRequest: req,
@@ -97,7 +109,20 @@ void main() {
         expect(
           client.request(req),
           emitsInOrder([
-            exceptionResponse,
+            isA<OperationResponse>()
+                .having((resp) => resp.dataSource, 'datasource matches',
+                    equals(DataSource.None))
+                .having((resp) => resp.operationRequest, 'request matches',
+                    equals(req))
+                .having(
+                  (resp) => resp.linkException,
+                  'exception matches',
+                  isA<TypedLinkException>().having(
+                    (e) => e.originalException,
+                    'original exception matches',
+                    equals(exception),
+                  ),
+                ),
             dataResponse,
             emitsDone,
           ]),

@@ -5,7 +5,8 @@ import 'package:gql_link/gql_link.dart';
 class TypedLinkException extends LinkException {
   const TypedLinkException(
     dynamic originalException,
-  ) : super(originalException);
+    StackTrace originalStackTrace,
+  ) : super(originalException, originalStackTrace);
 
   @override
   bool operator ==(Object o) =>
