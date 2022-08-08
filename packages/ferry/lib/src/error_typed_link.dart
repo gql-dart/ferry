@@ -27,8 +27,9 @@ class ErrorTypedLink extends TypedLink {
           handleError: (error, stackTrace, sink) => sink.add(
             OperationResponse(
               operationRequest: operationRequest,
-              linkException:
-                  error is LinkException ? error : TypedLinkException(error, stackTrace),
+              linkException: error is LinkException
+                  ? error
+                  : TypedLinkException(error, stackTrace),
               dataSource: DataSource.None,
             ),
           ),
@@ -38,8 +39,9 @@ class ErrorTypedLink extends TypedLink {
       return Stream.value(
         OperationResponse(
           operationRequest: operationRequest,
-          linkException:
-              error is LinkException ? error : TypedLinkException(error, stackTrace),
+          linkException: error is LinkException
+              ? error
+              : TypedLinkException(error, stackTrace),
           dataSource: DataSource.None,
         ),
       );

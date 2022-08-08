@@ -5,7 +5,7 @@ import 'package:gql_link/gql_link.dart';
 class TypedLinkException extends LinkException {
   const TypedLinkException(
     dynamic originalException,
-      StackTrace originalStackTrace,
+    StackTrace originalStackTrace,
   ) : super(originalException, originalStackTrace);
 
   @override

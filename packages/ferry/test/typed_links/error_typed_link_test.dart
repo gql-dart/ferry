@@ -35,8 +35,10 @@ void main() {
           client.request(req),
           emitsInOrder([
             isA<OperationResponse>()
-                .having((resp) => resp.dataSource, 'datasource matches', equals(DataSource.None))
-                .having((resp) => resp.operationRequest, 'request matches', equals(req))
+                .having((resp) => resp.dataSource, 'datasource matches',
+                    equals(DataSource.None))
+                .having((resp) => resp.operationRequest, 'request matches',
+                    equals(req))
                 .having(
                   (resp) => resp.linkException,
                   'exception matches',
@@ -56,14 +58,17 @@ void main() {
       'can catch errors events in downstream TypedLinks',
       () async {
         final exception = Exception('something went wrong');
-        when(mockTypedLink.request(req, any)).thenAnswer((_) => Stream.error(exception));
+        when(mockTypedLink.request(req, any))
+            .thenAnswer((_) => Stream.error(exception));
 
         expect(
           client.request(req),
           emitsInOrder([
             isA<OperationResponse>()
-                .having((resp) => resp.dataSource, 'datasource matches', equals(DataSource.None))
-                .having((resp) => resp.operationRequest, 'request matches', equals(req))
+                .having((resp) => resp.dataSource, 'datasource matches',
+                    equals(DataSource.None))
+                .having((resp) => resp.operationRequest, 'request matches',
+                    equals(req))
                 .having(
                   (resp) => resp.linkException,
                   'exception matches',
@@ -105,8 +110,10 @@ void main() {
           client.request(req),
           emitsInOrder([
             isA<OperationResponse>()
-                .having((resp) => resp.dataSource, 'datasource matches', equals(DataSource.None))
-                .having((resp) => resp.operationRequest, 'request matches', equals(req))
+                .having((resp) => resp.dataSource, 'datasource matches',
+                    equals(DataSource.None))
+                .having((resp) => resp.operationRequest, 'request matches',
+                    equals(req))
                 .having(
                   (resp) => resp.linkException,
                   'exception matches',
