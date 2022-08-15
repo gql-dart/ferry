@@ -1,3 +1,8 @@
+## 0.6.0
+
+ - **FIX**: Use Posix separators for output paths (#369).
+ - **FEAT**: generate possibleTypesMap in ferry_generator (#371).
+
 ## 0.6.0-dev.1
 
 > Note: This release has breaking changes.
