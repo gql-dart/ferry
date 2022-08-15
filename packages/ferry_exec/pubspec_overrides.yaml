@@ -1,0 +1,6 @@
+# melos_managed_dependency_overrides: ferry_generator,ferry_test_graphql
+dependency_overrides:
+  ferry_generator:
+    path: ../ferry_generator
+  ferry_test_graphql:
+    path: ../ferry_test_graphql
