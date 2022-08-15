@@ -1,3 +1,15 @@
+## 0.10.5
+
+> Note: This release has breaking changes.
+
+ - **FIX**: pin normalize 0.6.0.
+ - **FIX**: call cache handlers for every response from DataSource.Link.
+ - **FIX**: add dispose method to TypedLinks (#272).
+ - **FEAT**: generate possibleTypesMap in ferry_generator (#371).
+ - **FEAT**: add Reviews subscription to test graphql.
+ - **DOCS**: remove stale code (#271).
+ - **BREAKING** **CHORE**: update gql_code_builder, gql_exec and vestigial analyzer pubspec entry.
+
 ## 0.10.5-dev.3
 
 > Note: This release has breaking changes.
