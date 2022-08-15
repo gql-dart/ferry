@@ -7,7 +7,7 @@ environment:
 dependencies:
   gql: ^0.14.0
   gql_exec: ^0.4.0
-  ferry_exec: ^0.1.5-dev.2
+  ferry_exec: ^0.1.5
   built_value: ^8.0.4
   built_collection: ^5.0.0
   gql_code_builder: ^0.6.0

@@ -1,3 +1,11 @@
+## 0.1.5
+
+> Note: This release has breaking changes.
+
+ - **FEAT**: generate possibleTypesMap in ferry_generator (#371).
+ - **FEAT**: add Reviews subscription to test graphql.
+ - **BREAKING** **CHORE**: update gql_code_builder, gql_exec and vestigial analyzer pubspec entry.
+
 ## 0.1.5-dev.2
 
 > Note: This release has breaking changes.
