@@ -1,3 +1,5 @@
+## 0.4.5
+
 ## 0.4.4-dev.8
 
  - **DOCS**: remove stale code (#271).

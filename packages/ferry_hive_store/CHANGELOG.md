@@ -1,3 +1,7 @@
+## 0.4.5
+
+ - **FEAT**: add Reviews subscription to test graphql.
+
 ## 0.4.5-dev.1
 
  - **FEAT**: add Reviews subscription to test graphql.

@@ -1,3 +1,9 @@
+## 0.6.0
+
+ - bump normalize dependency version constraint to fix fragment disambiguation
+
+ - **FIX**: pin normalize 0.6.0.
+
 ## 0.5.5-dev.10
 
  - Update a dependency to the latest release.
