@@ -19,6 +19,7 @@ Stream<Set<String>> fragmentDataChangeStream<TData, TVars>(
   Map<String, TypePolicy> typePolicies,
   bool addTypename,
   DataIdResolver? dataIdFromObject,
+    Map<String, Set<String>> possibleTypes,
 ) {
   final dataIds = <String>{};
 
@@ -36,6 +37,7 @@ Stream<Set<String>> fragmentDataChangeStream<TData, TVars>(
     addTypename: addTypename,
     returnPartialData: true,
     dataIdFromObject: dataIdFromObject,
+    possibleTypes: possibleTypes,
   );
 
   /// IDs that have changed

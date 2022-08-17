@@ -46,6 +46,7 @@ Stream<Set<String>> operationDataChangeStream<TData, TVars>(
     addTypename: addTypename,
     returnPartialData: true,
     dataIdFromObject: dataIdFromObject,
+    possibleTypes: possibleTypes
   );
 
   /// IDs that have changed

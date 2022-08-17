@@ -86,6 +86,7 @@ class Cache {
           typePolicies,
           addTypename,
           dataIdFromObject,
+          possibleTypes,
         ),
         getData: () => readFragment(request, optimistic: optimistic),
       );
@@ -137,6 +138,7 @@ class Cache {
       variables: (request.vars as dynamic)?.toJson(),
       typePolicies: typePolicies,
       dataIdFromObject: dataIdFromObject,
+      possibleTypes: possibleTypes,
     );
     return json == null ? null : request.parseData(json);
   }
@@ -156,6 +158,7 @@ class Cache {
       typePolicies: typePolicies,
       addTypename: addTypename,
       dataIdFromObject: dataIdFromObject,
+      possibleTypes: possibleTypes,
     );
     return json == null ? null : request.parseData(json);
   }
@@ -187,6 +190,7 @@ class Cache {
         typePolicies: typePolicies,
         addTypename: addTypename,
         dataIdFromObject: dataIdFromObject,
+        possibleTypes: possibleTypes,
       );
 
   /// Normalizes [data] for the given fragment and writes it to the [Store].
@@ -217,6 +221,7 @@ class Cache {
         typePolicies: typePolicies,
         addTypename: addTypename,
         dataIdFromObject: dataIdFromObject,
+        possibleTypes: possibleTypes,
       );
 
   void _writeData(
