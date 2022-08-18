@@ -1,3 +1,14 @@
+## 0.0.3-dev.4
+
+> Note: This release has breaking changes.
+
+ - **FIX**: resolve static analysis issues.
+ - **FIX**: fix example units.
+ - **FIX**: update example.
+ - **FEAT**: generate possibleTypesMap in ferry_generator (#371).
+ - **FEAT**: update dependences.
+ - **BREAKING** **FEAT**: build generated files to __generated__ subdirectory.
+
 ## 0.0.3-dev.3
 
  - Update a dependency to the latest release.

@@ -1,3 +1,7 @@
+## 0.6.1+1
+
+ - Update a dependency to the latest release.
+
 ## 0.6.1
 
  - FIX: add missing possibleTypes parameters to calls to normlalize

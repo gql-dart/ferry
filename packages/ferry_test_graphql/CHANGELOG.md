@@ -1,3 +1,13 @@
+## 0.1.5-dev.4
+
+> Note: This release has breaking changes.
+
+ - **FIX**: call cache handlers for every response from DataSource.Link.
+ - **FIX**: disable test.
+ - **FEAT**: generate possibleTypesMap in ferry_generator (#371).
+ - **FEAT**: add Reviews subscription to test graphql.
+ - **BREAKING** **CHORE**: update gql_code_builder, gql_exec and vestigial analyzer pubspec entry.
+
 ## 0.1.5-dev.3
 
 > Note: This release has breaking changes.
