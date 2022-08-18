@@ -1,9 +1,8 @@
 import 'package:ferry_cache/ferry_cache.dart';
-import 'package:test/test.dart';
-
-import 'package:ferry_test_graphql/mutations/__generated__/create_review.req.gql.dart';
 import 'package:ferry_test_graphql/mutations/__generated__/create_review.data.gql.dart';
+import 'package:ferry_test_graphql/mutations/__generated__/create_review.req.gql.dart';
 import 'package:ferry_test_graphql/schema/__generated__/schema.schema.gql.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('Optimism', () {
@@ -40,22 +39,24 @@ void main() {
     group('single optimistic write', () {
       final store = MemoryStore();
       final cache = Cache(store: store);
-      cache.writeQuery(
-        mutation1,
-        mutation1data,
-        optimisticRequest: mutation1,
-      );
+      setUpAll(() async {
+        await cache.writeQuery(
+          mutation1,
+          mutation1data,
+          optimisticRequest: mutation1,
+        );
+      });
 
-      test('data exists optimistically', () {
+      test('data exists optimistically', () async {
         expect(
-          cache.readQuery(mutation1, optimistic: true),
+          await cache.readQuery(mutation1, optimistic: true),
           equals(mutation1data),
         );
       });
 
-      test("data doesn't exist non-optimistically", () {
+      test("data doesn't exist non-optimistically", () async {
         expect(
-          cache.readQuery(mutation1, optimistic: false),
+          await cache.readQuery(mutation1, optimistic: false),
           equals(null),
         );
       });
@@ -68,35 +69,37 @@ void main() {
     group('multiple optimistic writes', () {
       final store = MemoryStore();
       final cache = Cache(store: store);
-      cache.writeQuery(
-        mutation1,
-        mutation1data,
-        optimisticRequest: mutation1,
-      );
+      setUpAll(() async {
+        await cache.writeQuery(
+          mutation1,
+          mutation1data,
+          optimisticRequest: mutation1,
+        );
 
-      cache.writeQuery(
-        mutation2,
-        mutation2data,
-        optimisticRequest: mutation2,
-      );
-      test('data exists optimistically', () {
+        await cache.writeQuery(
+          mutation2,
+          mutation2data,
+          optimisticRequest: mutation2,
+        );
+      });
+      test('data exists optimistically', () async {
         expect(
-          cache.readQuery(mutation1, optimistic: true),
+          await cache.readQuery(mutation1, optimistic: true),
           equals(mutation1data),
         );
         expect(
-          cache.readQuery(mutation2, optimistic: true),
+          await cache.readQuery(mutation2, optimistic: true),
           equals(mutation2data),
         );
       });
 
-      test("data doesn't exist non-optimistically", () {
+      test("data doesn't exist non-optimistically", () async {
         expect(
-          cache.readQuery(mutation1, optimistic: false),
+          await cache.readQuery(mutation1, optimistic: false),
           equals(null),
         );
         expect(
-          cache.readQuery(mutation2, optimistic: false),
+          await cache.readQuery(mutation2, optimistic: false),
           equals(null),
         );
       });
@@ -105,15 +108,15 @@ void main() {
         expect(store.keys.length, equals(0));
       });
 
-      test('can remove a single optimistic patch', () {
+      test('can remove a single optimistic patch', () async {
         cache.removeOptimisticPatch(mutation1);
 
         expect(
-          cache.readQuery(mutation1, optimistic: true),
+          await cache.readQuery(mutation1, optimistic: true),
           equals(null),
         );
         expect(
-          cache.readQuery(mutation2, optimistic: true),
+          await cache.readQuery(mutation2, optimistic: true),
           equals(mutation2data),
         );
       });

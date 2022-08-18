@@ -1,7 +1,6 @@
-import 'package:test/test.dart';
 import 'package:gql/language.dart';
-
 import 'package:normalize/normalize.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('Fragment Variables', () {
@@ -41,11 +40,11 @@ void main() {
       ],
     };
 
-    test('Produces correct normalized object', () {
+    test('Produces correct normalized object', () async {
       final normalizedResult = {};
-      normalizeFragment(
-        read: (dataId) => normalizedResult[dataId],
-        write: (dataId, value) => normalizedResult[dataId] = value,
+      await normalizeFragment(
+        read: (dataId) async => normalizedResult[dataId],
+        write: (dataId, value) async => normalizedResult[dataId] = value,
         document: fragment,
         data: response,
         idFields: {'id': 1},
@@ -58,11 +57,11 @@ void main() {
       );
     });
 
-    test('Produces correct nested data object', () {
+    test('Produces correct nested data object', () async {
       expect(
-        denormalizeFragment(
+        await denormalizeFragment(
           document: fragment,
-          read: (dataId) => normalizedMap[dataId],
+          read: (dataId) async => normalizedMap[dataId],
           variables: {'first': 10},
           idFields: {'id': 1},
         ),

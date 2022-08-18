@@ -1,11 +1,10 @@
-import 'package:test/test.dart';
 import 'package:gql/language.dart';
-
 import 'package:normalize/normalize.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('Normalizing and denormalizing with possible type of', () {
-    test('Mutiple fragments', () {
+    test('Multiple fragments', () async {
       final possibleTypes = {
         'User': {'Author', 'Audience'},
       };
@@ -73,9 +72,9 @@ void main() {
         },
       };
       final normalizedResult = {};
-      normalizeOperation(
-        read: (dataId) => normalizedResult[dataId],
-        write: (dataId, value) => normalizedResult[dataId] = value,
+      await normalizeOperation(
+        read: (dataId) async => normalizedResult[dataId],
+        write: (dataId, value) async => normalizedResult[dataId] = value,
         document: document,
         data: data,
         acceptPartialData: false,
@@ -87,10 +86,10 @@ void main() {
       );
 
       expect(
-        denormalizeOperation(
+        await denormalizeOperation(
           document: document,
           handleException: false,
-          read: (dataId) => normalizedMap[dataId],
+          read: (dataId) async => normalizedMap[dataId],
           possibleTypes: possibleTypes,
         ),
         equals(data),

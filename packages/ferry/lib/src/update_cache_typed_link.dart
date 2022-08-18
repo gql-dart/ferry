@@ -1,7 +1,8 @@
 import 'dart:async';
-import 'package:rxdart/rxdart.dart';
-import 'package:ferry_exec/ferry_exec.dart';
+
 import 'package:ferry_cache/ferry_cache.dart';
+import 'package:ferry_exec/ferry_exec.dart';
+import 'package:rxdart/rxdart.dart';
 
 export 'package:ferry_cache/ferry_cache.dart';
 
@@ -21,7 +22,7 @@ class CacheProxy {
   ])  : _cache = cache,
         _optimisticRequest = optimisticRequest;
 
-  TData? readQuery<TData, TVars>(
+  Future<TData?> readQuery<TData, TVars>(
     OperationRequest<TData, TVars> request, {
     bool? optimistic,
   }) =>
@@ -30,7 +31,7 @@ class CacheProxy {
         optimistic: optimistic ?? _optimistic,
       );
 
-  TData? readFragment<TData, TVars>(
+  Future<TData?> readFragment<TData, TVars>(
     FragmentRequest<TData, TVars> request, {
     bool? optimistic,
   }) =>
@@ -39,7 +40,7 @@ class CacheProxy {
         optimistic: optimistic ?? _optimistic,
       );
 
-  void writeQuery<TData, TVars>(
+  Future<void> writeQuery<TData, TVars>(
     OperationRequest<TData, TVars> request,
     TData data,
   ) =>
@@ -49,7 +50,7 @@ class CacheProxy {
         optimisticRequest: _optimisticRequest,
       );
 
-  void writeFragment<TData, TVars>(
+  Future<void> writeFragment<TData, TVars>(
     FragmentRequest<TData, TVars> request,
     TData data,
   ) =>
@@ -61,7 +62,7 @@ class CacheProxy {
 
   String? identify<TData>(TData data) => _cache.identify(data);
 
-  void evict(
+  Future<void> evict(
     String entityId, {
     String? fieldName,
     Map<String, dynamic> args = const {},
@@ -77,7 +78,7 @@ class CacheProxy {
 
   void release(String entityId) => _cache.release(entityId);
 
-  Set<String> gc() => _cache.gc();
+  Future<Set<String>> gc() => _cache.gc();
 
   void clear() => _cache.clear();
 }
@@ -85,7 +86,7 @@ class CacheProxy {
 /// Updates the cache after receiving an [OperationResponse].
 ///
 /// Useful when merging mutation results that add items to a list, etc.
-typedef UpdateCacheHandler<TData, TVars> = void Function(
+typedef UpdateCacheHandler<TData, TVars> = Future<void> Function(
   CacheProxy proxy,
   OperationResponse<TData, TVars> response,
 );
@@ -115,7 +116,7 @@ class UpdateCacheTypedLink extends TypedLink {
   ]) =>
       forward!(req).doOnData(_updateCache);
 
-  void _updateCache<TData, TVars>(OperationResponse<TData, TVars> res) {
+  Future<void> _updateCache<TData, TVars>(OperationResponse<TData, TVars> res) async {
     final key = res.operationRequest.updateCacheHandlerKey;
     if (key == null) return;
 
@@ -127,13 +128,13 @@ class UpdateCacheTypedLink extends TypedLink {
       case DataSource.Optimistic:
         {
           final proxy = CacheProxy(cache, res.operationRequest);
-          handler(proxy, res);
+          await handler(proxy, res);
           break;
         }
       case DataSource.Link:
         {
           final proxy = CacheProxy(cache);
-          handler(proxy, res);
+          await handler(proxy, res);
           break;
         }
       default:

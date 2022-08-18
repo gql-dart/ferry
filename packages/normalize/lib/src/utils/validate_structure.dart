@@ -1,17 +1,16 @@
 import 'package:gql/ast.dart';
-import 'package:normalize/src/denormalize_node.dart';
-
-import 'package:normalize/src/denormalize_operation.dart';
 import 'package:normalize/src/denormalize_fragment.dart';
+import 'package:normalize/src/denormalize_node.dart';
+import 'package:normalize/src/denormalize_operation.dart';
 import 'package:normalize/src/utils/constants.dart';
 import 'package:normalize/src/utils/exceptions.dart';
 import 'package:normalize/utils.dart';
 
-Map<String, dynamic>? _unsupportedRead(String _key) {
+Future<Map<String, dynamic>?> _unsupportedRead(String key) {
   throw UnsupportedError('Should never read while validating');
 }
 
-String? _stubDataIdFromObject(Map<String, dynamic> _data) => null;
+String? _stubDataIdFromObject(Map<String, dynamic> data) => null;
 
 /// Validates the structure of [data] against the operation [operationName] in [document].
 ///
@@ -24,7 +23,7 @@ String? _stubDataIdFromObject(Map<String, dynamic> _data) => null;
 /// Calls [denormalizeOperation] internally.
 ///
 /// [spec]: https://spec.graphql.org/June2018/#sec-Data
-bool validateOperationDataStructure({
+Future<bool> validateOperationDataStructure({
   required DocumentNode document,
   required Map<String, dynamic>? data,
   String? operationName,
@@ -52,7 +51,7 @@ bool validateOperationDataStructure({
 /// we treat it as invalid here, maintaining consistency with [denormalizeOperation].
 ///
 /// Calls [denormalizeFragment] internally.
-bool validateFragmentDataStructure({
+Future<bool> validateFragmentDataStructure({
   required DocumentNode document,
   required Map<String, dynamic>? data,
   String? fragmentName,
@@ -80,14 +79,14 @@ typedef SelectionSetFinder = SelectionSetNode Function({
   required Map<String, FragmentDefinitionNode> fragmentMap,
 });
 
-bool _validateSelectionSet({
+Future<bool> _validateSelectionSet({
   required DocumentNode document,
   required SelectionSetFinder getSelectionSet,
   required Map<String, dynamic>? data,
   required Map<String, dynamic> variables,
   required bool addTypename,
   required bool handleException,
-}) {
+}) async {
   if (data == null) {
     if (handleException) {
       return false;
@@ -114,7 +113,7 @@ bool _validateSelectionSet({
     possibleTypes: const {},
   );
   try {
-    return denormalizeNode(
+    return await denormalizeNode(
           selectionSet: getSelectionSet(
             document: document,
             fragmentMap: fragmentMap,

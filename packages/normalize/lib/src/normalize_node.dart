@@ -1,28 +1,27 @@
 import 'package:gql/ast.dart';
-
-import 'package:normalize/src/utils/resolve_data_id.dart';
-import 'package:normalize/src/utils/field_key.dart';
-import 'package:normalize/src/utils/expand_fragments.dart';
-import 'package:normalize/src/utils/exceptions.dart';
-import 'package:normalize/src/utils/deep_merge.dart';
 import 'package:normalize/src/config/normalization_config.dart';
 import 'package:normalize/src/policies/field_policy.dart';
+import 'package:normalize/src/utils/deep_merge.dart';
+import 'package:normalize/src/utils/exceptions.dart';
+import 'package:normalize/src/utils/expand_fragments.dart';
+import 'package:normalize/src/utils/field_key.dart';
+import 'package:normalize/src/utils/resolve_data_id.dart';
 
 /// Returns a normalized object for a given [SelectionSetNode].
 ///
 /// This is called recursively as the AST is traversed.
-Object? normalizeNode({
+Future<Object?> normalizeNode({
   required SelectionSetNode? selectionSet,
   required Object? dataForNode,
   required Object? existingNormalizedData,
   required NormalizationConfig config,
-  required void Function(String dataId, Map<String, dynamic> value) write,
+  required Future<void> Function(String dataId, Map<String, dynamic> value) write,
   bool root = false,
-}) {
+}) async {
   if (dataForNode == null) return null;
 
   if (dataForNode is List) {
-    return dataForNode
+    return Future.wait(dataForNode
         .map((data) => normalizeNode(
               selectionSet: selectionSet,
               dataForNode: data,
@@ -30,7 +29,7 @@ Object? normalizeNode({
               config: config,
               write: write,
             ))
-        .toList();
+        .toList());
   }
 
   // If this is a leaf node, return the data
@@ -43,7 +42,7 @@ Object? normalizeNode({
       dataIdFromObject: config.dataIdFromObject,
     );
 
-    if (dataId != null) existingNormalizedData = config.read(dataId);
+    if (dataId != null) existingNormalizedData = await config.read(dataId);
 
     final typename = dataForNode['__typename'];
     final typePolicy = config.typePolicies[typename];
@@ -57,7 +56,8 @@ Object? normalizeNode({
 
     final dataToMerge = <String, dynamic>{
       if (config.addTypename && typename != null) '__typename': typename,
-      ...subNodes.fold({}, (data, field) {
+      ...await subNodes.fold(Future.value({}), (futureData, field) async {
+        final data = await futureData;
         final fieldPolicy = (typePolicy?.fields ?? const {})[field.name.value];
         final policyCanMerge = fieldPolicy?.merge != null;
         final policyCanRead = fieldPolicy?.read != null;
@@ -87,7 +87,7 @@ Object? normalizeNode({
         }
 
         try {
-          final fieldData = normalizeNode(
+          final fieldData = await normalizeNode(
             selectionSet: field.selectionSet,
             dataForNode: dataForNode[inputKey],
             existingNormalizedData: existingFieldData,
@@ -95,8 +95,8 @@ Object? normalizeNode({
             write: write,
           );
           if (policyCanMerge) {
-            return data
-              ..[fieldName] = fieldPolicy!.merge!(
+            return (data)
+              ..[fieldName] = await fieldPolicy!.merge!(
                 existingFieldData,
                 fieldData,
                 FieldFunctionOptions(
@@ -105,14 +105,14 @@ Object? normalizeNode({
                 ),
               );
           }
-          return data..[fieldName] = fieldData;
+          return (data)..[fieldName] = fieldData;
         } on PartialDataException catch (e) {
           throw PartialDataException(path: [inputKey, ...e.path]);
         }
       })
     };
 
-    if (dataId != null) existingNormalizedData = config.read(dataId);
+    if (dataId != null) existingNormalizedData = await config.read(dataId);
 
     final mergedData = deepMerge(
       Map.from(existingNormalizedData as Map<dynamic, dynamic>? ?? {}),
@@ -120,7 +120,7 @@ Object? normalizeNode({
     );
 
     if (!root && dataId != null) {
-      write(dataId, mergedData);
+      await write(dataId, mergedData);
       return {config.referenceKey: dataId};
     } else {
       return mergedData;

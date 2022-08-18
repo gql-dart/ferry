@@ -24,7 +24,7 @@ void main() {
              "trainer":{"\$ref":"Trainer:ckhi5hgou5038xppf9phzteph"}
           }''');
 
-    reachableIds((dataId) {
+    reachableIds((dataId) async {
       if (dataId == 'Query') return queryMap;
       if (dataId == 'Trainer:ckhi5hgou5038xppf9phzteph') return trainerMap;
       if (dataId == 'Pokemon:ckhie3ik16650xnpfyvjmb1lq') return pokemonMap;

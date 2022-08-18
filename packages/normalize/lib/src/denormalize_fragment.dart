@@ -1,19 +1,18 @@
 import 'package:gql/ast.dart';
 import 'package:normalize/normalize.dart';
-
 import 'package:normalize/src/config/normalization_config.dart';
+import 'package:normalize/src/denormalize_node.dart';
+import 'package:normalize/src/utils/add_typename_visitor.dart';
 import 'package:normalize/src/utils/constants.dart';
 import 'package:normalize/src/utils/get_fragment_map.dart';
 import 'package:normalize/src/utils/resolve_data_id.dart';
-import 'package:normalize/src/utils/add_typename_visitor.dart';
-import 'package:normalize/src/denormalize_node.dart';
 
 /// Denormalizes data for a given fragment.
 ///
 /// Pass in a [read] function to read the normalized map.
 ///
 /// An [idFields] Map must be provided that includes all identifying data, per
-/// any pertinent [TypePolicy] or [dataIdFromObject] funciton. If entities of
+/// any pertinent [TypePolicy] or [dataIdFromObject] function. If entities of
 /// this type are simply identified by their [__typename] & [id] fields, you
 /// can simply provide a map with just the [id] field (i.e. `{ "id": "1234" }`).
 ///
@@ -23,8 +22,8 @@ import 'package:normalize/src/denormalize_node.dart';
 ///
 /// Likewise, if a custom [referenceKey] was used to normalize the data, it
 /// must be provided. Otherwise, the default '$ref' key will be used.
-Map<String, dynamic>? denormalizeFragment({
-  required Map<String, dynamic>? Function(String dataId) read,
+Future<Map<String, dynamic>?> denormalizeFragment({
+  required Future<Map<String, dynamic>?> Function(String dataId) read,
   required DocumentNode document,
   required Map<String, dynamic> idFields,
   String? fragmentName,
@@ -36,7 +35,7 @@ Map<String, dynamic>? denormalizeFragment({
   bool handleException = true,
   String referenceKey = kDefaultReferenceKey,
   Map<String, Set<String>> possibleTypes = const {},
-}) {
+}) async {
   if (addTypename) {
     document = transform(
       document,
@@ -77,11 +76,11 @@ Map<String, dynamic>? denormalizeFragment({
   );
 
   try {
-    return denormalizeNode(
+    return (await denormalizeNode(
       selectionSet: fragmentDefinition.selectionSet,
-      dataForNode: read(dataId),
+      dataForNode: await read(dataId),
       config: config,
-    ) as Map<String, dynamic>?;
+    )) as Map<String, dynamic>?;
   } on PartialDataException {
     if (handleException) {
       return null;

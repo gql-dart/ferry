@@ -1,7 +1,6 @@
-import 'package:test/test.dart';
 import 'package:gql/language.dart';
-
 import 'package:normalize/normalize.dart';
+import 'package:test/test.dart';
 
 void main() {
   group(
@@ -92,17 +91,16 @@ void main() {
         'Author:2': {'id': '2', '__typename': 'Author', 'name': 'Nicole'},
       };
 
-      final normalizedResult = {};
-      normalizeOperation(
-        read: (dataId) => normalizedResult[dataId],
-        document: query,
-        data: data,
-        write: (dataId, value) => normalizedResult[dataId] = value,
-      );
-
       test(
         'Produces correct normalized object',
-        () {
+        () async {
+          final normalizedResult = {};
+          await normalizeOperation(
+            read: (dataId) async => normalizedResult[dataId],
+            document: query,
+            data: data,
+            write: (dataId, value) async => normalizedResult[dataId] = value,
+          );
           expect(
               normalizedResult,
               equals(
@@ -113,11 +111,11 @@ void main() {
 
       test(
         'Produces correct nested data object',
-        () {
+        () async {
           expect(
-            denormalizeOperation(
+            await denormalizeOperation(
               document: query,
-              read: (dataId) => normalizedMap[dataId],
+              read: (dataId) async => normalizedMap[dataId],
             ),
             equals(data),
           );

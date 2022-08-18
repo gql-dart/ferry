@@ -1,7 +1,6 @@
-import 'package:test/test.dart';
 import 'package:gql/language.dart';
-
 import 'package:normalize/normalize.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('Union Type Inline Fragments With Possible Types', () {
@@ -88,19 +87,19 @@ void main() {
     final possibleTypes = {
       'BookAndAuthor': {'Book', 'Author'}
     };
-    test('Produces same normalized object with possible types', () {
+    test('Produces same normalized object with possible types', () async {
       final inlineNormalizedResult = {};
-      normalizeOperation(
-        read: (dataId) => inlineNormalizedResult[dataId],
-        write: (dataId, value) => inlineNormalizedResult[dataId] = value,
+      await normalizeOperation(
+        read: (dataId) async => inlineNormalizedResult[dataId],
+        write: (dataId, value) async => inlineNormalizedResult[dataId] = value,
         document: inlineFragmentQuery,
         data: data,
         possibleTypes: possibleTypes,
       );
       final namedFragmentNormalizedResult = {};
-      normalizeOperation(
-        read: (dataId) => namedFragmentNormalizedResult[dataId],
-        write: (dataId, value) => namedFragmentNormalizedResult[dataId] = value,
+      await normalizeOperation(
+        read: (dataId) async => namedFragmentNormalizedResult[dataId],
+        write: (dataId, value) async => namedFragmentNormalizedResult[dataId] = value,
         document: inlineFragmentQuery,
         data: data,
         possibleTypes: possibleTypes,
@@ -115,18 +114,18 @@ void main() {
         equals(normalizedMapWithPossibleTypes),
       );
     });
-    test('Produces same normalized object without possible types', () {
+    test('Produces same normalized object without possible types', () async {
       final inlineNormalizedResult = {};
-      normalizeOperation(
-        read: (dataId) => inlineNormalizedResult[dataId],
-        write: (dataId, value) => inlineNormalizedResult[dataId] = value,
+      await normalizeOperation(
+        read: (dataId) async => inlineNormalizedResult[dataId],
+        write: (dataId, value) async => inlineNormalizedResult[dataId] = value,
         document: inlineFragmentQuery,
         data: data,
       );
       final namedFragmentNormalizedResult = {};
-      normalizeOperation(
-        read: (dataId) => namedFragmentNormalizedResult[dataId],
-        write: (dataId, value) => namedFragmentNormalizedResult[dataId] = value,
+      await normalizeOperation(
+        read: (dataId) async => namedFragmentNormalizedResult[dataId],
+        write: (dataId, value) async => namedFragmentNormalizedResult[dataId] = value,
         document: inlineFragmentQuery,
         data: data,
       );
@@ -141,48 +140,48 @@ void main() {
       );
     });
 
-    test('Produces correct nested data object with possible types', () {
+    test('Produces correct nested data object with possible types', () async {
       expect(
-        denormalizeOperation(
+        await denormalizeOperation(
           document: inlineFragmentQuery,
-          read: (dataId) => normalizedMapWithPossibleTypes[dataId],
+          read: (dataId) async => normalizedMapWithPossibleTypes[dataId],
           possibleTypes: possibleTypes,
         ),
         equals(
-          denormalizeOperation(
+          await denormalizeOperation(
             document: namedFragmentQuery,
-            read: (dataId) => normalizedMapWithPossibleTypes[dataId],
+            read: (dataId) async => normalizedMapWithPossibleTypes[dataId],
             possibleTypes: possibleTypes,
           ),
         ),
       );
       expect(
-        denormalizeOperation(
+        await denormalizeOperation(
           document: inlineFragmentQuery,
-          read: (dataId) => normalizedMapWithPossibleTypes[dataId],
+          read: (dataId) async => normalizedMapWithPossibleTypes[dataId],
           possibleTypes: possibleTypes,
         ),
         equals(data),
       );
     });
 
-    test('Produces correct nested data object without possible types', () {
+    test('Produces correct nested data object without possible types', () async {
       expect(
-        denormalizeOperation(
+        await denormalizeOperation(
           document: inlineFragmentQuery,
-          read: (dataId) => normalizedMapWithoutPossibleTypes[dataId],
+          read: (dataId) async => normalizedMapWithoutPossibleTypes[dataId],
         ),
         equals(
-          denormalizeOperation(
+          await denormalizeOperation(
             document: namedFragmentQuery,
-            read: (dataId) => normalizedMapWithoutPossibleTypes[dataId],
+            read: (dataId) async => normalizedMapWithoutPossibleTypes[dataId],
           ),
         ),
       );
       expect(
-        denormalizeOperation(
+        await denormalizeOperation(
           document: inlineFragmentQuery,
-          read: (dataId) => normalizedMapWithoutPossibleTypes[dataId],
+          read: (dataId) async => normalizedMapWithoutPossibleTypes[dataId],
         ),
         equals(dataDeserializedWithoutPossibleTypes),
       );

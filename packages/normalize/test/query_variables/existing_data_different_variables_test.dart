@@ -1,7 +1,6 @@
-import 'package:test/test.dart';
 import 'package:gql/language.dart';
-
 import 'package:normalize/normalize.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('Existing data different variables', () {
@@ -29,19 +28,19 @@ void main() {
       }
     ''');
 
-    test('With no data', () {
+    test('With no data', () async {
       final normalizedMap = {};
       expect(
-        denormalizeOperation(
+        await denormalizeOperation(
           document: query,
-          read: (dataId) => normalizedMap[dataId],
+          read: (dataId) async => normalizedMap[dataId],
           variables: {'a': false},
         ),
         equals(null),
       );
     });
 
-    test('With data that uses different variables', () {
+    test('With data that uses different variables', () async {
       final normalizedMap = {
         'Query': {
           'posts({"b":true})': [
@@ -67,23 +66,23 @@ void main() {
       };
 
       expect(
-        denormalizeOperation(
+        await denormalizeOperation(
             document: query,
-            read: (dataId) => normalizedMap[dataId],
+            read: (dataId) async => normalizedMap[dataId],
             variables: {'a': false}),
         equals(null),
       );
     });
 
-    test('Explicit null', () {
+    test('Explicit null', () async {
       final normalizedMap = {
         'Query': {'posts({"b":false})': null},
       };
 
       expect(
-        denormalizeOperation(
+        await denormalizeOperation(
             document: query,
-            read: (dataId) => normalizedMap[dataId],
+            read: (dataId) async => normalizedMap[dataId],
             variables: {'a': false}),
         equals({'posts': null}),
       );
@@ -114,7 +113,7 @@ void main() {
       }
     ''');
 
-    test('With data that uses different nested variables', () {
+    test('With data that uses different nested variables', () async {
       final normalizedMap = {
         'Query': {
           'posts': [
@@ -151,9 +150,9 @@ void main() {
       };
 
       expect(
-        denormalizeOperation(
+        await denormalizeOperation(
           document: query,
-          read: (dataId) => normalizedMap[dataId],
+          read: (dataId) async => normalizedMap[dataId],
           returnPartialData: true,
           variables: {'a': false},
         ),
@@ -161,7 +160,7 @@ void main() {
       );
     });
 
-    test('Explicit null', () {
+    test('Explicit null', () async {
       final normalizedMap = {
         'Query': {
           'posts': [
@@ -200,9 +199,9 @@ void main() {
       };
 
       expect(
-        denormalizeOperation(
+        await denormalizeOperation(
           document: query,
-          read: (dataId) => normalizedMap[dataId],
+          read: (dataId) async => normalizedMap[dataId],
           variables: {'a': false},
         ),
         equals(response),

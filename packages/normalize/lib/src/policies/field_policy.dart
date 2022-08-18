@@ -1,9 +1,8 @@
 import 'package:gql/ast.dart';
-
-import 'package:normalize/src/utils/field_key.dart';
-import 'package:normalize/src/utils/resolve_data_id.dart';
 import 'package:normalize/src/config/normalization_config.dart';
 import 'package:normalize/src/denormalize_node.dart';
+import 'package:normalize/src/utils/field_key.dart';
+import 'package:normalize/src/utils/resolve_data_id.dart';
 
 class FieldFunctionOptions {
   final NormalizationConfig _config;
@@ -38,7 +37,7 @@ class FieldFunctionOptions {
       };
 
   /// Returns denormalized data for the given [field] and normalized [data], recursively resolving any references.
-  T? readField<T>(FieldNode field, Object? data) => denormalizeNode(
+  Future<T?> readField<T>(FieldNode field, Object? data) => denormalizeNode(
         selectionSet: field.selectionSet,
         dataForNode: data,
         config: NormalizationConfig(
@@ -52,15 +51,15 @@ class FieldFunctionOptions {
           allowPartialData: true,
           possibleTypes: _config.possibleTypes,
         ),
-      ) as T?;
+      ) as Future<T?>;
 }
 
-typedef FieldReadFunction<TExisting, TReadResult> = TReadResult Function(
+typedef FieldReadFunction<TExisting, TReadResult> = Future<TReadResult> Function(
   TExisting existing,
   FieldFunctionOptions options,
 );
 
-typedef FieldMergeFunction<TExisting, TIncoming> = TExisting Function(
+typedef FieldMergeFunction<TExisting, TIncoming> = Future<TExisting> Function(
   TExisting existing,
   TIncoming incoming,
   FieldFunctionOptions options,

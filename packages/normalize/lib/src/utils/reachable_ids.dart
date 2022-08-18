@@ -4,8 +4,8 @@ import 'package:normalize/src/utils/resolve_root_typename.dart';
 import 'constants.dart';
 
 /// Returns a set of dataIds that can be reached by any root query.
-Set<String> reachableIds(
-  Map<String, dynamic>? Function(String dataId) read, [
+Future<Set<String>> reachableIds(
+  Future<Map<String, dynamic>?> Function(String dataId) read, [
   Map<String, TypePolicy> typePolicies = const {},
   String referenceKey = kDefaultReferenceKey,
 ]) =>
@@ -17,12 +17,12 @@ Set<String> reachableIds(
       ),
     )
         .fold(
-      {},
-      (ids, rootTypename) => ids
+      Future.value({}),
+      (ids, rootTypename) async => await ids
         ..add(rootTypename)
         ..addAll(
-          _idsInObject(
-            read(rootTypename),
+          await _idsInObject(
+            await read(rootTypename),
             read,
             referenceKey,
             {},
@@ -33,26 +33,26 @@ Set<String> reachableIds(
 /// Returns a set of all IDs reachable from the given data ID.
 ///
 /// Includes the given [dataId] itself.
-Set<String> reachableIdsFromDataId(
+Future<Set<String>> reachableIdsFromDataId(
   String dataId,
-  Map<String, dynamic>? Function(String dataId) read, [
+  Future<Map<String, dynamic>?> Function(String dataId) read, [
   String referenceKey = kDefaultReferenceKey,
-]) =>
-    _idsInObject(read(dataId), read, referenceKey, {})..add(dataId);
+]) async =>
+    await _idsInObject(read(dataId), read, referenceKey, {})..add(dataId);
 
 /// Recursively finds reachable IDs in [object]
-Set<String> _idsInObject(
+Future<Set<String>> _idsInObject(
   Object? object,
-  Map<String, dynamic>? Function(String dataId) read,
+  Future<Map<String, dynamic>?> Function(String dataId) read,
   String referenceKey,
   Set<String> visited,
-) {
+) async {
   if (object is Map) {
     if (object.containsKey(referenceKey)) {
       if (visited.contains(object[referenceKey])) return {};
       return {object[referenceKey]}..addAll(
-          _idsInObject(
-            read(object[referenceKey]),
+          await _idsInObject(
+            await read(object[referenceKey]),
             read,
             referenceKey,
             visited..add(object[referenceKey]),
@@ -61,9 +61,9 @@ Set<String> _idsInObject(
     }
     return object.values.fold(
       {},
-      (ids, element) => ids
+      (ids, element) async => await ids
         ..addAll(
-          _idsInObject(
+          await _idsInObject(
             element,
             read,
             referenceKey,
@@ -74,9 +74,9 @@ Set<String> _idsInObject(
   } else if (object is List) {
     return object.fold(
       {},
-      (ids, element) => ids
+      (ids, element) async => await ids
         ..addAll(
-          _idsInObject(
+          await _idsInObject(
             element,
             read,
             referenceKey,

@@ -165,9 +165,9 @@ Which will produce the following normalized result:
 If we later want to denormalize this data (for example, when reading from a cache), we can call `denormalize` on the normalizedMap from above. This will give us back the original data response object.
 
 ```dart
-denormalizeOperation(
+await denormalizeOperation(
   document: query,
-  read: (dataId) => normalizedMap[dataId],
+  read: (dataId) async => normalizedMap[dataId],
 )
 ```
 

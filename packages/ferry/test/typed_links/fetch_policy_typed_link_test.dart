@@ -1,16 +1,14 @@
 import 'dart:async';
-import 'package:async/async.dart';
-import 'package:mockito/mockito.dart';
-import 'package:mockito/annotations.dart';
-import 'package:gql_link/gql_link.dart';
-import 'package:gql_exec/gql_exec.dart';
-import 'package:test/test.dart';
-import 'package:rxdart/rxdart.dart';
 
-import 'package:ferry_exec/ferry_exec.dart';
+import 'package:async/async.dart';
 import 'package:ferry/src/fetch_policy_typed_link.dart';
-import 'package:ferry_test_graphql/queries/__generated__/human_with_args.req.gql.dart';
 import 'package:ferry_test_graphql/queries/__generated__/human_with_args.data.gql.dart';
+import 'package:ferry_test_graphql/queries/__generated__/human_with_args.req.gql.dart';
+import 'package:gql_exec/gql_exec.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
+import 'package:rxdart/rxdart.dart';
+import 'package:test/test.dart';
 
 import './fetch_policy_typed_link_test.mocks.dart';
 
@@ -32,18 +30,9 @@ void main() {
         ..human.height = 1.88,
     );
 
-    final newData = GHumanWithArgsData(
-      (b) => b
-        ..human.id = 'mark'
-        ..human.name = 'Mark Zuckerberg'
-        ..human.height = 1.71,
-    );
-
     when(mockLink.request(any, any)).thenAnswer(
-      (_) => Stream.fromIterable([
-        Response(data: data.toJson(), response: {}),
-        Response(data: newData.toJson(), response: {}),
-      ]).interval(Duration(milliseconds: 10)),
+      (_) => Stream.value(Response(data: data.toJson(), response: {})).delay(
+          const Duration(milliseconds: 0)), //add delay to reliably test caching
     );
 
     late StreamController<OperationRequest> requestController;
@@ -83,12 +72,17 @@ void main() {
         requestController.add(req);
         final first = await queue.next;
         expect(first.dataSource, equals(DataSource.Link));
-        expect(cache.readQuery(req), equals(data));
+        // When we receive the first response, the cache may not have finished
+        // to write in the async store.
+        // We need to await a second event before reading the cache.
+        final second = await queue.next;
+        expect(second.dataSource, equals(DataSource.Cache));
+        expect(await cache.readQuery(req), equals(data));
 
         /// Second request returns a cached response
         requestController.add(req);
-        final second = await queue.next;
-        expect(second.dataSource, equals(DataSource.Cache));
+        final third = await queue.next;
+        expect(third.dataSource, equals(DataSource.Cache));
       });
 
       test('can return multiple responses from link', () async {
@@ -108,8 +102,8 @@ void main() {
             equals(
               OperationResponse(
                 operationRequest: req,
-                dataSource: DataSource.Link,
-                data: newData,
+                dataSource: DataSource.Cache,
+                data: data,
               ),
             ),
           ]),
@@ -129,14 +123,25 @@ void main() {
         requestController.add(req);
         final first = await queue.next;
         expect(first.dataSource, equals(DataSource.Link));
-        expect(cache.readQuery(req), equals(data));
+        // When we receive the first response, the cache may not have finished
+        // to write in the async store.
+        // We need to await a second event before reading the cache.
+        final second = await queue.next;
+        expect(second.dataSource, equals(DataSource.Cache));
+        expect(await cache.readQuery(req), equals(data));
 
         /// Second request returns a cached response then a network response
         requestController.add(req);
-        final second = await queue.next;
-        expect(second.dataSource, equals(DataSource.Cache));
         final third = await queue.next;
-        expect(third.dataSource, equals(DataSource.Link));
+        expect(third.dataSource, equals(DataSource.Cache));
+        final fourth = await queue.next;
+        expect(fourth.dataSource, equals(DataSource.Link));
+
+        // Let the cache write in the async store so we don't get this error
+        // after the test finishes:
+        // Bad state: Cannot add new events after calling close.
+        // ! Note: the error only happens when you run all the tests in the file.
+        await Future.delayed(const Duration(milliseconds: 0));
       });
 
       test('can return multiple responses from link', () async {
@@ -156,8 +161,8 @@ void main() {
             equals(
               OperationResponse(
                 operationRequest: req,
-                dataSource: DataSource.Link,
-                data: newData,
+                dataSource: DataSource.Cache,
+                data: data,
               ),
             ),
           ]),
@@ -177,12 +182,19 @@ void main() {
         requestController.add(req);
         final first = await queue.next;
         expect(first.dataSource, equals(DataSource.Link));
-        expect(cache.readQuery(req), equals(data));
+        // Let the cache write in the async store.
+        await Future.delayed(const Duration(milliseconds: 0));
+        expect(await cache.readQuery(req), equals(data));
 
         /// Second request returns a network response
         requestController.add(req);
-        final second = await queue.next;
-        expect(second.dataSource, equals(DataSource.Link));
+        final third = await queue.next;
+        expect(third.dataSource, equals(DataSource.Link));
+        // Let the cache write in the async store so we don't get this error
+        // after the test finishes:
+        // Bad state: Cannot add new events after calling close.
+        // ! Note: the error only happens when you run all the tests in the file.
+        await Future.delayed(const Duration(milliseconds: 0));
       });
     });
 
@@ -197,12 +209,12 @@ void main() {
         /// Request returns no data with empty cache
         requestController.add(req);
         final first = await queue.next;
-        expect(cache.readQuery(req), equals(null));
+        expect(await cache.readQuery(req), equals(null));
         expect(first.dataSource, equals(DataSource.Cache));
         expect(first.data, equals(null));
 
         /// Request returns data after writing to cache
-        cache.writeQuery(req, data);
+        await cache.writeQuery(req, data);
         requestController.add(req);
         final response = await queue.next;
         expect(response.dataSource, equals(DataSource.Cache));
@@ -221,14 +233,14 @@ void main() {
         /// First request returns response from network, doesn't cache
         requestController.add(req);
         final first = await queue.next;
-        expect(cache.readQuery(req), equals(null));
+        expect(await cache.readQuery(req), equals(null));
         expect(first.dataSource, equals(DataSource.Link));
         expect(first.data, equals(data));
 
         /// Second request returns response from network, doesn't cache
         requestController.add(req);
         final second = await queue.next;
-        expect(cache.readQuery(req), equals(null));
+        expect(await cache.readQuery(req), equals(null));
         expect(second.dataSource, equals(DataSource.Link));
         expect(second.data, equals(data));
       });

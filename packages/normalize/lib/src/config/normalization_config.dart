@@ -1,10 +1,9 @@
 import 'package:gql/ast.dart';
-
 import 'package:normalize/src/policies/type_policy.dart';
 import 'package:normalize/src/utils/resolve_data_id.dart';
 
 class NormalizationConfig {
-  final Map<String, dynamic>? Function(String dataId) read;
+  final Future<Map<String, dynamic>?> Function(String dataId) read;
 
   /// Fragment or operation variables that parameterize the document.
   final Map<String, dynamic> variables;

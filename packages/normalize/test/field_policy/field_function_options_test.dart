@@ -1,7 +1,7 @@
-import 'package:test/test.dart';
 import 'package:gql/language.dart';
-
 import 'package:normalize/normalize.dart';
+import 'package:test/test.dart';
+
 import '../shared_data.dart';
 
 void main() {
@@ -26,21 +26,20 @@ void main() {
       }
     ''');
 
-    test('helper methods work correctly', () {
+    test('helper methods work correctly', () async {
       expect(
-        denormalizeOperation(
+        await denormalizeOperation(
           addTypename: true,
           document: query,
-          read: (dataId) => sharedNormalizedMap[dataId],
+          read: (dataId) async => sharedNormalizedMap[dataId],
           typePolicies: {
             'Query': TypePolicy(
               queryType: true,
               fields: {
                 'posts': FieldPolicy(
-                  read: (existing, options) {
+                  read: (existing, options) async {
                     expect(options.isReference(existing[0]), equals(true));
-                    final posts =
-                        options.readField(options.field, existing ?? []);
+                    final posts = await options.readField(options.field, existing ?? []);
                     expect(options.toReference(posts[0]), equals(existing[0]));
                     return posts;
                   },

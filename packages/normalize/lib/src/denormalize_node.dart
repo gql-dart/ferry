@@ -1,33 +1,33 @@
 import 'package:gql/ast.dart';
-
-import 'package:normalize/src/utils/field_key.dart';
-import 'package:normalize/src/utils/expand_fragments.dart';
-import 'package:normalize/src/utils/exceptions.dart';
 import 'package:normalize/src/config/normalization_config.dart';
-import 'package:normalize/src/utils/is_dangling_reference.dart';
 import 'package:normalize/src/policies/field_policy.dart';
+import 'package:normalize/src/utils/exceptions.dart';
+import 'package:normalize/src/utils/expand_fragments.dart';
+import 'package:normalize/src/utils/field_key.dart';
+import 'package:normalize/src/utils/is_dangling_reference.dart';
 
 /// Returns a denormalized object for a given [SelectionSetNode].
 ///
 /// This is called recursively as the AST is traversed.
-Object? denormalizeNode({
+Future<Object?> denormalizeNode({
   required SelectionSetNode? selectionSet,
   required Object? dataForNode,
   required NormalizationConfig config,
-}) {
+}) async {
   if (dataForNode == null) return null;
 
   if (dataForNode is List) {
-    return dataForNode
-        .where((data) => !isDanglingReference(data, config))
-        .map(
-          (data) => denormalizeNode(
-            selectionSet: selectionSet,
-            dataForNode: data,
-            config: config,
-          ),
-        )
-        .toList();
+    final list = <Object?>[];
+    for (final data in dataForNode) {
+      if (!await isDanglingReference(data, config)) list.add(data);
+    }
+    final denormalizedNodes =
+        await Future.wait(list.map((data) => denormalizeNode(
+              selectionSet: selectionSet,
+              dataForNode: data,
+              config: config,
+            )));
+    return denormalizedNodes;
   }
 
   // If this is a leaf node, return the data
@@ -35,8 +35,8 @@ Object? denormalizeNode({
 
   if (dataForNode is Map) {
     final denormalizedData = dataForNode.containsKey(config.referenceKey)
-        ? config.read(dataForNode[config.referenceKey]) ?? {}
-        : Map<String, dynamic>.from(dataForNode);
+        ? await config.read(dataForNode[config.referenceKey]) ?? {}
+        : dataForNode;
 
     final typename = denormalizedData['__typename'];
     final typePolicy = config.typePolicies[typename];
@@ -48,9 +48,10 @@ Object? denormalizeNode({
       possibleTypes: config.possibleTypes,
     );
 
-    final result = subNodes.fold<Map<String, dynamic>>(
-      {},
-      (result, fieldNode) {
+    final result = await subNodes.fold<Future<Map<String, dynamic>>>(
+      Future.value({}),
+      (futureResult, fieldNode) async {
+        final result = await futureResult;
         final fieldPolicy =
             (typePolicy?.fields ?? const {})[fieldNode.name.value];
         final policyCanRead = fieldPolicy?.read != null;
@@ -78,7 +79,7 @@ Object? denormalizeNode({
             // we can denormalize missing fields with policies
             // because they may be purely virtualized
             return result
-              ..[resultKey] = fieldPolicy!.read!(
+              ..[resultKey] = await fieldPolicy!.read!(
                 denormalizedData[fieldName],
                 FieldFunctionOptions(
                   field: fieldNode,
@@ -86,8 +87,9 @@ Object? denormalizeNode({
                 ),
               );
           }
+          
           return result
-            ..[resultKey] = denormalizeNode(
+            ..[resultKey] = await denormalizeNode(
               selectionSet: fieldNode.selectionSet,
               dataForNode: denormalizedData[fieldName],
               config: config,

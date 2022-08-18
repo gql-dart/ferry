@@ -1,6 +1,5 @@
-import 'package:test/test.dart';
-
 import 'package:ferry_store/ferry_store.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('CRUD operations', () {
@@ -8,7 +7,7 @@ void main() {
       final store = MemoryStore();
       expect(store.keys.length, equals(0));
     });
-    test('can include seeded data', () {
+    test('can include seeded data', () async {
       final data = {
         'Query': {
           'posts': [
@@ -24,11 +23,11 @@ void main() {
       final store = MemoryStore(data);
 
       for (var key in store.keys) {
-        expect(store.get(key), equals(data[key]));
+        expect(await store.get(key), equals(data[key]));
       }
     });
 
-    test('can get data', () {
+    test('can get data', () async {
       final data = {
         'Query': {
           'posts': [
@@ -44,11 +43,11 @@ void main() {
       final store = MemoryStore(data);
 
       for (var entry in data.entries) {
-        expect(store.get(entry.key), equals(entry.value));
+        expect(await store.get(entry.key), equals(entry.value));
       }
     });
 
-    test('can put data', () {
+    test('can put data', () async {
       final data = {
         'Query': {
           'posts': [
@@ -64,14 +63,14 @@ void main() {
       final store = MemoryStore();
 
       for (var entry in data.entries) {
-        store.put(entry.key, entry.value);
+        await store.put(entry.key, entry.value);
       }
       for (var key in store.keys) {
-        expect(store.get(key), equals(data[key]));
+        expect(await store.get(key), equals(data[key]));
       }
     });
 
-    test('can put all data', () {
+    test('can put all data', () async {
       final data = {
         'Query': {
           'posts': [
@@ -86,14 +85,14 @@ void main() {
 
       final store = MemoryStore();
 
-      store.putAll(data);
+      await store.putAll(data);
 
       for (var key in store.keys) {
-        expect(store.get(key), equals(data[key]));
+        expect(await store.get(key), equals(data[key]));
       }
     });
 
-    test('can delete data', () {
+    test('can delete data', () async {
       final data = {
         'Query': {
           'posts': [
@@ -108,14 +107,14 @@ void main() {
 
       final store = MemoryStore(data);
 
-      store.delete(data.keys.first);
+      await store.delete(data.keys.first);
       expect(
         store.keys,
         equals([data.keys.last]),
       );
     });
 
-    test('can clear data', () {
+    test('can clear data', () async {
       final data = {
         'Query': {
           'posts': [
@@ -130,7 +129,7 @@ void main() {
 
       final store = MemoryStore(data);
 
-      store.clear();
+      await store.clear();
       expect(store.keys.length, equals(0));
     });
   });
@@ -205,7 +204,7 @@ void main() {
       );
 
       await Future.delayed(Duration.zero);
-      store.put(data.keys.first, newData);
+      await store.put(data.keys.first, newData);
     });
 
     test("put method doesn't trigger with correct key and same data", () async {
@@ -232,7 +231,7 @@ void main() {
       );
 
       await Future.delayed(Duration.zero);
-      store.put(data.keys.first, data.values.first);
+      await store.put(data.keys.first, data.values.first);
       await store.dispose();
     });
 
@@ -266,7 +265,7 @@ void main() {
       );
 
       await Future.delayed(Duration.zero);
-      store.put(newPostKey, newPostValue);
+      await store.put(newPostKey, newPostValue);
       await store.dispose();
     });
   });

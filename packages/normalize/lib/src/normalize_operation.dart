@@ -1,14 +1,13 @@
 import 'package:gql/ast.dart';
-import 'package:normalize/src/utils/constants.dart';
-
-import 'package:normalize/src/utils/resolve_data_id.dart';
-import 'package:normalize/src/policies/type_policy.dart';
-import 'package:normalize/src/utils/resolve_root_typename.dart';
-import 'package:normalize/src/utils/get_operation_definition.dart';
-import 'package:normalize/src/normalize_node.dart';
 import 'package:normalize/src/config/normalization_config.dart';
+import 'package:normalize/src/normalize_node.dart';
+import 'package:normalize/src/policies/type_policy.dart';
 import 'package:normalize/src/utils/add_typename_visitor.dart';
+import 'package:normalize/src/utils/constants.dart';
 import 'package:normalize/src/utils/get_fragment_map.dart';
+import 'package:normalize/src/utils/get_operation_definition.dart';
+import 'package:normalize/src/utils/resolve_data_id.dart';
+import 'package:normalize/src/utils/resolve_root_typename.dart';
 
 /// Normalizes data for a given query
 ///
@@ -18,15 +17,15 @@ import 'package:normalize/src/utils/get_fragment_map.dart';
 /// IDs are generated for each entity based on the following:
 /// 1. If no __typename field exists, the entity will not be normalized.
 /// 2. If a [TypePolicy] is provided for the given type, it's [TypePolicy.keyFields] are used.
-/// 3. If a [dataIdFromObject] funciton is provided, the result is used.
+/// 3. If a [dataIdFromObject] function is provided, the result is used.
 /// 4. The 'id' or '_id' field (respectively) are used.
 ///
 /// The [referenceKey] is used to reference the ID of a normalized object. It
-/// should begin with '$' since a graphl response object key cannot begin with
+/// should begin with '$' since a graphql response object key cannot begin with
 /// that symbol. If none is provided, we will use '$ref' by default.
-void normalizeOperation({
-  required void Function(String dataId, Map<String, dynamic>? value) write,
-  required Map<String, dynamic>? Function(String dataId) read,
+Future<void> normalizeOperation({
+  required Future<void> Function(String dataId, Map<String, dynamic>? value) write,
+  required Future<Map<String, dynamic>?> Function(String dataId) read,
   required DocumentNode document,
   required Map<String, dynamic> data,
   String? operationName,
@@ -37,7 +36,7 @@ void normalizeOperation({
   bool acceptPartialData = true,
   String referenceKey = kDefaultReferenceKey,
   Map<String, Set<String>> possibleTypes = const {},
-}) {
+}) async {
   if (addTypename) {
     document = transform(
       document,
@@ -70,15 +69,15 @@ void normalizeOperation({
     possibleTypes: possibleTypes,
   );
 
-  write(
+  await write(
     dataId,
-    normalizeNode(
+    (await normalizeNode(
       selectionSet: operationDefinition.selectionSet,
       dataForNode: data,
-      existingNormalizedData: config.read(dataId),
+      existingNormalizedData: await config.read(dataId),
       config: config,
       write: write,
       root: true,
-    ) as Map<String, dynamic>?,
+    )) as Map<String, dynamic>?,
   );
 }

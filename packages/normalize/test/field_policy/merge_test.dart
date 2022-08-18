@@ -1,11 +1,10 @@
-import 'package:test/test.dart';
 import 'package:gql/language.dart';
-
 import 'package:normalize/normalize.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('FetchPolicy.merge', () {
-    test('can merge arrays on root field', () {
+    test('can merge arrays on root field', () async {
       final query = parseString('''
         query TestQuery {
           posts {
@@ -55,18 +54,18 @@ void main() {
         },
       };
 
-      normalizeOperation(
+      await normalizeOperation(
         addTypename: true,
         data: response,
         document: query,
-        read: (dataId) => existing[dataId],
-        write: (dataId, value) => existing[dataId] = value,
+        read: (dataId) async => existing[dataId],
+        write: (dataId, value) async => existing[dataId] = value,
         typePolicies: {
           'Query': TypePolicy(
             queryType: true,
             fields: {
               'posts': FieldPolicy(
-                merge: (existing, incoming, options) {
+                merge: (existing, incoming, options) async {
                   return [...existing ?? [], ...incoming];
                 },
               )
@@ -78,7 +77,7 @@ void main() {
       expect(existing, equals(result));
     });
 
-    test('can merge arrays on child field', () {
+    test('can merge arrays on child field', () async {
       final query = parseString('''
         query TestQuery {
           posts {
@@ -151,17 +150,17 @@ void main() {
         },
       };
 
-      normalizeOperation(
+      await normalizeOperation(
         addTypename: true,
         data: response,
         document: query,
-        read: (dataId) => existing[dataId],
-        write: (dataId, value) => existing[dataId] = value,
+        read: (dataId) async => existing[dataId],
+        write: (dataId, value) async => existing[dataId] = value,
         typePolicies: {
           'Post': TypePolicy(
             fields: {
               'comments': FieldPolicy(
-                merge: (existing, incoming, options) {
+                merge: (existing, incoming, options) async {
                   return [...existing ?? [], ...incoming];
                 },
               )
@@ -173,7 +172,7 @@ void main() {
       expect(existing, equals(result));
     });
 
-    test('can replace data', () {
+    test('can replace data', () async {
       final query = parseString('''
         query TestQuery {
           posts {
@@ -226,18 +225,18 @@ void main() {
         },
       };
 
-      normalizeOperation(
+      await normalizeOperation(
         addTypename: true,
         data: response,
         document: query,
-        read: (dataId) => existing[dataId],
-        write: (dataId, value) => existing[dataId] = value,
+        read: (dataId) async => existing[dataId],
+        write: (dataId, value) async => existing[dataId] = value,
         typePolicies: {
           'Post': TypePolicy(
             fields: {
               'comments': FieldPolicy(
-                merge: (_, incoming, options) {
-                  return [options.readField(options.field, incoming[0])];
+                merge: (_, incoming, options) async {
+                  return [await options.readField(options.field, incoming[0])];
                 },
               )
             },
@@ -248,7 +247,7 @@ void main() {
       expect(existing, equals(result));
     });
 
-    test('can merge maps', () {
+    test('can merge maps', () async {
       final query = parseString('''
       query PostAuthorWithName {
         posts {
@@ -309,17 +308,17 @@ void main() {
         },
       };
 
-      normalizeOperation(
+      await normalizeOperation(
         addTypename: true,
         data: response,
         document: query,
-        read: (dataId) => existing[dataId],
-        write: (dataId, value) => existing[dataId] = value,
+        read: (dataId) async => existing[dataId],
+        write: (dataId, value) async => existing[dataId] = value,
         typePolicies: {
           'Post': TypePolicy(
             fields: {
               'author': FieldPolicy(
-                merge: (existing, incoming, options) {
+                merge: (existing, incoming, options) async {
                   return <String, dynamic>{...existing ?? {}, ...incoming};
                 },
               )

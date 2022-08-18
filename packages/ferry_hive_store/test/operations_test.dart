@@ -1,7 +1,6 @@
-import 'package:test/test.dart';
-import 'package:hive/hive.dart';
-
 import 'package:ferry_hive_store/ferry_hive_store.dart';
+import 'package:hive/hive.dart';
+import 'package:test/test.dart';
 
 void main() {
   Hive.init('./test/__hive_data__');
@@ -33,7 +32,7 @@ void main() {
       final store = HiveStore(box);
 
       for (var entry in data.entries) {
-        expect(store.get(entry.key), equals(entry.value));
+        expect(await store.get(entry.key), equals(entry.value));
       }
     });
 
@@ -56,7 +55,7 @@ void main() {
       final store = HiveStore(box);
 
       for (var entry in data.entries) {
-        expect(store.get(entry.key), equals(entry.value));
+        expect(await store.get(entry.key), equals(entry.value));
       }
     });
 
@@ -78,11 +77,11 @@ void main() {
       final store = HiveStore(box);
 
       for (var entry in data.entries) {
-        store.put(entry.key, entry.value);
+        await store.put(entry.key, entry.value);
       }
 
       for (var entry in data.entries) {
-        expect(store.get(entry.key), equals(entry.value));
+        expect(await store.get(entry.key), equals(entry.value));
       }
     });
 
@@ -103,10 +102,10 @@ void main() {
       await box.clear();
       final store = HiveStore(box);
 
-      store.putAll(data);
+      await store.putAll(data);
 
       for (var entry in data.entries) {
-        expect(store.get(entry.key), equals(entry.value));
+        expect(await store.get(entry.key), equals(entry.value));
       }
     });
 
@@ -130,9 +129,9 @@ void main() {
 
       final key = store.keys.first;
 
-      store.delete(key);
+      await store.delete(key);
       expect(
-        store.get(key),
+        await store.get(key),
         equals(null),
       );
     });
@@ -155,7 +154,7 @@ void main() {
       await box.putAll(data);
       final store = HiveStore(box);
 
-      store.clear();
+      await store.clear();
       expect(store.keys.length, equals(0));
     });
   });
@@ -215,7 +214,7 @@ void main() {
       );
 
       await Future.delayed(Duration.zero);
-      store.put(data.keys.first, newData);
+      await store.put(data.keys.first, newData);
     });
 
     test('changes to underlying box triggers new data', () async {
@@ -281,7 +280,7 @@ void main() {
       );
 
       await Future.delayed(Duration.zero);
-      store.put(data.keys.first, data.values.first);
+      await store.put(data.keys.first, data.values.first);
       await store.dispose();
     });
 
@@ -318,7 +317,7 @@ void main() {
       );
 
       await Future.delayed(Duration.zero);
-      store.put(newPostKey, newPostValue);
+      await store.put(newPostKey, newPostValue);
       await store.dispose();
     });
   });

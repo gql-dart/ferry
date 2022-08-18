@@ -1,7 +1,7 @@
-import 'package:test/test.dart';
 import 'package:gql/language.dart';
-
 import 'package:normalize/normalize.dart';
+import 'package:test/test.dart';
+
 import '../shared_data.dart';
 
 void main() {
@@ -65,11 +65,11 @@ void main() {
       }
     };
 
-    test('can filter out dangling references', () {
+    test('can filter out dangling references', () async {
       expect(
-          denormalizeOperation(
+          await denormalizeOperation(
             document: query,
-            read: (dataId) => normalizedMap[dataId],
+            read: (dataId) async => normalizedMap[dataId],
           ),
           equals(sharedResponse));
     });

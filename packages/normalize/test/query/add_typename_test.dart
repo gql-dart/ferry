@@ -1,7 +1,7 @@
-import 'package:test/test.dart';
 import 'package:gql/language.dart';
-
 import 'package:normalize/normalize.dart';
+import 'package:test/test.dart';
+
 import '../shared_data.dart';
 
 void main() {
@@ -10,7 +10,7 @@ void main() {
     () {
       test(
         'Simple query',
-        () {
+        () async {
           final query = parseString('''
             query TestQuery {
               posts {
@@ -31,21 +31,21 @@ void main() {
             }
           ''');
           expect(
-            denormalizeOperation(
+            await denormalizeOperation(
               document: query,
-              read: (dataId) => sharedNormalizedMap[dataId],
+              read: (dataId) async => sharedNormalizedMap[dataId],
               addTypename: true,
             ),
             equals(sharedResponse),
           );
 
           final normalizedResult = {};
-          normalizeOperation(
-            read: (dataId) => normalizedResult[dataId],
+          await normalizeOperation(
+            read: (dataId) async => normalizedResult[dataId],
             addTypename: true,
             document: query,
             data: sharedResponse,
-            write: (dataId, value) => normalizedResult[dataId] = value,
+            write: (dataId, value) async => normalizedResult[dataId] = value,
           );
 
           expect(
@@ -57,7 +57,7 @@ void main() {
 
       test(
         'Inline Fragments',
-        () {
+        () async {
           final query = parseString('''
             query TestQuery {
               posts {
@@ -80,21 +80,21 @@ void main() {
             }
           ''');
           expect(
-            denormalizeOperation(
+            await denormalizeOperation(
               document: query,
-              read: (dataId) => sharedNormalizedMap[dataId],
+              read: (dataId) async => sharedNormalizedMap[dataId],
               addTypename: true,
             ),
             equals(sharedResponse),
           );
 
           final normalizedResult = {};
-          normalizeOperation(
-            read: (dataId) => normalizedResult[dataId],
+          await normalizeOperation(
+            read: (dataId) async => normalizedResult[dataId],
             addTypename: true,
             document: query,
             data: sharedResponse,
-            write: (dataId, value) => normalizedResult[dataId] = value,
+            write: (dataId, value) async => normalizedResult[dataId] = value,
           );
 
           expect(
@@ -106,7 +106,7 @@ void main() {
 
       test(
         'Fragment Definition',
-        () {
+        () async {
           final query = parseString('''
             query TestQuery {
               posts {
@@ -131,21 +131,21 @@ void main() {
             }
           ''');
           expect(
-            denormalizeOperation(
+            await denormalizeOperation(
               document: query,
-              read: (dataId) => sharedNormalizedMap[dataId],
+              read: (dataId) async => sharedNormalizedMap[dataId],
               addTypename: true,
             ),
             equals(sharedResponse),
           );
 
           final normalizedResult = {};
-          normalizeOperation(
-            read: (dataId) => normalizedResult[dataId],
+          await normalizeOperation(
+            read: (dataId) async => normalizedResult[dataId],
             addTypename: true,
             document: query,
             data: sharedResponse,
-            write: (dataId, value) => normalizedResult[dataId] = value,
+            write: (dataId, value) async => normalizedResult[dataId] = value,
           );
 
           expect(

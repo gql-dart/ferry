@@ -1,18 +1,16 @@
 import 'dart:async';
-import 'package:gql_link/gql_link.dart';
-import 'package:rxdart/rxdart.dart';
-import 'package:normalize/utils.dart';
-import 'package:gql/ast.dart';
-import 'package:ferry_cache/ferry_cache.dart';
-import 'package:ferry_exec/ferry_exec.dart';
 
-import 'package:ferry/src/optimistic_typed_link.dart';
-import 'package:ferry/src/gql_typed_link.dart';
 import 'package:ferry/src/cache_typed_link.dart';
+import 'package:ferry/src/gql_typed_link.dart';
+import 'package:ferry/src/optimistic_typed_link.dart';
+import 'package:ferry_exec/ferry_exec.dart';
+import 'package:gql/ast.dart';
+import 'package:normalize/utils.dart';
+import 'package:rxdart/rxdart.dart';
 
 export 'package:ferry_cache/ferry_cache.dart';
-export 'package:gql_link/gql_link.dart';
 export 'package:ferry_exec/ferry_exec.dart';
+export 'package:gql_link/gql_link.dart';
 
 const _defaultFetchPolicies = {
   OperationType.query: FetchPolicy.CacheFirst,
@@ -134,11 +132,11 @@ class FetchPolicyTypedLink extends TypedLink {
   }
 
   /// Writes data from [OperationResponse] to the cache.
-  void _writeToCache<TData, TVars>(
+  Future<void> _writeToCache<TData, TVars>(
     OperationResponse<TData, TVars> response,
-  ) {
+  ) async {
     if (response.data != null) {
-      cache.writeQuery(
+      await cache.writeQuery(
         response.operationRequest,
         response.data,
         optimisticRequest: response.dataSource == DataSource.Optimistic

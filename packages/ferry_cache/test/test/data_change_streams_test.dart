@@ -1,11 +1,10 @@
-import 'package:test/test.dart';
-
-import 'package:ferry_cache/src/operation_data_change_stream.dart';
-import 'package:ferry_cache/src/fragment_data_change_stream.dart';
 import 'package:ferry_cache/ferry_cache.dart';
-import 'package:ferry_test_graphql/schema/__generated__/schema.schema.gql.dart';
-import 'package:ferry_test_graphql/queries/__generated__/hero_with_fragments.req.gql.dart';
+import 'package:ferry_cache/src/fragment_data_change_stream.dart';
+import 'package:ferry_cache/src/operation_data_change_stream.dart';
 import 'package:ferry_test_graphql/queries/__generated__/hero_with_fragments.data.gql.dart';
+import 'package:ferry_test_graphql/queries/__generated__/hero_with_fragments.req.gql.dart';
+import 'package:ferry_test_graphql/schema/__generated__/schema.schema.gql.dart';
+import 'package:test/test.dart';
 
 final luke = GHeroWithFragmentsData_hero(
   (b) => b
@@ -42,22 +41,22 @@ final heroData = GHeroWithFragmentsData((b) => b..hero = han.toBuilder());
 void main() {
   late Cache cache;
 
-  setUp(() {
-    cache = Cache()
-      ..writeQuery(heroReq, heroData)
-      ..writeQuery(
-        GHeroWithFragmentsReq((b) => b..vars.episode = GEpisode.NEWHOPE),
-        GHeroWithFragmentsData((b) => b..hero = luke.toBuilder()),
-      )
-      ..writeQuery(
-        GHeroWithFragmentsReq((b) => b..vars.episode = GEpisode.JEDI),
-        GHeroWithFragmentsData((b) => b..hero = vader.toBuilder()),
-      );
+  setUp(() async {
+    cache = Cache();
+    await cache.writeQuery(heroReq, heroData);
+    await cache.writeQuery(
+      GHeroWithFragmentsReq((b) => b..vars.episode = GEpisode.NEWHOPE),
+      GHeroWithFragmentsData((b) => b..hero = luke.toBuilder()),
+    );
+    await cache.writeQuery(
+      GHeroWithFragmentsReq((b) => b..vars.episode = GEpisode.JEDI),
+      GHeroWithFragmentsData((b) => b..hero = vader.toBuilder()),
+    );
   });
 
   group('operationDataChangeStream', () {
     test("doesn't trigger before a change", () async {
-      final stream = operationDataChangeStream(
+      final stream = await operationDataChangeStream(
         heroReq,
         true,
         cache.optimisticPatchesStream,
@@ -81,7 +80,7 @@ void main() {
     group('root operation data changes', () {
       test("doesn't trigger with changes to unused root operation fields",
           () async {
-        final stream = operationDataChangeStream(
+        final stream = await operationDataChangeStream(
           heroReq,
           true,
           cache.optimisticPatchesStream,
@@ -96,7 +95,7 @@ void main() {
         expect(stream, emitsInOrder([emitsDone]));
 
         await Future.delayed(Duration.zero);
-        cache.writeQuery(
+        await cache.writeQuery(
           heroReq.rebuild((b) => b..vars.episode = GEpisode.JEDI),
           GHeroWithFragmentsData((b) => b..hero = luke.toBuilder()),
         );
@@ -106,7 +105,7 @@ void main() {
       });
 
       test("doesn't trigger with the same data for operation fields", () async {
-        final stream = operationDataChangeStream(
+        final stream = await operationDataChangeStream(
           heroReq,
           true,
           cache.optimisticPatchesStream,
@@ -121,14 +120,14 @@ void main() {
         expect(stream, emitsInOrder([emitsDone]));
 
         await Future.delayed(Duration.zero);
-        cache.writeQuery(heroReq, heroData);
+        await cache.writeQuery(heroReq, heroData);
 
         await Future.delayed(Duration.zero);
         await cache.dispose();
       });
 
       test("doesn't trigger with changes to unrelated data", () async {
-        final stream = operationDataChangeStream(
+        final stream = await operationDataChangeStream(
           heroReq,
           true,
           cache.optimisticPatchesStream,
@@ -143,7 +142,7 @@ void main() {
         expect(stream, emitsInOrder([emitsDone]));
 
         await Future.delayed(Duration.zero);
-        cache.writeFragment(
+        await cache.writeFragment(
           GheroDataReq((b) => b..idFields = {'id': 'vader'}),
           vader.rebuild((b) => b..name = 'Anakin'),
         );
@@ -153,7 +152,7 @@ void main() {
       });
 
       test('triggers with different data for operation fields', () async {
-        final stream = operationDataChangeStream(
+        final stream = await operationDataChangeStream(
           heroReq,
           true,
           cache.optimisticPatchesStream,
@@ -174,7 +173,7 @@ void main() {
         );
 
         await Future.delayed(Duration.zero);
-        cache.writeQuery(
+        await cache.writeQuery(
           heroReq,
           GHeroWithFragmentsData((b) => b..hero = luke.toBuilder()),
         );
@@ -186,7 +185,7 @@ void main() {
 
     group('dependent reference data changes', () {
       test('triggers with change to dependent reference', () async {
-        final stream = operationDataChangeStream(
+        final stream = await operationDataChangeStream(
           heroReq,
           true,
           cache.optimisticPatchesStream,
@@ -207,11 +206,11 @@ void main() {
         );
 
         await Future.delayed(Duration.zero);
-        cache.store.delete('Character:luke');
+        await cache.store.delete('Character:luke');
 
         /// Only trigger the first time
         await Future.delayed(Duration.zero);
-        cache.store.delete('Character:luke');
+        await cache.store.delete('Character:luke');
 
         await Future.delayed(Duration.zero);
         await cache.dispose();
@@ -222,7 +221,7 @@ void main() {
       test(
           "doesn't trigger with optimistic patches that don't affect operation root",
           () async {
-        final stream = operationDataChangeStream(
+        final stream = await operationDataChangeStream(
           heroReq,
           true,
           cache.optimisticPatchesStream,
@@ -253,7 +252,7 @@ void main() {
 
       test('triggers with optimistic patches that affect operation root',
           () async {
-        final stream = operationDataChangeStream(
+        final stream = await operationDataChangeStream(
           heroReq,
           true,
           cache.optimisticPatchesStream,
@@ -290,7 +289,7 @@ void main() {
 
       test('triggers with optimistic patches that affect referenced entities',
           () async {
-        final stream = operationDataChangeStream(
+        final stream = await operationDataChangeStream(
           heroReq,
           true,
           cache.optimisticPatchesStream,
@@ -328,7 +327,7 @@ void main() {
 
     group('fragmentDataChangeStream', () {
       test("doesn't trigger before a change", () async {
-        final stream = fragmentDataChangeStream(
+        final stream = await fragmentDataChangeStream(
             lukeFragment,
             true,
             cache.optimisticPatchesStream,
@@ -349,7 +348,7 @@ void main() {
       });
 
       test("doesn't trigger with the same data", () async {
-        final stream = fragmentDataChangeStream(
+        final stream = await fragmentDataChangeStream(
             lukeFragment,
             true,
             cache.optimisticPatchesStream,
@@ -363,14 +362,14 @@ void main() {
         expect(stream, emitsInOrder([emitsDone]));
 
         await Future.delayed(Duration.zero);
-        cache.writeFragment(lukeFragment, luke);
+        await cache.writeFragment(lukeFragment, luke);
 
         await Future.delayed(Duration.zero);
         await cache.dispose();
       });
 
       test('triggers with different data', () async {
-        final stream = fragmentDataChangeStream(
+        final stream = await fragmentDataChangeStream(
             lukeFragment,
             true,
             cache.optimisticPatchesStream,
@@ -390,7 +389,7 @@ void main() {
         );
 
         await Future.delayed(Duration.zero);
-        cache.writeFragment(
+        await cache.writeFragment(
           lukeFragment,
           luke.rebuild((b) => b..name = 'Luca'),
         );
@@ -401,7 +400,7 @@ void main() {
 
       test('triggers with change to dependent reference', () async {
         final hanFrag = GheroDataReq((b) => b..idFields = {'id': 'luke'});
-        final stream = fragmentDataChangeStream(
+        final stream = await fragmentDataChangeStream(
             hanFrag,
             true,
             cache.optimisticPatchesStream,
@@ -421,11 +420,11 @@ void main() {
         );
 
         await Future.delayed(Duration.zero);
-        cache.store.delete('Character:luke');
+        await cache.store.delete('Character:luke');
 
         /// Only trigger the first time
         await Future.delayed(Duration.zero);
-        cache.store.delete('Character:luke');
+        await cache.store.delete('Character:luke');
 
         await Future.delayed(Duration.zero);
         await cache.dispose();

@@ -1,7 +1,8 @@
 import 'dart:async';
-import 'package:rxdart/rxdart.dart';
+
 import 'package:collection/collection.dart';
 import 'package:ferry_store/ferry_store.dart';
+import 'package:rxdart/rxdart.dart';
 
 class MemoryStore extends Store {
   final BehaviorSubject<Map<String, Map<String, dynamic>?>> _valueStream;
@@ -22,31 +23,31 @@ class MemoryStore extends Store {
           );
 
   @override
-  Map<String, dynamic>? get(String dataId) => _valueStream.value[dataId];
+  Future<Map<String, dynamic>?> get(String dataId) async => _valueStream.value[dataId];
 
   @override
-  void put(String dataId, Map<String, dynamic>? value) => _valueStream.add(
+  Future<void> put(String dataId, Map<String, dynamic>? value) async => _valueStream.add(
         Map.from(_valueStream.value)..addAll({dataId: value}),
       );
 
   @override
-  void putAll(Map<String, Map<String, dynamic>?> data) => _valueStream.add(
+  Future<void> putAll(Map<String, Map<String, dynamic>?> data) async => _valueStream.add(
         Map.from(_valueStream.value)..addAll(data),
       );
 
   @override
-  void delete(String dataId) => _valueStream.add(
+  Future<void> delete(String dataId) async => _valueStream.add(
         Map.from(_valueStream.value)..remove(dataId),
       );
 
   @override
-  void deleteAll(Iterable<String> dataIds) => _valueStream.add(
+  Future<void> deleteAll(Iterable<String> dataIds) async => _valueStream.add(
         Map.from(_valueStream.value)
           ..removeWhere((key, _) => dataIds.contains(key)),
       );
 
   @override
-  void clear() => _valueStream.add({});
+  Future<void> clear() async => _valueStream.add({});
 
   @override
   Future<void> dispose() => _valueStream.close();

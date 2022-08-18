@@ -1,25 +1,22 @@
 import 'dart:async';
+
 import 'package:async/async.dart';
-import 'package:mockito/mockito.dart';
-import 'package:mockito/annotations.dart';
-import 'package:gql_link/gql_link.dart';
-import 'package:gql_exec/gql_exec.dart';
-import 'package:test/test.dart';
-import 'package:ferry_exec/ferry_exec.dart';
-
 import 'package:ferry/src/add_typename_typed_link.dart';
-import 'package:ferry/src/update_cache_typed_link.dart';
-import 'package:ferry/src/request_controller_typed_link.dart';
 import 'package:ferry/src/fetch_policy_typed_link.dart';
-
-import 'package:ferry_test_graphql/queries/__generated__/reviews.req.gql.dart';
-import 'package:ferry_test_graphql/queries/__generated__/reviews.data.gql.dart';
+import 'package:ferry/src/request_controller_typed_link.dart';
+import 'package:ferry/src/update_cache_typed_link.dart';
+import 'package:ferry_test_graphql/mutations/__generated__/create_review.data.gql.dart';
 import 'package:ferry_test_graphql/mutations/__generated__/create_review.req.gql.dart';
 import 'package:ferry_test_graphql/mutations/__generated__/create_review.var.gql.dart';
-import 'package:ferry_test_graphql/mutations/__generated__/create_review.data.gql.dart';
-import 'package:ferry_test_graphql/schema/__generated__/schema.schema.gql.dart';
-import 'package:ferry_test_graphql/queries/__generated__/human_with_args.req.gql.dart';
 import 'package:ferry_test_graphql/queries/__generated__/human_with_args.data.gql.dart';
+import 'package:ferry_test_graphql/queries/__generated__/human_with_args.req.gql.dart';
+import 'package:ferry_test_graphql/queries/__generated__/reviews.data.gql.dart';
+import 'package:ferry_test_graphql/queries/__generated__/reviews.req.gql.dart';
+import 'package:ferry_test_graphql/schema/__generated__/schema.schema.gql.dart';
+import 'package:gql_exec/gql_exec.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
+import 'package:test/test.dart';
 
 import './update_cache_typed_link_test.mocks.dart';
 
@@ -36,9 +33,9 @@ final reviewsReq = GReviewsReq();
 UpdateCacheHandler<GCreateReviewData, GCreateReviewVars> createReviewHandler = (
   proxy,
   response,
-) {
-  final reviews = proxy.readQuery(reviewsReq) ?? GReviewsData();
-  proxy.writeQuery(
+) async {
+  final reviews = await proxy.readQuery(reviewsReq) ?? GReviewsData();
+  await proxy.writeQuery(
     reviewsReq,
     reviews.rebuild((b) => b
       ..reviews.add(GReviewsData_reviews.fromJson(
@@ -61,10 +58,10 @@ void main() {
       );
 
       final cacheProxy = CacheProxy(cache, req);
-      test('can write queries', () {
-        expect(cacheProxy.readQuery(req), equals(null));
-        cacheProxy.writeQuery(req, data);
-        expect(cacheProxy.readQuery(req), equals(data));
+      test('can write queries', () async {
+        expect(await cacheProxy.readQuery(req), equals(null));
+        await cacheProxy.writeQuery(req, data);
+        expect(await cacheProxy.readQuery(req), equals(data));
       });
     });
   });
@@ -121,20 +118,24 @@ void main() {
         () async {
       final queue = StreamQueue(typedLink.request(createReviewReq));
 
-      expect(cache.readQuery(reviewsReq), equals(null));
+      expect(await cache.readQuery(reviewsReq), equals(null));
 
       requestController.add(createReviewReq);
       linkController
           .add(Response(data: createReviewData.toJson(), response: {}));
       await queue.next;
 
-      expect(cache.readQuery(reviewsReq)!.reviews!.length, equals(1));
+      // Wait for the store to finish writing.
+      await Future.delayed(Duration(milliseconds: 0));
+      expect((await cache.readQuery(reviewsReq))!.reviews!.length, equals(1));
 
       linkController
           .add(Response(data: createReviewData.toJson(), response: {}));
       await queue.next;
 
-      expect(cache.readQuery(reviewsReq)!.reviews!.length, equals(2));
+      // Wait for the store to finish writing.
+      await Future.delayed(Duration(milliseconds: 0));
+      expect((await cache.readQuery(reviewsReq))!.reviews!.length, equals(2));
     });
 
     group('with optimistic response', () {
@@ -150,28 +151,28 @@ void main() {
 
         final queue = StreamQueue(typedLink.request(req));
 
-        expect(cache.readQuery(reviewsReq), equals(null));
+        expect(await cache.readQuery(reviewsReq), equals(null));
 
         requestController.add(req);
         final res1 = await queue.next;
+        // Wait for the store to finish writing.
+        await Future.delayed(Duration(milliseconds: 0));
 
         expect(res1.dataSource, equals(DataSource.Optimistic));
-        expect(cache.readQuery(reviewsReq)!.reviews!.length, equals(1));
-        expect(
-          cache.readQuery(reviewsReq)!.reviews!.first.id,
-          equals('456'),
-        );
+        final reviews = (await cache.readQuery(reviewsReq))!.reviews!;
+        expect(reviews.length, equals(1));
+        expect(reviews.first.id, equals('456'));
 
         linkController
             .add(Response(data: createReviewData.toJson(), response: {}));
         final res2 = await queue.next;
+        // Wait for the store to finish writing.
+        await Future.delayed(Duration(milliseconds: 0));
 
         expect(res2.dataSource, equals(DataSource.Link));
-        expect(cache.readQuery(reviewsReq)!.reviews!.length, equals(1));
-        expect(
-          cache.readQuery(reviewsReq)!.reviews!.first.id,
-          equals('123'),
-        );
+        final reviews2 = (await cache.readQuery(reviewsReq))!.reviews!;
+        expect(reviews2.length, equals(1));
+        expect(reviews2.first.id, equals('123'));
       });
     });
   });

@@ -1,14 +1,15 @@
 import 'dart:async';
+
+import 'package:ferry_exec/ferry_exec.dart';
+import 'package:ferry_store/ferry_store.dart';
 import 'package:meta/meta.dart';
-import 'package:pedantic/pedantic.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:normalize/normalize.dart';
 import 'package:normalize/utils.dart' as utils;
-import 'package:ferry_store/ferry_store.dart';
-import 'package:ferry_exec/ferry_exec.dart';
+import 'package:pedantic/pedantic.dart';
+import 'package:rxdart/rxdart.dart';
 
-import './operation_data_change_stream.dart';
 import './fragment_data_change_stream.dart';
+import './operation_data_change_stream.dart';
 
 class Cache {
   final Map<String, TypePolicy> typePolicies;
@@ -38,18 +39,21 @@ class Cache {
 
   /// Reads data for the given [dataId] from the [Store], merging in any data from optimistic patches
   @visibleForTesting
-  Map<String, dynamic>? optimisticReader(String dataId) =>
-      optimisticPatchesStream.value!.values.fold<Map<String, dynamic>>(
-        {dataId: store.get(dataId)},
-        (merged, patch) => patch.containsKey(dataId)
+  Future<Map<String, dynamic>?> optimisticReader(String dataId) async =>
+      (await optimisticPatchesStream.value!.values.fold<Future<Map<String, dynamic>>>(
+        Future.value({dataId: await store.get(dataId)}),
+        (merged, patch) async {
+          final toMerge = await merged;
+          return patch.containsKey(dataId)
             ? Map.from(
                 utils.deepMerge(
-                  merged,
+                  toMerge,
                   {dataId: patch[dataId]},
                 ),
               )
-            : merged,
-      )[dataId];
+            : toMerge;
+        },
+      ))[dataId];
 
   /// Watches for changes to data in the Cache for the given operation.
   Stream<TData?> watchQuery<TData, TVars>(
@@ -92,8 +96,8 @@ class Cache {
       );
 
   Stream<TData?> _watch<TData>({
-    required Stream Function() getChangeStream,
-    required TData? Function() getData,
+    required Future<Stream> Function() getChangeStream,
+    required Future<TData?> Function() getData,
   }) {
     late StreamController<TData?> sc;
 
@@ -101,8 +105,8 @@ class Cache {
       try {
         if (sc.isClosed) return;
 
-        sc.add(getData());
-        if (await getChangeStream().isEmpty) {
+        sc.add(await getData());
+        if (await (await getChangeStream()).isEmpty) {
           unawaited(sc.close());
           return;
         }
@@ -125,11 +129,11 @@ class Cache {
   }
 
   /// Reads denormalized data from the Cache for the given operation.
-  TData? readQuery<TData, TVars>(
+  Future<TData?> readQuery<TData, TVars>(
     OperationRequest<TData, TVars> request, {
     bool optimistic = true,
-  }) {
-    final json = denormalizeOperation(
+  }) async {
+    final json = await denormalizeOperation(
       read: optimistic ? optimisticReader : (dataId) => store.get(dataId),
       document: request.operation.document,
       addTypename: addTypename,
@@ -144,11 +148,11 @@ class Cache {
   }
 
   /// Reads denormalized data from the Cache for the given fragment.
-  TData? readFragment<TData, TVars>(
+  Future<TData?> readFragment<TData, TVars>(
     FragmentRequest<TData, TVars> request, {
     bool optimistic = true,
-  }) {
-    final json = denormalizeFragment(
+  }) async {
+    final json = await denormalizeFragment(
       read: optimistic ? optimisticReader : (dataId) => store.get(dataId),
       document: request.document,
       idFields: request.idFields,
@@ -168,7 +172,7 @@ class Cache {
   /// If an [optimisticRequest] is provided, the changes will be written as an
   /// optimistic patch and will be reverted once a non-optimistic response is
   /// received for the [optimisticRequest].
-  void writeQuery<TData, TVars>(
+  Future<void> writeQuery<TData, TVars>(
     OperationRequest<TData, TVars> request,
     TData data, {
     OperationRequest? optimisticRequest,
@@ -198,7 +202,7 @@ class Cache {
   /// If an [optimisticRequest] is provided, the changes will be written as an
   /// optimistic patch and will be reverted once a non-optimistic response is
   /// received for the [optimisticRequest].
-  void writeFragment<TData, TVars>(
+  Future<void> writeFragment<TData, TVars>(
     FragmentRequest<TData, TVars> request,
     TData data, {
     OperationRequest? optimisticRequest,
@@ -224,11 +228,11 @@ class Cache {
         possibleTypes: possibleTypes,
       );
 
-  void _writeData(
+  Future<void> _writeData(
     String dataId,
     Map<String, dynamic>? value,
     OperationRequest? optimisticRequest,
-  ) =>
+  ) async =>
       optimisticRequest != null
           ? optimisticPatchesStream.add(
               {
@@ -268,7 +272,7 @@ class Cache {
   /// If an [optimisticRequest] is provided, the changes will be written as an
   /// optimistic patch and will be reverted once a non-optimistic response is
   /// received for the [optimisticRequest].
-  void evict(
+  Future<void> evict(
     String entityId, {
     String? fieldName,
     Map<String, dynamic> args = const {},
@@ -286,10 +290,10 @@ class Cache {
               optimisticRequest,
             );
 
-  void _evictEntity(
+  Future<void> _evictEntity(
     String entityId,
     OperationRequest? optimisticRequest,
-  ) {
+  ) async {
     if (optimisticRequest != null) {
       /// Set entity to `null` in optimistic patch
       optimisticPatchesStream.add({
@@ -301,7 +305,7 @@ class Cache {
       });
     } else {
       /// Remove entity from [Store] and in optimistic patches.
-      store.delete(entityId);
+      await store.delete(entityId);
 
       optimisticPatchesStream.add(
         optimisticPatchesStream.value!.map(
@@ -311,12 +315,12 @@ class Cache {
     }
   }
 
-  void _evictField(
+  Future<void> _evictField(
     String entityId,
     String fieldName,
     Map<String, dynamic> args,
     OperationRequest? optimisticRequest,
-  ) {
+  ) async {
     if (optimisticRequest != null) {
       /// Set field to `null` in optimistic patch
       optimisticPatchesStream.add({
@@ -348,9 +352,9 @@ class Cache {
         ),
       );
 
-      final entity = store.get(entityId);
+      final entity = await store.get(entityId);
       if (entity != null) {
-        store.put(
+        await store.put(
           entityId,
           entity.map(
             // NOTE: we need to set to null rather than removing altogether
@@ -386,8 +390,8 @@ class Cache {
   void release(String entityId) => _retainedEntityIds.remove(entityId);
 
   /// Removes all entities that cannot be reached from one of the root operations.
-  Set<String> gc() {
-    final reachable = utils.reachableIds(
+  Future<Set<String>> gc() async {
+    final reachable = await utils.reachableIds(
       (dataId) => store.get(dataId),
       typePolicies,
     );
@@ -397,7 +401,7 @@ class Cache {
               !reachable.contains(key) && !_retainedEntityIds.contains(key),
         )
         .toSet();
-    store.deleteAll(keysToRemove);
+    await store.deleteAll(keysToRemove);
     return keysToRemove;
   }
 

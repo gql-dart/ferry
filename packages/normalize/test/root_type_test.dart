@@ -1,8 +1,7 @@
+import 'package:gql/language.dart';
+import 'package:normalize/normalize.dart';
 import 'package:normalize/utils.dart';
 import 'package:test/test.dart';
-import 'package:gql/language.dart';
-
-import 'package:normalize/normalize.dart';
 
 void main() {
   group('Root Fragments', () {
@@ -33,11 +32,11 @@ void main() {
         'age': null,
       }
     };
-    test('Produces correct normalized object', () {
+    test('Produces correct normalized object', () async {
       final normalizedResult = {};
-      normalizeFragment(
-        read: (dataId) => normalizedResult[dataId],
-        write: (dataId, value) => normalizedResult[dataId] = value,
+      await normalizeFragment(
+        read: (dataId) async => normalizedResult[dataId],
+        write: (dataId, value) async => normalizedResult[dataId] = value,
         document: query,
         data: data,
         possibleTypes: {
@@ -51,9 +50,9 @@ void main() {
         equals(normalizedData),
       );
     });
-    test('Produces correct denormalized object', () {
-      final result = denormalizeFragment(
-        read: (dataId) => normalizedData[dataId],
+    test('Produces correct denormalized object', () async {
+      final result = await denormalizeFragment(
+        read: (dataId) async => normalizedData[dataId],
         document: query,
         possibleTypes: {
           'Person': {'Author'}
@@ -66,8 +65,8 @@ void main() {
         equals(data),
       );
     });
-    test('Validate Fragment', () {
-      validateFragmentDataStructure(document: query, data: data);
+    test('Validate Fragment', () async {
+      await validateFragmentDataStructure(document: query, data: data);
     });
   });
 
@@ -96,28 +95,28 @@ void main() {
         'age': 31
       }
     };
-    test('Normalizes nested root types', () {
+    test('Normalizes nested root types', () async {
       final normalized = {};
-      normalizeOperation(
-        write: (key, data) {
+      await normalizeOperation(
+        write: (key, data) async {
           normalized[key] = data;
         },
-        read: (key) => normalized[key],
+        read: (key) async => normalized[key],
         document: document,
         data: data,
       );
       expect(normalized, equals(normalizedData));
     });
-    test('Denormalizes nested root types', () {
+    test('Denormalizes nested root types', () async {
       expect(
-          denormalizeOperation(
-            read: (key) => normalizedData[key],
+          await denormalizeOperation(
+            read: (key) async => normalizedData[key],
             document: document,
           ),
           equals(data));
     });
-    test('Validate Query', () {
-      validateOperationDataStructure(document: document, data: data);
+    test('Validate Query', () async {
+      await validateOperationDataStructure(document: document, data: data);
     });
   });
 }
