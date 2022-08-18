@@ -1,3 +1,9 @@
+## 0.6.1
+
+ - FIX: add missing possibleTypes parameters to calls to normlalize
+
+ - **FIX**: add possibleTypes to every function that can use it of normalize (#380).
+
 ## 0.6.0
 
  - bump normalize dependency version constraint to fix fragment disambiguation
