@@ -87,7 +87,7 @@ Future<Object?> denormalizeNode({
                 ),
               );
           }
-          
+
           return result
             ..[resultKey] = await denormalizeNode(
               selectionSet: fieldNode.selectionSet,

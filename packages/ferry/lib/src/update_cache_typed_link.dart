@@ -116,7 +116,8 @@ class UpdateCacheTypedLink extends TypedLink {
   ]) =>
       forward!(req).doOnData(_updateCache);
 
-  Future<void> _updateCache<TData, TVars>(OperationResponse<TData, TVars> res) async {
+  Future<void> _updateCache<TData, TVars>(
+      OperationResponse<TData, TVars> res) async {
     final key = res.operationRequest.updateCacheHandlerKey;
     if (key == null) return;
 

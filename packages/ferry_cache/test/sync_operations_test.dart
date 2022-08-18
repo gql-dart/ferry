@@ -34,13 +34,15 @@ void main() {
     test('can read fragments written by queries', () async {
       final cache = Cache();
       await cache.writeQuery(reviewsReq, reviewsData);
-      expect(await cache.readFragment(reviewFragmentReq), equals(reviewFragmentData));
+      expect(await cache.readFragment(reviewFragmentReq),
+          equals(reviewFragmentData));
     });
 
     test('can read and write fragments', () async {
       final cache = Cache();
       await cache.writeFragment(reviewFragmentReq, reviewFragmentData);
-      expect(await cache.readFragment(reviewFragmentReq), equals(reviewFragmentData));
+      expect(await cache.readFragment(reviewFragmentReq),
+          equals(reviewFragmentData));
     });
 
     test('dataIdFromObject overrides cache.identify', () async {
@@ -54,7 +56,8 @@ void main() {
 
       reviewFragmentReq.idFields['id'] = 'OVERRIDE';
 
-      expect(await cache.readFragment(reviewFragmentReq), equals(reviewFragmentData));
+      expect(await cache.readFragment(reviewFragmentReq),
+          equals(reviewFragmentData));
     });
 
     test('can clear cache', () async {

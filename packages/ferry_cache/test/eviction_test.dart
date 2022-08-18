@@ -68,12 +68,20 @@ void main() {
       final cache = Cache();
       await cache.writeQuery(hanReq, hanData);
       expect(
-        (await cache.readQuery(hanReq))!.human.friendsConnection.friends!.length,
+        (await cache.readQuery(hanReq))!
+            .human
+            .friendsConnection
+            .friends!
+            .length,
         equals(2),
       );
       await cache.evict(cache.identify(chewieData.human)!);
       expect(
-        (await cache.readQuery(hanReq))!.human.friendsConnection.friends!.length,
+        (await cache.readQuery(hanReq))!
+            .human
+            .friendsConnection
+            .friends!
+            .length,
         equals(1),
       );
     });
@@ -103,7 +111,8 @@ void main() {
         optimisticResult,
         equals(hanData.rebuild((b) => b..human.height = null)),
       );
-      final nonOptimisticResult = await cache.readQuery(hanReq, optimistic: false);
+      final nonOptimisticResult =
+          await cache.readQuery(hanReq, optimistic: false);
       expect(
         nonOptimisticResult,
         equals(hanData),

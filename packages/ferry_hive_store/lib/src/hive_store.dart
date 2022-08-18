@@ -25,7 +25,7 @@ class HiveStore extends Store {
           next,
         ),
       );
-  
+
   Map<String, dynamic>? _getSync(String dataId) =>
       box.get(dataId) == null ? null : Map.from(box.get(dataId));
 
@@ -38,7 +38,8 @@ class HiveStore extends Store {
       box.put(dataId, value);
 
   @override
-  Future<void> putAll(Map<String, Map<String, dynamic>?> data) => box.putAll(data);
+  Future<void> putAll(Map<String, Map<String, dynamic>?> data) =>
+      box.putAll(data);
 
   @override
   Future<void> delete(String dataId) => box.delete(dataId);

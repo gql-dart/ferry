@@ -99,7 +99,8 @@ void main() {
       final namedFragmentNormalizedResult = {};
       await normalizeOperation(
         read: (dataId) async => namedFragmentNormalizedResult[dataId],
-        write: (dataId, value) async => namedFragmentNormalizedResult[dataId] = value,
+        write: (dataId, value) async =>
+            namedFragmentNormalizedResult[dataId] = value,
         document: inlineFragmentQuery,
         data: data,
         possibleTypes: possibleTypes,
@@ -125,7 +126,8 @@ void main() {
       final namedFragmentNormalizedResult = {};
       await normalizeOperation(
         read: (dataId) async => namedFragmentNormalizedResult[dataId],
-        write: (dataId, value) async => namedFragmentNormalizedResult[dataId] = value,
+        write: (dataId, value) async =>
+            namedFragmentNormalizedResult[dataId] = value,
         document: inlineFragmentQuery,
         data: data,
       );
@@ -165,7 +167,8 @@ void main() {
       );
     });
 
-    test('Produces correct nested data object without possible types', () async {
+    test('Produces correct nested data object without possible types',
+        () async {
       expect(
         await denormalizeOperation(
           document: inlineFragmentQuery,

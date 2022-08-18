@@ -24,7 +24,8 @@ import 'package:normalize/src/utils/resolve_root_typename.dart';
 /// should begin with '$' since a graphql response object key cannot begin with
 /// that symbol. If none is provided, we will use '$ref' by default.
 Future<void> normalizeOperation({
-  required Future<void> Function(String dataId, Map<String, dynamic>? value) write,
+  required Future<void> Function(String dataId, Map<String, dynamic>? value)
+      write,
   required Future<Map<String, dynamic>?> Function(String dataId) read,
   required DocumentNode document,
   required Map<String, dynamic> data,

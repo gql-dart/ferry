@@ -23,15 +23,18 @@ class MemoryStore extends Store {
           );
 
   @override
-  Future<Map<String, dynamic>?> get(String dataId) async => _valueStream.value[dataId];
+  Future<Map<String, dynamic>?> get(String dataId) async =>
+      _valueStream.value[dataId];
 
   @override
-  Future<void> put(String dataId, Map<String, dynamic>? value) async => _valueStream.add(
+  Future<void> put(String dataId, Map<String, dynamic>? value) async =>
+      _valueStream.add(
         Map.from(_valueStream.value)..addAll({dataId: value}),
       );
 
   @override
-  Future<void> putAll(Map<String, Map<String, dynamic>?> data) async => _valueStream.add(
+  Future<void> putAll(Map<String, Map<String, dynamic>?> data) async =>
+      _valueStream.add(
         Map.from(_valueStream.value)..addAll(data),
       );
 

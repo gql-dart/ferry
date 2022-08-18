@@ -15,7 +15,8 @@ Future<Object?> normalizeNode({
   required Object? dataForNode,
   required Object? existingNormalizedData,
   required NormalizationConfig config,
-  required Future<void> Function(String dataId, Map<String, dynamic> value) write,
+  required Future<void> Function(String dataId, Map<String, dynamic> value)
+      write,
   bool root = false,
 }) async {
   if (dataForNode == null) return null;

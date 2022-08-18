@@ -39,7 +39,8 @@ void main() {
                 'posts': FieldPolicy(
                   read: (existing, options) async {
                     expect(options.isReference(existing[0]), equals(true));
-                    final posts = await options.readField(options.field, existing ?? []);
+                    final posts =
+                        await options.readField(options.field, existing ?? []);
                     expect(options.toReference(posts[0]), equals(existing[0]));
                     return posts;
                   },

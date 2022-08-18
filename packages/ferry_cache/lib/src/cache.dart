@@ -40,18 +40,19 @@ class Cache {
   /// Reads data for the given [dataId] from the [Store], merging in any data from optimistic patches
   @visibleForTesting
   Future<Map<String, dynamic>?> optimisticReader(String dataId) async =>
-      (await optimisticPatchesStream.value!.values.fold<Future<Map<String, dynamic>>>(
+      (await optimisticPatchesStream.value!.values
+          .fold<Future<Map<String, dynamic>>>(
         Future.value({dataId: await store.get(dataId)}),
         (merged, patch) async {
           final toMerge = await merged;
           return patch.containsKey(dataId)
-            ? Map.from(
-                utils.deepMerge(
-                  toMerge,
-                  {dataId: patch[dataId]},
-                ),
-              )
-            : toMerge;
+              ? Map.from(
+                  utils.deepMerge(
+                    toMerge,
+                    {dataId: patch[dataId]},
+                  ),
+                )
+              : toMerge;
         },
       ))[dataId];
 

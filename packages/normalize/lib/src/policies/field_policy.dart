@@ -54,7 +54,8 @@ class FieldFunctionOptions {
       ) as Future<T?>;
 }
 
-typedef FieldReadFunction<TExisting, TReadResult> = Future<TReadResult> Function(
+typedef FieldReadFunction<TExisting, TReadResult> = Future<TReadResult>
+    Function(
   TExisting existing,
   FieldFunctionOptions options,
 );

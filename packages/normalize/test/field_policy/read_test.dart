@@ -53,8 +53,12 @@ void main() {
                 fields: {
                   'posts': FieldPolicy(
                     read: (existing, options) async {
-                      final fields = List<Map<String, dynamic>>.from(await options.readField(options.field, existing ?? []));
-                      return fields.where((post) => post['id'] == '123').toList();
+                      final fields = List<Map<String, dynamic>>.from(
+                          await options.readField(
+                              options.field, existing ?? []));
+                      return fields
+                          .where((post) => post['id'] == '123')
+                          .toList();
                     },
                   )
                 },

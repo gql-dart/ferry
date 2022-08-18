@@ -43,7 +43,7 @@ void main() {
     );
   });
 
-  test("Don't return partial data", () async{
+  test("Don't return partial data", () async {
     final data = {
       'Query': {
         'posts': [

@@ -11,24 +11,24 @@ Future<Set<String>> reachableIds(
 ]) =>
     defaultRootTypenames.keys
         .map(
-      (type) => typenameForOperationType(
-        type,
-        typePolicies,
-      ),
-    )
-        .fold(
-      Future.value({}),
-      (ids, rootTypename) async => await ids
-        ..add(rootTypename)
-        ..addAll(
-          await _idsInObject(
-            await read(rootTypename),
-            read,
-            referenceKey,
-            {},
+          (type) => typenameForOperationType(
+            type,
+            typePolicies,
           ),
-        ),
-    );
+        )
+        .fold(
+          Future.value({}),
+          (ids, rootTypename) async => await ids
+            ..add(rootTypename)
+            ..addAll(
+              await _idsInObject(
+                await read(rootTypename),
+                read,
+                referenceKey,
+                {},
+              ),
+            ),
+        );
 
 /// Returns a set of all IDs reachable from the given data ID.
 ///
@@ -38,7 +38,8 @@ Future<Set<String>> reachableIdsFromDataId(
   Future<Map<String, dynamic>?> Function(String dataId) read, [
   String referenceKey = kDefaultReferenceKey,
 ]) async =>
-    await _idsInObject(read(dataId), read, referenceKey, {})..add(dataId);
+    await _idsInObject(read(dataId), read, referenceKey, {})
+      ..add(dataId);
 
 /// Recursively finds reachable IDs in [object]
 Future<Set<String>> _idsInObject(
