@@ -34,19 +34,19 @@ Stream<Set<String>> operationDataChangeStream<TData, TVars>(
   final dataIds = <String>{};
 
   denormalizeOperation(
-    read: (dataId) {
-      dataIds.add(dataId);
-      return optimistic ? optimisticReader(dataId) : store.get(dataId);
-    },
-    document: request.operation.document,
-    operationName: request.operation.operationName,
-    // TODO: don't cast to dynamic
-    variables: (request.vars as dynamic)?.toJson(),
-    typePolicies: typePolicies,
-    addTypename: addTypename,
-    returnPartialData: true,
-    dataIdFromObject: dataIdFromObject,
-  );
+      read: (dataId) {
+        dataIds.add(dataId);
+        return optimistic ? optimisticReader(dataId) : store.get(dataId);
+      },
+      document: request.operation.document,
+      operationName: request.operation.operationName,
+      // TODO: don't cast to dynamic
+      variables: (request.vars as dynamic)?.toJson(),
+      typePolicies: typePolicies,
+      addTypename: addTypename,
+      returnPartialData: true,
+      dataIdFromObject: dataIdFromObject,
+      possibleTypes: possibleTypes);
 
   /// IDs that have changed
   final changed = <String>{};
