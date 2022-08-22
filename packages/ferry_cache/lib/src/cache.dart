@@ -1,14 +1,14 @@
 import 'dart:async';
+
+import 'package:ferry_exec/ferry_exec.dart';
+import 'package:ferry_store/ferry_store.dart';
 import 'package:meta/meta.dart';
-import 'package:pedantic/pedantic.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:normalize/normalize.dart';
 import 'package:normalize/utils.dart' as utils;
-import 'package:ferry_store/ferry_store.dart';
-import 'package:ferry_exec/ferry_exec.dart';
+import 'package:rxdart/rxdart.dart';
 
-import './operation_data_change_stream.dart';
 import './fragment_data_change_stream.dart';
+import './operation_data_change_stream.dart';
 
 class Cache {
   final Map<String, TypePolicy> typePolicies;
@@ -95,33 +95,12 @@ class Cache {
     required Stream Function() getChangeStream,
     required TData? Function() getData,
   }) {
-    late StreamController<TData?> sc;
-
-    Future<void> addNext() async {
-      try {
-        if (sc.isClosed) return;
-
-        sc.add(getData());
-        if (await getChangeStream().isEmpty) {
-          unawaited(sc.close());
-          return;
-        }
-
-        unawaited(addNext());
-      } catch (err, st) {
-        if (!sc.isClosed) {
-          sc.addError(err, st);
-          unawaited(addNext());
-        }
-      }
-    }
-
-    sc = StreamController<TData?>(
-      onListen: () => addNext(),
-      onCancel: () => unawaited(sc.close()),
-    );
-
-    return sc.stream;
+    return getChangeStream()
+    // We add null at the beginning of the stream to trigger the initial getData().
+    // getChangeStream = operationDataChangeStream or fragmentDataChangeStream and
+    // they both end with .skip(1).
+    .startWith(null) 
+    .map((_) => getData());
   }
 
   /// Reads denormalized data from the Cache for the given operation.
