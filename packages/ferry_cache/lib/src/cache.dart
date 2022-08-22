@@ -96,11 +96,11 @@ class Cache {
     required TData? Function() getData,
   }) {
     return getChangeStream()
-    // We add null at the beginning of the stream to trigger the initial getData().
-    // getChangeStream = operationDataChangeStream or fragmentDataChangeStream and
-    // they both end with .skip(1).
-    .startWith(null) 
-    .map((_) => getData());
+        // We add null at the beginning of the stream to trigger the initial getData().
+        // getChangeStream = operationDataChangeStream or fragmentDataChangeStream and
+        // they both end with .skip(1).
+        .startWith(null)
+        .map((_) => getData());
   }
 
   /// Reads denormalized data from the Cache for the given operation.
