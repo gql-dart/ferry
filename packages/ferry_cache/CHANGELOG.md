@@ -1,3 +1,7 @@
+## 0.6.1-dev.0+2
+
+ - **FIX**: Fix memory leak. (#385).
+
 ## 0.6.1+1
 
  - Update a dependency to the latest release.

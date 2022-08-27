@@ -1,3 +1,7 @@
+## 0.11.0-dev.0+2
+
+ - **DOCS**: fix typo in CHANGELOG (#384).
+
 ## 0.11.0+1
 
  - Update a dependency to the latest release.
