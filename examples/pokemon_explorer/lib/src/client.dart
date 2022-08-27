@@ -3,6 +3,7 @@ import 'package:ferry/ferry.dart';
 import 'package:ferry_hive_store/ferry_hive_store.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:pokemon_explorer/__generated__/schema.schema.gql.dart';
 
 Future<Client> initClient() async {
   await Hive.initFlutter();

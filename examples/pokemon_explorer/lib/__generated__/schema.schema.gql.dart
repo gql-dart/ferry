@@ -35,3 +35,5 @@ abstract class GUpload implements Built<GUpload, GUploadBuilder> {
       _i1.DefaultScalarSerializer<GUpload>(
           (Object serialized) => GUpload((serialized as String?)));
 }
+
+const possibleTypesMap = {};
