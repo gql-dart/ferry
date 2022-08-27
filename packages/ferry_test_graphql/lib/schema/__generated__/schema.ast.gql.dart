@@ -63,6 +63,19 @@ const Query = _i1.ObjectTypeDefinitionNode(
                   name: _i1.NameNode(value: 'Review'), isNonNull: false),
               isNonNull: false)),
       _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'review'),
+          directives: [],
+          args: [
+            _i1.InputValueDefinitionNode(
+                name: _i1.NameNode(value: 'id'),
+                directives: [],
+                type: _i1.NamedTypeNode(
+                    name: _i1.NameNode(value: 'ID'), isNonNull: true),
+                defaultValue: null)
+          ],
+          type: _i1.NamedTypeNode(
+              name: _i1.NameNode(value: 'Review'), isNonNull: false)),
+      _i1.FieldDefinitionNode(
           name: _i1.NameNode(value: 'search'),
           directives: [],
           args: [

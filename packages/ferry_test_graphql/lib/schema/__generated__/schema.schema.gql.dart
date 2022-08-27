@@ -84,3 +84,8 @@ abstract class GISODate implements Built<GISODate, GISODateBuilder> {
       _i2.DefaultScalarSerializer<GISODate>(
           (Object serialized) => GISODate((serialized as String?)));
 }
+
+const possibleTypesMap = {
+  'Character': {'Human', 'Droid'},
+  'SearchResult': {'Human', 'Droid', 'Starship'}
+};

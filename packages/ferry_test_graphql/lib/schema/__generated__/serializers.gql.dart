@@ -75,6 +75,12 @@ import 'package:ferry_test_graphql/queries/__generated__/human_with_args.req.gql
     show GHumanWithArgsReq;
 import 'package:ferry_test_graphql/queries/__generated__/human_with_args.var.gql.dart'
     show GHumanWithArgsVars;
+import 'package:ferry_test_graphql/queries/__generated__/review_by_id.data.gql.dart'
+    show GReviewsByIDData, GReviewsByIDData_review;
+import 'package:ferry_test_graphql/queries/__generated__/review_by_id.req.gql.dart'
+    show GReviewsByIDReq;
+import 'package:ferry_test_graphql/queries/__generated__/review_by_id.var.gql.dart'
+    show GReviewsByIDVars;
 import 'package:ferry_test_graphql/queries/__generated__/reviews.data.gql.dart'
     show GReviewsData, GReviewsData_reviews;
 import 'package:ferry_test_graphql/queries/__generated__/reviews.req.gql.dart'
@@ -140,6 +146,10 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GReviewWithDateData_createReview,
   GReviewWithDateReq,
   GReviewWithDateVars,
+  GReviewsByIDData,
+  GReviewsByIDData_review,
+  GReviewsByIDReq,
+  GReviewsByIDVars,
   GReviewsData,
   GReviewsData_reviews,
   GReviewsReq,
