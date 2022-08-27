@@ -1,3 +1,9 @@
+## 0.6.2
+
+ - fix(ferry_cache): fix memory leak when calling .watch()
+
+ - **FIX**: Fix memory leak. (#385).
+
 ## 0.6.1+1
 
  - Update a dependency to the latest release.
