@@ -26,10 +26,14 @@ This instantiates a client with the default configuration, including a `Cache` i
 ```dart
 import 'package:gql_http_link/gql_http_link.dart';
 import 'package:ferry/ferry.dart';
+import 'package:<your_pkg>/<path_to_your_schema>__generated__/schema.schema.gql.dart' show possibleTypesMap;
+
 
 final link = HttpLink("[path/to/endpoint]");
 
-final client = Client(link: link);
+final cache = Cache(possibleTypes: possibleTypesMap);
+
+final client = Client(link: link, cache: cache);
 ```
 
 ## Setup With HiveStore
@@ -82,7 +86,7 @@ Future<Client> initClient() async {
 
   final store = HiveStore(box);
 
-  final cache = Cache(store: store);
+  final cache = Cache(store: store, possibleTypes: possibleTypesMap);
 
   final link = HttpLink('[path/to/endpoint]');
 

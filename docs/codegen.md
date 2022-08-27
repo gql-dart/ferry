@@ -105,33 +105,37 @@ Add a `build.yaml` file to your project root with the following contents, **repl
 targets:
   $default:
     builders:
-      gql_build|schema_builder:
-        enabled: true
-      gql_build|ast_builder:
-        enabled: true
-      gql_build|data_builder:
+      ferry_generator|graphql_builder:
         enabled: true
         options:
           schema: your_package_name|lib/schema.graphql
-      gql_build|var_builder:
-        enabled: true
-        options:
-          schema: your_package_name|lib/schema.graphql
-      gql_build|serializer_builder:
+      ferry_generator|serializer_builder:
         enabled: true
         options:
           schema: your_package_name|lib/schema.graphql
 
-      ferry_generator|req_builder:
-        enabled: true
-        options:
-          schema: your_package_name|lib/schema.graphql
 ```
+
+Note: By default, generated files are put into a directory called `__generated__`. 
+If you like to rename this directory, pass 
+
+```yaml
+output_dir: '<your desired name>'
+```
+
+to options.
+If you like to omit this directory at all and generate the code next to the .graphql files (this was the default behavior before release 0.11.0) ),
+use 
+
+```yaml
+output_dir: ''
+```
+
 
 Now you can build your dart generated files by calling:
 
 ```sh
-pub run build_runner build
+dart run build_runner build
 ```
 
 Or, if you are using flutter
@@ -145,7 +149,7 @@ flutter pub run build_runner build
 You may need to add the `--delete-conflicting-outputs` flag to the build_runner command:
 
 ```sh
-pub run build_runner build --delete-conflicting-outputs
+dart run build_runner build --delete-conflicting-outputs
 ```
 
 :::
@@ -157,14 +161,15 @@ lib/
   src/
     components/
       graphql/
-        all_pokemon.graphql
-        all_pokemon.ast.gql.dart # generated
-        all_pokemon.data.gql.dart # generated
-        all_pokemon.data.gql.g.dart # generated
-        all_pokemon.req.gql.dart # generated
-        all_pokemon.req.gql.g.dart # generated
-        all_pokemon.var.gql.dart # generated
-        all_pokemon.var.gql.g.dart # generated
+        __generated__
+          all_pokemon.graphql
+          all_pokemon.ast.gql.dart # generated
+          all_pokemon.data.gql.dart # generated
+          all_pokemon.data.gql.g.dart # generated
+          all_pokemon.req.gql.dart # generated
+          all_pokemon.req.gql.g.dart # generated
+          all_pokemon.var.gql.dart # generated
+          all_pokemon.var.gql.g.dart # generated
       all_pokemon.dart
 ```
 

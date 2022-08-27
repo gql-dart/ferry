@@ -14,7 +14,7 @@ Let's say our GraphQL schema includes a `Date` scalar that we want to map to Dar
 Specifying a Type Overrides tells the generator what Dart types to use when generating a type from our GraphQL schema (in this case our custom `scalar` type).
 
 ```yaml {4}
-gql_build|schema_builder:
+ferry_generator|graphql_builder:
   enabled: true
   options:
     type_overrides:
@@ -31,7 +31,7 @@ We've included only the `schema_builder` above for brevity, but we will need to 
 If our Dart type is not part of the `dart:core` library, we'd also need to import the file that contains the Dart type. DateTime _is_ a part of `dart:core`, but if it weren't, we'd import it like so:
 
 ```yaml {7}
-gql_build|schema_builder:
+ferry_generator|graphql_builder:
   enabled: true
   options:
     type_overrides:
@@ -47,7 +47,7 @@ If our Dart type is not a Dart Data Type, we also need to [define a custom seria
 Assuming we've created a [`DateSerializer`](#create-a-custom-serializer) for our custom `Date` scalar, we will need to include it in our `serializer_builder`:
 
 ```yaml
-gql_build|serializer_builder:
+ferry_generator|serializer_builder:
   enabled: true
   options:
     schema: my_project|lib/graphql/schema.graphql
@@ -64,30 +64,7 @@ Here's an example of what our final `build.yaml` might look like.
 targets:
   $default:
     builders:
-      gql_build|ast_builder:
-        enabled: true
-      gql_build|schema_builder:
-        enabled: true
-        options:
-          schema: my_project|lib/schema.graphql
-          type_overrides:
-            Date:
-              name: DateTime
-      gql_build|data_builder:
-        enabled: true
-        options:
-          schema: my_project|lib/schema.graphql
-          type_overrides:
-            Date:
-              name: DateTime
-      gql_build|var_builder:
-        enabled: true
-        options:
-          schema: my_project|lib/schema.graphql
-          type_overrides:
-            Date:
-              name: DateTime
-      gql_build|serializer_builder:
+      ferry_generator|serializer_builder:
         enabled: true
         options:
           schema: my_project|lib/schema.graphql
@@ -95,7 +72,7 @@ targets:
             - import: "package:path/to/date_serializer.dart"
               name: DateSerializer
 
-      ferry_generator|req_builder:
+      ferry_generator|graphql_builder:
         enabled: true
         options:
           schema: my_project|lib/schema.graphql
