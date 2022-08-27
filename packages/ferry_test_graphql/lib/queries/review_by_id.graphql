@@ -1,0 +1,10 @@
+query ReviewsByID($id: ID!) {
+    review(id: $id) {
+        id
+        episode
+        stars
+        commentary
+        createdAt
+        seenOn
+    }
+}
