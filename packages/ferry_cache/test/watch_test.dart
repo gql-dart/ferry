@@ -83,8 +83,8 @@ void main() {
     test('can receive updates to data when starting with empty data', () async {
       final cache = Cache();
 
-      final nextData =
-          reviewsData.rebuild((b) => b.reviews.add(review.rebuild((b) => b..id = '456')));
+      final nextData = reviewsData
+          .rebuild((b) => b.reviews.add(review.rebuild((b) => b..id = '456')));
 
       expect(
         cache.watchQuery(reviewsReq),
@@ -122,8 +122,8 @@ void main() {
       data!['stars'] = '100';
       cache.store.put(dataId, data);
 
-      final nextData =
-          reviewsData.rebuild((b) => b.reviews.add(review.rebuild((b) => b..id = '456')));
+      final nextData = reviewsData
+          .rebuild((b) => b.reviews.add(review.rebuild((b) => b..id = '456')));
 
       expect(
           cache.watchQuery(reviewsReq),
@@ -147,11 +147,13 @@ void main() {
       await cache.dispose();
     });
 
-    test('can receive updates when child objects are updated by other queries', () async {
+    test('can receive updates when child objects are updated by other queries',
+        () async {
       final cache = Cache();
       cache.writeQuery(reviewsReq, reviewsData2);
 
-      final updatedReview = reviewsData.reviews!.first.rebuild((b) => b.commentary = 'first');
+      final updatedReview =
+          reviewsData.reviews!.first.rebuild((b) => b.commentary = 'first');
 
       expect(
           cache.watchQuery(reviewsReq),
