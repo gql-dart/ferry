@@ -1,3 +1,4 @@
+import 'package:ferry_exec/src/cache_deduplication_strategy.dart';
 import 'package:gql_exec/gql_exec.dart';
 
 import 'package:ferry_exec/src/fetch_policy.dart';
@@ -35,6 +36,8 @@ abstract class OperationRequest<TData, TVars> {
   /// If set to `true`, this request will be automatically added to the request
   /// controller when the stream returned by `request()` is listened to
   bool get executeOnListen;
+
+  CacheDeduplicationStrategy? get cacheDeduplicationStrategy;
 
   /// Parses data into a concrete type for the given operation
   ///

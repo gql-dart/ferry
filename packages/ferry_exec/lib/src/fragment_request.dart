@@ -1,3 +1,4 @@
+import 'package:ferry_exec/src/cache_deduplication_strategy.dart';
 import 'package:gql/ast.dart';
 
 abstract class FragmentRequest<TData, TVars> {
@@ -17,6 +18,8 @@ abstract class FragmentRequest<TData, TVars> {
   /// }
   /// ```
   Map<String, dynamic> get idFields;
+
+  CacheDeduplicationStrategy? get cacheDeduplicationStrategy;
 
   /// This is a simple wrapper on the static fromJson method on the generated class.
   TData? parseData(Map<String, dynamic> json);

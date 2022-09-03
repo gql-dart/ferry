@@ -1,3 +1,4 @@
+import 'package:ferry_cache/ferry_cache.dart';
 import 'package:normalize/policies.dart';
 import 'package:normalize/utils.dart';
 import 'package:normalize/normalize.dart';
@@ -13,14 +14,14 @@ import './utils/operation_root_data.dart';
 Stream<Set<String>> operationDataChangeStream<TData, TVars>(
   OperationRequest<TData, TVars> request,
   bool optimistic,
-  Stream<Map<OperationRequest, Map<String, Map<String, dynamic>?>>?>
-      optimisticPatchesStream,
+  Stream<Map<OperationRequest, Map<String, Map<String, dynamic>?>>?> optimisticPatchesStream,
   Map<String, dynamic>? Function(String dataId) optimisticReader,
   Store store,
   Map<String, TypePolicy> typePolicies,
   bool addTypename,
   DataIdResolver? dataIdFromObject,
   Map<String, Set<String>> possibleTypes,
+  bool distinct,
 ) {
   final operationDefinition = getOperationDefinition(
     request.operation.document,
@@ -73,14 +74,18 @@ Stream<Set<String>> operationDataChangeStream<TData, TVars>(
       );
     }
 
-    return stream
-        .distinct(
-          (prev, next) => const DeepCollectionEquality().equals(
+    if (distinct) {
+      stream = stream.distinct(
+        (prev, next) {
+          return const DeepCollectionEquality().equals(
             prev,
             next,
-          ),
-        )
-        .doOnData((_) => changed.add(dataId));
+          );
+        },
+      );
+    }
+
+    return stream.doOnData((_) => changed.add(dataId));
   });
 
   return CombineLatestStream<Map<String, dynamic>?, Set<String>>(

@@ -145,6 +145,13 @@ Class _buildOperationReqClass(
           ..name = 'executeOnListen',
       ),
       Method(
+            (b) => b
+          ..annotations.add(refer('override'))
+          ..returns = refer('CacheDeduplicationStrategy?', 'package:ferry_exec/ferry_exec.dart')
+          ..type = MethodType.getter
+          ..name = 'cacheDeduplicationStrategy',
+      ),
+      Method(
         (b) => b
           ..annotations.add(refer('override'))
           ..returns = nullableDataTypeRef

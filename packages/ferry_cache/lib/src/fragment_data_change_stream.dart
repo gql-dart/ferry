@@ -12,14 +12,14 @@ import './utils/data_for_id_stream.dart';
 Stream<Set<String>> fragmentDataChangeStream<TData, TVars>(
   FragmentRequest<TData, TVars> request,
   bool optimistic,
-  Stream<Map<OperationRequest, Map<String, Map<String, dynamic>?>>?>
-      optimisticPatchesStream,
+  Stream<Map<OperationRequest, Map<String, Map<String, dynamic>?>>?> optimisticPatchesStream,
   Map<String, dynamic>? Function(String dataId) optimisticReader,
   Store store,
   Map<String, TypePolicy> typePolicies,
   bool addTypename,
   DataIdResolver? dataIdFromObject,
   Map<String, Set<String>> possibleTypes,
+  bool distinct,
 ) {
   final dataIds = <String>{};
 
@@ -53,14 +53,16 @@ Stream<Set<String>> fragmentDataChangeStream<TData, TVars>(
       optimisticReader,
     );
 
-    return stream
-        .distinct(
-          (prev, next) => const DeepCollectionEquality().equals(
-            prev,
-            next,
-          ),
-        )
-        .doOnData((_) => changed.add(dataId));
+    if (distinct) {
+      stream = stream.distinct(
+        (prev, next) => const DeepCollectionEquality().equals(
+          prev,
+          next,
+        ),
+      );
+    }
+
+    return stream.doOnData((_) => changed.add(dataId));
   });
 
   return CombineLatestStream<Map<String, dynamic>?, Set<String>>(

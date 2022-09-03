@@ -16,6 +16,7 @@ class Cache {
   final bool addTypename;
   final Store store;
   final utils.DataIdResolver? dataIdFromObject;
+  final CacheDeduplicationStrategy defaultDeduplicationStrategy;
 
   @visibleForTesting
   final BehaviorSubject<
@@ -33,6 +34,7 @@ class Cache {
     this.addTypename = true,
     Map<OperationRequest, Map<String, Map<String, dynamic>?>>
         seedOptimisticPatches = const {},
+    this.defaultDeduplicationStrategy = CacheDeduplicationStrategy.onNormalizedObjects,
   })  : store = store ?? MemoryStore(),
         optimisticPatchesStream = BehaviorSubject.seeded(seedOptimisticPatches);
 
@@ -67,8 +69,10 @@ class Cache {
           addTypename,
           dataIdFromObject,
           possibleTypes,
+          (request.cacheDeduplicationStrategy ?? defaultDeduplicationStrategy) == CacheDeduplicationStrategy.onNormalizedObjects,
         ),
         getData: () => readQuery(request, optimistic: optimistic),
+        cacheDeduplicationStrategy: (request.cacheDeduplicationStrategy ?? defaultDeduplicationStrategy),
       );
 
   /// Watches for changes to data in the Cache for the given fragment.
@@ -87,20 +91,29 @@ class Cache {
           addTypename,
           dataIdFromObject,
           possibleTypes,
+          (request.deduplicationStrategy ?? defaultDeduplicationStrategy) == CacheDeduplicationStrategy.onNormalizedObjects,
         ),
         getData: () => readFragment(request, optimistic: optimistic),
+        cacheDeduplicationStrategy:           (request.deduplicationStrategy ?? defaultDeduplicationStrategy) == CacheDeduplicationStrategy.onNormalizedObjects,
+
       );
 
   Stream<TData?> _watch<TData>({
     required Stream Function() getChangeStream,
     required TData? Function() getData,
+    required CacheDeduplicationStrategy cacheDeduplicationStrategy,
   }) {
-    return getChangeStream()
+    var stream =  getChangeStream()
         // We add null at the beginning of the stream to trigger the initial getData().
         // getChangeStream = operationDataChangeStream or fragmentDataChangeStream and
         // they both end with .skip(1).
         .startWith(null)
         .map((_) => getData());
+    if(cacheDeduplicationStrategy == CacheDeduplicationStrategy.afterDenormalize) {
+      stream = stream.distinct();
+    }
+    return stream;
+
   }
 
   /// Reads denormalized data from the Cache for the given operation.

@@ -60,8 +60,8 @@ void main() {
       final cache = Cache();
       cache.writeQuery(reviewsReq, reviewsData);
 
-      final nextData = reviewsData
-          .rebuild((b) => b.reviews.add(review.rebuild((b) => b..id = '456')));
+      final nextData =
+          reviewsData.rebuild((b) => b.reviews.add(review.rebuild((b) => b..id = '456')));
 
       expect(
         cache.watchQuery(reviewsReq),
@@ -83,8 +83,8 @@ void main() {
     test('can receive updates to data when starting with empty data', () async {
       final cache = Cache();
 
-      final nextData = reviewsData
-          .rebuild((b) => b.reviews.add(review.rebuild((b) => b..id = '456')));
+      final nextData =
+          reviewsData.rebuild((b) => b.reviews.add(review.rebuild((b) => b..id = '456')));
 
       expect(
         cache.watchQuery(reviewsReq),
@@ -122,8 +122,8 @@ void main() {
       data!['stars'] = '100';
       cache.store.put(dataId, data);
 
-      final nextData = reviewsData
-          .rebuild((b) => b.reviews.add(review.rebuild((b) => b..id = '456')));
+      final nextData =
+          reviewsData.rebuild((b) => b.reviews.add(review.rebuild((b) => b..id = '456')));
 
       expect(
           cache.watchQuery(reviewsReq),
@@ -147,13 +147,11 @@ void main() {
       await cache.dispose();
     });
 
-    test('can receive updates when child objects are updated by other queries',
-        () async {
+    test('can receive updates when child objects are updated by other queries', () async {
       final cache = Cache();
       cache.writeQuery(reviewsReq, reviewsData2);
 
-      final updatedReview =
-          reviewsData.reviews!.first.rebuild((b) => b.commentary = 'first');
+      final updatedReview = reviewsData.reviews!.first.rebuild((b) => b.commentary = 'first');
 
       expect(
           cache.watchQuery(reviewsReq),
@@ -172,6 +170,84 @@ void main() {
             ..createdAt = updatedReview.createdAt
             ..seenOn = updatedReview.seenOn.toBuilder()
             ..commentary = updatedReview.commentary));
+
+      await Future.delayed(Duration.zero);
+
+      await cache.dispose();
+    });
+
+    test('does not emit updates when same data is written multiple times', () async {
+      final cache = Cache();
+      cache.writeQuery(reviewsReq, reviewsData2);
+
+      expect(
+          cache.watchQuery(reviewsReq),
+          emitsInOrder([
+            reviewsData2,
+            emitsDone,
+          ]));
+
+      await Future.delayed(Duration.zero);
+      cache.writeQuery(reviewsReq, reviewsData2, optimisticRequest: reviewsReq);
+
+      await Future.delayed(Duration.zero);
+
+      cache.removeOptimisticPatch(reviewsReq);
+
+      await Future.delayed(Duration.zero);
+
+      await cache.dispose();
+    });
+
+    test(
+        'does not emit updates when same data is written multiple times with DeduplicationStrategy afterDenormalize',
+        () async {
+      final cache = Cache();
+      cache.writeQuery(reviewsReq, reviewsData2);
+
+      expect(
+          cache.watchQuery(reviewsReq),
+          emitsInOrder([
+            reviewsData2,
+            emitsDone,
+          ]));
+
+      await Future.delayed(Duration.zero);
+      cache.writeQuery(reviewsReq, reviewsData2, optimisticRequest: reviewsReq);
+
+      await Future.delayed(Duration.zero);
+
+      cache.removeOptimisticPatch(reviewsReq);
+
+      await Future.delayed(Duration.zero);
+
+      cache.writeQuery(reviewsReq, reviewsData2, optimisticRequest: reviewsReq);
+
+      await cache.dispose();
+    });
+
+    test(
+        'does emit updates when same data is written multiple times with DeduplicationStrategy none',
+        () async {
+      final cache = Cache();
+      cache.writeQuery(reviewsReq, reviewsData);
+
+      final keys = cache.store.keys.length;
+
+      expect(
+          cache.watchQuery(reviewsReq),
+          emitsInOrder([
+            reviewsData,
+            ...List.filled(keys*3, reviewsData),
+            emitsDone,
+          ]));
+
+      await Future.delayed(Duration.zero);
+      cache.writeQuery(reviewsReq, reviewsData, optimisticRequest: reviewsReq);
+
+      await Future.delayed(Duration.zero);
+
+      cache.removeOptimisticPatch(reviewsReq);
 
       await Future.delayed(Duration.zero);
 
