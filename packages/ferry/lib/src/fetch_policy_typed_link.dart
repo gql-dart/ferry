@@ -76,7 +76,7 @@ class FetchPolicyTypedLink extends TypedLink {
             .doOnData(_writeToCache);
         break;
       case FetchPolicy.CacheOnly:
-        stream= _cacheTypedLink.request(operationRequest);
+        stream = _cacheTypedLink.request(operationRequest);
         break;
       case FetchPolicy.CacheFirst:
         stream = _cacheTypedLink.request(operationRequest).take(1).switchMap(
@@ -98,7 +98,7 @@ class FetchPolicyTypedLink extends TypedLink {
         final sharedNetworkStream =
             _optimisticLinkTypedLink.request(operationRequest).shareValue();
 
-        stream= _cacheTypedLink
+        stream = _cacheTypedLink
             .request(operationRequest)
             .where((response) => response.data != null)
             .takeUntil(
@@ -125,13 +125,11 @@ class FetchPolicyTypedLink extends TypedLink {
       default:
         throw Exception('Unrecognized FetchPolicy');
     }
-    return stream
-        .doOnDone(() {
-          cache.removeOptimisticPatch(operationRequest);
-    })
-        .doOnCancel(() {
-       cache.removeOptimisticPatch(operationRequest);
-   });
+    return stream.doOnDone(() {
+      cache.removeOptimisticPatch(operationRequest);
+    }).doOnCancel(() {
+      cache.removeOptimisticPatch(operationRequest);
+    });
   }
 
   /// Removes any previous optimistic patch for the request.

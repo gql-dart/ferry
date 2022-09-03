@@ -1,5 +1,3 @@
-
-
 // ignore_for_file: prefer_single_quotes
 
 import 'dart:async';
@@ -24,9 +22,9 @@ void main() {
 
     final res = await client
         .request(GAllPokemonReq((b) => b
-      ..optimisticResponse = optimistic.toBuilder()
-      ..vars.offset = 0
-      ..vars.limit = 100))
+          ..optimisticResponse = optimistic.toBuilder()
+          ..vars.offset = 0
+          ..vars.limit = 100))
         .first;
 
     print(res.linkException);
@@ -45,9 +43,9 @@ void main() {
 
     client
         .request(GAllPokemonReq((b) => b
-      ..optimisticResponse = optimistic.toBuilder()
-      ..vars.offset = 0
-      ..vars.limit = 100))
+          ..optimisticResponse = optimistic.toBuilder()
+          ..vars.offset = 0
+          ..vars.limit = 100))
         .listen((res) async {
       expect(client.cache.optimisticPatchesStream.value,
           res.dataSource == DataSource.Optimistic ? isNotEmpty : isEmpty);
@@ -59,9 +57,6 @@ void main() {
 
     await completer.future;
   });
-
-
-
 }
 
 class _FakeLink extends Link {
@@ -76,7 +71,6 @@ class _FakeLink extends Link {
         ..weight.in_kg = "345"))).toJson();
 
     await Future.delayed(Duration.zero);
-
 
     yield Response(response: const {}, data: data);
   }

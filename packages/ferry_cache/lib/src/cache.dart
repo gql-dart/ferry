@@ -99,8 +99,7 @@ class Cache {
         // We add null at the beginning of the stream to trigger the initial getData().
         // getChangeStream = operationDataChangeStream or fragmentDataChangeStream and
         // they both end with .skip(1).
-        .startWith(const <String>{})
-        .map((_) => getData());
+        .startWith(const <String>{}).map((_) => getData());
   }
 
   /// Reads denormalized data from the Cache for the given operation.
@@ -222,11 +221,9 @@ class Cache {
           : store.put(dataId, value);
 
   void removeOptimisticPatch(OperationRequest request) {
-
-    if(optimisticPatchesStream.value!.containsKey(request)) {
+    if (optimisticPatchesStream.value!.containsKey(request)) {
       optimisticPatchesStream.add(
-        Map.from(optimisticPatchesStream.value!)
-          ..remove(request),
+        Map.from(optimisticPatchesStream.value!)..remove(request),
       );
     }
   }
