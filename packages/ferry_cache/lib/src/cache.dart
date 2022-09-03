@@ -92,14 +92,14 @@ class Cache {
       );
 
   Stream<TData?> _watch<TData>({
-    required Stream Function() getChangeStream,
+    required Stream<Set<String>> Function() getChangeStream,
     required TData? Function() getData,
   }) {
     return getChangeStream()
         // We add null at the beginning of the stream to trigger the initial getData().
         // getChangeStream = operationDataChangeStream or fragmentDataChangeStream and
         // they both end with .skip(1).
-        .startWith(null)
+        .startWith(const <String>{})
         .map((_) => getData());
   }
 
@@ -222,9 +222,13 @@ class Cache {
           : store.put(dataId, value);
 
   void removeOptimisticPatch(OperationRequest request) {
-    optimisticPatchesStream.add(
-      Map.from(optimisticPatchesStream.value!)..remove(request),
-    );
+
+    if(optimisticPatchesStream.value!.containsKey(request)) {
+      optimisticPatchesStream.add(
+        Map.from(optimisticPatchesStream.value!)
+          ..remove(request),
+      );
+    }
   }
 
   /// Returns the canonical ID for a given object or reference.

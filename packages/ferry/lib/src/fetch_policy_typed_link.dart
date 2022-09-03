@@ -1,9 +1,7 @@
 import 'dart:async';
-import 'package:gql_link/gql_link.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:normalize/utils.dart';
 import 'package:gql/ast.dart';
-import 'package:ferry_cache/ferry_cache.dart';
 import 'package:ferry_exec/ferry_exec.dart';
 
 import 'package:ferry/src/optimistic_typed_link.dart';
@@ -63,20 +61,25 @@ class FetchPolicyTypedLink extends TypedLink {
     final fetchPolicy =
         operationRequest.fetchPolicy ?? defaultFetchPolicies[operationType];
 
+    final Stream<OperationResponse<TData, TVars>> stream;
+
     switch (fetchPolicy) {
       case FetchPolicy.NoCache:
-        return _optimisticLinkTypedLink
+        stream = _optimisticLinkTypedLink
             .request(operationRequest)
             .doOnData(_removeOptimisticPatch);
+        break;
       case FetchPolicy.NetworkOnly:
-        return _optimisticLinkTypedLink
+        stream = _optimisticLinkTypedLink
             .request(operationRequest)
             .doOnData(_removeOptimisticPatch)
             .doOnData(_writeToCache);
+        break;
       case FetchPolicy.CacheOnly:
-        return _cacheTypedLink.request(operationRequest);
+        stream= _cacheTypedLink.request(operationRequest);
+        break;
       case FetchPolicy.CacheFirst:
-        return _cacheTypedLink.request(operationRequest).take(1).switchMap(
+        stream = _cacheTypedLink.request(operationRequest).take(1).switchMap(
               (result) => result.data != null
                   ? _cacheTypedLink.request(operationRequest)
                   : _optimisticLinkTypedLink
@@ -90,11 +93,12 @@ class FetchPolicyTypedLink extends TypedLink {
                         ]),
                       ),
             );
+        break;
       case FetchPolicy.CacheAndNetwork:
         final sharedNetworkStream =
             _optimisticLinkTypedLink.request(operationRequest).shareValue();
 
-        return _cacheTypedLink
+        stream= _cacheTypedLink
             .request(operationRequest)
             .where((response) => response.data != null)
             .takeUntil(
@@ -117,9 +121,17 @@ class FetchPolicyTypedLink extends TypedLink {
                 ]),
               )
         ]);
+        break;
       default:
         throw Exception('Unrecognized FetchPolicy');
     }
+    return stream
+        .doOnDone(() {
+          cache.removeOptimisticPatch(operationRequest);
+    })
+        .doOnCancel(() {
+       cache.removeOptimisticPatch(operationRequest);
+   });
   }
 
   /// Removes any previous optimistic patch for the request.
