@@ -58,6 +58,8 @@ abstract class GHeroWithFragmentsReq
   @override
   bool get executeOnListen;
   @override
+  _i1.CacheDeduplicationStrategy? get cacheDeduplicationStrategy;
+  @override
   _i2.GHeroWithFragmentsData? parseData(Map<String, dynamic> json) =>
       _i2.GHeroWithFragmentsData.fromJson(json);
   static Serializer<GHeroWithFragmentsReq> get serializer =>
@@ -89,6 +91,8 @@ abstract class GheroDataReq
   String? get fragmentName;
   @override
   Map<String, dynamic> get idFields;
+  @override
+  _i1.CacheDeduplicationStrategy? get cacheDeduplicationStrategy;
   @override
   _i2.GheroDataData? parseData(Map<String, dynamic> json) =>
       _i2.GheroDataData.fromJson(json);
@@ -122,6 +126,8 @@ abstract class GcomparisonFieldsReq
   String? get fragmentName;
   @override
   Map<String, dynamic> get idFields;
+  @override
+  _i1.CacheDeduplicationStrategy? get cacheDeduplicationStrategy;
   @override
   _i2.GcomparisonFieldsData? parseData(Map<String, dynamic> json) =>
       _i2.GcomparisonFieldsData.fromJson(json);

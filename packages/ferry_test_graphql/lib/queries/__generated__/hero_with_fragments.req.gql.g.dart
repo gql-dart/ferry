@@ -75,6 +75,13 @@ class _$GHeroWithFragmentsReqSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(_i1.FetchPolicy)));
     }
+    value = object.cacheDeduplicationStrategy;
+    if (value != null) {
+      result
+        ..add('cacheDeduplicationStrategy')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(_i1.CacheDeduplicationStrategy)));
+    }
     return result;
   }
 
@@ -128,6 +135,11 @@ class _$GHeroWithFragmentsReqSerializer
           result.executeOnListen = serializers.deserialize(value,
               specifiedType: const FullType(bool))! as bool;
           break;
+        case 'cacheDeduplicationStrategy':
+          result.cacheDeduplicationStrategy = serializers.deserialize(value,
+                  specifiedType: const FullType(_i1.CacheDeduplicationStrategy))
+              as _i1.CacheDeduplicationStrategy?;
+          break;
       }
     }
 
@@ -164,6 +176,13 @@ class _$GheroDataReqSerializer implements StructuredSerializer<GheroDataReq> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.cacheDeduplicationStrategy;
+    if (value != null) {
+      result
+        ..add('cacheDeduplicationStrategy')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(_i1.CacheDeduplicationStrategy)));
+    }
     return result;
   }
 
@@ -199,6 +218,11 @@ class _$GheroDataReqSerializer implements StructuredSerializer<GheroDataReq> {
                 const FullType(String),
                 const FullType(dynamic)
               ]))! as Map<String, dynamic>;
+          break;
+        case 'cacheDeduplicationStrategy':
+          result.cacheDeduplicationStrategy = serializers.deserialize(value,
+                  specifiedType: const FullType(_i1.CacheDeduplicationStrategy))
+              as _i1.CacheDeduplicationStrategy?;
           break;
       }
     }
@@ -241,6 +265,13 @@ class _$GcomparisonFieldsReqSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.cacheDeduplicationStrategy;
+    if (value != null) {
+      result
+        ..add('cacheDeduplicationStrategy')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(_i1.CacheDeduplicationStrategy)));
+    }
     return result;
   }
 
@@ -277,6 +308,11 @@ class _$GcomparisonFieldsReqSerializer
                 const FullType(dynamic)
               ]))! as Map<String, dynamic>;
           break;
+        case 'cacheDeduplicationStrategy':
+          result.cacheDeduplicationStrategy = serializers.deserialize(value,
+                  specifiedType: const FullType(_i1.CacheDeduplicationStrategy))
+              as _i1.CacheDeduplicationStrategy?;
+          break;
       }
     }
 
@@ -304,6 +340,8 @@ class _$GHeroWithFragmentsReq extends GHeroWithFragmentsReq {
   final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
+  @override
+  final _i1.CacheDeduplicationStrategy? cacheDeduplicationStrategy;
 
   factory _$GHeroWithFragmentsReq(
           [void Function(GHeroWithFragmentsReqBuilder)? updates]) =>
@@ -318,7 +356,8 @@ class _$GHeroWithFragmentsReq extends GHeroWithFragmentsReq {
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      required this.executeOnListen})
+      required this.executeOnListen,
+      this.cacheDeduplicationStrategy})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         vars, r'GHeroWithFragmentsReq', 'vars');
@@ -350,7 +389,8 @@ class _$GHeroWithFragmentsReq extends GHeroWithFragmentsReq {
         updateCacheHandlerKey == other.updateCacheHandlerKey &&
         updateCacheHandlerContext == other.updateCacheHandlerContext &&
         fetchPolicy == other.fetchPolicy &&
-        executeOnListen == other.executeOnListen;
+        executeOnListen == other.executeOnListen &&
+        cacheDeduplicationStrategy == other.cacheDeduplicationStrategy;
   }
 
   @override
@@ -361,14 +401,18 @@ class _$GHeroWithFragmentsReq extends GHeroWithFragmentsReq {
                 $jc(
                     $jc(
                         $jc(
-                            $jc($jc($jc(0, vars.hashCode), operation.hashCode),
-                                requestId.hashCode),
-                            updateResult.hashCode),
-                        optimisticResponse.hashCode),
-                    updateCacheHandlerKey.hashCode),
-                updateCacheHandlerContext.hashCode),
-            fetchPolicy.hashCode),
-        executeOnListen.hashCode));
+                            $jc(
+                                $jc(
+                                    $jc($jc(0, vars.hashCode),
+                                        operation.hashCode),
+                                    requestId.hashCode),
+                                updateResult.hashCode),
+                            optimisticResponse.hashCode),
+                        updateCacheHandlerKey.hashCode),
+                    updateCacheHandlerContext.hashCode),
+                fetchPolicy.hashCode),
+            executeOnListen.hashCode),
+        cacheDeduplicationStrategy.hashCode));
   }
 
   @override
@@ -382,7 +426,8 @@ class _$GHeroWithFragmentsReq extends GHeroWithFragmentsReq {
           ..add('updateCacheHandlerKey', updateCacheHandlerKey)
           ..add('updateCacheHandlerContext', updateCacheHandlerContext)
           ..add('fetchPolicy', fetchPolicy)
-          ..add('executeOnListen', executeOnListen))
+          ..add('executeOnListen', executeOnListen)
+          ..add('cacheDeduplicationStrategy', cacheDeduplicationStrategy))
         .toString();
   }
 }
@@ -444,6 +489,13 @@ class GHeroWithFragmentsReqBuilder
   set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
+  _i1.CacheDeduplicationStrategy? _cacheDeduplicationStrategy;
+  _i1.CacheDeduplicationStrategy? get cacheDeduplicationStrategy =>
+      _$this._cacheDeduplicationStrategy;
+  set cacheDeduplicationStrategy(
+          _i1.CacheDeduplicationStrategy? cacheDeduplicationStrategy) =>
+      _$this._cacheDeduplicationStrategy = cacheDeduplicationStrategy;
+
   GHeroWithFragmentsReqBuilder() {
     GHeroWithFragmentsReq._initializeBuilder(this);
   }
@@ -460,6 +512,7 @@ class GHeroWithFragmentsReqBuilder
       _updateCacheHandlerContext = $v.updateCacheHandlerContext;
       _fetchPolicy = $v.fetchPolicy;
       _executeOnListen = $v.executeOnListen;
+      _cacheDeduplicationStrategy = $v.cacheDeduplicationStrategy;
       _$v = null;
     }
     return this;
@@ -494,9 +547,8 @@ class GHeroWithFragmentsReqBuilder
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
               executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen,
-                  r'GHeroWithFragmentsReq',
-                  'executeOnListen'));
+                  executeOnListen, r'GHeroWithFragmentsReq', 'executeOnListen'),
+              cacheDeduplicationStrategy: cacheDeduplicationStrategy);
     } catch (_) {
       late String _$failedField;
       try {
@@ -525,6 +577,8 @@ class _$GheroDataReq extends GheroDataReq {
   final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
+  @override
+  final _i1.CacheDeduplicationStrategy? cacheDeduplicationStrategy;
 
   factory _$GheroDataReq([void Function(GheroDataReqBuilder)? updates]) =>
       (new GheroDataReqBuilder()..update(updates))._build();
@@ -533,7 +587,8 @@ class _$GheroDataReq extends GheroDataReq {
       {required this.vars,
       required this.document,
       this.fragmentName,
-      required this.idFields})
+      required this.idFields,
+      this.cacheDeduplicationStrategy})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(vars, r'GheroDataReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
@@ -556,15 +611,18 @@ class _$GheroDataReq extends GheroDataReq {
         vars == other.vars &&
         document == other.document &&
         fragmentName == other.fragmentName &&
-        idFields == other.idFields;
+        idFields == other.idFields &&
+        cacheDeduplicationStrategy == other.cacheDeduplicationStrategy;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc(0, vars.hashCode), document.hashCode),
-            fragmentName.hashCode),
-        idFields.hashCode));
+        $jc(
+            $jc($jc($jc(0, vars.hashCode), document.hashCode),
+                fragmentName.hashCode),
+            idFields.hashCode),
+        cacheDeduplicationStrategy.hashCode));
   }
 
   @override
@@ -573,7 +631,8 @@ class _$GheroDataReq extends GheroDataReq {
           ..add('vars', vars)
           ..add('document', document)
           ..add('fragmentName', fragmentName)
-          ..add('idFields', idFields))
+          ..add('idFields', idFields)
+          ..add('cacheDeduplicationStrategy', cacheDeduplicationStrategy))
         .toString();
   }
 }
@@ -599,6 +658,13 @@ class GheroDataReqBuilder
   Map<String, dynamic>? get idFields => _$this._idFields;
   set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
+  _i1.CacheDeduplicationStrategy? _cacheDeduplicationStrategy;
+  _i1.CacheDeduplicationStrategy? get cacheDeduplicationStrategy =>
+      _$this._cacheDeduplicationStrategy;
+  set cacheDeduplicationStrategy(
+          _i1.CacheDeduplicationStrategy? cacheDeduplicationStrategy) =>
+      _$this._cacheDeduplicationStrategy = cacheDeduplicationStrategy;
+
   GheroDataReqBuilder() {
     GheroDataReq._initializeBuilder(this);
   }
@@ -610,6 +676,7 @@ class GheroDataReqBuilder
       _document = $v.document;
       _fragmentName = $v.fragmentName;
       _idFields = $v.idFields;
+      _cacheDeduplicationStrategy = $v.cacheDeduplicationStrategy;
       _$v = null;
     }
     return this;
@@ -639,7 +706,8 @@ class GheroDataReqBuilder
                   document, r'GheroDataReq', 'document'),
               fragmentName: fragmentName,
               idFields: BuiltValueNullFieldError.checkNotNull(
-                  idFields, r'GheroDataReq', 'idFields'));
+                  idFields, r'GheroDataReq', 'idFields'),
+              cacheDeduplicationStrategy: cacheDeduplicationStrategy);
     } catch (_) {
       late String _$failedField;
       try {
@@ -665,6 +733,8 @@ class _$GcomparisonFieldsReq extends GcomparisonFieldsReq {
   final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
+  @override
+  final _i1.CacheDeduplicationStrategy? cacheDeduplicationStrategy;
 
   factory _$GcomparisonFieldsReq(
           [void Function(GcomparisonFieldsReqBuilder)? updates]) =>
@@ -674,7 +744,8 @@ class _$GcomparisonFieldsReq extends GcomparisonFieldsReq {
       {required this.vars,
       required this.document,
       this.fragmentName,
-      required this.idFields})
+      required this.idFields,
+      this.cacheDeduplicationStrategy})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         vars, r'GcomparisonFieldsReq', 'vars');
@@ -700,15 +771,18 @@ class _$GcomparisonFieldsReq extends GcomparisonFieldsReq {
         vars == other.vars &&
         document == other.document &&
         fragmentName == other.fragmentName &&
-        idFields == other.idFields;
+        idFields == other.idFields &&
+        cacheDeduplicationStrategy == other.cacheDeduplicationStrategy;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc(0, vars.hashCode), document.hashCode),
-            fragmentName.hashCode),
-        idFields.hashCode));
+        $jc(
+            $jc($jc($jc(0, vars.hashCode), document.hashCode),
+                fragmentName.hashCode),
+            idFields.hashCode),
+        cacheDeduplicationStrategy.hashCode));
   }
 
   @override
@@ -717,7 +791,8 @@ class _$GcomparisonFieldsReq extends GcomparisonFieldsReq {
           ..add('vars', vars)
           ..add('document', document)
           ..add('fragmentName', fragmentName)
-          ..add('idFields', idFields))
+          ..add('idFields', idFields)
+          ..add('cacheDeduplicationStrategy', cacheDeduplicationStrategy))
         .toString();
   }
 }
@@ -743,6 +818,13 @@ class GcomparisonFieldsReqBuilder
   Map<String, dynamic>? get idFields => _$this._idFields;
   set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
+  _i1.CacheDeduplicationStrategy? _cacheDeduplicationStrategy;
+  _i1.CacheDeduplicationStrategy? get cacheDeduplicationStrategy =>
+      _$this._cacheDeduplicationStrategy;
+  set cacheDeduplicationStrategy(
+          _i1.CacheDeduplicationStrategy? cacheDeduplicationStrategy) =>
+      _$this._cacheDeduplicationStrategy = cacheDeduplicationStrategy;
+
   GcomparisonFieldsReqBuilder() {
     GcomparisonFieldsReq._initializeBuilder(this);
   }
@@ -754,6 +836,7 @@ class GcomparisonFieldsReqBuilder
       _document = $v.document;
       _fragmentName = $v.fragmentName;
       _idFields = $v.idFields;
+      _cacheDeduplicationStrategy = $v.cacheDeduplicationStrategy;
       _$v = null;
     }
     return this;
@@ -783,7 +866,8 @@ class GcomparisonFieldsReqBuilder
                   document, r'GcomparisonFieldsReq', 'document'),
               fragmentName: fragmentName,
               idFields: BuiltValueNullFieldError.checkNotNull(
-                  idFields, r'GcomparisonFieldsReq', 'idFields'));
+                  idFields, r'GcomparisonFieldsReq', 'idFields'),
+              cacheDeduplicationStrategy: cacheDeduplicationStrategy);
     } catch (_) {
       late String _$failedField;
       try {

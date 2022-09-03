@@ -54,6 +54,8 @@ abstract class GCreateReviewReq
   @override
   bool get executeOnListen;
   @override
+  _i1.CacheDeduplicationStrategy? get cacheDeduplicationStrategy;
+  @override
   _i2.GCreateReviewData? parseData(Map<String, dynamic> json) =>
       _i2.GCreateReviewData.fromJson(json);
   static Serializer<GCreateReviewReq> get serializer =>

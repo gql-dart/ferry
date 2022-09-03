@@ -54,6 +54,8 @@ abstract class GReviewsByIDReq
   @override
   bool get executeOnListen;
   @override
+  _i1.CacheDeduplicationStrategy? get cacheDeduplicationStrategy;
+  @override
   _i2.GReviewsByIDData? parseData(Map<String, dynamic> json) =>
       _i2.GReviewsByIDData.fromJson(json);
   static Serializer<GReviewsByIDReq> get serializer =>

@@ -38,6 +38,8 @@ abstract class GReviewFragmentReq
   @override
   Map<String, dynamic> get idFields;
   @override
+  _i1.CacheDeduplicationStrategy? get cacheDeduplicationStrategy;
+  @override
   _i2.GReviewFragmentData? parseData(Map<String, dynamic> json) =>
       _i2.GReviewFragmentData.fromJson(json);
   static Serializer<GReviewFragmentReq> get serializer =>

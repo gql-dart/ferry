@@ -54,6 +54,8 @@ abstract class GReviewWithDateReq
   @override
   bool get executeOnListen;
   @override
+  _i1.CacheDeduplicationStrategy? get cacheDeduplicationStrategy;
+  @override
   _i2.GReviewWithDateData? parseData(Map<String, dynamic> json) =>
       _i2.GReviewWithDateData.fromJson(json);
   static Serializer<GReviewWithDateReq> get serializer =>

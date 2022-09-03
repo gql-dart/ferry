@@ -70,6 +70,13 @@ class _$GHeroForEpisodeReqSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(_i1.FetchPolicy)));
     }
+    value = object.cacheDeduplicationStrategy;
+    if (value != null) {
+      result
+        ..add('cacheDeduplicationStrategy')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(_i1.CacheDeduplicationStrategy)));
+    }
     return result;
   }
 
@@ -123,6 +130,11 @@ class _$GHeroForEpisodeReqSerializer
           result.executeOnListen = serializers.deserialize(value,
               specifiedType: const FullType(bool))! as bool;
           break;
+        case 'cacheDeduplicationStrategy':
+          result.cacheDeduplicationStrategy = serializers.deserialize(value,
+                  specifiedType: const FullType(_i1.CacheDeduplicationStrategy))
+              as _i1.CacheDeduplicationStrategy?;
+          break;
       }
     }
 
@@ -160,6 +172,13 @@ class _$GDroidFragmentReqSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.cacheDeduplicationStrategy;
+    if (value != null) {
+      result
+        ..add('cacheDeduplicationStrategy')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(_i1.CacheDeduplicationStrategy)));
+    }
     return result;
   }
 
@@ -196,6 +215,11 @@ class _$GDroidFragmentReqSerializer
                 const FullType(dynamic)
               ]))! as Map<String, dynamic>;
           break;
+        case 'cacheDeduplicationStrategy':
+          result.cacheDeduplicationStrategy = serializers.deserialize(value,
+                  specifiedType: const FullType(_i1.CacheDeduplicationStrategy))
+              as _i1.CacheDeduplicationStrategy?;
+          break;
       }
     }
 
@@ -223,6 +247,8 @@ class _$GHeroForEpisodeReq extends GHeroForEpisodeReq {
   final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
+  @override
+  final _i1.CacheDeduplicationStrategy? cacheDeduplicationStrategy;
 
   factory _$GHeroForEpisodeReq(
           [void Function(GHeroForEpisodeReqBuilder)? updates]) =>
@@ -237,7 +263,8 @@ class _$GHeroForEpisodeReq extends GHeroForEpisodeReq {
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      required this.executeOnListen})
+      required this.executeOnListen,
+      this.cacheDeduplicationStrategy})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(vars, r'GHeroForEpisodeReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
@@ -268,7 +295,8 @@ class _$GHeroForEpisodeReq extends GHeroForEpisodeReq {
         updateCacheHandlerKey == other.updateCacheHandlerKey &&
         updateCacheHandlerContext == other.updateCacheHandlerContext &&
         fetchPolicy == other.fetchPolicy &&
-        executeOnListen == other.executeOnListen;
+        executeOnListen == other.executeOnListen &&
+        cacheDeduplicationStrategy == other.cacheDeduplicationStrategy;
   }
 
   @override
@@ -279,14 +307,18 @@ class _$GHeroForEpisodeReq extends GHeroForEpisodeReq {
                 $jc(
                     $jc(
                         $jc(
-                            $jc($jc($jc(0, vars.hashCode), operation.hashCode),
-                                requestId.hashCode),
-                            updateResult.hashCode),
-                        optimisticResponse.hashCode),
-                    updateCacheHandlerKey.hashCode),
-                updateCacheHandlerContext.hashCode),
-            fetchPolicy.hashCode),
-        executeOnListen.hashCode));
+                            $jc(
+                                $jc(
+                                    $jc($jc(0, vars.hashCode),
+                                        operation.hashCode),
+                                    requestId.hashCode),
+                                updateResult.hashCode),
+                            optimisticResponse.hashCode),
+                        updateCacheHandlerKey.hashCode),
+                    updateCacheHandlerContext.hashCode),
+                fetchPolicy.hashCode),
+            executeOnListen.hashCode),
+        cacheDeduplicationStrategy.hashCode));
   }
 
   @override
@@ -300,7 +332,8 @@ class _$GHeroForEpisodeReq extends GHeroForEpisodeReq {
           ..add('updateCacheHandlerKey', updateCacheHandlerKey)
           ..add('updateCacheHandlerContext', updateCacheHandlerContext)
           ..add('fetchPolicy', fetchPolicy)
-          ..add('executeOnListen', executeOnListen))
+          ..add('executeOnListen', executeOnListen)
+          ..add('cacheDeduplicationStrategy', cacheDeduplicationStrategy))
         .toString();
   }
 }
@@ -361,6 +394,13 @@ class GHeroForEpisodeReqBuilder
   set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
+  _i1.CacheDeduplicationStrategy? _cacheDeduplicationStrategy;
+  _i1.CacheDeduplicationStrategy? get cacheDeduplicationStrategy =>
+      _$this._cacheDeduplicationStrategy;
+  set cacheDeduplicationStrategy(
+          _i1.CacheDeduplicationStrategy? cacheDeduplicationStrategy) =>
+      _$this._cacheDeduplicationStrategy = cacheDeduplicationStrategy;
+
   GHeroForEpisodeReqBuilder() {
     GHeroForEpisodeReq._initializeBuilder(this);
   }
@@ -377,6 +417,7 @@ class GHeroForEpisodeReqBuilder
       _updateCacheHandlerContext = $v.updateCacheHandlerContext;
       _fetchPolicy = $v.fetchPolicy;
       _executeOnListen = $v.executeOnListen;
+      _cacheDeduplicationStrategy = $v.cacheDeduplicationStrategy;
       _$v = null;
     }
     return this;
@@ -411,7 +452,8 @@ class GHeroForEpisodeReqBuilder
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
               executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, r'GHeroForEpisodeReq', 'executeOnListen'));
+                  executeOnListen, r'GHeroForEpisodeReq', 'executeOnListen'),
+              cacheDeduplicationStrategy: cacheDeduplicationStrategy);
     } catch (_) {
       late String _$failedField;
       try {
@@ -440,6 +482,8 @@ class _$GDroidFragmentReq extends GDroidFragmentReq {
   final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
+  @override
+  final _i1.CacheDeduplicationStrategy? cacheDeduplicationStrategy;
 
   factory _$GDroidFragmentReq(
           [void Function(GDroidFragmentReqBuilder)? updates]) =>
@@ -449,7 +493,8 @@ class _$GDroidFragmentReq extends GDroidFragmentReq {
       {required this.vars,
       required this.document,
       this.fragmentName,
-      required this.idFields})
+      required this.idFields,
+      this.cacheDeduplicationStrategy})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(vars, r'GDroidFragmentReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
@@ -473,15 +518,18 @@ class _$GDroidFragmentReq extends GDroidFragmentReq {
         vars == other.vars &&
         document == other.document &&
         fragmentName == other.fragmentName &&
-        idFields == other.idFields;
+        idFields == other.idFields &&
+        cacheDeduplicationStrategy == other.cacheDeduplicationStrategy;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc(0, vars.hashCode), document.hashCode),
-            fragmentName.hashCode),
-        idFields.hashCode));
+        $jc(
+            $jc($jc($jc(0, vars.hashCode), document.hashCode),
+                fragmentName.hashCode),
+            idFields.hashCode),
+        cacheDeduplicationStrategy.hashCode));
   }
 
   @override
@@ -490,7 +538,8 @@ class _$GDroidFragmentReq extends GDroidFragmentReq {
           ..add('vars', vars)
           ..add('document', document)
           ..add('fragmentName', fragmentName)
-          ..add('idFields', idFields))
+          ..add('idFields', idFields)
+          ..add('cacheDeduplicationStrategy', cacheDeduplicationStrategy))
         .toString();
   }
 }
@@ -516,6 +565,13 @@ class GDroidFragmentReqBuilder
   Map<String, dynamic>? get idFields => _$this._idFields;
   set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
+  _i1.CacheDeduplicationStrategy? _cacheDeduplicationStrategy;
+  _i1.CacheDeduplicationStrategy? get cacheDeduplicationStrategy =>
+      _$this._cacheDeduplicationStrategy;
+  set cacheDeduplicationStrategy(
+          _i1.CacheDeduplicationStrategy? cacheDeduplicationStrategy) =>
+      _$this._cacheDeduplicationStrategy = cacheDeduplicationStrategy;
+
   GDroidFragmentReqBuilder() {
     GDroidFragmentReq._initializeBuilder(this);
   }
@@ -527,6 +583,7 @@ class GDroidFragmentReqBuilder
       _document = $v.document;
       _fragmentName = $v.fragmentName;
       _idFields = $v.idFields;
+      _cacheDeduplicationStrategy = $v.cacheDeduplicationStrategy;
       _$v = null;
     }
     return this;
@@ -556,7 +613,8 @@ class GDroidFragmentReqBuilder
                   document, r'GDroidFragmentReq', 'document'),
               fragmentName: fragmentName,
               idFields: BuiltValueNullFieldError.checkNotNull(
-                  idFields, r'GDroidFragmentReq', 'idFields'));
+                  idFields, r'GDroidFragmentReq', 'idFields'),
+              cacheDeduplicationStrategy: cacheDeduplicationStrategy);
     } catch (_) {
       late String _$failedField;
       try {

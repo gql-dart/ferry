@@ -54,6 +54,8 @@ abstract class GHumanWithArgsReq
   @override
   bool get executeOnListen;
   @override
+  _i1.CacheDeduplicationStrategy? get cacheDeduplicationStrategy;
+  @override
   _i2.GHumanWithArgsData? parseData(Map<String, dynamic> json) =>
       _i2.GHumanWithArgsData.fromJson(json);
   static Serializer<GHumanWithArgsReq> get serializer =>

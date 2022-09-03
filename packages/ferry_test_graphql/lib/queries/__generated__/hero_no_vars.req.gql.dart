@@ -54,6 +54,8 @@ abstract class GHeroNoVarsReq
   @override
   bool get executeOnListen;
   @override
+  _i1.CacheDeduplicationStrategy? get cacheDeduplicationStrategy;
+  @override
   _i2.GHeroNoVarsData? parseData(Map<String, dynamic> json) =>
       _i2.GHeroNoVarsData.fromJson(json);
   static Serializer<GHeroNoVarsReq> get serializer =>

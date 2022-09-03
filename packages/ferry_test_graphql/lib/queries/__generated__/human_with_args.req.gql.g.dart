@@ -67,6 +67,13 @@ class _$GHumanWithArgsReqSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(_i1.FetchPolicy)));
     }
+    value = object.cacheDeduplicationStrategy;
+    if (value != null) {
+      result
+        ..add('cacheDeduplicationStrategy')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(_i1.CacheDeduplicationStrategy)));
+    }
     return result;
   }
 
@@ -120,6 +127,11 @@ class _$GHumanWithArgsReqSerializer
           result.executeOnListen = serializers.deserialize(value,
               specifiedType: const FullType(bool))! as bool;
           break;
+        case 'cacheDeduplicationStrategy':
+          result.cacheDeduplicationStrategy = serializers.deserialize(value,
+                  specifiedType: const FullType(_i1.CacheDeduplicationStrategy))
+              as _i1.CacheDeduplicationStrategy?;
+          break;
       }
     }
 
@@ -147,6 +159,8 @@ class _$GHumanWithArgsReq extends GHumanWithArgsReq {
   final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
+  @override
+  final _i1.CacheDeduplicationStrategy? cacheDeduplicationStrategy;
 
   factory _$GHumanWithArgsReq(
           [void Function(GHumanWithArgsReqBuilder)? updates]) =>
@@ -161,7 +175,8 @@ class _$GHumanWithArgsReq extends GHumanWithArgsReq {
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      required this.executeOnListen})
+      required this.executeOnListen,
+      this.cacheDeduplicationStrategy})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(vars, r'GHumanWithArgsReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
@@ -191,7 +206,8 @@ class _$GHumanWithArgsReq extends GHumanWithArgsReq {
         updateCacheHandlerKey == other.updateCacheHandlerKey &&
         updateCacheHandlerContext == other.updateCacheHandlerContext &&
         fetchPolicy == other.fetchPolicy &&
-        executeOnListen == other.executeOnListen;
+        executeOnListen == other.executeOnListen &&
+        cacheDeduplicationStrategy == other.cacheDeduplicationStrategy;
   }
 
   @override
@@ -202,14 +218,18 @@ class _$GHumanWithArgsReq extends GHumanWithArgsReq {
                 $jc(
                     $jc(
                         $jc(
-                            $jc($jc($jc(0, vars.hashCode), operation.hashCode),
-                                requestId.hashCode),
-                            updateResult.hashCode),
-                        optimisticResponse.hashCode),
-                    updateCacheHandlerKey.hashCode),
-                updateCacheHandlerContext.hashCode),
-            fetchPolicy.hashCode),
-        executeOnListen.hashCode));
+                            $jc(
+                                $jc(
+                                    $jc($jc(0, vars.hashCode),
+                                        operation.hashCode),
+                                    requestId.hashCode),
+                                updateResult.hashCode),
+                            optimisticResponse.hashCode),
+                        updateCacheHandlerKey.hashCode),
+                    updateCacheHandlerContext.hashCode),
+                fetchPolicy.hashCode),
+            executeOnListen.hashCode),
+        cacheDeduplicationStrategy.hashCode));
   }
 
   @override
@@ -223,7 +243,8 @@ class _$GHumanWithArgsReq extends GHumanWithArgsReq {
           ..add('updateCacheHandlerKey', updateCacheHandlerKey)
           ..add('updateCacheHandlerContext', updateCacheHandlerContext)
           ..add('fetchPolicy', fetchPolicy)
-          ..add('executeOnListen', executeOnListen))
+          ..add('executeOnListen', executeOnListen)
+          ..add('cacheDeduplicationStrategy', cacheDeduplicationStrategy))
         .toString();
   }
 }
@@ -284,6 +305,13 @@ class GHumanWithArgsReqBuilder
   set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
+  _i1.CacheDeduplicationStrategy? _cacheDeduplicationStrategy;
+  _i1.CacheDeduplicationStrategy? get cacheDeduplicationStrategy =>
+      _$this._cacheDeduplicationStrategy;
+  set cacheDeduplicationStrategy(
+          _i1.CacheDeduplicationStrategy? cacheDeduplicationStrategy) =>
+      _$this._cacheDeduplicationStrategy = cacheDeduplicationStrategy;
+
   GHumanWithArgsReqBuilder() {
     GHumanWithArgsReq._initializeBuilder(this);
   }
@@ -300,6 +328,7 @@ class GHumanWithArgsReqBuilder
       _updateCacheHandlerContext = $v.updateCacheHandlerContext;
       _fetchPolicy = $v.fetchPolicy;
       _executeOnListen = $v.executeOnListen;
+      _cacheDeduplicationStrategy = $v.cacheDeduplicationStrategy;
       _$v = null;
     }
     return this;
@@ -334,7 +363,8 @@ class GHumanWithArgsReqBuilder
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
               executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, r'GHumanWithArgsReq', 'executeOnListen'));
+                  executeOnListen, r'GHumanWithArgsReq', 'executeOnListen'),
+              cacheDeduplicationStrategy: cacheDeduplicationStrategy);
     } catch (_) {
       late String _$failedField;
       try {

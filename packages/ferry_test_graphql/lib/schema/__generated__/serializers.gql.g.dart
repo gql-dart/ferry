@@ -7,6 +7,7 @@ part of 'serializers.gql.dart';
 // **************************************************************************
 
 Serializers _$serializers = (new Serializers().toBuilder()
+      ..add(CacheDeduplicationStrategy.serializer)
       ..add(FetchPolicy.serializer)
       ..add(GAliasedHeroData.serializer)
       ..add(GAliasedHeroData_empireHero.serializer)

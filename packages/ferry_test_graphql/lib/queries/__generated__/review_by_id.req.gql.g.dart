@@ -67,6 +67,13 @@ class _$GReviewsByIDReqSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(_i1.FetchPolicy)));
     }
+    value = object.cacheDeduplicationStrategy;
+    if (value != null) {
+      result
+        ..add('cacheDeduplicationStrategy')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(_i1.CacheDeduplicationStrategy)));
+    }
     return result;
   }
 
@@ -120,6 +127,11 @@ class _$GReviewsByIDReqSerializer
           result.executeOnListen = serializers.deserialize(value,
               specifiedType: const FullType(bool))! as bool;
           break;
+        case 'cacheDeduplicationStrategy':
+          result.cacheDeduplicationStrategy = serializers.deserialize(value,
+                  specifiedType: const FullType(_i1.CacheDeduplicationStrategy))
+              as _i1.CacheDeduplicationStrategy?;
+          break;
       }
     }
 
@@ -147,6 +159,8 @@ class _$GReviewsByIDReq extends GReviewsByIDReq {
   final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
+  @override
+  final _i1.CacheDeduplicationStrategy? cacheDeduplicationStrategy;
 
   factory _$GReviewsByIDReq([void Function(GReviewsByIDReqBuilder)? updates]) =>
       (new GReviewsByIDReqBuilder()..update(updates))._build();
@@ -160,7 +174,8 @@ class _$GReviewsByIDReq extends GReviewsByIDReq {
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      required this.executeOnListen})
+      required this.executeOnListen,
+      this.cacheDeduplicationStrategy})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(vars, r'GReviewsByIDReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
@@ -190,7 +205,8 @@ class _$GReviewsByIDReq extends GReviewsByIDReq {
         updateCacheHandlerKey == other.updateCacheHandlerKey &&
         updateCacheHandlerContext == other.updateCacheHandlerContext &&
         fetchPolicy == other.fetchPolicy &&
-        executeOnListen == other.executeOnListen;
+        executeOnListen == other.executeOnListen &&
+        cacheDeduplicationStrategy == other.cacheDeduplicationStrategy;
   }
 
   @override
@@ -201,14 +217,18 @@ class _$GReviewsByIDReq extends GReviewsByIDReq {
                 $jc(
                     $jc(
                         $jc(
-                            $jc($jc($jc(0, vars.hashCode), operation.hashCode),
-                                requestId.hashCode),
-                            updateResult.hashCode),
-                        optimisticResponse.hashCode),
-                    updateCacheHandlerKey.hashCode),
-                updateCacheHandlerContext.hashCode),
-            fetchPolicy.hashCode),
-        executeOnListen.hashCode));
+                            $jc(
+                                $jc(
+                                    $jc($jc(0, vars.hashCode),
+                                        operation.hashCode),
+                                    requestId.hashCode),
+                                updateResult.hashCode),
+                            optimisticResponse.hashCode),
+                        updateCacheHandlerKey.hashCode),
+                    updateCacheHandlerContext.hashCode),
+                fetchPolicy.hashCode),
+            executeOnListen.hashCode),
+        cacheDeduplicationStrategy.hashCode));
   }
 
   @override
@@ -222,7 +242,8 @@ class _$GReviewsByIDReq extends GReviewsByIDReq {
           ..add('updateCacheHandlerKey', updateCacheHandlerKey)
           ..add('updateCacheHandlerContext', updateCacheHandlerContext)
           ..add('fetchPolicy', fetchPolicy)
-          ..add('executeOnListen', executeOnListen))
+          ..add('executeOnListen', executeOnListen)
+          ..add('cacheDeduplicationStrategy', cacheDeduplicationStrategy))
         .toString();
   }
 }
@@ -282,6 +303,13 @@ class GReviewsByIDReqBuilder
   set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
+  _i1.CacheDeduplicationStrategy? _cacheDeduplicationStrategy;
+  _i1.CacheDeduplicationStrategy? get cacheDeduplicationStrategy =>
+      _$this._cacheDeduplicationStrategy;
+  set cacheDeduplicationStrategy(
+          _i1.CacheDeduplicationStrategy? cacheDeduplicationStrategy) =>
+      _$this._cacheDeduplicationStrategy = cacheDeduplicationStrategy;
+
   GReviewsByIDReqBuilder() {
     GReviewsByIDReq._initializeBuilder(this);
   }
@@ -298,6 +326,7 @@ class GReviewsByIDReqBuilder
       _updateCacheHandlerContext = $v.updateCacheHandlerContext;
       _fetchPolicy = $v.fetchPolicy;
       _executeOnListen = $v.executeOnListen;
+      _cacheDeduplicationStrategy = $v.cacheDeduplicationStrategy;
       _$v = null;
     }
     return this;
@@ -332,7 +361,8 @@ class GReviewsByIDReqBuilder
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
               executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, r'GReviewsByIDReq', 'executeOnListen'));
+                  executeOnListen, r'GReviewsByIDReq', 'executeOnListen'),
+              cacheDeduplicationStrategy: cacheDeduplicationStrategy);
     } catch (_) {
       late String _$failedField;
       try {

@@ -40,6 +40,13 @@ class _$GReviewFragmentReqSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.cacheDeduplicationStrategy;
+    if (value != null) {
+      result
+        ..add('cacheDeduplicationStrategy')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(_i1.CacheDeduplicationStrategy)));
+    }
     return result;
   }
 
@@ -76,6 +83,11 @@ class _$GReviewFragmentReqSerializer
                 const FullType(dynamic)
               ]))! as Map<String, dynamic>;
           break;
+        case 'cacheDeduplicationStrategy':
+          result.cacheDeduplicationStrategy = serializers.deserialize(value,
+                  specifiedType: const FullType(_i1.CacheDeduplicationStrategy))
+              as _i1.CacheDeduplicationStrategy?;
+          break;
       }
     }
 
@@ -92,6 +104,8 @@ class _$GReviewFragmentReq extends GReviewFragmentReq {
   final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
+  @override
+  final _i1.CacheDeduplicationStrategy? cacheDeduplicationStrategy;
 
   factory _$GReviewFragmentReq(
           [void Function(GReviewFragmentReqBuilder)? updates]) =>
@@ -101,7 +115,8 @@ class _$GReviewFragmentReq extends GReviewFragmentReq {
       {required this.vars,
       required this.document,
       this.fragmentName,
-      required this.idFields})
+      required this.idFields,
+      this.cacheDeduplicationStrategy})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(vars, r'GReviewFragmentReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
@@ -126,15 +141,18 @@ class _$GReviewFragmentReq extends GReviewFragmentReq {
         vars == other.vars &&
         document == other.document &&
         fragmentName == other.fragmentName &&
-        idFields == other.idFields;
+        idFields == other.idFields &&
+        cacheDeduplicationStrategy == other.cacheDeduplicationStrategy;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc(0, vars.hashCode), document.hashCode),
-            fragmentName.hashCode),
-        idFields.hashCode));
+        $jc(
+            $jc($jc($jc(0, vars.hashCode), document.hashCode),
+                fragmentName.hashCode),
+            idFields.hashCode),
+        cacheDeduplicationStrategy.hashCode));
   }
 
   @override
@@ -143,7 +161,8 @@ class _$GReviewFragmentReq extends GReviewFragmentReq {
           ..add('vars', vars)
           ..add('document', document)
           ..add('fragmentName', fragmentName)
-          ..add('idFields', idFields))
+          ..add('idFields', idFields)
+          ..add('cacheDeduplicationStrategy', cacheDeduplicationStrategy))
         .toString();
   }
 }
@@ -169,6 +188,13 @@ class GReviewFragmentReqBuilder
   Map<String, dynamic>? get idFields => _$this._idFields;
   set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
+  _i1.CacheDeduplicationStrategy? _cacheDeduplicationStrategy;
+  _i1.CacheDeduplicationStrategy? get cacheDeduplicationStrategy =>
+      _$this._cacheDeduplicationStrategy;
+  set cacheDeduplicationStrategy(
+          _i1.CacheDeduplicationStrategy? cacheDeduplicationStrategy) =>
+      _$this._cacheDeduplicationStrategy = cacheDeduplicationStrategy;
+
   GReviewFragmentReqBuilder() {
     GReviewFragmentReq._initializeBuilder(this);
   }
@@ -180,6 +206,7 @@ class GReviewFragmentReqBuilder
       _document = $v.document;
       _fragmentName = $v.fragmentName;
       _idFields = $v.idFields;
+      _cacheDeduplicationStrategy = $v.cacheDeduplicationStrategy;
       _$v = null;
     }
     return this;
@@ -209,7 +236,8 @@ class GReviewFragmentReqBuilder
                   document, r'GReviewFragmentReq', 'document'),
               fragmentName: fragmentName,
               idFields: BuiltValueNullFieldError.checkNotNull(
-                  idFields, r'GReviewFragmentReq', 'idFields'));
+                  idFields, r'GReviewFragmentReq', 'idFields'),
+              cacheDeduplicationStrategy: cacheDeduplicationStrategy);
     } catch (_) {
       late String _$failedField;
       try {

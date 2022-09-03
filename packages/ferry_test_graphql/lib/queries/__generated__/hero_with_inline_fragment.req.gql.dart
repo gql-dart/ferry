@@ -55,6 +55,8 @@ abstract class GHeroForEpisodeReq
   @override
   bool get executeOnListen;
   @override
+  _i1.CacheDeduplicationStrategy? get cacheDeduplicationStrategy;
+  @override
   _i2.GHeroForEpisodeData? parseData(Map<String, dynamic> json) =>
       _i2.GHeroForEpisodeData.fromJson(json);
   static Serializer<GHeroForEpisodeReq> get serializer =>
@@ -86,6 +88,8 @@ abstract class GDroidFragmentReq
   String? get fragmentName;
   @override
   Map<String, dynamic> get idFields;
+  @override
+  _i1.CacheDeduplicationStrategy? get cacheDeduplicationStrategy;
   @override
   _i2.GDroidFragmentData? parseData(Map<String, dynamic> json) =>
       _i2.GDroidFragmentData.fromJson(json);
