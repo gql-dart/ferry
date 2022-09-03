@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:ferry_exec/ferry_exec.dart';
 import 'package:ferry_test_graphql/queries/__generated__/review_by_id.data.gql.dart';
 import 'package:ferry_test_graphql/queries/__generated__/review_by_id.req.gql.dart';
 import 'package:test/test.dart';
@@ -203,25 +204,28 @@ void main() {
         'does not emit updates when same data is written multiple times with DeduplicationStrategy afterDenormalize',
         () async {
       final cache = Cache();
-      cache.writeQuery(reviewsReq, reviewsData2);
+
+      final req = reviewsReq.rebuild((b) => b..cacheDeduplicationStrategy = CacheDeduplicationStrategy.afterDenormalize);
+
+      cache.writeQuery(req, reviewsData2);
 
       expect(
-          cache.watchQuery(reviewsReq),
+          cache.watchQuery(req),
           emitsInOrder([
             reviewsData2,
             emitsDone,
           ]));
 
       await Future.delayed(Duration.zero);
-      cache.writeQuery(reviewsReq, reviewsData2, optimisticRequest: reviewsReq);
+      cache.writeQuery(req, reviewsData2, optimisticRequest: req);
 
       await Future.delayed(Duration.zero);
 
-      cache.removeOptimisticPatch(reviewsReq);
+      cache.removeOptimisticPatch(req);
 
       await Future.delayed(Duration.zero);
 
-      cache.writeQuery(reviewsReq, reviewsData2, optimisticRequest: reviewsReq);
+      cache.writeQuery(req, reviewsData2, optimisticRequest: req);
 
       await cache.dispose();
     });
@@ -230,12 +234,17 @@ void main() {
         'does emit updates when same data is written multiple times with DeduplicationStrategy none',
         () async {
       final cache = Cache();
-      cache.writeQuery(reviewsReq, reviewsData);
+      final req = reviewsReq.rebuild((b) => b..cacheDeduplicationStrategy = CacheDeduplicationStrategy.none);
+
+
+      cache.writeQuery(req, reviewsData);
 
       final keys = cache.store.keys.length;
 
+
+
       expect(
-          cache.watchQuery(reviewsReq),
+          cache.watchQuery(req),
           emitsInOrder([
             reviewsData,
             ...List.filled(keys*3, reviewsData),
@@ -243,11 +252,11 @@ void main() {
           ]));
 
       await Future.delayed(Duration.zero);
-      cache.writeQuery(reviewsReq, reviewsData, optimisticRequest: reviewsReq);
+      cache.writeQuery(req, reviewsData, optimisticRequest: req);
 
       await Future.delayed(Duration.zero);
 
-      cache.removeOptimisticPatch(reviewsReq);
+      cache.removeOptimisticPatch(req);
 
       await Future.delayed(Duration.zero);
 

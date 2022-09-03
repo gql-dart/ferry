@@ -91,10 +91,10 @@ class Cache {
           addTypename,
           dataIdFromObject,
           possibleTypes,
-          (request.deduplicationStrategy ?? defaultDeduplicationStrategy) == CacheDeduplicationStrategy.onNormalizedObjects,
+          (request.cacheDeduplicationStrategy ?? defaultDeduplicationStrategy) == CacheDeduplicationStrategy.onNormalizedObjects,
         ),
         getData: () => readFragment(request, optimistic: optimistic),
-        cacheDeduplicationStrategy:           (request.deduplicationStrategy ?? defaultDeduplicationStrategy) == CacheDeduplicationStrategy.onNormalizedObjects,
+        cacheDeduplicationStrategy: request.cacheDeduplicationStrategy ?? defaultDeduplicationStrategy,
 
       );
 
