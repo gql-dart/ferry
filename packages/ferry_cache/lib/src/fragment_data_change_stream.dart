@@ -12,7 +12,8 @@ import './utils/data_for_id_stream.dart';
 Stream<Set<String>> fragmentDataChangeStream<TData, TVars>(
   FragmentRequest<TData, TVars> request,
   bool optimistic,
-  Stream<Map<OperationRequest, Map<String, Map<String, dynamic>?>>?> optimisticPatchesStream,
+  Stream<Map<OperationRequest, Map<String, Map<String, dynamic>?>>?>
+      optimisticPatchesStream,
   Map<String, dynamic>? Function(String dataId) optimisticReader,
   Store store,
   Map<String, TypePolicy> typePolicies,

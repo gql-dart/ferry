@@ -14,7 +14,8 @@ import './utils/operation_root_data.dart';
 Stream<Set<String>> operationDataChangeStream<TData, TVars>(
   OperationRequest<TData, TVars> request,
   bool optimistic,
-  Stream<Map<OperationRequest, Map<String, Map<String, dynamic>?>>?> optimisticPatchesStream,
+  Stream<Map<OperationRequest, Map<String, Map<String, dynamic>?>>?>
+      optimisticPatchesStream,
   Map<String, dynamic>? Function(String dataId) optimisticReader,
   Store store,
   Map<String, TypePolicy> typePolicies,

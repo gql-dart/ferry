@@ -58,17 +58,16 @@ void main() {
   group('operationDataChangeStream', () {
     test("doesn't trigger before a change", () async {
       final stream = operationDataChangeStream(
-        heroReq,
-        true,
-        cache.optimisticPatchesStream,
-        cache.optimisticReader,
-        cache.store,
-        {},
-        true,
-        null,
-        {},
-        false
-      );
+          heroReq,
+          true,
+          cache.optimisticPatchesStream,
+          cache.optimisticReader,
+          cache.store,
+          {},
+          true,
+          null,
+          {},
+          false);
 
       expect(
         stream,
@@ -83,17 +82,16 @@ void main() {
       test("doesn't trigger with changes to unused root operation fields",
           () async {
         final stream = operationDataChangeStream(
-          heroReq,
-          true,
-          cache.optimisticPatchesStream,
-          cache.optimisticReader,
-          cache.store,
-          {},
-          true,
-          null,
-          {},
-          false
-        );
+            heroReq,
+            true,
+            cache.optimisticPatchesStream,
+            cache.optimisticReader,
+            cache.store,
+            {},
+            true,
+            null,
+            {},
+            true);
 
         expect(stream, emitsInOrder([emitsDone]));
 
@@ -109,17 +107,16 @@ void main() {
 
       test("doesn't trigger with the same data for operation fields", () async {
         final stream = operationDataChangeStream(
-          heroReq,
-          true,
-          cache.optimisticPatchesStream,
-          cache.optimisticReader,
-          cache.store,
-          {},
-          true,
-          null,
-          {},
-          false
-        );
+            heroReq,
+            true,
+            cache.optimisticPatchesStream,
+            cache.optimisticReader,
+            cache.store,
+            {},
+            true,
+            null,
+            {},
+            false);
 
         expect(stream, emitsInOrder([emitsDone]));
 
@@ -132,17 +129,16 @@ void main() {
 
       test("doesn't trigger with changes to unrelated data", () async {
         final stream = operationDataChangeStream(
-          heroReq,
-          true,
-          cache.optimisticPatchesStream,
-          cache.optimisticReader,
-          cache.store,
-          {},
-          true,
-          null,
-          {},
-          false
-        );
+            heroReq,
+            true,
+            cache.optimisticPatchesStream,
+            cache.optimisticReader,
+            cache.store,
+            {},
+            true,
+            null,
+            {},
+            false);
 
         expect(stream, emitsInOrder([emitsDone]));
 
@@ -158,17 +154,16 @@ void main() {
 
       test('triggers with different data for operation fields', () async {
         final stream = operationDataChangeStream(
-          heroReq,
-          true,
-          cache.optimisticPatchesStream,
-          cache.optimisticReader,
-          cache.store,
-          {},
-          true,
-          null,
-          {},
-          false
-        );
+            heroReq,
+            true,
+            cache.optimisticPatchesStream,
+            cache.optimisticReader,
+            cache.store,
+            {},
+            true,
+            null,
+            {},
+            false);
 
         expect(
           stream,
@@ -192,17 +187,16 @@ void main() {
     group('dependent reference data changes', () {
       test('triggers with change to dependent reference', () async {
         final stream = operationDataChangeStream(
-          heroReq,
-          true,
-          cache.optimisticPatchesStream,
-          cache.optimisticReader,
-          cache.store,
-          {},
-          true,
-          null,
-          {},
-          false
-        );
+            heroReq,
+            true,
+            cache.optimisticPatchesStream,
+            cache.optimisticReader,
+            cache.store,
+            {},
+            true,
+            null,
+            {},
+            false);
 
         expect(
           stream,
@@ -229,17 +223,16 @@ void main() {
           "doesn't trigger with optimistic patches that don't affect operation root",
           () async {
         final stream = operationDataChangeStream(
-          heroReq,
-          true,
-          cache.optimisticPatchesStream,
-          cache.optimisticReader,
-          cache.store,
-          {},
-          true,
-          null,
-          {},
-          false
-        );
+            heroReq,
+            true,
+            cache.optimisticPatchesStream,
+            cache.optimisticReader,
+            cache.store,
+            {},
+            true,
+            null,
+            {},
+            true);
 
         expect(stream, emitsInOrder([emitsDone]));
 
@@ -261,17 +254,16 @@ void main() {
       test('triggers with optimistic patches that affect operation root',
           () async {
         final stream = operationDataChangeStream(
-          heroReq,
-          true,
-          cache.optimisticPatchesStream,
-          cache.optimisticReader,
-          cache.store,
-          {},
-          true,
-          null,
-          {},
-          false
-        );
+            heroReq,
+            true,
+            cache.optimisticPatchesStream,
+            cache.optimisticReader,
+            cache.store,
+            {},
+            true,
+            null,
+            {},
+            true);
 
         expect(
           stream,
@@ -299,17 +291,16 @@ void main() {
       test('triggers with optimistic patches that affect referenced entities',
           () async {
         final stream = operationDataChangeStream(
-          heroReq,
-          true,
-          cache.optimisticPatchesStream,
-          cache.optimisticReader,
-          cache.store,
-          {},
-          true,
-          null,
-          {},
-          false
-        );
+            heroReq,
+            true,
+            cache.optimisticPatchesStream,
+            cache.optimisticReader,
+            cache.store,
+            {},
+            true,
+            null,
+            {},
+            true);
 
         expect(
           stream,
@@ -346,7 +337,8 @@ void main() {
             {},
             true,
             null,
-            {}, false);
+            {},
+            false);
 
         expect(
           stream,
@@ -367,7 +359,8 @@ void main() {
             {},
             true,
             null,
-            {}, false );
+            {},
+            true);
 
         expect(stream, emitsInOrder([emitsDone]));
 
@@ -388,7 +381,8 @@ void main() {
             {},
             true,
             null,
-            {}, false);
+            {},
+            true);
 
         expect(
           stream,
@@ -419,7 +413,8 @@ void main() {
             {},
             true,
             null,
-            {}, false);
+            {},
+            true);
 
         expect(
           stream,

@@ -1,0 +1,20 @@
+# melos_managed_dependency_overrides: ferry,ferry_cache,ferry_exec,ferry_flutter,ferry_generator,ferry_hive_store,ferry_store,ferry_test_graphql,normalize
+dependency_overrides:
+  ferry:
+    path: ../../packages/ferry
+  ferry_cache:
+    path: ../../packages/ferry_cache
+  ferry_exec:
+    path: ../../packages/ferry_exec
+  ferry_flutter:
+    path: ../../packages/ferry_flutter
+  ferry_generator:
+    path: ../../packages/ferry_generator
+  ferry_hive_store:
+    path: ../../packages/ferry_hive_store
+  ferry_store:
+    path: ../../packages/ferry_store
+  ferry_test_graphql:
+    path: ../../packages/ferry_test_graphql
+  normalize:
+    path: ../../packages/normalize

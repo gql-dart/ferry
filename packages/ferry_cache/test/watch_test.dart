@@ -61,8 +61,8 @@ void main() {
       final cache = Cache();
       cache.writeQuery(reviewsReq, reviewsData);
 
-      final nextData =
-          reviewsData.rebuild((b) => b.reviews.add(review.rebuild((b) => b..id = '456')));
+      final nextData = reviewsData
+          .rebuild((b) => b.reviews.add(review.rebuild((b) => b..id = '456')));
 
       expect(
         cache.watchQuery(reviewsReq),
@@ -84,8 +84,8 @@ void main() {
     test('can receive updates to data when starting with empty data', () async {
       final cache = Cache();
 
-      final nextData =
-          reviewsData.rebuild((b) => b.reviews.add(review.rebuild((b) => b..id = '456')));
+      final nextData = reviewsData
+          .rebuild((b) => b.reviews.add(review.rebuild((b) => b..id = '456')));
 
       expect(
         cache.watchQuery(reviewsReq),
@@ -123,8 +123,8 @@ void main() {
       data!['stars'] = '100';
       cache.store.put(dataId, data);
 
-      final nextData =
-          reviewsData.rebuild((b) => b.reviews.add(review.rebuild((b) => b..id = '456')));
+      final nextData = reviewsData
+          .rebuild((b) => b.reviews.add(review.rebuild((b) => b..id = '456')));
 
       expect(
           cache.watchQuery(reviewsReq),
@@ -140,6 +140,10 @@ void main() {
       cache.writeQuery(reviewsReq, reviewsData);
 
       await Future.delayed(Duration.zero);
+      await Future.delayed(Duration.zero);
+
+      await Future.delayed(Duration.zero);
+      await Future.delayed(Duration.zero);
 
       cache.writeQuery(reviewsReq, nextData);
 
@@ -148,11 +152,13 @@ void main() {
       await cache.dispose();
     });
 
-    test('can receive updates when child objects are updated by other queries', () async {
+    test('can receive updates when child objects are updated by other queries',
+        () async {
       final cache = Cache();
       cache.writeQuery(reviewsReq, reviewsData2);
 
-      final updatedReview = reviewsData.reviews!.first.rebuild((b) => b.commentary = 'first');
+      final updatedReview =
+          reviewsData.reviews!.first.rebuild((b) => b.commentary = 'first');
 
       expect(
           cache.watchQuery(reviewsReq),
@@ -177,7 +183,8 @@ void main() {
       await cache.dispose();
     });
 
-    test('does not emit updates when same data is written multiple times', () async {
+    test('does not emit updates when same data is written multiple times',
+        () async {
       final cache = Cache();
       cache.writeQuery(reviewsReq, reviewsData2);
 
@@ -205,7 +212,9 @@ void main() {
         () async {
       final cache = Cache();
 
-      final req = reviewsReq.rebuild((b) => b..cacheDeduplicationStrategy = CacheDeduplicationStrategy.afterDenormalize);
+      final req = reviewsReq.rebuild((b) => b
+        ..cacheDeduplicationStrategy =
+            CacheDeduplicationStrategy.afterDenormalize);
 
       cache.writeQuery(req, reviewsData2);
 
@@ -230,24 +239,56 @@ void main() {
       await cache.dispose();
     });
 
+    test('does emit updates with CacheDeduplicationStrategy.afterDenormalize',
+        () async {
+      final cache = Cache();
+
+      final req = reviewsReq.rebuild((b) => b
+        ..cacheDeduplicationStrategy =
+            CacheDeduplicationStrategy.afterDenormalize);
+
+      expect(
+          cache.watchQuery(req),
+          emitsInOrder([
+            isNull,
+            reviewsData,
+            reviewsData2,
+            reviewsData,
+            emitsDone,
+          ]));
+
+      await Future.delayed(Duration.zero);
+
+      cache.writeQuery(req, reviewsData);
+
+      await Future.delayed(Duration.zero);
+
+      cache.writeQuery(req, reviewsData2);
+
+      await Future.delayed(Duration.zero);
+
+      cache.writeQuery(req, reviewsData);
+
+      await Future.delayed(Duration.zero);
+
+      await cache.dispose();
+    });
+
     test(
         'does emit updates when same data is written multiple times with DeduplicationStrategy none',
         () async {
       final cache = Cache();
-      final req = reviewsReq.rebuild((b) => b..cacheDeduplicationStrategy = CacheDeduplicationStrategy.none);
-
+      final req = reviewsReq.rebuild((b) =>
+          b..cacheDeduplicationStrategy = CacheDeduplicationStrategy.none);
 
       cache.writeQuery(req, reviewsData);
-
-      final keys = cache.store.keys.length;
-
-
 
       expect(
           cache.watchQuery(req),
           emitsInOrder([
             reviewsData,
-            ...List.filled(keys*3, reviewsData),
+            reviewsData,
+            reviewsData,
             emitsDone,
           ]));
 
