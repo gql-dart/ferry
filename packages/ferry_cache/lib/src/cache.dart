@@ -95,12 +95,41 @@ class Cache {
     required Stream Function() getChangeStream,
     required TData? Function() getData,
   }) {
-    return getChangeStream()
-        // We add null at the beginning of the stream to trigger the initial getData().
-        // getChangeStream = operationDataChangeStream or fragmentDataChangeStream and
-        // they both end with .skip(1).
-        .startWith(null)
-        .map((_) => getData());
+    late StreamController<TData?> sc;
+
+    Future<void> addNext() async {
+      while (true) {
+        try {
+          if (sc.isClosed) return;
+
+          sc.add(getData());
+          final isEmptyFuture = getChangeStream().isEmpty;
+          final streamControllerDoneFuture = sc.done.then((value) => true);
+
+          if (await Future.any([isEmptyFuture, streamControllerDoneFuture])) {
+            unawaited(sc.close());
+            return;
+          }
+        } catch (err, st) {
+          if (!sc.isClosed) {
+            sc.addError(err, st);
+          }
+          //continuing immediately likely would result in an endless loop where
+          //we emit the same error over and over again
+          //so we wait for the next change
+          final isEmptyFuture = getChangeStream().first;
+          final streamControlleDoneFuture = sc.done.then((value) => true);
+          await Future.any([isEmptyFuture, streamControlleDoneFuture]);
+        }
+      }
+    }
+
+    sc = StreamController<TData?>(
+      onListen: addNext,
+      onCancel: () => unawaited(sc.close()),
+    );
+
+    return sc.stream;
   }
 
   /// Reads denormalized data from the Cache for the given operation.
