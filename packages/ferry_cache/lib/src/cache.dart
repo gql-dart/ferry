@@ -18,7 +18,8 @@ class Cache {
   final utils.DataIdResolver? dataIdFromObject;
 
   @visibleForTesting
-  final BehaviorSubject<Map<OperationRequest, Map<String, Map<String, dynamic>?>>?>
+  final BehaviorSubject<
+          Map<OperationRequest, Map<String, Map<String, dynamic>?>>?>
       optimisticPatchesStream;
 
   /// A set of entity IDs to retain when the cache is garbage collected.
@@ -30,7 +31,8 @@ class Cache {
     this.typePolicies = const {},
     this.possibleTypes = const {},
     this.addTypename = true,
-    Map<OperationRequest, Map<String, Map<String, dynamic>?>> seedOptimisticPatches = const {},
+    Map<OperationRequest, Map<String, Map<String, dynamic>?>>
+        seedOptimisticPatches = const {},
   })  : store = store ?? MemoryStore(),
         optimisticPatchesStream = BehaviorSubject.seeded(seedOptimisticPatches);
 
@@ -124,7 +126,8 @@ class Cache {
               sc.addError(e, s);
             }
           });
-          await Future.any<Object?>([streamControllerDone, isEmptyCompleter.future]);
+          await Future.any<Object?>(
+              [streamControllerDone, isEmptyCompleter.future]);
           unawaited(sub.cancel());
 
           if (wasEmpty) {
@@ -204,7 +207,9 @@ class Cache {
     OperationRequest? optimisticRequest,
   }) =>
       normalizeOperation(
-        read: optimisticRequest != null ? optimisticReader : (dataId) => store.get(dataId),
+        read: optimisticRequest != null
+            ? optimisticReader
+            : (dataId) => store.get(dataId),
         write: (dataId, value) => _writeData(
           dataId,
           value,
@@ -232,7 +237,9 @@ class Cache {
     OperationRequest? optimisticRequest,
   }) =>
       normalizeFragment(
-        read: optimisticRequest != null ? optimisticReader : (dataId) => store.get(dataId),
+        read: optimisticRequest != null
+            ? optimisticReader
+            : (dataId) => store.get(dataId),
         write: (dataId, value) => _writeData(
           dataId,
           value,
@@ -260,7 +267,8 @@ class Cache {
               {
                 ...optimisticPatchesStream.value!,
                 optimisticRequest: {
-                  ...optimisticPatchesStream.value![optimisticRequest] ?? const {},
+                  ...optimisticPatchesStream.value![optimisticRequest] ??
+                      const {},
                   dataId: value,
                 }
               },
@@ -349,7 +357,9 @@ class Cache {
         optimisticRequest: {
           ...(optimisticPatchesStream.value![optimisticRequest] ?? {}),
           entityId: {
-            ...((optimisticPatchesStream.value![optimisticRequest] ?? {})[entityId]) ?? {},
+            ...((optimisticPatchesStream.value![optimisticRequest] ??
+                    {})[entityId]) ??
+                {},
             utils.FieldKey.from(fieldName, args).toString(): null
           },
         }
@@ -416,7 +426,8 @@ class Cache {
     );
     final keysToRemove = store.keys
         .where(
-          (key) => !reachable.contains(key) && !_retainedEntityIds.contains(key),
+          (key) =>
+              !reachable.contains(key) && !_retainedEntityIds.contains(key),
         )
         .toSet();
     store.deleteAll(keysToRemove);
