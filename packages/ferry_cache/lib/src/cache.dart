@@ -18,8 +18,7 @@ class Cache {
   final utils.DataIdResolver? dataIdFromObject;
 
   @visibleForTesting
-  final BehaviorSubject<
-          Map<OperationRequest, Map<String, Map<String, dynamic>?>>?>
+  final BehaviorSubject<Map<OperationRequest, Map<String, Map<String, dynamic>?>>?>
       optimisticPatchesStream;
 
   /// A set of entity IDs to retain when the cache is garbage collected.
@@ -31,8 +30,7 @@ class Cache {
     this.typePolicies = const {},
     this.possibleTypes = const {},
     this.addTypename = true,
-    Map<OperationRequest, Map<String, Map<String, dynamic>?>>
-        seedOptimisticPatches = const {},
+    Map<OperationRequest, Map<String, Map<String, dynamic>?>> seedOptimisticPatches = const {},
   })  : store = store ?? MemoryStore(),
         optimisticPatchesStream = BehaviorSubject.seeded(seedOptimisticPatches);
 
@@ -97,16 +95,39 @@ class Cache {
   }) {
     late StreamController<TData?> sc;
 
+    late Future streamControllerDone;
+
     Future<void> addNext() async {
+      // todo: refactor operationDataChangeStream / fragmentChangeDataStream so that they can
+      // deal with added ids, so we don't have to maintian this ugly block below
       while (true) {
         try {
           if (sc.isClosed) return;
 
           sc.add(getData());
-          final isEmptyFuture = getChangeStream().isEmpty;
-          final streamControllerDoneFuture = sc.done.then((value) => true);
+          final isEmptyCompleter = Completer<bool>();
+          var wasEmpty = false;
+          late StreamSubscription sub;
+          // listen to the next event of the change stream
+          // cannot use .first because this might leak an implicit subscription to the stream
+          // that we can't cancel
+          sub = getChangeStream().listen((event) {
+            isEmptyCompleter.complete(false);
+          }, onDone: () {
+            if (isEmptyCompleter.isCompleted) {
+              return;
+            }
+            wasEmpty = true;
+            isEmptyCompleter.complete(true);
+          }, onError: (e, s) {
+            if (!sc.isClosed) {
+              sc.addError(e, s);
+            }
+          });
+          await Future.any<Object?>([streamControllerDone, isEmptyCompleter.future]);
+          unawaited(sub.cancel());
 
-          if (await Future.any([isEmptyFuture, streamControllerDoneFuture])) {
+          if (wasEmpty) {
             unawaited(sc.close());
             return;
           }
@@ -128,6 +149,7 @@ class Cache {
       onListen: addNext,
       onCancel: () => unawaited(sc.close()),
     );
+    streamControllerDone = sc.done;
 
     return sc.stream;
   }
@@ -182,9 +204,7 @@ class Cache {
     OperationRequest? optimisticRequest,
   }) =>
       normalizeOperation(
-        read: optimisticRequest != null
-            ? optimisticReader
-            : (dataId) => store.get(dataId),
+        read: optimisticRequest != null ? optimisticReader : (dataId) => store.get(dataId),
         write: (dataId, value) => _writeData(
           dataId,
           value,
@@ -212,9 +232,7 @@ class Cache {
     OperationRequest? optimisticRequest,
   }) =>
       normalizeFragment(
-        read: optimisticRequest != null
-            ? optimisticReader
-            : (dataId) => store.get(dataId),
+        read: optimisticRequest != null ? optimisticReader : (dataId) => store.get(dataId),
         write: (dataId, value) => _writeData(
           dataId,
           value,
@@ -242,8 +260,7 @@ class Cache {
               {
                 ...optimisticPatchesStream.value!,
                 optimisticRequest: {
-                  ...optimisticPatchesStream.value![optimisticRequest] ??
-                      const {},
+                  ...optimisticPatchesStream.value![optimisticRequest] ?? const {},
                   dataId: value,
                 }
               },
@@ -332,9 +349,7 @@ class Cache {
         optimisticRequest: {
           ...(optimisticPatchesStream.value![optimisticRequest] ?? {}),
           entityId: {
-            ...((optimisticPatchesStream.value![optimisticRequest] ??
-                    {})[entityId]) ??
-                {},
+            ...((optimisticPatchesStream.value![optimisticRequest] ?? {})[entityId]) ?? {},
             utils.FieldKey.from(fieldName, args).toString(): null
           },
         }
@@ -401,8 +416,7 @@ class Cache {
     );
     final keysToRemove = store.keys
         .where(
-          (key) =>
-              !reachable.contains(key) && !_retainedEntityIds.contains(key),
+          (key) => !reachable.contains(key) && !_retainedEntityIds.contains(key),
         )
         .toSet();
     store.deleteAll(keysToRemove);
