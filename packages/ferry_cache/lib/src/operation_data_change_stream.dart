@@ -102,7 +102,9 @@ Stream<Set<String>> operationDataChangeStream<TData, TVars>(
             changed.clear();
             return result;
           },
-        )
+        ).doOnDone(() {
+          dataIdStreamController.close();
+        })
 
             /// Skip the first result since this returns the existing data
             .skip(1);
