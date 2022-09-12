@@ -1,11 +1,10 @@
-import 'package:test/test.dart';
-
-import 'package:ferry_cache/src/operation_data_change_stream.dart';
-import 'package:ferry_cache/src/fragment_data_change_stream.dart';
 import 'package:ferry_cache/ferry_cache.dart';
-import 'package:ferry_test_graphql/schema/__generated__/schema.schema.gql.dart';
-import 'package:ferry_test_graphql/queries/__generated__/hero_with_fragments.req.gql.dart';
+import 'package:ferry_cache/src/fragment_data_change_stream.dart';
+import 'package:ferry_cache/src/operation_data_change_stream.dart';
 import 'package:ferry_test_graphql/queries/__generated__/hero_with_fragments.data.gql.dart';
+import 'package:ferry_test_graphql/queries/__generated__/hero_with_fragments.req.gql.dart';
+import 'package:ferry_test_graphql/schema/__generated__/schema.schema.gql.dart';
+import 'package:test/test.dart';
 
 final luke = GHeroWithFragmentsData_hero(
   (b) => b
@@ -426,6 +425,50 @@ void main() {
         /// Only trigger the first time
         await Future.delayed(Duration.zero);
         cache.store.delete('Character:luke');
+
+        await Future.delayed(Duration.zero);
+        await cache.dispose();
+      });
+
+      test('triggers when a change is made on an object that was added later',
+          () async {
+        final lukeAndFriends =
+            GcomparisonFieldsReq((b) => b..idFields = {'id': 'luke'});
+        final stream = fragmentDataChangeStream(
+            lukeAndFriends,
+            true,
+            cache.optimisticPatchesStream,
+            cache.optimisticReader,
+            cache.store,
+            {},
+            true,
+            null,
+            {});
+
+        expect(
+          stream,
+          emitsInOrder([
+            {'Character:luke'}, // When we add Vader to friends.
+            {'Character:vader'}, // When we update Vader's name.
+            emitsDone,
+          ]),
+        );
+
+        await Future.delayed(Duration.zero);
+        cache.writeFragment(
+            lukeAndFriends,
+            luke.rebuild((data) => data.friendsConnection.edges
+                    .add(GHeroWithFragmentsData_hero_friendsConnection_edges(
+                  (b) => b
+                    ..node =
+                        GHeroWithFragmentsData_hero_friendsConnection_edges_node
+                                .fromJson(vader.toJson())!
+                            .toBuilder(),
+                ))));
+
+        await Future.delayed(Duration.zero);
+        cache.writeFragment(GheroDataReq((b) => b..idFields = {'id': 'vader'}),
+            vader.rebuild((data) => data.name = 'Daddy <3'));
 
         await Future.delayed(Duration.zero);
         await cache.dispose();
