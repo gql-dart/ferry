@@ -1,11 +1,12 @@
-import 'package:normalize/policies.dart';
-import 'package:normalize/normalize.dart';
+import 'dart:async';
+
 import 'package:collection/collection.dart';
+import 'package:ferry_exec/ferry_exec.dart';
 import 'package:ferry_store/ferry_store.dart';
+import 'package:normalize/normalize.dart';
 import 'package:normalize/utils.dart';
 import 'package:rxdart/rxdart.dart';
 
-import 'package:ferry_exec/ferry_exec.dart';
 import './utils/data_for_id_stream.dart';
 
 /// Emits when the data for this fragment changes, returning a `Set` of changed IDs.
@@ -21,57 +22,72 @@ Stream<Set<String>> fragmentDataChangeStream<TData, TVars>(
   DataIdResolver? dataIdFromObject,
   Map<String, Set<String>> possibleTypes,
 ) {
-  final dataIds = <String>{};
+  final dataIdStreamController = StreamController<void>();
+  final result = dataIdStreamController.stream
+      .map((_) {
+        final dataIds = <String>{};
 
-  denormalizeFragment(
-    read: (dataId) {
-      dataIds.add(dataId);
-      return optimistic ? optimisticReader(dataId) : store.get(dataId);
-    },
-    idFields: request.idFields,
-    fragmentName: request.fragmentName,
-    document: request.document,
-    // TODO: don't cast to dynamic
-    variables: (request.vars as dynamic)?.toJson(),
-    typePolicies: typePolicies,
-    addTypename: addTypename,
-    returnPartialData: true,
-    dataIdFromObject: dataIdFromObject,
-    possibleTypes: possibleTypes,
-  );
+        denormalizeFragment(
+          read: (dataId) {
+            dataIds.add(dataId);
+            return optimistic ? optimisticReader(dataId) : store.get(dataId);
+          },
+          idFields: request.idFields,
+          fragmentName: request.fragmentName,
+          document: request.document,
+          // TODO: don't cast to dynamic
+          variables: (request.vars as dynamic)?.toJson(),
+          typePolicies: typePolicies,
+          addTypename: addTypename,
+          returnPartialData: true,
+          dataIdFromObject: dataIdFromObject,
+          possibleTypes: possibleTypes,
+        );
 
-  /// IDs that have changed
-  final changed = <String>{};
+        return dataIds;
+      })
+      .distinct((prev, next) => const SetEquality<String>().equals(prev, next))
+      .switchMap((dataIds) {
+        /// IDs that have changed
+        final changed = <String>{};
 
-  /// Streams for each dataId referenced in data
-  final streams = dataIds.map((dataId) {
-    var stream = dataForIdStream(
-      dataId,
-      store,
-      optimistic,
-      optimisticPatchesStream,
-      optimisticReader,
-    );
+        /// Streams for each dataId referenced in data
+        final streams = dataIds.map((dataId) {
+          var stream = dataForIdStream(
+            dataId,
+            store,
+            optimistic,
+            optimisticPatchesStream,
+            optimisticReader,
+          );
 
-    return stream
-        .distinct(
-          (prev, next) => const DeepCollectionEquality().equals(
-            prev,
-            next,
-          ),
-        )
-        .doOnData((_) => changed.add(dataId));
-  });
+          return stream.distinct(
+            (prev, next) {
+              final areEqual = const MapEquality().equals(prev, next);
+              if (!areEqual) {
+                // Maybe a new element was added to an array,
+                // we need to recompute the dataIds
+                dataIdStreamController.add(null);
+              }
+              return areEqual;
+            },
+          ).doOnData((_) => changed.add(dataId));
+        });
+        return CombineLatestStream<Map<String, dynamic>?, Set<String>>(
+          streams,
+          (_) {
+            final result = {...changed};
+            changed.clear();
+            return result;
+          },
+        ).doOnDone(() {
+          dataIdStreamController.close();
+        })
 
-  return CombineLatestStream<Map<String, dynamic>?, Set<String>>(
-    streams,
-    (_) {
-      final result = {...changed};
-      changed.clear();
-      return result;
-    },
-  )
+            /// Skip the first result since this returns the existing data
+            .skip(1);
+      });
 
-      /// Skip the first result since this returns the existsing data
-      .skip(1);
+  dataIdStreamController.add(null);
+  return result;
 }
