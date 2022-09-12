@@ -55,7 +55,7 @@ Stream<Set<String>> operationDataChangeStream<TData, TVars>(
 
         return dataIds;
       })
-      .distinct()
+      .distinct((prev, next) => const SetEquality<String>().equals(prev, next))
       .switchMap((dataIds) {
         /// IDs that have changed
         final changed = <String>{};
