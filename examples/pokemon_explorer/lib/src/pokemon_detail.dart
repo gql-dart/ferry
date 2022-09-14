@@ -1,3 +1,4 @@
+import 'package:ferry/ferry_isolate.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ferry/ferry.dart';
@@ -9,7 +10,7 @@ import './graphql/__generated__/pokemon_detail.var.gql.dart';
 import './pokemon_card.dart';
 
 class PokemonDetailScreen extends StatelessWidget {
-  final client = GetIt.I<Client>();
+  final client = GetIt.I<IsolateClient>();
 
   final int id;
 
