@@ -1,44 +1,53 @@
 import 'dart:async';
 import 'dart:isolate';
-
+import 'package:async/async.dart';
 import 'package:ferry/ferry.dart';
+import 'package:ferry/src/isolate/handle_command.dart';
+import 'package:ferry/src/isolate/isolate_commands.dart';
 import 'package:rxdart/rxdart.dart';
 
+/// a function that asynchronously creates a ferry client, given a map of params
 typedef InitClient = Future<Client> Function({Map<String, dynamic> params});
 
+/// A [TypedLink} that executes requests of a [Client] in
+/// another isolate to avoid jank on heavy requests
 class IsolateClient extends TypedLink {
   final InitClient createClient;
 
-  late final ReceivePort globalReceivePort;
+  late final ReceivePort _globalReceivePort;
 
-  late final SendPort globalSendPort;
-
-  late final Isolate isolate;
+  late final SendPort _globalSendPort;
 
   IsolateClient._({required this.createClient, Map<String, dynamic>? params});
 
-  static Future<IsolateClient> spawn(InitClient createClient,
+  /// Create a new [IsolateClient]. The IsolateClient will spawn a new Isolate,
+  /// and create a standard [Client] on this Isolate given the passed [InitClient]
+  /// function.
+  /// initClient must a static or top-level function in order to be send over the isolate.
+  /// if the initClient function needs params (e.g. a path for the HiveBox,
+  /// since you cannot call path_provider on to other isolate without jumping through hoops),
+  /// you can pass these params here.
+  /// Note that the Map must only contain types that can be sent over Isolates.
+  static Future<IsolateClient> spawn(InitClient initClient,
       {Map<String, dynamic>? params}) async {
-    final client = IsolateClient._(createClient: createClient, params: params);
+    final client = IsolateClient._(createClient: initClient, params: params);
 
-    client.globalReceivePort = ReceivePort('package:ferry/ferry_isolate.dart');
+    client._globalReceivePort = ReceivePort('package:ferry/ferry_isolate.dart');
 
     final completer = Completer();
 
-    client.globalReceivePort.first.then((value) {
+    unawaited(client._globalReceivePort.first.then((value) {
       assert(value is SendPort);
-      client.globalSendPort = value;
+      client._globalSendPort = value;
       completer.complete();
-    });
+    }));
 
-    client.isolate = await Isolate.spawn(
-      _isolateMain,
-      _IsolateInit(createClient, client.globalReceivePort.sendPort, params),
-    );
+    await Isolate.spawn(_isolateMain,
+        _IsolateInit(initClient, client._globalReceivePort.sendPort, params),
+        debugName:
+            params?['debugName'] ?? 'package:ferry/ferry.dart:IsolateClient');
 
     await completer.future;
-
-    print("spawned client!");
 
     return client;
   }
@@ -49,9 +58,21 @@ class IsolateClient extends TypedLink {
       [NextTypedLink<TData, TVars>? forward]) {
     final receivePort = ReceivePort();
 
-    globalSendPort.send(_IsolateRequest(request, receivePort.sendPort));
+    _globalSendPort.send(RequestCommand(
+      receivePort.sendPort,
+      request,
+    ));
 
-    return receivePort.map<OperationResponse<TData, TVars>>((o) {
+    late final SendPort cancelPort;
+
+    final queue = StreamQueue(receivePort);
+
+    queue.next.then((value) {
+      assert(value is SendPort);
+      cancelPort = value;
+    });
+
+    return queue.rest.map<OperationResponse<TData, TVars>>((o) {
       final OperationResponse response = o;
       return OperationResponse<TData, TVars>(
         operationRequest: request,
@@ -61,14 +82,18 @@ class IsolateClient extends TypedLink {
         extensions: response.extensions,
         data: response.data as TData,
       );
-    }).doOnCancel(receivePort.close);
+    }).doOnCancel(() {
+      cancelPort.send(null);
+    });
   }
 
+  /// read the given query from the cache. returns null if the result of the
+  /// query is not cached
   Future<TData?> readQuery<TData extends Object, TVars>(
       OperationRequest<TData, TVars> request,
       {bool optimistic = true}) {
     final receivePort = ReceivePort();
-    globalSendPort.send(_ReadQueryRequest(request, receivePort.sendPort,
+    _globalSendPort.send(ReadQueryCommand(receivePort.sendPort, request,
         optimistic: optimistic));
     return receivePort.first.then((value) {
       receivePort.close();
@@ -78,13 +103,12 @@ class IsolateClient extends TypedLink {
 
   Future<void> writeQuery<TData extends Object, TVars>(
     OperationRequest<TData, TVars> request,
-    OperationResponse<TData, TVars> response, {
+    TData response, {
     OperationRequest<TData, TVars>? optimisticRequest,
   }) {
     final receivePort = ReceivePort();
-    globalSendPort.send(_WriteQueryRequest(
-        request, response, receivePort.sendPort,
-        optimisticRequest: optimisticRequest));
+    _globalSendPort.send(WriteQueryCommand(
+        receivePort.sendPort, request, response, optimisticRequest));
     return receivePort.first.then((value) {
       receivePort.close();
       return null;
@@ -93,7 +117,7 @@ class IsolateClient extends TypedLink {
 
   Future<void> clearCache() {
     final receivePort = ReceivePort();
-    globalSendPort.send(_ClearCacheRequest(receivePort.sendPort));
+    _globalSendPort.send(ClearCacheCommand(receivePort.sendPort));
     return receivePort.first.then((value) {
       receivePort.close();
       return null;
@@ -102,10 +126,10 @@ class IsolateClient extends TypedLink {
 
   @override
   Future<void> dispose() async {
-    globalSendPort.send(_KillRequest());
-    await globalReceivePort.first;
-    globalReceivePort.close();
-    isolate.kill();
+    final receivePort = ReceivePort();
+    _globalSendPort.send(DisposeCommand(receivePort.sendPort));
+    await _globalReceivePort.first;
+    _globalReceivePort.close();
     return super.dispose();
   }
 }
@@ -118,39 +142,6 @@ class _IsolateInit {
   _IsolateInit(this.initClient, this.sendPort, this.params);
 }
 
-class _IsolateRequest<TData, TVars> {
-  final OperationRequest<TData, TVars> request;
-  final SendPort sendPort;
-
-  _IsolateRequest(this.request, this.sendPort);
-}
-
-class _ReadQueryRequest<TData extends Object, TVars> {
-  final OperationRequest<TData, TVars> request;
-  final bool optimistic;
-  final SendPort sendPort;
-
-  _ReadQueryRequest(this.request, this.sendPort, {this.optimistic = true});
-}
-
-class _WriteQueryRequest<TData extends Object, TVars> {
-  final OperationRequest<TData, TVars> request;
-  final OperationResponse<TData, TVars> response;
-  final OperationRequest<TData, TVars>? optimisticRequest;
-  final SendPort sendPort;
-
-  _WriteQueryRequest(this.request, this.response, this.sendPort,
-      {this.optimisticRequest});
-}
-
-class _KillRequest {}
-
-class _ClearCacheRequest {
-  final SendPort sendPort;
-
-  _ClearCacheRequest(this.sendPort);
-}
-
 void _isolateMain(_IsolateInit init) async {
   final client = await init.initClient(params: init.params ?? {});
 
@@ -160,40 +151,7 @@ void _isolateMain(_IsolateInit init) async {
 
   sendPort.send(mainToIsolateStream.sendPort);
 
-  Future<void> dispose() async {
-    await client.dispose();
-    sendPort.send(null);
-    mainToIsolateStream.close();
-  }
-
   mainToIsolateStream.listen((message) {
-    if (message is _KillRequest) {
-      dispose();
-      return;
-    }
-    if (message is _ReadQueryRequest) {
-      message.sendPort.send(client.cache.readQuery(message.request));
-      return;
-    }
-    if (message is _ClearCacheRequest) {
-      client.cache.clear();
-      sendPort.send(null);
-      return;
-    }
-    if (message is _WriteQueryRequest) {
-      client.cache.writeQuery(message.request, message.response,
-          optimisticRequest: message.optimisticRequest);
-      message.sendPort.send(null);
-      return;
-    }
-
-    print("got message $message!");
-
-    final request = message as _IsolateRequest;
-
-    client.request(request.request).listen((event) {
-      print("send $event");
-      request.sendPort.send(event);
-    });
+    handleCommand(client, message as IsolateCommand, mainToIsolateStream);
   });
 }
