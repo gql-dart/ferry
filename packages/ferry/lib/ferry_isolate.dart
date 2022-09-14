@@ -68,11 +68,35 @@ class IsolateClient extends TypedLink {
       OperationRequest<TData, TVars> request,
       {bool optimistic = true}) {
     final receivePort = ReceivePort();
-    globalSendPort.send(
-        _ReadQueryRequest(request, globalSendPort, optimistic: optimistic));
+    globalSendPort.send(_ReadQueryRequest(request, receivePort.sendPort,
+        optimistic: optimistic));
     return receivePort.first.then((value) {
       receivePort.close();
       return value as TData?;
+    });
+  }
+
+  Future<void> writeQuery<TData extends Object, TVars>(
+    OperationRequest<TData, TVars> request,
+    OperationResponse<TData, TVars> response, {
+    OperationRequest<TData, TVars>? optimisticRequest,
+  }) {
+    final receivePort = ReceivePort();
+    globalSendPort.send(_WriteQueryRequest(
+        request, response, receivePort.sendPort,
+        optimisticRequest: optimisticRequest));
+    return receivePort.first.then((value) {
+      receivePort.close();
+      return null;
+    });
+  }
+
+  Future<void> clearCache() {
+    final receivePort = ReceivePort();
+    globalSendPort.send(_ClearCacheRequest(receivePort.sendPort));
+    return receivePort.first.then((value) {
+      receivePort.close();
+      return null;
     });
   }
 
@@ -109,7 +133,23 @@ class _ReadQueryRequest<TData extends Object, TVars> {
   _ReadQueryRequest(this.request, this.sendPort, {this.optimistic = true});
 }
 
+class _WriteQueryRequest<TData extends Object, TVars> {
+  final OperationRequest<TData, TVars> request;
+  final OperationResponse<TData, TVars> response;
+  final OperationRequest<TData, TVars>? optimisticRequest;
+  final SendPort sendPort;
+
+  _WriteQueryRequest(this.request, this.response, this.sendPort,
+      {this.optimisticRequest});
+}
+
 class _KillRequest {}
+
+class _ClearCacheRequest {
+  final SendPort sendPort;
+
+  _ClearCacheRequest(this.sendPort);
+}
 
 void _isolateMain(_IsolateInit init) async {
   final client = await init.initClient(params: init.params ?? {});
@@ -133,6 +173,18 @@ void _isolateMain(_IsolateInit init) async {
     }
     if (message is _ReadQueryRequest) {
       message.sendPort.send(client.cache.readQuery(message.request));
+      return;
+    }
+    if (message is _ClearCacheRequest) {
+      client.cache.clear();
+      sendPort.send(null);
+      return;
+    }
+    if (message is _WriteQueryRequest) {
+      client.cache.writeQuery(message.request, message.response,
+          optimisticRequest: message.optimisticRequest);
+      message.sendPort.send(null);
+      return;
     }
 
     print("got message $message!");
