@@ -64,10 +64,12 @@ class IsolateClient extends TypedLink {
     }).doOnCancel(receivePort.close);
   }
 
-  Future<TData?> readQuery<TData extends Object, TVars>(OperationRequest<TData, TVars> request,
+  Future<TData?> readQuery<TData extends Object, TVars>(
+      OperationRequest<TData, TVars> request,
       {bool optimistic = true}) {
     final receivePort = ReceivePort();
-    globalSendPort.send(_ReadQueryRequest(request, globalSendPort, optimistic: optimistic));
+    globalSendPort.send(
+        _ReadQueryRequest(request, globalSendPort, optimistic: optimistic));
     return receivePort.first.then((value) {
       receivePort.close();
       return value as TData?;
