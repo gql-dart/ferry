@@ -1,12 +1,11 @@
 import 'dart:async';
 
+import 'package:ferry_cache/ferry_cache.dart';
 import 'package:ferry_test_graphql/queries/__generated__/review_by_id.data.gql.dart';
 import 'package:ferry_test_graphql/queries/__generated__/review_by_id.req.gql.dart';
-import 'package:test/test.dart';
-import 'package:ferry_cache/ferry_cache.dart';
-
-import 'package:ferry_test_graphql/queries/__generated__/reviews.req.gql.dart';
 import 'package:ferry_test_graphql/queries/__generated__/reviews.data.gql.dart';
+import 'package:ferry_test_graphql/queries/__generated__/reviews.req.gql.dart';
+import 'package:test/test.dart';
 
 final reviewsReq = GReviewsReq();
 
@@ -150,22 +149,25 @@ void main() {
     test('can receive updates when child objects are updated by other queries',
         () async {
       final cache = Cache();
-      cache.writeQuery(reviewsReq, reviewsData2);
+      cache.writeQuery(reviewsReq, reviewsData);
 
       final updatedReview =
-          reviewsData.reviews!.first.rebuild((b) => b.commentary = 'first');
+          reviewsData2.reviews![1].rebuild((b) => b.commentary = 'first');
 
       expect(
           cache.watchQuery(reviewsReq),
           emitsInOrder([
+            reviewsData,
             reviewsData2,
-            reviewsData2.rebuild((b) => b..reviews[0] = updatedReview),
+            reviewsData2.rebuild((b) => b..reviews[1] = updatedReview),
             emitsDone,
           ]));
 
       await Future.delayed(Duration.zero);
+      cache.writeQuery(reviewsReq, reviewsData2);
+      await Future.delayed(Duration.zero);
       cache.writeQuery(
-          GReviewsByIDReq((b) => b..vars.id = reviewsData.reviews!.first.id),
+          GReviewsByIDReq((b) => b..vars.id = reviewsData2.reviews![1].id),
           GReviewsByIDData((b) => b.review
             ..id = updatedReview.id
             ..stars = updatedReview.stars
