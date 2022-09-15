@@ -6,11 +6,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Conventional PRs
-        uses: Namchee/conventional-pr@v0.12.0
+        uses: Namchee/conventional-pr@v0.4.1
         with:
           access_token: ${{ secrets.GITHUB_TOKEN }}
-          issue: false
-          title_pattern: ''
+          link_issue: false
 
   analyze:
     runs-on: ubuntu-latest
