@@ -32,7 +32,8 @@ class RequestControllerTypedLink extends TypedLink {
     forward,
   ]) {
     var initial = true;
-    ValueStream<OperationResponse<TData, TVars>>? prev;
+    Stream<OperationResponse<TData, TVars>>? prev;
+    Stream<OperationResponse<TData, TVars>>? current;
 
     return requestController.stream
         .whereType<OperationRequest<TData, TVars>>()
@@ -41,37 +42,32 @@ class RequestControllerTypedLink extends TypedLink {
               ? identical(req, request)
               : req.requestId == request.requestId,
         )
-        .doOnData(
-      (_) {
-        /// Temporarily add a listener so that [prev] doesn't shut down when
-        /// switchMap is updating the stream.
-        final sub = prev?.listen(null);
-        Future.delayed(Duration.zero).then((_) => sub?.cancel());
-      },
-    ).switchMap(
-      (req) {
-        final stream = req.updateResult == null
-            ? forward!(req)
-            : CombineLatestStream.combine2<
-                OperationResponse<TData, TVars>?,
-                OperationResponse<TData, TVars>,
-                OperationResponse<TData, TVars>>(
-                prev ?? Stream.value(null),
-                forward!(req),
-                (previous, response) => OperationResponse<TData, TVars>(
-                  operationRequest: response.operationRequest,
-                  data: response.operationRequest.updateResult!(
-                    previous?.data,
-                    response.data,
-                  ),
-                  dataSource: response.dataSource,
-                  linkException: response.linkException,
-                  graphqlErrors: response.graphqlErrors,
-                ),
-              );
-        return prev = stream.shareValue();
-      },
-    ).doOnListen(
+        .doOnData((req) {
+      if (req.updateResult == null) {
+        prev = null;
+      } else {
+        prev = current;
+      }
+      current = forward!(req);
+    }).switchMap((_) {
+      if (prev == null) return current!;
+      current = CombineLatestStream.combine2<OperationResponse<TData, TVars>?,
+          OperationResponse<TData, TVars>, OperationResponse<TData, TVars>>(
+        prev!,
+        current!,
+        (previous, response) => OperationResponse<TData, TVars>(
+          operationRequest: response.operationRequest,
+          data: response.operationRequest.updateResult!(
+            previous?.data,
+            response.data,
+          ),
+          dataSource: response.dataSource,
+          linkException: response.linkException,
+          graphqlErrors: response.graphqlErrors,
+        ),
+      ).shareValue();
+      return current!;
+    }).doOnListen(
       () {
         if (initial && request.executeOnListen) {
           scheduleMicrotask(() => requestController.add(request));
