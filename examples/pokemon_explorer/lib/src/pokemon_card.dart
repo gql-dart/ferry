@@ -11,16 +11,20 @@ class PokemonCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: InkWell(
-        onTap: () => Navigator.of(context)
-            .pushNamed('detail', arguments: {'id': pokemon.id}),
+        onTap: () => Navigator.of(context).pushNamed('detail', arguments: {'id': pokemon.id}),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: <Widget>[
               SizedBox(
-                child: Ink.image(image: NetworkImage(pokemon.avatar)),
                 height: 200,
                 width: 200,
+                child: Image.network(
+                  pokemon.avatar,
+                  errorBuilder: (context, error, stacktrace) {
+                    return Text("error loading image ${pokemon.avatar}: $error");
+                  },
+                ),
               ),
               Text(
                 pokemon.name,

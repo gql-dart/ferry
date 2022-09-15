@@ -6,9 +6,10 @@ import 'package:ferry/ferry.dart';
 import './src/client.dart';
 import './src/app.dart';
 
+const apiUrl = "https://pokeapi.dev";
+
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  final client = await initIsolateClient();
-  GetIt.I.registerLazySingleton<IsolateClient>(() => client);
+  final client = await initClient();
+  GetIt.I.registerLazySingleton<TypedLink>(() => client);
   runApp(App());
 }

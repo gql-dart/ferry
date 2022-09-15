@@ -10,7 +10,7 @@ import './graphql/__generated__/pokemon_detail.var.gql.dart';
 import './pokemon_card.dart';
 
 class PokemonDetailScreen extends StatelessWidget {
-  final client = GetIt.I<IsolateClient>();
+  final client = GetIt.I<TypedLink>();
 
   final int id;
 

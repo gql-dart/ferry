@@ -1,3 +1,4 @@
+import 'package:ferry_exec/ferry_exec.dart';
 import 'package:meta/meta.dart';
 
 import './operation_request.dart';
