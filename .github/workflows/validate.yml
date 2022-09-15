@@ -10,7 +10,6 @@ jobs:
         with:
           access_token: ${{ secrets.GITHUB_TOKEN }}
           issue: false
-          title_pattern: ''
 
   analyze:
     runs-on: ubuntu-latest
