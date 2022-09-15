@@ -38,15 +38,18 @@ class IsolateClient extends TypedLink {
   /// you can pass these params here.
   /// Note that the Map must only contain types that can be sent over Isolates.
   static Future<IsolateClient> create(InitClient initClient,
-      {Map<String, dynamic>? params, void Function(Object?)? messageHandler}) async {
+      {Map<String, dynamic>? params,
+      void Function(Object?)? messageHandler}) async {
     final client = IsolateClient._(createClient: initClient, params: params);
 
-    final mainReceivePort = ReceivePort('package:ferry/ferry_isolate.dart:main');
+    final mainReceivePort =
+        ReceivePort('package:ferry/ferry_isolate.dart:main');
 
     final ReceivePort? messageHandlerReceivePort;
 
     if (messageHandler != null) {
-      messageHandlerReceivePort = ReceivePort('package:ferry/ferry_isolate.dart:messageHandler');
+      messageHandlerReceivePort =
+          ReceivePort('package:ferry/ferry_isolate.dart:messageHandler');
       messageHandlerReceivePort.listen(messageHandler);
     } else {
       messageHandlerReceivePort = null;
@@ -56,7 +59,8 @@ class IsolateClient extends TypedLink {
 
     // the first message
     unawaited(mainReceivePort.first.then((value) {
-      assert(value is SendPort, 'internal error: the first message sent must be the SendPort');
+      assert(value is SendPort,
+          'internal error: the first message sent must be the SendPort');
       client._globalSendPort = value;
       completer.complete();
     }));
@@ -69,7 +73,8 @@ class IsolateClient extends TypedLink {
         messageHandlerReceivePort?.sendPort,
         params,
       ),
-      debugName: params?['debugName'] ?? 'package:ferry/ferry.dart:IsolateClient',
+      debugName:
+          params?['debugName'] ?? 'package:ferry/ferry.dart:IsolateClient',
     );
 
     await completer.future;
@@ -117,10 +122,12 @@ class IsolateClient extends TypedLink {
 
   /// read the given query from the cache. returns null if the result of the
   /// query is not cached
-  Future<TData?> readQuery<TData extends Object, TVars>(OperationRequest<TData, TVars> request,
+  Future<TData?> readQuery<TData extends Object, TVars>(
+      OperationRequest<TData, TVars> request,
       {bool optimistic = true}) {
     final receivePort = ReceivePort();
-    _globalSendPort.send(ReadQueryCommand(receivePort.sendPort, request, optimistic: optimistic));
+    _globalSendPort.send(ReadQueryCommand(receivePort.sendPort, request,
+        optimistic: optimistic));
     return receivePort.first.then((value) {
       receivePort.close();
       if (value is IsolateClientException) {
@@ -136,8 +143,8 @@ class IsolateClient extends TypedLink {
     OperationRequest<TData, TVars>? optimisticRequest,
   }) {
     final receivePort = ReceivePort();
-    _globalSendPort
-        .send(WriteQueryCommand(receivePort.sendPort, request, response, optimisticRequest));
+    _globalSendPort.send(WriteQueryCommand(
+        receivePort.sendPort, request, response, optimisticRequest));
     return receivePort.first.then((value) {
       receivePort.close();
       if (value is IsolateClientException) {
@@ -173,10 +180,12 @@ class IsolateClient extends TypedLink {
   }
 
   Future<void> evict(String dataID,
-      {String? fieldName, Map<String, dynamic>? args, OperationRequest? optimisticRequest}) {
+      {String? fieldName,
+      Map<String, dynamic>? args,
+      OperationRequest? optimisticRequest}) {
     final receivePort = ReceivePort();
-    _globalSendPort
-        .send(EvictDataIdCommand(receivePort.sendPort, dataID, fieldName, args, optimisticRequest));
+    _globalSendPort.send(EvictDataIdCommand(
+        receivePort.sendPort, dataID, fieldName, args, optimisticRequest));
     return receivePort.first.then((value) {
       receivePort.close();
       if (value is IsolateClientException) {
@@ -186,11 +195,12 @@ class IsolateClient extends TypedLink {
     });
   }
 
-  Future<TData?> readFragment<TData, TVars>(FragmentRequest<TData, TVars> request,
+  Future<TData?> readFragment<TData, TVars>(
+      FragmentRequest<TData, TVars> request,
       {bool optimistic = true}) {
     final receivePort = ReceivePort();
-    _globalSendPort
-        .send(ReadFragmentCommand(receivePort.sendPort, request, optimistic: optimistic));
+    _globalSendPort.send(ReadFragmentCommand(receivePort.sendPort, request,
+        optimistic: optimistic));
     return receivePort.first.then((value) {
       receivePort.close();
       if (value is IsolateClientException) {
@@ -200,11 +210,12 @@ class IsolateClient extends TypedLink {
     });
   }
 
-  Future<void> writeFragment<TData, TVars>(FragmentRequest<TData, TVars> request, TData data,
+  Future<void> writeFragment<TData, TVars>(
+      FragmentRequest<TData, TVars> request, TData data,
       {OperationRequest<TData, TVars>? optimisticRequest}) {
     final receivePort = ReceivePort();
-    _globalSendPort
-        .send(WriteFragmentCommand(receivePort.sendPort, request, data, optimisticRequest));
+    _globalSendPort.send(WriteFragmentCommand(
+        receivePort.sendPort, request, data, optimisticRequest));
     return receivePort.first.then((value) {
       receivePort.close();
       if (value is IsolateClientException) {
@@ -231,7 +242,8 @@ class _IsolateInit {
   final SendPort? messageHandlerSendPort;
   final Map<String, dynamic>? params;
 
-  _IsolateInit(this.initClient, this.mainSendPort, this.messageHandlerSendPort, this.params);
+  _IsolateInit(this.initClient, this.mainSendPort, this.messageHandlerSendPort,
+      this.params);
 }
 
 /// this is the entry point called by Isolate.spawn
@@ -242,12 +254,14 @@ void _isolateClientEntryPoint(_IsolateInit init) async {
   final mainToIsolateStream = ReceivePort();
 
   // create the real ferry client given the passed [InitClient] function
-  final client = await init.initClient(init.params ?? {}, init.messageHandlerSendPort);
+  final client =
+      await init.initClient(init.params ?? {}, init.messageHandlerSendPort);
   //send the sendPort to the main isolate
   sendPort.send(mainToIsolateStream.sendPort);
 
   mainToIsolateStream.listen((message) {
-    assert(message is IsolateCommand, 'internal error: expected IsolateCommand, got $message');
+    assert(message is IsolateCommand,
+        'internal error: expected IsolateCommand, got $message');
     handleCommand(
       client,
       message as IsolateCommand,

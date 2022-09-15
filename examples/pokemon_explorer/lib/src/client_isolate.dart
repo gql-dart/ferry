@@ -21,7 +21,8 @@ Future<IsolateClient> initIsolateClient() async {
 // this is called on the new isolate
 // if you passed a messageHandler to the IsolateClient, you can use the sendPort
 // to send arbitrary messages to the main isolate.
-Future<Client> _initClientIsolate(Map<String, dynamic>? params, SendPort? sendPort) async {
+Future<Client> _initClientIsolate(
+    Map<String, dynamic>? params, SendPort? sendPort) async {
   // don't use Hive.initFlutter to avoid dealing with method channels in the isolate
   // instead, call getApplicationDocumentsDirectory() on the main isolate
   // and pass the result to the ferry isolate

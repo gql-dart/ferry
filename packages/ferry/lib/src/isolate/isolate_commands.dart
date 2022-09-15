@@ -27,11 +27,13 @@ class DisposeCommand extends IsolateCommand {
 class RequestCommand<TData, TVars> extends IsolateCommand {
   final OperationRequest<TData, TVars> request;
 
-  RequestCommand(SendPort sendPort, this.request) : super(sendPort, CommandType.request);
+  RequestCommand(SendPort sendPort, this.request)
+      : super(sendPort, CommandType.request);
 }
 
 class ClearCacheCommand extends IsolateCommand {
-  ClearCacheCommand(SendPort sendPort) : super(sendPort, CommandType.clearCache);
+  ClearCacheCommand(SendPort sendPort)
+      : super(sendPort, CommandType.clearCache);
 }
 
 class ReadQueryCommand<TData extends Object, TVars> extends IsolateCommand {
@@ -47,7 +49,8 @@ class WriteQueryCommand<TData extends Object, TVars> extends IsolateCommand {
   final TData response;
   final OperationRequest<TData, TVars>? optimisticRequest;
 
-  WriteQueryCommand(SendPort sendPort, this.request, this.response, this.optimisticRequest)
+  WriteQueryCommand(
+      SendPort sendPort, this.request, this.response, this.optimisticRequest)
       : super(sendPort, CommandType.writeQuery);
 }
 
@@ -64,7 +67,8 @@ class WriteFragmentCommand<TData, TVars> extends IsolateCommand {
   final TData response;
   final OperationRequest<TData, TVars>? optimisticRequest;
 
-  WriteFragmentCommand(SendPort sendPort, this.request, this.response, this.optimisticRequest)
+  WriteFragmentCommand(
+      SendPort sendPort, this.request, this.response, this.optimisticRequest)
       : super(sendPort, CommandType.writeFragment);
 }
 
@@ -74,8 +78,8 @@ class EvictDataIdCommand extends IsolateCommand {
   final Map<String, dynamic>? args;
   final OperationRequest? optimisticRequest;
 
-  EvictDataIdCommand(
-      SendPort sendPort, this.dataId, this.fieldName, this.args, this.optimisticRequest)
+  EvictDataIdCommand(SendPort sendPort, this.dataId, this.fieldName, this.args,
+      this.optimisticRequest)
       : super(sendPort, CommandType.evictDataId);
 }
 

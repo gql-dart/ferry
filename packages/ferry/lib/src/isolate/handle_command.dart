@@ -3,8 +3,8 @@ import 'dart:isolate';
 import 'package:ferry/ferry.dart';
 import 'package:ferry/src/isolate/isolate_commands.dart';
 
-void handleCommand(
-    TypedLinkWithCache client, IsolateCommand command, ReceivePort globalReceivePort) async {
+void handleCommand(TypedLinkWithCache client, IsolateCommand command,
+    ReceivePort globalReceivePort) async {
   final sendPort = command.sendPort;
   try {
     switch (command.type) {
@@ -28,7 +28,8 @@ void handleCommand(
         break;
       case CommandType.readQuery:
         command as ReadQueryCommand;
-        final response = client.cache.readQuery(command.request, optimistic: command.optimistic);
+        final response = client.cache
+            .readQuery(command.request, optimistic: command.optimistic);
         sendPort.send(response);
         break;
       case CommandType.writeQuery:
@@ -42,7 +43,8 @@ void handleCommand(
         break;
       case CommandType.readFragment:
         command as ReadFragmentCommand;
-        final fragment = client.cache.readFragment(command.request, optimistic: command.optimistic);
+        final fragment = client.cache
+            .readFragment(command.request, optimistic: command.optimistic);
         sendPort.send(fragment);
         break;
       case CommandType.writeFragment:
@@ -83,5 +85,6 @@ class IsolateClientException implements LinkException {
   final StackTrace? originalStackTrace;
   final IsolateCommand command;
 
-  IsolateClientException(this.originalException, this.originalStackTrace, this.command);
+  IsolateClientException(
+      this.originalException, this.originalStackTrace, this.command);
 }
