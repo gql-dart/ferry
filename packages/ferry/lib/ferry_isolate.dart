@@ -25,7 +25,7 @@ class IsolateClient extends TypedLink {
 
   late final StreamQueue _globalReceiveQueue;
 
-  late final SendPort _globalSendPort;
+  late final SendPort _commandSendPort;
 
   IsolateClient._({required this.createClient, Map<String, dynamic>? params});
 
@@ -47,6 +47,7 @@ class IsolateClient extends TypedLink {
 
     final ReceivePort? messageHandlerReceivePort;
 
+    // setup custom messages from isolate -> main if necessary
     if (messageHandler != null) {
       messageHandlerReceivePort =
           ReceivePort('package:ferry/ferry_isolate.dart:messageHandler');
@@ -61,7 +62,7 @@ class IsolateClient extends TypedLink {
     unawaited(mainReceivePort.first.then((value) {
       assert(value is SendPort,
           'internal error: the first message sent must be the SendPort');
-      client._globalSendPort = value;
+      client._commandSendPort = value;
       completer.complete();
     }));
 
@@ -88,7 +89,7 @@ class IsolateClient extends TypedLink {
       [NextTypedLink<TData, TVars>? forward]) {
     final receivePort = ReceivePort();
 
-    _globalSendPort.send(RequestCommand(
+    _commandSendPort.send(RequestCommand(
       receivePort.sendPort,
       request,
     ));
@@ -116,6 +117,8 @@ class IsolateClient extends TypedLink {
         data: response.data as TData,
       );
     }).doOnCancel(() {
+      // inform the client on the other isolate that we don't listen
+      // any more
       cancelPort.send(null);
     });
   }
@@ -125,16 +128,8 @@ class IsolateClient extends TypedLink {
   Future<TData?> readQuery<TData extends Object, TVars>(
       OperationRequest<TData, TVars> request,
       {bool optimistic = true}) {
-    final receivePort = ReceivePort();
-    _globalSendPort.send(ReadQueryCommand(receivePort.sendPort, request,
-        optimistic: optimistic));
-    return receivePort.first.then((value) {
-      receivePort.close();
-      if (value is IsolateClientException) {
-        return Future.error(value);
-      }
-      return value as TData?;
-    });
+    return _handleSingleResponseCommand((sendPort) =>
+        ReadQueryCommand(sendPort, request, optimistic: optimistic));
   }
 
   Future<void> writeQuery<TData extends Object, TVars>(
@@ -142,96 +137,73 @@ class IsolateClient extends TypedLink {
     TData response, {
     OperationRequest<TData, TVars>? optimisticRequest,
   }) {
-    final receivePort = ReceivePort();
-    _globalSendPort.send(WriteQueryCommand(
-        receivePort.sendPort, request, response, optimisticRequest));
-    return receivePort.first.then((value) {
-      receivePort.close();
-      if (value is IsolateClientException) {
-        return Future.error(value);
-      }
-      return null;
-    });
+    return _handleSingleResponseCommand((sendPort) =>
+        WriteQueryCommand(sendPort, request, response, optimisticRequest));
   }
 
   Future<void> clearCache() {
-    final receivePort = ReceivePort();
-    _globalSendPort.send(ClearCacheCommand(receivePort.sendPort));
-    return receivePort.first.then((value) {
-      receivePort.close();
-      if (value is IsolateClientException) {
-        return Future.error(value);
-      }
-      return null;
-    });
+    return _handleSingleResponseCommand(
+        (sendPort) => ClearCacheCommand(sendPort));
   }
 
   /// run garbage collection on the cache
   Future<Set<String>> gcCache() {
-    final receivePort = ReceivePort();
-    _globalSendPort.send(GcCommand(receivePort.sendPort));
-    return receivePort.first.then((value) {
-      receivePort.close();
-      if (value is IsolateClientException) {
-        return Future.error(value);
-      }
-      return value as Set<String>;
-    });
+    return _handleSingleResponseCommand((sendPort) => GcCommand(sendPort));
   }
 
   Future<void> evict(String dataID,
       {String? fieldName,
       Map<String, dynamic>? args,
       OperationRequest? optimisticRequest}) {
-    final receivePort = ReceivePort();
-    _globalSendPort.send(EvictDataIdCommand(
-        receivePort.sendPort, dataID, fieldName, args, optimisticRequest));
-    return receivePort.first.then((value) {
-      receivePort.close();
-      if (value is IsolateClientException) {
-        return Future.error(value);
-      }
-      return null;
-    });
+    return _handleSingleResponseCommand((sendPort) => EvictDataIdCommand(
+        sendPort, dataID, fieldName, args, optimisticRequest));
   }
 
   Future<TData?> readFragment<TData, TVars>(
       FragmentRequest<TData, TVars> request,
       {bool optimistic = true}) {
-    final receivePort = ReceivePort();
-    _globalSendPort.send(ReadFragmentCommand(receivePort.sendPort, request,
-        optimistic: optimistic));
-    return receivePort.first.then((value) {
-      receivePort.close();
-      if (value is IsolateClientException) {
-        return Future.error(value);
-      }
-      return value as TData?;
-    });
+    return _handleSingleResponseCommand(
+      (sendPort) =>
+          (ReadFragmentCommand(sendPort, request, optimistic: optimistic)),
+    );
   }
 
   Future<void> writeFragment<TData, TVars>(
       FragmentRequest<TData, TVars> request, TData data,
       {OperationRequest<TData, TVars>? optimisticRequest}) {
-    final receivePort = ReceivePort();
-    _globalSendPort.send(WriteFragmentCommand(
-        receivePort.sendPort, request, data, optimisticRequest));
-    return receivePort.first.then((value) {
-      receivePort.close();
-      if (value is IsolateClientException) {
-        return Future.error(value);
-      }
-      return null;
-    });
+    return _handleSingleResponseCommand(
+      (sendPort) => WriteFragmentCommand(
+        sendPort,
+        request,
+        data,
+        optimisticRequest,
+      ),
+    );
   }
 
   @override
   Future<void> dispose() async {
     final receivePort = ReceivePort();
-    _globalSendPort.send(DisposeCommand(receivePort.sendPort));
+    _commandSendPort.send(DisposeCommand(receivePort.sendPort));
     await receivePort.first;
+    receivePort.close();
     await _globalReceiveQueue.cancel();
     return super.dispose();
+  }
+
+  // helper function for commands that only ever receive one message
+  // to reduce boilerplate.
+  Future<T> _handleSingleResponseCommand<T>(
+      IsolateCommand Function(SendPort sendPort) commandBuilder) {
+    final receivePort = ReceivePort();
+    _commandSendPort.send(commandBuilder(receivePort.sendPort));
+    return receivePort.first.then((value) {
+      receivePort.close();
+      if (value is IsolateClientException) {
+        return Future.error(value);
+      }
+      return value as T;
+    });
   }
 }
 
