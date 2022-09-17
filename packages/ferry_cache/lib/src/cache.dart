@@ -92,14 +92,14 @@ class Cache {
       );
 
   Stream<TData?> _watch<TData>({
-    required Stream Function() getChangeStream,
+    required Stream<Set<String>> Function() getChangeStream,
     required TData? Function() getData,
   }) {
     return getChangeStream()
         // We add null at the beginning of the stream to trigger the initial getData().
         // getChangeStream = operationDataChangeStream or fragmentDataChangeStream and
         // they both end with .skip(1).
-        .startWith(null)
+        .startWith(const {})
         .map((_) => getData());
   }
 

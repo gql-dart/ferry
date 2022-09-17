@@ -2,9 +2,14 @@ import 'dart:isolate';
 
 import 'package:ferry/ferry.dart';
 import 'package:ferry/src/isolate/isolate_commands.dart';
+import 'package:meta/meta.dart';
+import 'package:rxdart/rxdart.dart';
 
-void handleCommand(TypedLinkWithCache client, IsolateCommand command,
-    ReceivePort globalReceivePort) async {
+// this function matches an IsolateCommand to an actual method call
+// to be executed on the client or its cache
+@internal
+Future<void> handleCommand(
+    TypedLinkWithCache client, IsolateCommand command, ReceivePort globalReceivePort) async {
   final sendPort = command.sendPort;
   try {
     switch (command.type) {
@@ -17,10 +22,11 @@ void handleCommand(TypedLinkWithCache client, IsolateCommand command,
         final cancelEventPort = ReceivePort();
         sendPort.send(cancelEventPort.sendPort);
         final stream = client.request(requestCommand.request);
-        final sub = stream.listen((event) {
+        final sub = stream.doOnDone(() {
+          sendPort.send('done');
+        }).listen((event) {
           sendPort.send(event);
         });
-        sendPort;
         cancelEventPort.listen((_) {
           sub.cancel();
           cancelEventPort.close();
@@ -28,8 +34,7 @@ void handleCommand(TypedLinkWithCache client, IsolateCommand command,
         break;
       case CommandType.readQuery:
         command as ReadQueryCommand;
-        final response = client.cache
-            .readQuery(command.request, optimistic: command.optimistic);
+        final response = client.cache.readQuery(command.request, optimistic: command.optimistic);
         sendPort.send(response);
         break;
       case CommandType.writeQuery:
@@ -43,8 +48,7 @@ void handleCommand(TypedLinkWithCache client, IsolateCommand command,
         break;
       case CommandType.readFragment:
         command as ReadFragmentCommand;
-        final fragment = client.cache
-            .readFragment(command.request, optimistic: command.optimistic);
+        final fragment = client.cache.readFragment(command.request, optimistic: command.optimistic);
         sendPort.send(fragment);
         break;
       case CommandType.writeFragment:
@@ -66,25 +70,34 @@ void handleCommand(TypedLinkWithCache client, IsolateCommand command,
       case CommandType.gc:
         command.sendPort.send(client.cache.gc());
         break;
+      case CommandType.retain:
+        command as RetainCommand;
+        client.cache.retain(command.entityId);
+        sendPort.send(null);
+        break;
+      case CommandType.release:
+        command as ReleaseCommand;
+        client.cache.release(command.entityId);
+        sendPort.send(null);
+        break;
       case CommandType.dispose:
         globalReceivePort.close();
         await client.dispose();
+        await Future.delayed(Duration.zero);
         final disposeCommand = command as DisposeCommand;
         sendPort.send(null);
+
         Isolate.exit(disposeCommand.sendPort);
     }
   } catch (e, s) {
+    print(e);
     sendPort.send(IsolateClientException(e, s, command));
   }
 }
 
-class IsolateClientException implements LinkException {
-  @override
-  final Object? originalException;
-  @override
-  final StackTrace? originalStackTrace;
+class IsolateClientException extends LinkException {
   final IsolateCommand command;
 
-  IsolateClientException(
-      this.originalException, this.originalStackTrace, this.command);
+  IsolateClientException(Object? originalException, StackTrace? originalStackTrace, this.command)
+      : super(originalException, originalStackTrace);
 }
