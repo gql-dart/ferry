@@ -37,11 +37,13 @@ class RequestCommand<TData, TVars> extends IsolateCommand {
   RequestCommand(SendPort sendPort, this.request)
       : super(sendPort, CommandType.request);
 }
+
 @internal
 class ClearCacheCommand extends IsolateCommand {
   ClearCacheCommand(SendPort sendPort)
       : super(sendPort, CommandType.clearCache);
 }
+
 @internal
 class ReadQueryCommand<TData extends Object, TVars> extends IsolateCommand {
   final OperationRequest<TData, TVars> request;
@@ -50,6 +52,7 @@ class ReadQueryCommand<TData extends Object, TVars> extends IsolateCommand {
   ReadQueryCommand(SendPort sendPort, this.request, {this.optimistic = true})
       : super(sendPort, CommandType.readQuery);
 }
+
 @internal
 class WriteQueryCommand<TData extends Object, TVars> extends IsolateCommand {
   final OperationRequest<TData, TVars> request;
@@ -60,6 +63,7 @@ class WriteQueryCommand<TData extends Object, TVars> extends IsolateCommand {
       SendPort sendPort, this.request, this.response, this.optimisticRequest)
       : super(sendPort, CommandType.writeQuery);
 }
+
 @internal
 class ReadFragmentCommand<TData, TVars> extends IsolateCommand {
   final FragmentRequest<TData, TVars> request;
@@ -68,6 +72,7 @@ class ReadFragmentCommand<TData, TVars> extends IsolateCommand {
   ReadFragmentCommand(SendPort sendPort, this.request, {this.optimistic = true})
       : super(sendPort, CommandType.readFragment);
 }
+
 @internal
 class WriteFragmentCommand<TData, TVars> extends IsolateCommand {
   final FragmentRequest<TData, TVars> request;
@@ -78,6 +83,7 @@ class WriteFragmentCommand<TData, TVars> extends IsolateCommand {
       SendPort sendPort, this.request, this.response, this.optimisticRequest)
       : super(sendPort, CommandType.writeFragment);
 }
+
 @internal
 class EvictDataIdCommand extends IsolateCommand {
   final String dataId;
@@ -89,6 +95,7 @@ class EvictDataIdCommand extends IsolateCommand {
       this.optimisticRequest)
       : super(sendPort, CommandType.evictDataId);
 }
+
 @internal
 class GcCommand extends IsolateCommand {
   GcCommand(SendPort sendPort) : super(sendPort, CommandType.gc);
@@ -96,14 +103,15 @@ class GcCommand extends IsolateCommand {
 
 @internal
 class RetainCommand extends IsolateCommand {
-
   final String entityId;
-  RetainCommand(SendPort sendPort, this.entityId) : super(sendPort, CommandType.retain);
+  RetainCommand(SendPort sendPort, this.entityId)
+      : super(sendPort, CommandType.retain);
 }
 
 @internal
 class ReleaseCommand extends IsolateCommand {
   final String entityId;
 
-  ReleaseCommand(SendPort sendPort, this.entityId) : super(sendPort, CommandType.release);
+  ReleaseCommand(SendPort sendPort, this.entityId)
+      : super(sendPort, CommandType.release);
 }

@@ -39,8 +39,8 @@ void main() {
 
       verifyInOrder([
         cache.gc(),
-        sendPort.send(argThat(
-            isA<Set<String>>().having((s) => s, 'set of removed ids should be empty', isEmpty)))
+        sendPort.send(argThat(isA<Set<String>>()
+            .having((s) => s, 'set of removed ids should be empty', isEmpty)))
       ]);
 
       verify(link.cache);
@@ -52,7 +52,9 @@ void main() {
 
     test('can handle evict command', () {
       handleCommand(
-          link, EvictDataIdCommand(sendPort, 'human:1', 'field', null, null), receivePort);
+          link,
+          EvictDataIdCommand(sendPort, 'human:1', 'field', null, null),
+          receivePort);
 
       verifyInOrder([
         cache.evict(
@@ -109,7 +111,8 @@ void main() {
         receivePort,
       );
 
-      verify(cache.readQuery(GHumanWithArgsReq((b) => b..vars.id = '1'))).called(1);
+      verify(cache.readQuery(GHumanWithArgsReq((b) => b..vars.id = '1')))
+          .called(1);
       verify(sendPort.send(null)).called(1);
       verify(link.cache);
       verifyNoMoreInteractions(cache);
@@ -158,7 +161,8 @@ void main() {
 
     test('can handle readFragment command', () {
       final fragmentReq = GReviewFragmentReq((b) => b..idFields = {});
-      handleCommand(link, ReadFragmentCommand(sendPort, fragmentReq), receivePort);
+      handleCommand(
+          link, ReadFragmentCommand(sendPort, fragmentReq), receivePort);
 
       verifyInOrder([cache.readFragment(fragmentReq), sendPort.send(null)]);
       verify(link.cache);
@@ -171,10 +175,13 @@ void main() {
     test('can handle writeFragment command', () {
       final fragmentReq = GReviewFragmentReq((b) => b..idFields = {});
       final data = GReviewFragmentData((b) => b..stars = 5);
-      handleCommand(link, WriteFragmentCommand(sendPort, fragmentReq, data, null), receivePort);
+      handleCommand(link,
+          WriteFragmentCommand(sendPort, fragmentReq, data, null), receivePort);
 
-      verifyInOrder(
-          [cache.writeFragment(fragmentReq, data, optimisticRequest: null), sendPort.send(null)]);
+      verifyInOrder([
+        cache.writeFragment(fragmentReq, data, optimisticRequest: null),
+        sendPort.send(null)
+      ]);
       verify(link.cache);
       verifyNoMoreInteractions(cache);
       verifyNoMoreInteractions(link);

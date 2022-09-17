@@ -60,8 +60,10 @@ void main() {
                     (p) => p.linkException,
                     'has link exception',
                     isA<LinkException>()
-                        .having((p) => p.originalStackTrace, 'has stacktrace', isNotNull)
-                        .having((e) => e.originalException, 'exception', isA<Exception>())),
+                        .having((p) => p.originalStackTrace, 'has stacktrace',
+                            isNotNull)
+                        .having((e) => e.originalException, 'exception',
+                            isA<Exception>())),
             emitsDone,
           ]));
 
@@ -73,8 +75,8 @@ void main() {
     test('can use messageHandler', () async {
       late Object? message;
 
-      final client = await IsolateClient.create(_initAutoResponderLinkClientWithMessageHandler,
-          messageHandler: (m) {
+      final client = await IsolateClient.create(
+          _initAutoResponderLinkClientWithMessageHandler, messageHandler: (m) {
         message = m;
       });
       await Future.delayed(Duration.zero);
@@ -109,7 +111,8 @@ void main() {
 
       await stream.first;
 
-      final result = await client.readQuery(GHumanWithArgsReq((b) => b..vars.id = '1'));
+      final result =
+          await client.readQuery(GHumanWithArgsReq((b) => b..vars.id = '1'));
 
       expect(
           result,
@@ -174,10 +177,15 @@ void main() {
                   ..human.name = 'Luke'),
                 dataSource: DataSource.Link,
                 operationRequest: req),
-            OperationResponse(operationRequest: req, data: null, dataSource: DataSource.Cache),
+            OperationResponse(
+                operationRequest: req,
+                data: null,
+                dataSource: DataSource.Cache),
             // TODO: figure out why duplicate emit and eliminate it
-            mayEmit(
-                OperationResponse(operationRequest: req, data: null, dataSource: DataSource.Cache)),
+            mayEmit(OperationResponse(
+                operationRequest: req,
+                data: null,
+                dataSource: DataSource.Cache)),
             emitsDone,
           ]));
 

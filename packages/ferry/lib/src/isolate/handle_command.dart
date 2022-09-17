@@ -8,8 +8,8 @@ import 'package:rxdart/rxdart.dart';
 // this function matches an IsolateCommand to an actual method call
 // to be executed on the client or its cache
 @internal
-Future<void> handleCommand(
-    TypedLinkWithCache client, IsolateCommand command, ReceivePort globalReceivePort) async {
+Future<void> handleCommand(TypedLinkWithCache client, IsolateCommand command,
+    ReceivePort globalReceivePort) async {
   final sendPort = command.sendPort;
   try {
     switch (command.type) {
@@ -34,7 +34,8 @@ Future<void> handleCommand(
         break;
       case CommandType.readQuery:
         command as ReadQueryCommand;
-        final response = client.cache.readQuery(command.request, optimistic: command.optimistic);
+        final response = client.cache
+            .readQuery(command.request, optimistic: command.optimistic);
         sendPort.send(response);
         break;
       case CommandType.writeQuery:
@@ -48,7 +49,8 @@ Future<void> handleCommand(
         break;
       case CommandType.readFragment:
         command as ReadFragmentCommand;
-        final fragment = client.cache.readFragment(command.request, optimistic: command.optimistic);
+        final fragment = client.cache
+            .readFragment(command.request, optimistic: command.optimistic);
         sendPort.send(fragment);
         break;
       case CommandType.writeFragment:
@@ -98,6 +100,7 @@ Future<void> handleCommand(
 class IsolateClientException extends LinkException {
   final IsolateCommand command;
 
-  IsolateClientException(Object? originalException, StackTrace? originalStackTrace, this.command)
+  IsolateClientException(
+      Object? originalException, StackTrace? originalStackTrace, this.command)
       : super(originalException, originalStackTrace);
 }
