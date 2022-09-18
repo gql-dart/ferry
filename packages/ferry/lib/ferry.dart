@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:ferry_exec/ferry_exec.dart';
 import 'package:gql/ast.dart';
 
 import 'package:ferry/src/add_typename_typed_link.dart';
@@ -15,13 +14,18 @@ export 'package:ferry/src/update_cache_typed_link.dart' show UpdateCacheHandler;
 export 'package:ferry_exec/ferry_exec.dart';
 export 'package:gql/ast.dart' show OperationType;
 
-class Client extends TypedLink {
+abstract class TypedLinkWithCache extends TypedLink {
+  Cache get cache;
+}
+
+class Client extends TypedLinkWithCache {
   final Link link;
   final Map<String, TypePolicy> typePolicies;
   final Map<String, Function> updateCacheHandlers;
   final Map<OperationType, FetchPolicy> defaultFetchPolicies;
   final bool addTypename;
 
+  @override
   late Cache cache;
   Cache? _defaultCache;
 

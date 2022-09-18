@@ -1,3 +1,17 @@
+## 0.11.1
+
+ - **REFACTOR**: use a generic type parameter for the init params instead of a Map<String,dynamic>.
+ - **REFACTOR**: refactore handleCommand.
+ - **REFACTOR**: refactore handleCommand.
+ - **REFACTOR**: cleanup request response communication.
+ - **FEAT**: refactor single response commands.
+ - **FEAT**: more IsolateClient features.
+ - **FEAT**: refactor IsolateClient, add more commands.
+ - **FEAT**: add more methods to IsolateClient.
+ - **FEAT**: add IsolateClient.
+ - **DOCS**: add example for token refresh over isolate.
+ - **DOCS**: fix typo in CHANGELOG (#384).
+
 ## 0.11.0+1
 
  - Update a dependency to the latest release.

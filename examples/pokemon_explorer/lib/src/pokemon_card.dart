@@ -18,9 +18,15 @@ class PokemonCard extends StatelessWidget {
           child: Column(
             children: <Widget>[
               SizedBox(
-                child: Ink.image(image: NetworkImage(pokemon.avatar)),
                 height: 200,
                 width: 200,
+                child: Image.network(
+                  pokemon.avatar,
+                  errorBuilder: (context, error, stacktrace) {
+                    return Text(
+                        "error loading image ${pokemon.avatar}: $error");
+                  },
+                ),
               ),
               Text(
                 pokemon.name,

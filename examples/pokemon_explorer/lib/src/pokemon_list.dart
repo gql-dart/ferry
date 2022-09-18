@@ -1,3 +1,4 @@
+import 'package:ferry/ferry_isolate.dart';
 import 'package:flutter/material.dart';
 import 'package:ferry/ferry.dart';
 import 'package:get_it/get_it.dart';
@@ -10,7 +11,7 @@ import './graphql/__generated__/all_pokemon.var.gql.dart';
 import './pokemon_card.dart';
 
 class PokemonListScreen extends StatelessWidget {
-  final client = GetIt.I<Client>();
+  final client = GetIt.I<TypedLink>();
 
   @override
   Widget build(BuildContext context) {

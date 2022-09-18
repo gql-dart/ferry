@@ -1,3 +1,7 @@
+## 0.1.6
+
+ - **FEAT**: more IsolateClient features.
+
 ## 0.1.5
 
 > Note: This release has breaking changes.
