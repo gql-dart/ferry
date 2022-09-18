@@ -38,6 +38,7 @@ While we are using this package in our own production applications, we don't hav
 5. 💾 **Multiple Data Stores**: extensible `Store` interface with built-in `MemoryStore` and `HiveStore` (which uses `hive` for offline persistence).
 6. 📄 **Refetch & Pagination**: easily update responses with new data or combine multiple responses, allowing for seamless pagination.
 7. 📱 **Flutter Widgets**: Widgets for Queries, Mutations, and Subscriptions, available out of the box.
+8. 🧈 **Smooth** Run queries in a separate Isolate to free up resources on the UI thread
 
 # Packages
 
