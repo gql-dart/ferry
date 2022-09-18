@@ -26,7 +26,8 @@ class RequestResponse {
   }
 
   factory RequestResponse.initialCancelSendPort(SendPort sendPort) {
-    return RequestResponse._(type: RequestResponseType.initial, sendPort: sendPort);
+    return RequestResponse._(
+        type: RequestResponseType.initial, sendPort: sendPort);
   }
 
   factory RequestResponse.done() {
