@@ -19,11 +19,11 @@ Future<void> handleCommand(TypedLinkWithCache client, IsolateCommand command,
         sendPort.send(null);
         break;
       case CommandType.request:
-        final requestCommand = command as RequestCommand;
+        command as RequestCommand;
         final cancelEventPort = ReceivePort();
         sendPort.send(
             RequestResponse.initialCancelSendPort(cancelEventPort.sendPort));
-        final stream = client.request(requestCommand.request);
+        final stream = client.request(command.request);
         final sub = stream.doOnDone(() {
           sendPort.send(RequestResponse.done());
         }).listen((event) {
@@ -98,10 +98,4 @@ Future<void> handleCommand(TypedLinkWithCache client, IsolateCommand command,
   }
 }
 
-class IsolateClientException extends LinkException {
-  final IsolateCommand command;
 
-  IsolateClientException(
-      Object? originalException, StackTrace? originalStackTrace, this.command)
-      : super(originalException, originalStackTrace);
-}
