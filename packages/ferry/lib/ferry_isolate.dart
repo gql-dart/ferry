@@ -7,33 +7,31 @@ import 'package:ferry/src/isolate/request_response_message.dart';
 import 'package:rxdart/rxdart.dart';
 
 /// a top-level or static function,
-/// which asynchronously creates a ferry client, given a map of params.
+/// which asynchronously creates a ferry client, given a some params.
 /// the messageMainPort can be used to send arbitrary messages from the isolate to main
 /// from example for token refresh. You can also create a ReceivePort here and send
 /// its sendPort to the messageHandler for establishing a two-way communication.
 /// if you don't pass a messageHandler, the sendMessageToMessageHandler SendPort will be null.
-typedef InitClient = Future<TypedLinkWithCache> Function(
-  Map<String, dynamic> params,
+typedef InitClient<InitParams> = Future<TypedLinkWithCache> Function(
+  InitParams params,
   SendPort? sendMessageToMessageHandler,
 );
 
-typedef IsolateSpawn = Future<void> Function(
-  void Function(_IsolateInit),
-  _IsolateInit initParams,
+typedef IsolateSpawn<T> = Future<void> Function(
+  void Function(_IsolateInit<T>),
+  _IsolateInit<T> initParams,
 );
 
 /// A [TypedLink} that executes requests of a [Client] in
 /// another isolate to avoid jank on heavy requests
 class IsolateClient extends TypedLink {
-  final InitClient createClient;
-
   late final ReceivePort _globalReceivePort;
 
   late final ReceivePort? _messageHandlerReceivePort;
 
   late final SendPort _commandSendPort;
 
-  IsolateClient._({required this.createClient, Map<String, dynamic>? params});
+  IsolateClient._();
 
   /// Create a new [IsolateClient]. The IsolateClient will spawn a new Isolate,
   /// and create a standard [Client] on this Isolate given the passed [InitClient]
@@ -42,13 +40,14 @@ class IsolateClient extends TypedLink {
   /// if the initClient function needs params (e.g. a path for the HiveBox,
   /// since you cannot call path_provider on to other isolate without jumping through hoops),
   /// you can pass these params here.
-  /// Note that the Map must only contain types that can be sent over Isolates.
+  /// Note that params must only contain types that can be sent over Isolates.
+  /// This essentials means, only data that you could also serialize to JSON.
   /// The optional isolateSpawn parameter allows you to customize how the isolate is spawned.
   /// For example, you can use FlutterIsolate.spawn from package flutter_isolate in order
   /// to use platform channels on the ferry isolate.
   /// example:
   /// ```dart
-  ///    IsolateClient.create(createClientFunction,
+  ///    IsolateClient.create<Map<String, dynamic>>(createClientFunction,
   ///            params: {"apiUrl": "https://my.api.com"},
   ///            messageHandler: (Object? message) => print(message),
   ///            isolateSpawn: (entryPoint, params) => FlutterIsolate.spawn(entryPoint, params),
@@ -56,14 +55,16 @@ class IsolateClient extends TypedLink {
   ///```
   /// If isolateSpawn is omitted, the default implementation of from dart:isolate Isolate.spawn
   /// is used.
-  static Future<IsolateClient> create(InitClient initClient,
-      {Map<String, dynamic>? params,
+  /// Note: isolates are not supported on the web. On the web, please use the standard Client.
+  static Future<IsolateClient> create<InitParams>(
+      InitClient<InitParams> initClient,
+      {required InitParams params,
       void Function(Object?)? messageHandler,
-      IsolateSpawn? isolateSpawn}) async {
+      IsolateSpawn<InitParams>? isolateSpawn}) async {
     isolateSpawn ??= ((entryPoint, params) => Isolate.spawn(entryPoint, params,
         debugName: 'package:ferry/ferry.dart:IsolateClient'));
 
-    final client = IsolateClient._(createClient: initClient, params: params);
+    final client = IsolateClient._();
 
     client._globalReceivePort =
         ReceivePort('package:ferry/ferry_isolate.dart:main');
@@ -89,7 +90,7 @@ class IsolateClient extends TypedLink {
 
     unawaited(isolateSpawn(
         _isolateClientEntryPoint,
-        _IsolateInit(
+        _IsolateInit<InitParams>(
           initClient,
           client._globalReceivePort.sendPort,
           client._messageHandlerReceivePort?.sendPort,
@@ -232,26 +233,28 @@ class IsolateClient extends TypedLink {
 }
 
 // initialization message, send when creating the client
-class _IsolateInit {
-  final InitClient initClient;
+class _IsolateInit<T> {
+  final InitClient<T> initClient;
   final SendPort mainSendPort;
   final SendPort? messageHandlerSendPort;
-  final Map<String, dynamic>? params;
+  final T params;
 
   _IsolateInit(this.initClient, this.mainSendPort, this.messageHandlerSendPort,
       this.params);
 }
 
 /// this is the entry point called by Isolate.spawn
-void _isolateClientEntryPoint(_IsolateInit init) async {
+void _isolateClientEntryPoint<T>(_IsolateInit<T> init) async {
   //get the sendPort for isolate -> main communication
   final sendPort = init.mainSendPort;
   // create a receivePort for main -> isolate communication
   final mainToIsolateStream = ReceivePort();
 
   // create the real ferry client given the passed [InitClient] function
-  final client =
-      await init.initClient(init.params ?? {}, init.messageHandlerSendPort);
+  final client = await init.initClient(
+    init.params,
+    init.messageHandlerSendPort,
+  );
   //send the sendPort to the main isolate
   sendPort.send(mainToIsolateStream.sendPort);
 

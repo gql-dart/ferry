@@ -1,5 +1,4 @@
 import 'dart:isolate';
-import 'dart:ui';
 
 import 'package:ferry/ferry.dart';
 import 'package:ferry/ferry_isolate.dart';
@@ -10,23 +9,32 @@ import 'package:path_provider/path_provider.dart';
 import 'package:pokemon_explorer/main.dart';
 
 Future<IsolateClient> initIsolateClient() async {
-  final client = IsolateClient.create(_initClientIsolate, params: {
-    'hivePath': (await getApplicationDocumentsDirectory()).path,
-    'url': apiUrl,
-  });
+  final client =
+      IsolateClient.create<PokemonExplorerInitParams>(_initClientIsolate,
+          params: PokemonExplorerInitParams(
+            hivePath: (await getApplicationDocumentsDirectory()).path,
+            apiUrl: apiUrl,
+          ));
 
   return client;
+}
+
+class PokemonExplorerInitParams {
+  final String hivePath;
+  final String apiUrl;
+
+  PokemonExplorerInitParams({required this.hivePath, required this.apiUrl});
 }
 
 // this is called on the new isolate
 // if you passed a messageHandler to the IsolateClient, you can use the sendPort
 // to send arbitrary messages to the main isolate.
 Future<Client> _initClientIsolate(
-    Map<String, dynamic> params, SendPort? sendPort) async {
+    PokemonExplorerInitParams params, SendPort? sendPort) async {
   // don't use Hive.initFlutter to avoid dealing with method channels in the isolate
   // instead, call getApplicationDocumentsDirectory() on the main isolate
   // and pass the result to the ferry isolate
-  Hive.init(params["hivePath"]);
+  Hive.init(params.hivePath);
 
   final box = await Hive.openBox<Map<String, dynamic>>("graphql");
 
@@ -36,7 +44,7 @@ Future<Client> _initClientIsolate(
 
   final cache = Cache(store: store);
 
-  final link = HttpLink(params["url"]);
+  final link = HttpLink(params.apiUrl);
 
   final client = Client(
     link: link,

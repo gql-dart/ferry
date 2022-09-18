@@ -12,13 +12,17 @@ import '../../benchmark/operations.dart';
 void main() {
   group('IsolateClient', () {
     test('can create IsolateClient', () async {
-      final client = await IsolateClient.create(_initAutoResponderLinkClient);
+      final client = await IsolateClient.create<Null>(
+          _initAutoResponderLinkClient,
+          params: null);
 
       expect(client, isA<IsolateClient>());
     });
 
     test('can do requests on Isolate', () async {
-      final client = await IsolateClient.create(_initAutoResponderLinkClient);
+      final client = await IsolateClient.create<Null>(
+          _initAutoResponderLinkClient,
+          params: null);
 
       final req = GHumanWithArgsReq((b) => b..vars.id = '1');
 
@@ -42,7 +46,8 @@ void main() {
     });
 
     test('can handle errors', () async {
-      final client = await IsolateClient.create(_initErrorResponderClient);
+      final client = await IsolateClient.create<Null>(_initErrorResponderClient,
+          params: null);
 
       final req = GHumanWithArgsReq((b) => b..vars.id = '1');
 
@@ -74,7 +79,8 @@ void main() {
       late Object? message;
 
       final client = await IsolateClient.create(
-          _initAutoResponderLinkClientWithMessageHandler, messageHandler: (m) {
+          _initAutoResponderLinkClientWithMessageHandler,
+          params: null, messageHandler: (m) {
         message = m;
       });
       await Future.delayed(Duration.zero);
@@ -85,7 +91,8 @@ void main() {
     });
 
     test('can cancel subscription across isolates', () async {
-      final client = await IsolateClient.create(_initAutoResponderLinkClient);
+      final client = await IsolateClient.create(_initAutoResponderLinkClient,
+          params: null);
 
       final req = GHumanWithArgsReq((b) => b..vars.id = '1');
 
@@ -101,7 +108,8 @@ void main() {
     });
 
     test('can readQuery', () async {
-      final client = await IsolateClient.create(_initAutoResponderLinkClient);
+      final client = await IsolateClient.create(_initAutoResponderLinkClient,
+          params: null);
 
       final req = GHumanWithArgsReq((b) => b..vars.id = '1');
 
@@ -122,7 +130,8 @@ void main() {
     });
 
     test('can writeQuery', () async {
-      final client = await IsolateClient.create(_initAutoResponderLinkClient);
+      final client = await IsolateClient.create(_initAutoResponderLinkClient,
+          params: null);
 
       final req = GHumanWithArgsReq((b) => b..vars.id = '1');
 
@@ -160,7 +169,8 @@ void main() {
     });
 
     test('can clear cache', () async {
-      final client = await IsolateClient.create(_initAutoResponderLinkClient);
+      final client = await IsolateClient.create(_initAutoResponderLinkClient,
+          params: null);
 
       final req = GHumanWithArgsReq((b) => b..vars.id = '1');
 
@@ -203,17 +213,17 @@ void main() {
 }
 
 Future<Client> _initAutoResponderLinkClient(
-    Map<String, dynamic> params, SendPort? sendMessageToMessageHandler) async {
+    Null params, SendPort? sendMessageToMessageHandler) async {
   return Client(link: AutoResponderLink());
 }
 
 Future<Client> _initErrorResponderClient(
-    Map<String, dynamic> params, SendPort? sendMessageToMessageHandler) async {
+    Null params, SendPort? sendMessageToMessageHandler) async {
   return Client(link: AutoResponderLinkExceptionLink());
 }
 
 Future<Client> _initAutoResponderLinkClientWithMessageHandler(
-    Map<String, dynamic> params, SendPort? sendMessageToMessageHandler) async {
+    Null params, SendPort? sendMessageToMessageHandler) async {
   sendMessageToMessageHandler!.send(42);
   return Client(link: AutoResponderLink());
 }
