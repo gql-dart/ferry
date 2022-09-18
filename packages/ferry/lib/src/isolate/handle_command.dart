@@ -97,5 +97,3 @@ Future<void> handleCommand(TypedLinkWithCache client, IsolateCommand command,
     sendPort.send(RequestResponse.error(e, s));
   }
 }
-
-
