@@ -62,3 +62,9 @@ If you have an authenticated graphql api and need the auth token on both the mai
    The main isolate would receive it in its `messageHandler` and could persist it, for example via `SharedPreferences`. 
    You can also establish a two-way communication be creating a `ReceivePort` in the `InitClient` function and send its sendport to 
    the main isolates messagehandler.
+
+Here's an example on how to wire up SharedPreferences to store
+the auth token on the main isolate, refresh it on the ferry isolate when needed, and
+send the new token the the main isolate for shared_preferences to store:
+
+https://gist.github.com/knaeckeKami/b11ad83e4b69aa44638815d1471c2ba3

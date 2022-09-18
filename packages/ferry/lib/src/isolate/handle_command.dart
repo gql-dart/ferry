@@ -26,6 +26,7 @@ Future<void> handleCommand(TypedLinkWithCache client, IsolateCommand command,
         final stream = client.request(command.request);
         final sub = stream.doOnDone(() {
           sendPort.send(RequestResponse.done());
+          cancelEventPort.close();
         }).listen((event) {
           sendPort.send(RequestResponse.data(event));
         });
