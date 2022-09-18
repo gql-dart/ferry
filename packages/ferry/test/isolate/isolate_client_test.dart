@@ -1,5 +1,3 @@
-// ignore_for_file: unawaited_futures
-
 import 'dart:async';
 import 'dart:isolate';
 
@@ -26,7 +24,7 @@ void main() {
 
       final stream = client.request(req);
 
-      expectLater(
+      unawaited(expectLater(
           stream,
           emitsInOrder([
             OperationResponse(
@@ -36,7 +34,7 @@ void main() {
                 dataSource: DataSource.Link,
                 operationRequest: req),
             emitsDone,
-          ]));
+          ])));
 
       await Future.delayed(Duration.zero);
 
@@ -50,7 +48,7 @@ void main() {
 
       final stream = client.request(req);
 
-      expectLater(
+      unawaited(expectLater(
           stream,
           emitsInOrder([
             isA<OperationResponse>()
@@ -65,7 +63,7 @@ void main() {
                         .having((e) => e.originalException, 'exception',
                             isA<Exception>())),
             emitsDone,
-          ]));
+          ])));
 
       await Future.delayed(Duration.zero);
 
@@ -97,7 +95,7 @@ void main() {
 
       await Future.delayed(Duration.zero);
 
-      sub.cancel();
+      unawaited(sub.cancel());
 
       await Future.delayed(Duration.zero);
     });
@@ -130,7 +128,7 @@ void main() {
 
       final stream = client.request(req);
 
-      expectLater(
+      unawaited(expectLater(
           stream,
           emitsInOrder([
             OperationResponse(
@@ -146,7 +144,7 @@ void main() {
                 dataSource: DataSource.Cache,
                 operationRequest: req),
             emitsDone,
-          ]));
+          ])));
 
       await Future.delayed(Duration.zero);
 
@@ -168,7 +166,7 @@ void main() {
 
       final stream = client.request(req);
 
-      expectLater(
+      unawaited(expectLater(
           stream,
           emitsInOrder([
             OperationResponse(
@@ -187,7 +185,7 @@ void main() {
                 data: null,
                 dataSource: DataSource.Cache)),
             emitsDone,
-          ]));
+          ])));
 
       await Future.delayed(Duration.zero);
 
