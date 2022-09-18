@@ -3,14 +3,15 @@ import 'dart:isolate';
 import 'package:ferry/ferry.dart';
 import 'package:ferry/src/isolate/handle_command.dart';
 import 'package:ferry/src/isolate/isolate_commands.dart';
+import 'package:ferry/src/isolate/request_response_message.dart';
 import 'package:rxdart/rxdart.dart';
 
 /// a top-level or static function,
-/// which asynchronously creates a ferry client, given a map of params
+/// which asynchronously creates a ferry client, given a map of params.
 /// the messageMainPort can be used to send arbitrary messages from the isolate to main
 /// from example for token refresh. You can also create a ReceivePort here and send
 /// its sendPort to the messageHandler for establishing a two-way communication.
-/// if you don't pass a messageHandler, the sendMessageToMessageHandler will be null.
+/// if you don't pass a messageHandler, the sendMessageToMessageHandler SendPort will be null.
 typedef InitClient = Future<TypedLinkWithCache> Function(
   Map<String, dynamic> params,
   SendPort? sendMessageToMessageHandler,
@@ -27,6 +28,8 @@ class IsolateClient extends TypedLink {
   final InitClient createClient;
 
   late final ReceivePort _globalReceivePort;
+
+  late final ReceivePort? _messageHandlerReceivePort;
 
   late final SendPort _commandSendPort;
 
@@ -57,31 +60,27 @@ class IsolateClient extends TypedLink {
       {Map<String, dynamic>? params,
       void Function(Object?)? messageHandler,
       IsolateSpawn? isolateSpawn}) async {
-    isolateSpawn ??= ((entryPoint, params) => Isolate.spawn(entryPoint, params,
-        debugName: 'package:ferry/ferry.dart:IsolateClient'));
+    isolateSpawn ??= ((entryPoint, params) =>
+        Isolate.spawn(entryPoint, params, debugName: 'package:ferry/ferry.dart:IsolateClient'));
 
     final client = IsolateClient._(createClient: initClient, params: params);
 
-    client._globalReceivePort =
-        ReceivePort('package:ferry/ferry_isolate.dart:main');
-
-    final ReceivePort? messageHandlerReceivePort;
+    client._globalReceivePort = ReceivePort('package:ferry/ferry_isolate.dart:main');
 
     // setup custom messages from isolate -> main if necessary
     if (messageHandler != null) {
-      messageHandlerReceivePort =
+      client._messageHandlerReceivePort =
           ReceivePort('package:ferry/ferry_isolate.dart:messageHandler');
-      messageHandlerReceivePort.listen(messageHandler);
+      client._messageHandlerReceivePort!.listen(messageHandler);
     } else {
-      messageHandlerReceivePort = null;
+      client._messageHandlerReceivePort = null;
     }
 
     final completer = Completer();
 
     // the first message
     unawaited(client._globalReceivePort.first.then((value) {
-      assert(value is SendPort,
-          'internal error: the first message sent must be the SendPort');
+      assert(value is SendPort, 'internal error: the first message sent must be the SendPort');
       client._commandSendPort = value;
       completer.complete();
     }));
@@ -91,7 +90,7 @@ class IsolateClient extends TypedLink {
         _IsolateInit(
           initClient,
           client._globalReceivePort.sendPort,
-          messageHandlerReceivePort?.sendPort,
+          client._messageHandlerReceivePort?.sendPort,
           params,
         )));
 
@@ -116,22 +115,28 @@ class IsolateClient extends TypedLink {
     return receivePort.doOnCancel(() => cancelPort?.send(null)).transform(
           StreamTransformer.fromHandlers(
               handleData: (o, sink) {
-                if (o is SendPort) {
-                  cancelPort = o;
-                } else if (o is IsolateClientException) {
-                  sink.addError(o, o.originalStackTrace);
-                } else if (o == "done") {
-                  sink.close();
-                } else {
-                  final OperationResponse response = o;
-                  sink.add(OperationResponse<TData, TVars>(
-                    operationRequest: request,
-                    linkException: response.linkException,
-                    graphqlErrors: response.graphqlErrors,
-                    dataSource: response.dataSource,
-                    extensions: response.extensions,
-                    data: response.data as TData?,
-                  ));
+                switch ((o as RequestResponse).type) {
+                  case RequestResponseType.initial:
+                    assert(cancelPort == null);
+                    cancelPort = o.sendPort;
+                    break;
+                  case RequestResponseType.error:
+                    sink.addError(o.exception!, o.stackTrace);
+                    break;
+                  case RequestResponseType.data:
+                    final response = o.data!;
+                    sink.add(OperationResponse<TData, TVars>(
+                      operationRequest: request,
+                      linkException: response.linkException,
+                      graphqlErrors: response.graphqlErrors,
+                      dataSource: response.dataSource,
+                      extensions: response.extensions,
+                      data: response.data as TData?,
+                    ));
+                    break;
+                  case RequestResponseType.done:
+                    sink.close();
+                    break;
                 }
               },
               handleError: (err, stack, sink) => sink.addError(err, stack),
@@ -141,11 +146,10 @@ class IsolateClient extends TypedLink {
 
   /// read the given query from the cache. returns null if the result of the
   /// query is not cached
-  Future<TData?> readQuery<TData extends Object, TVars>(
-      OperationRequest<TData, TVars> request,
+  Future<TData?> readQuery<TData extends Object, TVars>(OperationRequest<TData, TVars> request,
       {bool optimistic = true}) {
-    return _handleSingleResponseCommand((sendPort) =>
-        ReadQueryCommand(sendPort, request, optimistic: optimistic));
+    return _handleSingleResponseCommand(
+        (sendPort) => ReadQueryCommand(sendPort, request, optimistic: optimistic));
   }
 
   Future<void> writeQuery<TData extends Object, TVars>(
@@ -153,13 +157,12 @@ class IsolateClient extends TypedLink {
     TData response, {
     OperationRequest<TData, TVars>? optimisticRequest,
   }) {
-    return _handleSingleResponseCommand((sendPort) =>
-        WriteQueryCommand(sendPort, request, response, optimisticRequest));
+    return _handleSingleResponseCommand(
+        (sendPort) => WriteQueryCommand(sendPort, request, response, optimisticRequest));
   }
 
   Future<void> clearCache() {
-    return _handleSingleResponseCommand(
-        (sendPort) => ClearCacheCommand(sendPort));
+    return _handleSingleResponseCommand((sendPort) => ClearCacheCommand(sendPort));
   }
 
   /// run garbage collection on the cache
@@ -168,24 +171,19 @@ class IsolateClient extends TypedLink {
   }
 
   Future<void> evict(String dataID,
-      {String? fieldName,
-      Map<String, dynamic>? args,
-      OperationRequest? optimisticRequest}) {
-    return _handleSingleResponseCommand((sendPort) => EvictDataIdCommand(
-        sendPort, dataID, fieldName, args, optimisticRequest));
+      {String? fieldName, Map<String, dynamic>? args, OperationRequest? optimisticRequest}) {
+    return _handleSingleResponseCommand(
+        (sendPort) => EvictDataIdCommand(sendPort, dataID, fieldName, args, optimisticRequest));
   }
 
-  Future<TData?> readFragment<TData, TVars>(
-      FragmentRequest<TData, TVars> request,
+  Future<TData?> readFragment<TData, TVars>(FragmentRequest<TData, TVars> request,
       {bool optimistic = true}) {
     return _handleSingleResponseCommand(
-      (sendPort) =>
-          (ReadFragmentCommand(sendPort, request, optimistic: optimistic)),
+      (sendPort) => (ReadFragmentCommand(sendPort, request, optimistic: optimistic)),
     );
   }
 
-  Future<void> writeFragment<TData, TVars>(
-      FragmentRequest<TData, TVars> request, TData data,
+  Future<void> writeFragment<TData, TVars>(FragmentRequest<TData, TVars> request, TData data,
       {OperationRequest<TData, TVars>? optimisticRequest}) {
     return _handleSingleResponseCommand(
       (sendPort) => WriteFragmentCommand(
@@ -204,6 +202,7 @@ class IsolateClient extends TypedLink {
     await receivePort.first;
     receivePort.close();
     _globalReceivePort.close();
+    _messageHandlerReceivePort?.close();
     return super.dispose();
   }
 
@@ -215,8 +214,8 @@ class IsolateClient extends TypedLink {
     _commandSendPort.send(commandBuilder(receivePort.sendPort));
     return receivePort.first.then((value) {
       receivePort.close();
-      if (value is IsolateClientException) {
-        return Future.error(value);
+      if (value is RequestResponse && value.type == RequestResponseType.error) {
+        return Future.error(value.exception!, value.stackTrace);
       }
       return value as T;
     });
@@ -230,8 +229,7 @@ class _IsolateInit {
   final SendPort? messageHandlerSendPort;
   final Map<String, dynamic>? params;
 
-  _IsolateInit(this.initClient, this.mainSendPort, this.messageHandlerSendPort,
-      this.params);
+  _IsolateInit(this.initClient, this.mainSendPort, this.messageHandlerSendPort, this.params);
 }
 
 /// this is the entry point called by Isolate.spawn
@@ -242,14 +240,12 @@ void _isolateClientEntryPoint(_IsolateInit init) async {
   final mainToIsolateStream = ReceivePort();
 
   // create the real ferry client given the passed [InitClient] function
-  final client =
-      await init.initClient(init.params ?? {}, init.messageHandlerSendPort);
+  final client = await init.initClient(init.params ?? {}, init.messageHandlerSendPort);
   //send the sendPort to the main isolate
   sendPort.send(mainToIsolateStream.sendPort);
 
   mainToIsolateStream.listen((message) {
-    assert(message is IsolateCommand,
-        'internal error: expected IsolateCommand, got $message');
+    assert(message is IsolateCommand, 'internal error: expected IsolateCommand, got $message');
     handleCommand(
       client,
       message as IsolateCommand,
