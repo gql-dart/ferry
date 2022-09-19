@@ -33,4 +33,9 @@ jobs:
           echo $CREDENTIALS_JSON > $XDG_CONFIG_HOME/dart/pub-credentials.json
       - run: melos publish --yes --dry-run --ignore="*pokemon*" --ignore="ferry_test_graphql"
       - run: melos publish --yes --no-dry-run --ignore="*pokemon*" --ignore="ferry_test_graphql"
-      - run: git push
+      - name: Push back version bumps
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: master
+          tags: true
