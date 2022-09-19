@@ -85,6 +85,11 @@ Future<void> handleCommand(TypedLinkWithCache client, IsolateCommand command,
         client.cache.release(command.entityId);
         sendPort.send(null);
         break;
+      case CommandType.removeOptimisticPatch:
+        command as RemoveOptimisticResponseCommand;
+        client.cache.removeOptimisticPatch(command.request);
+        sendPort.send(null);
+        break;
       case CommandType.dispose:
         globalReceivePort.close();
         await client.dispose();

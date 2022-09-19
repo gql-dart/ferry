@@ -221,5 +221,23 @@ void main() {
       verifyNoMoreInteractions(sendPort);
       verifyNoMoreInteractions(receivePort);
     });
+
+    test('can handle remove optimistic patch command', () {
+      handleCommand(
+        link,
+        RemoveOptimisticResponseCommand(
+            sendPort, GHumanWithArgsReq((b) => b..vars.id = '1')),
+        receivePort,
+      );
+      verifyInOrder([
+        link.cache,
+        cache.removeOptimisticPatch(GHumanWithArgsReq((b) => b..vars.id = '1')),
+        sendPort.send(null)
+      ]);
+      verifyNoMoreInteractions(cache);
+      verifyNoMoreInteractions(link);
+      verifyNoMoreInteractions(sendPort);
+      verifyNoMoreInteractions(receivePort);
+    });
   });
 }

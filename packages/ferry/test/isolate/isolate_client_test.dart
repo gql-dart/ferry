@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:isolate';
+import 'dart:math';
 
 import 'package:ferry/ferry.dart';
 import 'package:ferry/ferry_isolate.dart';
@@ -208,6 +209,31 @@ void main() {
       await Future.delayed(Duration.zero);
 
       await client.dispose();
+    });
+
+    test('can write optimistic data and remove optimistic response', () async {
+      final client = await IsolateClient.create(_initAutoResponderLinkClient,
+          params: null);
+      addTearDown(client.dispose);
+      final req = GHumanWithArgsReq((b) => b..vars.id = '1');
+      final data = GHumanWithArgsData((b) => b
+        ..human.id = '__optimistic'
+        ..human.name = 'Luke');
+
+      await client.writeQuery(
+          req,
+          GHumanWithArgsData((b) => b
+            ..human.id = '__optimistic'
+            ..human.name = 'Luke'),
+          optimisticRequest: req);
+
+      expect(await client.readQuery(req), data);
+      expect(await client.readQuery(req, optimistic: false), isNull);
+
+      await client.removeOptimisticPatch(req);
+
+      expect(await client.readQuery(req), isNull);
+      expect(await client.readQuery(req, optimistic: false), isNull);
     });
   });
 }
