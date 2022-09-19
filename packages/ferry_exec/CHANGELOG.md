@@ -1,3 +1,8 @@
+## 0.1.8-dev.0
+
+ - **FEAT**: add IsolateClient (#405).
+ - **FEAT**: more IsolateClient features.
+
 ## 0.1.6
 
  - **FEAT**: more IsolateClient features.

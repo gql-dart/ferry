@@ -1,3 +1,9 @@
+## 0.6.3-dev.0
+
+ - **FIX**: fix cache emits update too often (#411).
+ - **FIX**: fix regression in watch() methods by making changeStream emit when new item is added to the cache (#403).
+ - **FEAT**: add IsolateClient (#405).
+
 ## 0.6.2+1
 
  - Update a dependency to the latest release.

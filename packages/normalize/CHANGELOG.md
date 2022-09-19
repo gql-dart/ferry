@@ -1,3 +1,7 @@
+## 0.7.2-dev.0
+
+ - **FEAT**: generate possibleTypesMap in ferry_generator (#371).
+
 ## 0.7.1
 
  - **FEAT**: generate possibleTypesMap in ferry_generator (#371).
