@@ -17,11 +17,6 @@ typedef InitClient<InitParams> = Future<TypedLinkWithCache> Function(
   SendPort? sendMessageToMessageHandler,
 );
 
-typedef IsolateSpawn<T> = Future<void> Function(
-  void Function(_IsolateInit<T>),
-  _IsolateInit<T> initParams,
-);
-
 /// A [TypedLink} that executes requests of a [Client] in
 /// another isolate to avoid jank on heavy requests
 class IsolateClient extends TypedLink {
@@ -42,28 +37,11 @@ class IsolateClient extends TypedLink {
   /// you can pass these params here.
   /// Note that params must only contain types that can be sent over Isolates.
   /// This essentials means, only data that you could also serialize to JSON.
-  /// The optional isolateSpawn parameter allows you to customize how the isolate is spawned.
-  /// For example, you can use FlutterIsolate.spawn from package flutter_isolate in order
-  /// to use platform channels on the ferry isolate.
-  /// example:
-  /// ```dart
-  ///    IsolateClient.create<Map<String, dynamic>>(createClientFunction,
-  ///            params: {"apiUrl": "https://my.api.com"},
-  ///            messageHandler: (Object? message) => print(message),
-  ///            isolateSpawn: (entryPoint, params) => FlutterIsolate.spawn(entryPoint, params),
-  ///    );
-  ///```
-  /// If isolateSpawn is omitted, the default implementation of from dart:isolate Isolate.spawn
-  /// is used.
   /// Note: isolates are not supported on the web. On the web, please use the standard Client.
   static Future<IsolateClient> create<InitParams>(
       InitClient<InitParams> initClient,
       {required InitParams params,
-      void Function(Object?)? messageHandler,
-      IsolateSpawn<InitParams>? isolateSpawn}) async {
-    isolateSpawn ??= ((entryPoint, params) => Isolate.spawn(entryPoint, params,
-        debugName: 'package:ferry/ferry.dart:IsolateClient'));
-
+      void Function(Object?)? messageHandler}) async {
     final client = IsolateClient._();
 
     client._globalReceivePort =
@@ -88,7 +66,7 @@ class IsolateClient extends TypedLink {
       completer.complete();
     }));
 
-    unawaited(isolateSpawn(
+    unawaited(Isolate.spawn<_IsolateInit<InitParams>>(
         _isolateClientEntryPoint,
         _IsolateInit<InitParams>(
           initClient,
