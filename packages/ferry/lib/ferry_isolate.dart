@@ -205,6 +205,11 @@ class IsolateClient extends TypedLink {
     );
   }
 
+  Future<void> removeOptimisticPatch(OperationRequest request) {
+    return _handleSingleResponseCommand(
+        (sendPort) => RemoveOptimisticResponseCommand(sendPort, request));
+  }
+
   @override
   Future<void> dispose() async {
     final receivePort = ReceivePort();

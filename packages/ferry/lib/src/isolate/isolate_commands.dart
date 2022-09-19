@@ -22,7 +22,8 @@ enum CommandType {
   evictDataId,
   gc,
   retain,
-  release
+  release,
+  removeOptimisticPatch,
 }
 
 @internal
@@ -104,6 +105,7 @@ class GcCommand extends IsolateCommand {
 @internal
 class RetainCommand extends IsolateCommand {
   final String entityId;
+
   RetainCommand(SendPort sendPort, this.entityId)
       : super(sendPort, CommandType.retain);
 }
@@ -114,4 +116,14 @@ class ReleaseCommand extends IsolateCommand {
 
   ReleaseCommand(SendPort sendPort, this.entityId)
       : super(sendPort, CommandType.release);
+}
+
+@internal
+class RemoveOptimisticResponseCommand<TData, TVars> extends IsolateCommand {
+  final OperationRequest<TData, TVars> request;
+
+  RemoveOptimisticResponseCommand(
+    SendPort sendPort,
+    this.request,
+  ) : super(sendPort, CommandType.removeOptimisticPatch);
 }
