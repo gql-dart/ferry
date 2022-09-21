@@ -6,6 +6,9 @@ import 'package:ferry/ferry.dart';
 import 'package:ferry/ferry_isolate.dart';
 import 'package:ferry_test_graphql/queries/__generated__/human_with_args.data.gql.dart';
 import 'package:ferry_test_graphql/queries/__generated__/human_with_args.req.gql.dart';
+import 'package:ferry_test_graphql/queries/__generated__/reviews.data.gql.dart';
+import 'package:ferry_test_graphql/queries/__generated__/reviews.req.gql.dart';
+import 'package:gql_exec/gql_exec.dart';
 import 'package:test/test.dart';
 
 import '../../benchmark/operations.dart';
@@ -230,6 +233,54 @@ void main() {
       expect(await client.readQuery(req), isNull);
       expect(await client.readQuery(req, optimistic: false), isNull);
     });
+
+    test('updateResult feature works', () async {
+      final client = await IsolateClient.create(
+          _initAutoResponderForReviewsLinkClient,
+          params: null);
+
+      final req = GReviewsReq((b) => b
+        ..requestId = '1'
+        ..updateResult = _mergeReviews
+        ..vars.first = 3
+        ..vars.offset = 0);
+
+      final stream = client.request(req);
+
+      expect(
+          stream,
+          emitsInOrder([
+            isA<OperationResponse>().having(
+                (p) => p.data,
+                'data',
+                GReviewsData((b) => b
+                  ..reviews.addAll([
+                    for (var i = 0; i < 3; i++)
+                      GReviewsData_reviews((b) => b
+                        ..id = '$i'
+                        ..stars = 5)
+                  ]))),
+            isA<OperationResponse>().having(
+                (p) => p.data,
+                'data',
+                GReviewsData((b) => b
+                  ..reviews.addAll([
+                    for (var i = 0; i < 6; i++)
+                      GReviewsData_reviews((b) => b
+                        ..id = '$i'
+                        ..stars = 5)
+                  ]))),
+            emitsDone,
+          ]));
+
+      await Future.delayed(Duration.zero);
+
+      client.request(req.rebuild((b) => b..vars.offset = 3)).first;
+
+      await Future.delayed(Duration.zero);
+
+      await client.dispose();
+    });
   });
 }
 
@@ -247,4 +298,40 @@ Future<Client> _initAutoResponderLinkClientWithMessageHandler(
     Null params, SendPort? sendMessageToMessageHandler) async {
   sendMessageToMessageHandler!.send(42);
   return Client(link: AutoResponderLink());
+}
+
+Future<Client> _initAutoResponderForReviewsLinkClient(
+    Null params, SendPort? sendMessageToMessageHandler) async {
+  return Client(link: _ReviewsAutoResponderTerminalLink());
+}
+
+class _ReviewsAutoResponderTerminalLink extends Link {
+  @override
+  Stream<Response> request(
+    Request req, [
+    forward,
+  ]) =>
+      Stream.value(Response(
+          response: {},
+          data: GReviewsData((b) => b
+            ..reviews.addAll([
+              for (int i = req.variables['offset'] as int;
+                  i <
+                      ((req.variables['offset'] as int) + req.variables['first']
+                          as int);
+                  i++)
+                GReviewsData_reviews(
+                  (b) => b
+                    ..id = '$i'
+                    ..stars = 5,
+                )
+            ])).toJson()));
+}
+
+// need to use dynamic because we lose type information when we pass it to the isolate
+GReviewsData? _mergeReviews(dynamic previous, dynamic result) {
+  previous as GReviewsData?;
+  result as GReviewsData?;
+  return previous?.rebuild((b) => b..reviews.addAll(result!.reviews!)) ??
+      result;
 }
