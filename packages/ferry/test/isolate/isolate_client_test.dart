@@ -190,11 +190,6 @@ void main() {
                 operationRequest: req,
                 data: null,
                 dataSource: DataSource.Cache),
-            // TODO: figure out why duplicate emit and eliminate it
-            mayEmit(OperationResponse(
-                operationRequest: req,
-                data: null,
-                dataSource: DataSource.Cache)),
             emitsDone,
           ])));
 
