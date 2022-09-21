@@ -1,3 +1,7 @@
+## 0.6.3-dev.1
+
+ - **FIX**: ensure emitting only one update per updated data ID in cache in watchQuery/watchFragment (#416).
+
 ## 0.6.3-dev.0
 
  - **FIX**: fix cache emits update too often (#411).

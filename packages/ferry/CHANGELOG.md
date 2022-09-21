@@ -1,3 +1,7 @@
+## 0.11.2-dev.1
+
+ - **FIX**: ensure emitting only one update per updated data ID in cache in watchQuery/watchFragment (#416).
+
 ## 0.11.2-dev.0
 
  - **REFACTOR**: use a generic type parameter for the init params instead of a Map<String,dynamic>.

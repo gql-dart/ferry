@@ -1,3 +1,7 @@
+## 0.6.2-dev.1
+
+ - Update a dependency to the latest release.
+
 ## 0.6.2-dev.0
 
  - **FEAT**: add IsolateClient (#405).

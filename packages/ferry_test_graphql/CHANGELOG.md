@@ -1,3 +1,7 @@
+## 0.1.5-dev.6
+
+ - Update a dependency to the latest release.
+
 ## 0.1.5-dev.5
 
 > Note: This release has breaking changes.
