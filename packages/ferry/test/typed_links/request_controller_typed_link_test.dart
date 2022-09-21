@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:async/async.dart';
+import 'package:ferry/ferry.dart';
 import 'package:ferry/src/request_controller_typed_link.dart';
 import 'package:ferry_exec/ferry_exec.dart';
 import 'package:ferry_test_graphql/queries/__generated__/reviews.data.gql.dart';
 import 'package:ferry_test_graphql/queries/__generated__/reviews.req.gql.dart';
 import 'package:ferry_test_graphql/queries/__generated__/reviews.var.gql.dart';
+import 'package:gql_exec/gql_exec.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:test/test.dart';
 
@@ -303,4 +305,63 @@ void main() {
       });
     });
   });
+
+  group('tests with real client', () {
+    test('real client test', () async {
+      final client = Client(link: _AutoResponderTerminalLink());
+
+      final req1 = req.rebuild((b) => b..requestId = '123');
+
+      final stream = client.request(req1);
+
+      final reviews1 = dataForRequest(req1).reviews!;
+
+      final req2 = req1.rebuild((b) => b..vars.offset = 3);
+
+      final reviews2 = reviews1.rebuild(
+        (b) => b..addAll(dataForRequest(req2).reviews!),
+      );
+
+      expect(
+          stream,
+          emitsInOrder([
+            isA<OperationResponse<GReviewsData, GReviewsVars>>()
+                .having((p) => p.data!.reviews, 'reviews', reviews1),
+            isA<OperationResponse<GReviewsData, GReviewsVars>>()
+                .having((p) => p.data!.reviews, 'reviews', reviews2),
+            emitsDone
+          ]));
+
+      await Future.delayed(Duration.zero);
+
+      client.requestController.add(req2);
+
+      await Future.delayed(Duration.zero);
+
+      await client.dispose();
+    });
+  });
+}
+
+class _AutoResponderTerminalLink extends Link {
+  @override
+  Stream<Response> request(
+    Request req, [
+    forward,
+  ]) =>
+      Stream.value(Response(
+          response: {},
+          data: GReviewsData((b) => b
+            ..reviews.addAll([
+              for (int i = req.variables['offset'] as int;
+                  i <
+                      ((req.variables['offset'] as int) + req.variables['first']
+                          as int);
+                  i++)
+                GReviewsData_reviews(
+                  (b) => b
+                    ..id = '$i'
+                    ..stars = 5,
+                )
+            ])).toJson()));
 }
