@@ -51,6 +51,7 @@ void main() {
               .whereType<OperationResponse<TData, TVars>>()
               .where((res) => request == res.operationRequest)
               .startWith(OperationResponse(
+                dataSource: DataSource.Link,
                 operationRequest: request,
                 data: dataForRequest(request),
               )),
@@ -214,6 +215,91 @@ void main() {
         requestController.close();
 
         expect(await queue.hasNext, equals(false));
+      });
+
+      test('disposing client emits done', () async {
+        final req1 = req.rebuild((b) => b..requestId = '123');
+
+        final reviews1 = dataForRequest(req1).reviews!;
+
+        final req2 = req1.rebuild((b) => b..vars.offset = 3);
+
+        final reviews2 = reviews1.rebuild(
+          (b) => b..addAll(dataForRequest(req2).reviews!),
+        );
+
+        final req3 = req1.rebuild((b) => b..vars.offset = 6);
+
+        final reviews3 = reviews2.rebuild(
+          (b) => b..addAll(dataForRequest(req3).reviews!),
+        );
+
+        final stream = typedLink.request(req1);
+
+        unawaited(expectLater(
+            stream,
+            emitsInOrder([
+              isA<OperationResponse<GReviewsData, GReviewsVars>>()
+                  .having((p) => p.data!.reviews, 'reviews', reviews1),
+              isA<OperationResponse<GReviewsData, GReviewsVars>>()
+                  .having((p) => p.data!.reviews, 'reviews', reviews2),
+              isA<OperationResponse<GReviewsData, GReviewsVars>>()
+                  .having((p) => p.data!.reviews, 'reviews', reviews3),
+              emitsDone
+            ])));
+
+        await typedLink.request(req2).first;
+        await typedLink.request((req3)).first;
+        await responseController.close();
+        requestController.close();
+
+        await typedLink.dispose();
+      });
+
+      test('cancelling subscription and doing new request resets state',
+          () async {
+        final req1 = req.rebuild((b) => b..requestId = '123');
+
+        final reviews1 = dataForRequest(req1).reviews!;
+
+        final req2 = req1.rebuild((b) => b..vars.offset = 3);
+
+        final reviews2 = reviews1.rebuild(
+          (b) => b..addAll(dataForRequest(req2).reviews!),
+        );
+
+        final req3 = req1.rebuild((b) => b..vars.offset = 6);
+
+        final reviews3 = reviews2.rebuild(
+          (b) => b..addAll(dataForRequest(req3).reviews!),
+        );
+
+        final stream = typedLink.request(req1);
+        var lastResponse;
+
+        final sub = stream.listen((response) {
+          lastResponse = response.data!.reviews;
+        });
+
+        await typedLink.request(req2).first;
+        await typedLink.request((req3)).first;
+
+        await sub.cancel();
+
+        await Future.delayed(Duration.zero);
+
+        expect(lastResponse, reviews3);
+
+        final stream2 = typedLink.request(req1);
+
+        expectLater(
+            stream2,
+            emits(
+              isA<OperationResponse<GReviewsData, GReviewsVars>>()
+                  .having((p) => p.data!.reviews, 'reviews', reviews1),
+            ));
+
+        await typedLink.dispose();
       });
     });
   });

@@ -179,5 +179,47 @@ void main() {
 
       await cache.dispose();
     });
+
+    test('mutating data of multiple data ids at once emits only one update',
+        () async {
+      final cache = Cache();
+      cache.writeQuery(reviewsReq, reviewsData2);
+
+      expect(
+        cache.watchQuery(reviewsReq).toList(),
+        completion(hasLength(2)),
+      );
+
+      await Future.delayed(Duration.zero);
+      cache.writeQuery(reviewsReq, reviewsData2);
+      await Future.delayed(Duration.zero);
+      cache.writeQuery(
+          reviewsReq,
+          GReviewsData((b) => b
+            ..reviews.addAll([
+              review.rebuild((p) => p.stars = 100),
+              review2.rebuild((p) => p.stars = 100)
+            ])));
+
+      await Future.delayed(Duration.zero);
+
+      await cache.dispose();
+    });
+
+    test('clearing cache emits only one update', () async {
+      final cache = Cache();
+      cache.writeQuery(reviewsReq, reviewsData2);
+
+      expect(
+        cache.watchQuery(reviewsReq).toList(),
+        completion(hasLength(2)),
+      );
+
+      await Future.delayed(Duration.zero);
+      cache.clear();
+      await Future.delayed(Duration.zero);
+
+      await cache.dispose();
+    });
   });
 }
