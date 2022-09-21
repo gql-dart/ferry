@@ -1,3 +1,7 @@
+## 0.2.0
+
+ - Bump "ferry_exec" to `0.2.0`.
+
 ## 0.1.8-dev.1
 
  - **FIX**: ensure emitting only one update per updated data ID in cache in watchQuery/watchFragment (#416).
