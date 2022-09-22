@@ -1,7 +1,6 @@
 import 'dart:isolate';
 
 import 'package:ferry/ferry.dart';
-import 'package:ferry/src/isolate/handle_command.dart';
 import 'package:ferry/src/isolate/isolate_commands.dart';
 import 'package:ferry/src/isolate/request_response_message.dart';
 import 'package:ferry_test_graphql/fragments/__generated__/review_fragment.data.gql.dart';
@@ -15,20 +14,20 @@ import 'package:test/test.dart';
 import 'handle_command_test.mocks.dart';
 
 @GenerateNiceMocks([
-  MockSpec<TypedLinkWithCache>(),
+  MockSpec<TypedLinkWithCacheAndRequestController>(),
   MockSpec<ReceivePort>(),
   MockSpec<SendPort>(),
   MockSpec<Cache>(),
 ])
 void main() {
   group('handleCommand delegation to link', () {
-    late TypedLinkWithCache link;
+    late TypedLinkWithCacheAndRequestController link;
     late SendPort sendPort;
     late ReceivePort receivePort;
     late Cache cache;
 
     setUp(() {
-      link = MockTypedLinkWithCache();
+      link = MockTypedLinkWithCacheAndRequestController();
       sendPort = MockSendPort();
       receivePort = MockReceivePort();
       cache = MockCache();
@@ -36,7 +35,7 @@ void main() {
     });
 
     test('can handle gc command', () {
-      handleCommand(link, GcCommand(sendPort), receivePort);
+      GcCommand(sendPort).handle(link, receivePort);
 
       verifyInOrder([
         cache.gc(),
@@ -52,10 +51,8 @@ void main() {
     });
 
     test('can handle evict command', () {
-      handleCommand(
-          link,
-          EvictDataIdCommand(sendPort, 'human:1', 'field', null, null),
-          receivePort);
+      EvictDataIdCommand(sendPort, 'human:1', 'field', null, null)
+          .handle(link, receivePort);
 
       verifyInOrder([
         cache.evict(
@@ -74,7 +71,7 @@ void main() {
     });
 
     test('can handle retain command', () {
-      handleCommand(link, RetainCommand(sendPort, 'human:1'), receivePort);
+      RetainCommand(sendPort, 'human:1').handle(link, receivePort);
 
       verifyInOrder([
         cache.retain(
@@ -90,7 +87,7 @@ void main() {
     });
 
     test('can handle release command', () {
-      handleCommand(link, ReleaseCommand(sendPort, 'human:1'), receivePort);
+      ReleaseCommand(sendPort, 'human:1').handle(link, receivePort);
 
       verifyInOrder([
         cache.release(
@@ -106,11 +103,8 @@ void main() {
     });
 
     test('can handle readQuery command', () {
-      handleCommand(
-        link,
-        ReadQueryCommand(sendPort, GHumanWithArgsReq((b) => b..vars.id = '1')),
-        receivePort,
-      );
+      ReadQueryCommand(sendPort, GHumanWithArgsReq((b) => b..vars.id = '1'))
+          .handle(link, receivePort);
 
       verify(cache.readQuery(GHumanWithArgsReq((b) => b..vars.id = '1')))
           .called(1);
@@ -123,17 +117,14 @@ void main() {
     });
 
     test('can handle writeQuery command', () {
-      handleCommand(
-          link,
-          WriteQueryCommand(
-            sendPort,
-            GHumanWithArgsReq((b) => b..vars.id = '1'),
-            GHumanWithArgsData((b) => b
-              ..human.id = '1'
-              ..human.name = 'a'),
-            null,
-          ),
-          receivePort);
+      WriteQueryCommand(
+              sendPort,
+              GHumanWithArgsReq((b) => b..vars.id = '1'),
+              GHumanWithArgsData((b) => b
+                ..human.id = '1'
+                ..human.name = 'a'),
+              null)
+          .handle(link, receivePort);
       verifyInOrder([
         cache.writeQuery(
             GHumanWithArgsReq((b) => b..vars.id = '1'),
@@ -150,7 +141,7 @@ void main() {
     });
 
     test('can handle clearCache command', () {
-      handleCommand(link, ClearCacheCommand(sendPort), receivePort);
+      ClearCacheCommand(sendPort).handle(link, receivePort);
 
       verifyInOrder([cache.clear(), sendPort.send(null)]);
       verify(link.cache);
@@ -162,8 +153,7 @@ void main() {
 
     test('can handle readFragment command', () {
       final fragmentReq = GReviewFragmentReq((b) => b..idFields = {});
-      handleCommand(
-          link, ReadFragmentCommand(sendPort, fragmentReq), receivePort);
+      ReadFragmentCommand(sendPort, fragmentReq).handle(link, receivePort);
 
       verifyInOrder([cache.readFragment(fragmentReq), sendPort.send(null)]);
       verify(link.cache);
@@ -176,8 +166,8 @@ void main() {
     test('can handle writeFragment command', () {
       final fragmentReq = GReviewFragmentReq((b) => b..idFields = {});
       final data = GReviewFragmentData((b) => b..stars = 5);
-      handleCommand(link,
-          WriteFragmentCommand(sendPort, fragmentReq, data, null), receivePort);
+      WriteFragmentCommand(sendPort, fragmentReq, data, null)
+          .handle(link, receivePort);
 
       verifyInOrder([
         cache.writeFragment(fragmentReq, data, optimisticRequest: null),
@@ -192,23 +182,27 @@ void main() {
 
     // TODO: handleCommand calls Isolate.exit directly, making it impossible to test
     // wrap the Isolate.exit command to make it testable
-    test('can handle dispose command', () async {
-      await handleCommand(link, DisposeCommand(sendPort), receivePort);
-      verify(link.dispose());
-      verify(sendPort.send(null));
-      verify(receivePort.close());
-      verifyNoMoreInteractions(cache);
-      verifyNoMoreInteractions(link);
-      verifyNoMoreInteractions(sendPort);
-      verifyNoMoreInteractions(receivePort);
-    }, skip: true);
+    test(
+      'can handle dispose command',
+      () async {
+        final command = DisposeCommand(sendPort);
+        command.killIsolate = false;
+        await command.handle(link, receivePort);
+
+        verify(link.dispose());
+        verify(sendPort.send(null));
+        verify(receivePort.close());
+        verifyNoMoreInteractions(cache);
+        verifyNoMoreInteractions(link);
+        verifyNoMoreInteractions(sendPort);
+        verifyNoMoreInteractions(receivePort);
+      },
+    );
 
     test('can handle request command', () {
-      handleCommand(
-        link,
-        RequestCommand(sendPort, GHumanWithArgsReq((b) => b..vars.id = '1')),
-        receivePort,
-      );
+      RequestCommand(sendPort, GHumanWithArgsReq((b) => b..vars.id = '1'))
+          .handle(link, receivePort);
+
       verifyInOrder([
         sendPort.send(argThat(isA<RequestResponse>()
             .having(
@@ -223,12 +217,10 @@ void main() {
     });
 
     test('can handle remove optimistic patch command', () {
-      handleCommand(
-        link,
-        RemoveOptimisticResponseCommand(
-            sendPort, GHumanWithArgsReq((b) => b..vars.id = '1')),
-        receivePort,
-      );
+      RemoveOptimisticPatch(
+              sendPort, GHumanWithArgsReq((b) => b..vars.id = '1'))
+          .handle(link, receivePort);
+
       verifyInOrder([
         link.cache,
         cache.removeOptimisticPatch(GHumanWithArgsReq((b) => b..vars.id = '1')),
