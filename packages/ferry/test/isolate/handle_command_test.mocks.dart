@@ -3,8 +3,8 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
-import 'dart:isolate' as _i3;
+import 'dart:async' as _i3;
+import 'dart:isolate' as _i4;
 
 import 'package:ferry/ferry.dart' as _i6;
 import 'package:ferry/src/fetch_policy_typed_link.dart' as _i2;
@@ -32,8 +32,9 @@ class _FakeCache_0 extends _i1.SmartFake implements _i2.Cache {
         );
 }
 
-class _FakeTypedLink_1 extends _i1.SmartFake implements _i2.TypedLink {
-  _FakeTypedLink_1(
+class _FakeStreamController_1<T> extends _i1.SmartFake
+    implements _i3.StreamController<T> {
+  _FakeStreamController_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -42,8 +43,8 @@ class _FakeTypedLink_1 extends _i1.SmartFake implements _i2.TypedLink {
         );
 }
 
-class _FakeSendPort_2 extends _i1.SmartFake implements _i3.SendPort {
-  _FakeSendPort_2(
+class _FakeTypedLink_2 extends _i1.SmartFake implements _i2.TypedLink {
+  _FakeTypedLink_2(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -52,9 +53,8 @@ class _FakeSendPort_2 extends _i1.SmartFake implements _i3.SendPort {
         );
 }
 
-class _FakeStreamSubscription_3<T> extends _i1.SmartFake
-    implements _i4.StreamSubscription<T> {
-  _FakeStreamSubscription_3(
+class _FakeSendPort_3 extends _i1.SmartFake implements _i4.SendPort {
+  _FakeSendPort_3(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -63,8 +63,9 @@ class _FakeStreamSubscription_3<T> extends _i1.SmartFake
         );
 }
 
-class _FakeStore_4 extends _i1.SmartFake implements _i2.Store {
-  _FakeStore_4(
+class _FakeStreamSubscription_4<T> extends _i1.SmartFake
+    implements _i3.StreamSubscription<T> {
+  _FakeStreamSubscription_4(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -73,9 +74,19 @@ class _FakeStore_4 extends _i1.SmartFake implements _i2.Store {
         );
 }
 
-class _FakeBehaviorSubject_5<T> extends _i1.SmartFake
+class _FakeStore_5 extends _i1.SmartFake implements _i2.Store {
+  _FakeStore_5(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeBehaviorSubject_6<T> extends _i1.SmartFake
     implements _i5.BehaviorSubject<T> {
-  _FakeBehaviorSubject_5(
+  _FakeBehaviorSubject_6(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -84,11 +95,11 @@ class _FakeBehaviorSubject_5<T> extends _i1.SmartFake
         );
 }
 
-/// A class which mocks [TypedLinkWithCache].
+/// A class which mocks [TypedLinkWithCacheAndRequestController].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockTypedLinkWithCache extends _i1.Mock
-    implements _i6.TypedLinkWithCache {
+class MockTypedLinkWithCacheAndRequestController extends _i1.Mock
+    implements _i6.TypedLinkWithCacheAndRequestController {
   @override
   _i2.Cache get cache => (super.noSuchMethod(
         Invocation.getter(#cache),
@@ -102,19 +113,34 @@ class MockTypedLinkWithCache extends _i1.Mock
         ),
       ) as _i2.Cache);
   @override
+  _i3.StreamController<_i2.OperationRequest<dynamic, dynamic>>
+      get requestController => (super.noSuchMethod(
+            Invocation.getter(#requestController),
+            returnValue:
+                _FakeStreamController_1<_i2.OperationRequest<dynamic, dynamic>>(
+              this,
+              Invocation.getter(#requestController),
+            ),
+            returnValueForMissingStub:
+                _FakeStreamController_1<_i2.OperationRequest<dynamic, dynamic>>(
+              this,
+              Invocation.getter(#requestController),
+            ),
+          ) as _i3.StreamController<_i2.OperationRequest<dynamic, dynamic>>);
+  @override
   _i2.TypedLink concat(_i2.TypedLink? next) => (super.noSuchMethod(
         Invocation.method(
           #concat,
           [next],
         ),
-        returnValue: _FakeTypedLink_1(
+        returnValue: _FakeTypedLink_2(
           this,
           Invocation.method(
             #concat,
             [next],
           ),
         ),
-        returnValueForMissingStub: _FakeTypedLink_1(
+        returnValueForMissingStub: _FakeTypedLink_2(
           this,
           Invocation.method(
             #concat,
@@ -129,14 +155,14 @@ class MockTypedLinkWithCache extends _i1.Mock
           #route,
           [route],
         ),
-        returnValue: _FakeTypedLink_1(
+        returnValue: _FakeTypedLink_2(
           this,
           Invocation.method(
             #route,
             [route],
           ),
         ),
-        returnValueForMissingStub: _FakeTypedLink_1(
+        returnValueForMissingStub: _FakeTypedLink_2(
           this,
           Invocation.method(
             #route,
@@ -159,7 +185,7 @@ class MockTypedLinkWithCache extends _i1.Mock
             right,
           ],
         ),
-        returnValue: _FakeTypedLink_1(
+        returnValue: _FakeTypedLink_2(
           this,
           Invocation.method(
             #split,
@@ -170,7 +196,7 @@ class MockTypedLinkWithCache extends _i1.Mock
             ],
           ),
         ),
-        returnValueForMissingStub: _FakeTypedLink_1(
+        returnValueForMissingStub: _FakeTypedLink_2(
           this,
           Invocation.method(
             #split,
@@ -183,7 +209,7 @@ class MockTypedLinkWithCache extends _i1.Mock
         ),
       ) as _i2.TypedLink);
   @override
-  _i4.Stream<_i2.OperationResponse<TData, TVars>> request<TData, TVars>(
+  _i3.Stream<_i2.OperationResponse<TData, TVars>> request<TData, TVars>(
     _i2.OperationRequest<TData, TVars>? request, [
     _i2.NextTypedLink<TData, TVars>? forward,
   ]) =>
@@ -195,37 +221,37 @@ class MockTypedLinkWithCache extends _i1.Mock
             forward,
           ],
         ),
-        returnValue: _i4.Stream<_i2.OperationResponse<TData, TVars>>.empty(),
+        returnValue: _i3.Stream<_i2.OperationResponse<TData, TVars>>.empty(),
         returnValueForMissingStub:
-            _i4.Stream<_i2.OperationResponse<TData, TVars>>.empty(),
-      ) as _i4.Stream<_i2.OperationResponse<TData, TVars>>);
+            _i3.Stream<_i2.OperationResponse<TData, TVars>>.empty(),
+      ) as _i3.Stream<_i2.OperationResponse<TData, TVars>>);
   @override
-  _i4.Future<void> dispose() => (super.noSuchMethod(
+  _i3.Future<void> dispose() => (super.noSuchMethod(
         Invocation.method(
           #dispose,
           [],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
 }
 
 /// A class which mocks [ReceivePort].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockReceivePort extends _i1.Mock implements _i3.ReceivePort {
+class MockReceivePort extends _i1.Mock implements _i4.ReceivePort {
   @override
-  _i3.SendPort get sendPort => (super.noSuchMethod(
+  _i4.SendPort get sendPort => (super.noSuchMethod(
         Invocation.getter(#sendPort),
-        returnValue: _FakeSendPort_2(
+        returnValue: _FakeSendPort_3(
           this,
           Invocation.getter(#sendPort),
         ),
-        returnValueForMissingStub: _FakeSendPort_2(
+        returnValueForMissingStub: _FakeSendPort_3(
           this,
           Invocation.getter(#sendPort),
         ),
-      ) as _i3.SendPort);
+      ) as _i4.SendPort);
   @override
   bool get isBroadcast => (super.noSuchMethod(
         Invocation.getter(#isBroadcast),
@@ -233,37 +259,37 @@ class MockReceivePort extends _i1.Mock implements _i3.ReceivePort {
         returnValueForMissingStub: false,
       ) as bool);
   @override
-  _i4.Future<int> get length => (super.noSuchMethod(
+  _i3.Future<int> get length => (super.noSuchMethod(
         Invocation.getter(#length),
-        returnValue: _i4.Future<int>.value(0),
-        returnValueForMissingStub: _i4.Future<int>.value(0),
-      ) as _i4.Future<int>);
+        returnValue: _i3.Future<int>.value(0),
+        returnValueForMissingStub: _i3.Future<int>.value(0),
+      ) as _i3.Future<int>);
   @override
-  _i4.Future<bool> get isEmpty => (super.noSuchMethod(
+  _i3.Future<bool> get isEmpty => (super.noSuchMethod(
         Invocation.getter(#isEmpty),
-        returnValue: _i4.Future<bool>.value(false),
-        returnValueForMissingStub: _i4.Future<bool>.value(false),
-      ) as _i4.Future<bool>);
+        returnValue: _i3.Future<bool>.value(false),
+        returnValueForMissingStub: _i3.Future<bool>.value(false),
+      ) as _i3.Future<bool>);
   @override
-  _i4.Future<dynamic> get first => (super.noSuchMethod(
+  _i3.Future<dynamic> get first => (super.noSuchMethod(
         Invocation.getter(#first),
-        returnValue: _i4.Future<dynamic>.value(),
-        returnValueForMissingStub: _i4.Future<dynamic>.value(),
-      ) as _i4.Future<dynamic>);
+        returnValue: _i3.Future<dynamic>.value(),
+        returnValueForMissingStub: _i3.Future<dynamic>.value(),
+      ) as _i3.Future<dynamic>);
   @override
-  _i4.Future<dynamic> get last => (super.noSuchMethod(
+  _i3.Future<dynamic> get last => (super.noSuchMethod(
         Invocation.getter(#last),
-        returnValue: _i4.Future<dynamic>.value(),
-        returnValueForMissingStub: _i4.Future<dynamic>.value(),
-      ) as _i4.Future<dynamic>);
+        returnValue: _i3.Future<dynamic>.value(),
+        returnValueForMissingStub: _i3.Future<dynamic>.value(),
+      ) as _i3.Future<dynamic>);
   @override
-  _i4.Future<dynamic> get single => (super.noSuchMethod(
+  _i3.Future<dynamic> get single => (super.noSuchMethod(
         Invocation.getter(#single),
-        returnValue: _i4.Future<dynamic>.value(),
-        returnValueForMissingStub: _i4.Future<dynamic>.value(),
-      ) as _i4.Future<dynamic>);
+        returnValue: _i3.Future<dynamic>.value(),
+        returnValueForMissingStub: _i3.Future<dynamic>.value(),
+      ) as _i3.Future<dynamic>);
   @override
-  _i4.StreamSubscription<dynamic> listen(
+  _i3.StreamSubscription<dynamic> listen(
     void Function(dynamic)? onData, {
     Function? onError,
     void Function()? onDone,
@@ -279,7 +305,7 @@ class MockReceivePort extends _i1.Mock implements _i3.ReceivePort {
             #cancelOnError: cancelOnError,
           },
         ),
-        returnValue: _FakeStreamSubscription_3<dynamic>(
+        returnValue: _FakeStreamSubscription_4<dynamic>(
           this,
           Invocation.method(
             #listen,
@@ -291,7 +317,7 @@ class MockReceivePort extends _i1.Mock implements _i3.ReceivePort {
             },
           ),
         ),
-        returnValueForMissingStub: _FakeStreamSubscription_3<dynamic>(
+        returnValueForMissingStub: _FakeStreamSubscription_4<dynamic>(
           this,
           Invocation.method(
             #listen,
@@ -303,7 +329,7 @@ class MockReceivePort extends _i1.Mock implements _i3.ReceivePort {
             },
           ),
         ),
-      ) as _i4.StreamSubscription<dynamic>);
+      ) as _i3.StreamSubscription<dynamic>);
   @override
   void close() => super.noSuchMethod(
         Invocation.method(
@@ -313,9 +339,9 @@ class MockReceivePort extends _i1.Mock implements _i3.ReceivePort {
         returnValueForMissingStub: null,
       );
   @override
-  _i4.Stream<dynamic> asBroadcastStream({
-    void Function(_i4.StreamSubscription<dynamic>)? onListen,
-    void Function(_i4.StreamSubscription<dynamic>)? onCancel,
+  _i3.Stream<dynamic> asBroadcastStream({
+    void Function(_i3.StreamSubscription<dynamic>)? onListen,
+    void Function(_i3.StreamSubscription<dynamic>)? onCancel,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -326,50 +352,50 @@ class MockReceivePort extends _i1.Mock implements _i3.ReceivePort {
             #onCancel: onCancel,
           },
         ),
-        returnValue: _i4.Stream<dynamic>.empty(),
-        returnValueForMissingStub: _i4.Stream<dynamic>.empty(),
-      ) as _i4.Stream<dynamic>);
+        returnValue: _i3.Stream<dynamic>.empty(),
+        returnValueForMissingStub: _i3.Stream<dynamic>.empty(),
+      ) as _i3.Stream<dynamic>);
   @override
-  _i4.Stream<dynamic> where(bool Function(dynamic)? test) =>
+  _i3.Stream<dynamic> where(bool Function(dynamic)? test) =>
       (super.noSuchMethod(
         Invocation.method(
           #where,
           [test],
         ),
-        returnValue: _i4.Stream<dynamic>.empty(),
-        returnValueForMissingStub: _i4.Stream<dynamic>.empty(),
-      ) as _i4.Stream<dynamic>);
+        returnValue: _i3.Stream<dynamic>.empty(),
+        returnValueForMissingStub: _i3.Stream<dynamic>.empty(),
+      ) as _i3.Stream<dynamic>);
   @override
-  _i4.Stream<S> map<S>(S Function(dynamic)? convert) => (super.noSuchMethod(
+  _i3.Stream<S> map<S>(S Function(dynamic)? convert) => (super.noSuchMethod(
         Invocation.method(
           #map,
           [convert],
         ),
-        returnValue: _i4.Stream<S>.empty(),
-        returnValueForMissingStub: _i4.Stream<S>.empty(),
-      ) as _i4.Stream<S>);
+        returnValue: _i3.Stream<S>.empty(),
+        returnValueForMissingStub: _i3.Stream<S>.empty(),
+      ) as _i3.Stream<S>);
   @override
-  _i4.Stream<E> asyncMap<E>(_i4.FutureOr<E> Function(dynamic)? convert) =>
+  _i3.Stream<E> asyncMap<E>(_i3.FutureOr<E> Function(dynamic)? convert) =>
       (super.noSuchMethod(
         Invocation.method(
           #asyncMap,
           [convert],
         ),
-        returnValue: _i4.Stream<E>.empty(),
-        returnValueForMissingStub: _i4.Stream<E>.empty(),
-      ) as _i4.Stream<E>);
+        returnValue: _i3.Stream<E>.empty(),
+        returnValueForMissingStub: _i3.Stream<E>.empty(),
+      ) as _i3.Stream<E>);
   @override
-  _i4.Stream<E> asyncExpand<E>(_i4.Stream<E>? Function(dynamic)? convert) =>
+  _i3.Stream<E> asyncExpand<E>(_i3.Stream<E>? Function(dynamic)? convert) =>
       (super.noSuchMethod(
         Invocation.method(
           #asyncExpand,
           [convert],
         ),
-        returnValue: _i4.Stream<E>.empty(),
-        returnValueForMissingStub: _i4.Stream<E>.empty(),
-      ) as _i4.Stream<E>);
+        returnValue: _i3.Stream<E>.empty(),
+        returnValueForMissingStub: _i3.Stream<E>.empty(),
+      ) as _i3.Stream<E>);
   @override
-  _i4.Stream<dynamic> handleError(
+  _i3.Stream<dynamic> handleError(
     Function? onError, {
     bool Function(dynamic)? test,
   }) =>
@@ -379,42 +405,42 @@ class MockReceivePort extends _i1.Mock implements _i3.ReceivePort {
           [onError],
           {#test: test},
         ),
-        returnValue: _i4.Stream<dynamic>.empty(),
-        returnValueForMissingStub: _i4.Stream<dynamic>.empty(),
-      ) as _i4.Stream<dynamic>);
+        returnValue: _i3.Stream<dynamic>.empty(),
+        returnValueForMissingStub: _i3.Stream<dynamic>.empty(),
+      ) as _i3.Stream<dynamic>);
   @override
-  _i4.Stream<S> expand<S>(Iterable<S> Function(dynamic)? convert) =>
+  _i3.Stream<S> expand<S>(Iterable<S> Function(dynamic)? convert) =>
       (super.noSuchMethod(
         Invocation.method(
           #expand,
           [convert],
         ),
-        returnValue: _i4.Stream<S>.empty(),
-        returnValueForMissingStub: _i4.Stream<S>.empty(),
-      ) as _i4.Stream<S>);
+        returnValue: _i3.Stream<S>.empty(),
+        returnValueForMissingStub: _i3.Stream<S>.empty(),
+      ) as _i3.Stream<S>);
   @override
-  _i4.Future<dynamic> pipe(_i4.StreamConsumer<dynamic>? streamConsumer) =>
+  _i3.Future<dynamic> pipe(_i3.StreamConsumer<dynamic>? streamConsumer) =>
       (super.noSuchMethod(
         Invocation.method(
           #pipe,
           [streamConsumer],
         ),
-        returnValue: _i4.Future<dynamic>.value(),
-        returnValueForMissingStub: _i4.Future<dynamic>.value(),
-      ) as _i4.Future<dynamic>);
+        returnValue: _i3.Future<dynamic>.value(),
+        returnValueForMissingStub: _i3.Future<dynamic>.value(),
+      ) as _i3.Future<dynamic>);
   @override
-  _i4.Stream<S> transform<S>(
-          _i4.StreamTransformer<dynamic, S>? streamTransformer) =>
+  _i3.Stream<S> transform<S>(
+          _i3.StreamTransformer<dynamic, S>? streamTransformer) =>
       (super.noSuchMethod(
         Invocation.method(
           #transform,
           [streamTransformer],
         ),
-        returnValue: _i4.Stream<S>.empty(),
-        returnValueForMissingStub: _i4.Stream<S>.empty(),
-      ) as _i4.Stream<S>);
+        returnValue: _i3.Stream<S>.empty(),
+        returnValueForMissingStub: _i3.Stream<S>.empty(),
+      ) as _i3.Stream<S>);
   @override
-  _i4.Future<dynamic> reduce(
+  _i3.Future<dynamic> reduce(
           dynamic Function(
     dynamic,
     dynamic,
@@ -425,11 +451,11 @@ class MockReceivePort extends _i1.Mock implements _i3.ReceivePort {
           #reduce,
           [combine],
         ),
-        returnValue: _i4.Future<dynamic>.value(),
-        returnValueForMissingStub: _i4.Future<dynamic>.value(),
-      ) as _i4.Future<dynamic>);
+        returnValue: _i3.Future<dynamic>.value(),
+        returnValueForMissingStub: _i3.Future<dynamic>.value(),
+      ) as _i3.Future<dynamic>);
   @override
-  _i4.Future<S> fold<S>(
+  _i3.Future<S> fold<S>(
     S? initialValue,
     S Function(
       S,
@@ -445,131 +471,131 @@ class MockReceivePort extends _i1.Mock implements _i3.ReceivePort {
             combine,
           ],
         ),
-        returnValue: _i4.Future<S>.value(null),
-        returnValueForMissingStub: _i4.Future<S>.value(null),
-      ) as _i4.Future<S>);
+        returnValue: _i3.Future<S>.value(null),
+        returnValueForMissingStub: _i3.Future<S>.value(null),
+      ) as _i3.Future<S>);
   @override
-  _i4.Future<String> join([String? separator = r'']) => (super.noSuchMethod(
+  _i3.Future<String> join([String? separator = r'']) => (super.noSuchMethod(
         Invocation.method(
           #join,
           [separator],
         ),
-        returnValue: _i4.Future<String>.value(''),
-        returnValueForMissingStub: _i4.Future<String>.value(''),
-      ) as _i4.Future<String>);
+        returnValue: _i3.Future<String>.value(''),
+        returnValueForMissingStub: _i3.Future<String>.value(''),
+      ) as _i3.Future<String>);
   @override
-  _i4.Future<bool> contains(Object? needle) => (super.noSuchMethod(
+  _i3.Future<bool> contains(Object? needle) => (super.noSuchMethod(
         Invocation.method(
           #contains,
           [needle],
         ),
-        returnValue: _i4.Future<bool>.value(false),
-        returnValueForMissingStub: _i4.Future<bool>.value(false),
-      ) as _i4.Future<bool>);
+        returnValue: _i3.Future<bool>.value(false),
+        returnValueForMissingStub: _i3.Future<bool>.value(false),
+      ) as _i3.Future<bool>);
   @override
-  _i4.Future<dynamic> forEach(void Function(dynamic)? action) =>
+  _i3.Future<dynamic> forEach(void Function(dynamic)? action) =>
       (super.noSuchMethod(
         Invocation.method(
           #forEach,
           [action],
         ),
-        returnValue: _i4.Future<dynamic>.value(),
-        returnValueForMissingStub: _i4.Future<dynamic>.value(),
-      ) as _i4.Future<dynamic>);
+        returnValue: _i3.Future<dynamic>.value(),
+        returnValueForMissingStub: _i3.Future<dynamic>.value(),
+      ) as _i3.Future<dynamic>);
   @override
-  _i4.Future<bool> every(bool Function(dynamic)? test) => (super.noSuchMethod(
+  _i3.Future<bool> every(bool Function(dynamic)? test) => (super.noSuchMethod(
         Invocation.method(
           #every,
           [test],
         ),
-        returnValue: _i4.Future<bool>.value(false),
-        returnValueForMissingStub: _i4.Future<bool>.value(false),
-      ) as _i4.Future<bool>);
+        returnValue: _i3.Future<bool>.value(false),
+        returnValueForMissingStub: _i3.Future<bool>.value(false),
+      ) as _i3.Future<bool>);
   @override
-  _i4.Future<bool> any(bool Function(dynamic)? test) => (super.noSuchMethod(
+  _i3.Future<bool> any(bool Function(dynamic)? test) => (super.noSuchMethod(
         Invocation.method(
           #any,
           [test],
         ),
-        returnValue: _i4.Future<bool>.value(false),
-        returnValueForMissingStub: _i4.Future<bool>.value(false),
-      ) as _i4.Future<bool>);
+        returnValue: _i3.Future<bool>.value(false),
+        returnValueForMissingStub: _i3.Future<bool>.value(false),
+      ) as _i3.Future<bool>);
   @override
-  _i4.Stream<R> cast<R>() => (super.noSuchMethod(
+  _i3.Stream<R> cast<R>() => (super.noSuchMethod(
         Invocation.method(
           #cast,
           [],
         ),
-        returnValue: _i4.Stream<R>.empty(),
-        returnValueForMissingStub: _i4.Stream<R>.empty(),
-      ) as _i4.Stream<R>);
+        returnValue: _i3.Stream<R>.empty(),
+        returnValueForMissingStub: _i3.Stream<R>.empty(),
+      ) as _i3.Stream<R>);
   @override
-  _i4.Future<List<dynamic>> toList() => (super.noSuchMethod(
+  _i3.Future<List<dynamic>> toList() => (super.noSuchMethod(
         Invocation.method(
           #toList,
           [],
         ),
-        returnValue: _i4.Future<List<dynamic>>.value(<dynamic>[]),
-        returnValueForMissingStub: _i4.Future<List<dynamic>>.value(<dynamic>[]),
-      ) as _i4.Future<List<dynamic>>);
+        returnValue: _i3.Future<List<dynamic>>.value(<dynamic>[]),
+        returnValueForMissingStub: _i3.Future<List<dynamic>>.value(<dynamic>[]),
+      ) as _i3.Future<List<dynamic>>);
   @override
-  _i4.Future<Set<dynamic>> toSet() => (super.noSuchMethod(
+  _i3.Future<Set<dynamic>> toSet() => (super.noSuchMethod(
         Invocation.method(
           #toSet,
           [],
         ),
-        returnValue: _i4.Future<Set<dynamic>>.value(<dynamic>{}),
-        returnValueForMissingStub: _i4.Future<Set<dynamic>>.value(<dynamic>{}),
-      ) as _i4.Future<Set<dynamic>>);
+        returnValue: _i3.Future<Set<dynamic>>.value(<dynamic>{}),
+        returnValueForMissingStub: _i3.Future<Set<dynamic>>.value(<dynamic>{}),
+      ) as _i3.Future<Set<dynamic>>);
   @override
-  _i4.Future<E> drain<E>([E? futureValue]) => (super.noSuchMethod(
+  _i3.Future<E> drain<E>([E? futureValue]) => (super.noSuchMethod(
         Invocation.method(
           #drain,
           [futureValue],
         ),
-        returnValue: _i4.Future<E>.value(null),
-        returnValueForMissingStub: _i4.Future<E>.value(null),
-      ) as _i4.Future<E>);
+        returnValue: _i3.Future<E>.value(null),
+        returnValueForMissingStub: _i3.Future<E>.value(null),
+      ) as _i3.Future<E>);
   @override
-  _i4.Stream<dynamic> take(int? count) => (super.noSuchMethod(
+  _i3.Stream<dynamic> take(int? count) => (super.noSuchMethod(
         Invocation.method(
           #take,
           [count],
         ),
-        returnValue: _i4.Stream<dynamic>.empty(),
-        returnValueForMissingStub: _i4.Stream<dynamic>.empty(),
-      ) as _i4.Stream<dynamic>);
+        returnValue: _i3.Stream<dynamic>.empty(),
+        returnValueForMissingStub: _i3.Stream<dynamic>.empty(),
+      ) as _i3.Stream<dynamic>);
   @override
-  _i4.Stream<dynamic> takeWhile(bool Function(dynamic)? test) =>
+  _i3.Stream<dynamic> takeWhile(bool Function(dynamic)? test) =>
       (super.noSuchMethod(
         Invocation.method(
           #takeWhile,
           [test],
         ),
-        returnValue: _i4.Stream<dynamic>.empty(),
-        returnValueForMissingStub: _i4.Stream<dynamic>.empty(),
-      ) as _i4.Stream<dynamic>);
+        returnValue: _i3.Stream<dynamic>.empty(),
+        returnValueForMissingStub: _i3.Stream<dynamic>.empty(),
+      ) as _i3.Stream<dynamic>);
   @override
-  _i4.Stream<dynamic> skip(int? count) => (super.noSuchMethod(
+  _i3.Stream<dynamic> skip(int? count) => (super.noSuchMethod(
         Invocation.method(
           #skip,
           [count],
         ),
-        returnValue: _i4.Stream<dynamic>.empty(),
-        returnValueForMissingStub: _i4.Stream<dynamic>.empty(),
-      ) as _i4.Stream<dynamic>);
+        returnValue: _i3.Stream<dynamic>.empty(),
+        returnValueForMissingStub: _i3.Stream<dynamic>.empty(),
+      ) as _i3.Stream<dynamic>);
   @override
-  _i4.Stream<dynamic> skipWhile(bool Function(dynamic)? test) =>
+  _i3.Stream<dynamic> skipWhile(bool Function(dynamic)? test) =>
       (super.noSuchMethod(
         Invocation.method(
           #skipWhile,
           [test],
         ),
-        returnValue: _i4.Stream<dynamic>.empty(),
-        returnValueForMissingStub: _i4.Stream<dynamic>.empty(),
-      ) as _i4.Stream<dynamic>);
+        returnValue: _i3.Stream<dynamic>.empty(),
+        returnValueForMissingStub: _i3.Stream<dynamic>.empty(),
+      ) as _i3.Stream<dynamic>);
   @override
-  _i4.Stream<dynamic> distinct(
+  _i3.Stream<dynamic> distinct(
           [bool Function(
             dynamic,
             dynamic,
@@ -580,11 +606,11 @@ class MockReceivePort extends _i1.Mock implements _i3.ReceivePort {
           #distinct,
           [equals],
         ),
-        returnValue: _i4.Stream<dynamic>.empty(),
-        returnValueForMissingStub: _i4.Stream<dynamic>.empty(),
-      ) as _i4.Stream<dynamic>);
+        returnValue: _i3.Stream<dynamic>.empty(),
+        returnValueForMissingStub: _i3.Stream<dynamic>.empty(),
+      ) as _i3.Stream<dynamic>);
   @override
-  _i4.Future<dynamic> firstWhere(
+  _i3.Future<dynamic> firstWhere(
     bool Function(dynamic)? test, {
     dynamic Function()? orElse,
   }) =>
@@ -594,11 +620,11 @@ class MockReceivePort extends _i1.Mock implements _i3.ReceivePort {
           [test],
           {#orElse: orElse},
         ),
-        returnValue: _i4.Future<dynamic>.value(),
-        returnValueForMissingStub: _i4.Future<dynamic>.value(),
-      ) as _i4.Future<dynamic>);
+        returnValue: _i3.Future<dynamic>.value(),
+        returnValueForMissingStub: _i3.Future<dynamic>.value(),
+      ) as _i3.Future<dynamic>);
   @override
-  _i4.Future<dynamic> lastWhere(
+  _i3.Future<dynamic> lastWhere(
     bool Function(dynamic)? test, {
     dynamic Function()? orElse,
   }) =>
@@ -608,11 +634,11 @@ class MockReceivePort extends _i1.Mock implements _i3.ReceivePort {
           [test],
           {#orElse: orElse},
         ),
-        returnValue: _i4.Future<dynamic>.value(),
-        returnValueForMissingStub: _i4.Future<dynamic>.value(),
-      ) as _i4.Future<dynamic>);
+        returnValue: _i3.Future<dynamic>.value(),
+        returnValueForMissingStub: _i3.Future<dynamic>.value(),
+      ) as _i3.Future<dynamic>);
   @override
-  _i4.Future<dynamic> singleWhere(
+  _i3.Future<dynamic> singleWhere(
     bool Function(dynamic)? test, {
     dynamic Function()? orElse,
   }) =>
@@ -622,22 +648,22 @@ class MockReceivePort extends _i1.Mock implements _i3.ReceivePort {
           [test],
           {#orElse: orElse},
         ),
-        returnValue: _i4.Future<dynamic>.value(),
-        returnValueForMissingStub: _i4.Future<dynamic>.value(),
-      ) as _i4.Future<dynamic>);
+        returnValue: _i3.Future<dynamic>.value(),
+        returnValueForMissingStub: _i3.Future<dynamic>.value(),
+      ) as _i3.Future<dynamic>);
   @override
-  _i4.Future<dynamic> elementAt(int? index) => (super.noSuchMethod(
+  _i3.Future<dynamic> elementAt(int? index) => (super.noSuchMethod(
         Invocation.method(
           #elementAt,
           [index],
         ),
-        returnValue: _i4.Future<dynamic>.value(),
-        returnValueForMissingStub: _i4.Future<dynamic>.value(),
-      ) as _i4.Future<dynamic>);
+        returnValue: _i3.Future<dynamic>.value(),
+        returnValueForMissingStub: _i3.Future<dynamic>.value(),
+      ) as _i3.Future<dynamic>);
   @override
-  _i4.Stream<dynamic> timeout(
+  _i3.Stream<dynamic> timeout(
     Duration? timeLimit, {
-    void Function(_i4.EventSink<dynamic>)? onTimeout,
+    void Function(_i3.EventSink<dynamic>)? onTimeout,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -645,15 +671,15 @@ class MockReceivePort extends _i1.Mock implements _i3.ReceivePort {
           [timeLimit],
           {#onTimeout: onTimeout},
         ),
-        returnValue: _i4.Stream<dynamic>.empty(),
-        returnValueForMissingStub: _i4.Stream<dynamic>.empty(),
-      ) as _i4.Stream<dynamic>);
+        returnValue: _i3.Stream<dynamic>.empty(),
+        returnValueForMissingStub: _i3.Stream<dynamic>.empty(),
+      ) as _i3.Stream<dynamic>);
 }
 
 /// A class which mocks [SendPort].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSendPort extends _i1.Mock implements _i3.SendPort {
+class MockSendPort extends _i1.Mock implements _i4.SendPort {
   @override
   void send(Object? message) => super.noSuchMethod(
         Invocation.method(
@@ -689,11 +715,11 @@ class MockCache extends _i1.Mock implements _i2.Cache {
   @override
   _i2.Store get store => (super.noSuchMethod(
         Invocation.getter(#store),
-        returnValue: _FakeStore_4(
+        returnValue: _FakeStore_5(
           this,
           Invocation.getter(#store),
         ),
-        returnValueForMissingStub: _FakeStore_4(
+        returnValueForMissingStub: _FakeStore_5(
           this,
           Invocation.getter(#store),
         ),
@@ -704,13 +730,13 @@ class MockCache extends _i1.Mock implements _i2.Cache {
           Map<String, Map<String, dynamic>?>>?> get optimisticPatchesStream =>
       (super.noSuchMethod(
         Invocation.getter(#optimisticPatchesStream),
-        returnValue: _FakeBehaviorSubject_5<
+        returnValue: _FakeBehaviorSubject_6<
             Map<_i2.OperationRequest<dynamic, dynamic>,
                 Map<String, Map<String, dynamic>?>>?>(
           this,
           Invocation.getter(#optimisticPatchesStream),
         ),
-        returnValueForMissingStub: _FakeBehaviorSubject_5<
+        returnValueForMissingStub: _FakeBehaviorSubject_6<
             Map<_i2.OperationRequest<dynamic, dynamic>,
                 Map<String, Map<String, dynamic>?>>?>(
           this,
@@ -728,7 +754,7 @@ class MockCache extends _i1.Mock implements _i2.Cache {
         returnValueForMissingStub: null,
       ) as Map<String, dynamic>?);
   @override
-  _i4.Stream<TData?> watchQuery<TData, TVars>(
+  _i3.Stream<TData?> watchQuery<TData, TVars>(
     _i2.OperationRequest<TData, TVars>? request, {
     bool? optimistic = true,
   }) =>
@@ -738,11 +764,11 @@ class MockCache extends _i1.Mock implements _i2.Cache {
           [request],
           {#optimistic: optimistic},
         ),
-        returnValue: _i4.Stream<TData?>.empty(),
-        returnValueForMissingStub: _i4.Stream<TData?>.empty(),
-      ) as _i4.Stream<TData?>);
+        returnValue: _i3.Stream<TData?>.empty(),
+        returnValueForMissingStub: _i3.Stream<TData?>.empty(),
+      ) as _i3.Stream<TData?>);
   @override
-  _i4.Stream<TData?> watchFragment<TData, TVars>(
+  _i3.Stream<TData?> watchFragment<TData, TVars>(
     _i2.FragmentRequest<TData, TVars>? request, {
     bool? optimistic = true,
   }) =>
@@ -752,9 +778,9 @@ class MockCache extends _i1.Mock implements _i2.Cache {
           [request],
           {#optimistic: optimistic},
         ),
-        returnValue: _i4.Stream<TData?>.empty(),
-        returnValueForMissingStub: _i4.Stream<TData?>.empty(),
-      ) as _i4.Stream<TData?>);
+        returnValue: _i3.Stream<TData?>.empty(),
+        returnValueForMissingStub: _i3.Stream<TData?>.empty(),
+      ) as _i3.Stream<TData?>);
   @override
   TData? readQuery<TData, TVars>(
     _i2.OperationRequest<TData, TVars>? request, {
@@ -885,12 +911,12 @@ class MockCache extends _i1.Mock implements _i2.Cache {
         returnValueForMissingStub: null,
       );
   @override
-  _i4.Future<void> dispose() => (super.noSuchMethod(
+  _i3.Future<void> dispose() => (super.noSuchMethod(
         Invocation.method(
           #dispose,
           [],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
 }

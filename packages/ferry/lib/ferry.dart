@@ -14,11 +14,13 @@ export 'package:ferry/src/update_cache_typed_link.dart' show UpdateCacheHandler;
 export 'package:ferry_exec/ferry_exec.dart';
 export 'package:gql/ast.dart' show OperationType;
 
-abstract class TypedLinkWithCache extends TypedLink {
+abstract class TypedLinkWithCacheAndRequestController extends TypedLink {
   Cache get cache;
+
+  StreamController<OperationRequest> get requestController;
 }
 
-class Client extends TypedLinkWithCache {
+class Client extends TypedLinkWithCacheAndRequestController {
   final Link link;
   final Map<String, TypePolicy> typePolicies;
   final Map<String, Function> updateCacheHandlers;
@@ -29,6 +31,7 @@ class Client extends TypedLinkWithCache {
   late Cache cache;
   Cache? _defaultCache;
 
+  @override
   late StreamController<OperationRequest> requestController;
   StreamController<OperationRequest>? _defaultRequestController;
 

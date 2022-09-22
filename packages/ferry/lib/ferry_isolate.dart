@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:isolate';
 import 'package:ferry/ferry.dart';
-import 'package:ferry/src/isolate/handle_command.dart';
 import 'package:ferry/src/isolate/isolate_commands.dart';
 import 'package:ferry/src/isolate/request_response_message.dart';
 import 'package:rxdart/rxdart.dart';
@@ -12,7 +11,8 @@ import 'package:rxdart/rxdart.dart';
 /// from example for token refresh. You can also create a ReceivePort here and send
 /// its sendPort to the messageHandler for establishing a two-way communication.
 /// if you don't pass a messageHandler, the sendMessageToMessageHandler SendPort will be null.
-typedef InitClient<InitParams> = Future<TypedLinkWithCache> Function(
+typedef InitClient<InitParams> = Future<TypedLinkWithCacheAndRequestController>
+    Function(
   InitParams params,
   SendPort? sendMessageToMessageHandler,
 );
@@ -86,7 +86,7 @@ class IsolateClient extends TypedLink {
       [NextTypedLink<TData, TVars>? forward]) {
     final receivePort = ReceivePort();
 
-    _commandSendPort.send(RequestCommand(
+    _commandSendPort.send(RequestCommand<TData, TVars>(
       receivePort.sendPort,
       request,
     ));
@@ -106,6 +106,13 @@ class IsolateClient extends TypedLink {
                     break;
                   case RequestResponseType.data:
                     final response = o.data!;
+
+                    /// TODO:
+                    /// consider adding the original response
+                    /// instead of creating a new OperationResponse
+                    /// cons: the identity of the request will change
+                    /// and == on the request will not work anymore
+                    /// (with stand gql: 0.14.0)
                     sink.add(OperationResponse<TData, TVars>(
                       operationRequest: request,
                       linkException: response.linkException,
@@ -185,7 +192,7 @@ class IsolateClient extends TypedLink {
 
   Future<void> removeOptimisticPatch(OperationRequest request) {
     return _handleSingleResponseCommand(
-        (sendPort) => RemoveOptimisticResponseCommand(sendPort, request));
+        (sendPort) => RemoveOptimisticPatch(sendPort, request));
   }
 
   @override
@@ -197,6 +204,15 @@ class IsolateClient extends TypedLink {
     _globalReceivePort.close();
     _messageHandlerReceivePort?.close();
     return super.dispose();
+  }
+
+  /// adds a request to the requestController of the client on the isolate
+  /// this is useful for re-fetch and pagination
+  /// see https://ferrygraphql.com/docs/pagination
+  Future<void> addRequestToRequestController<TData, TVars>(
+      OperationRequest<TData, TVars> request) {
+    return _handleSingleResponseCommand(
+        (sendPort) => AddRequestToRequestControllerCommand(sendPort, request));
   }
 
   // helper function for commands that only ever receive one message
@@ -244,10 +260,7 @@ void _isolateClientEntryPoint<T>(_IsolateInit<T> init) async {
   mainToIsolateStream.listen((message) {
     assert(message is IsolateCommand,
         'internal error: expected IsolateCommand, got $message');
-    handleCommand(
-      client,
-      message as IsolateCommand,
-      mainToIsolateStream,
-    );
+    message as IsolateCommand;
+    message.handle(client, mainToIsolateStream);
   });
 }
