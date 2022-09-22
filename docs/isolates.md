@@ -75,3 +75,10 @@ send the new token the the main isolate for shared_preferences to store:
 https://gist.github.com/knaeckeKami/b11ad83e4b69aa44638815d1471c2ba3
 
 If you implement another approach, feel free to send me a sample code so I can add it here.
+
+### updateResult / pagination
+
+If you set `updateResult` paremeter in queries with the `IsolateClient`, you need to make sure that the `updateResult` function
+can be sent to the ferry isolate. The easiest way to do ensure this to make it a top-level or static function.
+
+The refetch a request, call the `addRequestToRequestController` method on the `IsolateClient`.
