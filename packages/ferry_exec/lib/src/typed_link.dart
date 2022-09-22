@@ -1,3 +1,4 @@
+import 'package:ferry_exec/ferry_exec.dart';
 import 'package:meta/meta.dart';
 
 import './operation_request.dart';
@@ -95,7 +96,6 @@ abstract class TypedLink {
   Stream<OperationResponse<TData, TVars>> request<TData, TVars>(
     /// An incoming [OperationRequest]
     OperationRequest<TData, TVars> request, [
-
     /// Function that invokes the [request] function of
     /// the next [TypedLink]
     ///

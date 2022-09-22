@@ -17,6 +17,11 @@ class Cache {
   final Store store;
   final utils.DataIdResolver? dataIdFromObject;
 
+  /// this stream is used to debounce updates from watchQuery/watchFragment
+  /// to avoid emitting multiple times for the same change when multiple
+  /// data IDs are changed in the same operation
+  final BehaviorSubject<void> _eventStream;
+
   @visibleForTesting
   final BehaviorSubject<
           Map<OperationRequest, Map<String, Map<String, dynamic>?>>?>
@@ -34,6 +39,7 @@ class Cache {
     Map<OperationRequest, Map<String, Map<String, dynamic>?>>
         seedOptimisticPatches = const {},
   })  : store = store ?? MemoryStore(),
+        _eventStream = BehaviorSubject.seeded(null),
         optimisticPatchesStream = BehaviorSubject.seeded(seedOptimisticPatches);
 
   /// Reads data for the given [dataId] from the [Store], merging in any data from optimistic patches
@@ -92,15 +98,18 @@ class Cache {
       );
 
   Stream<TData?> _watch<TData>({
-    required Stream Function() getChangeStream,
+    required Stream<Set<String>> Function() getChangeStream,
     required TData? Function() getData,
   }) {
     return getChangeStream()
-        // We add null at the beginning of the stream to trigger the initial getData().
+        // ensure every action only emits one update even if
+        // the data of multiple entities changed
+        .debounce((event) => CombineLatestStream.combine2(
+            _eventStream.stream, optimisticPatchesStream, (_, __) => null))
+        // We add an empty set at the beginning of the stream to trigger the initial getData().
         // getChangeStream = operationDataChangeStream or fragmentDataChangeStream and
         // they both end with .skip(1).
-        .startWith(null)
-        .map((_) => getData());
+        .startWith(const {}).map((_) => getData());
   }
 
   /// Reads denormalized data from the Cache for the given operation.
@@ -151,26 +160,28 @@ class Cache {
     OperationRequest<TData, TVars> request,
     TData data, {
     OperationRequest? optimisticRequest,
-  }) =>
-      normalizeOperation(
-        read: optimisticRequest != null
-            ? optimisticReader
-            : (dataId) => store.get(dataId),
-        write: (dataId, value) => _writeData(
-          dataId,
-          value,
-          optimisticRequest,
-        ),
-        document: request.operation.document,
-        operationName: request.operation.operationName,
-        // TODO: don't cast to dynamic
-        variables: (request.vars as dynamic)?.toJson(),
-        data: (data as dynamic)?.toJson(),
-        typePolicies: typePolicies,
-        addTypename: addTypename,
-        dataIdFromObject: dataIdFromObject,
-        possibleTypes: possibleTypes,
-      );
+  }) {
+    normalizeOperation(
+      read: optimisticRequest != null
+          ? optimisticReader
+          : (dataId) => store.get(dataId),
+      write: (dataId, value) => _writeData(
+        dataId,
+        value,
+        optimisticRequest,
+      ),
+      document: request.operation.document,
+      operationName: request.operation.operationName,
+      // TODO: don't cast to dynamic
+      variables: (request.vars as dynamic)?.toJson(),
+      data: (data as dynamic)?.toJson(),
+      typePolicies: typePolicies,
+      addTypename: addTypename,
+      dataIdFromObject: dataIdFromObject,
+      possibleTypes: possibleTypes,
+    );
+    _eventStream.add(null);
+  }
 
   /// Normalizes [data] for the given fragment and writes it to the [Store].
   ///
@@ -181,27 +192,29 @@ class Cache {
     FragmentRequest<TData, TVars> request,
     TData data, {
     OperationRequest? optimisticRequest,
-  }) =>
-      normalizeFragment(
-        read: optimisticRequest != null
-            ? optimisticReader
-            : (dataId) => store.get(dataId),
-        write: (dataId, value) => _writeData(
-          dataId,
-          value,
-          optimisticRequest,
-        ),
-        document: request.document,
-        idFields: request.idFields,
-        fragmentName: request.fragmentName,
-        // TODO: don't cast to dynamic
-        variables: (request.vars as dynamic)?.toJson(),
-        data: (data as dynamic)?.toJson(),
-        typePolicies: typePolicies,
-        addTypename: addTypename,
-        dataIdFromObject: dataIdFromObject,
-        possibleTypes: possibleTypes,
-      );
+  }) {
+    normalizeFragment(
+      read: optimisticRequest != null
+          ? optimisticReader
+          : (dataId) => store.get(dataId),
+      write: (dataId, value) => _writeData(
+        dataId,
+        value,
+        optimisticRequest,
+      ),
+      document: request.document,
+      idFields: request.idFields,
+      fragmentName: request.fragmentName,
+      // TODO: don't cast to dynamic
+      variables: (request.vars as dynamic)?.toJson(),
+      data: (data as dynamic)?.toJson(),
+      typePolicies: typePolicies,
+      addTypename: addTypename,
+      dataIdFromObject: dataIdFromObject,
+      possibleTypes: possibleTypes,
+    );
+    _eventStream.add(null);
+  }
 
   void _writeData(
     String dataId,
@@ -222,6 +235,9 @@ class Cache {
           : store.put(dataId, value);
 
   void removeOptimisticPatch(OperationRequest request) {
+    if (!optimisticPatchesStream.value!.containsKey(request)) {
+      return;
+    }
     optimisticPatchesStream.add(
       Map.from(optimisticPatchesStream.value!)..remove(request),
     );
@@ -287,6 +303,7 @@ class Cache {
           (patchKey, patch) => MapEntry(patchKey, patch..remove(entityId)),
         ),
       );
+      _eventStream.add(null);
     }
   }
 
@@ -344,6 +361,7 @@ class Cache {
           ),
         );
       }
+      _eventStream.add(null);
     }
   }
 
@@ -384,10 +402,12 @@ class Cache {
   void clear() {
     optimisticPatchesStream.add({});
     store.clear();
+    _eventStream.add(null);
   }
 
   Future<void> dispose() => Future.wait([
         optimisticPatchesStream.close(),
+        _eventStream.close(),
         store.dispose(),
       ]);
 }

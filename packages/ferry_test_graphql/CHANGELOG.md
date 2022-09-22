@@ -1,3 +1,22 @@
+## 0.1.5-dev.6
+
+ - Update a dependency to the latest release.
+
+## 0.1.5-dev.5
+
+> Note: This release has breaking changes.
+
+ - **FIX**: call cache handlers for every response from DataSource.Link.
+ - **FIX**: disable test.
+ - **FEAT**: add IsolateClient (#405).
+ - **FEAT**: generate possibleTypesMap in ferry_generator (#371).
+ - **FEAT**: add Reviews subscription to test graphql.
+ - **BREAKING** **CHORE**: update gql_code_builder, gql_exec and vestigial analyzer pubspec entry.
+
+## 0.1.5-dev.4
+
+ - Update a dependency to the latest release.
+
 ## 0.1.5-dev.3
 
 > Note: This release has breaking changes.

@@ -1,3 +1,20 @@
+## 0.2.0
+
+ - Bump "ferry_exec" to `0.2.0`.
+
+## 0.1.8-dev.1
+
+ - **FIX**: ensure emitting only one update per updated data ID in cache in watchQuery/watchFragment (#416).
+
+## 0.1.8-dev.0
+
+ - **FEAT**: add IsolateClient (#405).
+ - **FEAT**: more IsolateClient features.
+
+## 0.1.6
+
+ - **FEAT**: more IsolateClient features.
+
 ## 0.1.5
 
 > Note: This release has breaking changes.

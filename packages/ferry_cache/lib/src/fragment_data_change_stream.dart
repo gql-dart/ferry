@@ -63,7 +63,8 @@ Stream<Set<String>> fragmentDataChangeStream<TData, TVars>(
 
           return stream.distinct(
             (prev, next) {
-              final areEqual = const MapEquality().equals(prev, next);
+              final areEqual =
+                  const DeepCollectionEquality().equals(prev, next);
               if (!areEqual) {
                 // Maybe a new element was added to an array,
                 // we need to recompute the dataIds

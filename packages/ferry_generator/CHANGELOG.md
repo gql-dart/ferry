@@ -1,3 +1,15 @@
+## 0.6.1-dev.1
+
+ - Update a dependency to the latest release.
+
+## 0.6.1-dev.0
+
+ - **FEAT**: add IsolateClient (#405).
+
+## 0.6.0+1
+
+ - Update a dependency to the latest release.
+
 ## 0.6.0
 
  - **FIX**: Use Posix separators for output paths (#369).

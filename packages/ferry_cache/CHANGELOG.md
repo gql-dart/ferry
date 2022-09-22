@@ -1,3 +1,17 @@
+## 0.6.3-dev.1
+
+ - **FIX**: ensure emitting only one update per updated data ID in cache in watchQuery/watchFragment (#416).
+
+## 0.6.3-dev.0
+
+ - **FIX**: fix cache emits update too often (#411).
+ - **FIX**: fix regression in watch() methods by making changeStream emit when new item is added to the cache (#403).
+ - **FEAT**: add IsolateClient (#405).
+
+## 0.6.2+1
+
+ - Update a dependency to the latest release.
+
 ## 0.6.2
 
  - fix(ferry_cache): fix memory leak when calling .watch()

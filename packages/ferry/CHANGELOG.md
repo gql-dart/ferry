@@ -1,3 +1,37 @@
+## 0.11.2-dev.1
+
+ - **FIX**: ensure emitting only one update per updated data ID in cache in watchQuery/watchFragment (#416).
+
+## 0.11.2-dev.0
+
+ - **REFACTOR**: use a generic type parameter for the init params instead of a Map<String,dynamic>.
+ - **REFACTOR**: refactore handleCommand.
+ - **REFACTOR**: refactore handleCommand.
+ - **REFACTOR**: cleanup request response communication.
+ - **FIX**: remove broken isolateSpawn functionality, FlutterIsolate does not support passing functions (#413).
+ - **FEAT**: add removeOptimisticResponse to isolate client (#412).
+ - **FEAT**: add IsolateClient (#405).
+ - **FEAT**: refactor single response commands.
+ - **FEAT**: more IsolateClient features.
+ - **FEAT**: refactor IsolateClient, add more commands.
+ - **FEAT**: add more methods to IsolateClient.
+ - **FEAT**: add IsolateClient.
+ - **DOCS**: add example for token refresh over isolate.
+
+## 0.11.1
+
+ - **REFACTOR**: use a generic type parameter for the init params instead of a Map<String,dynamic>.
+ - **REFACTOR**: refactore handleCommand.
+ - **REFACTOR**: refactore handleCommand.
+ - **REFACTOR**: cleanup request response communication.
+ - **FEAT**: refactor single response commands.
+ - **FEAT**: more IsolateClient features.
+ - **FEAT**: refactor IsolateClient, add more commands.
+ - **FEAT**: add more methods to IsolateClient.
+ - **FEAT**: add IsolateClient.
+ - **DOCS**: add example for token refresh over isolate.
+ - **DOCS**: fix typo in CHANGELOG (#384).
+
 ## 0.11.0+1
 
  - Update a dependency to the latest release.

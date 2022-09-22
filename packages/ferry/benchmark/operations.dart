@@ -40,3 +40,16 @@ class AutoResponderLink extends Link {
         ),
       );
 }
+
+class AutoResponderLinkExceptionLink extends Link {
+  @override
+  Stream<Response> request(
+    Request req, [
+    forward,
+  ]) =>
+      Stream.error(RequestFormatException(
+        request: req,
+        originalException: Exception(),
+        originalStackTrace: StackTrace.current,
+      ));
+}
