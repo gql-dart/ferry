@@ -48,7 +48,7 @@ class RequestControllerTypedLink extends TypedLink {
       } else {
         prev = current;
       }
-      current = forward!(req);
+      current = forward!(req).shareValue();
     }).switchMap((_) {
       if (prev == null) return current!;
       current = CombineLatestStream.combine2<OperationResponse<TData, TVars>?,
