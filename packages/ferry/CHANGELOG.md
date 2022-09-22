@@ -1,3 +1,7 @@
+## 0.11.2-dev.2
+
+ - **FEAT**: refactor isolateCommands, add addRequestToRequestController method (#422).
+
 ## 0.11.2-dev.1
 
  - **FIX**: ensure emitting only one update per updated data ID in cache in watchQuery/watchFragment (#416).
