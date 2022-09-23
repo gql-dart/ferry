@@ -32,7 +32,7 @@ class RequestControllerTypedLink extends TypedLink {
     forward,
   ]) {
     var initial = true;
-    Stream<OperationResponse<TData, TVars>>? prev;
+    StreamController<OperationResponse<TData, TVars>>? prev;
     Stream<OperationResponse<TData, TVars>>? current;
 
     return requestController.stream
@@ -44,16 +44,18 @@ class RequestControllerTypedLink extends TypedLink {
         )
         .doOnData((req) {
       if (req.updateResult == null) {
+        prev?.close();
         prev = null;
-      } else {
-        prev = current;
+      } else if (current != null) {
+        prev = StreamController(sync: true);
+        current!.pipe(prev!);
       }
       current = forward!(req).shareValue();
     }).switchMap((_) {
       if (prev == null) return current!;
       current = CombineLatestStream.combine2<OperationResponse<TData, TVars>?,
           OperationResponse<TData, TVars>, OperationResponse<TData, TVars>>(
-        prev!,
+        prev!.stream,
         current!,
         (previous, response) => OperationResponse<TData, TVars>(
           operationRequest: response.operationRequest,
