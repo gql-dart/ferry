@@ -1,3 +1,7 @@
+## 0.11.2-dev.3
+
+ - **REFACTOR**: use scheduleMicrostask instead of Future.delayed in order to no have pending timers in widget tests.
+
 ## 0.11.2-dev.2
 
  - **FEAT**: refactor isolateCommands, add addRequestToRequestController method (#422).
