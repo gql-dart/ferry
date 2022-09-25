@@ -1,3 +1,7 @@
+## 0.11.2
+
+ - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.
+
 ## 0.11.2-dev.5
 
 ## 0.11.2-dev.4
