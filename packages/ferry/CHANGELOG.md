@@ -1,3 +1,5 @@
+## 0.11.2-dev.5
+
 ## 0.11.2-dev.4
 
  - **FEAT**: verify that updateResult function can be sent to the other isolate in debug mode using asserts and provide a better error message if updatgeResult cannot be serialized (#425).
