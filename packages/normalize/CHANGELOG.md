@@ -1,3 +1,7 @@
+## 0.7.2
+
+ - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.
+
 ## 0.7.2-dev.0
 
  - **FEAT**: generate possibleTypesMap in ferry_generator (#371).
