@@ -84,6 +84,7 @@ class IsolateClient extends TypedLink {
   Stream<OperationResponse<TData, TVars>> request<TData, TVars>(
       OperationRequest<TData, TVars> request,
       [NextTypedLink<TData, TVars>? forward]) {
+    _debugAssertUpdateResultTransferrable(request);
     final receivePort = ReceivePort();
 
     _commandSendPort.send(RequestCommand<TData, TVars>(
@@ -130,6 +131,26 @@ class IsolateClient extends TypedLink {
               handleError: (err, stack, sink) => sink.addError(err, stack),
               handleDone: (sink) => sink.close()),
         );
+  }
+
+  void _debugAssertUpdateResultTransferrable<TData, TVars>(
+      OperationRequest<TData, TVars> request) {
+    assert(() {
+      if (request.updateResult != null) {
+        final receivePort = ReceivePort();
+        try {
+          receivePort.sendPort.send(request.updateResult);
+        } catch (e) {
+          return false;
+        } finally {
+          receivePort.close();
+        }
+      }
+      return true;
+    }(),
+        '''tried to send a non-serializable updateResult function to the isolate.
+         to make sure that updateResult can be sent, try to make it a top-level or static function. 
+         see https://api.flutter.dev/flutter/dart-isolate/SendPort/send.html for more details''');
   }
 
   /// read the given query from the cache. returns null if the result of the
@@ -211,6 +232,7 @@ class IsolateClient extends TypedLink {
   /// see https://ferrygraphql.com/docs/pagination
   Future<void> addRequestToRequestController<TData, TVars>(
       OperationRequest<TData, TVars> request) {
+    _debugAssertUpdateResultTransferrable(request);
     return _handleSingleResponseCommand(
         (sendPort) => AddRequestToRequestControllerCommand(sendPort, request));
   }

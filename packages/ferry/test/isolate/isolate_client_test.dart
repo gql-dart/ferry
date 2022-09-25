@@ -292,6 +292,35 @@ void main() {
 
       await client.dispose();
     });
+
+    test('throws assertionError when trying to invalid updateResult function',
+        () async {
+      final client = await IsolateClient.create(
+          _initAutoResponderForReviewsLinkClient,
+          params: null);
+
+      void localFunc() {}
+
+      addTearDown(client.dispose);
+      //closure that captures local state, cannot be sent to isolate
+      final invalidMergeReviews =
+          (GReviewsData? previousResult, GReviewsData? fetchMoreResult) {
+        // try to call this locally declared function
+        // -> this will make the invalidMergeReviews non-transmittable for sure
+        localFunc();
+        return null;
+      };
+
+      final req = GReviewsReq((b) => b
+        ..requestId = '1'
+        ..updateResult = invalidMergeReviews
+        ..vars.first = 3
+        ..vars.offset = 0);
+
+      expect(() => client.request(req), throwsA(isA<AssertionError>()));
+      expect(() => client.addRequestToRequestController(req),
+          throwsA(isA<AssertionError>()));
+    });
   });
 }
 
