@@ -1,3 +1,5 @@
+## 0.11.2+1
+
 ## 0.11.2
 
  - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.
