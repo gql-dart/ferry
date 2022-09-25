@@ -16,7 +16,7 @@ dependencies:
   built_value: ^8.0.4
   ferry_exec: ^0.2.0
   normalize: ^0.7.2-dev.0
-  ferry_cache: ^0.6.3-dev.1
+  ferry_cache: ^0.6.4
 dev_dependencies:
   test: ^1.16.8
   mockito: ^5.3.1
