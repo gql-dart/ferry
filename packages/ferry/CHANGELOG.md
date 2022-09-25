@@ -1,11 +1,8 @@
-## 0.11.2+1
 
 ## 0.11.2
 
  - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.
  - Add IsolateClient for running queries in a separete Isolate. For details click [here](https://github.com/gql-dart/ferry/blob/master/docs/isolates.md)
-
-## 0.11.2-dev.5
 
 ## 0.11.2-dev.4
 
