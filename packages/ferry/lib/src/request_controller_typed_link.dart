@@ -32,8 +32,7 @@ class RequestControllerTypedLink extends TypedLink {
     forward,
   ]) {
     var initial = true;
-    StreamController<OperationResponse<TData, TVars>>? prev;
-    Stream<OperationResponse<TData, TVars>>? current;
+    ValueStream<OperationResponse<TData, TVars>>? prev;
 
     return requestController.stream
         .whereType<OperationRequest<TData, TVars>>()
@@ -42,34 +41,37 @@ class RequestControllerTypedLink extends TypedLink {
               ? identical(req, request)
               : req.requestId == request.requestId,
         )
-        .doOnData((req) {
-      if (req.updateResult == null) {
-        prev?.close();
-        prev = null;
-      } else if (current != null) {
-        prev = StreamController(sync: true);
-        current!.pipe(prev!);
-      }
-      current = forward!(req).shareValue();
-    }).switchMap((_) {
-      if (prev == null) return current!;
-      current = CombineLatestStream.combine2<OperationResponse<TData, TVars>?,
-          OperationResponse<TData, TVars>, OperationResponse<TData, TVars>>(
-        prev!.stream,
-        current!,
-        (previous, response) => OperationResponse<TData, TVars>(
-          operationRequest: response.operationRequest,
-          data: response.operationRequest.updateResult!(
-            previous?.data,
-            response.data,
-          ),
-          dataSource: response.dataSource,
-          linkException: response.linkException,
-          graphqlErrors: response.graphqlErrors,
-        ),
-      ).shareValue();
-      return current!;
-    }).doOnListen(
+        .doOnData(
+      (_) {
+        /// Temporarily add a listener so that [prev] doesn't shut down when
+        /// switchMap is updating the stream.
+        final sub = prev?.listen(null);
+        scheduleMicrotask(() => sub?.cancel());
+      },
+    ).switchMap(
+      (req) {
+        final stream = req.updateResult == null
+            ? forward!(req)
+            : CombineLatestStream.combine2<
+                OperationResponse<TData, TVars>?,
+                OperationResponse<TData, TVars>,
+                OperationResponse<TData, TVars>>(
+                prev ?? Stream.value(null),
+                forward!(req),
+                (previous, response) => OperationResponse<TData, TVars>(
+                  operationRequest: response.operationRequest,
+                  data: response.operationRequest.updateResult!(
+                    previous?.data,
+                    response.data,
+                  ),
+                  dataSource: response.dataSource,
+                  linkException: response.linkException,
+                  graphqlErrors: response.graphqlErrors,
+                ),
+              );
+        return prev = stream.shareValue();
+      },
+    ).doOnListen(
       () {
         if (initial && request.executeOnListen) {
           scheduleMicrotask(() => requestController.add(request));
