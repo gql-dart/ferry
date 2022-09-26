@@ -1,16 +1,16 @@
 import 'dart:async';
-import 'package:rxdart/rxdart.dart';
-import 'package:normalize/utils.dart';
-import 'package:gql/ast.dart';
-import 'package:ferry_exec/ferry_exec.dart';
 
-import 'package:ferry/src/optimistic_typed_link.dart';
-import 'package:ferry/src/gql_typed_link.dart';
 import 'package:ferry/src/cache_typed_link.dart';
+import 'package:ferry/src/gql_typed_link.dart';
+import 'package:ferry/src/optimistic_typed_link.dart';
+import 'package:ferry_exec/ferry_exec.dart';
+import 'package:gql/ast.dart';
+import 'package:normalize/utils.dart';
+import 'package:rxdart/rxdart.dart';
 
 export 'package:ferry_cache/ferry_cache.dart';
-export 'package:gql_link/gql_link.dart';
 export 'package:ferry_exec/ferry_exec.dart';
+export 'package:gql_link/gql_link.dart';
 
 const _defaultFetchPolicies = {
   OperationType.query: FetchPolicy.CacheFirst,
@@ -92,28 +92,15 @@ class FetchPolicyTypedLink extends TypedLink {
         final sharedNetworkStream =
             _optimisticLinkTypedLink.request(operationRequest).shareValue();
 
-        return _cacheTypedLink
-            .request(operationRequest)
-            .where((response) => response.data != null)
-            .takeUntil(
-          sharedNetworkStream.doOnData(
-            (_) {
-              /// Temporarily add a listener so that [sharedNetworkStream] doesn't shut down when
-              /// switchMap is updating the stream.
-              final sub = sharedNetworkStream.listen(null);
-              scheduleMicrotask(sub.cancel);
-            },
-          ),
-        ).concatWith([
+        return MergeStream([
+          _cacheTypedLink
+              .request(operationRequest)
+              .where((response) => response.data != null)
+              .takeUntil(sharedNetworkStream),
           sharedNetworkStream
               .doOnData(_removeOptimisticPatch)
               .doOnData(_writeToCache)
-              .switchMap(
-                (networkResponse) => ConcatStream([
-                  Stream.value(networkResponse),
-                  _cacheTypedLink.request(operationRequest).skip(1),
-                ]),
-              )
+              .concatWith([_cacheTypedLink.request(operationRequest).skip(1)])
         ]);
       default:
         throw Exception('Unrecognized FetchPolicy');
