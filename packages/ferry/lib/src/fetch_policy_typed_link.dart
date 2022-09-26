@@ -1,9 +1,7 @@
 import 'dart:async';
-import 'package:gql_link/gql_link.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:normalize/utils.dart';
 import 'package:gql/ast.dart';
-import 'package:ferry_cache/ferry_cache.dart';
 import 'package:ferry_exec/ferry_exec.dart';
 
 import 'package:ferry/src/optimistic_typed_link.dart';
@@ -103,7 +101,7 @@ class FetchPolicyTypedLink extends TypedLink {
               /// Temporarily add a listener so that [sharedNetworkStream] doesn't shut down when
               /// switchMap is updating the stream.
               final sub = sharedNetworkStream.listen(null);
-              Future.delayed(Duration.zero).then((_) => sub.cancel());
+              scheduleMicrotask(sub.cancel);
             },
           ),
         ).concatWith([
