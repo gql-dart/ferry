@@ -161,8 +161,8 @@ lib/
   src/
     components/
       graphql/
+        all_pokemon.graphql
         __generated__
-          all_pokemon.graphql
           all_pokemon.ast.gql.dart # generated
           all_pokemon.data.gql.dart # generated
           all_pokemon.data.gql.g.dart # generated
