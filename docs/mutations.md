@@ -123,7 +123,7 @@ Since Dart doesn't yet have algebraic data types, to avoid receiving a type erro
 
 ### Passing Handlers to the Client
 
-If Ferry, the client must be aware of all `UpdateCacheHandler`s. This is slightly different from how other GraphQL clients (like Apollo) work, but it's necessary to enable features such as offline mutations.
+In Ferry, the client must be aware of all `UpdateCacheHandler`s. This is slightly different from how other GraphQL clients (like Apollo) work, but it's necessary to enable features such as offline mutations.
 
 Now that we've created our `createReviewHandler`, we can add it to our Client using the key `"createReviewHandler"`, which we'll later use to trigger this handler from our mutation request.
 
