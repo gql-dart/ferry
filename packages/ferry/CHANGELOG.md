@@ -1,3 +1,7 @@
+## 0.11.2-dev.0+2
+
+ - **REFACTOR**: FetchPolicyTypedLink.request() to avoid pending timers in tests (#427).
+
 
 ## 0.11.2
 
