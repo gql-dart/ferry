@@ -118,4 +118,360 @@ void main() {
       equals(response),
     );
   });
+
+  group(
+      'does not count missing data due to skip/include directives as partial data',
+      () {
+    test('respects skip directives with literal true', () {
+      final query = parseString('''
+      query TestQuery {
+        posts {
+          id
+          title @skip(if: true)
+        }
+      }
+    ''');
+
+      final data = {
+        'Query': {
+          '__typename': 'Query',
+          'posts': [
+            {'\$ref': 'Post:123'}
+          ]
+        },
+        'Post:123': {
+          'id': '123',
+          '__typename': 'Post',
+        },
+      };
+
+      expect(
+        denormalizeOperation(
+          document: query,
+          read: (dataId) => data[dataId],
+          addTypename: true,
+          returnPartialData: false,
+        ),
+        equals({
+          '__typename': 'Query',
+          'posts': [
+            {
+              'id': '123',
+              '__typename': 'Post',
+            }
+          ]
+        }),
+      );
+    });
+
+    test('respects skip directives with literal false', () {
+      final query = parseString('''
+      query TestQuery {
+        posts {
+          id
+          title @skip(if: false)
+        }
+      }
+    ''');
+
+      final data = {
+        'Query': {
+          '__typename': 'Query',
+          'posts': [
+            {'\$ref': 'Post:123'}
+          ]
+        },
+        'Post:123': {
+          'id': '123',
+          'title': 'Hello',
+          '__typename': 'Post',
+        },
+      };
+
+      expect(
+        denormalizeOperation(
+          document: query,
+          read: (dataId) => data[dataId],
+          addTypename: true,
+          returnPartialData: false,
+        ),
+        equals({
+          '__typename': 'Query',
+          'posts': [
+            {
+              'id': '123',
+              '__typename': 'Post',
+              'title': 'Hello',
+            }
+          ]
+        }),
+      );
+    });
+
+    test('respects include directives with literal true', () {
+      final query = parseString('''
+      query TestQuery {
+        posts {
+          id
+          title @include(if: true)
+        }
+      }
+    ''');
+
+      final data = {
+        'Query': {
+          '__typename': 'Query',
+          'posts': [
+            {'\$ref': 'Post:123'}
+          ]
+        },
+        'Post:123': {
+          'id': '123',
+          '__typename': 'Post',
+          'title': 'Hello World',
+        },
+      };
+      expect(
+        denormalizeOperation(
+          document: query,
+          read: (dataId) => data[dataId],
+          addTypename: true,
+          returnPartialData: false,
+        ),
+        equals({
+          '__typename': 'Query',
+          'posts': [
+            {
+              'id': '123',
+              '__typename': 'Post',
+              'title': 'Hello World',
+            }
+          ]
+        }),
+      );
+    });
+
+    test('respects include directives with literal false', () {
+      final query = parseString('''
+      query TestQuery {
+        posts {
+          id
+          title @include(if: false)
+        }
+      }
+    ''');
+
+      final data = {
+        'Query': {
+          '__typename': 'Query',
+          'posts': [
+            {'\$ref': 'Post:123'}
+          ]
+        },
+        'Post:123': {
+          'id': '123',
+          '__typename': 'Post',
+        },
+      };
+      expect(
+        denormalizeOperation(
+          document: query,
+          read: (dataId) => data[dataId],
+          addTypename: true,
+          returnPartialData: false,
+        ),
+        equals({
+          '__typename': 'Query',
+          'posts': [
+            {
+              'id': '123',
+              '__typename': 'Post',
+            }
+          ]
+        }),
+      );
+    });
+
+    test('respects skip directives with variable true', () {
+      final query = parseString('''
+      query TestQuery(\$skip: Boolean!) {
+        posts {
+          id
+          title @skip(if: \$skip)
+        }
+      }
+    ''');
+
+      final data = {
+        'Query': {
+          '__typename': 'Query',
+          'posts': [
+            {'\$ref': 'Post:123'}
+          ]
+        },
+        'Post:123': {
+          'id': '123',
+          '__typename': 'Post',
+        },
+      };
+
+      expect(
+        denormalizeOperation(
+          document: query,
+          read: (dataId) => data[dataId],
+          addTypename: true,
+          returnPartialData: false,
+          variables: {
+            'skip': true,
+          },
+        ),
+        equals({
+          '__typename': 'Query',
+          'posts': [
+            {
+              'id': '123',
+              '__typename': 'Post',
+            }
+          ]
+        }),
+      );
+    });
+
+    test('respects skip directives with variable false', () {
+      final query = parseString('''
+      query TestQuery(\$skip: Boolean!) {
+        posts {
+          id
+          title @skip(if: \$skip)
+        }
+      }
+    ''');
+
+      final data = {
+        'Query': {
+          '__typename': 'Query',
+          'posts': [
+            {'\$ref': 'Post:123'}
+          ]
+        },
+        'Post:123': {
+          'id': '123',
+          'title': 'Hello',
+          '__typename': 'Post',
+        },
+      };
+
+      expect(
+        denormalizeOperation(
+          document: query,
+          read: (dataId) => data[dataId],
+          addTypename: true,
+          returnPartialData: false,
+          variables: {
+            'skip': false,
+          },
+        ),
+        equals({
+          '__typename': 'Query',
+          'posts': [
+            {
+              'id': '123',
+              '__typename': 'Post',
+              'title': 'Hello',
+            }
+          ]
+        }),
+      );
+    });
+
+    test('respects include directives with variable true', () {
+      final query = parseString('''
+      query TestQuery(\$include: Boolean!) {
+        posts {
+          id
+          title @include(if: \$include)
+        }
+      }
+    ''');
+
+      final data = {
+        'Query': {
+          '__typename': 'Query',
+          'posts': [
+            {'\$ref': 'Post:123'}
+          ]
+        },
+        'Post:123': {
+          'id': '123',
+          '__typename': 'Post',
+          'title': 'Hello World',
+        },
+      };
+      expect(
+        denormalizeOperation(
+          document: query,
+          read: (dataId) => data[dataId],
+          addTypename: true,
+          returnPartialData: false,
+          variables: {
+            'include': true,
+          },
+        ),
+        equals({
+          '__typename': 'Query',
+          'posts': [
+            {
+              'id': '123',
+              '__typename': 'Post',
+              'title': 'Hello World',
+            }
+          ]
+        }),
+      );
+    });
+
+    test('respects include directives with variable false', () {
+      final query = parseString('''
+      query TestQuery(\$include: Boolean!) {
+        posts {
+          id
+          title @include(if: \$include)
+        }
+      }
+    ''');
+
+      final data = {
+        'Query': {
+          '__typename': 'Query',
+          'posts': [
+            {'\$ref': 'Post:123'}
+          ]
+        },
+        'Post:123': {
+          'id': '123',
+          '__typename': 'Post',
+        },
+      };
+      expect(
+        denormalizeOperation(
+          document: query,
+          read: (dataId) => data[dataId],
+          addTypename: true,
+          returnPartialData: false,
+          variables: {
+            'include': false,
+          },
+        ),
+        equals({
+          '__typename': 'Query',
+          'posts': [
+            {
+              'id': '123',
+              '__typename': 'Post',
+            }
+          ]
+        }),
+      );
+    });
+  });
 }
