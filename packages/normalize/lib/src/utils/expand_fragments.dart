@@ -1,4 +1,5 @@
 import 'package:gql/ast.dart';
+import 'package:normalize/src/utils/well_known_directives.dart';
 
 /// Adds fragment fields to selections if fragment type matches [typename]
 /// and deeply merges nested field nodes.
@@ -7,10 +8,14 @@ List<FieldNode> expandFragments({
   required SelectionSetNode selectionSet,
   required Map<String, FragmentDefinitionNode> fragmentMap,
   required Map<String, Set<String>> possibleTypes,
+  required Map<String, dynamic> variables,
 }) {
   final fieldNodes = <FieldNode>[];
 
   for (var selectionNode in selectionSet.selections) {
+    if (isSkipped(selectionNode, variables)) {
+      continue;
+    }
     if (selectionNode is FieldNode) {
       fieldNodes.add(selectionNode);
       continue;
@@ -45,6 +50,7 @@ List<FieldNode> expandFragments({
           selectionSet: fragmentSelectionSet,
           fragmentMap: fragmentMap,
           possibleTypes: possibleTypes,
+          variables: variables,
         ),
       );
     }
