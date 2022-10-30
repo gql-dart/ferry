@@ -71,6 +71,6 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GPokemonDetailData_pokemon_weight,
   GPokemonDetailReq,
   GPokemonDetailVars,
-  GUpload
+  GUpload,
 ])
 final Serializers serializers = _serializersBuilder.build();

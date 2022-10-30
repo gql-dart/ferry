@@ -26,22 +26,28 @@ abstract class GPokemonDetailReq
       _$GPokemonDetailReq;
 
   static void _initializeBuilder(GPokemonDetailReqBuilder b) => b
-    ..operation =
-        _i4.Operation(document: _i5.document, operationName: 'PokemonDetail')
+    ..operation = _i4.Operation(
+      document: _i5.document,
+      operationName: 'PokemonDetail',
+    )
     ..executeOnListen = true;
   @override
   _i3.GPokemonDetailVars get vars;
   @override
   _i4.Operation get operation;
   @override
-  _i4.Request get execRequest =>
-      _i4.Request(operation: operation, variables: vars.toJson());
+  _i4.Request get execRequest => _i4.Request(
+        operation: operation,
+        variables: vars.toJson(),
+      );
   @override
   String? get requestId;
   @override
   @BuiltValueField(serialize: false)
   _i2.GPokemonDetailData? Function(
-      _i2.GPokemonDetailData?, _i2.GPokemonDetailData?)? get updateResult;
+    _i2.GPokemonDetailData?,
+    _i2.GPokemonDetailData?,
+  )? get updateResult;
   @override
   _i2.GPokemonDetailData? get optimisticResponse;
   @override
@@ -57,9 +63,13 @@ abstract class GPokemonDetailReq
       _i2.GPokemonDetailData.fromJson(json);
   static Serializer<GPokemonDetailReq> get serializer =>
       _$gPokemonDetailReqSerializer;
-  Map<String, dynamic> toJson() =>
-      (_i6.serializers.serializeWith(GPokemonDetailReq.serializer, this)
-          as Map<String, dynamic>);
+  Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
+        GPokemonDetailReq.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GPokemonDetailReq? fromJson(Map<String, dynamic> json) =>
-      _i6.serializers.deserializeWith(GPokemonDetailReq.serializer, json);
+      _i6.serializers.deserializeWith(
+        GPokemonDetailReq.serializer,
+        json,
+      );
 }

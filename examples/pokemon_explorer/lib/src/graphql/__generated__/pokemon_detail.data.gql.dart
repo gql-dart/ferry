@@ -25,11 +25,15 @@ abstract class GPokemonDetailData
   GPokemonDetailData_pokemon? get pokemon;
   static Serializer<GPokemonDetailData> get serializer =>
       _$gPokemonDetailDataSerializer;
-  Map<String, dynamic> toJson() =>
-      (_i1.serializers.serializeWith(GPokemonDetailData.serializer, this)
-          as Map<String, dynamic>);
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GPokemonDetailData.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GPokemonDetailData? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(GPokemonDetailData.serializer, json);
+      _i1.serializers.deserializeWith(
+        GPokemonDetailData.serializer,
+        json,
+      );
 }
 
 abstract class GPokemonDetailData_pokemon
@@ -62,10 +66,14 @@ abstract class GPokemonDetailData_pokemon
       _$gPokemonDetailDataPokemonSerializer;
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-      GPokemonDetailData_pokemon.serializer, this) as Map<String, dynamic>);
+        GPokemonDetailData_pokemon.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GPokemonDetailData_pokemon? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers
-          .deserializeWith(GPokemonDetailData_pokemon.serializer, json);
+      _i1.serializers.deserializeWith(
+        GPokemonDetailData_pokemon.serializer,
+        json,
+      );
 }
 
 abstract class GPokemonDetailData_pokemon_height
@@ -89,13 +97,16 @@ abstract class GPokemonDetailData_pokemon_height
   static Serializer<GPokemonDetailData_pokemon_height> get serializer =>
       _$gPokemonDetailDataPokemonHeightSerializer;
   @override
-  Map<String, dynamic> toJson() => (_i1.serializers
-          .serializeWith(GPokemonDetailData_pokemon_height.serializer, this)
-      as Map<String, dynamic>);
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GPokemonDetailData_pokemon_height.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GPokemonDetailData_pokemon_height? fromJson(
           Map<String, dynamic> json) =>
-      _i1.serializers
-          .deserializeWith(GPokemonDetailData_pokemon_height.serializer, json);
+      _i1.serializers.deserializeWith(
+        GPokemonDetailData_pokemon_height.serializer,
+        json,
+      );
 }
 
 abstract class GPokemonDetailData_pokemon_weight
@@ -119,13 +130,16 @@ abstract class GPokemonDetailData_pokemon_weight
   static Serializer<GPokemonDetailData_pokemon_weight> get serializer =>
       _$gPokemonDetailDataPokemonWeightSerializer;
   @override
-  Map<String, dynamic> toJson() => (_i1.serializers
-          .serializeWith(GPokemonDetailData_pokemon_weight.serializer, this)
-      as Map<String, dynamic>);
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GPokemonDetailData_pokemon_weight.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GPokemonDetailData_pokemon_weight? fromJson(
           Map<String, dynamic> json) =>
-      _i1.serializers
-          .deserializeWith(GPokemonDetailData_pokemon_weight.serializer, json);
+      _i1.serializers.deserializeWith(
+        GPokemonDetailData_pokemon_weight.serializer,
+        json,
+      );
 }
 
 abstract class GPokemonDetailData_pokemon_stats
@@ -146,11 +160,14 @@ abstract class GPokemonDetailData_pokemon_stats
   String? get name;
   static Serializer<GPokemonDetailData_pokemon_stats> get serializer =>
       _$gPokemonDetailDataPokemonStatsSerializer;
-  Map<String, dynamic> toJson() => (_i1.serializers
-          .serializeWith(GPokemonDetailData_pokemon_stats.serializer, this)
-      as Map<String, dynamic>);
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GPokemonDetailData_pokemon_stats.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GPokemonDetailData_pokemon_stats? fromJson(
           Map<String, dynamic> json) =>
-      _i1.serializers
-          .deserializeWith(GPokemonDetailData_pokemon_stats.serializer, json);
+      _i1.serializers.deserializeWith(
+        GPokemonDetailData_pokemon_stats.serializer,
+        json,
+      );
 }

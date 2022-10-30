@@ -18,9 +18,13 @@ abstract class GPokemonDetailVars
   String get id;
   static Serializer<GPokemonDetailVars> get serializer =>
       _$gPokemonDetailVarsSerializer;
-  Map<String, dynamic> toJson() =>
-      (_i1.serializers.serializeWith(GPokemonDetailVars.serializer, this)
-          as Map<String, dynamic>);
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GPokemonDetailVars.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GPokemonDetailVars? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(GPokemonDetailVars.serializer, json);
+      _i1.serializers.deserializeWith(
+        GPokemonDetailVars.serializer,
+        json,
+      );
 }
