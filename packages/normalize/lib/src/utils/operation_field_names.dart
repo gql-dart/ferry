@@ -29,6 +29,7 @@ List<String> operationFieldNames<TData, TVars>(
     selectionSet: operationDefinition.selectionSet,
     fragmentMap: fragmentMap,
     possibleTypes: possibleTypes,
+    variables: vars,
   );
   final typePolicy = typePolicies[rootTypename];
   return fields.map((fieldNode) {

@@ -53,6 +53,7 @@ Object? normalizeNode({
       selectionSet: selectionSet,
       fragmentMap: config.fragmentMap,
       possibleTypes: config.possibleTypes,
+      variables: config.variables,
     );
 
     final dataToMerge = <String, dynamic>{

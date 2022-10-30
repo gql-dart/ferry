@@ -6,6 +6,7 @@ import 'package:normalize/src/utils/exceptions.dart';
 import 'package:normalize/src/config/normalization_config.dart';
 import 'package:normalize/src/utils/is_dangling_reference.dart';
 import 'package:normalize/src/policies/field_policy.dart';
+import 'package:normalize/src/utils/well_known_directives.dart';
 
 /// Returns a denormalized object for a given [SelectionSetNode].
 ///
@@ -46,6 +47,7 @@ Object? denormalizeNode({
       selectionSet: selectionSet,
       fragmentMap: config.fragmentMap,
       possibleTypes: config.possibleTypes,
+      variables: config.variables,
     );
 
     final result = subNodes.fold<Map<String, dynamic>>(
@@ -66,11 +68,17 @@ Object? denormalizeNode({
         /// If the policy can't read,
         /// and the key is missing from the data,
         /// we have partial data
-        if (!policyCanRead && !denormalizedData.containsKey(fieldName)) {
+        bool isSkippedValue = false;
+        if (!policyCanRead &&
+            !denormalizedData.containsKey(fieldName) &&
+            !(isSkippedValue = isSkipped(fieldNode, config.variables))) {
           if (config.allowPartialData) {
             return result;
           }
           throw PartialDataException(path: [resultKey]);
+        }
+        if (isSkippedValue) {
+          return result;
         }
 
         try {
