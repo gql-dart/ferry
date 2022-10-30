@@ -37,4 +37,4 @@ abstract class GUpload implements Built<GUpload, GUploadBuilder> {
           (Object serialized) => GUpload((serialized as String?)));
 }
 
-const possibleTypesMap = {};
+const Map<String, Set<String>> possibleTypesMap = {};

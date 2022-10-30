@@ -41,11 +41,15 @@ abstract class GNestedFragmentReq
       _i2.GNestedFragmentData.fromJson(json);
   static Serializer<GNestedFragmentReq> get serializer =>
       _$gNestedFragmentReqSerializer;
-  Map<String, dynamic> toJson() =>
-      (_i6.serializers.serializeWith(GNestedFragmentReq.serializer, this)
-          as Map<String, dynamic>);
+  Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
+        GNestedFragmentReq.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GNestedFragmentReq? fromJson(Map<String, dynamic> json) =>
-      _i6.serializers.deserializeWith(GNestedFragmentReq.serializer, json);
+      _i6.serializers.deserializeWith(
+        GNestedFragmentReq.serializer,
+        json,
+      );
 }
 
 abstract class GPokemonCardReq
@@ -73,9 +77,13 @@ abstract class GPokemonCardReq
       _i2.GPokemonCardData.fromJson(json);
   static Serializer<GPokemonCardReq> get serializer =>
       _$gPokemonCardReqSerializer;
-  Map<String, dynamic> toJson() =>
-      (_i6.serializers.serializeWith(GPokemonCardReq.serializer, this)
-          as Map<String, dynamic>);
+  Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
+        GPokemonCardReq.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GPokemonCardReq? fromJson(Map<String, dynamic> json) =>
-      _i6.serializers.deserializeWith(GPokemonCardReq.serializer, json);
+      _i6.serializers.deserializeWith(
+        GPokemonCardReq.serializer,
+        json,
+      );
 }

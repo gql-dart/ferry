@@ -25,11 +25,15 @@ abstract class GAllPokemonData
   GAllPokemonData_pokemons? get pokemons;
   static Serializer<GAllPokemonData> get serializer =>
       _$gAllPokemonDataSerializer;
-  Map<String, dynamic> toJson() =>
-      (_i1.serializers.serializeWith(GAllPokemonData.serializer, this)
-          as Map<String, dynamic>);
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GAllPokemonData.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GAllPokemonData? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(GAllPokemonData.serializer, json);
+      _i1.serializers.deserializeWith(
+        GAllPokemonData.serializer,
+        json,
+      );
 }
 
 abstract class GAllPokemonData_pokemons
@@ -48,12 +52,15 @@ abstract class GAllPokemonData_pokemons
   BuiltList<GAllPokemonData_pokemons_results>? get results;
   static Serializer<GAllPokemonData_pokemons> get serializer =>
       _$gAllPokemonDataPokemonsSerializer;
-  Map<String, dynamic> toJson() =>
-      (_i1.serializers.serializeWith(GAllPokemonData_pokemons.serializer, this)
-          as Map<String, dynamic>);
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GAllPokemonData_pokemons.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GAllPokemonData_pokemons? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers
-          .deserializeWith(GAllPokemonData_pokemons.serializer, json);
+      _i1.serializers.deserializeWith(
+        GAllPokemonData_pokemons.serializer,
+        json,
+      );
 }
 
 abstract class GAllPokemonData_pokemons_results
@@ -85,13 +92,16 @@ abstract class GAllPokemonData_pokemons_results
   static Serializer<GAllPokemonData_pokemons_results> get serializer =>
       _$gAllPokemonDataPokemonsResultsSerializer;
   @override
-  Map<String, dynamic> toJson() => (_i1.serializers
-          .serializeWith(GAllPokemonData_pokemons_results.serializer, this)
-      as Map<String, dynamic>);
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GAllPokemonData_pokemons_results.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GAllPokemonData_pokemons_results? fromJson(
           Map<String, dynamic> json) =>
-      _i1.serializers
-          .deserializeWith(GAllPokemonData_pokemons_results.serializer, json);
+      _i1.serializers.deserializeWith(
+        GAllPokemonData_pokemons_results.serializer,
+        json,
+      );
 }
 
 abstract class GAllPokemonData_pokemons_results_height
@@ -117,12 +127,15 @@ abstract class GAllPokemonData_pokemons_results_height
       _$gAllPokemonDataPokemonsResultsHeightSerializer;
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-          GAllPokemonData_pokemons_results_height.serializer, this)
-      as Map<String, dynamic>);
+        GAllPokemonData_pokemons_results_height.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GAllPokemonData_pokemons_results_height? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
-          GAllPokemonData_pokemons_results_height.serializer, json);
+        GAllPokemonData_pokemons_results_height.serializer,
+        json,
+      );
 }
 
 abstract class GAllPokemonData_pokemons_results_weight
@@ -148,10 +161,13 @@ abstract class GAllPokemonData_pokemons_results_weight
       _$gAllPokemonDataPokemonsResultsWeightSerializer;
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-          GAllPokemonData_pokemons_results_weight.serializer, this)
-      as Map<String, dynamic>);
+        GAllPokemonData_pokemons_results_weight.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GAllPokemonData_pokemons_results_weight? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
-          GAllPokemonData_pokemons_results_weight.serializer, json);
+        GAllPokemonData_pokemons_results_weight.serializer,
+        json,
+      );
 }
