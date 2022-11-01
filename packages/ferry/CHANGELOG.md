@@ -1,3 +1,7 @@
+## 0.11.3-dev.0+1
+
+- Update a dependency to the latest release.
+
 ## 0.11.2-dev.0+2
 
  - **REFACTOR**: FetchPolicyTypedLink.request() to avoid pending timers in tests (#427).
