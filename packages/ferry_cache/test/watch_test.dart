@@ -152,7 +152,7 @@ void main() {
       cache.writeQuery(reviewsReq, reviewsData);
 
       final updatedReview =
-          reviewsData2.reviews![1].rebuild((b) => b.commentary = 'first');
+          reviewsData2.reviews![1]!.rebuild((b) => b.commentary = 'first');
 
       expect(
           cache.watchQuery(reviewsReq),
@@ -167,7 +167,7 @@ void main() {
       cache.writeQuery(reviewsReq, reviewsData2);
       await Future.delayed(Duration.zero);
       cache.writeQuery(
-          GReviewsByIDReq((b) => b..vars.id = reviewsData2.reviews![1].id),
+          GReviewsByIDReq((b) => b..vars.id = reviewsData2.reviews![1]!.id),
           GReviewsByIDData((b) => b.review
             ..id = updatedReview.id
             ..stars = updatedReview.stars

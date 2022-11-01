@@ -121,8 +121,9 @@ class _$GPokemonDetailData_pokemonSerializer
       result
         ..add('stats')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(BuiltList,
-                const [const FullType(GPokemonDetailData_pokemon_stats)])));
+            specifiedType: const FullType(BuiltList, const [
+              const FullType.nullable(GPokemonDetailData_pokemon_stats)
+            ])));
     }
     return result;
   }
@@ -170,7 +171,7 @@ class _$GPokemonDetailData_pokemonSerializer
         case 'stats':
           result.stats.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltList, const [
-                const FullType(GPokemonDetailData_pokemon_stats)
+                const FullType.nullable(GPokemonDetailData_pokemon_stats)
               ]))! as BuiltList<Object?>);
           break;
       }
@@ -488,7 +489,7 @@ class _$GPokemonDetailData_pokemon extends GPokemonDetailData_pokemon {
   @override
   final GPokemonDetailData_pokemon_weight? weight;
   @override
-  final BuiltList<GPokemonDetailData_pokemon_stats>? stats;
+  final BuiltList<GPokemonDetailData_pokemon_stats?>? stats;
 
   factory _$GPokemonDetailData_pokemon(
           [void Function(GPokemonDetailData_pokemonBuilder)? updates]) =>
@@ -596,10 +597,10 @@ class GPokemonDetailData_pokemonBuilder
   set weight(GPokemonDetailData_pokemon_weightBuilder? weight) =>
       _$this._weight = weight;
 
-  ListBuilder<GPokemonDetailData_pokemon_stats>? _stats;
-  ListBuilder<GPokemonDetailData_pokemon_stats> get stats =>
-      _$this._stats ??= new ListBuilder<GPokemonDetailData_pokemon_stats>();
-  set stats(ListBuilder<GPokemonDetailData_pokemon_stats>? stats) =>
+  ListBuilder<GPokemonDetailData_pokemon_stats?>? _stats;
+  ListBuilder<GPokemonDetailData_pokemon_stats?> get stats =>
+      _$this._stats ??= new ListBuilder<GPokemonDetailData_pokemon_stats?>();
+  set stats(ListBuilder<GPokemonDetailData_pokemon_stats?>? stats) =>
       _$this._stats = stats;
 
   GPokemonDetailData_pokemonBuilder() {

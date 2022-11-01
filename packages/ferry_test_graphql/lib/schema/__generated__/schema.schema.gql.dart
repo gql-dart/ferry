@@ -48,7 +48,7 @@ abstract class GReviewInput
   int get stars;
   String? get commentary;
   GColorInput? get favorite_color;
-  BuiltList<DateTime>? get seenOn;
+  BuiltList<DateTime?>? get seenOn;
   static Serializer<GReviewInput> get serializer => _$gReviewInputSerializer;
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GReviewInput.serializer,

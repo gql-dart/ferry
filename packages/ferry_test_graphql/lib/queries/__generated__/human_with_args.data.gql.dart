@@ -80,7 +80,7 @@ abstract class GHumanWithArgsData_human_friendsConnection
       b..G__typename = 'FriendsConnection';
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
-  BuiltList<GHumanWithArgsData_human_friendsConnection_friends>? get friends;
+  BuiltList<GHumanWithArgsData_human_friendsConnection_friends?>? get friends;
   static Serializer<GHumanWithArgsData_human_friendsConnection>
       get serializer => _$gHumanWithArgsDataHumanFriendsConnectionSerializer;
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(

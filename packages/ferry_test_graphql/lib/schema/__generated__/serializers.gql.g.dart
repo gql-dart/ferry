@@ -81,36 +81,39 @@ Serializers _$serializers = (new Serializers().toBuilder()
           const FullType(BuiltList, const [const FullType(DateTime)]),
           () => new ListBuilder<DateTime>())
       ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(DateTime)]),
-          () => new ListBuilder<DateTime>())
+          const FullType(BuiltList, const [const FullType.nullable(DateTime)]),
+          () => new ListBuilder<DateTime?>())
       ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(GEpisode)]),
-          () => new ListBuilder<GEpisode>())
+          const FullType(BuiltList, const [const FullType.nullable(GEpisode)]),
+          () => new ListBuilder<GEpisode?>())
       ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(GEpisode)]),
-          () => new ListBuilder<GEpisode>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [
-            const FullType(GHeroWithFragmentsData_hero_friendsConnection_edges)
-          ]),
-          () => new ListBuilder<
-              GHeroWithFragmentsData_hero_friendsConnection_edges>())
+          const FullType(BuiltList, const [const FullType.nullable(GEpisode)]),
+          () => new ListBuilder<GEpisode?>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [
-            const FullType(GHumanWithArgsData_human_friendsConnection_friends)
+            const FullType.nullable(
+                GHeroWithFragmentsData_hero_friendsConnection_edges)
           ]),
           () => new ListBuilder<
-              GHumanWithArgsData_human_friendsConnection_friends>())
+              GHeroWithFragmentsData_hero_friendsConnection_edges?>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType.nullable(
+                GHumanWithArgsData_human_friendsConnection_friends)
+          ]),
+          () => new ListBuilder<
+              GHumanWithArgsData_human_friendsConnection_friends?>())
       ..addBuilderFactory(
           const FullType(
-              BuiltList, const [const FullType(GReviewsData_reviews)]),
-          () => new ListBuilder<GReviewsData_reviews>())
+              BuiltList, const [const FullType.nullable(GReviewsData_reviews)]),
+          () => new ListBuilder<GReviewsData_reviews?>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [
-            const FullType(GcomparisonFieldsData_friendsConnection_edges)
+            const FullType.nullable(
+                GcomparisonFieldsData_friendsConnection_edges)
           ]),
-          () =>
-              new ListBuilder<GcomparisonFieldsData_friendsConnection_edges>()))
+          () => new ListBuilder<
+              GcomparisonFieldsData_friendsConnection_edges?>()))
     .build();
 
 // ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

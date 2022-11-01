@@ -207,11 +207,11 @@ void main() {
             operationRequest: req1,
             data: dataForRequest(req1).rebuild(
               (b) => b
-                ..reviews.first = b.reviews.first.rebuild((b) => b..stars = 1),
+                ..reviews.first = b.reviews.first!.rebuild((b) => b..stars = 1),
             ),
           ),
         );
-        expect((await queue.next).data!.reviews!.first.stars, equals(1));
+        expect((await queue.next).data!.reviews!.first!.stars, equals(1));
 
         await responseController.close();
         requestController.close();

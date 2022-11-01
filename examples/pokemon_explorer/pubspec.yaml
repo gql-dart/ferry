@@ -15,6 +15,8 @@ dependencies:
   path_provider: ^2.0.0
   flutter:
     sdk: flutter
+  built_collection: ^5.0.0
+  collection: ^1.15.0
 dev_dependencies:
   flutter_lints: 2.0.1
   build_runner: ^2.0.2
