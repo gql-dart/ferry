@@ -27,22 +27,28 @@ abstract class GHumanWithArgsReq
       _$GHumanWithArgsReq;
 
   static void _initializeBuilder(GHumanWithArgsReqBuilder b) => b
-    ..operation =
-        _i4.Operation(document: _i5.document, operationName: 'HumanWithArgs')
+    ..operation = _i4.Operation(
+      document: _i5.document,
+      operationName: 'HumanWithArgs',
+    )
     ..executeOnListen = true;
   @override
   _i3.GHumanWithArgsVars get vars;
   @override
   _i4.Operation get operation;
   @override
-  _i4.Request get execRequest =>
-      _i4.Request(operation: operation, variables: vars.toJson());
+  _i4.Request get execRequest => _i4.Request(
+        operation: operation,
+        variables: vars.toJson(),
+      );
   @override
   String? get requestId;
   @override
   @BuiltValueField(serialize: false)
   _i2.GHumanWithArgsData? Function(
-      _i2.GHumanWithArgsData?, _i2.GHumanWithArgsData?)? get updateResult;
+    _i2.GHumanWithArgsData?,
+    _i2.GHumanWithArgsData?,
+  )? get updateResult;
   @override
   _i2.GHumanWithArgsData? get optimisticResponse;
   @override
@@ -58,9 +64,13 @@ abstract class GHumanWithArgsReq
       _i2.GHumanWithArgsData.fromJson(json);
   static Serializer<GHumanWithArgsReq> get serializer =>
       _$gHumanWithArgsReqSerializer;
-  Map<String, dynamic> toJson() =>
-      (_i6.serializers.serializeWith(GHumanWithArgsReq.serializer, this)
-          as Map<String, dynamic>);
+  Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
+        GHumanWithArgsReq.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GHumanWithArgsReq? fromJson(Map<String, dynamic> json) =>
-      _i6.serializers.deserializeWith(GHumanWithArgsReq.serializer, json);
+      _i6.serializers.deserializeWith(
+        GHumanWithArgsReq.serializer,
+        json,
+      );
 }

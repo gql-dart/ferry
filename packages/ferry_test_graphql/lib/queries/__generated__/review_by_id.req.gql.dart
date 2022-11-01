@@ -27,22 +27,28 @@ abstract class GReviewsByIDReq
       _$GReviewsByIDReq;
 
   static void _initializeBuilder(GReviewsByIDReqBuilder b) => b
-    ..operation =
-        _i4.Operation(document: _i5.document, operationName: 'ReviewsByID')
+    ..operation = _i4.Operation(
+      document: _i5.document,
+      operationName: 'ReviewsByID',
+    )
     ..executeOnListen = true;
   @override
   _i3.GReviewsByIDVars get vars;
   @override
   _i4.Operation get operation;
   @override
-  _i4.Request get execRequest =>
-      _i4.Request(operation: operation, variables: vars.toJson());
+  _i4.Request get execRequest => _i4.Request(
+        operation: operation,
+        variables: vars.toJson(),
+      );
   @override
   String? get requestId;
   @override
   @BuiltValueField(serialize: false)
-  _i2.GReviewsByIDData? Function(_i2.GReviewsByIDData?, _i2.GReviewsByIDData?)?
-      get updateResult;
+  _i2.GReviewsByIDData? Function(
+    _i2.GReviewsByIDData?,
+    _i2.GReviewsByIDData?,
+  )? get updateResult;
   @override
   _i2.GReviewsByIDData? get optimisticResponse;
   @override
@@ -58,9 +64,13 @@ abstract class GReviewsByIDReq
       _i2.GReviewsByIDData.fromJson(json);
   static Serializer<GReviewsByIDReq> get serializer =>
       _$gReviewsByIDReqSerializer;
-  Map<String, dynamic> toJson() =>
-      (_i6.serializers.serializeWith(GReviewsByIDReq.serializer, this)
-          as Map<String, dynamic>);
+  Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
+        GReviewsByIDReq.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GReviewsByIDReq? fromJson(Map<String, dynamic> json) =>
-      _i6.serializers.deserializeWith(GReviewsByIDReq.serializer, json);
+      _i6.serializers.deserializeWith(
+        GReviewsByIDReq.serializer,
+        json,
+      );
 }

@@ -23,11 +23,15 @@ abstract class GHeroNoVarsData
   GHeroNoVarsData_hero? get hero;
   static Serializer<GHeroNoVarsData> get serializer =>
       _$gHeroNoVarsDataSerializer;
-  Map<String, dynamic> toJson() =>
-      (_i1.serializers.serializeWith(GHeroNoVarsData.serializer, this)
-          as Map<String, dynamic>);
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GHeroNoVarsData.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GHeroNoVarsData? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(GHeroNoVarsData.serializer, json);
+      _i1.serializers.deserializeWith(
+        GHeroNoVarsData.serializer,
+        json,
+      );
 }
 
 abstract class GHeroNoVarsData_hero
@@ -46,9 +50,13 @@ abstract class GHeroNoVarsData_hero
   String get name;
   static Serializer<GHeroNoVarsData_hero> get serializer =>
       _$gHeroNoVarsDataHeroSerializer;
-  Map<String, dynamic> toJson() =>
-      (_i1.serializers.serializeWith(GHeroNoVarsData_hero.serializer, this)
-          as Map<String, dynamic>);
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GHeroNoVarsData_hero.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GHeroNoVarsData_hero? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(GHeroNoVarsData_hero.serializer, json);
+      _i1.serializers.deserializeWith(
+        GHeroNoVarsData_hero.serializer,
+        json,
+      );
 }

@@ -27,22 +27,28 @@ abstract class GHeroNoVarsReq
       _$GHeroNoVarsReq;
 
   static void _initializeBuilder(GHeroNoVarsReqBuilder b) => b
-    ..operation =
-        _i4.Operation(document: _i5.document, operationName: 'HeroNoVars')
+    ..operation = _i4.Operation(
+      document: _i5.document,
+      operationName: 'HeroNoVars',
+    )
     ..executeOnListen = true;
   @override
   _i3.GHeroNoVarsVars get vars;
   @override
   _i4.Operation get operation;
   @override
-  _i4.Request get execRequest =>
-      _i4.Request(operation: operation, variables: vars.toJson());
+  _i4.Request get execRequest => _i4.Request(
+        operation: operation,
+        variables: vars.toJson(),
+      );
   @override
   String? get requestId;
   @override
   @BuiltValueField(serialize: false)
-  _i2.GHeroNoVarsData? Function(_i2.GHeroNoVarsData?, _i2.GHeroNoVarsData?)?
-      get updateResult;
+  _i2.GHeroNoVarsData? Function(
+    _i2.GHeroNoVarsData?,
+    _i2.GHeroNoVarsData?,
+  )? get updateResult;
   @override
   _i2.GHeroNoVarsData? get optimisticResponse;
   @override
@@ -58,9 +64,13 @@ abstract class GHeroNoVarsReq
       _i2.GHeroNoVarsData.fromJson(json);
   static Serializer<GHeroNoVarsReq> get serializer =>
       _$gHeroNoVarsReqSerializer;
-  Map<String, dynamic> toJson() =>
-      (_i6.serializers.serializeWith(GHeroNoVarsReq.serializer, this)
-          as Map<String, dynamic>);
+  Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
+        GHeroNoVarsReq.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GHeroNoVarsReq? fromJson(Map<String, dynamic> json) =>
-      _i6.serializers.deserializeWith(GHeroNoVarsReq.serializer, json);
+      _i6.serializers.deserializeWith(
+        GHeroNoVarsReq.serializer,
+        json,
+      );
 }

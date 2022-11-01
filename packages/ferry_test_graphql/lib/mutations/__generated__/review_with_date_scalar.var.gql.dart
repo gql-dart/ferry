@@ -23,9 +23,13 @@ abstract class GReviewWithDateVars
   DateTime? get createdAt;
   static Serializer<GReviewWithDateVars> get serializer =>
       _$gReviewWithDateVarsSerializer;
-  Map<String, dynamic> toJson() =>
-      (_i2.serializers.serializeWith(GReviewWithDateVars.serializer, this)
-          as Map<String, dynamic>);
+  Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
+        GReviewWithDateVars.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GReviewWithDateVars? fromJson(Map<String, dynamic> json) =>
-      _i2.serializers.deserializeWith(GReviewWithDateVars.serializer, json);
+      _i2.serializers.deserializeWith(
+        GReviewWithDateVars.serializer,
+        json,
+      );
 }

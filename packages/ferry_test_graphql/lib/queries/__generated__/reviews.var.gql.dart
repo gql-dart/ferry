@@ -22,9 +22,13 @@ abstract class GReviewsVars
   int? get first;
   int? get offset;
   static Serializer<GReviewsVars> get serializer => _$gReviewsVarsSerializer;
-  Map<String, dynamic> toJson() =>
-      (_i2.serializers.serializeWith(GReviewsVars.serializer, this)
-          as Map<String, dynamic>);
+  Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
+        GReviewsVars.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GReviewsVars? fromJson(Map<String, dynamic> json) =>
-      _i2.serializers.deserializeWith(GReviewsVars.serializer, json);
+      _i2.serializers.deserializeWith(
+        GReviewsVars.serializer,
+        json,
+      );
 }

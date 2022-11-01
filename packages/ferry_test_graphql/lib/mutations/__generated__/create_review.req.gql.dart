@@ -27,22 +27,28 @@ abstract class GCreateReviewReq
       _$GCreateReviewReq;
 
   static void _initializeBuilder(GCreateReviewReqBuilder b) => b
-    ..operation =
-        _i4.Operation(document: _i5.document, operationName: 'CreateReview')
+    ..operation = _i4.Operation(
+      document: _i5.document,
+      operationName: 'CreateReview',
+    )
     ..executeOnListen = true;
   @override
   _i3.GCreateReviewVars get vars;
   @override
   _i4.Operation get operation;
   @override
-  _i4.Request get execRequest =>
-      _i4.Request(operation: operation, variables: vars.toJson());
+  _i4.Request get execRequest => _i4.Request(
+        operation: operation,
+        variables: vars.toJson(),
+      );
   @override
   String? get requestId;
   @override
   @BuiltValueField(serialize: false)
   _i2.GCreateReviewData? Function(
-      _i2.GCreateReviewData?, _i2.GCreateReviewData?)? get updateResult;
+    _i2.GCreateReviewData?,
+    _i2.GCreateReviewData?,
+  )? get updateResult;
   @override
   _i2.GCreateReviewData? get optimisticResponse;
   @override
@@ -58,9 +64,13 @@ abstract class GCreateReviewReq
       _i2.GCreateReviewData.fromJson(json);
   static Serializer<GCreateReviewReq> get serializer =>
       _$gCreateReviewReqSerializer;
-  Map<String, dynamic> toJson() =>
-      (_i6.serializers.serializeWith(GCreateReviewReq.serializer, this)
-          as Map<String, dynamic>);
+  Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
+        GCreateReviewReq.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GCreateReviewReq? fromJson(Map<String, dynamic> json) =>
-      _i6.serializers.deserializeWith(GCreateReviewReq.serializer, json);
+      _i6.serializers.deserializeWith(
+        GCreateReviewReq.serializer,
+        json,
+      );
 }

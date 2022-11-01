@@ -163,6 +163,6 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GcomparisonFieldsVars,
   GheroDataData,
   GheroDataReq,
-  GheroDataVars
+  GheroDataVars,
 ])
 final Serializers serializers = _serializersBuilder.build();

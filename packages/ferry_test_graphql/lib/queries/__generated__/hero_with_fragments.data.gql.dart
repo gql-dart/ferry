@@ -25,11 +25,15 @@ abstract class GHeroWithFragmentsData
   GHeroWithFragmentsData_hero? get hero;
   static Serializer<GHeroWithFragmentsData> get serializer =>
       _$gHeroWithFragmentsDataSerializer;
-  Map<String, dynamic> toJson() =>
-      (_i1.serializers.serializeWith(GHeroWithFragmentsData.serializer, this)
-          as Map<String, dynamic>);
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GHeroWithFragmentsData.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GHeroWithFragmentsData? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(GHeroWithFragmentsData.serializer, json);
+      _i1.serializers.deserializeWith(
+        GHeroWithFragmentsData.serializer,
+        json,
+      );
 }
 
 abstract class GHeroWithFragmentsData_hero
@@ -57,10 +61,14 @@ abstract class GHeroWithFragmentsData_hero
       _$gHeroWithFragmentsDataHeroSerializer;
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-      GHeroWithFragmentsData_hero.serializer, this) as Map<String, dynamic>);
+        GHeroWithFragmentsData_hero.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GHeroWithFragmentsData_hero? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers
-          .deserializeWith(GHeroWithFragmentsData_hero.serializer, json);
+      _i1.serializers.deserializeWith(
+        GHeroWithFragmentsData_hero.serializer,
+        json,
+      );
 }
 
 abstract class GHeroWithFragmentsData_hero_friendsConnection
@@ -88,12 +96,15 @@ abstract class GHeroWithFragmentsData_hero_friendsConnection
       get serializer => _$gHeroWithFragmentsDataHeroFriendsConnectionSerializer;
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-          GHeroWithFragmentsData_hero_friendsConnection.serializer, this)
-      as Map<String, dynamic>);
+        GHeroWithFragmentsData_hero_friendsConnection.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GHeroWithFragmentsData_hero_friendsConnection? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
-          GHeroWithFragmentsData_hero_friendsConnection.serializer, json);
+        GHeroWithFragmentsData_hero_friendsConnection.serializer,
+        json,
+      );
 }
 
 abstract class GHeroWithFragmentsData_hero_friendsConnection_edges
@@ -120,12 +131,15 @@ abstract class GHeroWithFragmentsData_hero_friendsConnection_edges
           _$gHeroWithFragmentsDataHeroFriendsConnectionEdgesSerializer;
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-          GHeroWithFragmentsData_hero_friendsConnection_edges.serializer, this)
-      as Map<String, dynamic>);
+        GHeroWithFragmentsData_hero_friendsConnection_edges.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GHeroWithFragmentsData_hero_friendsConnection_edges? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
-          GHeroWithFragmentsData_hero_friendsConnection_edges.serializer, json);
+        GHeroWithFragmentsData_hero_friendsConnection_edges.serializer,
+        json,
+      );
 }
 
 abstract class GHeroWithFragmentsData_hero_friendsConnection_edges_node
@@ -156,13 +170,15 @@ abstract class GHeroWithFragmentsData_hero_friendsConnection_edges_node
           _$gHeroWithFragmentsDataHeroFriendsConnectionEdgesNodeSerializer;
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-      GHeroWithFragmentsData_hero_friendsConnection_edges_node.serializer,
-      this) as Map<String, dynamic>);
+        GHeroWithFragmentsData_hero_friendsConnection_edges_node.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GHeroWithFragmentsData_hero_friendsConnection_edges_node? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
-          GHeroWithFragmentsData_hero_friendsConnection_edges_node.serializer,
-          json);
+        GHeroWithFragmentsData_hero_friendsConnection_edges_node.serializer,
+        json,
+      );
 }
 
 abstract class GheroData {
@@ -190,11 +206,15 @@ abstract class GheroDataData
   String get name;
   static Serializer<GheroDataData> get serializer => _$gheroDataDataSerializer;
   @override
-  Map<String, dynamic> toJson() =>
-      (_i1.serializers.serializeWith(GheroDataData.serializer, this)
-          as Map<String, dynamic>);
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GheroDataData.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GheroDataData? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(GheroDataData.serializer, json);
+      _i1.serializers.deserializeWith(
+        GheroDataData.serializer,
+        json,
+      );
 }
 
 abstract class GcomparisonFields implements GheroData {
@@ -259,11 +279,15 @@ abstract class GcomparisonFieldsData
   static Serializer<GcomparisonFieldsData> get serializer =>
       _$gcomparisonFieldsDataSerializer;
   @override
-  Map<String, dynamic> toJson() =>
-      (_i1.serializers.serializeWith(GcomparisonFieldsData.serializer, this)
-          as Map<String, dynamic>);
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GcomparisonFieldsData.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GcomparisonFieldsData? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(GcomparisonFieldsData.serializer, json);
+      _i1.serializers.deserializeWith(
+        GcomparisonFieldsData.serializer,
+        json,
+      );
 }
 
 abstract class GcomparisonFieldsData_friendsConnection
@@ -291,12 +315,15 @@ abstract class GcomparisonFieldsData_friendsConnection
       _$gcomparisonFieldsDataFriendsConnectionSerializer;
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-          GcomparisonFieldsData_friendsConnection.serializer, this)
-      as Map<String, dynamic>);
+        GcomparisonFieldsData_friendsConnection.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GcomparisonFieldsData_friendsConnection? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
-          GcomparisonFieldsData_friendsConnection.serializer, json);
+        GcomparisonFieldsData_friendsConnection.serializer,
+        json,
+      );
 }
 
 abstract class GcomparisonFieldsData_friendsConnection_edges
@@ -322,12 +349,15 @@ abstract class GcomparisonFieldsData_friendsConnection_edges
       get serializer => _$gcomparisonFieldsDataFriendsConnectionEdgesSerializer;
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-          GcomparisonFieldsData_friendsConnection_edges.serializer, this)
-      as Map<String, dynamic>);
+        GcomparisonFieldsData_friendsConnection_edges.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GcomparisonFieldsData_friendsConnection_edges? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
-          GcomparisonFieldsData_friendsConnection_edges.serializer, json);
+        GcomparisonFieldsData_friendsConnection_edges.serializer,
+        json,
+      );
 }
 
 abstract class GcomparisonFieldsData_friendsConnection_edges_node
@@ -357,10 +387,13 @@ abstract class GcomparisonFieldsData_friendsConnection_edges_node
           _$gcomparisonFieldsDataFriendsConnectionEdgesNodeSerializer;
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-          GcomparisonFieldsData_friendsConnection_edges_node.serializer, this)
-      as Map<String, dynamic>);
+        GcomparisonFieldsData_friendsConnection_edges_node.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GcomparisonFieldsData_friendsConnection_edges_node? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
-          GcomparisonFieldsData_friendsConnection_edges_node.serializer, json);
+        GcomparisonFieldsData_friendsConnection_edges_node.serializer,
+        json,
+      );
 }

@@ -37,9 +37,13 @@ abstract class GReviewFragmentData
   static Serializer<GReviewFragmentData> get serializer =>
       _$gReviewFragmentDataSerializer;
   @override
-  Map<String, dynamic> toJson() =>
-      (_i1.serializers.serializeWith(GReviewFragmentData.serializer, this)
-          as Map<String, dynamic>);
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GReviewFragmentData.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GReviewFragmentData? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(GReviewFragmentData.serializer, json);
+      _i1.serializers.deserializeWith(
+        GReviewFragmentData.serializer,
+        json,
+      );
 }

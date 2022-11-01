@@ -42,9 +42,13 @@ abstract class GReviewFragmentReq
       _i2.GReviewFragmentData.fromJson(json);
   static Serializer<GReviewFragmentReq> get serializer =>
       _$gReviewFragmentReqSerializer;
-  Map<String, dynamic> toJson() =>
-      (_i6.serializers.serializeWith(GReviewFragmentReq.serializer, this)
-          as Map<String, dynamic>);
+  Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
+        GReviewFragmentReq.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GReviewFragmentReq? fromJson(Map<String, dynamic> json) =>
-      _i6.serializers.deserializeWith(GReviewFragmentReq.serializer, json);
+      _i6.serializers.deserializeWith(
+        GReviewFragmentReq.serializer,
+        json,
+      );
 }
