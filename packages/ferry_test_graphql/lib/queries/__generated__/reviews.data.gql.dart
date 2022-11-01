@@ -23,7 +23,7 @@ abstract class GReviewsData
       b..G__typename = 'Query';
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
-  BuiltList<GReviewsData_reviews>? get reviews;
+  BuiltList<GReviewsData_reviews?>? get reviews;
   static Serializer<GReviewsData> get serializer => _$gReviewsDataSerializer;
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GReviewsData.serializer,

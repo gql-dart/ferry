@@ -8,13 +8,15 @@ dependencies:
   gql_http_link: ^0.4.0
   ferry: ^0.11.0
   ferry_hive_store: ^0.4.5
-  ferry_flutter: ^0.6.3-dev.0
+  ferry_flutter: ^0.7.0
   hive: ^2.0.0
   hive_flutter: ^1.1.0
   get_it: ^7.1.3
   path_provider: ^2.0.0
   flutter:
     sdk: flutter
+  built_collection: ^5.0.0
+  collection: ^1.15.0
 dev_dependencies:
   flutter_lints: 2.0.1
   build_runner: ^2.0.2

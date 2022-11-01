@@ -103,8 +103,8 @@ class _$GAliasedHeroData_empireHeroSerializer
       serializers.serialize(object.name, specifiedType: const FullType(String)),
       'from',
       serializers.serialize(object.from,
-          specifiedType:
-              const FullType(BuiltList, const [const FullType(_i2.GEpisode)])),
+          specifiedType: const FullType(
+              BuiltList, const [const FullType.nullable(_i2.GEpisode)])),
     ];
 
     return result;
@@ -136,9 +136,9 @@ class _$GAliasedHeroData_empireHeroSerializer
           break;
         case 'from':
           result.from.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltList, const [const FullType(_i2.GEpisode)]))!
-              as BuiltList<Object?>);
+              specifiedType: const FullType(BuiltList, const [
+                const FullType.nullable(_i2.GEpisode)
+              ]))! as BuiltList<Object?>);
           break;
       }
     }
@@ -171,8 +171,8 @@ class _$GAliasedHeroData_jediHeroSerializer
       serializers.serialize(object.name, specifiedType: const FullType(String)),
       'from',
       serializers.serialize(object.from,
-          specifiedType:
-              const FullType(BuiltList, const [const FullType(_i2.GEpisode)])),
+          specifiedType: const FullType(
+              BuiltList, const [const FullType.nullable(_i2.GEpisode)])),
     ];
 
     return result;
@@ -204,9 +204,9 @@ class _$GAliasedHeroData_jediHeroSerializer
           break;
         case 'from':
           result.from.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltList, const [const FullType(_i2.GEpisode)]))!
-              as BuiltList<Object?>);
+              specifiedType: const FullType(BuiltList, const [
+                const FullType.nullable(_i2.GEpisode)
+              ]))! as BuiltList<Object?>);
           break;
       }
     }
@@ -351,7 +351,7 @@ class _$GAliasedHeroData_empireHero extends GAliasedHeroData_empireHero {
   @override
   final String name;
   @override
-  final BuiltList<_i2.GEpisode> from;
+  final BuiltList<_i2.GEpisode?> from;
 
   factory _$GAliasedHeroData_empireHero(
           [void Function(GAliasedHeroData_empireHeroBuilder)? updates]) =>
@@ -428,10 +428,10 @@ class GAliasedHeroData_empireHeroBuilder
   String? get name => _$this._name;
   set name(String? name) => _$this._name = name;
 
-  ListBuilder<_i2.GEpisode>? _from;
-  ListBuilder<_i2.GEpisode> get from =>
-      _$this._from ??= new ListBuilder<_i2.GEpisode>();
-  set from(ListBuilder<_i2.GEpisode>? from) => _$this._from = from;
+  ListBuilder<_i2.GEpisode?>? _from;
+  ListBuilder<_i2.GEpisode?> get from =>
+      _$this._from ??= new ListBuilder<_i2.GEpisode?>();
+  set from(ListBuilder<_i2.GEpisode?>? from) => _$this._from = from;
 
   GAliasedHeroData_empireHeroBuilder() {
     GAliasedHeroData_empireHero._initializeBuilder(this);
@@ -499,7 +499,7 @@ class _$GAliasedHeroData_jediHero extends GAliasedHeroData_jediHero {
   @override
   final String name;
   @override
-  final BuiltList<_i2.GEpisode> from;
+  final BuiltList<_i2.GEpisode?> from;
 
   factory _$GAliasedHeroData_jediHero(
           [void Function(GAliasedHeroData_jediHeroBuilder)? updates]) =>
@@ -575,10 +575,10 @@ class GAliasedHeroData_jediHeroBuilder
   String? get name => _$this._name;
   set name(String? name) => _$this._name = name;
 
-  ListBuilder<_i2.GEpisode>? _from;
-  ListBuilder<_i2.GEpisode> get from =>
-      _$this._from ??= new ListBuilder<_i2.GEpisode>();
-  set from(ListBuilder<_i2.GEpisode>? from) => _$this._from = from;
+  ListBuilder<_i2.GEpisode?>? _from;
+  ListBuilder<_i2.GEpisode?> get from =>
+      _$this._from ??= new ListBuilder<_i2.GEpisode?>();
+  set from(ListBuilder<_i2.GEpisode?>? from) => _$this._from = from;
 
   GAliasedHeroData_jediHeroBuilder() {
     GAliasedHeroData_jediHero._initializeBuilder(this);

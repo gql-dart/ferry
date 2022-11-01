@@ -99,8 +99,9 @@ class _$GAllPokemonData_pokemonsSerializer
       result
         ..add('results')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(BuiltList,
-                const [const FullType(GAllPokemonData_pokemons_results)])));
+            specifiedType: const FullType(BuiltList, const [
+              const FullType.nullable(GAllPokemonData_pokemons_results)
+            ])));
     }
     return result;
   }
@@ -124,7 +125,7 @@ class _$GAllPokemonData_pokemonsSerializer
         case 'results':
           result.results.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltList, const [
-                const FullType(GAllPokemonData_pokemons_results)
+                const FullType.nullable(GAllPokemonData_pokemons_results)
               ]))! as BuiltList<Object?>);
           break;
       }
@@ -455,7 +456,7 @@ class _$GAllPokemonData_pokemons extends GAllPokemonData_pokemons {
   @override
   final String G__typename;
   @override
-  final BuiltList<GAllPokemonData_pokemons_results>? results;
+  final BuiltList<GAllPokemonData_pokemons_results?>? results;
 
   factory _$GAllPokemonData_pokemons(
           [void Function(GAllPokemonData_pokemonsBuilder)? updates]) =>
@@ -507,10 +508,10 @@ class GAllPokemonData_pokemonsBuilder
   String? get G__typename => _$this._G__typename;
   set G__typename(String? G__typename) => _$this._G__typename = G__typename;
 
-  ListBuilder<GAllPokemonData_pokemons_results>? _results;
-  ListBuilder<GAllPokemonData_pokemons_results> get results =>
-      _$this._results ??= new ListBuilder<GAllPokemonData_pokemons_results>();
-  set results(ListBuilder<GAllPokemonData_pokemons_results>? results) =>
+  ListBuilder<GAllPokemonData_pokemons_results?>? _results;
+  ListBuilder<GAllPokemonData_pokemons_results?> get results =>
+      _$this._results ??= new ListBuilder<GAllPokemonData_pokemons_results?>();
+  set results(ListBuilder<GAllPokemonData_pokemons_results?>? results) =>
       _$this._results = results;
 
   GAllPokemonData_pokemonsBuilder() {

@@ -4,12 +4,6 @@
 
  - **BREAKING** **FEAT**: respect skip/include directives when checking for partial data (#433).
 
-## 0.8.0-dev.0
-
-> Note: This release has breaking changes.
-
- - **BREAKING FEAT**: respect skip/include directives when checking for partial data (#433).
-
 ## 0.7.2
 
  - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.
