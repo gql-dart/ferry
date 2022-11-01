@@ -1,3 +1,9 @@
+## 0.5.0-dev.0
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **FIX**: properly generate nullable types for nullable elements in Lists (#445).
+
 ## 0.4.5
 
  - **FEAT**: add Reviews subscription to test graphql.

@@ -1,3 +1,9 @@
+## 0.2.0-dev.0
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **FIX**: properly generate nullable types for nullable elements in Lists (#445).
+
 ## 0.1.5
 
  - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.

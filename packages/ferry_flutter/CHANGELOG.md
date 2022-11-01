@@ -1,3 +1,9 @@
+## 0.8.0-dev.0
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **FIX**: properly generate nullable types for nullable elements in Lists (#445).
+
 ## 0.7.0
 
  - Bump "ferry_flutter" to `0.7.0`.

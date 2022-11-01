@@ -1,3 +1,9 @@
+## 0.3.0-dev.0
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **FIX**: properly generate nullable types for nullable elements in Lists (#445).
+
 ## 0.2.0
 
  - Bump "ferry_exec" to `0.2.0`.
