@@ -1,3 +1,7 @@
+## 0.7.0
+
+ - Bump "ferry_flutter" to `0.7.0`.
+
 ## 0.6.3-dev.0
 
  - Bump "ferry_flutter" to `0.6.3-dev.0`.
