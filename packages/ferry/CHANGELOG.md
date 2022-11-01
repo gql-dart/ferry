@@ -1,3 +1,9 @@
+## 0.12.0
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **FIX**: properly generate nullable types for nullable elements in Lists.
+
 ## 0.11.3-dev.0+1
 
 - Update a dependency to the latest release.
