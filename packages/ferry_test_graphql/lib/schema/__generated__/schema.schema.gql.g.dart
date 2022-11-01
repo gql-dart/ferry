@@ -123,8 +123,8 @@ class _$GReviewInputSerializer implements StructuredSerializer<GReviewInput> {
       result
         ..add('seenOn')
         ..add(serializers.serialize(value,
-            specifiedType:
-                const FullType(BuiltList, const [const FullType(DateTime)])));
+            specifiedType: const FullType(
+                BuiltList, const [const FullType.nullable(DateTime)])));
     }
     return result;
   }
@@ -156,7 +156,7 @@ class _$GReviewInputSerializer implements StructuredSerializer<GReviewInput> {
         case 'seenOn':
           result.seenOn.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
-                      BuiltList, const [const FullType(DateTime)]))!
+                      BuiltList, const [const FullType.nullable(DateTime)]))!
               as BuiltList<Object?>);
           break;
       }
@@ -225,7 +225,7 @@ class _$GReviewInput extends GReviewInput {
   @override
   final GColorInput? favorite_color;
   @override
-  final BuiltList<DateTime>? seenOn;
+  final BuiltList<DateTime?>? seenOn;
 
   factory _$GReviewInput([void Function(GReviewInputBuilder)? updates]) =>
       (new GReviewInputBuilder()..update(updates))._build();
@@ -290,10 +290,10 @@ class GReviewInputBuilder
   set favorite_color(GColorInputBuilder? favorite_color) =>
       _$this._favorite_color = favorite_color;
 
-  ListBuilder<DateTime>? _seenOn;
-  ListBuilder<DateTime> get seenOn =>
-      _$this._seenOn ??= new ListBuilder<DateTime>();
-  set seenOn(ListBuilder<DateTime>? seenOn) => _$this._seenOn = seenOn;
+  ListBuilder<DateTime?>? _seenOn;
+  ListBuilder<DateTime?> get seenOn =>
+      _$this._seenOn ??= new ListBuilder<DateTime?>();
+  set seenOn(ListBuilder<DateTime?>? seenOn) => _$this._seenOn = seenOn;
 
   GReviewInputBuilder();
 

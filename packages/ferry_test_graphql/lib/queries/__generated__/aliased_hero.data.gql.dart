@@ -53,7 +53,7 @@ abstract class GAliasedHeroData_empireHero
   String get G__typename;
   String get id;
   String get name;
-  BuiltList<_i2.GEpisode> get from;
+  BuiltList<_i2.GEpisode?> get from;
   static Serializer<GAliasedHeroData_empireHero> get serializer =>
       _$gAliasedHeroDataEmpireHeroSerializer;
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
@@ -82,7 +82,7 @@ abstract class GAliasedHeroData_jediHero
   String get G__typename;
   String get id;
   String get name;
-  BuiltList<_i2.GEpisode> get from;
+  BuiltList<_i2.GEpisode?> get from;
   static Serializer<GAliasedHeroData_jediHero> get serializer =>
       _$gAliasedHeroDataJediHeroSerializer;
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(

@@ -158,7 +158,7 @@ void main() {
         expect(res1.dataSource, equals(DataSource.Optimistic));
         expect(cache.readQuery(reviewsReq)!.reviews!.length, equals(1));
         expect(
-          cache.readQuery(reviewsReq)!.reviews!.first.id,
+          cache.readQuery(reviewsReq)!.reviews!.first!.id,
           equals('456'),
         );
 
@@ -169,7 +169,7 @@ void main() {
         expect(res2.dataSource, equals(DataSource.Link));
         expect(cache.readQuery(reviewsReq)!.reviews!.length, equals(1));
         expect(
-          cache.readQuery(reviewsReq)!.reviews!.first.id,
+          cache.readQuery(reviewsReq)!.reviews!.first!.id,
           equals('123'),
         );
       });
