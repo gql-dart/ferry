@@ -25,11 +25,15 @@ abstract class GReviewsData
   String get G__typename;
   BuiltList<GReviewsData_reviews>? get reviews;
   static Serializer<GReviewsData> get serializer => _$gReviewsDataSerializer;
-  Map<String, dynamic> toJson() =>
-      (_i1.serializers.serializeWith(GReviewsData.serializer, this)
-          as Map<String, dynamic>);
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GReviewsData.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GReviewsData? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(GReviewsData.serializer, json);
+      _i1.serializers.deserializeWith(
+        GReviewsData.serializer,
+        json,
+      );
 }
 
 abstract class GReviewsData_reviews
@@ -52,9 +56,13 @@ abstract class GReviewsData_reviews
   BuiltList<DateTime> get seenOn;
   static Serializer<GReviewsData_reviews> get serializer =>
       _$gReviewsDataReviewsSerializer;
-  Map<String, dynamic> toJson() =>
-      (_i1.serializers.serializeWith(GReviewsData_reviews.serializer, this)
-          as Map<String, dynamic>);
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GReviewsData_reviews.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GReviewsData_reviews? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(GReviewsData_reviews.serializer, json);
+      _i1.serializers.deserializeWith(
+        GReviewsData_reviews.serializer,
+        json,
+      );
 }

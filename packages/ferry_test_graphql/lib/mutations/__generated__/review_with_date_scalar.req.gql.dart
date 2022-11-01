@@ -27,22 +27,28 @@ abstract class GReviewWithDateReq
       _$GReviewWithDateReq;
 
   static void _initializeBuilder(GReviewWithDateReqBuilder b) => b
-    ..operation =
-        _i4.Operation(document: _i5.document, operationName: 'ReviewWithDate')
+    ..operation = _i4.Operation(
+      document: _i5.document,
+      operationName: 'ReviewWithDate',
+    )
     ..executeOnListen = true;
   @override
   _i3.GReviewWithDateVars get vars;
   @override
   _i4.Operation get operation;
   @override
-  _i4.Request get execRequest =>
-      _i4.Request(operation: operation, variables: vars.toJson());
+  _i4.Request get execRequest => _i4.Request(
+        operation: operation,
+        variables: vars.toJson(),
+      );
   @override
   String? get requestId;
   @override
   @BuiltValueField(serialize: false)
   _i2.GReviewWithDateData? Function(
-      _i2.GReviewWithDateData?, _i2.GReviewWithDateData?)? get updateResult;
+    _i2.GReviewWithDateData?,
+    _i2.GReviewWithDateData?,
+  )? get updateResult;
   @override
   _i2.GReviewWithDateData? get optimisticResponse;
   @override
@@ -58,9 +64,13 @@ abstract class GReviewWithDateReq
       _i2.GReviewWithDateData.fromJson(json);
   static Serializer<GReviewWithDateReq> get serializer =>
       _$gReviewWithDateReqSerializer;
-  Map<String, dynamic> toJson() =>
-      (_i6.serializers.serializeWith(GReviewWithDateReq.serializer, this)
-          as Map<String, dynamic>);
+  Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
+        GReviewWithDateReq.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GReviewWithDateReq? fromJson(Map<String, dynamic> json) =>
-      _i6.serializers.deserializeWith(GReviewWithDateReq.serializer, json);
+      _i6.serializers.deserializeWith(
+        GReviewWithDateReq.serializer,
+        json,
+      );
 }

@@ -22,11 +22,15 @@ abstract class GHeroWithFragmentsVars
   _i1.GEpisode? get episode;
   static Serializer<GHeroWithFragmentsVars> get serializer =>
       _$gHeroWithFragmentsVarsSerializer;
-  Map<String, dynamic> toJson() =>
-      (_i2.serializers.serializeWith(GHeroWithFragmentsVars.serializer, this)
-          as Map<String, dynamic>);
+  Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
+        GHeroWithFragmentsVars.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GHeroWithFragmentsVars? fromJson(Map<String, dynamic> json) =>
-      _i2.serializers.deserializeWith(GHeroWithFragmentsVars.serializer, json);
+      _i2.serializers.deserializeWith(
+        GHeroWithFragmentsVars.serializer,
+        json,
+      );
 }
 
 abstract class GheroDataVars
@@ -37,11 +41,15 @@ abstract class GheroDataVars
       _$GheroDataVars;
 
   static Serializer<GheroDataVars> get serializer => _$gheroDataVarsSerializer;
-  Map<String, dynamic> toJson() =>
-      (_i2.serializers.serializeWith(GheroDataVars.serializer, this)
-          as Map<String, dynamic>);
+  Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
+        GheroDataVars.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GheroDataVars? fromJson(Map<String, dynamic> json) =>
-      _i2.serializers.deserializeWith(GheroDataVars.serializer, json);
+      _i2.serializers.deserializeWith(
+        GheroDataVars.serializer,
+        json,
+      );
 }
 
 abstract class GcomparisonFieldsVars
@@ -55,9 +63,13 @@ abstract class GcomparisonFieldsVars
   int? get first;
   static Serializer<GcomparisonFieldsVars> get serializer =>
       _$gcomparisonFieldsVarsSerializer;
-  Map<String, dynamic> toJson() =>
-      (_i2.serializers.serializeWith(GcomparisonFieldsVars.serializer, this)
-          as Map<String, dynamic>);
+  Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
+        GcomparisonFieldsVars.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GcomparisonFieldsVars? fromJson(Map<String, dynamic> json) =>
-      _i2.serializers.deserializeWith(GcomparisonFieldsVars.serializer, json);
+      _i2.serializers.deserializeWith(
+        GcomparisonFieldsVars.serializer,
+        json,
+      );
 }

@@ -50,11 +50,15 @@ abstract class GReviewInput
   GColorInput? get favorite_color;
   BuiltList<DateTime>? get seenOn;
   static Serializer<GReviewInput> get serializer => _$gReviewInputSerializer;
-  Map<String, dynamic> toJson() =>
-      (_i1.serializers.serializeWith(GReviewInput.serializer, this)
-          as Map<String, dynamic>);
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GReviewInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GReviewInput? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(GReviewInput.serializer, json);
+      _i1.serializers.deserializeWith(
+        GReviewInput.serializer,
+        json,
+      );
 }
 
 abstract class GColorInput implements Built<GColorInput, GColorInputBuilder> {
@@ -66,11 +70,15 @@ abstract class GColorInput implements Built<GColorInput, GColorInputBuilder> {
   int get green;
   int get blue;
   static Serializer<GColorInput> get serializer => _$gColorInputSerializer;
-  Map<String, dynamic> toJson() =>
-      (_i1.serializers.serializeWith(GColorInput.serializer, this)
-          as Map<String, dynamic>);
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GColorInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GColorInput? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(GColorInput.serializer, json);
+      _i1.serializers.deserializeWith(
+        GColorInput.serializer,
+        json,
+      );
 }
 
 abstract class GISODate implements Built<GISODate, GISODateBuilder> {
@@ -86,7 +94,14 @@ abstract class GISODate implements Built<GISODate, GISODateBuilder> {
           (Object serialized) => GISODate((serialized as String?)));
 }
 
-const possibleTypesMap = {
-  'Character': {'Human', 'Droid'},
-  'SearchResult': {'Human', 'Droid', 'Starship'}
+const Map<String, Set<String>> possibleTypesMap = {
+  'Character': {
+    'Human',
+    'Droid',
+  },
+  'SearchResult': {
+    'Human',
+    'Droid',
+    'Starship',
+  },
 };

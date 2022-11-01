@@ -25,11 +25,15 @@ abstract class GCreateReviewData
   GCreateReviewData_createReview? get createReview;
   static Serializer<GCreateReviewData> get serializer =>
       _$gCreateReviewDataSerializer;
-  Map<String, dynamic> toJson() =>
-      (_i1.serializers.serializeWith(GCreateReviewData.serializer, this)
-          as Map<String, dynamic>);
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GCreateReviewData.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GCreateReviewData? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(GCreateReviewData.serializer, json);
+      _i1.serializers.deserializeWith(
+        GCreateReviewData.serializer,
+        json,
+      );
 }
 
 abstract class GCreateReviewData_createReview
@@ -53,8 +57,12 @@ abstract class GCreateReviewData_createReview
   static Serializer<GCreateReviewData_createReview> get serializer =>
       _$gCreateReviewDataCreateReviewSerializer;
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-      GCreateReviewData_createReview.serializer, this) as Map<String, dynamic>);
+        GCreateReviewData_createReview.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GCreateReviewData_createReview? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers
-          .deserializeWith(GCreateReviewData_createReview.serializer, json);
+      _i1.serializers.deserializeWith(
+        GCreateReviewData_createReview.serializer,
+        json,
+      );
 }

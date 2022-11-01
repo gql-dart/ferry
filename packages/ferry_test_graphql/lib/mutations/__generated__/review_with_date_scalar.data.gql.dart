@@ -26,11 +26,15 @@ abstract class GReviewWithDateData
   GReviewWithDateData_createReview? get createReview;
   static Serializer<GReviewWithDateData> get serializer =>
       _$gReviewWithDateDataSerializer;
-  Map<String, dynamic> toJson() =>
-      (_i1.serializers.serializeWith(GReviewWithDateData.serializer, this)
-          as Map<String, dynamic>);
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GReviewWithDateData.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GReviewWithDateData? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(GReviewWithDateData.serializer, json);
+      _i1.serializers.deserializeWith(
+        GReviewWithDateData.serializer,
+        json,
+      );
 }
 
 abstract class GReviewWithDateData_createReview
@@ -54,11 +58,14 @@ abstract class GReviewWithDateData_createReview
   BuiltList<DateTime> get seenOn;
   static Serializer<GReviewWithDateData_createReview> get serializer =>
       _$gReviewWithDateDataCreateReviewSerializer;
-  Map<String, dynamic> toJson() => (_i1.serializers
-          .serializeWith(GReviewWithDateData_createReview.serializer, this)
-      as Map<String, dynamic>);
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GReviewWithDateData_createReview.serializer,
+        this,
+      ) as Map<String, dynamic>);
   static GReviewWithDateData_createReview? fromJson(
           Map<String, dynamic> json) =>
-      _i1.serializers
-          .deserializeWith(GReviewWithDateData_createReview.serializer, json);
+      _i1.serializers.deserializeWith(
+        GReviewWithDateData_createReview.serializer,
+        json,
+      );
 }

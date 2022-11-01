@@ -9,12 +9,12 @@ dependencies:
   gql: ^0.14.0
   gql_code_builder: ^0.6.0
   built_collection: ^5.0.0
-  code_builder: ^4.0.0
+  code_builder: ^4.3.0
   build: ^2.0.0
   path: ^1.8.0
   ferry_exec: ^0.2.0
   yaml: ^3.1.0
-  dart_style: ^2.0.3
+  dart_style: ^2.2.4
   glob: ^2.0.1
   built_value_generator: ^8.1.1
   built_value: ^8.1.2
