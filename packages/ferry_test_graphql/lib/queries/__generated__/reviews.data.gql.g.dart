@@ -31,8 +31,8 @@ class _$GReviewsDataSerializer implements StructuredSerializer<GReviewsData> {
       result
         ..add('reviews')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(
-                BuiltList, const [const FullType(GReviewsData_reviews)])));
+            specifiedType: const FullType(BuiltList,
+                const [const FullType.nullable(GReviewsData_reviews)])));
     }
     return result;
   }
@@ -55,9 +55,9 @@ class _$GReviewsDataSerializer implements StructuredSerializer<GReviewsData> {
           break;
         case 'reviews':
           result.reviews.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltList, const [const FullType(GReviewsData_reviews)]))!
-              as BuiltList<Object?>);
+              specifiedType: const FullType(BuiltList, const [
+                const FullType.nullable(GReviewsData_reviews)
+              ]))! as BuiltList<Object?>);
           break;
       }
     }
@@ -171,7 +171,7 @@ class _$GReviewsData extends GReviewsData {
   @override
   final String G__typename;
   @override
-  final BuiltList<GReviewsData_reviews>? reviews;
+  final BuiltList<GReviewsData_reviews?>? reviews;
 
   factory _$GReviewsData([void Function(GReviewsDataBuilder)? updates]) =>
       (new GReviewsDataBuilder()..update(updates))._build();
@@ -218,10 +218,10 @@ class GReviewsDataBuilder
   String? get G__typename => _$this._G__typename;
   set G__typename(String? G__typename) => _$this._G__typename = G__typename;
 
-  ListBuilder<GReviewsData_reviews>? _reviews;
-  ListBuilder<GReviewsData_reviews> get reviews =>
-      _$this._reviews ??= new ListBuilder<GReviewsData_reviews>();
-  set reviews(ListBuilder<GReviewsData_reviews>? reviews) =>
+  ListBuilder<GReviewsData_reviews?>? _reviews;
+  ListBuilder<GReviewsData_reviews?> get reviews =>
+      _$this._reviews ??= new ListBuilder<GReviewsData_reviews?>();
+  set reviews(ListBuilder<GReviewsData_reviews?>? reviews) =>
       _$this._reviews = reviews;
 
   GReviewsDataBuilder() {

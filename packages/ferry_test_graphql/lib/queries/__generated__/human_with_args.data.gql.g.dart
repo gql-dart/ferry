@@ -174,7 +174,8 @@ class _$GHumanWithArgsData_human_friendsConnectionSerializer
         ..add('friends')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(BuiltList, const [
-              const FullType(GHumanWithArgsData_human_friendsConnection_friends)
+              const FullType.nullable(
+                  GHumanWithArgsData_human_friendsConnection_friends)
             ])));
     }
     return result;
@@ -199,7 +200,7 @@ class _$GHumanWithArgsData_human_friendsConnectionSerializer
         case 'friends':
           result.friends.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltList, const [
-                const FullType(
+                const FullType.nullable(
                     GHumanWithArgsData_human_friendsConnection_friends)
               ]))! as BuiltList<Object?>);
           break;
@@ -553,7 +554,7 @@ class _$GHumanWithArgsData_human_friendsConnection
   @override
   final String G__typename;
   @override
-  final BuiltList<GHumanWithArgsData_human_friendsConnection_friends>? friends;
+  final BuiltList<GHumanWithArgsData_human_friendsConnection_friends?>? friends;
 
   factory _$GHumanWithArgsData_human_friendsConnection(
           [void Function(GHumanWithArgsData_human_friendsConnectionBuilder)?
@@ -611,12 +612,13 @@ class GHumanWithArgsData_human_friendsConnectionBuilder
   String? get G__typename => _$this._G__typename;
   set G__typename(String? G__typename) => _$this._G__typename = G__typename;
 
-  ListBuilder<GHumanWithArgsData_human_friendsConnection_friends>? _friends;
-  ListBuilder<GHumanWithArgsData_human_friendsConnection_friends> get friends =>
-      _$this._friends ??=
-          new ListBuilder<GHumanWithArgsData_human_friendsConnection_friends>();
+  ListBuilder<GHumanWithArgsData_human_friendsConnection_friends?>? _friends;
+  ListBuilder<
+      GHumanWithArgsData_human_friendsConnection_friends?> get friends => _$this
+          ._friends ??=
+      new ListBuilder<GHumanWithArgsData_human_friendsConnection_friends?>();
   set friends(
-          ListBuilder<GHumanWithArgsData_human_friendsConnection_friends>?
+          ListBuilder<GHumanWithArgsData_human_friendsConnection_friends?>?
               friends) =>
       _$this._friends = friends;
 

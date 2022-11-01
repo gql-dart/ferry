@@ -61,7 +61,7 @@ abstract class GPokemonDetailData_pokemon
   GPokemonDetailData_pokemon_height? get height;
   @override
   GPokemonDetailData_pokemon_weight? get weight;
-  BuiltList<GPokemonDetailData_pokemon_stats>? get stats;
+  BuiltList<GPokemonDetailData_pokemon_stats?>? get stats;
   static Serializer<GPokemonDetailData_pokemon> get serializer =>
       _$gPokemonDetailDataPokemonSerializer;
   @override
