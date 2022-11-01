@@ -1,3 +1,7 @@
+## 0.6.3-dev.0
+
+ - Bump "ferry_flutter" to `0.6.3-dev.0`.
+
 ## 0.6.2-dev.0+1
 
  - Update a dependency to the latest release.
