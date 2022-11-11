@@ -1,5 +1,9 @@
 ## 0.8.0-dev.2
 
+ - **FIX**: bump version.
+
+## 0.8.0-dev.2
+
 - bump dependencies
 
 ## 0.8.0-dev.1
