@@ -38,10 +38,16 @@ class IsolateClient extends TypedLink {
   /// Note that params must only contain types that can be sent over Isolates.
   /// This essentials means, only data that you could also serialize to JSON.
   /// Note: isolates are not supported on the web. On the web, please use the standard Client.
+  ///
+  /// The [onError], [onExit] and [errorsAreFatal] parameters are forwarded to the [Isolate.spawn] method.
   static Future<IsolateClient> create<InitParams>(
-      InitClient<InitParams> initClient,
-      {required InitParams params,
-      void Function(Object?)? messageHandler}) async {
+    InitClient<InitParams> initClient, {
+    required InitParams params,
+    void Function(Object?)? messageHandler,
+    SendPort? onError,
+    SendPort? onExit,
+    bool errorsAreFatal = false,
+  }) async {
     final client = IsolateClient._();
 
     client._globalReceivePort =
@@ -67,13 +73,17 @@ class IsolateClient extends TypedLink {
     }));
 
     unawaited(Isolate.spawn<_IsolateInit<InitParams>>(
-        _isolateClientEntryPoint,
-        _IsolateInit<InitParams>(
-          initClient,
-          client._globalReceivePort.sendPort,
-          client._messageHandlerReceivePort?.sendPort,
-          params,
-        )));
+      _isolateClientEntryPoint,
+      _IsolateInit<InitParams>(
+        initClient,
+        client._globalReceivePort.sendPort,
+        client._messageHandlerReceivePort?.sendPort,
+        params,
+      ),
+      errorsAreFatal: errorsAreFatal,
+      onError: onError,
+      onExit: onExit,
+    ));
 
     await completer.future;
 
@@ -94,43 +104,52 @@ class IsolateClient extends TypedLink {
 
     SendPort? cancelPort;
 
-    return receivePort.doOnCancel(() => cancelPort?.send(null)).transform(
-          StreamTransformer.fromHandlers(
-              handleData: (o, sink) {
-                switch ((o as RequestResponse).type) {
-                  case RequestResponseType.initial:
-                    assert(cancelPort == null);
-                    cancelPort = o.sendPort;
-                    break;
-                  case RequestResponseType.error:
-                    sink.addError(o.exception!, o.stackTrace);
-                    break;
-                  case RequestResponseType.data:
-                    final response = o.data!;
+    return receivePort.doOnCancel(
+      () async {
+        cancelPort?.send(null);
+        receivePort.close();
+      },
+    ).transform(
+      StreamTransformer.fromHandlers(
+        handleData: (o, sink) {
+          switch ((o as RequestResponse).type) {
+            case RequestResponseType.initial:
+              assert(cancelPort == null);
+              cancelPort = o.sendPort;
+              break;
+            case RequestResponseType.error:
+              sink.addError(o.exception!, o.stackTrace);
+              break;
+            case RequestResponseType.data:
+              final response = o.data!;
 
-                    /// TODO:
-                    /// consider adding the original response
-                    /// instead of creating a new OperationResponse
-                    /// cons: the identity of the request will change
-                    /// and == on the request will not work anymore
-                    /// (with stand gql: 0.14.0)
-                    sink.add(OperationResponse<TData, TVars>(
-                      operationRequest: request,
-                      linkException: response.linkException,
-                      graphqlErrors: response.graphqlErrors,
-                      dataSource: response.dataSource,
-                      extensions: response.extensions,
-                      data: response.data as TData?,
-                    ));
-                    break;
-                  case RequestResponseType.done:
-                    sink.close();
-                    break;
-                }
-              },
-              handleError: (err, stack, sink) => sink.addError(err, stack),
-              handleDone: (sink) => sink.close()),
-        );
+              /// TODO:
+              /// consider adding the original response
+              /// instead of creating a new OperationResponse
+              /// cons: the identity of the request will change
+              /// and == on the request will not work anymore
+              /// (with stand gql: 0.14.0)
+              sink.add(OperationResponse<TData, TVars>(
+                operationRequest: request,
+                linkException: response.linkException,
+                graphqlErrors: response.graphqlErrors,
+                dataSource: response.dataSource,
+                extensions: response.extensions,
+                data: response.data as TData?,
+              ));
+              break;
+            case RequestResponseType.done:
+              sink.close();
+              break;
+          }
+        },
+        handleError: (err, stack, sink) => sink.addError(err, stack),
+        handleDone: (sink) {
+          receivePort.close();
+          sink.close();
+        },
+      ),
+    );
   }
 
   void _debugAssertUpdateResultTransferrable<TData, TVars>(
