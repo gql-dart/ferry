@@ -49,10 +49,13 @@ class RequestCommand<TData, TVars> extends IsolateCommand {
         .send(RequestResponse.initialCancelSendPort(cancelEventPort.sendPort));
     final stream = client.request<TData, TVars>(request);
     final sub = stream.doOnDone(() {
+      cancelEventPort.close();
       sendPort.send(RequestResponse.done());
       cancelEventPort.close();
     }).listen((event) {
       sendPort.send(RequestResponse.data(event));
+    }, onError: (Object error, StackTrace stack) {
+      sendPort.send(RequestResponse.error(error, stack));
     });
     cancelEventPort.listen((_) {
       sub.cancel();
