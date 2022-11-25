@@ -1,3 +1,7 @@
+## 0.13.0-dev.1
+
+ - **FEAT**: improve isolate error handling (#448).
+
 ## 0.13.0-dev.0
 
 > Note: This release has breaking changes.
