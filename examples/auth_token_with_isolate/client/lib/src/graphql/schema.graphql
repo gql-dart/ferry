@@ -1,0 +1,168 @@
+"""Exposes a URL that specifies the behavior of this scalar."""
+directive @specifiedBy(
+  """The URL that specifies the behavior of this scalar."""
+  url: String!
+) on SCALAR
+
+type Author {
+  """Globally unique ID of the author"""
+  id: ID!
+
+  """Database ID of the author"""
+  _id: ID!
+
+  """Author's first name"""
+  firstName: String!
+
+  """Author's last name"""
+  lastName: String!
+  quotes(
+    """Limits the number of results returned in the page. Defaults to 10."""
+    first: Int = 10
+
+    """
+    The cursor value of an item returned in previous page. An alternative to in integer offset.
+    """
+    after: String = "Y3Vyc29yMA=="
+    query: String
+  ): QuoteConnection
+  createdAt: String!
+}
+
+type AuthorConnection {
+  """Identifies the total count of items in the connection."""
+  totalCount: Int!
+
+  """A list of edges."""
+  edges: [AuthorEdge]
+  pageInfo: PageInfo!
+}
+
+"""List of edges."""
+type AuthorEdge {
+  """The item at the end of the edge."""
+  node: Author
+
+  """A cursor for pagination."""
+  cursor: String
+}
+
+input AuthorsOrder {
+  field: AuthorsOrderField!
+  direction: Direction!
+}
+
+enum AuthorsOrderField {
+  ID
+  FIRST_NAME
+  LAST_NAME
+  CREATED_AT
+}
+
+input deleteAuthorInput {
+  id: Int!
+}
+
+"""The ordering direction."""
+enum Direction {
+  """Specifies an ascending order for a given orderBy argument."""
+  ASC
+
+  """Specifies a descending order for a given orderBy argument."""
+  DESC
+}
+
+type jwtToken {
+  """jwtToken"""
+  token: String!
+}
+
+input loginInput {
+  username: String!
+  password: String!
+}
+
+type Mutation {
+  createAuthor(input: NewAuthor!): Author
+  deleteAuthor(input: deleteAuthorInput!): Author
+  login(input: loginInput!): jwtToken
+}
+
+input NewAuthor {
+  firstName: String!
+  lastName: String!
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """The item at the end of the edge."""
+  endCursor: String
+
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+}
+
+type Query {
+  author(id: ID!): Author
+  authors(
+    """Limits the number of results returned in the page. Defaults to 10."""
+    first: Int = 10
+
+    """
+    The cursor value of an item returned in previous page. An alternative to in integer offset.
+    """
+    after: String = "Y3Vyc29yMA=="
+    firstName: String
+    lastName: String
+    orderBy: [AuthorsOrder]
+  ): AuthorConnection
+  quote(id: ID!): Quote
+  quotes(
+    """Limits the number of results returned in the page. Defaults to 10."""
+    first: Int = 10
+
+    """
+    The cursor value of an item returned in previous page. An alternative to in integer offset.
+    """
+    after: String = "Y3Vyc29yMA=="
+    query: String
+  ): QuoteConnection
+}
+
+type Quote {
+  """Globally unique ID of the quote"""
+  id: ID!
+
+  """Database ID of the quote"""
+  _id: ID!
+  text: String!
+
+  """Author of the quote"""
+  author: Author
+  createdAt: String!
+}
+
+type QuoteConnection {
+  """Identifies the total count of items in the connection."""
+  totalCount: Int!
+
+  """A list of edges."""
+  edges: [QuoteEdge]
+  pageInfo: PageInfo!
+}
+
+"""List of edges."""
+type QuoteEdge {
+  """The item at the end of the edge."""
+  node: Quote
+
+  """A cursor for pagination."""
+  cursor: String
+}
+

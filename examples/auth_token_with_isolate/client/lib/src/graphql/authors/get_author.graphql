@@ -1,0 +1,16 @@
+query GetAuthorById($id: ID!) {
+  author(id: $id) {
+    id
+    firstName
+      lastName
+      quotes {
+        edges {
+            node {
+                _id
+                id
+                text
+            }
+        }
+      }
+  }
+}

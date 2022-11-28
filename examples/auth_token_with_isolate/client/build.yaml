@@ -1,0 +1,12 @@
+targets:
+  $default:
+    builders:
+      ferry_generator|serializer_builder:
+        enabled: true
+        options:
+          schema: authors_example|lib/src/graphql/schema.graphql
+      ferry_generator|graphql_builder:
+        enabled: true
+        options:
+          schema: authors_example|lib/src/graphql/schema.graphql
+          global_enum_fallbacks: true
