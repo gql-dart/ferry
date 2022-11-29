@@ -1,0 +1,10 @@
+mutation CreateAuthor($firstName: String!, $lastName: String!) {
+    createAuthor(input: {
+        firstName: $firstName
+        lastName: $lastName
+    }){
+        id
+        firstName
+        lastName
+    }
+}

@@ -1,0 +1,11 @@
+query GetAuthors {
+    authors {
+        edges {
+            node{
+                id
+                firstName
+                lastName
+            }
+        }
+    }
+}

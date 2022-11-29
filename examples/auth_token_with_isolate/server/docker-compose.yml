@@ -1,0 +1,44 @@
+services:
+  mysqldb:
+    image: mysql
+    restart: unless-stopped
+    env_file:
+      - ./.env
+      - ./.env.local
+    environment:
+      - MYSQL_DATABASE=${DATABASE_NAME}
+      - MYSQL_USER=${DATABASE_USER}
+      - MYSQL_PASSWORD=${DATABASE_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${DATABASE_PASSWORD}
+    ports:
+      - ${DATABASE_PORT}:3306
+    volumes:
+      - "mysql_data:/mysql/data"
+
+  application:
+    image: node:18-alpine
+    working_dir: /home/node
+    command: sh -c "yarn install --frozen-lockfile && yarn start"
+    depends_on:
+      - mysqldb
+    restart: unless-stopped
+    env_file:
+      - ./.env
+      - ./.env.local
+    ports:
+      - ${PORT}:${PORT}
+    environment:
+      - DATABASE_HOST=mysqldb
+      - DATABASE_USER=$DATABASE_USER
+      - DATABASE_PASSWORD=$DATABASE_PASSWORD
+      - DATABASE_NAME=$DATABASE_NAME
+      - DATABASE_PORT=$DATABASE_PORT
+      - JWT_SECRET=$JWT_SECRET
+    links:
+      - mysqldb
+    volumes:
+      - ".:/home/node"
+
+volumes:
+  mysql_data:
+    driver: local
