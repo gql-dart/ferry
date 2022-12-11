@@ -1,5 +1,5 @@
 name: ferry_exec
-version: 0.3.0-dev.0
+version: 0.3.0
 homepage: https://ferrygraphql.com/
 description: A strongly typed execution interface for GraphQL operations
 repository: https://github.com/gql-dart/ferry
@@ -17,6 +17,6 @@ dependencies:
 dev_dependencies:
   test: ^1.16.8
   pedantic: ^1.11.0
-  ferry_test_graphql: ^0.2.0-dev.0
+  ferry_test_graphql: ^0.2.0
   build_runner: ^2.1.1
   built_value_generator: ^8.1.1

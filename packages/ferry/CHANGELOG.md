@@ -1,3 +1,7 @@
+## 0.13.0
+
+ - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.
+
 ## 0.13.0-dev.1
 
  - **FEAT**: improve isolate error handling (#448).
