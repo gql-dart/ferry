@@ -53,9 +53,15 @@ class RequestCommand<TData, TVars> extends IsolateCommand {
       sendPort.send(RequestResponse.done());
       cancelEventPort.close();
     }).listen((event) {
-      sendPort.send(RequestResponse.data(event));
-    }, onError: (Object error, StackTrace stack) {
-      sendPort.send(RequestResponse.error(error, stack));
+      try {
+        sendPort.send(RequestResponse.data(event));
+      } catch (e, s) {
+        /// this should only happen when the event is not serializable for some reason
+        /// without this save guard, the client would never get an error
+        sendPort.send(RequestResponse.error(e.toString(), s));
+      }
+    }, onError: (Object? error, StackTrace stack) {
+      sendPort.send(RequestResponse.error(error.toString(), stack));
     });
     cancelEventPort.listen((_) {
       sub.cancel();
