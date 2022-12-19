@@ -1,10 +1,10 @@
 import 'package:test/test.dart';
 import 'package:ferry_cache/ferry_cache.dart';
 
-import 'package:ferry_test_graphql/queries/__generated__/reviews.req.gql.dart';
-import 'package:ferry_test_graphql/queries/__generated__/reviews.data.gql.dart';
-import 'package:ferry_test_graphql/fragments/__generated__/review_fragment.req.gql.dart';
-import 'package:ferry_test_graphql/fragments/__generated__/review_fragment.data.gql.dart';
+import 'package:ferry_test_graphql2/queries/__generated__/reviews.req.gql.dart';
+import 'package:ferry_test_graphql2/queries/__generated__/reviews.data.gql.dart';
+import 'package:ferry_test_graphql2/fragments/__generated__/review_fragment.req.gql.dart';
+import 'package:ferry_test_graphql2/fragments/__generated__/review_fragment.data.gql.dart';
 
 final reviewsReq = GReviewsReq();
 

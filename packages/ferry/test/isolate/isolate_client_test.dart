@@ -3,11 +3,11 @@ import 'dart:isolate';
 
 import 'package:ferry/ferry.dart';
 import 'package:ferry/ferry_isolate.dart';
-import 'package:ferry_test_graphql/queries/__generated__/human_with_args.data.gql.dart';
-import 'package:ferry_test_graphql/queries/__generated__/human_with_args.req.gql.dart';
-import 'package:ferry_test_graphql/queries/__generated__/human_with_args.var.gql.dart';
-import 'package:ferry_test_graphql/queries/__generated__/reviews.data.gql.dart';
-import 'package:ferry_test_graphql/queries/__generated__/reviews.req.gql.dart';
+import 'package:ferry_test_graphql2/queries/__generated__/human_with_args.data.gql.dart';
+import 'package:ferry_test_graphql2/queries/__generated__/human_with_args.req.gql.dart';
+import 'package:ferry_test_graphql2/queries/__generated__/human_with_args.var.gql.dart';
+import 'package:ferry_test_graphql2/queries/__generated__/reviews.data.gql.dart';
+import 'package:ferry_test_graphql2/queries/__generated__/reviews.req.gql.dart';
 import 'package:gql_exec/gql_exec.dart';
 import 'package:test/test.dart';
 

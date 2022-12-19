@@ -2,15 +2,13 @@ import 'dart:async';
 import 'package:async/async.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
-import 'package:gql_link/gql_link.dart';
 import 'package:gql_exec/gql_exec.dart';
 import 'package:test/test.dart';
 import 'package:rxdart/rxdart.dart';
 
-import 'package:ferry_exec/ferry_exec.dart';
 import 'package:ferry/src/fetch_policy_typed_link.dart';
-import 'package:ferry_test_graphql/queries/__generated__/human_with_args.req.gql.dart';
-import 'package:ferry_test_graphql/queries/__generated__/human_with_args.data.gql.dart';
+import 'package:ferry_test_graphql2/queries/__generated__/human_with_args.req.gql.dart';
+import 'package:ferry_test_graphql2/queries/__generated__/human_with_args.data.gql.dart';
 
 import './fetch_policy_typed_link_test.mocks.dart';
 
