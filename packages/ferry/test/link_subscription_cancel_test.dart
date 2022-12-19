@@ -6,7 +6,7 @@ import 'package:gql_exec/gql_exec.dart';
 import 'package:gql_exec/src/response.dart';
 import 'package:test/test.dart';
 
-import 'package:ferry_test_graphql/queries/__generated__/human_with_args.req.gql.dart';
+import 'package:ferry_test_graphql2/queries/__generated__/human_with_args.req.gql.dart';
 
 class _StreamCancelTestLink extends Link {
   Completer hasCanceledStreamCompleter = Completer();

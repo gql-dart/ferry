@@ -15,4 +15,4 @@ dependencies:
   pedantic: ^1.11.0
 dev_dependencies:
   test: ^1.16.8
-  ferry_test_graphql: ^0.2.0
+  ferry_test_graphql2: ^0.2.0
