@@ -5,8 +5,8 @@ import 'package:mockito/annotations.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:ferry/ferry.dart';
 import 'package:ferry/src/error_typed_link.dart';
-import 'package:ferry_test_graphql/queries/__generated__/human_with_args.req.gql.dart';
-import 'package:ferry_test_graphql/queries/__generated__/human_with_args.data.gql.dart';
+import 'package:ferry_test_graphql2/queries/__generated__/human_with_args.req.gql.dart';
+import 'package:ferry_test_graphql2/queries/__generated__/human_with_args.data.gql.dart';
 
 import './error_typed_link_test.mocks.dart';
 

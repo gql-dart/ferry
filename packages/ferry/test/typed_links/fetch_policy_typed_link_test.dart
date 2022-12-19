@@ -9,8 +9,8 @@ import 'package:rxdart/rxdart.dart';
 
 import 'package:ferry_exec/ferry_exec.dart';
 import 'package:ferry/src/fetch_policy_typed_link.dart';
-import 'package:ferry_test_graphql/queries/__generated__/human_with_args.req.gql.dart';
-import 'package:ferry_test_graphql/queries/__generated__/human_with_args.data.gql.dart';
+import 'package:ferry_test_graphql22/queries/__generated__/human_with_args.req.gql.dart';
+import 'package:ferry_test_graphql2/queries/__generated__/human_with_args.data.gql.dart';
 
 import './fetch_policy_typed_link_test.mocks.dart';
 
