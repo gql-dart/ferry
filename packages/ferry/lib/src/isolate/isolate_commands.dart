@@ -35,6 +35,30 @@ class DisposeCommand extends IsolateCommand {
   }
 }
 
+void _handleStreamRequest<T>(SendPort sendPort, Stream<T> stream) {
+  final cancelEventPort = ReceivePort();
+  sendPort
+      .send(RequestResponse<T>.initialCancelSendPort(cancelEventPort.sendPort));
+  final sub = stream.doOnDone(() {
+    cancelEventPort.close();
+    sendPort.send(RequestResponse<T>.done());
+  }).listen((event) {
+    try {
+      sendPort.send(RequestResponse<T>.data(event));
+    } catch (e, s) {
+      /// this should only happen when the event is not serializable for some reason
+      /// without this save guard, the client would never get an error
+      sendPort.send(RequestResponse<T>.error(e.toString(), s));
+    }
+  }, onError: (Object? error, StackTrace stack) {
+    sendPort.send(RequestResponse<T>.error(error.toString(), stack));
+  });
+  cancelEventPort.listen((_) {
+    sub.cancel();
+    cancelEventPort.close();
+  });
+}
+
 @internal
 class RequestCommand<TData, TVars> extends IsolateCommand {
   final OperationRequest<TData, TVars> request;
@@ -44,29 +68,36 @@ class RequestCommand<TData, TVars> extends IsolateCommand {
   @override
   void handle(TypedLinkWithCacheAndRequestController client,
       ReceivePort globalReceivePort) {
-    final cancelEventPort = ReceivePort();
-    sendPort
-        .send(RequestResponse.initialCancelSendPort(cancelEventPort.sendPort));
     final stream = client.request<TData, TVars>(request);
-    final sub = stream.doOnDone(() {
-      cancelEventPort.close();
-      sendPort.send(RequestResponse.done());
-      cancelEventPort.close();
-    }).listen((event) {
-      try {
-        sendPort.send(RequestResponse.data(event));
-      } catch (e, s) {
-        /// this should only happen when the event is not serializable for some reason
-        /// without this save guard, the client would never get an error
-        sendPort.send(RequestResponse.error(e.toString(), s));
-      }
-    }, onError: (Object? error, StackTrace stack) {
-      sendPort.send(RequestResponse.error(error.toString(), stack));
-    });
-    cancelEventPort.listen((_) {
-      sub.cancel();
-      cancelEventPort.close();
-    });
+    _handleStreamRequest(sendPort, stream);
+  }
+}
+
+@internal
+class WatchFragmentCommand<TData, TVars> extends IsolateCommand {
+  final FragmentRequest<TData, TVars> request;
+
+  WatchFragmentCommand(SendPort sendPort, this.request) : super(sendPort);
+
+  @override
+  void handle(TypedLinkWithCacheAndRequestController client,
+      ReceivePort globalReceivePort) {
+    final stream = client.cache.watchFragment<TData, TVars>(request);
+    _handleStreamRequest<TData?>(sendPort, stream);
+  }
+}
+
+@internal
+class WatchQueryCommand<TData, TVars> extends IsolateCommand {
+  final OperationRequest<TData, TVars> request;
+
+  WatchQueryCommand(SendPort sendPort, this.request) : super(sendPort);
+
+  @override
+  void handle(TypedLinkWithCacheAndRequestController client,
+      ReceivePort globalReceivePort) {
+    final stream = client.cache.watchQuery<TData, TVars>(request);
+    _handleStreamRequest<TData?>(sendPort, stream);
   }
 }
 
@@ -252,6 +283,18 @@ class AddRequestToRequestControllerCommand<TData, TVasrs>
   void handle(
       TypedLinkWithCacheAndRequestController link, ReceivePort receivePort) {
     link.requestController.add(request);
+    sendPort.send(null);
+  }
+}
+
+@internal
+class ClearOptimisticPatchesCommand extends IsolateCommand {
+  ClearOptimisticPatchesCommand(SendPort sendPort) : super(sendPort);
+
+  @override
+  void handle(
+      TypedLinkWithCacheAndRequestController link, ReceivePort receivePort) {
+    link.cache.clearOptimisticPatches();
     sendPort.send(null);
   }
 }

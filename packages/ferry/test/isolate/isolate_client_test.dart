@@ -3,6 +3,8 @@ import 'dart:isolate';
 
 import 'package:ferry/ferry.dart';
 import 'package:ferry/ferry_isolate.dart';
+import 'package:ferry_test_graphql2/fragments/__generated__/review_fragment.data.gql.dart';
+import 'package:ferry_test_graphql2/fragments/__generated__/review_fragment.req.gql.dart';
 import 'package:ferry_test_graphql2/queries/__generated__/human_with_args.data.gql.dart';
 import 'package:ferry_test_graphql2/queries/__generated__/human_with_args.req.gql.dart';
 import 'package:ferry_test_graphql2/queries/__generated__/human_with_args.var.gql.dart';
@@ -320,6 +322,90 @@ void main() {
       expect(() => client.request(req), throwsA(isA<AssertionError>()));
       expect(() => client.addRequestToRequestController(req),
           throwsA(isA<AssertionError>()));
+    });
+
+    test('can watchFragment', () async {
+      final client = await IsolateClient.create(_initAutoResponderLinkClient,
+          params: null);
+      final fragmentReq = GReviewFragmentReq((b) => b..idFields = {'id': '2'});
+
+      final stream = client.watchFragment(fragmentReq);
+
+      await client.writeQuery(
+          GReviewsReq(),
+          GReviewsData((b) => b
+            ..reviews.addAll([
+              GReviewsData_reviews((b) => b
+                ..id = '1'
+                ..stars = 5
+                ..commentary = 'commentary'),
+              GReviewsData_reviews((b) => b
+                ..id = '2'
+                ..stars = 5
+                ..commentary = 'commentary2'),
+            ])));
+
+      expect(
+          stream,
+          emitsInOrder([
+            null,
+            GReviewFragmentData((b) => b
+              ..stars = 5
+              ..commentary = 'commentary2'),
+            emitsDone
+          ]));
+
+      await client.dispose();
+    });
+
+    test('can watchQuery', () async {
+      final client = await IsolateClient.create(_initAutoResponderLinkClient,
+          params: null);
+      final req = GReviewsReq();
+
+      final stream = client.watchQuery(req);
+
+      final data = GReviewsData((b) => b
+        ..reviews.addAll([
+          GReviewsData_reviews((b) => b
+            ..id = '1'
+            ..stars = 5
+            ..commentary = 'commentary'),
+          GReviewsData_reviews((b) => b
+            ..id = '2'
+            ..stars = 5
+            ..commentary = 'commentary2'),
+        ]));
+
+      await client.writeQuery(req, data);
+
+      expect(stream, emitsInOrder([null, data, emitsDone]));
+
+      await client.dispose();
+    });
+
+    test('can clearOptimistic patches', () async {
+      final client = await IsolateClient.create(_initAutoResponderLinkClient,
+          params: null);
+      final req = GReviewsReq();
+
+      final stream = client.watchQuery(req);
+
+      final data = GReviewsData((b) => b
+        ..reviews.addAll([
+          GReviewsData_reviews((b) => b
+            ..id = '1'
+            ..stars = 5
+            ..commentary = 'commentary'),
+        ]));
+
+      await client.writeQuery(req, data, optimisticRequest: req);
+
+      await client.clearOptimisticPatches();
+
+      expect(stream, emitsInOrder([null, data, null, emitsDone]));
+
+      await client.dispose();
     });
   });
 }
