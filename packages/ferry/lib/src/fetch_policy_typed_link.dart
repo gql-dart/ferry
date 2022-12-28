@@ -65,12 +65,14 @@ class FetchPolicyTypedLink extends TypedLink {
       case FetchPolicy.NoCache:
         return _optimisticLinkTypedLink
             .request(operationRequest)
-            .doOnData(_removeOptimisticPatch);
+            .doOnData(_removeOptimisticPatch)
+            .doOnCancel(() => cache.removeOptimisticPatch(operationRequest));
       case FetchPolicy.NetworkOnly:
         return _optimisticLinkTypedLink
             .request(operationRequest)
             .doOnData(_removeOptimisticPatch)
-            .doOnData(_writeToCache);
+            .doOnData(_writeToCache)
+            .doOnCancel(() => cache.removeOptimisticPatch(operationRequest));
       case FetchPolicy.CacheOnly:
         return _cacheTypedLink.request(operationRequest);
       case FetchPolicy.CacheFirst:
@@ -81,6 +83,8 @@ class FetchPolicyTypedLink extends TypedLink {
                       .request(operationRequest)
                       .doOnData(_removeOptimisticPatch)
                       .doOnData(_writeToCache)
+                      .doOnCancel(
+                          () => cache.removeOptimisticPatch(operationRequest))
                       .switchMap(
                         (networkResponse) => ConcatStream([
                           Stream.value(networkResponse),
@@ -100,6 +104,7 @@ class FetchPolicyTypedLink extends TypedLink {
           sharedNetworkStream
               .doOnData(_removeOptimisticPatch)
               .doOnData(_writeToCache)
+              .doOnCancel(() => cache.removeOptimisticPatch(operationRequest))
               .concatWith([_cacheTypedLink.request(operationRequest).skip(1)])
         ]);
       default:
