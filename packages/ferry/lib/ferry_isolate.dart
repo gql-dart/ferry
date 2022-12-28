@@ -104,7 +104,7 @@ class IsolateClient extends TypedLink {
               graphqlErrors: response.graphqlErrors,
               dataSource: response.dataSource,
               extensions: response.extensions,
-              data: response.data as TData?,
+              data: response.data,
             )));
   }
 
@@ -134,7 +134,7 @@ class IsolateClient extends TypedLink {
               sink.addError(o.exception!, o.stackTrace);
               break;
             case RequestResponseType.data:
-              final response = o.data as T;
+              final response = o.data;
               onData(response, sink);
               break;
             case RequestResponseType.done:
@@ -252,6 +252,11 @@ class IsolateClient extends TypedLink {
   Future<void> removeOptimisticPatch(OperationRequest request) {
     return _handleSingleResponseCommand(
         (sendPort) => RemoveOptimisticPatch(sendPort, request));
+  }
+
+  Future<void> clearOptimisticPatches() {
+    return _handleSingleResponseCommand(
+        (sendPort) => ClearOptimisticPatchesCommand(sendPort));
   }
 
   @override
