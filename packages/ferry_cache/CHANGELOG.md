@@ -1,3 +1,7 @@
+## 0.7.1-dev.0
+
+ - **FEAT**: add `clearOptimisticPatches()` (#459).
+
 ## 0.7.0
 
  - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.
