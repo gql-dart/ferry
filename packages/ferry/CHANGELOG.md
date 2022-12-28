@@ -1,3 +1,7 @@
+## 0.13.0-dev.0+1
+
+ - **FIX**: send error to main isolate when data message could not be serialized (#455).
+
 ## 0.13.0
 
  - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.
