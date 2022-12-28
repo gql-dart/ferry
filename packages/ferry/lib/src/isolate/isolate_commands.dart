@@ -10,8 +10,7 @@ abstract class IsolateCommand {
 
   IsolateCommand(this.sendPort);
 
-  void handle(
-      TypedLinkWithCacheAndRequestController link, ReceivePort receivePort);
+  void handle(TypedLinkWithCacheAndRequestController link, ReceivePort receivePort);
 }
 
 @internal
@@ -22,8 +21,7 @@ class DisposeCommand extends IsolateCommand {
   bool killIsolate = true;
 
   @override
-  Future<void> handle(TypedLinkWithCacheAndRequestController link,
-      ReceivePort receivePort) async {
+  Future<void> handle(TypedLinkWithCacheAndRequestController link, ReceivePort receivePort) async {
     receivePort.close();
     await link.dispose();
     sendPort.send(null);
@@ -35,6 +33,30 @@ class DisposeCommand extends IsolateCommand {
   }
 }
 
+void _handleStreamRequest<T>(SendPort sendPort, Stream<T> stream) {
+  final cancelEventPort = ReceivePort();
+  sendPort.send(RequestResponse<T>.initialCancelSendPort(cancelEventPort.sendPort));
+  final sub = stream.doOnDone(() {
+    cancelEventPort.close();
+    sendPort.send(RequestResponse<T>.done());
+    cancelEventPort.close();
+  }).listen((event) {
+    try {
+      sendPort.send(RequestResponse<T>.data(event));
+    } catch (e, s) {
+      /// this should only happen when the event is not serializable for some reason
+      /// without this save guard, the client would never get an error
+      sendPort.send(RequestResponse<T>.error(e.toString(), s));
+    }
+  }, onError: (Object? error, StackTrace stack) {
+    sendPort.send(RequestResponse<T>.error(error.toString(), stack));
+  });
+  cancelEventPort.listen((_) {
+    sub.cancel();
+    cancelEventPort.close();
+  });
+}
+
 @internal
 class RequestCommand<TData, TVars> extends IsolateCommand {
   final OperationRequest<TData, TVars> request;
@@ -42,31 +64,35 @@ class RequestCommand<TData, TVars> extends IsolateCommand {
   RequestCommand(SendPort sendPort, this.request) : super(sendPort);
 
   @override
-  void handle(TypedLinkWithCacheAndRequestController client,
-      ReceivePort globalReceivePort) {
-    final cancelEventPort = ReceivePort();
-    sendPort
-        .send(RequestResponse.initialCancelSendPort(cancelEventPort.sendPort));
+  void handle(TypedLinkWithCacheAndRequestController client, ReceivePort globalReceivePort) {
     final stream = client.request<TData, TVars>(request);
-    final sub = stream.doOnDone(() {
-      cancelEventPort.close();
-      sendPort.send(RequestResponse.done());
-      cancelEventPort.close();
-    }).listen((event) {
-      try {
-        sendPort.send(RequestResponse.data(event));
-      } catch (e, s) {
-        /// this should only happen when the event is not serializable for some reason
-        /// without this save guard, the client would never get an error
-        sendPort.send(RequestResponse.error(e.toString(), s));
-      }
-    }, onError: (Object? error, StackTrace stack) {
-      sendPort.send(RequestResponse.error(error.toString(), stack));
-    });
-    cancelEventPort.listen((_) {
-      sub.cancel();
-      cancelEventPort.close();
-    });
+    _handleStreamRequest(sendPort, stream);
+  }
+}
+
+@internal
+class WatchFragmentCommand<TData, TVars> extends IsolateCommand {
+  final FragmentRequest<TData, TVars> request;
+
+  WatchFragmentCommand(SendPort sendPort, this.request) : super(sendPort);
+
+  @override
+  void handle(TypedLinkWithCacheAndRequestController client, ReceivePort globalReceivePort) {
+    final stream = client.cache.watchFragment<TData, TVars>(request);
+    _handleStreamRequest<TData?>(sendPort, stream);
+  }
+}
+
+@internal
+class WatchQueryCommand<TData, TVars> extends IsolateCommand {
+  final OperationRequest<TData, TVars> request;
+
+  WatchQueryCommand(SendPort sendPort, this.request) : super(sendPort);
+
+  @override
+  void handle(TypedLinkWithCacheAndRequestController client, ReceivePort globalReceivePort) {
+    final stream = client.cache.watchQuery<TData, TVars>(request);
+    _handleStreamRequest<TData?>(sendPort, stream);
   }
 }
 
@@ -75,8 +101,7 @@ class ClearCacheCommand extends IsolateCommand {
   ClearCacheCommand(SendPort sendPort) : super(sendPort);
 
   @override
-  void handle(
-      TypedLinkWithCacheAndRequestController link, ReceivePort receivePort) {
+  void handle(TypedLinkWithCacheAndRequestController link, ReceivePort receivePort) {
     link.cache.clear();
     sendPort.send(null);
   }
@@ -87,12 +112,10 @@ class ReadQueryCommand<TData, TVars> extends IsolateCommand {
   final OperationRequest<TData, TVars> request;
   final bool optimistic;
 
-  ReadQueryCommand(SendPort sendPort, this.request, {this.optimistic = true})
-      : super(sendPort);
+  ReadQueryCommand(SendPort sendPort, this.request, {this.optimistic = true}) : super(sendPort);
 
   @override
-  void handle(
-      TypedLinkWithCacheAndRequestController link, ReceivePort receivePort) {
+  void handle(TypedLinkWithCacheAndRequestController link, ReceivePort receivePort) {
     final response = link.cache.readQuery(request, optimistic: optimistic);
     sendPort.send(response);
   }
@@ -104,13 +127,11 @@ class WriteQueryCommand<TData, TVars> extends IsolateCommand {
   final TData response;
   final OperationRequest<TData, TVars>? optimisticRequest;
 
-  WriteQueryCommand(
-      SendPort sendPort, this.request, this.response, this.optimisticRequest)
+  WriteQueryCommand(SendPort sendPort, this.request, this.response, this.optimisticRequest)
       : super(sendPort);
 
   @override
-  void handle(
-      TypedLinkWithCacheAndRequestController link, ReceivePort receivePort) {
+  void handle(TypedLinkWithCacheAndRequestController link, ReceivePort receivePort) {
     link.cache.writeQuery(
       request,
       response,
@@ -125,12 +146,10 @@ class ReadFragmentCommand<TData, TVars> extends IsolateCommand {
   final FragmentRequest<TData, TVars> request;
   final bool optimistic;
 
-  ReadFragmentCommand(SendPort sendPort, this.request, {this.optimistic = true})
-      : super(sendPort);
+  ReadFragmentCommand(SendPort sendPort, this.request, {this.optimistic = true}) : super(sendPort);
 
   @override
-  void handle(
-      TypedLinkWithCacheAndRequestController link, ReceivePort receivePort) {
+  void handle(TypedLinkWithCacheAndRequestController link, ReceivePort receivePort) {
     final fragment = link.cache.readFragment(request, optimistic: optimistic);
     sendPort.send(fragment);
   }
@@ -142,13 +161,11 @@ class WriteFragmentCommand<TData, TVars> extends IsolateCommand {
   final TData response;
   final OperationRequest<TData, TVars>? optimisticRequest;
 
-  WriteFragmentCommand(
-      SendPort sendPort, this.request, this.response, this.optimisticRequest)
+  WriteFragmentCommand(SendPort sendPort, this.request, this.response, this.optimisticRequest)
       : super(sendPort);
 
   @override
-  void handle(
-      TypedLinkWithCacheAndRequestController link, ReceivePort receivePort) {
+  void handle(TypedLinkWithCacheAndRequestController link, ReceivePort receivePort) {
     link.cache.writeFragment(
       request,
       response,
@@ -165,13 +182,12 @@ class EvictDataIdCommand extends IsolateCommand {
   final Map<String, dynamic>? args;
   final OperationRequest? optimisticRequest;
 
-  EvictDataIdCommand(SendPort sendPort, this.dataId, this.fieldName, this.args,
-      this.optimisticRequest)
+  EvictDataIdCommand(
+      SendPort sendPort, this.dataId, this.fieldName, this.args, this.optimisticRequest)
       : super(sendPort);
 
   @override
-  void handle(
-      TypedLinkWithCacheAndRequestController link, ReceivePort receivePort) {
+  void handle(TypedLinkWithCacheAndRequestController link, ReceivePort receivePort) {
     link.cache.evict(
       dataId,
       fieldName: fieldName,
@@ -187,8 +203,7 @@ class GcCommand extends IsolateCommand {
   GcCommand(SendPort sendPort) : super(sendPort);
 
   @override
-  void handle(
-      TypedLinkWithCacheAndRequestController link, ReceivePort receivePort) {
+  void handle(TypedLinkWithCacheAndRequestController link, ReceivePort receivePort) {
     final ids = link.cache.gc();
     sendPort.send(ids);
   }
@@ -201,8 +216,7 @@ class RetainCommand extends IsolateCommand {
   RetainCommand(SendPort sendPort, this.entityId) : super(sendPort);
 
   @override
-  void handle(
-      TypedLinkWithCacheAndRequestController link, ReceivePort receivePort) {
+  void handle(TypedLinkWithCacheAndRequestController link, ReceivePort receivePort) {
     link.cache.retain(entityId);
     sendPort.send(null);
   }
@@ -215,8 +229,7 @@ class ReleaseCommand extends IsolateCommand {
   ReleaseCommand(SendPort sendPort, this.entityId) : super(sendPort);
 
   @override
-  void handle(
-      TypedLinkWithCacheAndRequestController link, ReceivePort receivePort) {
+  void handle(TypedLinkWithCacheAndRequestController link, ReceivePort receivePort) {
     link.cache.release(entityId);
     sendPort.send(null);
   }
@@ -232,15 +245,13 @@ class RemoveOptimisticPatch<TData, TVars> extends IsolateCommand {
   ) : super(sendPort);
 
   @override
-  void handle(
-      TypedLinkWithCacheAndRequestController link, ReceivePort receivePort) {
+  void handle(TypedLinkWithCacheAndRequestController link, ReceivePort receivePort) {
     link.cache.removeOptimisticPatch(request);
     sendPort.send(null);
   }
 }
 
-class AddRequestToRequestControllerCommand<TData, TVasrs>
-    extends IsolateCommand {
+class AddRequestToRequestControllerCommand<TData, TVasrs> extends IsolateCommand {
   final OperationRequest<TData, TVasrs> request;
 
   AddRequestToRequestControllerCommand(
@@ -249,8 +260,7 @@ class AddRequestToRequestControllerCommand<TData, TVasrs>
   ) : super(sendPort);
 
   @override
-  void handle(
-      TypedLinkWithCacheAndRequestController link, ReceivePort receivePort) {
+  void handle(TypedLinkWithCacheAndRequestController link, ReceivePort receivePort) {
     link.requestController.add(request);
     sendPort.send(null);
   }

@@ -3,6 +3,8 @@ import 'dart:isolate';
 
 import 'package:ferry/ferry.dart';
 import 'package:ferry/ferry_isolate.dart';
+import 'package:ferry_test_graphql2/fragments/__generated__/review_fragment.data.gql.dart';
+import 'package:ferry_test_graphql2/fragments/__generated__/review_fragment.req.gql.dart';
 import 'package:ferry_test_graphql2/queries/__generated__/human_with_args.data.gql.dart';
 import 'package:ferry_test_graphql2/queries/__generated__/human_with_args.req.gql.dart';
 import 'package:ferry_test_graphql2/queries/__generated__/human_with_args.var.gql.dart';
@@ -16,17 +18,13 @@ import '../../benchmark/operations.dart';
 void main() {
   group('IsolateClient', () {
     test('can create IsolateClient', () async {
-      final client = await IsolateClient.create<Null>(
-          _initAutoResponderLinkClient,
-          params: null);
+      final client = await IsolateClient.create<Null>(_initAutoResponderLinkClient, params: null);
 
       expect(client, isA<IsolateClient>());
     });
 
     test('can do requests on Isolate', () async {
-      final client = await IsolateClient.create<Null>(
-          _initAutoResponderLinkClient,
-          params: null);
+      final client = await IsolateClient.create<Null>(_initAutoResponderLinkClient, params: null);
 
       final req = GHumanWithArgsReq((b) => b..vars.id = '1');
 
@@ -54,8 +52,7 @@ void main() {
     });
 
     test('can handle errors', () async {
-      final client = await IsolateClient.create<Null>(_initErrorResponderClient,
-          params: null);
+      final client = await IsolateClient.create<Null>(_initErrorResponderClient, params: null);
 
       final req = GHumanWithArgsReq((b) => b..vars.id = '1');
 
@@ -71,10 +68,8 @@ void main() {
                     (p) => p.linkException,
                     'has link exception',
                     isA<LinkException>()
-                        .having((p) => p.originalStackTrace, 'has stacktrace',
-                            isNotNull)
-                        .having((e) => e.originalException, 'exception',
-                            isA<Exception>())),
+                        .having((p) => p.originalStackTrace, 'has stacktrace', isNotNull)
+                        .having((e) => e.originalException, 'exception', isA<Exception>())),
             emitsDone,
           ])));
 
@@ -86,8 +81,7 @@ void main() {
     test('can use messageHandler', () async {
       late Object? message;
 
-      final client = await IsolateClient.create(
-          _initAutoResponderLinkClientWithMessageHandler,
+      final client = await IsolateClient.create(_initAutoResponderLinkClientWithMessageHandler,
           params: null, messageHandler: (m) {
         message = m;
       });
@@ -99,8 +93,7 @@ void main() {
     });
 
     test('can cancel subscription across isolates', () async {
-      final client = await IsolateClient.create(_initAutoResponderLinkClient,
-          params: null);
+      final client = await IsolateClient.create(_initAutoResponderLinkClient, params: null);
 
       final req = GHumanWithArgsReq((b) => b..vars.id = '1');
 
@@ -116,8 +109,7 @@ void main() {
     });
 
     test('can readQuery', () async {
-      final client = await IsolateClient.create(_initAutoResponderLinkClient,
-          params: null);
+      final client = await IsolateClient.create(_initAutoResponderLinkClient, params: null);
 
       final req = GHumanWithArgsReq((b) => b..vars.id = '1');
 
@@ -125,8 +117,7 @@ void main() {
 
       await stream.first;
 
-      final result =
-          await client.readQuery(GHumanWithArgsReq((b) => b..vars.id = '1'));
+      final result = await client.readQuery(GHumanWithArgsReq((b) => b..vars.id = '1'));
 
       expect(
           result,
@@ -138,8 +129,7 @@ void main() {
     });
 
     test('can writeQuery', () async {
-      final client = await IsolateClient.create(_initAutoResponderLinkClient,
-          params: null);
+      final client = await IsolateClient.create(_initAutoResponderLinkClient, params: null);
 
       final req = GHumanWithArgsReq((b) => b..vars.id = '1');
 
@@ -177,8 +167,7 @@ void main() {
     });
 
     test('can clear cache', () async {
-      final client = await IsolateClient.create(_initAutoResponderLinkClient,
-          params: null);
+      final client = await IsolateClient.create(_initAutoResponderLinkClient, params: null);
 
       final req = GHumanWithArgsReq((b) => b..vars.id = '1');
 
@@ -193,10 +182,7 @@ void main() {
                   ..human.name = 'Luke'),
                 dataSource: DataSource.Link,
                 operationRequest: req),
-            OperationResponse(
-                operationRequest: req,
-                data: null,
-                dataSource: DataSource.Cache),
+            OperationResponse(operationRequest: req, data: null, dataSource: DataSource.Cache),
             emitsDone,
           ])));
 
@@ -214,8 +200,7 @@ void main() {
     });
 
     test('can write optimistic data and remove optimistic response', () async {
-      final client = await IsolateClient.create(_initAutoResponderLinkClient,
-          params: null);
+      final client = await IsolateClient.create(_initAutoResponderLinkClient, params: null);
       addTearDown(client.dispose);
       final req = GHumanWithArgsReq((b) => b..vars.id = '1');
       final data = GHumanWithArgsData((b) => b
@@ -239,9 +224,8 @@ void main() {
     });
 
     test('can refetch and paginate with updateResult', () async {
-      final client = await IsolateClient.create(
-          _initAutoResponderForReviewsLinkClient,
-          params: null);
+      final client =
+          await IsolateClient.create(_initAutoResponderForReviewsLinkClient, params: null);
 
       final req = GReviewsReq((b) => b
         ..requestId = '1'
@@ -285,26 +269,22 @@ void main() {
 
       await Future.delayed(Duration.zero);
 
-      await client.addRequestToRequestController(
-          req.rebuild((b) => b..vars.offset = 3));
+      await client.addRequestToRequestController(req.rebuild((b) => b..vars.offset = 3));
 
       await Future.delayed(Duration.zero);
 
       await client.dispose();
     });
 
-    test('throws assertionError when trying to invalid updateResult function',
-        () async {
-      final client = await IsolateClient.create(
-          _initAutoResponderForReviewsLinkClient,
-          params: null);
+    test('throws assertionError when trying to invalid updateResult function', () async {
+      final client =
+          await IsolateClient.create(_initAutoResponderForReviewsLinkClient, params: null);
 
       void localFunc() {}
 
       addTearDown(client.dispose);
       //closure that captures local state, cannot be sent to isolate
-      final invalidMergeReviews =
-          (GReviewsData? previousResult, GReviewsData? fetchMoreResult) {
+      final invalidMergeReviews = (GReviewsData? previousResult, GReviewsData? fetchMoreResult) {
         // try to call this locally declared function
         // -> this will make the invalidMergeReviews non-transmittable for sure
         localFunc();
@@ -318,8 +298,65 @@ void main() {
         ..vars.offset = 0);
 
       expect(() => client.request(req), throwsA(isA<AssertionError>()));
-      expect(() => client.addRequestToRequestController(req),
-          throwsA(isA<AssertionError>()));
+      expect(() => client.addRequestToRequestController(req), throwsA(isA<AssertionError>()));
+    });
+
+    test('can watchFragment', () async {
+      final client = await IsolateClient.create(_initAutoResponderLinkClient, params: null);
+      final fragmentReq = GReviewFragmentReq((b) => b..idFields = {'id': '2'});
+
+      final stream = client.watchFragment(fragmentReq);
+
+      await client.writeQuery(
+          GReviewsReq(),
+          GReviewsData((b) => b
+            ..reviews.addAll([
+              GReviewsData_reviews((b) => b
+                ..id = '1'
+                ..stars = 5
+                ..commentary = 'commentary'),
+              GReviewsData_reviews((b) => b
+                ..id = '2'
+                ..stars = 5
+                ..commentary = 'commentary2'),
+            ])));
+
+      expect(
+          stream,
+          emitsInOrder([
+            null,
+            GReviewFragmentData((b) => b
+              ..stars = 5
+              ..commentary = 'commentary2'),
+            emitsDone
+          ]));
+
+      await client.dispose();
+    });
+
+    test('can watchQuery', () async {
+      final client = await IsolateClient.create(_initAutoResponderLinkClient, params: null);
+      final req = GReviewsReq();
+
+      final stream = client.watchQuery(req);
+
+      final data = GReviewsData((b) => b
+        ..reviews.addAll([
+          GReviewsData_reviews((b) => b
+            ..id = '1'
+            ..stars = 5
+            ..commentary = 'commentary'),
+          GReviewsData_reviews((b) => b
+            ..id = '2'
+            ..stars = 5
+            ..commentary = 'commentary2'),
+        ]));
+
+      await client.writeQuery(req, data);
+
+      expect(stream, emitsInOrder([null, data, emitsDone]));
+
+      await client.dispose();
     });
   });
 }
@@ -329,8 +366,7 @@ Future<Client> _initAutoResponderLinkClient(
   return Client(link: AutoResponderLink());
 }
 
-Future<Client> _initErrorResponderClient(
-    Null params, SendPort? sendMessageToMessageHandler) async {
+Future<Client> _initErrorResponderClient(Null params, SendPort? sendMessageToMessageHandler) async {
   return Client(link: AutoResponderLinkExceptionLink());
 }
 
@@ -356,9 +392,7 @@ class _ReviewsAutoResponderTerminalLink extends Link {
           data: GReviewsData((b) => b
             ..reviews.addAll([
               for (int i = req.variables['offset'] as int;
-                  i <
-                      ((req.variables['offset'] as int) + req.variables['first']
-                          as int);
+                  i < ((req.variables['offset'] as int) + req.variables['first'] as int);
                   i++)
                 GReviewsData_reviews(
                   (b) => b
@@ -369,7 +403,6 @@ class _ReviewsAutoResponderTerminalLink extends Link {
 }
 
 GReviewsData? _mergeReviews(GReviewsData? previous, GReviewsData? result) {
-  final merged =
-      previous?.rebuild((b) => b..reviews.addAll(result!.reviews!)) ?? result;
+  final merged = previous?.rebuild((b) => b..reviews.addAll(result!.reviews!)) ?? result;
   return merged;
 }

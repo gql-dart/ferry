@@ -340,6 +340,11 @@ void main() {
 
       await client.dispose();
     });
+
+    test('optimistic update check', () {
+
+
+    });
   });
 }
 

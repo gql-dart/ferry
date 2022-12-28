@@ -6,14 +6,14 @@ import 'package:meta/meta.dart';
 enum RequestResponseType { initial, data, error, done }
 
 @internal
-class RequestResponse {
+class RequestResponse<T> {
   final RequestResponseType type;
-  final OperationResponse? data;
+  final T? data;
   final SendPort? sendPort;
   final Object? exception;
   final StackTrace? stackTrace;
 
-  factory RequestResponse.data(OperationResponse? data) {
+  factory RequestResponse.data(T data) {
     return RequestResponse._(type: RequestResponseType.data, data: data);
   }
 

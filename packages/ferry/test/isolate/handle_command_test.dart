@@ -204,11 +204,11 @@ void main() {
           .handle(link, receivePort);
 
       verifyInOrder([
+        link.request(GHumanWithArgsReq((b) => b..vars.id = '1')),
         sendPort.send(argThat(isA<RequestResponse>()
             .having(
                 (p) => p.type, 'type is initial', RequestResponseType.initial)
             .having((p) => p.sendPort, 'has sendport', isNotNull))),
-        link.request(GHumanWithArgsReq((b) => b..vars.id = '1')),
       ]);
       verifyNoMoreInteractions(cache);
       verifyNoMoreInteractions(link);
