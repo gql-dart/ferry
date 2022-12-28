@@ -405,6 +405,11 @@ class Cache {
     _eventStream.add(null);
   }
 
+  /// removes all optimistic patches
+  void clearOptimisticPatches() {
+    optimisticPatchesStream.add({});
+  }
+
   Future<void> dispose() => Future.wait([
         optimisticPatchesStream.close(),
         _eventStream.close(),
