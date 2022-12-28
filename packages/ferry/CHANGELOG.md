@@ -1,3 +1,7 @@
+## 0.13.1-dev.1
+
+ - **FEAT**: add watchQuery, watchFragment, clearOptimisticPatches to IsolateClient  (#460).
+
 ## 0.13.1
 
  - **FIX**: send error to main isolate when data message could not be serialized (#455).
