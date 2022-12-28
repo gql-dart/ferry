@@ -1,5 +1,8 @@
 import 'dart:async';
 import 'package:async/async.dart';
+import 'package:ferry_test_graphql2/mutations/__generated__/create_review.data.gql.dart';
+import 'package:ferry_test_graphql2/mutations/__generated__/create_review.req.gql.dart';
+import 'package:ferry_test_graphql2/schema/__generated__/schema.schema.gql.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
 import 'package:gql_exec/gql_exec.dart';
@@ -231,5 +234,70 @@ void main() {
         expect(second.data, equals(data));
       });
     });
+  });
+
+  group('remove optimistic response when listener unsubscribes', () {
+    final mockLink = MockLink();
+
+    when(mockLink.request(any, any)).thenAnswer((_) => NeverStream());
+
+    late TypedLink typedLink;
+    late Cache cache;
+
+    setUp(() {
+      cache = Cache();
+      typedLink = TypedLink.from([
+        FetchPolicyTypedLink(link: mockLink, cache: cache),
+      ]);
+    });
+
+    tearDown(() {
+      typedLink.dispose();
+      cache.dispose();
+    });
+
+    final optimisticData = GCreateReviewData((b) => b
+      ..createReview.id = '__optimistic__'
+      ..createReview.stars = 5
+      ..createReview.commentary = 'Amazing!!!'
+      ..createReview.episode = GEpisode.NEWHOPE);
+
+    final req = GCreateReviewReq((b) => b
+      ..fetchPolicy = FetchPolicy.NetworkOnly
+      ..vars.episode = GEpisode.NEWHOPE
+      ..vars.review.stars = 5
+      ..vars.review.commentary = 'Amazing!!!'
+      ..optimisticResponse = optimisticData.toBuilder());
+
+    for (final fetchPolicy in [
+      FetchPolicy.NetworkOnly,
+      FetchPolicy.CacheAndNetwork,
+      FetchPolicy.CacheFirst,
+    ]) {
+      test(
+          'remove optimistic response when listener unsubscribes for $fetchPolicy',
+          () async {
+        final stream =
+            typedLink.request(req.rebuild((b) => b..fetchPolicy = fetchPolicy));
+
+        final queue = StreamQueue(stream);
+
+        final data = await queue.next;
+
+        expect(
+            data,
+            predicate<OperationResponse>(
+                (p) => p.dataSource == DataSource.Optimistic));
+        expect(data.data, equals(optimisticData));
+
+        expect(cache.readQuery(req), equals(optimisticData));
+        expect(cache.readQuery(req, optimistic: false), isNull);
+
+        await queue.cancel();
+
+        expect(cache.readQuery(req), isNull);
+        expect(cache.readQuery(req, optimistic: false), isNull);
+      });
+    }
   });
 }
