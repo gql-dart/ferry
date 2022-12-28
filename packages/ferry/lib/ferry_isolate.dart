@@ -95,12 +95,25 @@ class IsolateClient extends TypedLink {
       OperationRequest<TData, TVars> request,
       [NextTypedLink<TData, TVars>? forward]) {
     _debugAssertUpdateResultTransferrable(request);
+
+    return _handleStreamCommand<OperationResponse<TData, TVars>>(
+        (port) => RequestCommand(port.sendPort, request),
+        (response, sink) => sink.add(OperationResponse<TData, TVars>(
+              operationRequest: request,
+              linkException: response!.linkException,
+              graphqlErrors: response.graphqlErrors,
+              dataSource: response.dataSource,
+              extensions: response.extensions,
+              data: response.data,
+            )));
+  }
+
+  Stream<T> _handleStreamCommand<T>(
+      IsolateCommand Function(ReceivePort) streamCommandFunc,
+      void Function(T?, Sink<T>) onData) {
     final receivePort = ReceivePort();
 
-    _commandSendPort.send(RequestCommand<TData, TVars>(
-      receivePort.sendPort,
-      request,
-    ));
+    _commandSendPort.send(streamCommandFunc(receivePort));
 
     SendPort? cancelPort;
 
@@ -112,7 +125,7 @@ class IsolateClient extends TypedLink {
     ).transform(
       StreamTransformer.fromHandlers(
         handleData: (o, sink) {
-          switch ((o as RequestResponse).type) {
+          switch ((o as RequestResponse<T>).type) {
             case RequestResponseType.initial:
               assert(cancelPort == null);
               cancelPort = o.sendPort;
@@ -121,22 +134,8 @@ class IsolateClient extends TypedLink {
               sink.addError(o.exception!, o.stackTrace);
               break;
             case RequestResponseType.data:
-              final response = o.data!;
-
-              /// TODO:
-              /// consider adding the original response
-              /// instead of creating a new OperationResponse
-              /// cons: the identity of the request will change
-              /// and == on the request will not work anymore
-              /// (with stand gql: 0.14.0)
-              sink.add(OperationResponse<TData, TVars>(
-                operationRequest: request,
-                linkException: response.linkException,
-                graphqlErrors: response.graphqlErrors,
-                dataSource: response.dataSource,
-                extensions: response.extensions,
-                data: response.data as TData?,
-              ));
+              final response = o.data;
+              onData(response, sink);
               break;
             case RequestResponseType.done:
               sink.close();
@@ -217,6 +216,26 @@ class IsolateClient extends TypedLink {
     );
   }
 
+  /// watches the given fragment from the cache, no network request will be performed
+  Stream<TData?> watchFragment<TData, TVars>(
+      FragmentRequest<TData, TVars> request,
+      {bool optimistic = true}) {
+    return _handleStreamCommand<TData?>(
+      (port) => WatchFragmentCommand(port.sendPort, request),
+      (data, sink) => sink.add(data),
+    );
+  }
+
+  /// watches the given query from the cache only, no network operations will be performed
+  Stream<TData?> watchQuery<TData, TVars>(
+      OperationRequest<TData, TVars> request,
+      {bool optimistic = true}) {
+    return _handleStreamCommand<TData?>(
+      (port) => WatchQueryCommand(port.sendPort, request),
+      (data, sink) => sink.add(data),
+    );
+  }
+
   Future<void> writeFragment<TData, TVars>(
       FragmentRequest<TData, TVars> request, TData data,
       {OperationRequest<TData, TVars>? optimisticRequest}) {
@@ -233,6 +252,11 @@ class IsolateClient extends TypedLink {
   Future<void> removeOptimisticPatch(OperationRequest request) {
     return _handleSingleResponseCommand(
         (sendPort) => RemoveOptimisticPatch(sendPort, request));
+  }
+
+  Future<void> clearOptimisticPatches() {
+    return _handleSingleResponseCommand(
+        (sendPort) => ClearOptimisticPatchesCommand(sendPort));
   }
 
   @override
