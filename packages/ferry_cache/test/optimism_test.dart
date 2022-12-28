@@ -118,5 +118,29 @@ void main() {
         );
       });
     });
+
+    group('remove all patches', () {
+      test('remove all patches test', () {
+        final store = MemoryStore();
+        final cache = Cache(store: store);
+        cache.writeQuery(
+          mutation1,
+          mutation1data,
+          optimisticRequest: mutation1,
+        );
+
+        expect(
+          cache.readQuery(mutation1, optimistic: true),
+          equals(mutation1data),
+        );
+
+        cache.clearOptimisticPatches();
+
+        expect(
+          cache.readQuery(mutation1, optimistic: true),
+          equals(null),
+        );
+      });
+    });
   });
 }
