@@ -1,3 +1,9 @@
+## 0.14.0
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **FIX**: remove optimistic patch when listener unsubscribes before link responds with data instead of leaking optimistic patch forever (#466).
+
 ## 0.13.1-dev.1
 
  - **FEAT**: add watchQuery, watchFragment, clearOptimisticPatches to IsolateClient  (#460).
