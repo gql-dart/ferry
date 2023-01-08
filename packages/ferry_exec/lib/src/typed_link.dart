@@ -5,8 +5,7 @@ import './operation_request.dart';
 import './operation_response.dart';
 
 /// Type of the `forward` function
-typedef NextTypedLink<TData, TVars> = Stream<OperationResponse<TData, TVars>>
-    Function(
+typedef NextTypedLink<TData, TVars> = Stream<OperationResponse<TData, TVars>> Function(
   OperationRequest<TData, TVars> request,
 );
 
@@ -20,8 +19,7 @@ typedef TypedLinkRouter<TData, TVars> = TypedLink Function(
 /// [TypedLink] as a function
 ///
 /// Used by [TypedLink.function]
-typedef TypedLinkFunction = Stream<OperationResponse<TData, TVars>>
-    Function<TData, TVars>(
+typedef TypedLinkFunction = Stream<OperationResponse<TData, TVars>> Function<TData, TVars>(
   OperationRequest<TData, TVars> request, [
   NextTypedLink<TData, TVars>? forward,
 ]);
@@ -96,6 +94,7 @@ abstract class TypedLink {
   Stream<OperationResponse<TData, TVars>> request<TData, TVars>(
     /// An incoming [OperationRequest]
     OperationRequest<TData, TVars> request, [
+
     /// Function that invokes the [request] function of
     /// the next [TypedLink]
     ///
@@ -135,8 +134,7 @@ class _TypedLinkChain extends TypedLink {
       )!(request);
 
   @override
-  Future<void> dispose() =>
-      Future.wait(typedLinks.map((typedLink) => typedLink.dispose()));
+  Future<void> dispose() => Future.wait(typedLinks.map((typedLink) => typedLink.dispose()));
 }
 
 @visibleForTesting

@@ -1,3 +1,18 @@
+## 0.8.0-dev.0
+
+* Add support for generating `when()` and `maybeWhen()` methods inline fragment
+  spreads with a type condition in order to access the fields of the inline
+  fragment spread without casting. Requires `add_typenames` to be `true` in
+  the build.yaml config (it's `true` by default).
+  To enable, add 
+```yaml
+          when_extensions:
+            when: true
+            maybeWhen: true
+```
+  To the `options` section of the `ferry_generator` config in `build.yaml`.
+
+
 ## 0.7.0
 
  - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.

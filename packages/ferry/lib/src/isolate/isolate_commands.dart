@@ -48,7 +48,9 @@ void _handleStreamRequest<T>(SendPort sendPort, Stream<T> stream) {
     } catch (e, s) {
       /// this should only happen when the event is not serializable for some reason
       /// without this save guard, the client would never get an error
-      sendPort.send(RequestResponse<T>.error(e.toString(), s));
+      sendPort.send(RequestResponse<T>.error(
+          'error when trying so send event. error: $e source: ${_describeEvent(event)}: $e',
+          s));
     }
   }, onError: (Object? error, StackTrace stack) {
     sendPort.send(RequestResponse<T>.error(error.toString(), stack));
@@ -57,6 +59,13 @@ void _handleStreamRequest<T>(SendPort sendPort, Stream<T> stream) {
     sub.cancel();
     cancelEventPort.close();
   });
+}
+
+String _describeEvent(Object? event) {
+  if (event is OperationResponse) {
+    return 'OperationResponse(data: ${event.data}, graphqlErrors: ${event.graphqlErrors}, linkException: ${event.linkException})';
+  }
+  return event.toString();
 }
 
 @internal

@@ -48,6 +48,13 @@ class GraphqlBuilder implements Builder {
     final schema =
         await readDocument(buildStep, config.sourceExtension, config.schemaId);
 
+    if ((config.whenExtensionConfig.generateMaybeWhenExtensionMethod ||
+            config.whenExtensionConfig.generateWhenExtensionMethod) &&
+        !config.shouldAddTypenames) {
+      throw StateError(
+          'When extensions require add_typenames to be true. Consider setting add_typenames to true in your build.yaml or disabling when_extensions in your build.yaml.');
+    }
+
     final libs = <String, Library>{
       astExtension: buildAstLibrary(doc),
       dataExtension: buildDataLibrary(
@@ -55,6 +62,7 @@ class GraphqlBuilder implements Builder {
         addTypenames(schema),
         p.basename(generatedFilePath(buildStep.inputId, dataExtension)),
         config.typeOverrides,
+        config.whenExtensionConfig,
       ),
       varExtension: buildVarLibrary(
         doc,
