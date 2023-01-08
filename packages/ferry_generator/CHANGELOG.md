@@ -1,3 +1,8 @@
+## 0.8.0-dev.1
+
+ - **FEAT**: when/maybeWhen extensions (#470).
+ - **FEAT**: add when()/maybeWhen() extension methods on infline fragment spreads with type condidtion.
+
 ## 0.8.0-dev.0
 
 * Add support for generating `when()` and `maybeWhen()` methods inline fragment
