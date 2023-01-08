@@ -1,9 +1,10 @@
+// ignore_for_file: unawaited_futures
+
 import 'dart:async';
 
 import 'package:async/async.dart';
 import 'package:ferry/ferry.dart';
 import 'package:ferry/src/request_controller_typed_link.dart';
-import 'package:ferry_exec/ferry_exec.dart';
 import 'package:ferry_test_graphql2/queries/__generated__/reviews.data.gql.dart';
 import 'package:ferry_test_graphql2/queries/__generated__/reviews.req.gql.dart';
 import 'package:ferry_test_graphql2/queries/__generated__/reviews.var.gql.dart';

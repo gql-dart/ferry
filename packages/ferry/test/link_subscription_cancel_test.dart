@@ -1,9 +1,9 @@
+// ignore_for_file: unawaited_futures
+
 import 'dart:async';
 
 import 'package:ferry/ferry.dart';
-import 'package:gql_link/gql_link.dart';
 import 'package:gql_exec/gql_exec.dart';
-import 'package:gql_exec/src/response.dart';
 import 'package:test/test.dart';
 
 import 'package:ferry_test_graphql2/queries/__generated__/human_with_args.req.gql.dart';

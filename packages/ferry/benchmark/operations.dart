@@ -1,6 +1,5 @@
 import 'package:ferry/ferry.dart';
 import 'package:gql_exec/gql_exec.dart';
-import 'package:gql_link/gql_link.dart';
 import 'package:benchmarking/benchmarking.dart';
 
 import 'package:ferry_test_graphql2/queries/__generated__/human_with_args.req.gql.dart';
