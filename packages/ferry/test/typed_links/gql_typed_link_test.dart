@@ -1,7 +1,8 @@
+// ignore_for_file: unawaited_futures
+
 import 'dart:async';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
-import 'package:gql_link/gql_link.dart';
 import 'package:gql_exec/gql_exec.dart';
 import 'package:test/test.dart';
 import 'package:ferry_exec/ferry_exec.dart';

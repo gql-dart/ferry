@@ -1,3 +1,7 @@
+## 0.8.0-dev.6
+
+ - **FIX**: add stacktrace to error handler in GqlTypedLink (#467).
+
 ## 0.8.0-dev.5
 
  - Update a dependency to the latest release.

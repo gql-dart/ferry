@@ -1,3 +1,8 @@
+## 0.14.0-dev.2
+
+ - **FIX**: add stacktrace to error handler in GqlTypedLink (#467).
+ - **FEAT**: when/maybeWhen extensions (#470).
+
 ## 0.14.0-dev.1
 
 > Note: This release has breaking changes.

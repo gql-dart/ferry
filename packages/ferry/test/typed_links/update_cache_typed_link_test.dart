@@ -2,10 +2,8 @@ import 'dart:async';
 import 'package:async/async.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
-import 'package:gql_link/gql_link.dart';
 import 'package:gql_exec/gql_exec.dart';
 import 'package:test/test.dart';
-import 'package:ferry_exec/ferry_exec.dart';
 
 import 'package:ferry/src/add_typename_typed_link.dart';
 import 'package:ferry/src/update_cache_typed_link.dart';
@@ -175,6 +173,4 @@ void main() {
       });
     });
   });
-
-  test("optimistic update ", () {});
 }

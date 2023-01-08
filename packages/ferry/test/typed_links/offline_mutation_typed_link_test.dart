@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:test/test.dart';
-import 'package:hive/hive.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:ferry_exec/ferry_exec.dart';
 import 'package:async/async.dart';
@@ -84,7 +83,7 @@ void main() {
     // client goes offline, subsequent request is queued
     offlineMutationLink.connected = false;
     requestController.add(req);
-    queue.hasNext;
+    unawaited(queue.hasNext);
     await Future.delayed(Duration.zero);
 
     expect(box.keys.length, equals(1));

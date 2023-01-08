@@ -1,6 +1,5 @@
 import 'dart:isolate';
 
-import 'package:ferry/ferry.dart';
 import 'package:meta/meta.dart';
 
 enum RequestResponseType { initial, data, error, done }
