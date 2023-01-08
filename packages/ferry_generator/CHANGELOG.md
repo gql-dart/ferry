@@ -1,9 +1,5 @@
 ## 0.8.0-dev.0
 
- - **FEAT**: add when()/maybeWhen() extension methods on inline fragment spreads with type condition.
-
-## 0.8.0-dev.0
-
 * Add support for generating `when()` and `maybeWhen()` methods inline fragment
   spreads with a type condition in order to access the fields of the inline
   fragment spread without casting. Requires `add_typenames` to be `true` in
