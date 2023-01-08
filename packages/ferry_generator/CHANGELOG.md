@@ -1,6 +1,6 @@
 ## 0.8.0-dev.0
 
- - **FEAT**: add when()/maybeWhen() extension methods on infline fragment spreads with type condidtion.
+ - **FEAT**: add when()/maybeWhen() extension methods on inline fragment spreads with type condition.
 
 ## 0.8.0-dev.0
 
