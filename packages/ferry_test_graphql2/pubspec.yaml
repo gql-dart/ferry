@@ -15,5 +15,5 @@ dev_dependencies:
   test: ^1.16.8
   build_runner: ^2.0.2
   pedantic: ^1.11.0
-  ferry_generator: ^0.7.0
+  ferry_generator: ^0.8.0-dev.0
   built_value_generator: ^8.1.1

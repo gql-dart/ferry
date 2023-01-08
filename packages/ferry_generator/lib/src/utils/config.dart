@@ -1,5 +1,6 @@
 import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
+import 'package:gql_code_builder/data.dart';
 import 'package:gql_code_builder/schema.dart';
 import 'package:yaml/yaml.dart';
 
@@ -18,6 +19,7 @@ class BuilderConfig {
   final EnumFallbackConfig enumFallbackConfig;
   final String outputDir;
   final String sourceExtension;
+  final InlineFragmentSpreadWhenExtensionConfig whenExtensionConfig;
 
   BuilderConfig(Map<String, dynamic> config)
       : schemaId = AssetId.parse(config['schema'] as String),
@@ -28,7 +30,24 @@ class BuilderConfig {
         customSerializers = _getCustomSerializers(config['custom_serializers']),
         enumFallbackConfig = _getEnumFallbackConfig(config),
         outputDir = config['output_dir'] ?? '__generated__',
-        sourceExtension = config['source_extension'] ?? '.graphql';
+        sourceExtension = config['source_extension'] ?? '.graphql',
+        whenExtensionConfig = _getWhenExtensionConfig(config);
+}
+
+InlineFragmentSpreadWhenExtensionConfig _getWhenExtensionConfig(
+    Map<String, dynamic> config) {
+  if (config['when_extensions'] == null) {
+    return const InlineFragmentSpreadWhenExtensionConfig(
+      generateMaybeWhenExtensionMethod: false,
+      generateWhenExtensionMethod: false,
+    );
+  }
+  final whenExtensionYamlMap = config['when_extensions'] as YamlMap;
+  return InlineFragmentSpreadWhenExtensionConfig(
+    generateMaybeWhenExtensionMethod:
+        whenExtensionYamlMap['maybeWhen'] ?? false,
+    generateWhenExtensionMethod: whenExtensionYamlMap['when'] ?? false,
+  );
 }
 
 Map<String, Reference> _getTypeOverrides(YamlMap? typeOverrideConfig) {
@@ -63,9 +82,10 @@ Set<Reference> _getCustomSerializers(YamlList? customSerializersConfig) {
 EnumFallbackConfig _getEnumFallbackConfig(Map<String, dynamic>? config) {
   if (config == null) {
     return EnumFallbackConfig(
-        fallbackValueMap: {},
-        generateFallbackValuesGlobally: false,
-        globalEnumFallbackName: null);
+      fallbackValueMap: {},
+      generateFallbackValuesGlobally: false,
+      globalEnumFallbackName: null,
+    );
   }
 
   return EnumFallbackConfig(

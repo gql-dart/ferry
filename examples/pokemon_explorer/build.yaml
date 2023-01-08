@@ -5,7 +5,9 @@ targets:
         enabled: true
         options:
           schema: pokemon_explorer|lib/schema.graphql
-
+          when_extensions:
+            when: true
+            maybeWhen: true
       ferry_generator|serializer_builder:
         enabled: true
         options:

@@ -52,15 +52,15 @@ abstract class GPokemonDetailData_pokemon
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   @override
+  GPokemonDetailData_pokemon_height? get height;
+  @override
+  GPokemonDetailData_pokemon_weight? get weight;
+  @override
   int get id;
   @override
   String get name;
   @override
   String get avatar;
-  @override
-  GPokemonDetailData_pokemon_height? get height;
-  @override
-  GPokemonDetailData_pokemon_weight? get weight;
   BuiltList<GPokemonDetailData_pokemon_stats?>? get stats;
   static Serializer<GPokemonDetailData_pokemon> get serializer =>
       _$gPokemonDetailDataPokemonSerializer;
