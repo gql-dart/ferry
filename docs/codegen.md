@@ -192,3 +192,37 @@ If you use VSCode, you can include the following in your `/.vscode/settings.json
 ```
 
 :::
+
+## Config
+
+`ferry_generator|graphql_builder` supports additional configurations parameters, 
+including:
+
+`enum_fallbacks`: \[Map\] Specify fallback values to enum values in order to not break the serializer when
+new enum values are added to the schema and the client has not updated to the new schema yet.
+
+`global_enum_fallbacks`: \[bool\] Add a generated fallback value for each enum value (except for ones that have a custom fallback value specified in the enum_fallbacks map).
+Defaults to false.
+
+`when_extensions`: [Map\] whether to enable the `when`/`maybeWhen` extension on the generated data classes
+from inline fragment spreads with type conditions.
+Supported keys are `when` and `maybeWhen`, and the values are booleans indicating whether to enable
+generation of the extension method not.
+By default, both are disabled.
+
+Example:
+
+```yaml
+  ferry_generator|graphql_builder:
+    enabled: true
+    options:
+      schema: pokemon_explorer|lib/schema.graphql
+      # enable when extensions for inline fragment spreads
+      when_extensions:
+        when: true
+        maybeWhen: true
+      global_enum_fallbacks: true # add a generated fallback value to all enums
+      enum_fallbacks:
+         MyEnumType: OTHER   # except for the type 'MyEnumType', use the value 'OTHER' as fallback there
+
+```
