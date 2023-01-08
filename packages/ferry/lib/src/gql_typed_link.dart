@@ -42,6 +42,7 @@ class GqlTypedLink extends TypedLink {
                       : ServerException(
                           originalException: error,
                           parsedResponse: null,
+                          originalStackTrace: stackTrace,
                         ),
                   dataSource: DataSource.Link,
                 ),

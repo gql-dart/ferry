@@ -24,10 +24,6 @@ ferry_generator|graphql_builder:
 
 The key in the yaml Map should be the name of our custom scalar in our schema (i.e. "Date"), and `name` should be the name of the Dart type.
 
-:::important
-We've included only the `schema_builder` above for brevity, but we will need to include this same type_overrides map for `data_builder`, `var_builder`, and `req_builder` as well. See the [complete build.yaml example](#complete-buildyaml-example) for more details.
-:::
-
 If our Dart type is not part of the `dart:core` library, we'd also need to import the file that contains the Dart type. DateTime _is_ a part of `dart:core`, but if it weren't, we'd import it like so:
 
 ```yaml {7}
