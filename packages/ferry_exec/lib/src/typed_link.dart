@@ -6,25 +6,25 @@ import './operation_response.dart';
 
 /// Type of the `forward` function
 typedef NextTypedLink<TData, TVars> = Stream<OperationResponse<TData, TVars>>
-Function(
-    OperationRequest<TData, TVars> request,
-    );
+    Function(
+  OperationRequest<TData, TVars> request,
+);
 
 /// A function which returns a [TypedLink] based on contents of [request]
 ///
 /// Used in [TypedLink.route]
 typedef TypedLinkRouter<TData, TVars> = TypedLink Function(
-    OperationRequest<TData, TVars> request,
-    );
+  OperationRequest<TData, TVars> request,
+);
 
 /// [TypedLink] as a function
 ///
 /// Used by [TypedLink.function]
 typedef TypedLinkFunction = Stream<OperationResponse<TData, TVars>>
-Function<TData, TVars>(
-    OperationRequest<TData, TVars> request, [
-    NextTypedLink<TData, TVars>? forward,
-    ]);
+    Function<TData, TVars>(
+  OperationRequest<TData, TVars> request, [
+  NextTypedLink<TData, TVars>? forward,
+]);
 
 /// A fully typed implementation of gql_link
 abstract class TypedLink {
@@ -33,75 +33,75 @@ abstract class TypedLink {
 
   /// Create a [TypedLink] from a [TypedLinkFunction]
   factory TypedLink.function(
-      TypedLinkFunction function,
-      ) =>
+    TypedLinkFunction function,
+  ) =>
       _FunctionTypedLink(function);
 
   /// Create a [TypedLink] by chaining multiple [typedLinks]
   factory TypedLink.from(
-      List<TypedLink> typedLinks,
-      ) =>
+    List<TypedLink> typedLinks,
+  ) =>
       _TypedLinkChain(typedLinks);
 
   /// Create a [TypedLink] by chaining two [typedLinks]
   factory TypedLink.concat(
-      TypedLink first,
-      TypedLink second,
-      ) =>
+    TypedLink first,
+    TypedLink second,
+  ) =>
       TypedLink.from([first, second]);
 
   /// Creates a [TypedLink] which routes [OperationRequest] to whichever typedLink is returned from
   /// the [route] function
   factory TypedLink.route(
-      TypedLinkRouter route,
-      ) =>
+    TypedLinkRouter route,
+  ) =>
       _RouterTypedLink(route);
 
   /// Create a [TypedLink] which routes to the [left] typedLink if [test] returns `true`.
   /// Otherwise it routes to the [right] typedLink, which defaults to passthrough.
   factory TypedLink.split(
-      bool Function<TData, TVars>(OperationRequest<TData, TVars> request) test,
-      TypedLink left, [
-        TypedLink right = const PassthroughTypedLink(),
-      ]) =>
+    bool Function<TData, TVars>(OperationRequest<TData, TVars> request) test,
+    TypedLink left, [
+    TypedLink right = const PassthroughTypedLink(),
+  ]) =>
       _RouterTypedLink(
-            (request) => test(request) ? left : right,
+        (request) => test(request) ? left : right,
       );
 
   /// Adds [next] after this typedLink
   TypedLink concat(
-      TypedLink next,
-      ) =>
+    TypedLink next,
+  ) =>
       TypedLink.concat(this, next);
 
   /// Route requests after this typedLink
   TypedLink route(
-      TypedLinkRouter route,
-      ) =>
+    TypedLinkRouter route,
+  ) =>
       concat(_RouterTypedLink(route));
 
   /// Split requests after this typedLink
   TypedLink split(
-      bool Function<TData, TVars>(OperationRequest<TData, TVars> request) test,
-      TypedLink left, [
-        TypedLink right = const PassthroughTypedLink(),
-      ]) =>
+    bool Function<TData, TVars>(OperationRequest<TData, TVars> request) test,
+    TypedLink left, [
+    TypedLink right = const PassthroughTypedLink(),
+  ]) =>
       concat(
         _RouterTypedLink(
-              (request) => test(request) ? left : right,
+          (request) => test(request) ? left : right,
         ),
       );
 
   /// A function called when a [request] reaches this [TypedLink]
   Stream<OperationResponse<TData, TVars>> request<TData, TVars>(
-      /// An incoming [OperationRequest]
-      OperationRequest<TData, TVars> request, [
-        /// Function that invokes the [request] function of
-        /// the next [TypedLink]
-        ///
-        /// Terminating [TypedLink]s do not call this function.
-        NextTypedLink<TData, TVars>? forward,
-      ]);
+    /// An incoming [OperationRequest]
+    OperationRequest<TData, TVars> request, [
+    /// Function that invokes the [request] function of
+    /// the next [TypedLink]
+    ///
+    /// Terminating [TypedLink]s do not call this function.
+    NextTypedLink<TData, TVars>? forward,
+  ]);
 
   Future<void> dispose() async => null;
 }
@@ -113,9 +113,9 @@ class _FunctionTypedLink extends TypedLink {
 
   @override
   Stream<OperationResponse<TData, TVars>> request<TData, TVars>(
-      OperationRequest<TData, TVars> request, [
-        NextTypedLink<TData, TVars>? forward,
-      ]) =>
+    OperationRequest<TData, TVars> request, [
+    NextTypedLink<TData, TVars>? forward,
+  ]) =>
       function<TData, TVars>(request, forward);
 }
 
@@ -126,12 +126,12 @@ class _TypedLinkChain extends TypedLink {
 
   @override
   Stream<OperationResponse<TData, TVars>> request<TData, TVars>(
-      OperationRequest<TData, TVars> request, [
-        NextTypedLink<TData, TVars>? forward,
-      ]) =>
+    OperationRequest<TData, TVars> request, [
+    NextTypedLink<TData, TVars>? forward,
+  ]) =>
       typedLinks.reversed.fold<NextTypedLink<TData, TVars>?>(
         forward,
-            (fw, typedLink) => (op) => typedLink.request(op, fw),
+        (fw, typedLink) => (op) => typedLink.request(op, fw),
       )!(request);
 
   @override
@@ -145,9 +145,9 @@ class PassthroughTypedLink extends TypedLink {
 
   @override
   Stream<OperationResponse<TData, TVars>> request<TData, TVars>(
-      OperationRequest<TData, TVars> request, [
-        NextTypedLink<TData, TVars>? forward,
-      ]) =>
+    OperationRequest<TData, TVars> request, [
+    NextTypedLink<TData, TVars>? forward,
+  ]) =>
       forward!(request);
 }
 
@@ -155,14 +155,14 @@ class _RouterTypedLink extends TypedLink {
   final TypedLinkRouter routeFn;
 
   const _RouterTypedLink(
-      this.routeFn,
-      );
+    this.routeFn,
+  );
 
   @override
   Stream<OperationResponse<TData, TVars>> request<TData, TVars>(
-      OperationRequest<TData, TVars> request, [
-        NextTypedLink<TData, TVars>? forward,
-      ]) async* {
+    OperationRequest<TData, TVars> request, [
+    NextTypedLink<TData, TVars>? forward,
+  ]) async* {
     final typedLink = routeFn(request);
 
     yield* typedLink.request(
