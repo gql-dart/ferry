@@ -66,6 +66,7 @@ void main() {
         true,
         null,
         {},
+        jsonMapEquals,
       );
 
       expect(
@@ -90,6 +91,7 @@ void main() {
           true,
           null,
           {},
+          jsonMapEquals,
         );
 
         expect(stream, emitsInOrder([emitsDone]));
@@ -115,6 +117,7 @@ void main() {
           true,
           null,
           {},
+          jsonMapEquals,
         );
 
         expect(stream, emitsInOrder([emitsDone]));
@@ -137,6 +140,7 @@ void main() {
           true,
           null,
           {},
+          jsonMapEquals,
         );
 
         expect(stream, emitsInOrder([emitsDone]));
@@ -162,6 +166,7 @@ void main() {
           true,
           null,
           {},
+          jsonMapEquals,
         );
 
         expect(
@@ -195,6 +200,7 @@ void main() {
           true,
           null,
           {},
+          jsonMapEquals,
         );
 
         expect(
@@ -231,6 +237,7 @@ void main() {
           true,
           null,
           {},
+          jsonMapEquals,
         );
 
         expect(stream, emitsInOrder([emitsDone]));
@@ -262,6 +269,7 @@ void main() {
           true,
           null,
           {},
+          jsonMapEquals,
         );
 
         expect(
@@ -299,6 +307,7 @@ void main() {
           true,
           null,
           {},
+          jsonMapEquals,
         );
 
         expect(
@@ -328,15 +337,17 @@ void main() {
     group('fragmentDataChangeStream', () {
       test("doesn't trigger before a change", () async {
         final stream = fragmentDataChangeStream(
-            lukeFragment,
-            true,
-            cache.optimisticPatchesStream,
-            cache.optimisticReader,
-            cache.store,
-            {},
-            true,
-            null,
-            {});
+          lukeFragment,
+          true,
+          cache.optimisticPatchesStream,
+          cache.optimisticReader,
+          cache.store,
+          {},
+          true,
+          null,
+          {},
+          jsonMapEquals,
+        );
 
         expect(
           stream,
@@ -349,15 +360,17 @@ void main() {
 
       test("doesn't trigger with the same data", () async {
         final stream = fragmentDataChangeStream(
-            lukeFragment,
-            true,
-            cache.optimisticPatchesStream,
-            cache.optimisticReader,
-            cache.store,
-            {},
-            true,
-            null,
-            {});
+          lukeFragment,
+          true,
+          cache.optimisticPatchesStream,
+          cache.optimisticReader,
+          cache.store,
+          {},
+          true,
+          null,
+          {},
+          jsonMapEquals,
+        );
 
         expect(stream, emitsInOrder([emitsDone]));
 
@@ -370,15 +383,17 @@ void main() {
 
       test('triggers with different data', () async {
         final stream = fragmentDataChangeStream(
-            lukeFragment,
-            true,
-            cache.optimisticPatchesStream,
-            cache.optimisticReader,
-            cache.store,
-            {},
-            true,
-            null,
-            {});
+          lukeFragment,
+          true,
+          cache.optimisticPatchesStream,
+          cache.optimisticReader,
+          cache.store,
+          {},
+          true,
+          null,
+          {},
+          jsonMapEquals,
+        );
 
         expect(
           stream,
@@ -401,15 +416,17 @@ void main() {
       test('triggers with change to dependent reference', () async {
         final hanFrag = GheroDataReq((b) => b..idFields = {'id': 'luke'});
         final stream = fragmentDataChangeStream(
-            hanFrag,
-            true,
-            cache.optimisticPatchesStream,
-            cache.optimisticReader,
-            cache.store,
-            {},
-            true,
-            null,
-            {});
+          hanFrag,
+          true,
+          cache.optimisticPatchesStream,
+          cache.optimisticReader,
+          cache.store,
+          {},
+          true,
+          null,
+          {},
+          jsonMapEquals,
+        );
 
         expect(
           stream,
@@ -435,15 +452,17 @@ void main() {
         final lukeAndFriends =
             GcomparisonFieldsReq((b) => b..idFields = {'id': 'luke'});
         final stream = fragmentDataChangeStream(
-            lukeAndFriends,
-            true,
-            cache.optimisticPatchesStream,
-            cache.optimisticReader,
-            cache.store,
-            {},
-            true,
-            null,
-            {});
+          lukeAndFriends,
+          true,
+          cache.optimisticPatchesStream,
+          cache.optimisticReader,
+          cache.store,
+          {},
+          true,
+          null,
+          {},
+          jsonMapEquals,
+        );
 
         expect(
           stream,

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:collection/collection.dart';
+import 'package:ferry_cache/ferry_cache.dart';
 import 'package:ferry_exec/ferry_exec.dart';
 import 'package:ferry_store/ferry_store.dart';
 import 'package:normalize/normalize.dart';
@@ -21,6 +22,7 @@ Stream<Set<String>> fragmentDataChangeStream<TData, TVars>(
   bool addTypename,
   DataIdResolver? dataIdFromObject,
   Map<String, Set<String>> possibleTypes,
+  JsonEquals jsonEquals,
 ) {
   final dataIdStreamController = StreamController<void>();
   final result = dataIdStreamController.stream
@@ -63,8 +65,7 @@ Stream<Set<String>> fragmentDataChangeStream<TData, TVars>(
 
           return stream.distinct(
             (prev, next) {
-              final areEqual =
-                  const DeepCollectionEquality().equals(prev, next);
+              final areEqual = jsonEquals(prev, next);
               if (!areEqual) {
                 // Maybe a new element was added to an array,
                 // we need to recompute the dataIds
