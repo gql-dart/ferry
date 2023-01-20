@@ -18,8 +18,8 @@ Stream<Map<String, dynamic>?> dataForIdStream(
             Map<OperationRequest<dynamic, dynamic>,
                 Map<String, Map<String, dynamic>?>>?,
             Map<String, dynamic>?>(
-            store.watch(dataId),
+            store.watch(dataId, distinct: false),
             optimisticPatchesStream,
             (_, __) => optimisticReader(dataId),
           )
-        : store.watch(dataId);
+        : store.watch(dataId, distinct: false);
