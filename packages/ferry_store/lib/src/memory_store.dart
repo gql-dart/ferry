@@ -5,21 +5,25 @@ import 'package:ferry_store/ferry_store.dart';
 
 class MemoryStore extends Store {
   final BehaviorSubject<Map<String, Map<String, dynamic>?>> _valueStream;
+  final JsonEquals _jsonEquals;
 
-  MemoryStore([Map<String, Map<String, dynamic>> initialData = const {}])
-      : _valueStream = BehaviorSubject.seeded(initialData);
+  MemoryStore(
+      [Map<String, Map<String, dynamic>> initialData = const {},
+      JsonEquals? jsonEquals])
+      : _valueStream = BehaviorSubject.seeded(initialData),
+        _jsonEquals = jsonEquals ?? jsonMapEquals;
 
   @override
   Iterable<String> get keys => _valueStream.value.keys;
 
   @override
-  Stream<Map<String, dynamic>?> watch(String dataId) =>
-      _valueStream.map((data) => data[dataId]).distinct(
-            (prev, next) => const DeepCollectionEquality().equals(
-              prev,
-              next,
-            ),
-          );
+  Stream<Map<String, dynamic>?> watch(String dataId, {bool distinct = true}) {
+    final stream = _valueStream.map((data) => data[dataId]);
+    if (distinct) {
+      return stream.distinct(_jsonEquals);
+    }
+    return stream;
+  }
 
   @override
   Map<String, dynamic>? get(String dataId) => _valueStream.value[dataId];
