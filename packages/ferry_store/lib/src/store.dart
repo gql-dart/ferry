@@ -1,7 +1,7 @@
 abstract class Store {
   Iterable<String> get keys;
 
-  Stream<Map<String, dynamic>?> watch(String dataId);
+  Stream<Map<String, dynamic>?> watch(String dataId, {bool distinct = true});
 
   Map<String, dynamic>? get(String dataId);
 
