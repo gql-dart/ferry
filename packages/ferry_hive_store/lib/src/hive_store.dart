@@ -6,24 +6,27 @@ import 'package:ferry_store/ferry_store.dart';
 
 class HiveStore extends Store {
   final Box box;
+  final JsonEquals _jsonEquals;
 
-  HiveStore(this.box);
+  HiveStore(this.box, [JsonEquals? jsonEquals])
+      : _jsonEquals = jsonEquals ?? jsonMapEquals;
 
   @override
   Iterable<String> get keys => List.from(box.keys);
 
   @override
-  Stream<Map<String, dynamic>?> watch(String dataId) => box
-      .watch(key: dataId)
-      .map<Map<String, dynamic>?>(
-          (event) => event.value == null ? null : Map.from(event.value))
-      .startWith(get(dataId))
-      .distinct(
-        (prev, next) => const DeepCollectionEquality().equals(
-          prev,
-          next,
-        ),
-      );
+  Stream<Map<String, dynamic>?> watch(String dataId, {bool distinct = true}) {
+    final stream = box
+        .watch(key: dataId)
+        .map<Map<String, dynamic>?>(
+            (event) => event.value == null ? null : Map.from(event.value))
+        .startWith(get(dataId));
+
+    if (distinct) {
+      return stream.distinct(_jsonEquals);
+    }
+    return stream;
+  }
 
   @override
   Map<String, dynamic>? get(String dataId) =>
