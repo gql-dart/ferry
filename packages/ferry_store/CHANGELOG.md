@@ -1,3 +1,7 @@
+## 0.5.1-dev.0
+
+ - **FEAT**: use jsonMapEquals instead of DeepCollectionEquality().equals to avoid it's O(n^2) complexity, add distinct: param to watch() method (#475).
+
 ## 0.5.0
 
  - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.
