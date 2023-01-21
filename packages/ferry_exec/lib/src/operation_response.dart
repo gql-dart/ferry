@@ -33,7 +33,7 @@ class OperationResponse<TData, TVars> {
   final TData? data;
 
   /// Extension data returned with the response
-  final dynamic? extensions;
+  final dynamic extensions;
 
   /// The list of errors in this response.
   final List<GraphQLError>? graphqlErrors;

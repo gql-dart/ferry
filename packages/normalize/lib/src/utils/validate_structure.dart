@@ -7,11 +7,11 @@ import 'package:normalize/src/utils/constants.dart';
 import 'package:normalize/src/utils/exceptions.dart';
 import 'package:normalize/utils.dart';
 
-Map<String, dynamic>? _unsupportedRead(String _key) {
+Map<String, dynamic>? _unsupportedRead(String key) {
   throw UnsupportedError('Should never read while validating');
 }
 
-String? _stubDataIdFromObject(Map<String, dynamic> _data) => null;
+String? _stubDataIdFromObject(Map<String, dynamic> data) => null;
 
 /// Validates the structure of [data] against the operation [operationName] in [document].
 ///
