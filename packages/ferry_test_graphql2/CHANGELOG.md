@@ -1,5 +1,10 @@
 ## 0.2.1-dev.1
 
+ - **REFACTOR**: fix dependencies.
+ - **REFACTOR**: remove cyclic dependency ferry_exec <-> ferry_test_graphql.
+
+## 0.2.1-dev.1
+
  - **REFACTOR**: remove cyclic dependency ferry_exec <-> ferry_test_graphql.
 
 ## 0.2.1-dev.0
