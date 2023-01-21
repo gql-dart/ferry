@@ -1,3 +1,7 @@
+## 0.5.1-dev.1
+
+ - **REFACTOR**: apply lints fixes (#479).
+
 ## 0.5.1-dev.0
 
  - **REFACTOR**: apply lints fixes (#479).
