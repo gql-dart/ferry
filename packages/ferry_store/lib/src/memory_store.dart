@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:rxdart/rxdart.dart';
-import 'package:collection/collection.dart';
 import 'package:ferry_store/ferry_store.dart';
 
 class MemoryStore extends Store {

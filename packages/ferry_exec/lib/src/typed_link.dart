@@ -1,9 +1,6 @@
 import 'package:ferry_exec/ferry_exec.dart';
 import 'package:meta/meta.dart';
 
-import './operation_request.dart';
-import './operation_response.dart';
-
 /// Type of the `forward` function
 typedef NextTypedLink<TData, TVars> = Stream<OperationResponse<TData, TVars>>
     Function(

@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 import 'package:ferry_cache/ferry_cache.dart';
 import 'package:ferry_exec/ferry_exec.dart';
-import 'package:ferry_store/ferry_store.dart';
 import 'package:normalize/normalize.dart';
 import 'package:normalize/utils.dart';
 import 'package:rxdart/rxdart.dart';
