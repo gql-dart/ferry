@@ -16,6 +16,7 @@ class Cache {
   final bool addTypename;
   final Store store;
   final utils.DataIdResolver? dataIdFromObject;
+  final JsonEquals jsonEquals;
 
   /// this stream is used to debounce updates from watchQuery/watchFragment
   /// to avoid emitting multiple times for the same change when multiple
@@ -38,9 +39,11 @@ class Cache {
     this.addTypename = true,
     Map<OperationRequest, Map<String, Map<String, dynamic>?>>
         seedOptimisticPatches = const {},
+    JsonEquals? jsonEquals,
   })  : store = store ?? MemoryStore(),
         _eventStream = BehaviorSubject.seeded(null),
-        optimisticPatchesStream = BehaviorSubject.seeded(seedOptimisticPatches);
+        optimisticPatchesStream = BehaviorSubject.seeded(seedOptimisticPatches),
+        jsonEquals = jsonEquals ?? jsonMapEquals;
 
   /// Reads data for the given [dataId] from the [Store], merging in any data from optimistic patches
   @visibleForTesting
@@ -73,6 +76,7 @@ class Cache {
           addTypename,
           dataIdFromObject,
           possibleTypes,
+          jsonEquals,
         ),
         getData: () => readQuery(request, optimistic: optimistic),
       );
@@ -93,6 +97,7 @@ class Cache {
           addTypename,
           dataIdFromObject,
           possibleTypes,
+          jsonEquals,
         ),
         getData: () => readFragment(request, optimistic: optimistic),
       );
