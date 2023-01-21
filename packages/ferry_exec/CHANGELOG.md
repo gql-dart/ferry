@@ -1,3 +1,8 @@
+## 0.3.0-dev.0+1
+
+ - **REFACTOR**: apply lints fixes (#479).
+ - **REFACTOR**: remove cyclic dependency ferry_exec <-> ferry_test_graphql.
+
 ## 0.3.0
 
  - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.

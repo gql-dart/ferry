@@ -1,3 +1,9 @@
+## 0.7.1-dev.1
+
+ - **REFACTOR**: apply lints fixes (#479).
+ - **REFACTOR**: use jsonMapEquals instead of DeepCollectionEquality.equals() to avoid it's O(n^2) complexity, remove duplicated .distinct() call (#477).
+ - **FEAT**: use jsonMapEquals instead of DeepCollectionEquality().equals to avoid it's O(n^2) complexity, add distinct: param to watch() method (#475).
+
 ## 0.7.1-dev.0
 
  - **FEAT**: add `clearOptimisticPatches()` (#459).
