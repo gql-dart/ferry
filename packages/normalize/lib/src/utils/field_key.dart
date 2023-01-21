@@ -38,7 +38,7 @@ class FieldKey {
   ) : args = SplayTreeMap<String, dynamic>.from(args);
 
   @override
-  bool operator ==(o) => o.toString() == toString();
+  bool operator ==(Object? other) => other.toString() == toString();
 
   @override
   int get hashCode => toString().hashCode;
