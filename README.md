@@ -1,7 +1,3 @@
-# ⚠️ Notice: Looking for maintainers
-
-While we are using this package in our own production applications, we don't have the resources to maintain the project beyond our immediate needs. If anyone would like to help maintain the project, we'd be happy to support and empower wherever possible.
-
 <p align="center">
   <img src="https://raw.githubusercontent.com/gql-dart/ferry/master/logo.jpg" width="450px">
 </p>
