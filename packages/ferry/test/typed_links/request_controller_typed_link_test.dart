@@ -5,6 +5,8 @@ import 'dart:async';
 import 'package:async/async.dart';
 import 'package:ferry/ferry.dart';
 import 'package:ferry/src/request_controller_typed_link.dart';
+import 'package:ferry_test_graphql2/queries/__generated__/review_by_id.data.gql.dart';
+import 'package:ferry_test_graphql2/queries/__generated__/review_by_id.req.gql.dart';
 import 'package:ferry_test_graphql2/queries/__generated__/reviews.data.gql.dart';
 import 'package:ferry_test_graphql2/queries/__generated__/reviews.req.gql.dart';
 import 'package:ferry_test_graphql2/queries/__generated__/reviews.var.gql.dart';
@@ -69,8 +71,7 @@ void main() {
     });
 
     group('multiple OperationRequests of the same type', () {
-      test(
-          'requests with different requestIds are not returned in the same response stream',
+      test('requests with different requestIds are not returned in the same response stream',
           () async {
         final queue = StreamQueue(typedLink.request(req));
 
@@ -117,8 +118,7 @@ void main() {
         expect(await queue.hasNext, equals(false));
       });
 
-      test(
-          'identical requests with no requestId are returned in the same response stream',
+      test('identical requests with no requestId are returned in the same response stream',
           () async {
         final queue = StreamQueue(typedLink.request(req));
 
@@ -134,8 +134,7 @@ void main() {
         expect(await queue.hasNext, equals(false));
       });
 
-      test(
-          'separate requests with previously used parameters should return only 1 item per stream',
+      test('separate requests with previously used parameters should return only 1 item per stream',
           () async {
         final queue = StreamQueue(typedLink.request(req));
 
@@ -207,8 +206,7 @@ void main() {
           OperationResponse<GReviewsData, GReviewsVars>(
             operationRequest: req1,
             data: dataForRequest(req1).rebuild(
-              (b) => b
-                ..reviews.first = b.reviews.first!.rebuild((b) => b..stars = 1),
+              (b) => b..reviews.first = b.reviews.first!.rebuild((b) => b..stars = 1),
             ),
           ),
         );
@@ -259,8 +257,7 @@ void main() {
         await typedLink.dispose();
       });
 
-      test('cancelling subscription and doing new request resets state',
-          () async {
+      test('cancelling subscription and doing new request resets state', () async {
         final req1 = req.rebuild((b) => b..requestId = '123');
 
         final reviews1 = dataForRequest(req1).reviews!;
@@ -342,7 +339,67 @@ void main() {
       await client.dispose();
     });
 
-    test('optimistic update check', () {});
+    test('updateResult + update previous fetched pages, continues to watch all pages', () async {
+      final client = Client(link: _AutoResponderTerminalLink());
+      final req1 = req.rebuild((b) => b..requestId = '123');
+
+      final stream = client.request(req1);
+
+      // first page
+      final reviews1 = dataForRequest(req1).reviews!;
+
+      final req2 = req1.rebuild((b) => b..vars.offset = 3);
+
+      // first page + second page merged
+      final reviews2 = reviews1.rebuild(
+        (b) => b..addAll(dataForRequest(req2).reviews!),
+      );
+
+      //  first page + second page merged, after first item is updated
+      final reviews3 = reviews2.rebuild((b) => b
+        ..removeAt(0)
+        ..insert(
+            0,
+            GReviewsData_reviews(
+              (b) => b
+                ..id = '0'
+                ..stars = 2,
+            )));
+
+      expect(
+          stream,
+          emitsInOrder([
+            // first page
+            isA<OperationResponse<GReviewsData, GReviewsVars>>()
+                .having((p) => p.data!.reviews, 'reviews', reviews1),
+            // first page + second page merged
+            isA<OperationResponse<GReviewsData, GReviewsVars>>()
+                .having((p) => p.data!.reviews, 'reviews', reviews2),
+            // first page + second page merged, after first item is updated
+            isA<OperationResponse<GReviewsData, GReviewsVars>>()
+                .having((p) => p.data!.reviews, 'reviews', reviews3),
+            emitsDone
+          ]));
+
+      await Future.delayed(Duration.zero);
+
+      // fetch second page
+      client.requestController.add(req2);
+
+      await Future.delayed(Duration.zero);
+
+      // update first item
+      client.cache.writeQuery(
+        GReviewsByIDReq((b) => b..vars.id = '0'),
+        GReviewsByIDData((b) => b
+          ..review.stars = 2
+          ..review.id = '0'),
+      );
+
+      await Future.delayed(Duration.zero);
+
+      await client.dispose();
+    });
   });
 }
 
@@ -357,9 +414,7 @@ class _AutoResponderTerminalLink extends Link {
           data: GReviewsData((b) => b
             ..reviews.addAll([
               for (int i = req.variables['offset'] as int;
-                  i <
-                      ((req.variables['offset'] as int) + req.variables['first']
-                          as int);
+                  i < ((req.variables['offset'] as int) + req.variables['first'] as int);
                   i++)
                 GReviewsData_reviews(
                   (b) => b
