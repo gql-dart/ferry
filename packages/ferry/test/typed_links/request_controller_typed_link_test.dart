@@ -71,7 +71,8 @@ void main() {
     });
 
     group('multiple OperationRequests of the same type', () {
-      test('requests with different requestIds are not returned in the same response stream',
+      test(
+          'requests with different requestIds are not returned in the same response stream',
           () async {
         final queue = StreamQueue(typedLink.request(req));
 
@@ -118,7 +119,8 @@ void main() {
         expect(await queue.hasNext, equals(false));
       });
 
-      test('identical requests with no requestId are returned in the same response stream',
+      test(
+          'identical requests with no requestId are returned in the same response stream',
           () async {
         final queue = StreamQueue(typedLink.request(req));
 
@@ -134,7 +136,8 @@ void main() {
         expect(await queue.hasNext, equals(false));
       });
 
-      test('separate requests with previously used parameters should return only 1 item per stream',
+      test(
+          'separate requests with previously used parameters should return only 1 item per stream',
           () async {
         final queue = StreamQueue(typedLink.request(req));
 
@@ -206,7 +209,8 @@ void main() {
           OperationResponse<GReviewsData, GReviewsVars>(
             operationRequest: req1,
             data: dataForRequest(req1).rebuild(
-              (b) => b..reviews.first = b.reviews.first!.rebuild((b) => b..stars = 1),
+              (b) => b
+                ..reviews.first = b.reviews.first!.rebuild((b) => b..stars = 1),
             ),
           ),
         );
@@ -257,7 +261,8 @@ void main() {
         await typedLink.dispose();
       });
 
-      test('cancelling subscription and doing new request resets state', () async {
+      test('cancelling subscription and doing new request resets state',
+          () async {
         final req1 = req.rebuild((b) => b..requestId = '123');
 
         final reviews1 = dataForRequest(req1).reviews!;
@@ -339,7 +344,9 @@ void main() {
       await client.dispose();
     });
 
-    test('updateResult + update previous fetched pages, continues to watch all pages', () async {
+    test(
+        'updateResult + update previous fetched pages, continues to watch all pages',
+        () async {
       final client = Client(link: _AutoResponderTerminalLink());
       final req1 = req.rebuild((b) => b..requestId = '123');
 
@@ -414,7 +421,9 @@ class _AutoResponderTerminalLink extends Link {
           data: GReviewsData((b) => b
             ..reviews.addAll([
               for (int i = req.variables['offset'] as int;
-                  i < ((req.variables['offset'] as int) + req.variables['first'] as int);
+                  i <
+                      ((req.variables['offset'] as int) + req.variables['first']
+                          as int);
                   i++)
                 GReviewsData_reviews(
                   (b) => b
