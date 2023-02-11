@@ -136,28 +136,86 @@ void main() {
         expect(await queue.hasNext, equals(false));
       });
 
-      test(
-          'separate requests with previously used parameters should return only 1 item per stream',
-          () async {
-        final queue = StreamQueue(typedLink.request(req));
+      group('Cached streams', () {
+        test('Equal requests with no requestId return the same stream',
+            () async {
+          final req1 = GReviewsReq(
+            (b) => b
+              ..vars.first = 3
+              ..vars.offset = 0,
+          );
+          final req2 = GReviewsReq(
+            (b) => b
+              ..vars.first = 3
+              ..vars.offset = 0,
+          );
+          final stream1 = typedLink.request(req1);
+          final stream2 = typedLink.request(req2);
+          final queue1 = StreamQueue(stream1);
+          final queue2 = StreamQueue(stream2);
 
-        //build a request with the same parameters, but a different instance.  req and reqTwo
-        //will be equivalent, but still should not interfere with each others streams
-        final reqTwo = GReviewsReq((b) => b
-          ..vars.offset = req.vars.offset
-          ..vars.first = req.vars.first
-          ..updateResult = req.updateResult);
+          expect(stream1, stream2);
 
-        final queue2 = StreamQueue(typedLink.request(reqTwo));
+          await responseController.close();
+          requestController.close();
 
-        expect(await queue.next, isNotNull);
-        expect(await queue2.next, isNotNull);
+          expect(await queue1.hasNext, isNotNull);
+          expect(await queue2.hasNext, isNotNull);
+        });
 
-        await responseController.close();
-        await requestController.close();
+        test('Unequal requests with no requestId don\'t return the same stream',
+            () async {
+          final req1 = GReviewsReq(
+            (b) => b
+              ..vars.first = 3
+              ..vars.offset = 0,
+          );
+          final req2 = GReviewsReq(
+            (b) => b
+              ..vars.first = 4
+              ..vars.offset = 0,
+          );
+          final stream1 = typedLink.request(req1);
+          final stream2 = typedLink.request(req2);
+          final queue1 = StreamQueue(stream1);
+          final queue2 = StreamQueue(stream2);
 
-        expect(await queue.hasNext, equals(false));
-        expect(await queue2.hasNext, equals(false));
+          expect(stream1, isNot(stream2));
+
+          await responseController.close();
+          requestController.close();
+
+          expect(await queue1.hasNext, isNotNull);
+          expect(await queue2.hasNext, isNotNull);
+        });
+
+        test('Unequal requests with a requestId return the same stream',
+            () async {
+          final req1 = GReviewsReq(
+            (b) => b
+              ..vars.first = 3
+              ..vars.offset = 0
+              ..requestId = '123',
+          );
+          final req2 = GReviewsReq(
+            (b) => b
+              ..vars.first = 4
+              ..vars.offset = 0
+              ..requestId = '123',
+          );
+          final stream1 = typedLink.request(req1);
+          final stream2 = typedLink.request(req2);
+          final queue1 = StreamQueue(stream1);
+          final queue2 = StreamQueue(stream2);
+
+          expect(stream1, stream2);
+
+          await responseController.close();
+          requestController.close();
+
+          expect(await queue1.hasNext, isNotNull);
+          expect(await queue2.hasNext, isNotNull);
+        });
       });
     });
 
@@ -253,6 +311,8 @@ void main() {
               emitsDone
             ])));
 
+        await Future.delayed(Duration.zero);
+
         await typedLink.request(req2).first;
         await typedLink.request((req3)).first;
         await responseController.close();
@@ -286,12 +346,12 @@ void main() {
           lastResponse = response.data!.reviews;
         });
 
+        await Future.delayed(Duration.zero);
+
         await typedLink.request(req2).first;
         await typedLink.request((req3)).first;
 
         await sub.cancel();
-
-        await Future.delayed(Duration.zero);
 
         expect(lastResponse, reviews3);
 
