@@ -1,3 +1,7 @@
+## 0.2.1-dev.2
+
+ - **REFACTOR**: fix dependencies.
+
 ## 0.2.1-dev.1
 
  - **REFACTOR**: fix dependencies.

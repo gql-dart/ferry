@@ -1,3 +1,7 @@
+## 0.14.0-dev.5
+
+ - **FIX**: Re-use the same stream for multiple requests when possible (#487).
+
 ## 0.14.0-dev.4
 
  - Update a dependency to the latest release.
