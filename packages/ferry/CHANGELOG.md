@@ -1,3 +1,7 @@
+## 0.14.0
+
+ - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.
+
 ## 0.14.0-dev.5
 
  - **FIX**: Re-use the same stream for multiple requests when possible (#487).
