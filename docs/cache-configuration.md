@@ -167,3 +167,64 @@ The cache normally obtains `__typename` information by adding the `__typename` f
 ### The `fields` Property
 
 The final property within `TypePolicy` is the `fields` property, which is a map from string field names to `FieldPolicy` objects.
+
+This API is heavily inspired by [Apollo](https://www.apollographql.com/docs/react/caching/cache-field-behavior/#fieldpolicy-api-reference).
+
+The 'merge' function is useful for paginated queries, where you want to merge the results of a query with the results of a previous query also in the
+cache.
+
+Here is an example of how this could be used:
+
+Let's assume we have a query for reviews, which returns a list of reviews.
+
+```graphql
+type Query {
+ 
+   reviews(limit: int, offset: int): [Review]
+ 
+```
+
+This is a query has two arguments, `limit` and `offset`, which are used to paginate the results.
+
+We can use the `merge` function to merge the results of the query with the results of any previous queries.
+
+```dart
+final cache = Cache(
+        typePolicies: {
+          'Query': TypePolicy(
+            fields: {
+              'reviews': FieldPolicy(
+                keyArgs: const [], // every reviews query is cached together, do not consider arguments for paging
+                merge: (existing, incoming, options) {
+                  final merged = (LinkedHashSet<dynamic>(
+                      equals: jsonMapEquals,
+                      hashCode: const DeepCollectionEquality().hash)
+                    ..addAll(existing ?? [])
+                    ..addAll(incoming ?? []))
+                      .toList();
+                  return merged.toList();
+                },
+              ),
+            },
+          ),
+        }
+      );
+```
+
+This shows a custom `merge` function for the `reviews` query.
+First, the keyArgs are set to an empty list, meaning that every query for reviews is cached together.
+Usually, every query would be cached separately (e.g `reviews(limit: 10, offset: 0)` and `reviews(limit: 10, offset: 10)` would be cached separately.
+Setting the keyArgs to an empty list means that the queries are cached.
+
+Then, the `merge` function is defined, which takes the existing reviews and the incoming reviews and merges them together.
+
+Here, we use a `LinkedHashSet` to merge the reviews, which is a set that preserves the order of the elements, but does not allow duplicates.
+This is useful because the reviews are paginated, so we want to preserve the order of the reviews, but we don't want to show the same review twice if 
+one would be returned in multiple pages.
+
+Now the cache merge all the pages in a single list of all reviews.
+
+For more advanced use cases, you can check out the documentation of Apollo for merging and pagination:
+[Apollo](https://www.apollographql.com/docs/react/pagination/core-api#merging-paginated-results).
+
+Ferry's API is very similar.
