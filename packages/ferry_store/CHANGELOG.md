@@ -1,3 +1,7 @@
+## 0.5.1-dev.0+1
+
+ - **DOCS**: add basic documentation for field policy (#494).
+
 ## 0.5.1
 
  - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.

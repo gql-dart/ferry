@@ -1,3 +1,7 @@
+## 0.8.0-dev.0+2
+
+ - **DOCS**: add basic documentation for field policy (#494).
+
 ## 0.8.0+1
 
  - **FIX**: add stacktrace to error handler in GqlTypedLink (#467).

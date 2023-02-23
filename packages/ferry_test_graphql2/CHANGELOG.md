@@ -1,3 +1,7 @@
+## 0.2.1-dev.0+2
+
+ - **DOCS**: add basic documentation for field policy (#494).
+
 ## 0.2.1+1
 
  - Update a dependency to the latest release.

@@ -1,3 +1,7 @@
+## 0.3.0-dev.0+2
+
+ - **DOCS**: add basic documentation for field policy (#494).
+
 ## 0.3.0+1
 
  - **REFACTOR**: apply lints fixes (#479).
