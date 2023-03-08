@@ -1,8 +1,7 @@
-import 'package:test/test.dart';
 import 'package:gql/language.dart';
-
 import 'package:normalize/normalize.dart';
 import 'package:normalize/utils.dart';
+import 'package:test/test.dart';
 
 Map<String, dynamic> get fullQueryData => {
       '__typename': 'Query',
@@ -11,24 +10,47 @@ Map<String, dynamic> get fullQueryData => {
           'id': '123',
           '__typename': 'Post',
           'title': null,
+        },
+        {
+          'id': '1234',
+          '__typename': 'Post',
+          'title': null,
         }
-      ]
+      ],
+      'onePost': {
+        'id': '123',
+        '__typename': 'Post',
+        'title': null,
+      }
     };
 
-Map<String, dynamic> get partialQueryData {
+Map<String, dynamic> get partialPostsQueryData {
   final partial = fullQueryData;
   partial['posts'][0].remove('title');
+  return partial;
+}
+
+Map<String, dynamic> get partialOnePostQueryData {
+  final partial = fullQueryData;
+  partial['onePost'].remove('title');
   return partial;
 }
 
 const normalizedQueryData = {
   'Query': {
     'posts': [
-      {'\$ref': 'Post:123'}
-    ]
+      {'\$ref': 'Post:123'},
+      {'\$ref': 'Post:1234'}
+    ],
+    'onePost': {'\$ref': 'Post:123'}
   },
   'Post:123': {
     'id': '123',
+    '__typename': 'Post',
+    'title': null,
+  },
+  'Post:1234': {
+    'id': '1234',
     '__typename': 'Post',
     'title': null,
   },
@@ -37,6 +59,11 @@ const normalizedQueryData = {
 final query = parseString('''
       query TestQuery {
         posts {
+          __typename
+          id
+          title
+        }
+        onePost {
           __typename
           id
           title
@@ -53,7 +80,7 @@ void main() {
         read: (dataId) => normalizedResult[dataId],
         write: (dataId, value) => normalizedResult[dataId] = value,
         document: query,
-        data: partialQueryData,
+        data: partialPostsQueryData,
       );
 
       expect(
@@ -71,7 +98,7 @@ void main() {
           write: (dataId, value) => normalizedResult[dataId] = value,
           acceptPartialData: false,
           document: query,
-          data: partialQueryData,
+          data: partialPostsQueryData,
         ),
         throwsA(isA<PartialDataException>().having(
           (e) => e.path,
@@ -105,7 +132,7 @@ void main() {
         validateOperationDataStructure(
           handleException: true,
           document: query,
-          data: partialQueryData,
+          data: partialOnePostQueryData,
         ),
         equals(false),
       );
@@ -113,13 +140,36 @@ void main() {
       expect(
         () => validateOperationDataStructure(
           document: query,
-          data: partialQueryData,
+          data: partialOnePostQueryData,
         ),
         throwsA(isA<PartialDataException>().having(
           (e) => e.path,
           'An accurate path',
-          ['posts', 'title'],
+          const ['onePost', 'title'],
         )),
+      );
+    });
+
+    test('Accept partial data in a list', () {
+      expect(
+        validateOperationDataStructure(
+          handleException: true,
+          document: query,
+          data: partialPostsQueryData,
+        ),
+        isTrue,
+      );
+
+      expect(
+        () => validateOperationDataStructure(
+          document: query,
+          data: partialPostsQueryData,
+        ),
+        isNot(throwsA(isA<PartialDataException>().having(
+          (e) => e.path,
+          'An accurate path',
+          const ['posts', 'title'],
+        ))),
       );
     });
 

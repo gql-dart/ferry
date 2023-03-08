@@ -1,7 +1,6 @@
-import 'package:test/test.dart';
 import 'package:gql/language.dart';
-
 import 'package:normalize/normalize.dart';
+import 'package:test/test.dart';
 
 void main() {
   test('Return partial data', () {
@@ -579,6 +578,48 @@ void main() {
         () {
       final query = parseString('''
       query TestQuery(\$skip: Boolean!) {
+        onePost {
+          id
+          ...PostTitle @skip(if: \$skip)
+        }
+      }
+
+      fragment PostTitle on Post {
+        title
+      }
+    ''');
+
+      final data = {
+        'Query': {
+          '__typename': 'Query',
+          'onePost': {'\$ref': 'Post:123'},
+        },
+        'Post:123': {
+          'id': '123',
+          '__typename': 'Post',
+        },
+      };
+
+      expect(
+        () => denormalizeOperation(
+          document: query,
+          read: (dataId) => data[dataId],
+          addTypename: true,
+          returnPartialData: false,
+          handleException: false,
+          variables: {
+            'skip': false,
+          },
+        ),
+        throwsA(isA<PartialDataException>()),
+      );
+    });
+
+    test(
+        'does not inside a list when skip directives with value false on fragments is used but data is missing',
+        () {
+      final query = parseString('''
+      query TestQuery(\$skip: Boolean!) {
         posts {
           id
           ...PostTitle @skip(if: \$skip)
@@ -604,7 +645,7 @@ void main() {
       };
 
       expect(
-        () => denormalizeOperation(
+        denormalizeOperation(
           document: query,
           read: (dataId) => data[dataId],
           addTypename: true,
@@ -614,7 +655,7 @@ void main() {
             'skip': false,
           },
         ),
-        throwsA(isA<PartialDataException>()),
+        {'__typename': 'Query', 'posts': []},
       );
     });
 
@@ -919,6 +960,45 @@ void main() {
         () {
       final query = parseString('''
       query TestQuery(\$include: Boolean!) {
+        onePost {
+          id
+          ... on Post @include(if: \$include) {
+            title
+          }
+        }
+      }
+    ''');
+
+      const data = {
+        'Query': {
+          '__typename': 'Query',
+          'onePost': {'\$ref': 'Post:123'},
+        },
+        'Post:123': {
+          'id': '123',
+          '__typename': 'Post',
+        },
+      };
+
+      expect(
+        denormalizeOperation(
+          document: query,
+          read: (dataId) => data[dataId],
+          addTypename: true,
+          returnPartialData: false,
+          variables: const {
+            'include': true,
+          },
+        ),
+        isNull,
+      );
+    });
+
+    test(
+        'respects include directives with variable true on inline fragments with partial data inside a list',
+        () {
+      final query = parseString('''
+      query TestQuery(\$include: Boolean!) {
         posts {
           id
           ... on Post @include(if: \$include) {
@@ -928,7 +1008,7 @@ void main() {
       }
     ''');
 
-      final data = {
+      const data = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -951,7 +1031,7 @@ void main() {
             'include': true,
           },
         ),
-        isNull,
+        const {'__typename': 'Query', 'posts': []},
       );
     });
 
@@ -968,7 +1048,7 @@ void main() {
       }
     ''');
 
-      final data = {
+      const data = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -987,11 +1067,11 @@ void main() {
           read: (dataId) => data[dataId],
           addTypename: true,
           returnPartialData: false,
-          variables: {
+          variables: const {
             'include': false,
           },
         ),
-        equals({
+        equals(const {
           '__typename': 'Query',
           'posts': [
             {
@@ -1004,7 +1084,7 @@ void main() {
     });
 
     test(
-        'throws, when a field once specified twice, once in an skipped context and once without and data is missing',
+        'throws, when a field is specified twice, once in an skipped context and once without and data is missing',
         () {
       final query = parseString('''
       query TestQuery(\$include: Boolean!) {
@@ -1018,12 +1098,10 @@ void main() {
       }
     ''');
 
-      final data = {
+      const data = {
         'Query': {
           '__typename': 'Query',
-          'posts': [
-            {'\$ref': 'Post:123'}
-          ]
+          'onePost': {'\$ref': 'Post:123'},
         },
         'Post:123': {
           'id': '123',
@@ -1038,11 +1116,54 @@ void main() {
           addTypename: true,
           returnPartialData: false,
           handleException: false,
-          variables: {
+          variables: const {
             'include': false,
           },
         ),
         throwsA(isA<PartialDataException>()),
+      );
+    });
+
+    test(
+        'when a field in a list is specified twice, once in an skipped context and once without and data is missing',
+        () {
+      final query = parseString('''
+      query TestQuery(\$include: Boolean!) {
+        posts {
+          id
+          title
+          ... on Post @include(if: \$include) {
+            title
+          }
+        }
+      }
+    ''');
+
+      const data = {
+        'Query': {
+          '__typename': 'Query',
+          'posts': [
+            {'\$ref': 'Post:123'}
+          ]
+        },
+        'Post:123': {
+          'id': '123',
+          '__typename': 'Post',
+        },
+      };
+
+      expect(
+        denormalizeOperation(
+          document: query,
+          read: (dataId) => data[dataId],
+          addTypename: true,
+          returnPartialData: false,
+          handleException: false,
+          variables: const {
+            'include': false,
+          },
+        ),
+        const {'__typename': 'Query', 'posts': []},
       );
     });
 
