@@ -116,29 +116,29 @@ Set<NodeRef> nodesReferencingId(
 
   void fieldEntered(String fieldName) {
     print('fieldEntered $fieldName');
-    final last =   currentNodePath.removeLast();
+    final last = currentNodePath.removeLast();
 
-    if(last is IdNodeRef) {
+    if (last is IdNodeRef) {
       currentNodePath.add(PathNodeRef(last.id, [fieldName]));
-    } else if(last is PathNodeRef) {
+    } else if (last is PathNodeRef) {
       currentNodePath.add(PathNodeRef(last.id, [...last.path, fieldName]));
     }
 
     print('fieldEntered end $currentNodePath');
-
   }
 
   void fieldExited() {
     print('fieldExited begin $currentNodePath');
-    final last =   currentNodePath.removeLast();
+    final last = currentNodePath.removeLast();
 
     assert(last is PathNodeRef);
 
-    if(last is PathNodeRef) {
-      if(last.path.length == 1) {
+    if (last is PathNodeRef) {
+      if (last.path.length == 1) {
         currentNodePath.add(IdNodeRef(last.id));
       } else {
-        currentNodePath.add(PathNodeRef(last.id, last.path.sublist(0, last.path.length - 1)));
+        currentNodePath.add(
+            PathNodeRef(last.id, last.path.sublist(0, last.path.length - 1)));
       }
     }
 
@@ -147,23 +147,24 @@ Set<NodeRef> nodesReferencingId(
 
   void indexEntered(int index) {
     print('indexEntered $index');
-    final last =   currentNodePath.removeLast();
+    final last = currentNodePath.removeLast();
 
     assert(last is PathNodeRef);
 
-    if(last is PathNodeRef) {
+    if (last is PathNodeRef) {
       currentNodePath.add(PathNodeRef(last.id, [...last.path, index]));
     }
   }
 
   void indexExited() {
     print('indexExited $currentNodePath');
-    final last =   currentNodePath.removeLast();
+    final last = currentNodePath.removeLast();
 
     assert(last is PathNodeRef);
 
-    if(last is PathNodeRef) {
-      currentNodePath.add(PathNodeRef(last.id, last.path.sublist(0, last.path.length - 1)));
+    if (last is PathNodeRef) {
+      currentNodePath.add(
+          PathNodeRef(last.id, last.path.sublist(0, last.path.length - 1)));
     }
   }
 
@@ -201,7 +202,6 @@ Set<NodeRef> nodesReferencingId(
         if (refId == id) {
           throw ('refId == id unpossible');
         }
-
 
         visitKey(refId);
       } else {
