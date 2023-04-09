@@ -18,8 +18,9 @@ Object? denormalizeNode({
   if (dataForNode == null) return null;
 
   if (dataForNode is List) {
-    final reachableData =
-        dataForNode.where((data) => !isDanglingReference(data, config));
+    final reachableData = dataForNode.where(
+      (data) => !isDanglingReference(data, config),
+    );
     final newList = <Object?>[];
     for (final node in reachableData) {
       try {
@@ -29,8 +30,9 @@ Object? denormalizeNode({
           config: config,
         );
         newList.add(denormalizedSubNode);
-      } on PartialDataException {
+      } on DanglingReferenceException {
         // Ignore the list items with partial data.
+        if (!config.allowDanglingReference) rethrow;
       }
     }
     return newList;
@@ -40,8 +42,9 @@ Object? denormalizeNode({
   if (selectionSet == null) return dataForNode;
 
   if (dataForNode is Map) {
-    final denormalizedData = dataForNode.containsKey(config.referenceKey)
-        ? config.read(dataForNode[config.referenceKey]) ?? {}
+    final isReference = dataForNode.containsKey(config.referenceKey);
+    final denormalizedData = isReference
+        ? config.read(dataForNode[config.referenceKey]) ?? const {}
         : Map<String, dynamic>.from(dataForNode);
 
     final typename = denormalizedData['__typename'];
@@ -79,8 +82,11 @@ Object? denormalizeNode({
             !(isSkippedValue = isSkipped(fieldNode, config.variables))) {
           if (config.allowPartialData) {
             return result;
+          } else if (isReference) {
+            throw DanglingReferenceException(path: [resultKey]);
+          } else {
+            throw PartialDataException(path: [resultKey]);
           }
-          throw PartialDataException(path: [resultKey]);
         }
         if (isSkippedValue) {
           return result;
@@ -106,7 +112,7 @@ Object? denormalizeNode({
               config: config,
             );
         } on PartialDataException catch (e) {
-          throw PartialDataException(path: [fieldName, ...e.path]);
+          throw e.copyWith(fieldName: fieldName);
         }
       },
     );

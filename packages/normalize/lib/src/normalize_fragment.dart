@@ -1,12 +1,11 @@
 import 'package:gql/ast.dart';
-import 'package:normalize/src/utils/constants.dart';
-
-import 'package:normalize/src/utils/resolve_data_id.dart';
+import 'package:normalize/src/config/normalization_config.dart';
+import 'package:normalize/src/normalize_node.dart';
 import 'package:normalize/src/policies/type_policy.dart';
 import 'package:normalize/src/utils/add_typename_visitor.dart';
-import 'package:normalize/src/normalize_node.dart';
-import 'package:normalize/src/config/normalization_config.dart';
+import 'package:normalize/src/utils/constants.dart';
 import 'package:normalize/src/utils/get_fragment_map.dart';
+import 'package:normalize/src/utils/resolve_data_id.dart';
 
 /// Normalizes data for a given fragment
 ///
@@ -40,6 +39,7 @@ void normalizeFragment({
   bool addTypename = false,
   String referenceKey = kDefaultReferenceKey,
   bool acceptPartialData = true,
+  bool acceptDanglingReferences = false,
   Map<String, Set<String>> possibleTypes = const {},
 }) {
   // Always add typenames to ensure data is stored with typename
@@ -77,6 +77,7 @@ void normalizeFragment({
     addTypename: addTypename,
     dataIdFromObject: dataIdFromObject,
     allowPartialData: acceptPartialData,
+    allowDanglingReference: acceptDanglingReferences,
     possibleTypes: possibleTypes,
   );
 

@@ -1,9 +1,8 @@
 import 'package:gql/ast.dart';
-
-import 'package:normalize/src/utils/field_key.dart';
-import 'package:normalize/src/utils/resolve_data_id.dart';
 import 'package:normalize/src/config/normalization_config.dart';
 import 'package:normalize/src/denormalize_node.dart';
+import 'package:normalize/src/utils/field_key.dart';
+import 'package:normalize/src/utils/resolve_data_id.dart';
 
 class FieldFunctionOptions {
   final NormalizationConfig _config;
@@ -50,6 +49,7 @@ class FieldFunctionOptions {
           dataIdFromObject: _config.dataIdFromObject,
           addTypename: _config.addTypename,
           allowPartialData: true,
+          allowDanglingReference: true,
           possibleTypes: _config.possibleTypes,
         ),
       ) as T?;

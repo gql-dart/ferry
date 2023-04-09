@@ -1,8 +1,7 @@
 import 'package:gql/ast.dart';
-import 'package:normalize/src/denormalize_node.dart';
-
-import 'package:normalize/src/denormalize_operation.dart';
 import 'package:normalize/src/denormalize_fragment.dart';
+import 'package:normalize/src/denormalize_node.dart';
+import 'package:normalize/src/denormalize_operation.dart';
 import 'package:normalize/src/utils/constants.dart';
 import 'package:normalize/src/utils/exceptions.dart';
 import 'package:normalize/utils.dart';
@@ -111,6 +110,7 @@ bool _validateSelectionSet({
     dataIdFromObject: _stubDataIdFromObject,
     addTypename: addTypename,
     allowPartialData: false,
+    allowDanglingReference: false,
     possibleTypes: const {},
   );
   try {
