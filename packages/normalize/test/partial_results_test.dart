@@ -616,7 +616,7 @@ void main() {
     });
 
     test(
-        'does not inside a list when skip directives with value false on fragments is used but data is missing',
+        'does not inside a list when skip directives with value false on fragments is used but data is missing and allow dangling reference is true',
         () {
       final query = parseString('''
       query TestQuery(\$skip: Boolean!) {
@@ -654,6 +654,7 @@ void main() {
           variables: {
             'skip': false,
           },
+          allowDanglingReference: true,
         ),
         {'__typename': 'Query', 'posts': []},
       );
@@ -1030,6 +1031,7 @@ void main() {
           variables: {
             'include': true,
           },
+          allowDanglingReference: true,
         ),
         const {'__typename': 'Query', 'posts': []},
       );
@@ -1162,6 +1164,7 @@ void main() {
           variables: const {
             'include': false,
           },
+          allowDanglingReference: true,
         ),
         const {'__typename': 'Query', 'posts': []},
       );

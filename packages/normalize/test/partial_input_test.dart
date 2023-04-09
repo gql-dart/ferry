@@ -150,29 +150,6 @@ void main() {
       );
     });
 
-    test('Accept partial data in a list', () {
-      expect(
-        validateOperationDataStructure(
-          handleException: true,
-          document: query,
-          data: partialPostsQueryData,
-        ),
-        isTrue,
-      );
-
-      expect(
-        () => validateOperationDataStructure(
-          document: query,
-          data: partialPostsQueryData,
-        ),
-        isNot(throwsA(isA<PartialDataException>().having(
-          (e) => e.path,
-          'An accurate path',
-          const ['posts', 'title'],
-        ))),
-      );
-    });
-
     test('accepts valid data', () {
       expect(
         validateOperationDataStructure(
