@@ -43,6 +43,7 @@ Stream<Set<String>> fragmentDataChangeStream<TData, TVars>(
           returnPartialData: true,
           dataIdFromObject: dataIdFromObject,
           possibleTypes: possibleTypes,
+          allowDanglingReference: true,
         );
 
         return dataIds;
