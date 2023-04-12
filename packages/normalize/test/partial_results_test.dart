@@ -173,7 +173,7 @@ void main() {
       }
     ''');
 
-      final data = {
+      const data = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -194,7 +194,7 @@ void main() {
           addTypename: true,
           returnPartialData: false,
         ),
-        equals({
+        equals(const {
           '__typename': 'Query',
           'posts': [
             {
@@ -217,7 +217,7 @@ void main() {
       }
     ''');
 
-      final data = {
+      const data = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -237,7 +237,7 @@ void main() {
           addTypename: true,
           returnPartialData: false,
         ),
-        equals({
+        equals(const {
           '__typename': 'Query',
           'posts': [
             {
@@ -260,7 +260,7 @@ void main() {
       }
     ''');
 
-      final data = {
+      const data = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -279,7 +279,7 @@ void main() {
           addTypename: true,
           returnPartialData: false,
         ),
-        equals({
+        equals(const {
           '__typename': 'Query',
           'posts': [
             {
@@ -301,7 +301,7 @@ void main() {
       }
     ''');
 
-      final data = {
+      const data = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -320,11 +320,11 @@ void main() {
           read: (dataId) => data[dataId],
           addTypename: true,
           returnPartialData: false,
-          variables: {
+          variables: const {
             'skip': true,
           },
         ),
-        equals({
+        equals(const {
           '__typename': 'Query',
           'posts': [
             {
@@ -346,7 +346,7 @@ void main() {
       }
     ''');
 
-      final data = {
+      const data = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -366,11 +366,11 @@ void main() {
           read: (dataId) => data[dataId],
           addTypename: true,
           returnPartialData: false,
-          variables: {
+          variables: const {
             'skip': false,
           },
         ),
-        equals({
+        equals(const {
           '__typename': 'Query',
           'posts': [
             {
@@ -393,7 +393,7 @@ void main() {
       }
     ''');
 
-      final data = {
+      const data = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -412,11 +412,11 @@ void main() {
           read: (dataId) => data[dataId],
           addTypename: true,
           returnPartialData: false,
-          variables: {
+          variables: const {
             'include': true,
           },
         ),
-        equals({
+        equals(const {
           '__typename': 'Query',
           'posts': [
             {
@@ -439,7 +439,7 @@ void main() {
       }
     ''');
 
-      final data = {
+      const data = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -457,11 +457,11 @@ void main() {
           read: (dataId) => data[dataId],
           addTypename: true,
           returnPartialData: false,
-          variables: {
+          variables: const {
             'include': false,
           },
         ),
-        equals({
+        equals(const {
           '__typename': 'Query',
           'posts': [
             {
@@ -487,7 +487,7 @@ void main() {
       }
     ''');
 
-      final data = {
+      const data = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -506,11 +506,11 @@ void main() {
           read: (dataId) => data[dataId],
           addTypename: true,
           returnPartialData: false,
-          variables: {
+          variables: const {
             'skip': true,
           },
         ),
-        equals({
+        equals(const {
           '__typename': 'Query',
           'posts': [
             {
@@ -536,7 +536,7 @@ void main() {
       }
     ''');
 
-      final data = {
+      const data = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -560,7 +560,7 @@ void main() {
             'skip': false,
           },
         ),
-        equals({
+        equals(const {
           '__typename': 'Query',
           'posts': [
             {
@@ -589,7 +589,7 @@ void main() {
       }
     ''');
 
-      final data = {
+      const data = {
         'Query': {
           '__typename': 'Query',
           'onePost': {'\$ref': 'Post:123'},
@@ -607,7 +607,7 @@ void main() {
           addTypename: true,
           returnPartialData: false,
           handleException: false,
-          variables: {
+          variables: const {
             'skip': false,
           },
         ),
@@ -631,7 +631,7 @@ void main() {
       }
     ''');
 
-      final data = {
+      const data = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -651,12 +651,12 @@ void main() {
           addTypename: true,
           returnPartialData: false,
           handleException: false,
-          variables: {
+          variables: const {
             'skip': false,
           },
           allowDanglingReference: true,
         ),
-        {'__typename': 'Query', 'posts': []},
+        const {'__typename': 'Query', 'posts': []},
       );
     });
 
@@ -674,7 +674,7 @@ void main() {
       }
     ''');
 
-      final data = {
+      const data = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -693,11 +693,11 @@ void main() {
           read: (dataId) => data[dataId],
           addTypename: true,
           returnPartialData: false,
-          variables: {
+          variables: const {
             'include': true,
           },
         ),
-        equals({
+        equals(const {
           '__typename': 'Query',
           'posts': [
             {
@@ -726,7 +726,7 @@ void main() {
       }
     ''');
 
-      final data = {
+      const data = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -745,11 +745,11 @@ void main() {
           read: (dataId) => data[dataId],
           addTypename: true,
           returnPartialData: false,
-          variables: {
+          variables: const {
             'include': false,
           },
         ),
-        equals({
+        equals(const {
           '__typename': 'Query',
           'posts': [
             {
@@ -775,7 +775,7 @@ void main() {
       }
     ''');
 
-      final data = {
+      const data = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -793,11 +793,11 @@ void main() {
           read: (dataId) => data[dataId],
           addTypename: true,
           returnPartialData: false,
-          variables: {
+          variables: const {
             'include': false,
           },
         ),
-        equals({
+        equals(const {
           '__typename': 'Query',
           'posts': [
             {
@@ -821,7 +821,7 @@ void main() {
       }
     ''');
 
-      final data = {
+      const data = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -840,11 +840,11 @@ void main() {
           read: (dataId) => data[dataId],
           addTypename: true,
           returnPartialData: false,
-          variables: {
+          variables: const {
             'skip': true,
           },
         ),
-        equals({
+        equals(const {
           '__typename': 'Query',
           'posts': [
             {
@@ -869,7 +869,7 @@ void main() {
       }
     ''');
 
-      final data = {
+      const data = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -889,11 +889,11 @@ void main() {
           read: (dataId) => data[dataId],
           addTypename: true,
           returnPartialData: false,
-          variables: {
+          variables: const {
             'skip': false,
           },
         ),
-        equals({
+        equals(const {
           '__typename': 'Query',
           'posts': [
             {
@@ -919,7 +919,7 @@ void main() {
       }
     ''');
 
-      final data = {
+      const data = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -939,11 +939,11 @@ void main() {
           read: (dataId) => data[dataId],
           addTypename: true,
           returnPartialData: false,
-          variables: {
+          variables: const {
             'include': true,
           },
         ),
-        equals({
+        equals(const {
           '__typename': 'Query',
           'posts': [
             {
@@ -1028,7 +1028,7 @@ void main() {
           read: (dataId) => data[dataId],
           addTypename: true,
           returnPartialData: false,
-          variables: {
+          variables: const {
             'include': true,
           },
           allowDanglingReference: true,
@@ -1185,7 +1185,7 @@ void main() {
       }
     ''');
 
-      final data = {
+      const data = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -1206,11 +1206,11 @@ void main() {
           addTypename: true,
           returnPartialData: false,
           handleException: false,
-          variables: {
+          variables: const {
             'include': true,
           },
         ),
-        equals({
+        equals(const {
           '__typename': 'Query',
           'posts': [
             {

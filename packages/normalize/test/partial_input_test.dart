@@ -103,7 +103,7 @@ void main() {
         throwsA(isA<PartialDataException>().having(
           (e) => e.path,
           'An accurate path',
-          ['posts', 'title'],
+          const ['posts', 'title'],
         )),
       );
     });
@@ -166,7 +166,7 @@ void main() {
         throwsA(isA<PartialDataException>().having(
           (e) => e.path,
           'An empty path',
-          [],
+          const [],
         )),
       );
     });
@@ -181,7 +181,7 @@ void main() {
     ''');
 
     test('rejects partial data', () {
-      final partialFragmentData = {
+      const partialFragmentData = {
         'id': '123',
         '__typename': 'Post',
       };
@@ -203,13 +203,13 @@ void main() {
         throwsA(isA<PartialDataException>().having(
           (e) => e.path,
           'An accurate path',
-          ['title'],
+          const ['title'],
         )),
       );
     });
 
     test('accepts valid data', () {
-      final fullFragmentData = {
+      const fullFragmentData = {
         'id': '123',
         '__typename': 'Post',
         'title': null,
@@ -229,7 +229,7 @@ void main() {
         throwsA(isA<PartialDataException>().having(
           (e) => e.path,
           'An empty path',
-          [],
+          const [],
         )),
       );
     });
