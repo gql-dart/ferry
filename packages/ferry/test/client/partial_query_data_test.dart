@@ -8,13 +8,16 @@ void main() {
   test('re-fetches data from network when cached data is partial', () async {
     // network response
     final link = Link.function((request, [forward]) {
-      final data = GReviewsData((b) => b
+      final data = GReviewsData((b) =>
+      b
         ..reviews.addAll([
-          GReviewsData_reviews((b) => b
+          GReviewsData_reviews((b) =>
+          b
             ..id = '1'
             ..commentary = 'Review 1'
             ..stars = 5),
-          GReviewsData_reviews((b) => b
+          GReviewsData_reviews((b) =>
+          b
             ..id = '2'
             ..commentary = 'Review 2'
             ..stars = 5),
@@ -30,30 +33,40 @@ void main() {
     // cache with partial data (e.g. from a previous version of the query with less fields)
     final cache = Cache(
         store: MemoryStore({
-      'Query': {
-        'reviews({"episode":null,"first":3,"offset":0})': {
-          {'\$ref': 'Review:1'},
-          {'\$ref': 'Review:2'}
-        }
-      },
-      'Review:1': {
-        'id': '1', // missing required field starts
-      },
-      'Review:2': {
-        'id': '2',
-      }
-    }));
+          'Query': {
+            '__typename': 'Query',
+            'reviews({"episode":null,"first":3,"offset":0})': [
+              {'\$ref': 'Review:1'},
+              {'\$ref': 'Review:2'}
+            ]
+          },
+          'Review:1': {
+            '__typename': 'Review',
+            'id': '1', // missing required field starts
+          },
+          'Review:2': {
+            '__typename': 'Review',
+            'id': '2',
+          }
+        }));
 
     final client = Client(cache: cache, link: link);
 
-    final req = GReviewsReq((b) => b
+    final req = GReviewsReq((b) =>
+    b
       ..fetchPolicy = FetchPolicy.CacheFirst
       ..vars.first = 3
       ..vars.offset = 0);
 
-    final result = await client.request(req).first;
+    final result = await client
+        .request(req)
+        .first;
 
     // response must come from link, since cached data is partial
     expect(result.dataSource, DataSource.Link);
+
+    expect(result.data, isNotNull);
+
+    expect(result.linkException, isNull);
   });
 }
