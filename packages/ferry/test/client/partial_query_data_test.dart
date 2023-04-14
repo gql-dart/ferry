@@ -31,15 +31,18 @@ void main() {
     final cache = Cache(
         store: MemoryStore({
       'Query': {
-        'reviews({"episode":null,"first":3,"offset":0})': {
+        '__typename': 'Query',
+        'reviews({"episode":null,"first":3,"offset":0})': [
           {'\$ref': 'Review:1'},
           {'\$ref': 'Review:2'}
-        }
+        ]
       },
       'Review:1': {
+        '__typename': 'Review',
         'id': '1', // missing required field starts
       },
       'Review:2': {
+        '__typename': 'Review',
         'id': '2',
       }
     }));
@@ -55,5 +58,9 @@ void main() {
 
     // response must come from link, since cached data is partial
     expect(result.dataSource, DataSource.Link);
+
+    expect(result.data, isNotNull);
+
+    expect(result.linkException, isNull);
   });
 }
