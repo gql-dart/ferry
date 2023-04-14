@@ -1,4 +1,3 @@
-import 'package:ferry/ferry_isolate.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ferry/ferry.dart';
