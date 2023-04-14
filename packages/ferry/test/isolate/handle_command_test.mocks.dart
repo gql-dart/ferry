@@ -442,10 +442,9 @@ class MockReceivePort extends _i1.Mock implements _i4.ReceivePort {
   @override
   _i3.Future<dynamic> reduce(
           dynamic Function(
-    dynamic,
-    dynamic,
-  )?
-              combine) =>
+            dynamic,
+            dynamic,
+          )? combine) =>
       (super.noSuchMethod(
         Invocation.method(
           #reduce,
@@ -460,8 +459,7 @@ class MockReceivePort extends _i1.Mock implements _i4.ReceivePort {
     S Function(
       S,
       dynamic,
-    )?
-        combine,
+    )? combine,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -599,8 +597,7 @@ class MockReceivePort extends _i1.Mock implements _i4.ReceivePort {
           [bool Function(
             dynamic,
             dynamic,
-          )?
-              equals]) =>
+          )? equals]) =>
       (super.noSuchMethod(
         Invocation.method(
           #distinct,
