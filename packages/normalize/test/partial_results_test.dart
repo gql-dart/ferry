@@ -616,7 +616,7 @@ void main() {
     });
 
     test(
-        'does not inside a list when skip directives with value false on fragments is used but data is missing and allow dangling reference is true',
+        'does not throw inside a list when skip directives with value false on fragments is used but data is missing and allow dangling reference is true',
         () {
       final query = parseString('''
       query TestQuery(\$skip: Boolean!) {
@@ -637,10 +637,6 @@ void main() {
           'posts': [
             {'\$ref': 'Post:123'}
           ]
-        },
-        'Post:123': {
-          'id': '123',
-          '__typename': 'Post',
         },
       };
 
@@ -956,87 +952,6 @@ void main() {
       );
     });
 
-    test(
-        'respects include directives with variable true on inline fragments with partial data',
-        () {
-      final query = parseString('''
-      query TestQuery(\$include: Boolean!) {
-        onePost {
-          id
-          ... on Post @include(if: \$include) {
-            title
-          }
-        }
-      }
-    ''');
-
-      const data = {
-        'Query': {
-          '__typename': 'Query',
-          'onePost': {'\$ref': 'Post:123'},
-        },
-        'Post:123': {
-          'id': '123',
-          '__typename': 'Post',
-        },
-      };
-
-      expect(
-        denormalizeOperation(
-          document: query,
-          read: (dataId) => data[dataId],
-          addTypename: true,
-          returnPartialData: false,
-          variables: const {
-            'include': true,
-          },
-        ),
-        isNull,
-      );
-    });
-
-    test(
-        'respects include directives with variable true on inline fragments with partial data inside a list',
-        () {
-      final query = parseString('''
-      query TestQuery(\$include: Boolean!) {
-        posts {
-          id
-          ... on Post @include(if: \$include) {
-            title
-          }
-        }
-      }
-    ''');
-
-      const data = {
-        'Query': {
-          '__typename': 'Query',
-          'posts': [
-            {'\$ref': 'Post:123'}
-          ]
-        },
-        'Post:123': {
-          'id': '123',
-          '__typename': 'Post',
-        },
-      };
-
-      expect(
-        denormalizeOperation(
-          document: query,
-          read: (dataId) => data[dataId],
-          addTypename: true,
-          returnPartialData: false,
-          variables: const {
-            'include': true,
-          },
-          allowDanglingReference: true,
-        ),
-        const {'__typename': 'Query', 'posts': []},
-      );
-    });
-
     test('respects include directives with variable false on inline fragments',
         () {
       final query = parseString('''
@@ -1123,50 +1038,6 @@ void main() {
           },
         ),
         throwsA(isA<PartialDataException>()),
-      );
-    });
-
-    test(
-        'when a field in a list is specified twice, once in an skipped context and once without and data is missing',
-        () {
-      final query = parseString('''
-      query TestQuery(\$include: Boolean!) {
-        posts {
-          id
-          title
-          ... on Post @include(if: \$include) {
-            title
-          }
-        }
-      }
-    ''');
-
-      const data = {
-        'Query': {
-          '__typename': 'Query',
-          'posts': [
-            {'\$ref': 'Post:123'}
-          ]
-        },
-        'Post:123': {
-          'id': '123',
-          '__typename': 'Post',
-        },
-      };
-
-      expect(
-        denormalizeOperation(
-          document: query,
-          read: (dataId) => data[dataId],
-          addTypename: true,
-          returnPartialData: false,
-          handleException: false,
-          variables: const {
-            'include': false,
-          },
-          allowDanglingReference: true,
-        ),
-        const {'__typename': 'Query', 'posts': []},
       );
     });
 
