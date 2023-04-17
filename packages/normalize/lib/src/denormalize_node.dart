@@ -43,8 +43,15 @@ Object? denormalizeNode({
 
   if (dataForNode is Map) {
     final isReference = dataForNode.containsKey(config.referenceKey);
+    Map<String, dynamic>? referenceData;
+    if (isReference) {
+      referenceData = config.read(dataForNode[config.referenceKey]);
+      if (referenceData == null) {
+        throw const DanglingReferenceException(path: []);
+      }
+    }
     final denormalizedData = isReference
-        ? config.read(dataForNode[config.referenceKey]) ?? const {}
+        ? referenceData ?? const {}
         : Map<String, dynamic>.from(dataForNode);
 
     final typename = denormalizedData['__typename'];
@@ -82,11 +89,8 @@ Object? denormalizeNode({
             !(isSkippedValue = isSkipped(fieldNode, config.variables))) {
           if (config.allowPartialData) {
             return result;
-          } else if (isReference) {
-            throw DanglingReferenceException(path: [resultKey]);
-          } else {
-            throw PartialDataException(path: [resultKey]);
           }
+          throw PartialDataException(path: [resultKey]);
         }
         if (isSkippedValue) {
           return result;
