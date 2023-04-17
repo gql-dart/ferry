@@ -3,7 +3,6 @@ import 'package:ferry/ferry.dart';
 import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-// ignore: depend_on_referenced_packages
 import 'package:gql_exec/src/response.dart';
 import 'package:pokemon_explorer/__generated__/schema.ast.gql.dart';
 import 'package:pokemon_explorer/__generated__/schema.schema.gql.dart';
