@@ -47,6 +47,10 @@ ferry_generator|serializer_builder:
   enabled: true
   options:
     schema: my_project|lib/graphql/schema.graphql
+    type_overrides:
+      Date:
+        name: DateTime
+        import: "package:my_date_library/date_time.dart"
     custom_serializers:
       - import: "package:path/to/date_serializer.dart"
         name: DateSerializer
@@ -64,6 +68,10 @@ targets:
         enabled: true
         options:
           schema: my_project|lib/schema.graphql
+          type_overrides:
+            Date:
+              name: DateTime
+              import: "package:my_date_library/date_time.dart"
           custom_serializers:
             - import: "package:path/to/date_serializer.dart"
               name: DateSerializer
@@ -75,6 +83,7 @@ targets:
           type_overrides:
             Date:
               name: DateTime
+              import: "package:my_date_library/date_time.dart"
 ```
 
 ## Creating a Custom Serializer
