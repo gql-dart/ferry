@@ -1,5 +1,4 @@
 import 'package:gql/ast.dart';
-
 import 'package:normalize/src/policies/type_policy.dart';
 import 'package:normalize/src/utils/resolve_data_id.dart';
 
@@ -26,10 +25,13 @@ class NormalizationConfig {
   /// Whether to accept or return partial data.
   final bool allowPartialData;
 
+  /// Whether to accept to build data with dangling references.
+  final bool allowDanglingReference;
+
   /// A map from an interface/union to possible types.
   final Map<String, Set<String>> possibleTypes;
 
-  NormalizationConfig({
+  const NormalizationConfig({
     required this.read,
     required this.variables,
     required this.typePolicies,
@@ -38,6 +40,7 @@ class NormalizationConfig {
     required this.dataIdFromObject,
     required this.addTypename,
     required this.allowPartialData,
+    required this.allowDanglingReference,
     required this.possibleTypes,
   });
 }

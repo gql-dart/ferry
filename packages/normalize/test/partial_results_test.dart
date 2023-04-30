@@ -1,7 +1,6 @@
-import 'package:test/test.dart';
 import 'package:gql/language.dart';
-
 import 'package:normalize/normalize.dart';
+import 'package:test/test.dart';
 
 void main() {
   test('Return partial data', () {
@@ -174,7 +173,7 @@ void main() {
       }
     ''');
 
-      final data = {
+      const data = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -195,7 +194,7 @@ void main() {
           addTypename: true,
           returnPartialData: false,
         ),
-        equals({
+        equals(const {
           '__typename': 'Query',
           'posts': [
             {
@@ -218,7 +217,7 @@ void main() {
       }
     ''');
 
-      final data = {
+      const data = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -238,7 +237,7 @@ void main() {
           addTypename: true,
           returnPartialData: false,
         ),
-        equals({
+        equals(const {
           '__typename': 'Query',
           'posts': [
             {
@@ -261,7 +260,7 @@ void main() {
       }
     ''');
 
-      final data = {
+      const data = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -280,7 +279,7 @@ void main() {
           addTypename: true,
           returnPartialData: false,
         ),
-        equals({
+        equals(const {
           '__typename': 'Query',
           'posts': [
             {
@@ -302,7 +301,7 @@ void main() {
       }
     ''');
 
-      final data = {
+      const data = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -321,11 +320,11 @@ void main() {
           read: (dataId) => data[dataId],
           addTypename: true,
           returnPartialData: false,
-          variables: {
+          variables: const {
             'skip': true,
           },
         ),
-        equals({
+        equals(const {
           '__typename': 'Query',
           'posts': [
             {
@@ -347,7 +346,7 @@ void main() {
       }
     ''');
 
-      final data = {
+      const data = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -367,11 +366,11 @@ void main() {
           read: (dataId) => data[dataId],
           addTypename: true,
           returnPartialData: false,
-          variables: {
+          variables: const {
             'skip': false,
           },
         ),
-        equals({
+        equals(const {
           '__typename': 'Query',
           'posts': [
             {
@@ -394,7 +393,7 @@ void main() {
       }
     ''');
 
-      final data = {
+      const data = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -413,11 +412,11 @@ void main() {
           read: (dataId) => data[dataId],
           addTypename: true,
           returnPartialData: false,
-          variables: {
+          variables: const {
             'include': true,
           },
         ),
-        equals({
+        equals(const {
           '__typename': 'Query',
           'posts': [
             {
@@ -440,7 +439,7 @@ void main() {
       }
     ''');
 
-      final data = {
+      const data = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -458,11 +457,11 @@ void main() {
           read: (dataId) => data[dataId],
           addTypename: true,
           returnPartialData: false,
-          variables: {
+          variables: const {
             'include': false,
           },
         ),
-        equals({
+        equals(const {
           '__typename': 'Query',
           'posts': [
             {
@@ -488,7 +487,7 @@ void main() {
       }
     ''');
 
-      final data = {
+      const data = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -507,11 +506,11 @@ void main() {
           read: (dataId) => data[dataId],
           addTypename: true,
           returnPartialData: false,
-          variables: {
+          variables: const {
             'skip': true,
           },
         ),
-        equals({
+        equals(const {
           '__typename': 'Query',
           'posts': [
             {
@@ -537,7 +536,7 @@ void main() {
       }
     ''');
 
-      final data = {
+      const data = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -561,7 +560,7 @@ void main() {
             'skip': false,
           },
         ),
-        equals({
+        equals(const {
           '__typename': 'Query',
           'posts': [
             {
@@ -579,7 +578,7 @@ void main() {
         () {
       final query = parseString('''
       query TestQuery(\$skip: Boolean!) {
-        posts {
+        onePost {
           id
           ...PostTitle @skip(if: \$skip)
         }
@@ -590,12 +589,10 @@ void main() {
       }
     ''');
 
-      final data = {
+      const data = {
         'Query': {
           '__typename': 'Query',
-          'posts': [
-            {'\$ref': 'Post:123'}
-          ]
+          'onePost': {'\$ref': 'Post:123'},
         },
         'Post:123': {
           'id': '123',
@@ -610,11 +607,52 @@ void main() {
           addTypename: true,
           returnPartialData: false,
           handleException: false,
-          variables: {
+          variables: const {
             'skip': false,
           },
         ),
         throwsA(isA<PartialDataException>()),
+      );
+    });
+
+    test(
+        'does not throw inside a list when skip directives with value false on fragments is used but data is missing and allow dangling reference is true',
+        () {
+      final query = parseString('''
+      query TestQuery(\$skip: Boolean!) {
+        posts {
+          id
+          ...PostTitle @skip(if: \$skip)
+        }
+      }
+
+      fragment PostTitle on Post {
+        title
+      }
+    ''');
+
+      const data = {
+        'Query': {
+          '__typename': 'Query',
+          'posts': [
+            {'\$ref': 'Post:123'}
+          ]
+        },
+      };
+
+      expect(
+        denormalizeOperation(
+          document: query,
+          read: (dataId) => data[dataId],
+          addTypename: true,
+          returnPartialData: false,
+          handleException: false,
+          variables: const {
+            'skip': false,
+          },
+          allowDanglingReference: true,
+        ),
+        const {'__typename': 'Query', 'posts': []},
       );
     });
 
@@ -632,7 +670,7 @@ void main() {
       }
     ''');
 
-      final data = {
+      const data = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -651,11 +689,11 @@ void main() {
           read: (dataId) => data[dataId],
           addTypename: true,
           returnPartialData: false,
-          variables: {
+          variables: const {
             'include': true,
           },
         ),
-        equals({
+        equals(const {
           '__typename': 'Query',
           'posts': [
             {
@@ -684,7 +722,7 @@ void main() {
       }
     ''');
 
-      final data = {
+      const data = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -703,11 +741,11 @@ void main() {
           read: (dataId) => data[dataId],
           addTypename: true,
           returnPartialData: false,
-          variables: {
+          variables: const {
             'include': false,
           },
         ),
-        equals({
+        equals(const {
           '__typename': 'Query',
           'posts': [
             {
@@ -733,7 +771,7 @@ void main() {
       }
     ''');
 
-      final data = {
+      const data = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -751,11 +789,11 @@ void main() {
           read: (dataId) => data[dataId],
           addTypename: true,
           returnPartialData: false,
-          variables: {
+          variables: const {
             'include': false,
           },
         ),
-        equals({
+        equals(const {
           '__typename': 'Query',
           'posts': [
             {
@@ -779,7 +817,7 @@ void main() {
       }
     ''');
 
-      final data = {
+      const data = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -798,11 +836,11 @@ void main() {
           read: (dataId) => data[dataId],
           addTypename: true,
           returnPartialData: false,
-          variables: {
+          variables: const {
             'skip': true,
           },
         ),
-        equals({
+        equals(const {
           '__typename': 'Query',
           'posts': [
             {
@@ -827,7 +865,7 @@ void main() {
       }
     ''');
 
-      final data = {
+      const data = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -847,11 +885,11 @@ void main() {
           read: (dataId) => data[dataId],
           addTypename: true,
           returnPartialData: false,
-          variables: {
+          variables: const {
             'skip': false,
           },
         ),
-        equals({
+        equals(const {
           '__typename': 'Query',
           'posts': [
             {
@@ -877,7 +915,7 @@ void main() {
       }
     ''');
 
-      final data = {
+      const data = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -897,11 +935,11 @@ void main() {
           read: (dataId) => data[dataId],
           addTypename: true,
           returnPartialData: false,
-          variables: {
+          variables: const {
             'include': true,
           },
         ),
-        equals({
+        equals(const {
           '__typename': 'Query',
           'posts': [
             {
@@ -911,47 +949,6 @@ void main() {
             }
           ]
         }),
-      );
-    });
-
-    test(
-        'respects include directives with variable true on inline fragments with partial data',
-        () {
-      final query = parseString('''
-      query TestQuery(\$include: Boolean!) {
-        posts {
-          id
-          ... on Post @include(if: \$include) {
-            title
-          }
-        }
-      }
-    ''');
-
-      final data = {
-        'Query': {
-          '__typename': 'Query',
-          'posts': [
-            {'\$ref': 'Post:123'}
-          ]
-        },
-        'Post:123': {
-          'id': '123',
-          '__typename': 'Post',
-        },
-      };
-
-      expect(
-        denormalizeOperation(
-          document: query,
-          read: (dataId) => data[dataId],
-          addTypename: true,
-          returnPartialData: false,
-          variables: {
-            'include': true,
-          },
-        ),
-        isNull,
       );
     });
 
@@ -968,7 +965,7 @@ void main() {
       }
     ''');
 
-      final data = {
+      const data = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -987,11 +984,11 @@ void main() {
           read: (dataId) => data[dataId],
           addTypename: true,
           returnPartialData: false,
-          variables: {
+          variables: const {
             'include': false,
           },
         ),
-        equals({
+        equals(const {
           '__typename': 'Query',
           'posts': [
             {
@@ -1004,7 +1001,7 @@ void main() {
     });
 
     test(
-        'throws, when a field once specified twice, once in an skipped context and once without and data is missing',
+        'throws, when a field is specified twice, once in an skipped context and once without and data is missing',
         () {
       final query = parseString('''
       query TestQuery(\$include: Boolean!) {
@@ -1018,12 +1015,10 @@ void main() {
       }
     ''');
 
-      final data = {
+      const data = {
         'Query': {
           '__typename': 'Query',
-          'posts': [
-            {'\$ref': 'Post:123'}
-          ]
+          'onePost': {'\$ref': 'Post:123'},
         },
         'Post:123': {
           'id': '123',
@@ -1038,7 +1033,7 @@ void main() {
           addTypename: true,
           returnPartialData: false,
           handleException: false,
-          variables: {
+          variables: const {
             'include': false,
           },
         ),
@@ -1061,7 +1056,7 @@ void main() {
       }
     ''');
 
-      final data = {
+      const data = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -1082,11 +1077,11 @@ void main() {
           addTypename: true,
           returnPartialData: false,
           handleException: false,
-          variables: {
+          variables: const {
             'include': true,
           },
         ),
-        equals({
+        equals(const {
           '__typename': 'Query',
           'posts': [
             {

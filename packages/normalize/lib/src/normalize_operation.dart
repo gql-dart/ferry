@@ -1,14 +1,13 @@
 import 'package:gql/ast.dart';
-import 'package:normalize/src/utils/constants.dart';
-
-import 'package:normalize/src/utils/resolve_data_id.dart';
-import 'package:normalize/src/policies/type_policy.dart';
-import 'package:normalize/src/utils/resolve_root_typename.dart';
-import 'package:normalize/src/utils/get_operation_definition.dart';
-import 'package:normalize/src/normalize_node.dart';
 import 'package:normalize/src/config/normalization_config.dart';
+import 'package:normalize/src/normalize_node.dart';
+import 'package:normalize/src/policies/type_policy.dart';
 import 'package:normalize/src/utils/add_typename_visitor.dart';
+import 'package:normalize/src/utils/constants.dart';
 import 'package:normalize/src/utils/get_fragment_map.dart';
+import 'package:normalize/src/utils/get_operation_definition.dart';
+import 'package:normalize/src/utils/resolve_data_id.dart';
+import 'package:normalize/src/utils/resolve_root_typename.dart';
 
 /// Normalizes data for a given query
 ///
@@ -67,6 +66,7 @@ void normalizeOperation({
     addTypename: addTypename,
     dataIdFromObject: dataIdFromObject,
     allowPartialData: acceptPartialData,
+    allowDanglingReference: false,
     possibleTypes: possibleTypes,
   );
 

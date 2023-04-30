@@ -29,7 +29,7 @@ void main() {
 
     // cache with partial data (e.g. from a previous version of the query with less fields)
     final cache = Cache(
-        store: MemoryStore({
+        store: MemoryStore(const {
       'Query': {
         '__typename': 'Query',
         'reviews({"episode":null,"first":3,"offset":0})': [

@@ -132,6 +132,7 @@ class Cache {
       typePolicies: typePolicies,
       dataIdFromObject: dataIdFromObject,
       possibleTypes: possibleTypes,
+      allowDanglingReference: true,
     );
     return json == null ? null : request.parseData(json);
   }
@@ -152,6 +153,7 @@ class Cache {
       addTypename: addTypename,
       dataIdFromObject: dataIdFromObject,
       possibleTypes: possibleTypes,
+      allowDanglingReference: true,
     );
     return json == null ? null : request.parseData(json);
   }

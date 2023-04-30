@@ -1,11 +1,10 @@
 import 'package:gql/ast.dart';
-
-import 'package:normalize/src/utils/field_key.dart';
-import 'package:normalize/src/utils/expand_fragments.dart';
-import 'package:normalize/src/utils/exceptions.dart';
 import 'package:normalize/src/config/normalization_config.dart';
-import 'package:normalize/src/utils/is_dangling_reference.dart';
 import 'package:normalize/src/policies/field_policy.dart';
+import 'package:normalize/src/utils/exceptions.dart';
+import 'package:normalize/src/utils/expand_fragments.dart';
+import 'package:normalize/src/utils/field_key.dart';
+import 'package:normalize/src/utils/is_dangling_reference.dart';
 import 'package:normalize/src/utils/well_known_directives.dart';
 
 /// Returns a denormalized object for a given [SelectionSetNode].
@@ -19,24 +18,40 @@ Object? denormalizeNode({
   if (dataForNode == null) return null;
 
   if (dataForNode is List) {
-    return dataForNode
-        .where((data) => !isDanglingReference(data, config))
-        .map(
-          (data) => denormalizeNode(
-            selectionSet: selectionSet,
-            dataForNode: data,
-            config: config,
-          ),
-        )
-        .toList();
+    final reachableData = dataForNode.where(
+      (data) => !isDanglingReference(data, config),
+    );
+    final newList = <Object?>[];
+    for (final node in reachableData) {
+      try {
+        final denormalizedSubNode = denormalizeNode(
+          selectionSet: selectionSet,
+          dataForNode: node,
+          config: config,
+        );
+        newList.add(denormalizedSubNode);
+      } on DanglingReferenceException {
+        // Ignore the list items with partial data.
+        if (!config.allowDanglingReference) rethrow;
+      }
+    }
+    return newList;
   }
 
   // If this is a leaf node, return the data
   if (selectionSet == null) return dataForNode;
 
   if (dataForNode is Map) {
-    final denormalizedData = dataForNode.containsKey(config.referenceKey)
-        ? config.read(dataForNode[config.referenceKey]) ?? {}
+    final isReference = dataForNode.containsKey(config.referenceKey);
+    Map<String, dynamic>? referenceData;
+    if (isReference) {
+      referenceData = config.read(dataForNode[config.referenceKey]);
+      if (referenceData == null) {
+        throw const DanglingReferenceException(path: []);
+      }
+    }
+    final denormalizedData = isReference
+        ? referenceData ?? const {}
         : Map<String, dynamic>.from(dataForNode);
 
     final typename = denormalizedData['__typename'];
@@ -101,7 +116,7 @@ Object? denormalizeNode({
               config: config,
             );
         } on PartialDataException catch (e) {
-          throw PartialDataException(path: [fieldName, ...e.path]);
+          throw e.copyWith(fieldName: fieldName);
         }
       },
     );

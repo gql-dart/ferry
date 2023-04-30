@@ -52,6 +52,7 @@ Stream<Set<String>> operationDataChangeStream<TData, TVars>(
           returnPartialData: true,
           dataIdFromObject: dataIdFromObject,
           possibleTypes: possibleTypes,
+          allowDanglingReference: true,
         );
 
         return dataIds;

@@ -1,12 +1,11 @@
 import 'package:gql/ast.dart';
 import 'package:normalize/normalize.dart';
-
 import 'package:normalize/src/config/normalization_config.dart';
+import 'package:normalize/src/denormalize_node.dart';
+import 'package:normalize/src/utils/add_typename_visitor.dart';
 import 'package:normalize/src/utils/constants.dart';
 import 'package:normalize/src/utils/get_fragment_map.dart';
 import 'package:normalize/src/utils/resolve_data_id.dart';
-import 'package:normalize/src/utils/add_typename_visitor.dart';
-import 'package:normalize/src/denormalize_node.dart';
 
 /// Denormalizes data for a given fragment.
 ///
@@ -34,6 +33,7 @@ Map<String, dynamic>? denormalizeFragment({
   bool addTypename = false,
   bool returnPartialData = false,
   bool handleException = true,
+  bool allowDanglingReference = false,
   String referenceKey = kDefaultReferenceKey,
   Map<String, Set<String>> possibleTypes = const {},
 }) {
@@ -73,6 +73,7 @@ Map<String, dynamic>? denormalizeFragment({
     dataIdFromObject: dataIdFromObject,
     addTypename: addTypename,
     allowPartialData: returnPartialData,
+    allowDanglingReference: allowDanglingReference,
     possibleTypes: possibleTypes,
   );
 
