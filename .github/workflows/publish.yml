@@ -33,6 +33,7 @@ jobs:
           echo $CREDENTIALS_JSON > $XDG_CONFIG_HOME/dart/pub-credentials.json
       - run: melos publish --yes --dry-run --ignore="*pokemon*"
       - run: melos publish --yes --no-dry-run --ignore="*pokemon*"
+        continue-on-error: true
       - name: Push back version bumps
         uses: ad-m/github-push-action@master
         with:
