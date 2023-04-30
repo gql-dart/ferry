@@ -1,3 +1,15 @@
+## 0.3.0-dev.1
+
+> Note: This release has breaking changes.
+
+ - **REFACTOR**: apply lints fixes (#479).
+ - **REFACTOR**(ferry_exec): remove cyclic dependency ferry_exec <-> ferry_test_graphql.
+ - **FIX**(ferry_cache): ensure emitting only one update per updated data ID in cache in watchQuery/watchFragment (#416).
+ - **FEAT**(ferry): add IsolateClient (#405).
+ - **FEAT**: generate possibleTypesMap in ferry_generator (#371).
+ - **FEAT**: add Reviews subscription to test graphql.
+ - **BREAKING** **CHORE**: update gql_code_builder, gql_exec and vestigial analyzer pubspec entry.
+
 ## 0.3.0-dev.0+2
 
  - **DOCS**: add basic documentation for field policy (#494).

@@ -1,3 +1,29 @@
+## 0.14.0-dev.2
+
+> Note: This release has breaking changes.
+
+ - **REFACTOR**(ferry): FetchPolicyTypedLink.request() to avoid pending timers in tests (#427).
+ - **REFACTOR**(ferry): use scheduleMicrostask instead of Future.delayed in order to no have pending timers in widget tests.
+ - **FIX**(ferry): send error to main isolate when data message could not be serialized (#455).
+ - **FIX**(ferry_cache): ensure emitting only one update per updated data ID in cache in watchQuery/watchFragment (#416).
+ - **FIX**(ferry): remove broken isolateSpawn functionality, FlutterIsolate does not support passing functions (#413).
+ - **FIX**: pin normalize 0.6.0.
+ - **FIX**(ferry): call cache handlers for every response from DataSource.Link.
+ - **FIX**(ferry): add dispose method to TypedLinks (#272).
+ - **FEAT**(ferry): add watchQuery, watchFragment, clearOptimisticPatches to IsolateClient  (#460).
+ - **FEAT**(ferry): improve isolate error handling (#448).
+ - **FEAT**(ferry): verify that updateResult function can be sent to the other isolate in debug mode using asserts and provide a better error message if updatgeResult cannot be serialized (#425).
+ - **FEAT**(ferry): refactor isolateCommands, add addRequestToRequestController method (#422).
+ - **FEAT**(ferry): add removeOptimisticResponse to isolate client (#412).
+ - **FEAT**(ferry): add IsolateClient (#405).
+ - **FEAT**: generate possibleTypesMap in ferry_generator (#371).
+ - **FEAT**: add Reviews subscription to test graphql.
+ - **DOCS**(ferry): fix typo in CHANGELOG (#384).
+ - **DOCS**: remove stale code (#271).
+ - **BREAKING** **FIX**(ferry): remove optimistic patch when listener unsubscribes before link responds with data instead of leaking optimistic patch forever (#466).
+ - **BREAKING** **FIX**(ferry_generator): properly generate nullable types for nullable elements in Lists (#445).
+ - **BREAKING** **CHORE**: update gql_code_builder, gql_exec and vestigial analyzer pubspec entry.
+
 ## 0.14.0-dev.1
 
  - **FIX**: When there are dangling references in child objects of a list, by default do not treat the whole entity as partial data, but remove it from the list. This can be configured using the allowDanglingReference parameter.

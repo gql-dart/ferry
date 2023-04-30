@@ -1,3 +1,9 @@
+## 0.2.1-dev.1
+
+ - **REFACTOR**: fix dependencies.
+ - **REFACTOR**(ferry_exec): remove cyclic dependency ferry_exec <-> ferry_test_graphql.
+ - **FEAT**(ferry_generator): when/maybeWhen extensions (#470).
+
 ## 0.2.1-dev.0+2
 
  - **DOCS**: add basic documentation for field policy (#494).

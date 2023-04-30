@@ -1,3 +1,16 @@
+## 0.8.0-dev.1
+
+> Note: This release has breaking changes.
+
+ - **FIX**: Use Posix separators for output paths (#369).
+ - **FIX**: revert broken transitive dependency.
+ - **FIX**: upgrade analyzer dependency.
+ - **FEAT**(ferry_generator): when/maybeWhen extensions (#470).
+ - **FEAT**(ferry): add IsolateClient (#405).
+ - **FEAT**: generate possibleTypesMap in ferry_generator (#371).
+ - **BREAKING** **FIX**(ferry_generator): properly generate nullable types for nullable elements in Lists (#445).
+ - **BREAKING** **CHORE**: update gql_code_builder, gql_exec and vestigial analyzer pubspec entry.
+
 ## 0.8.0-dev.0+2
 
  - **DOCS**: add basic documentation for field policy (#494).

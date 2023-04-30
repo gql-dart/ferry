@@ -1,3 +1,19 @@
+## 0.7.1-dev.2
+
+> Note: This release has breaking changes.
+
+ - **REFACTOR**(ferry_cache): use jsonMapEquals instead of DeepCollectionEquality.equals() to avoid it's O(n^2) complexity, remove duplicated .distinct() call (#477).
+ - **FIX**(ferry_cache): ensure emitting only one update per updated data ID in cache in watchQuery/watchFragment (#416).
+ - **FIX**(ferry_cache): fix cache emits update too often (#411).
+ - **FIX**(ferry_cache): fix regression in watch() methods by making changeStream emit when new item is added to the cache (#403).
+ - **FIX**(cache): Fix memory leak. (#385).
+ - **FIX**: add possibleTypes to every function that can use it of normalize (#380).
+ - **FIX**: pin normalize 0.6.0.
+ - **FEAT**(ferry_hive_store): use jsonMapEquals instead of DeepCollectionEquality().equals to avoid it's O(n^2) complexity, add distinct: param to watch() method (#475).
+ - **FEAT**(ferry_cache): add `clearOptimisticPatches()` (#459).
+ - **FEAT**(ferry): add IsolateClient (#405).
+ - **BREAKING** **FIX**(ferry_generator): properly generate nullable types for nullable elements in Lists (#445).
+
 ## 0.7.1-dev.1
 
  - **FIX**: When there are dangling references in child objects of a list, by default do not treat the whole entity as partial data, but remove it from the list. This can be configured using the allowDanglingReference parameter.

@@ -1,3 +1,9 @@
+## 0.5.1-dev.1
+
+ - **REFACTOR**: apply lints fixes (#479).
+ - **FEAT**(ferry_hive_store): use jsonMapEquals instead of DeepCollectionEquality().equals to avoid it's O(n^2) complexity, add distinct: param to watch() method (#475).
+ - **FEAT**: add Reviews subscription to test graphql.
+
 ## 0.5.1-dev.0+1
 
  - **DOCS**: add basic documentation for field policy (#494).
