@@ -39,7 +39,6 @@ void normalizeFragment({
   bool addTypename = false,
   String referenceKey = kDefaultReferenceKey,
   bool acceptPartialData = true,
-  bool acceptDanglingReferences = false,
   Map<String, Set<String>> possibleTypes = const {},
 }) {
   // Always add typenames to ensure data is stored with typename
@@ -77,7 +76,7 @@ void normalizeFragment({
     addTypename: addTypename,
     dataIdFromObject: dataIdFromObject,
     allowPartialData: acceptPartialData,
-    allowDanglingReference: acceptDanglingReferences,
+    allowDanglingReference: false,
     possibleTypes: possibleTypes,
   );
 

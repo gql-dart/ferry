@@ -186,7 +186,6 @@ class Cache {
       addTypename: addTypename,
       dataIdFromObject: dataIdFromObject,
       possibleTypes: possibleTypes,
-      acceptDanglingReferences: true,
     );
     _eventStream.add(null);
   }
@@ -220,7 +219,6 @@ class Cache {
       addTypename: addTypename,
       dataIdFromObject: dataIdFromObject,
       possibleTypes: possibleTypes,
-      acceptDanglingReferences: true,
     );
     _eventStream.add(null);
   }

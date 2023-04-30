@@ -34,7 +34,6 @@ void normalizeOperation({
   DataIdResolver? dataIdFromObject,
   bool addTypename = false,
   bool acceptPartialData = true,
-  bool acceptDanglingReferences = false,
   String referenceKey = kDefaultReferenceKey,
   Map<String, Set<String>> possibleTypes = const {},
 }) {
@@ -67,7 +66,7 @@ void normalizeOperation({
     addTypename: addTypename,
     dataIdFromObject: dataIdFromObject,
     allowPartialData: acceptPartialData,
-    allowDanglingReference: acceptDanglingReferences,
+    allowDanglingReference: false,
     possibleTypes: possibleTypes,
   );
 
