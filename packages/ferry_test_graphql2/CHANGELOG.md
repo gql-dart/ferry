@@ -1,3 +1,10 @@
+## 0.2.1-dev.3
+
+ - **REFACTOR**: fix dependencies.
+ - **REFACTOR**(ferry_exec): remove cyclic dependency ferry_exec <-> ferry_test_graphql.
+ - **FEAT**(ferry_generator): when/maybeWhen extensions (#470).
+ - **DOCS**(website): improve custom scalars documention (#517).
+
 ## 0.2.1-dev.2
 
  - **REFACTOR**(ferry_exec): remove cyclic dependency ferry_exec <-> ferry_test_graphql.

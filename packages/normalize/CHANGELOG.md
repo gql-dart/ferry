@@ -1,3 +1,19 @@
+## 0.8.0-dev.5
+
+> Note: This release has breaking changes.
+
+ - **REFACTOR**: apply lints fixes (#479).
+ - **FIX**(normalize): When there are dangling references in child objects of a list, by default do not treat the whole entity as partial data, but remove it from the list. This can be configured using the allowDanglingReference parameter.
+ - **FIX**: Preserve backwards compatibility with dataIdFromObject (#368).
+ - **FIX**: Streamline typename handling (#359).
+ - **FIX**: Broken fragment spreads.
+ - **FIX**(ferry): add dispose method to TypedLinks (#272).
+ - **FEAT**: generate possibleTypesMap in ferry_generator (#371).
+ - **FEAT**: add Reviews subscription to test graphql.
+ - **DOCS**(website): improve custom scalars documention (#517).
+ - **BREAKING** **FIX**(ferry_generator): properly generate nullable types for nullable elements in Lists (#445).
+ - **BREAKING** **FEAT**(normalize): respect skip/include directives when checking for partial data (#433).
+
 ## 0.8.0-dev.4
 
 > Note: This release has breaking changes.
