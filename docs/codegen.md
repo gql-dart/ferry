@@ -226,3 +226,51 @@ Example:
          MyEnumType: OTHER   # except for the type 'MyEnumType', use the value 'OTHER' as fallback there
 
 ```
+
+## Multiple Schemas
+
+You can specify multiple schema files
+
+```yaml
+targets:
+  $default:
+    builders:
+      ferry_generator|graphql_builder:
+        enabled: true
+        options:
+          schemas: 
+            - your_package_name|lib/pkg1/schema.graphql
+            - your_package_name|lib/pkg2/schema.graphql
+      ferry_generator|serializer_builder:
+        enabled: true
+        options:
+          schemas:
+            - your_package_name|lib/pkg1/schema.graphql
+            - your_package_name|lib/pkg2/schema.graphql
+```
+
+You also can specify addtional schemas alongside main schema
+
+```yaml
+targets:
+  $default:
+    builders:
+      ferry_generator|graphql_builder:
+        enabled: true
+        options:
+          schema: your_package_name|lib/pkg/schema.graphql
+          schemas: 
+            - your_package_name|lib/pkg1/schema.graphql
+            - your_package_name|lib/pkg2/schema.graphql
+      ferry_generator|serializer_builder:
+        enabled: true
+        options:
+          schema: your_package_name|lib/pkg/schema.graphql
+          schemas:
+            - your_package_name|lib/pkg1/schema.graphql
+            - your_package_name|lib/pkg2/schema.graphql
+```
+
+**schemas** context is only the dir specified, `your_package_name|lib/pkg1/schema.graphql` context is `lib/pkg1/`.
+
+**schema** context is all the dirs that have .graphql files excluding **schemas** dirs, `your_package_name|lib/pkg/schema.graphql` applies to all dirs that have .graphql files except `lib/pkg1/` and `/lib/pkg2/`.

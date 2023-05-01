@@ -11,7 +11,8 @@ const reqExtension = '.req.gql.dart';
 const schemaExtension = '.schema.gql.dart';
 
 class BuilderConfig {
-  final AssetId schemaId;
+  final AssetId? schemaId;
+  final List<AssetId>? schemaIds;
   final bool shouldAddTypenames;
   final bool shouldGeneratePossibleTypes;
   final Map<String, Reference> typeOverrides;
@@ -22,11 +23,11 @@ class BuilderConfig {
   final InlineFragmentSpreadWhenExtensionConfig whenExtensionConfig;
 
   BuilderConfig(Map<String, dynamic> config)
-      : schemaId = AssetId.parse(config['schema'] as String),
+      : schemaId = config['schema'] == null ? null : AssetId.parse(config['schema'] as String),
+        schemaIds = (config['schemas'] as YamlList?)?.map((dynamic schema) => AssetId.parse(schema as String)).toList(),
         shouldAddTypenames = config['add_typenames'] ?? true,
         typeOverrides = _getTypeOverrides(config['type_overrides']),
-        shouldGeneratePossibleTypes =
-            config['generate_possible_types_map'] ?? true,
+        shouldGeneratePossibleTypes = config['generate_possible_types_map'] ?? true,
         customSerializers = _getCustomSerializers(config['custom_serializers']),
         enumFallbackConfig = _getEnumFallbackConfig(config),
         outputDir = config['output_dir'] ?? '__generated__',
@@ -34,8 +35,7 @@ class BuilderConfig {
         whenExtensionConfig = _getWhenExtensionConfig(config);
 }
 
-InlineFragmentSpreadWhenExtensionConfig _getWhenExtensionConfig(
-    Map<String, dynamic> config) {
+InlineFragmentSpreadWhenExtensionConfig _getWhenExtensionConfig(Map<String, dynamic> config) {
   if (config['when_extensions'] == null) {
     return const InlineFragmentSpreadWhenExtensionConfig(
       generateMaybeWhenExtensionMethod: false,
@@ -44,8 +44,7 @@ InlineFragmentSpreadWhenExtensionConfig _getWhenExtensionConfig(
   }
   final whenExtensionYamlMap = config['when_extensions'] as YamlMap;
   return InlineFragmentSpreadWhenExtensionConfig(
-    generateMaybeWhenExtensionMethod:
-        whenExtensionYamlMap['maybeWhen'] ?? false,
+    generateMaybeWhenExtensionMethod: whenExtensionYamlMap['maybeWhen'] ?? false,
     generateWhenExtensionMethod: whenExtensionYamlMap['when'] ?? false,
   );
 }
@@ -89,8 +88,7 @@ EnumFallbackConfig _getEnumFallbackConfig(Map<String, dynamic>? config) {
   }
 
   return EnumFallbackConfig(
-    globalEnumFallbackName:
-        (config['global_enum_fallback_name'] ?? 'gUnknownEnumValue') as String,
+    globalEnumFallbackName: (config['global_enum_fallback_name'] ?? 'gUnknownEnumValue') as String,
     generateFallbackValuesGlobally: config['global_enum_fallbacks'] == true,
     fallbackValueMap: _enumFallbackMap(config['enum_fallbacks']),
   );
