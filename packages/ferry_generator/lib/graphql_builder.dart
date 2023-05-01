@@ -27,11 +27,20 @@ class GraphqlBuilder implements Builder {
 
   GraphqlBuilder(Map<String, dynamic> config) : config = BuilderConfig(config);
 
-  final localFileExtensions = <String>[astExtension, dataExtension, varExtension, reqExtension, schemaExtension];
+  final localFileExtensions = <String>[
+    astExtension,
+    dataExtension,
+    varExtension,
+    reqExtension,
+    schemaExtension
+  ];
 
   @override
   Map<String, List<String>> get buildExtensions => {
-        '{{dir}}/{{file}}${config.sourceExtension}': [...localFileExtensions.map((extension) => '{{dir}}/${config.outputDir}/{{file}}$extension')],
+        '{{dir}}/{{file}}${config.sourceExtension}': [
+          ...localFileExtensions.map(
+              (extension) => '{{dir}}/${config.outputDir}/{{file}}$extension')
+        ],
       };
 
   @override
@@ -43,8 +52,10 @@ class GraphqlBuilder implements Builder {
     final docDirPath = p.dirname(buildStep.inputId.path);
     if (config.schemaIds != null) {
       for (final schemaId in config.schemaIds!) {
-        if (docPackage == schemaId.package && docDirPath == p.dirname(schemaId.path)) {
-          schema = await readDocument(buildStep, config.sourceExtension, schemaId);
+        if (docPackage == schemaId.package &&
+            docDirPath == p.dirname(schemaId.path)) {
+          schema =
+              await readDocument(buildStep, config.sourceExtension, schemaId);
           _schemaId = schemaId;
           break;
         }
@@ -52,7 +63,8 @@ class GraphqlBuilder implements Builder {
     }
 
     if (schema == null && config.schemaId != null) {
-      schema = await readDocument(buildStep, config.sourceExtension, config.schemaId);
+      schema = await readDocument(
+          buildStep, config.sourceExtension, config.schemaId);
       _schemaId = config.schemaId!;
     }
 
@@ -60,7 +72,8 @@ class GraphqlBuilder implements Builder {
       throw StateError('No schema found for ${buildStep.inputId}');
     }
 
-    if ((config.whenExtensionConfig.generateMaybeWhenExtensionMethod || config.whenExtensionConfig.generateWhenExtensionMethod) &&
+    if ((config.whenExtensionConfig.generateMaybeWhenExtensionMethod ||
+            config.whenExtensionConfig.generateWhenExtensionMethod) &&
         !config.shouldAddTypenames) {
       throw StateError(
           'When extensions require add_typenames to be true. Consider setting add_typenames to true in your build.yaml or disabling when_extensions in your build.yaml.');
@@ -95,8 +108,10 @@ class GraphqlBuilder implements Builder {
     };
 
     for (var entry in libs.entries) {
-      final generatedAsset = outputAssetId(buildStep.inputId, entry.key, config.outputDir);
-      final schemaOutputAsset = outputAssetId(_schemaId!, schemaExtension, config.outputDir);
+      final generatedAsset =
+          outputAssetId(buildStep.inputId, entry.key, config.outputDir);
+      final schemaOutputAsset =
+          outputAssetId(_schemaId!, schemaExtension, config.outputDir);
 
       final allocator = GqlAllocator(
         buildStep.inputId.uri.toString(),
