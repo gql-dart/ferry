@@ -1,3 +1,7 @@
+## 0.3.1
+
+ - Bump "ferry_exec" to `0.3.1`.
+
 ## 0.3.0-dev.6
 
 > Note: This release has breaking changes.
