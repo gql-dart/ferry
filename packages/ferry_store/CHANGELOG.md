@@ -1,3 +1,7 @@
+## 0.5.3
+
+ - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.
+
 ## 0.5.3-dev.0
 
  - **REFACTOR**: apply lints fixes (#479).
