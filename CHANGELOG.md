@@ -15,6 +15,25 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`ferry_flutter` - `v0.8.1`](#ferry_flutter---v081)
+
+---
+
+#### `ferry_flutter` - `v0.8.1`
+
+
+## 2023-05-02
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`ferry` - `v0.14.1`](#ferry---v0141)
  - [`ferry_flutter` - `v0.8.0-dev.14`](#ferry_flutter---v080-dev14)
 
