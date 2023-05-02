@@ -22,7 +22,7 @@ dev_dependencies:
   mockito: ^5.3.1
   build_test: ^2.0.0
   built_value_generator: ^8.0.4
-  ferry_test_graphql2: ^0.2.1-dev.4
+  ferry_test_graphql2: ^0.2.2
   pedantic: ^1.11.0
   async: ^2.5.0
   build_runner: ^2.0.2

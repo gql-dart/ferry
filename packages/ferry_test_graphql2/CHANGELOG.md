@@ -1,3 +1,7 @@
+## 0.2.2
+
+ - Bump "ferry_test_graphql2" to `0.2.2`.
+
 ## 0.2.1-dev.4
 
  - **REFACTOR**: fix dependencies.

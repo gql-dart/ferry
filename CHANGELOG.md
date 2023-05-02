@@ -15,6 +15,27 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`ferry_test_graphql2` - `v0.2.2`](#ferry_test_graphql2---v022)
+
+---
+
+#### `ferry_test_graphql2` - `v0.2.2`
+
+ - Bump "ferry_test_graphql2" to `0.2.2`.
+
+
+## 2023-05-02
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`normalize` - `v0.8.1`](#normalize---v081)
  - [`ferry_cache` - `v0.7.1-dev.7`](#ferry_cache---v071-dev7)
  - [`ferry` - `v0.14.0-dev.10`](#ferry---v0140-dev10)
