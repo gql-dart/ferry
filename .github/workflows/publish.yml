@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with: 
+           fetch-depth: 0 # we need tags for melos, no better option ATM but check https://github.com/actions/checkout/issues/701
       - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
