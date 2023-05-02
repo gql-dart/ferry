@@ -15,6 +15,32 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`ferry` - `v0.14.1`](#ferry---v0141)
+ - [`ferry_flutter` - `v0.8.0-dev.14`](#ferry_flutter---v080-dev14)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `ferry_flutter` - `v0.8.0-dev.14`
+
+---
+
+#### `ferry` - `v0.14.1`
+
+
+## 2023-05-02
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`ferry_store` - `v0.5.2`](#ferry_store---v052)
  - [`ferry_cache` - `v0.7.1-dev.7`](#ferry_cache---v071-dev7)
  - [`ferry_hive_store` - `v0.5.1-dev.6`](#ferry_hive_store---v051-dev6)
