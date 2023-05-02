@@ -1,3 +1,8 @@
+## 0.5.3-dev.0
+
+ - **REFACTOR**: apply lints fixes (#479).
+ - **FEAT**(ferry_hive_store): use jsonMapEquals instead of DeepCollectionEquality().equals to avoid it's O(n^2) complexity, add distinct: param to watch() method (#475).
+
 ## 0.5.2
 
  - Bump "ferry_store" to `0.5.2`.

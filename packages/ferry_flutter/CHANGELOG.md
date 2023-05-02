@@ -1,3 +1,7 @@
+## 0.8.1-dev.0+1
+
+ - Update a dependency to the latest release.
+
 ## 0.8.1
 
 ## 0.8.0-dev.13
