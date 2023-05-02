@@ -11,6 +11,36 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 Packages with breaking changes:
 
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`ferry_cache` - `v0.7.1+2`](#ferry_cache---v0712)
+ - [`ferry` - `v0.14.2+2`](#ferry---v01422)
+ - [`ferry_flutter` - `v0.8.1+1`](#ferry_flutter---v0811)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `ferry` - `v0.14.2+2`
+ - `ferry_flutter` - `v0.8.1+1`
+
+---
+
+#### `ferry_cache` - `v0.7.1+2`
+
+ - **FIX**(normalize): When there are dangling references in child objects of a list, by default do not treat the whole entity as partial data, but remove it from the list. This can be configured using the allowDanglingReference parameter.
+
+
+## 2023-05-02
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
  - [`ferry` - `v0.14.2+1`](#ferry---v01421)
  - [`ferry_cache` - `v0.7.1`](#ferry_cache---v071)
  - [`ferry_flutter` - `v0.8.1`](#ferry_flutter---v081)
