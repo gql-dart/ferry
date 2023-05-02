@@ -11,6 +11,38 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 Packages with breaking changes:
 
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`normalize` - `v0.8.1`](#normalize---v081)
+ - [`ferry_cache` - `v0.7.1-dev.7`](#ferry_cache---v071-dev7)
+ - [`ferry` - `v0.14.0-dev.10`](#ferry---v0140-dev10)
+ - [`ferry_flutter` - `v0.8.0-dev.14`](#ferry_flutter---v080-dev14)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `ferry_cache` - `v0.7.1-dev.7`
+ - `ferry` - `v0.14.0-dev.10`
+ - `ferry_flutter` - `v0.8.0-dev.14`
+
+---
+
+#### `normalize` - `v0.8.1`
+
+ - Bump "normalize" to `0.8.1`.
+
+
+## 2023-05-02
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
  - [`ferry` - `v0.14.0-dev.9`](#ferry---v0140-dev9)
  - [`ferry_cache` - `v0.7.1-dev.6`](#ferry_cache---v071-dev6)
  - [`ferry_exec` - `v0.3.0-dev.5`](#ferry_exec---v030-dev5)

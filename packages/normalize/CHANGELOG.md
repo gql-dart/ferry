@@ -1,3 +1,7 @@
+## 0.8.1
+
+ - Bump "normalize" to `0.8.1`.
+
 ## 0.8.0-dev.6
 
 > Note: This release has breaking changes.
