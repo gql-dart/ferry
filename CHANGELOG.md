@@ -15,6 +15,27 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`ferry_generator` - `v0.8.1`](#ferry_generator---v081)
+
+---
+
+#### `ferry_generator` - `v0.8.1`
+
+ - **FEAT**: support stable 1.0.0 versions of depenencies gql, gql_exec, gql_link (#521).
+
+
+## 2023-05-02
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`ferry_cache` - `v0.7.1+2`](#ferry_cache---v0712)
  - [`ferry` - `v0.14.2+2`](#ferry---v01422)
  - [`ferry_flutter` - `v0.8.1+1`](#ferry_flutter---v0811)

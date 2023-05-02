@@ -1,3 +1,7 @@
+## 0.8.1
+
+ - **FEAT**: support stable 1.0.0 versions of depenencies gql, gql_exec, gql_link (#521).
+
 ## 0.8.0-dev.5
 
 > Note: This release has breaking changes.
