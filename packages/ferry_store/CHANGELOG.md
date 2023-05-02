@@ -1,3 +1,9 @@
+## 0.5.1-dev.5
+
+ - **REFACTOR**: apply lints fixes (#479).
+ - **FEAT**: support stable 1.0.0 versions of depenencies gql, gql_exec, gql_link (#521).
+ - **FEAT**(ferry_hive_store): use jsonMapEquals instead of DeepCollectionEquality().equals to avoid it's O(n^2) complexity, add distinct: param to watch() method (#475).
+
 ## 0.5.1-dev.4
 
  - **REFACTOR**: apply lints fixes (#479).

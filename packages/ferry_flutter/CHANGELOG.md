@@ -1,3 +1,15 @@
+## 0.8.0-dev.13
+
+> Note: This release has breaking changes.
+
+ - **FIX**(ferry): add stacktrace to error handler in GqlTypedLink (#467).
+ - **FIX**(ferry_flutter): bump version.
+ - **FEAT**: support stable 1.0.0 versions of depenencies gql, gql_exec, gql_link (#521).
+ - **FEAT**(ferry): add IsolateClient (#405).
+ - **FEAT**: add Reviews subscription to test graphql.
+ - **BREAKING** **FIX**(ferry_generator): properly generate nullable types for nullable elements in Lists (#445).
+ - **BREAKING** **CHORE**: update gql_code_builder, gql_exec and vestigial analyzer pubspec entry.
+
 ## 0.8.0-dev.12
 
 > Note: This release has breaking changes.

@@ -1,3 +1,10 @@
+## 0.2.1-dev.4
+
+ - **REFACTOR**: fix dependencies.
+ - **REFACTOR**(ferry_exec): remove cyclic dependency ferry_exec <-> ferry_test_graphql.
+ - **FEAT**: support stable 1.0.0 versions of depenencies gql, gql_exec, gql_link (#521).
+ - **FEAT**(ferry_generator): when/maybeWhen extensions (#470).
+
 ## 0.2.1-dev.3
 
  - **REFACTOR**: fix dependencies.
