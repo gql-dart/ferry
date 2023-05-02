@@ -23,7 +23,7 @@ Builder graphqlBuilder(
     GraphqlBuilder(options.config);
 
 class GraphqlBuilder implements Builder {
-  late BuilderConfig config;
+  BuilderConfig config;
 
   GraphqlBuilder(Map<String, dynamic> config) : config = BuilderConfig(config);
 
@@ -53,7 +53,7 @@ class GraphqlBuilder implements Builder {
     if (config.schemaIds != null) {
       for (final schemaId in config.schemaIds!) {
         if (docPackage == schemaId.package &&
-            docDirPath == p.dirname(schemaId.path)) {
+            docDirPath.contains(p.dirname(schemaId.path))) {
           schema =
               await readDocument(buildStep, config.sourceExtension, schemaId);
           _schemaId = schemaId;
