@@ -1,3 +1,7 @@
+## 0.5.2
+
+ - Bump "ferry_store" to `0.5.2`.
+
 ## 0.5.1-dev.5
 
  - **REFACTOR**: apply lints fixes (#479).
