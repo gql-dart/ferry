@@ -44,9 +44,6 @@ class GraphqlBuilder implements Builder {
 
   @override
   FutureOr<void> build(BuildStep buildStep) async {
-
-    print("jooo ${buildStep.inputId}");
-
     final doc = await readDocument(buildStep, config.sourceExtension);
     final schema =
         await readDocument(buildStep, config.sourceExtension, config.schemaId);
