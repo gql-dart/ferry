@@ -6,133 +6,9 @@ part of 'hero_with_fragments.var.gql.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<GHeroWithFragmentsVars> _$gHeroWithFragmentsVarsSerializer =
-    new _$GHeroWithFragmentsVarsSerializer();
-Serializer<GheroDataVars> _$gheroDataVarsSerializer =
-    new _$GheroDataVarsSerializer();
-Serializer<GcomparisonFieldsVars> _$gcomparisonFieldsVarsSerializer =
-    new _$GcomparisonFieldsVarsSerializer();
-
-class _$GHeroWithFragmentsVarsSerializer
-    implements StructuredSerializer<GHeroWithFragmentsVars> {
-  @override
-  final Iterable<Type> types = const [
-    GHeroWithFragmentsVars,
-    _$GHeroWithFragmentsVars
-  ];
-  @override
-  final String wireName = 'GHeroWithFragmentsVars';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GHeroWithFragmentsVars object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[];
-    Object? value;
-    value = object.episode;
-    if (value != null) {
-      result
-        ..add('episode')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(_i1.GEpisode)));
-    }
-    return result;
-  }
-
-  @override
-  GHeroWithFragmentsVars deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GHeroWithFragmentsVarsBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case 'episode':
-          result.episode = serializers.deserialize(value,
-              specifiedType: const FullType(_i1.GEpisode)) as _i1.GEpisode?;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GheroDataVarsSerializer implements StructuredSerializer<GheroDataVars> {
-  @override
-  final Iterable<Type> types = const [GheroDataVars, _$GheroDataVars];
-  @override
-  final String wireName = 'GheroDataVars';
-
-  @override
-  Iterable<Object?> serialize(Serializers serializers, GheroDataVars object,
-      {FullType specifiedType = FullType.unspecified}) {
-    return <Object?>[];
-  }
-
-  @override
-  GheroDataVars deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    return new GheroDataVarsBuilder().build();
-  }
-}
-
-class _$GcomparisonFieldsVarsSerializer
-    implements StructuredSerializer<GcomparisonFieldsVars> {
-  @override
-  final Iterable<Type> types = const [
-    GcomparisonFieldsVars,
-    _$GcomparisonFieldsVars
-  ];
-  @override
-  final String wireName = 'GcomparisonFieldsVars';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GcomparisonFieldsVars object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[];
-    Object? value;
-    value = object.first;
-    if (value != null) {
-      result
-        ..add('first')
-        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
-    }
-    return result;
-  }
-
-  @override
-  GcomparisonFieldsVars deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GcomparisonFieldsVarsBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case 'first':
-          result.first = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int?;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
 class _$GHeroWithFragmentsVars extends GHeroWithFragmentsVars {
   @override
-  final _i1.GEpisode? episode;
+  final _i2.Value<_i1.GEpisode>? episode;
 
   factory _$GHeroWithFragmentsVars(
           [void Function(GHeroWithFragmentsVarsBuilder)? updates]) =>
@@ -157,7 +33,10 @@ class _$GHeroWithFragmentsVars extends GHeroWithFragmentsVars {
 
   @override
   int get hashCode {
-    return $jf($jc(0, episode.hashCode));
+    var _$hash = 0;
+    _$hash = $jc(_$hash, episode.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 
   @override
@@ -172,9 +51,9 @@ class GHeroWithFragmentsVarsBuilder
     implements Builder<GHeroWithFragmentsVars, GHeroWithFragmentsVarsBuilder> {
   _$GHeroWithFragmentsVars? _$v;
 
-  _i1.GEpisode? _episode;
-  _i1.GEpisode? get episode => _$this._episode;
-  set episode(_i1.GEpisode? episode) => _$this._episode = episode;
+  _i2.Value<_i1.GEpisode>? _episode;
+  _i2.Value<_i1.GEpisode>? get episode => _$this._episode;
+  set episode(_i2.Value<_i1.GEpisode>? episode) => _$this._episode = episode;
 
   GHeroWithFragmentsVarsBuilder();
 
@@ -267,7 +146,7 @@ class GheroDataVarsBuilder
 
 class _$GcomparisonFieldsVars extends GcomparisonFieldsVars {
   @override
-  final int? first;
+  final _i2.Value<int>? first;
 
   factory _$GcomparisonFieldsVars(
           [void Function(GcomparisonFieldsVarsBuilder)? updates]) =>
@@ -292,7 +171,10 @@ class _$GcomparisonFieldsVars extends GcomparisonFieldsVars {
 
   @override
   int get hashCode {
-    return $jf($jc(0, first.hashCode));
+    var _$hash = 0;
+    _$hash = $jc(_$hash, first.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 
   @override
@@ -307,9 +189,9 @@ class GcomparisonFieldsVarsBuilder
     implements Builder<GcomparisonFieldsVars, GcomparisonFieldsVarsBuilder> {
   _$GcomparisonFieldsVars? _$v;
 
-  int? _first;
-  int? get first => _$this._first;
-  set first(int? first) => _$this._first = first;
+  _i2.Value<int>? _first;
+  _i2.Value<int>? get first => _$this._first;
+  set first(_i2.Value<int>? first) => _$this._first = first;
 
   GcomparisonFieldsVarsBuilder();
 
@@ -343,4 +225,4 @@ class GcomparisonFieldsVarsBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas
+// ignore_for_file: deprecated_member_use_from_same_package,type=lint

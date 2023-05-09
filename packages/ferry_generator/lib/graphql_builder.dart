@@ -44,6 +44,9 @@ class GraphqlBuilder implements Builder {
 
   @override
   FutureOr<void> build(BuildStep buildStep) async {
+
+    print("jooo ${buildStep.inputId}");
+
     final doc = await readDocument(buildStep, config.sourceExtension);
     final schema =
         await readDocument(buildStep, config.sourceExtension, config.schemaId);
@@ -55,6 +58,20 @@ class GraphqlBuilder implements Builder {
           'When extensions require add_typenames to be true. Consider setting add_typenames to true in your build.yaml or disabling when_extensions in your build.yaml.');
     }
 
+    final schemaOutputAsset =
+    outputAssetId(config.schemaId, schemaExtension, config.outputDir);
+
+    final schemaUrl =
+     schemaOutputAsset.uri.toString();
+    final schemaAllocator = GqlAllocator(
+      buildStep.inputId.uri.toString(),
+      config.sourceExtension,
+      outputAssetId(buildStep.inputId, schemaExtension, config.outputDir).uri.toString(),
+      schemaUrl,
+      config.outputDir,
+    );
+
+    final varAllocator = schemaAllocator;
     final libs = <String, Library>{
       astExtension: buildAstLibrary(doc),
       dataExtension: buildDataLibrary(
@@ -69,6 +86,7 @@ class GraphqlBuilder implements Builder {
         addTypenames(schema),
         p.basename(generatedFilePath(buildStep.inputId, varExtension)),
         config.typeOverrides,
+          varAllocator
       ),
       reqExtension: buildReqLibrary(
         doc,
@@ -80,6 +98,7 @@ class GraphqlBuilder implements Builder {
         config.typeOverrides,
         config.enumFallbackConfig,
         generatePossibleTypesMap: config.shouldGeneratePossibleTypes,
+        allocator: schemaAllocator,
       ),
     };
 
@@ -89,7 +108,12 @@ class GraphqlBuilder implements Builder {
       final schemaOutputAsset =
           outputAssetId(config.schemaId, schemaExtension, config.outputDir);
 
-      final allocator = GqlAllocator(
+      final allocator =
+
+      entry.key == schemaExtension ? schemaAllocator :
+      entry.key == varExtension ? varAllocator :
+
+      GqlAllocator(
         buildStep.inputId.uri.toString(),
         config.sourceExtension,
         generatedAsset.uri.toString(),

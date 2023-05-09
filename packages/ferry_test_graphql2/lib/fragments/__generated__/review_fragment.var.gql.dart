@@ -16,8 +16,6 @@ abstract class GReviewFragmentVars
   factory GReviewFragmentVars(
       [Function(GReviewFragmentVarsBuilder b) updates]) = _$GReviewFragmentVars;
 
-  static Serializer<GReviewFragmentVars> get serializer =>
-      _$gReviewFragmentVarsSerializer;
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GReviewFragmentVars.serializer,
         this,
@@ -27,4 +25,44 @@ abstract class GReviewFragmentVars
         GReviewFragmentVars.serializer,
         json,
       );
+  @BuiltValueSerializer(custom: true, serializeNulls: true)
+  static Serializer<GReviewFragmentVars> get serializer =>
+      GReviewFragmentVarsSerializer();
+}
+
+class GReviewFragmentVarsSerializer
+    extends StructuredSerializer<GReviewFragmentVars> {
+  final String wireName = 'GReviewFragmentVars';
+
+  final Iterable<Type> types = const [
+    GReviewFragmentVars,
+    _$GReviewFragmentVars
+  ];
+
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    GReviewFragmentVars object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = <Object?>[];
+    return result;
+  }
+
+  GReviewFragmentVars deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final builder = GReviewFragmentVarsBuilder();
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        
+      }
+    }
+    return builder.build();
+  }
 }

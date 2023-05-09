@@ -14,6 +14,8 @@ Future<void> writeDocument(
 ) {
   if (library.body.isEmpty) return Future.value(null);
 
+  print('writeDocument: ${outputId.path}');
+
   final libString = library
       .accept(
         DartEmitter(

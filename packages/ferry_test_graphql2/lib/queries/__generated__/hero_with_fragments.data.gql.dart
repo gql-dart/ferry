@@ -54,9 +54,9 @@ abstract class GHeroWithFragmentsData_hero
   @override
   String get id;
   @override
-  String get name;
-  @override
   GHeroWithFragmentsData_hero_friendsConnection get friendsConnection;
+  @override
+  String get name;
   static Serializer<GHeroWithFragmentsData_hero> get serializer =>
       _$gHeroWithFragmentsDataHeroSerializer;
   @override
