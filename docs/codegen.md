@@ -278,3 +278,5 @@ main **schema** scope/context is all the dirs that have .graphql files excluding
 If you visualize schema dir path segments as a tree, main **schema** can be parent of **schemas**, for above example, that's the path segments `lib->main`, but **schemas** can only be different branches (they can not be parent of other schemas).
 
 One use case for this is that main **schema** is apollo federation supergraph, while **schemas** can be subscriptions since apollo router doesn't support subscriptions as of now, May 2023.
+
+Custom scalars will apply to all schemas, so you can't have unique scalar per individual schema.
