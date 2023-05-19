@@ -1,13 +1,12 @@
-import 'package:normalize/normalize.dart';
-import 'package:test/test.dart';
 import 'package:gql/ast.dart';
-
+import 'package:normalize/normalize.dart';
 import 'package:normalize/src/utils/field_key.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('without args', () {
-    final field = FieldNode(name: NameNode(value: 'my_field'));
-    final key = FieldKey(field, {}, null);
+    const field = FieldNode(name: NameNode(value: 'my_field'));
+    final key = FieldKey(field, const {}, null);
     test('can be stringified', () {
       expect(key.toString(), equals('my_field'));
     });
@@ -19,7 +18,7 @@ void main() {
 
   group('with args', () {
     group('without vars', () {
-      final field = FieldNode(name: NameNode(value: 'my_field'), arguments: [
+      const field = FieldNode(name: NameNode(value: 'my_field'), arguments: [
         ArgumentNode(
           name: NameNode(value: 'b'),
           value: IntValueNode(
@@ -34,7 +33,7 @@ void main() {
         ),
       ]);
 
-      final key = FieldKey(field, {}, null);
+      final key = FieldKey(field, const {}, null);
 
       test('can be stringified', () {
         expect(key.toString(), equals('my_field({"a":1,"b":0})'));
@@ -46,7 +45,7 @@ void main() {
     });
 
     group('with vars', () {
-      final field = FieldNode(name: NameNode(value: 'my_field'), arguments: [
+      const field = FieldNode(name: NameNode(value: 'my_field'), arguments: [
         ArgumentNode(
           name: NameNode(value: 'b'),
           value: VariableNode(name: NameNode(value: 'b')),
@@ -59,7 +58,7 @@ void main() {
 
       final key = FieldKey(
         field,
-        {
+        const {
           'b': true,
           'a': 'hi',
         },
@@ -76,7 +75,7 @@ void main() {
     });
 
     group('with FieldPolicy.keyArgs', () {
-      final field = FieldNode(name: NameNode(value: 'my_field'), arguments: [
+      const field = FieldNode(name: NameNode(value: 'my_field'), arguments: [
         ArgumentNode(
           name: NameNode(value: 'b'),
           value: VariableNode(name: NameNode(value: 'b')),
@@ -89,11 +88,11 @@ void main() {
 
       final key = FieldKey(
         field,
-        {
+        const {
           'b': true,
           'a': 'hi',
         },
-        FieldPolicy(keyArgs: ['b']),
+        const FieldPolicy(keyArgs: ['b']),
       );
 
       test('can be stringified', () {

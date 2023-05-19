@@ -1,7 +1,7 @@
-import 'package:test/test.dart';
 import 'package:gql/language.dart';
-
 import 'package:normalize/normalize.dart';
+import 'package:test/test.dart';
+
 import '../shared_data.dart';
 
 void main() {
@@ -31,7 +31,7 @@ void main() {
       }
     ''');
 
-    final normalizedMap = {
+    const normalizedMap = {
       'Query': {
         '__typename': 'Query',
         'posts': [
@@ -56,7 +56,7 @@ void main() {
       'Author:2': {'id': '2', '__typename': 'Author', 'name': 'Nicole'}
     };
 
-    final typePolicies = {
+    const typePolicies = {
       'Post': TypePolicy(fields: {
         'comments': FieldPolicy(keyArgs: ['b'])
       })

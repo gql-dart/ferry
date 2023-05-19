@@ -19,8 +19,8 @@ void main() {
                 final merged = (LinkedHashSet<dynamic>(
                         equals: jsonMapEquals,
                         hashCode: const DeepCollectionEquality().hash)
-                      ..addAll(existing ?? [])
-                      ..addAll(incoming ?? []))
+                      ..addAll(existing ?? const [])
+                      ..addAll(incoming ?? const []))
                     .toList();
                 return merged.toList();
               },
@@ -93,7 +93,7 @@ void main() {
 
     final result1 = client.cache.readQuery(req);
 
-    expect(result1!.reviews!.map((e) => e!.stars).toList(), [10]);
+    expect(result1!.reviews!.map((e) => e!.stars).toList(), const [10]);
   });
 }
 

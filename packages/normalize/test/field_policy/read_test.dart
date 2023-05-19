@@ -1,7 +1,6 @@
-import 'package:test/test.dart';
 import 'package:gql/language.dart';
-
 import 'package:normalize/normalize.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('FieldPolicy.read', () {
@@ -54,7 +53,7 @@ void main() {
                 fields: {
                   'posts': FieldPolicy(
                     read: (existing, options) => options
-                        .readField<List>(options.field, existing ?? [])!
+                        .readField<List>(options.field, existing ?? const [])!
                         .where((post) => post['id'] == '123')
                         .toList(),
                   )

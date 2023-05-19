@@ -1,7 +1,6 @@
-import 'package:test/test.dart';
 import 'package:gql/language.dart';
-
 import 'package:normalize/normalize.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('FetchPolicy.merge', () {
@@ -67,7 +66,7 @@ void main() {
             fields: {
               'posts': FieldPolicy(
                 merge: (existing, incoming, options) {
-                  return [...existing ?? [], ...incoming];
+                  return [...existing ?? const [], ...incoming];
                 },
               )
             },
@@ -90,7 +89,7 @@ void main() {
         }
       ''');
 
-      final response = {
+      const response = {
         '__typename': 'Query',
         'posts': [
           {
@@ -126,7 +125,7 @@ void main() {
         },
       };
 
-      final result = {
+      const result = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -162,7 +161,7 @@ void main() {
             fields: {
               'comments': FieldPolicy(
                 merge: (existing, incoming, options) {
-                  return [...existing ?? [], ...incoming];
+                  return [...existing ?? const [], ...incoming];
                 },
               )
             },
@@ -185,7 +184,7 @@ void main() {
         }
       ''');
 
-      final response = {
+      const response = {
         '__typename': 'Query',
         'posts': [
           {
@@ -203,7 +202,7 @@ void main() {
 
       final existing = {};
 
-      final result = {
+      const result = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -320,7 +319,10 @@ void main() {
             fields: {
               'author': FieldPolicy(
                 merge: (existing, incoming, options) {
-                  return <String, dynamic>{...existing ?? {}, ...incoming};
+                  return <String, dynamic>{
+                    ...existing ?? const {},
+                    ...incoming
+                  };
                 },
               )
             },

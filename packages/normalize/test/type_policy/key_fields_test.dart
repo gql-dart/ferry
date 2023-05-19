@@ -1,7 +1,7 @@
-import 'package:test/test.dart';
 import 'package:gql/language.dart';
-
 import 'package:normalize/normalize.dart';
+import 'package:test/test.dart';
+
 import '../shared_data.dart';
 
 void main() {
@@ -32,7 +32,7 @@ void main() {
     ''');
 
     group('with correct keyFields', () {
-      final normalizedMap = {
+      const normalizedMap = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -61,7 +61,7 @@ void main() {
         'Author:2': {'id': '2', '__typename': 'Author', 'name': 'Nicole'}
       };
 
-      final typePolicies = {
+      const typePolicies = {
         'Post': TypePolicy(
           keyFields: {
             'id': true,
@@ -102,7 +102,7 @@ void main() {
     });
 
     group('with invalid keyField values', () {
-      final normalizedMap = {
+      const normalizedMap = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -127,7 +127,7 @@ void main() {
         'Author:2': {'id': '2', '__typename': 'Author', 'name': 'Nicole'}
       };
 
-      final typePolicies = {
+      const typePolicies = {
         'Post': TypePolicy(
           keyFields: {
             'id': true,
@@ -170,7 +170,7 @@ void main() {
     });
 
     group('with missing keyFields', () {
-      final normalizedMap = {
+      const normalizedMap = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -194,7 +194,7 @@ void main() {
         'Author:2': {'id': '2', '__typename': 'Author', 'name': 'Nicole'}
       };
 
-      final typePolicies = {
+      const typePolicies = {
         'Post': TypePolicy(
           keyFields: {
             'id': true,
@@ -235,7 +235,7 @@ void main() {
     });
 
     group('with empty keyFields', () {
-      final normalizedMap = {
+      const normalizedMap = {
         'Query': {
           '__typename': 'Query',
           'posts': [
@@ -259,7 +259,7 @@ void main() {
         'Author:2': {'id': '2', '__typename': 'Author', 'name': 'Nicole'}
       };
 
-      final typePolicies = {
+      const typePolicies = {
         'Post': TypePolicy(
           keyFields: {},
         )
