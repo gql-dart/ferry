@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2023-05-19
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - [`ferry` - `v0.15.0-dev.0`](#ferry---v0150-dev0)
+ - [`normalize` - `v0.9.0-dev.0`](#normalize---v090-dev0)
+
+Packages with other changes:
+
+ - [`ferry_flutter` - `v0.8.1-dev.0+1`](#ferry_flutter---v081-dev01)
+ - [`ferry_cache` - `v0.7.1-dev.0+3`](#ferry_cache---v071-dev03)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `ferry_flutter` - `v0.8.1-dev.0+1`
+ - `ferry_cache` - `v0.7.1-dev.0+3`
+
+---
+
+#### `ferry` - `v0.15.0-dev.0`
+
+ - **BREAKING** **REFACTOR**(normalize): Add const constructors to `FieldPolicy` and `TypePolicy` (#526).
+
+#### `normalize` - `v0.9.0-dev.0`
+
+ - **BREAKING** **REFACTOR**(normalize): Add const constructors to `FieldPolicy` and `TypePolicy` (#526).
+
+
 ## 2023-05-02
 
 ### Changes

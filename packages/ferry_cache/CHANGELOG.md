@@ -1,3 +1,7 @@
+## 0.7.1-dev.0+3
+
+ - Update a dependency to the latest release.
+
 ## 0.7.1+2
 
  - **FIX**(normalize): When there are dangling references in child objects of a list, by default do not treat the whole entity as partial data, but remove it from the list. This can be configured using the allowDanglingReference parameter.

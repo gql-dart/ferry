@@ -1,3 +1,9 @@
+## 0.9.0-dev.0
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **REFACTOR**(normalize): Add const constructors to `FieldPolicy` and `TypePolicy` (#526).
+
 ## 0.8.2+1
 
  - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.

@@ -1,3 +1,9 @@
+## 0.15.0-dev.0
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **REFACTOR**(normalize): Add const constructors to `FieldPolicy` and `TypePolicy` (#526).
+
 ## 0.14.2+1
 
  - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.

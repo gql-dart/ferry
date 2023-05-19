@@ -35,7 +35,7 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  ferry: ^0.14.2+1
+  ferry: ^0.15.0-dev.0
   hive:
   ferry_hive_store:
   path_provider:
