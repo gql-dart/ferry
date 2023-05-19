@@ -74,13 +74,13 @@ class FieldPolicy<TExisting, TIncoming, TReadResult> {
   /// By default, it is assumed that all field arguments might be important.
   ///
   /// If an empty [List] is provided, all arguments will be ignored.
-  List<String>? keyArgs;
+  final List<String>? keyArgs;
 
   /// Custom function to read existing field
-  FieldReadFunction<TExisting, TReadResult>? read;
+  final FieldReadFunction<TExisting, TReadResult>? read;
 
   /// Custom function to merge into existing field
-  FieldMergeFunction<TExisting, TIncoming>? merge;
+  final FieldMergeFunction<TExisting, TIncoming>? merge;
 
-  FieldPolicy({this.keyArgs, this.read, this.merge});
+  const FieldPolicy({this.keyArgs, this.read, this.merge});
 }

@@ -1,7 +1,6 @@
-import 'package:test/test.dart';
 import 'package:gql/language.dart';
-
 import 'package:normalize/normalize.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('Normalizing and denormalizing fragments', () {

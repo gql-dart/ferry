@@ -1,7 +1,7 @@
-import 'package:test/test.dart';
 import 'package:gql/language.dart';
-
 import 'package:normalize/normalize.dart';
+import 'package:test/test.dart';
+
 import '../shared_data.dart';
 
 void main() {
@@ -40,7 +40,7 @@ void main() {
                   read: (existing, options) {
                     expect(options.isReference(existing[0]), equals(true));
                     final posts =
-                        options.readField(options.field, existing ?? []);
+                        options.readField(options.field, existing ?? const []);
                     expect(options.toReference(posts[0]), equals(existing[0]));
                     return posts;
                   },

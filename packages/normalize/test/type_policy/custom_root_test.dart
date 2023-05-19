@@ -1,7 +1,7 @@
-import 'package:test/test.dart';
 import 'package:gql/language.dart';
-
 import 'package:normalize/normalize.dart';
+import 'package:test/test.dart';
+
 import '../shared_data.dart';
 
 void main() {
@@ -31,7 +31,7 @@ void main() {
   }
 ''');
 
-    final normalizedMap = {
+    const normalizedMap = {
       'CustomQueryRoot': {
         '__typename': 'CustomQueryRoot',
         'posts': [
@@ -61,7 +61,7 @@ void main() {
       '__typename': 'CustomQueryRoot',
     };
 
-    final typePolicies = {'CustomQueryRoot': TypePolicy(queryType: true)};
+    const typePolicies = {'CustomQueryRoot': TypePolicy(queryType: true)};
 
     test('Produces correct normalized object', () {
       final normalizedResult = {};

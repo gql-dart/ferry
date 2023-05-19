@@ -7,7 +7,7 @@ class TypePolicy {
   /// also use child fields.
   ///
   /// ```dart
-  /// final bookTypePolicy = TypePolicy(
+  /// const bookTypePolicy = TypePolicy(
   ///   keyFields: {
   ///     'title': true,
   ///     'author': {
@@ -20,21 +20,21 @@ class TypePolicy {
   /// If you don't wish to normalize this type, simply pass an empty `Map`. In
   /// that case, we won't normalize this type and it will be reachable from its
   /// parent.
-  Map<String, dynamic>? keyFields;
+  final Map<String, dynamic>? keyFields;
 
   /// Set to `true` if this type is the root Query in your schema.
-  bool queryType;
+  final bool queryType;
 
   /// Set to `true` if this type is the root Mutation in your schema.
-  bool mutationType;
+  final bool mutationType;
 
   /// Set to `true` if this type is the root Subscription in your schema.
-  bool subscriptionType;
+  final bool subscriptionType;
 
   /// Allows defining [FieldPolicy]s for this type.
-  Map<String, FieldPolicy> fields;
+  final Map<String, FieldPolicy> fields;
 
-  TypePolicy({
+  const TypePolicy({
     this.keyFields,
     this.queryType = false,
     this.mutationType = false,
