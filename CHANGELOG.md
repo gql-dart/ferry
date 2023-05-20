@@ -3,6 +3,42 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2023-05-20
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`ferry_cache` - `v0.7.1-dev.2`](#ferry_cache---v071-dev2)
+ - [`ferry_generator` - `v0.8.2-dev.0`](#ferry_generator---v082-dev0)
+ - [`ferry` - `v0.15.0-dev.2`](#ferry---v0150-dev2)
+ - [`ferry_flutter` - `v0.8.1-dev.2`](#ferry_flutter---v081-dev2)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `ferry` - `v0.15.0-dev.2`
+ - `ferry_flutter` - `v0.8.1-dev.2`
+
+---
+
+#### `ferry_cache` - `v0.7.1-dev.2`
+
+ - **REFACTOR**: apply lints fixes (#479).
+ - **FIX**(normalize): When there are dangling references in child objects of a list, by default do not treat the whole entity as partial data, but remove it from the list. This can be configured using the allowDanglingReference parameter.
+
+#### `ferry_generator` - `v0.8.2-dev.0`
+
+ - **FEAT**(ferry_generator): experimental support for multiple schemas (#518).
+
+
 ## 2023-05-19
 
 ### Changes

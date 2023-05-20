@@ -1,3 +1,7 @@
+## 0.8.2-dev.0
+
+ - **FEAT**(ferry_generator): experimental support for multiple schemas (#518).
+
 ## 0.8.1
 
  - **FEAT**: support stable 1.0.0 versions of depenencies gql, gql_exec, gql_link (#521).
