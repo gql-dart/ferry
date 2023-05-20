@@ -4,6 +4,7 @@ import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:gql_code_builder/ast.dart';
 import 'package:gql_code_builder/data.dart';
+import 'package:gql_code_builder/source.dart';
 import 'package:gql_code_builder/var.dart';
 import 'package:gql_code_builder/schema.dart';
 import 'package:path/path.dart' as p;
@@ -44,9 +45,32 @@ class GraphqlBuilder implements Builder {
 
   @override
   FutureOr<void> build(BuildStep buildStep) async {
+    SourceNode? schema;
+    AssetId? _schemaId;
     final doc = await readDocument(buildStep, config.sourceExtension);
-    final schema =
-        await readDocument(buildStep, config.sourceExtension, config.schemaId);
+    final docPackage = buildStep.inputId.package;
+    final docDirPath = p.dirname(buildStep.inputId.path);
+    if (config.schemaIds != null) {
+      for (final schemaId in config.schemaIds!) {
+        if (docPackage == schemaId.package &&
+            docDirPath.contains(p.dirname(schemaId.path))) {
+          schema =
+              await readDocument(buildStep, config.sourceExtension, schemaId);
+          _schemaId = schemaId;
+          break;
+        }
+      }
+    }
+
+    if (schema == null && config.schemaId != null) {
+      schema = await readDocument(
+          buildStep, config.sourceExtension, config.schemaId);
+      _schemaId = config.schemaId!;
+    }
+
+    if (schema == null) {
+      throw StateError('No schema found for ${buildStep.inputId}');
+    }
 
     if ((config.whenExtensionConfig.generateMaybeWhenExtensionMethod ||
             config.whenExtensionConfig.generateWhenExtensionMethod) &&
@@ -87,7 +111,7 @@ class GraphqlBuilder implements Builder {
       final generatedAsset =
           outputAssetId(buildStep.inputId, entry.key, config.outputDir);
       final schemaOutputAsset =
-          outputAssetId(config.schemaId, schemaExtension, config.outputDir);
+          outputAssetId(_schemaId!, schemaExtension, config.outputDir);
 
       final allocator = GqlAllocator(
         buildStep.inputId.uri.toString(),

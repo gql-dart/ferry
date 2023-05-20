@@ -27,19 +27,59 @@ class SerializerBuilder implements Builder {
   final outputFileName = 'serializers.gql.dart';
 
   // create a path for the serializers output in same directory as schema
-  List<String> get pathSegments =>
-      outputAssetId(config.schemaId, '', config.outputDir).pathSegments
+  List<String> pathSegments(AssetId schemaId) =>
+      outputAssetId(schemaId, '', config.outputDir).pathSegments
         ..removeLast()
         ..add(outputFileName);
 
   @override
-  Map<String, List<String>> get buildExtensions => {
-        // buildExtensions already include the 'lib' path segment, so we must remove it here
-        r'$lib$': [p.joinAll(pathSegments.skip(1))],
-      };
+  Map<String, List<String>> get buildExtensions {
+    final inputToOutputMap = <String, List<String>>{};
+    if (config.schemaId != null) {
+      // buildExtensions already include the 'lib' path segment, so we must remove it here
+      inputToOutputMap[r'$lib$'] = [
+        p.joinAll(pathSegments(config.schemaId!).skip(1))
+      ];
+    }
+
+    if (config.schemaIds != null) {
+      for (final schemaId in config.schemaIds!) {
+        inputToOutputMap[schemaId.path] = [p.joinAll(pathSegments(schemaId))];
+      }
+    }
+
+    return inputToOutputMap;
+  }
 
   @override
   FutureOr<void> build(BuildStep buildStep) async {
+    if (buildStep.inputId.path == r'lib/$lib$' && config.schemaId != null) {
+      final _generatedFiles = Glob('lib/**.gql.dart');
+      final _excludeFiles = <Glob>[];
+      if (config.schemaIds != null) {
+        for (final schemaId in config.schemaIds!) {
+          var dirPath = p.dirname(schemaId.path);
+          _excludeFiles.add(Glob('$dirPath/**.gql.dart'));
+        }
+      }
+      await buildSchema(
+          buildStep, config.schemaId!, _generatedFiles, _excludeFiles);
+    }
+
+    if (config.schemaIds != null) {
+      for (final schemaId in config.schemaIds!) {
+        if (schemaId == buildStep.inputId) {
+          var dirPath = p.dirname(schemaId.path);
+          final _generatedFiles = Glob('$dirPath/**.gql.dart');
+          await buildSchema(buildStep, schemaId, _generatedFiles, []);
+          break;
+        }
+      }
+    }
+  }
+
+  FutureOr<void> buildSchema(BuildStep buildStep, AssetId schemaId,
+      Glob generatedFiles, List<Glob> excludeFiles) async {
     /// BuiltValue classes with serializers. These will be added automatically
     /// using `@SerializersFor`.
     final builtClasses =
@@ -64,9 +104,15 @@ class SerializerBuilder implements Builder {
         interface.element.source.uri.toString() ==
             'package:built_value/built_value.dart');
 
-    final _generatedFiles = Glob('lib/**.gql.dart');
+    final excludeFileIds = <String, AssetId>{};
+    for (final excludeGlob in excludeFiles) {
+      await for (final fileAssetId in buildStep.findAssets(excludeGlob)) {
+        excludeFileIds[fileAssetId.path] = fileAssetId;
+      }
+    }
 
-    await for (final input in buildStep.findAssets(_generatedFiles)) {
+    await for (final input in buildStep.findAssets(generatedFiles)) {
+      if (excludeFileIds.containsKey(input.path)) continue;
       final lib = await buildStep.resolver.libraryFor(input);
       lib.units
           .expand((cu) => cu.classes)
@@ -111,8 +157,8 @@ class SerializerBuilder implements Builder {
     );
 
     final outputId = AssetId(
-      config.schemaId.package,
-      p.joinAll(pathSegments),
+      schemaId.package,
+      p.joinAll(pathSegments(schemaId)),
     );
 
     await writeDocument(outputId, library, allocator, buildStep);

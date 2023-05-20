@@ -226,3 +226,57 @@ Example:
          MyEnumType: OTHER   # except for the type 'MyEnumType', use the value 'OTHER' as fallback there
 
 ```
+
+## Multiple Schemas
+
+You can specify multiple schema files by using `schemas` identifier
+
+```yaml
+targets:
+  $default:
+    builders:
+      ferry_generator|graphql_builder:
+        enabled: true
+        options:
+          schemas: 
+            - your_package_name|lib/module1/schema.graphql
+            - your_package_name|lib/module2/schema.graphql
+      ferry_generator|serializer_builder:
+        enabled: true
+        options:
+          schemas:
+            - your_package_name|lib/module1/schema.graphql
+            - your_package_name|lib/module2/schema.graphql
+```
+
+You also can specify additional schemas alongside main schema (`schema` identifier in `options`)
+
+```yaml
+targets:
+  $default:
+    builders:
+      ferry_generator|graphql_builder:
+        enabled: true
+        options:
+          schema: your_package_name|lib/main/schema.graphql
+          schemas: 
+            - your_package_name|lib/main/module1/schema.graphql
+            - your_package_name|lib/main/module2/schema.graphql
+      ferry_generator|serializer_builder:
+        enabled: true
+        options:
+          schema: your_package_name|lib/main/schema.graphql
+          schemas:
+            - your_package_name|lib/main/module1/schema.graphql
+            - your_package_name|lib/main/module2/schema.graphql
+```
+
+**schemas** scope/context is only the dir specified, for above example, `your_package_name|lib/main/module1/schema.graphql` scope/context is only `lib/main/module1/`.  Any query or mutation .graphql files in that dir is bounded by that schema only, for above example, any query or mutation .graphql files in `lib/main/module1/` is bounded by `lib/main/module1/schema.graphql` only, main schema and sibling schemas will be ignored.
+
+main **schema** scope/context is all the dirs that have .graphql files excluding **schemas** dirs, for above example, `your_package_name|lib/main/schema.graphql` applies to all dirs that have .graphql files except `lib/main/module1/` and `lib/main/module2/`.
+
+If you visualize schema dir path segments as a tree, main **schema** can be parent of **schemas**, for above example, that's the path segments `lib->main`, but **schemas** can only be different branches (they can not be parent of other schemas).
+
+One use case for this is that main **schema** is apollo federation supergraph, while **schemas** can be subscriptions since apollo router doesn't support subscriptions as of now, May 2023.
+
+Custom scalars will apply to all schemas, so you can't have unique scalar per individual schema.

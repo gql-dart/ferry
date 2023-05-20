@@ -11,7 +11,8 @@ const reqExtension = '.req.gql.dart';
 const schemaExtension = '.schema.gql.dart';
 
 class BuilderConfig {
-  final AssetId schemaId;
+  final AssetId? schemaId;
+  final List<AssetId>? schemaIds;
   final bool shouldAddTypenames;
   final bool shouldGeneratePossibleTypes;
   final Map<String, Reference> typeOverrides;
@@ -22,7 +23,12 @@ class BuilderConfig {
   final InlineFragmentSpreadWhenExtensionConfig whenExtensionConfig;
 
   BuilderConfig(Map<String, dynamic> config)
-      : schemaId = AssetId.parse(config['schema'] as String),
+      : schemaId = config['schema'] == null
+            ? null
+            : AssetId.parse(config['schema'] as String),
+        schemaIds = (config['schemas'] as YamlList?)
+            ?.map((dynamic schema) => AssetId.parse(schema as String))
+            .toList(),
         shouldAddTypenames = config['add_typenames'] ?? true,
         typeOverrides = _getTypeOverrides(config['type_overrides']),
         shouldGeneratePossibleTypes =
