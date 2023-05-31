@@ -28,13 +28,8 @@ dev_dependencies:
 
 
 dependency_overrides:
-  gql_exec:
-    git:
-        url: https://github.com/gql-dart/gql.git
-        ref: feat/triStateNull
-        path: links/gql_exec
   gql_code_builder:
     git:
-      url: https://github.com/gql-dart/gql.git
-      ref: feat/triStateNull
+      url: https://github.com/twklessor/gql.git
+      ref: feature/serialize-nulls
       path: codegen/gql_code_builder

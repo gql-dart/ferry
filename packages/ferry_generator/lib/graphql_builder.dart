@@ -4,17 +4,17 @@ import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:gql_code_builder/ast.dart';
 import 'package:gql_code_builder/data.dart';
-import 'package:gql_code_builder/var.dart';
 import 'package:gql_code_builder/schema.dart';
+import 'package:gql_code_builder/var.dart';
 import 'package:path/path.dart' as p;
 
-import 'src/utils/locations.dart';
+import 'src/allocators/gql_allocator.dart';
+import 'src/codegen/req.dart';
+import 'src/utils/add_introspection.dart';
 import 'src/utils/config.dart';
+import 'src/utils/locations.dart';
 import 'src/utils/reader.dart';
 import 'src/utils/writer.dart';
-import 'src/utils/add_introspection.dart';
-import 'src/codegen/req.dart';
-import 'src/allocators/gql_allocator.dart';
 
 Builder graphqlBuilder(
   BuilderOptions options,
@@ -56,14 +56,15 @@ class GraphqlBuilder implements Builder {
     }
 
     final schemaOutputAsset =
-    outputAssetId(config.schemaId, schemaExtension, config.outputDir);
+        outputAssetId(config.schemaId, schemaExtension, config.outputDir);
 
-    final schemaUrl =
-     schemaOutputAsset.uri.toString();
+    final schemaUrl = schemaOutputAsset.uri.toString();
     final schemaAllocator = GqlAllocator(
       buildStep.inputId.uri.toString(),
       config.sourceExtension,
-      outputAssetId(buildStep.inputId, schemaExtension, config.outputDir).uri.toString(),
+      outputAssetId(buildStep.inputId, schemaExtension, config.outputDir)
+          .uri
+          .toString(),
       schemaUrl,
       config.outputDir,
     );
@@ -79,12 +80,12 @@ class GraphqlBuilder implements Builder {
         config.whenExtensionConfig,
       ),
       varExtension: buildVarLibrary(
-        doc,
-        addTypenames(schema),
-        p.basename(generatedFilePath(buildStep.inputId, varExtension)),
-        config.typeOverrides,
-          varAllocator
-      ),
+          doc,
+          addTypenames(schema),
+          p.basename(generatedFilePath(buildStep.inputId, varExtension)),
+          config.typeOverrides,
+          config.serializeNulls,
+          varAllocator),
       reqExtension: buildReqLibrary(
         doc,
         p.basename(generatedFilePath(buildStep.inputId, reqExtension)),
@@ -105,18 +106,17 @@ class GraphqlBuilder implements Builder {
       final schemaOutputAsset =
           outputAssetId(config.schemaId, schemaExtension, config.outputDir);
 
-      final allocator =
-
-      entry.key == schemaExtension ? schemaAllocator :
-      entry.key == varExtension ? varAllocator :
-
-      GqlAllocator(
-        buildStep.inputId.uri.toString(),
-        config.sourceExtension,
-        generatedAsset.uri.toString(),
-        schemaOutputAsset.uri.toString(),
-        config.outputDir,
-      );
+      final allocator = entry.key == schemaExtension
+          ? schemaAllocator
+          : entry.key == varExtension
+              ? varAllocator
+              : GqlAllocator(
+                  buildStep.inputId.uri.toString(),
+                  config.sourceExtension,
+                  generatedAsset.uri.toString(),
+                  schemaOutputAsset.uri.toString(),
+                  config.outputDir,
+                );
 
       await writeDocument(generatedAsset, entry.value, allocator, buildStep);
     }

@@ -14,6 +14,7 @@ class BuilderConfig {
   final AssetId schemaId;
   final bool shouldAddTypenames;
   final bool shouldGeneratePossibleTypes;
+  final bool serializeNulls;
   final Map<String, Reference> typeOverrides;
   final Set<Reference> customSerializers;
   final EnumFallbackConfig enumFallbackConfig;
@@ -27,6 +28,7 @@ class BuilderConfig {
         typeOverrides = _getTypeOverrides(config['type_overrides']),
         shouldGeneratePossibleTypes =
             config['generate_possible_types_map'] ?? true,
+        serializeNulls = config['serialize_nulls'] ?? false,
         customSerializers = _getCustomSerializers(config['custom_serializers']),
         enumFallbackConfig = _getEnumFallbackConfig(config),
         outputDir = config['output_dir'] ?? '__generated__',
