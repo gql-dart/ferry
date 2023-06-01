@@ -6,10 +6,9 @@ import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:ferry_test_graphql2/schema/__generated__/serializers.gql.dart'
-    as _i2;
+    as _i1;
 import 'package:gql_code_builder/src/serializers/default_scalar_serializer.dart'
-    as _i3;
-import 'package:gql_exec/value.dart' as _i1;
+    as _i2;
 
 part 'schema.schema.gql.g.dart';
 
@@ -47,95 +46,19 @@ abstract class GReviewInput
       _$GReviewInput;
 
   int get stars;
-  _i1.Value<String>? get commentary;
-  _i1.Value<GColorInput>? get favorite_color;
-  _i1.Value<BuiltList<DateTime?>>? get seenOn;
-  Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
+  String? get commentary;
+  GColorInput? get favorite_color;
+  BuiltList<DateTime?>? get seenOn;
+  static Serializer<GReviewInput> get serializer => _$gReviewInputSerializer;
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GReviewInput.serializer,
         this,
       ) as Map<String, dynamic>);
   static GReviewInput? fromJson(Map<String, dynamic> json) =>
-      _i2.serializers.deserializeWith(
+      _i1.serializers.deserializeWith(
         GReviewInput.serializer,
         json,
       );
-  @BuiltValueSerializer(custom: true, serializeNulls: true)
-  static Serializer<GReviewInput> get serializer => GReviewInputSerializer();
-}
-
-class GReviewInputSerializer extends StructuredSerializer<GReviewInput> {
-  final String wireName = 'GReviewInput';
-
-  final Iterable<Type> types = const [GReviewInput, _$GReviewInput];
-
-  Iterable<Object?> serialize(
-    Serializers serializers,
-    GReviewInput object, {
-    FullType specifiedType = FullType.unspecified,
-  }) {
-    final result = <Object?>[];
-    result.add('stars');
-    result.add(serializers.serialize(object.stars,
-        specifiedType: const FullType(int)));
-    final _$commentaryvalue = object.commentary;
-    if (_$commentaryvalue != null) {
-      result.add('commentary');
-      result.add(serializers.serialize(_$commentaryvalue!.value,
-          specifiedType: const FullType(String)));
-    }
-    final _$favorite_colorvalue = object.favorite_color;
-    if (_$favorite_colorvalue != null) {
-      result.add('favorite_color');
-      result.add(serializers.serialize(_$favorite_colorvalue!.value,
-          specifiedType: const FullType(GColorInput)));
-    }
-    final _$seenOnvalue = object.seenOn;
-    if (_$seenOnvalue != null) {
-      result.add('seenOn');
-      result.add(serializers.serialize(_$seenOnvalue!.value,
-          specifiedType: const FullType(BuiltList, [FullType(DateTime)])));
-    }
-    return result;
-  }
-
-  GReviewInput deserialize(
-    Serializers serializers,
-    Iterable<Object?> serialized, {
-    FullType specifiedType = FullType.unspecified,
-  }) {
-    final builder = GReviewInputBuilder();
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case 'stars':
-          var fieldValue = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
-          builder.stars = fieldValue;
-          break;
-        case 'commentary':
-          var fieldValue = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
-          builder.commentary = _i1.Value(fieldValue);
-          break;
-        case 'favorite_color':
-          var fieldValue = serializers.deserialize(value,
-              specifiedType: const FullType(GColorInput)) as GColorInput;
-          builder.favorite_color = _i1.Value(fieldValue);
-          break;
-        case 'seenOn':
-          var fieldValue = serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltList, [FullType(DateTime)]))
-              as BuiltList<DateTime>;
-          builder.seenOn = _i1.Value(fieldValue);
-          break;
-      }
-    }
-    return builder.build();
-  }
 }
 
 abstract class GColorInput implements Built<GColorInput, GColorInputBuilder> {
@@ -146,73 +69,16 @@ abstract class GColorInput implements Built<GColorInput, GColorInputBuilder> {
   int get red;
   int get green;
   int get blue;
-  Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
+  static Serializer<GColorInput> get serializer => _$gColorInputSerializer;
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GColorInput.serializer,
         this,
       ) as Map<String, dynamic>);
   static GColorInput? fromJson(Map<String, dynamic> json) =>
-      _i2.serializers.deserializeWith(
+      _i1.serializers.deserializeWith(
         GColorInput.serializer,
         json,
       );
-  @BuiltValueSerializer(custom: true, serializeNulls: true)
-  static Serializer<GColorInput> get serializer => GColorInputSerializer();
-}
-
-class GColorInputSerializer extends StructuredSerializer<GColorInput> {
-  final String wireName = 'GColorInput';
-
-  final Iterable<Type> types = const [GColorInput, _$GColorInput];
-
-  Iterable<Object?> serialize(
-    Serializers serializers,
-    GColorInput object, {
-    FullType specifiedType = FullType.unspecified,
-  }) {
-    final result = <Object?>[];
-    result.add('red');
-    result.add(
-        serializers.serialize(object.red, specifiedType: const FullType(int)));
-    result.add('green');
-    result.add(serializers.serialize(object.green,
-        specifiedType: const FullType(int)));
-    result.add('blue');
-    result.add(
-        serializers.serialize(object.blue, specifiedType: const FullType(int)));
-    return result;
-  }
-
-  GColorInput deserialize(
-    Serializers serializers,
-    Iterable<Object?> serialized, {
-    FullType specifiedType = FullType.unspecified,
-  }) {
-    final builder = GColorInputBuilder();
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case 'red':
-          var fieldValue = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
-          builder.red = fieldValue;
-          break;
-        case 'green':
-          var fieldValue = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
-          builder.green = fieldValue;
-          break;
-        case 'blue':
-          var fieldValue = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
-          builder.blue = fieldValue;
-          break;
-      }
-    }
-    return builder.build();
-  }
 }
 
 abstract class GISODate implements Built<GISODate, GISODateBuilder> {
@@ -224,7 +90,7 @@ abstract class GISODate implements Built<GISODate, GISODateBuilder> {
   String get value;
   @BuiltValueSerializer(custom: true)
   static Serializer<GISODate> get serializer =>
-      _i3.DefaultScalarSerializer<GISODate>(
+      _i2.DefaultScalarSerializer<GISODate>(
           (Object serialized) => GISODate((serialized as String?)));
 }
 

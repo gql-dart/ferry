@@ -16,6 +16,8 @@ abstract class GHeroNoVarsVars
   factory GHeroNoVarsVars([Function(GHeroNoVarsVarsBuilder b) updates]) =
       _$GHeroNoVarsVars;
 
+  static Serializer<GHeroNoVarsVars> get serializer =>
+      _$gHeroNoVarsVarsSerializer;
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GHeroNoVarsVars.serializer,
         this,
@@ -25,40 +27,4 @@ abstract class GHeroNoVarsVars
         GHeroNoVarsVars.serializer,
         json,
       );
-  @BuiltValueSerializer(custom: true, serializeNulls: true)
-  static Serializer<GHeroNoVarsVars> get serializer =>
-      GHeroNoVarsVarsSerializer();
-}
-
-class GHeroNoVarsVarsSerializer extends StructuredSerializer<GHeroNoVarsVars> {
-  final String wireName = 'GHeroNoVarsVars';
-
-  final Iterable<Type> types = const [GHeroNoVarsVars, _$GHeroNoVarsVars];
-
-  Iterable<Object?> serialize(
-    Serializers serializers,
-    GHeroNoVarsVars object, {
-    FullType specifiedType = FullType.unspecified,
-  }) {
-    final result = <Object?>[];
-    return result;
-  }
-
-  GHeroNoVarsVars deserialize(
-    Serializers serializers,
-    Iterable<Object?> serialized, {
-    FullType specifiedType = FullType.unspecified,
-  }) {
-    final builder = GHeroNoVarsVarsBuilder();
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        
-      }
-    }
-    return builder.build();
-  }
 }

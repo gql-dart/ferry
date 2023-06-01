@@ -195,18 +195,20 @@ class _$GHeroNoVarsReq extends GHeroNoVarsReq {
 
   @override
   int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, vars.hashCode);
-    _$hash = $jc(_$hash, operation.hashCode);
-    _$hash = $jc(_$hash, requestId.hashCode);
-    _$hash = $jc(_$hash, updateResult.hashCode);
-    _$hash = $jc(_$hash, optimisticResponse.hashCode);
-    _$hash = $jc(_$hash, updateCacheHandlerKey.hashCode);
-    _$hash = $jc(_$hash, updateCacheHandlerContext.hashCode);
-    _$hash = $jc(_$hash, fetchPolicy.hashCode);
-    _$hash = $jc(_$hash, executeOnListen.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
+    return $jf($jc(
+        $jc(
+            $jc(
+                $jc(
+                    $jc(
+                        $jc(
+                            $jc($jc($jc(0, vars.hashCode), operation.hashCode),
+                                requestId.hashCode),
+                            updateResult.hashCode),
+                        optimisticResponse.hashCode),
+                    updateCacheHandlerKey.hashCode),
+                updateCacheHandlerContext.hashCode),
+            fetchPolicy.hashCode),
+        executeOnListen.hashCode));
   }
 
   @override
@@ -350,4 +352,4 @@ class GHeroNoVarsReqBuilder
   }
 }
 
-// ignore_for_file: deprecated_member_use_from_same_package,type=lint
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas
