@@ -3,6 +3,47 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2023-08-13
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`ferry_cache` - `v0.7.1-dev.3`](#ferry_cache---v071-dev3)
+ - [`ferry_generator` - `v0.8.2-dev.1`](#ferry_generator---v082-dev1)
+ - [`ferry_test_graphql2` - `v0.2.4-dev.0`](#ferry_test_graphql2---v024-dev0)
+ - [`ferry` - `v0.15.0-dev.3`](#ferry---v0150-dev3)
+ - [`ferry_flutter` - `v0.8.1-dev.3`](#ferry_flutter---v081-dev3)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `ferry` - `v0.15.0-dev.3`
+ - `ferry_flutter` - `v0.8.1-dev.3`
+
+---
+
+#### `ferry_cache` - `v0.7.1-dev.3`
+
+ - **FIX**(normalize): When there are dangling references in child objects of a list, by default do not treat the whole entity as partial data, but remove it from the list. This can be configured using the allowDanglingReference parameter.
+ - **FEAT**(ferry_generator): add option to reuse data classes for fragments with a single inline fragment  spread as selection (#530).
+
+#### `ferry_generator` - `v0.8.2-dev.1`
+
+ - **FEAT**(ferry_generator): add option to reuse data classes for fragments with a single inline fragment  spread as selection (#530).
+
+#### `ferry_test_graphql2` - `v0.2.4-dev.0`
+
+ - **FEAT**(ferry_generator): add option to reuse data classes for fragments with a single inline fragment  spread as selection (#530).
+
+
 ## 2023-05-20
 
 ### Changes

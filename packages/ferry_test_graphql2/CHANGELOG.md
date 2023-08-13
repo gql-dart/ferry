@@ -1,3 +1,7 @@
+## 0.2.4-dev.0
+
+ - **FEAT**(ferry_generator): add option to reuse data classes for fragments with a single inline fragment  spread as selection (#530).
+
 ## 0.2.3
 
  - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.

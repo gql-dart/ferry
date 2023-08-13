@@ -1,3 +1,7 @@
+## 0.8.2-dev.1
+
+ - **FEAT**(ferry_generator): add option to reuse data classes for fragments with a single inline fragment  spread as selection (#530).
+
 ## 0.8.2-dev.0
 
  - **FEAT**(ferry_generator): experimental support for multiple schemas (#518).
