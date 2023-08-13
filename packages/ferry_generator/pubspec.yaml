@@ -4,7 +4,7 @@ homepage: https://ferrygraphql.com/
 description: Generated types for Ferry GraphQL Client
 repository: https://github.com/gql-dart/ferry
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: '>=3.0.0 <4.0.0'
 dependencies:
   gql: '>=0.14.0 <2.0.0'
   gql_code_builder: ^0.8.0
