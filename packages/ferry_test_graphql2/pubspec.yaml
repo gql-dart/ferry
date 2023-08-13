@@ -19,5 +19,5 @@ dev_dependencies:
   pedantic: ^1.11.0
   built_value_generator: ^8.1.1
   ferry_generator:
-    path: ../ferry_generator
+
 

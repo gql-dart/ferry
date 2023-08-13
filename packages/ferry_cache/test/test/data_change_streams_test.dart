@@ -26,10 +26,7 @@ final han = GHeroWithFragmentsData_hero(
     ..friendsConnection
         .edges
         .add(GHeroWithFragmentsData_hero_friendsConnection_edges(
-          (b) => b
-            ..node = GHeroWithFragmentsData_hero_friendsConnection_edges_node
-                    .fromJson(luke.toJson())!
-                .toBuilder(),
+          (b) => b..node = GheroDataData.fromJson(luke.toJson())!.toBuilder(),
         )),
 );
 
@@ -480,9 +477,7 @@ void main() {
                     .add(GHeroWithFragmentsData_hero_friendsConnection_edges(
                   (b) => b
                     ..node =
-                        GHeroWithFragmentsData_hero_friendsConnection_edges_node
-                                .fromJson(vader.toJson())!
-                            .toBuilder(),
+                        GheroDataData.fromJson(vader.toJson())!.toBuilder(),
                 ))));
 
         await Future.delayed(Duration.zero);
