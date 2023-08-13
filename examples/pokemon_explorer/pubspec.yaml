@@ -23,6 +23,6 @@ dev_dependencies:
   ferry_generator: ^0.8.2-dev.0
   flutter_test:
     sdk: flutter
-  gql_exec: ^0.4.4
+  gql_exec: ^1.0.0
 flutter:
   uses-material-design: true
