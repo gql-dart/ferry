@@ -21,6 +21,7 @@ class BuilderConfig {
   final String outputDir;
   final String sourceExtension;
   final InlineFragmentSpreadWhenExtensionConfig whenExtensionConfig;
+  final DataClassConfig dataClassConfig;
 
   BuilderConfig(Map<String, dynamic> config)
       : schemaId = config['schema'] == null
@@ -37,7 +38,22 @@ class BuilderConfig {
         enumFallbackConfig = _getEnumFallbackConfig(config),
         outputDir = config['output_dir'] ?? '__generated__',
         sourceExtension = config['source_extension'] ?? '.graphql',
-        whenExtensionConfig = _getWhenExtensionConfig(config);
+        whenExtensionConfig = _getWhenExtensionConfig(config),
+        dataClassConfig = _getDataClassConfig(config);
+}
+
+DataClassConfig _getDataClassConfig(Map<String, dynamic> config) {
+  final dataClassConfig = switch (config) {
+    {
+      'data_class_config': {
+        'reuse_fragments': final reuseFragments,
+      }
+    } =>
+      DataClassConfig(reuseFragments: reuseFragments == true),
+    _ => const DataClassConfig(reuseFragments: false),
+  };
+
+  return dataClassConfig;
 }
 
 InlineFragmentSpreadWhenExtensionConfig _getWhenExtensionConfig(

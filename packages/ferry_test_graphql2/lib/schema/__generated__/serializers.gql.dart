@@ -45,11 +45,9 @@ import 'package:ferry_test_graphql2/queries/__generated__/hero_with_fragments.da
         GHeroWithFragmentsData_hero,
         GHeroWithFragmentsData_hero_friendsConnection,
         GHeroWithFragmentsData_hero_friendsConnection_edges,
-        GHeroWithFragmentsData_hero_friendsConnection_edges_node,
         GcomparisonFieldsData,
         GcomparisonFieldsData_friendsConnection,
         GcomparisonFieldsData_friendsConnection_edges,
-        GcomparisonFieldsData_friendsConnection_edges_node,
         GheroDataData;
 import 'package:ferry_test_graphql2/queries/__generated__/hero_with_fragments.req.gql.dart'
     show GHeroWithFragmentsReq, GcomparisonFieldsReq, GheroDataReq;
@@ -128,7 +126,6 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GHeroWithFragmentsData_hero,
   GHeroWithFragmentsData_hero_friendsConnection,
   GHeroWithFragmentsData_hero_friendsConnection_edges,
-  GHeroWithFragmentsData_hero_friendsConnection_edges_node,
   GHeroWithFragmentsReq,
   GHeroWithFragmentsVars,
   GHumanWithArgsData,
@@ -158,7 +155,6 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GcomparisonFieldsData,
   GcomparisonFieldsData_friendsConnection,
   GcomparisonFieldsData_friendsConnection_edges,
-  GcomparisonFieldsData_friendsConnection_edges_node,
   GcomparisonFieldsReq,
   GcomparisonFieldsVars,
   GheroDataData,

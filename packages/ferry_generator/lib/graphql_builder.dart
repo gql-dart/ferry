@@ -87,6 +87,7 @@ class GraphqlBuilder implements Builder {
         p.basename(generatedFilePath(buildStep.inputId, dataExtension)),
         config.typeOverrides,
         config.whenExtensionConfig,
+        config.dataClassConfig,
       ),
       varExtension: buildVarLibrary(
         doc,
