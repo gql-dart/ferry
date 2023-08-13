@@ -43,19 +43,17 @@ class BuilderConfig {
 }
 
 DataClassConfig _getDataClassConfig(Map<String, dynamic> config) {
-
-
-
-  final dataClassConfig =  switch (config) {
-    {'data_class_config': {
-      'reuse_fragments': final reuseFragments,
-    }} => DataClassConfig(reuseFragments: reuseFragments == true),
+  final dataClassConfig = switch (config) {
+    {
+      'data_class_config': {
+        'reuse_fragments': final reuseFragments,
+      }
+    } =>
+      DataClassConfig(reuseFragments: reuseFragments == true),
     _ => const DataClassConfig(reuseFragments: false),
   };
 
   return dataClassConfig;
-
-
 }
 
 InlineFragmentSpreadWhenExtensionConfig _getWhenExtensionConfig(
