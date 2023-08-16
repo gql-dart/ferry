@@ -5,10 +5,10 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:ferry_test_graphql2/schema/__generated__/schema.schema.gql.dart'
-    as _i2;
 import 'package:ferry_test_graphql2/schema/__generated__/serializers.gql.dart'
     as _i1;
+import 'package:ferry_test_graphql3/schema/__generated__/schema.schema.gql.dart'
+    as _i2;
 
 part 'review_by_id.data.gql.g.dart';
 

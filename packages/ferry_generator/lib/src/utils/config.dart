@@ -15,6 +15,7 @@ class BuilderConfig {
   final List<AssetId>? schemaIds;
   final bool shouldAddTypenames;
   final bool shouldGeneratePossibleTypes;
+  final bool shouldGenerateSchema;
   final Map<String, Reference> typeOverrides;
   final Set<Reference> customSerializers;
   final EnumFallbackConfig enumFallbackConfig;
@@ -27,6 +28,7 @@ class BuilderConfig {
       : schemaId = config['schema'] == null
             ? null
             : AssetId.parse(config['schema'] as String),
+        shouldGenerateSchema = config['generate_schema'] ?? true,
         schemaIds = (config['schemas'] as YamlList?)
             ?.map((dynamic schema) => AssetId.parse(schema as String))
             .toList(),
