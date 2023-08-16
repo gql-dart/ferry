@@ -5,7 +5,7 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:ferry_test_graphql2/schema/__generated__/serializers.gql.dart'
+import 'package:ferry_test_graphql3/schema/__generated__/serializers.gql.dart'
     as _i1;
 import 'package:gql_code_builder/src/serializers/default_scalar_serializer.dart'
     as _i2;

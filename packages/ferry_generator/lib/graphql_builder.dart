@@ -99,6 +99,7 @@ class GraphqlBuilder implements Builder {
         doc,
         p.basename(generatedFilePath(buildStep.inputId, reqExtension)),
       ),
+      if(config.shouldGenerateSchema)
       schemaExtension: buildSchemaLibrary(
         doc,
         p.basename(generatedFilePath(buildStep.inputId, schemaExtension)),
@@ -118,7 +119,9 @@ class GraphqlBuilder implements Builder {
         buildStep.inputId.uri.toString(),
         config.sourceExtension,
         generatedAsset.uri.toString(),
-        schemaOutputAsset.uri.toString(),
+        config.shouldGenerateSchema ? schemaOutputAsset.uri.toString()
+        : AssetId(buildStep.inputId.package, schemaOutputAsset.path).uri.toString(),
+
         config.outputDir,
       );
 

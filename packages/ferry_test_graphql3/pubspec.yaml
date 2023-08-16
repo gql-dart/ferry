@@ -1,4 +1,4 @@
-name: ferry_test_graphql2
+name: ferry_test_graphql3
 version: 0.2.3
 description: Example GraphQL Operations, used in Ferry tests
 repository: https://github.com/gql-dart/ferry
@@ -13,8 +13,6 @@ dependencies:
   built_value: ^8.0.4
   built_collection: ^5.0.0
   gql_code_builder: ^0.8.0
-  ferry_test_graphql3:
-    path: ../ferry_test_graphql3
 dev_dependencies:
   test: ^1.16.8
   build_runner: ^2.0.2
