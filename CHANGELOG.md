@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2023-09-12
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`ferry_cache` - `v0.7.1-dev.4`](#ferry_cache---v071-dev4)
+ - [`ferry` - `v0.15.0-dev.4`](#ferry---v0150-dev4)
+ - [`ferry_flutter` - `v0.8.1-dev.4`](#ferry_flutter---v081-dev4)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `ferry` - `v0.15.0-dev.4`
+ - `ferry_flutter` - `v0.8.1-dev.4`
+
+---
+
+#### `ferry_cache` - `v0.7.1-dev.4`
+
+ - **FEAT**(ferry_generator): add option to reuse data classes for fragments with a single inline fragment  spread as selection (#530).
+
+
 ## 2023-08-13
 
 ### Changes
