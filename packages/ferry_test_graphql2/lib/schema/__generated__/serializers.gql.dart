@@ -86,8 +86,7 @@ import 'package:ferry_test_graphql2/queries/__generated__/reviews.req.gql.dart'
     show GReviewsReq;
 import 'package:ferry_test_graphql2/queries/__generated__/reviews.var.gql.dart'
     show GReviewsVars;
-import 'package:ferry_test_graphql2/schema/__generated__/schema.schema.gql.dart'
-    show GColorInput, GEpisode, GISODate, GLengthUnit, GReviewInput;
+import 'package:ferry_test_graphql3/schema/__generated__/schema.schema.gql.dart';
 import 'package:gql_code_builder/src/serializers/operation_serializer.dart'
     show OperationSerializer;
 
@@ -104,7 +103,6 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GAliasedHeroData_jediHero,
   GAliasedHeroReq,
   GAliasedHeroVars,
-  GColorInput,
   GCreateReviewData,
   GCreateReviewData_createReview,
   GCreateReviewReq,
@@ -112,7 +110,6 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GDroidFragmentData,
   GDroidFragmentReq,
   GDroidFragmentVars,
-  GEpisode,
   GHeroForEpisodeData,
   GHeroForEpisodeData_hero__asDroid,
   GHeroForEpisodeData_hero__base,
@@ -134,12 +131,9 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GHumanWithArgsData_human_friendsConnection_friends,
   GHumanWithArgsReq,
   GHumanWithArgsVars,
-  GISODate,
-  GLengthUnit,
   GReviewFragmentData,
   GReviewFragmentReq,
   GReviewFragmentVars,
-  GReviewInput,
   GReviewWithDateData,
   GReviewWithDateData_createReview,
   GReviewWithDateReq,

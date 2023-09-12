@@ -152,12 +152,14 @@ class SerializerBuilder implements Builder {
       include: [
         'package:built_collection/built_collection.dart',
         'package:ferry_exec/ferry_exec.dart',
-        ...config.typeOverrides.values.map((ref) => ref.url).whereType<String>()
+        ...config.typeOverrides.values.map((ref) => ref.url).whereType<String>(),
+        if(!config.shouldGenerateSchema)
+          'package:${schemaId.package}/${outputAssetId(schemaId, '.schema.gql.dart', config.outputDir).pathSegments.skip(1).join('/')}'
       ],
     );
 
     final outputId = AssetId(
-      schemaId.package,
+      config.shouldGenerateSchema ? schemaId.package : buildStep.inputId.package,
       p.joinAll(pathSegments(schemaId)),
     );
 

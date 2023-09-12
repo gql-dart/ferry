@@ -69,7 +69,9 @@ class GqlAllocator implements Allocator {
       if (uri.fragment == 'schema') {
         replacedUrl = schemaUrl;
       } else if (uri.fragment == 'serializer') {
+        print('schemaUrl: $schemaUrl');
         replacedUrl = '${p.dirname(schemaUrl)}/serializers.gql.dart';
+        print('replacedUrl: $replacedUrl');
       } else {
         replacedUrl = outputPath(sourceUrl, outputDir).replaceAll(
           RegExp(r'.graphql$'),

@@ -116,8 +116,8 @@ abstract class GheroDataReq
 abstract class GcomparisonFieldsReq
     implements
         Built<GcomparisonFieldsReq, GcomparisonFieldsReqBuilder>,
-        _i1
-        .FragmentRequest<_i2.GcomparisonFieldsData, _i3.GcomparisonFieldsVars> {
+        _i1.FragmentRequest<_i2.GcomparisonFieldsData,
+            _i3.GcomparisonFieldsVars> {
   GcomparisonFieldsReq._();
 
   factory GcomparisonFieldsReq(
