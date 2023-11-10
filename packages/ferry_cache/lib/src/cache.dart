@@ -127,8 +127,7 @@ class Cache {
       document: request.operation.document,
       addTypename: addTypename,
       operationName: request.operation.operationName,
-      // TODO: don't cast to dynamic
-      variables: (request.vars as dynamic)?.toJson(),
+      variables: request.varsToJson,
       typePolicies: typePolicies,
       dataIdFromObject: dataIdFromObject,
       possibleTypes: possibleTypes,
@@ -147,8 +146,7 @@ class Cache {
       document: request.document,
       idFields: request.idFields,
       fragmentName: request.fragmentName,
-      // TODO: don't cast to dynamic
-      variables: (request.vars as dynamic)?.toJson(),
+      variables: request.varsToJson,
       typePolicies: typePolicies,
       addTypename: addTypename,
       dataIdFromObject: dataIdFromObject,
@@ -179,8 +177,7 @@ class Cache {
       ),
       document: request.operation.document,
       operationName: request.operation.operationName,
-      // TODO: don't cast to dynamic
-      variables: (request.vars as dynamic)?.toJson(),
+      variables: request.varsToJson,
       data: (data as dynamic)?.toJson(),
       typePolicies: typePolicies,
       addTypename: addTypename,
@@ -212,8 +209,7 @@ class Cache {
       document: request.document,
       idFields: request.idFields,
       fragmentName: request.fragmentName,
-      // TODO: don't cast to dynamic
-      variables: (request.vars as dynamic)?.toJson(),
+      variables: request.varsToJson,
       data: (data as dynamic)?.toJson(),
       typePolicies: typePolicies,
       addTypename: addTypename,
