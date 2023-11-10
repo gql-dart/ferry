@@ -80,7 +80,6 @@ Class _buildFragmentReqClass(
         (b) => b
           ..annotations.add(refer('override'))
           ..returns = refer('Map<String, dynamic>')
-          ..type = MethodType.getter
           ..name = 'varsToJson'
           ..lambda = true
           ..body = refer('vars').property('toJson').call([]).code,

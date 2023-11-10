@@ -32,6 +32,7 @@ abstract class GCreateReviewReq
       operationName: 'CreateReview',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GCreateReviewVars get vars;
   @override
@@ -41,6 +42,7 @@ abstract class GCreateReviewReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -62,12 +64,18 @@ abstract class GCreateReviewReq
   @override
   _i2.GCreateReviewData? parseData(Map<String, dynamic> json) =>
       _i2.GCreateReviewData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
   static Serializer<GCreateReviewReq> get serializer =>
       _$gCreateReviewReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GCreateReviewReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateReviewReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GCreateReviewReq.serializer,

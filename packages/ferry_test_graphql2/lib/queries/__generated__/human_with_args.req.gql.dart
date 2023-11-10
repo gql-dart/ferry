@@ -32,6 +32,7 @@ abstract class GHumanWithArgsReq
       operationName: 'HumanWithArgs',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GHumanWithArgsVars get vars;
   @override
@@ -41,6 +42,7 @@ abstract class GHumanWithArgsReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -62,12 +64,18 @@ abstract class GHumanWithArgsReq
   @override
   _i2.GHumanWithArgsData? parseData(Map<String, dynamic> json) =>
       _i2.GHumanWithArgsData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
   static Serializer<GHumanWithArgsReq> get serializer =>
       _$gHumanWithArgsReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GHumanWithArgsReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GHumanWithArgsReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GHumanWithArgsReq.serializer,

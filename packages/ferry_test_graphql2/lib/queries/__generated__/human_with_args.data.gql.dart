@@ -19,15 +19,18 @@ abstract class GHumanWithArgsData
 
   static void _initializeBuilder(GHumanWithArgsDataBuilder b) =>
       b..G__typename = 'Query';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GHumanWithArgsData_human get human;
   static Serializer<GHumanWithArgsData> get serializer =>
       _$gHumanWithArgsDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GHumanWithArgsData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GHumanWithArgsData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GHumanWithArgsData.serializer,
@@ -46,6 +49,7 @@ abstract class GHumanWithArgsData_human
 
   static void _initializeBuilder(GHumanWithArgsData_humanBuilder b) =>
       b..G__typename = 'Human';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
@@ -54,10 +58,12 @@ abstract class GHumanWithArgsData_human
   GHumanWithArgsData_human_friendsConnection get friendsConnection;
   static Serializer<GHumanWithArgsData_human> get serializer =>
       _$gHumanWithArgsDataHumanSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GHumanWithArgsData_human.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GHumanWithArgsData_human? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GHumanWithArgsData_human.serializer,
@@ -78,15 +84,18 @@ abstract class GHumanWithArgsData_human_friendsConnection
   static void _initializeBuilder(
           GHumanWithArgsData_human_friendsConnectionBuilder b) =>
       b..G__typename = 'FriendsConnection';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   BuiltList<GHumanWithArgsData_human_friendsConnection_friends?>? get friends;
   static Serializer<GHumanWithArgsData_human_friendsConnection>
       get serializer => _$gHumanWithArgsDataHumanFriendsConnectionSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GHumanWithArgsData_human_friendsConnection.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GHumanWithArgsData_human_friendsConnection? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -108,6 +117,7 @@ abstract class GHumanWithArgsData_human_friendsConnection_friends
   static void _initializeBuilder(
           GHumanWithArgsData_human_friendsConnection_friendsBuilder b) =>
       b..G__typename = 'Character';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
@@ -115,10 +125,12 @@ abstract class GHumanWithArgsData_human_friendsConnection_friends
   static Serializer<GHumanWithArgsData_human_friendsConnection_friends>
       get serializer =>
           _$gHumanWithArgsDataHumanFriendsConnectionFriendsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GHumanWithArgsData_human_friendsConnection_friends.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GHumanWithArgsData_human_friendsConnection_friends? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

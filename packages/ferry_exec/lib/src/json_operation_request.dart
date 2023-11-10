@@ -5,7 +5,8 @@ import 'package:gql_exec/gql_exec.dart';
 /// A [OperationRequest] that parses the response into a [Map<String, dynamic>]
 /// this is useful for when you don't have a generated class for the operation
 /// or as an escape hatch for when you want to parse the response yourself.
-class JsonOperationRequest implements OperationRequest<Map<String, dynamic>, Map<String, dynamic>> {
+class JsonOperationRequest
+    implements OperationRequest<Map<String, dynamic>, Map<String, dynamic>> {
   @override
   final FetchPolicy fetchPolicy;
 
@@ -25,7 +26,8 @@ class JsonOperationRequest implements OperationRequest<Map<String, dynamic>, Map
   final Map<String, dynamic> vars;
 
   @override
-  final Map<String, dynamic>? Function(Map<String, dynamic>?, Map<String, dynamic>?)? updateResult;
+  final Map<String, dynamic>? Function(
+      Map<String, dynamic>?, Map<String, dynamic>?)? updateResult;
 
   @override
   final Operation operation;
@@ -62,8 +64,10 @@ class JsonOperationRequest implements OperationRequest<Map<String, dynamic>, Map
         o.fetchPolicy == fetchPolicy &&
         o.requestId == requestId &&
         o.updateCacheHandlerKey == updateCacheHandlerKey &&
-        o.updateCacheHandlerContext == updateCacheHandlerContext &&
-        o.executeOnListen == executeOnListen &&
+        const DeepCollectionEquality().equals(
+                    updateCacheHandlerContext, o.updateCacheHandlerContext) &
+                o.executeOnListen ==
+            executeOnListen &&
         const DeepCollectionEquality().equals(vars, o.vars) &&
         o.updateResult == updateResult &&
         o.optimisticResponse == optimisticResponse;
@@ -75,7 +79,7 @@ class JsonOperationRequest implements OperationRequest<Map<String, dynamic>, Map
         fetchPolicy.hashCode ^
         requestId.hashCode ^
         updateCacheHandlerKey.hashCode ^
-        updateCacheHandlerContext.hashCode ^
+        const DeepCollectionEquality().hash(updateCacheHandlerContext) ^
         executeOnListen.hashCode ^
         const DeepCollectionEquality().hash(vars) ^
         updateResult.hashCode ^

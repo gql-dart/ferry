@@ -20,15 +20,18 @@ abstract class GHeroWithFragmentsData
 
   static void _initializeBuilder(GHeroWithFragmentsDataBuilder b) =>
       b..G__typename = 'Query';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GHeroWithFragmentsData_hero? get hero;
   static Serializer<GHeroWithFragmentsData> get serializer =>
       _$gHeroWithFragmentsDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GHeroWithFragmentsData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GHeroWithFragmentsData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GHeroWithFragmentsData.serializer,
@@ -48,6 +51,7 @@ abstract class GHeroWithFragmentsData_hero
 
   static void _initializeBuilder(GHeroWithFragmentsData_heroBuilder b) =>
       b..G__typename = 'Character';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -59,11 +63,13 @@ abstract class GHeroWithFragmentsData_hero
   String get name;
   static Serializer<GHeroWithFragmentsData_hero> get serializer =>
       _$gHeroWithFragmentsDataHeroSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GHeroWithFragmentsData_hero.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GHeroWithFragmentsData_hero? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GHeroWithFragmentsData_hero.serializer,
@@ -85,6 +91,7 @@ abstract class GHeroWithFragmentsData_hero_friendsConnection
   static void _initializeBuilder(
           GHeroWithFragmentsData_hero_friendsConnectionBuilder b) =>
       b..G__typename = 'FriendsConnection';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -94,11 +101,13 @@ abstract class GHeroWithFragmentsData_hero_friendsConnection
   BuiltList<GHeroWithFragmentsData_hero_friendsConnection_edges?>? get edges;
   static Serializer<GHeroWithFragmentsData_hero_friendsConnection>
       get serializer => _$gHeroWithFragmentsDataHeroFriendsConnectionSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GHeroWithFragmentsData_hero_friendsConnection.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GHeroWithFragmentsData_hero_friendsConnection? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -121,6 +130,7 @@ abstract class GHeroWithFragmentsData_hero_friendsConnection_edges
   static void _initializeBuilder(
           GHeroWithFragmentsData_hero_friendsConnection_edgesBuilder b) =>
       b..G__typename = 'FriendsEdge';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -129,11 +139,13 @@ abstract class GHeroWithFragmentsData_hero_friendsConnection_edges
   static Serializer<GHeroWithFragmentsData_hero_friendsConnection_edges>
       get serializer =>
           _$gHeroWithFragmentsDataHeroFriendsConnectionEdgesSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GHeroWithFragmentsData_hero_friendsConnection_edges.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GHeroWithFragmentsData_hero_friendsConnection_edges? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -158,6 +170,7 @@ abstract class GheroDataData
 
   static void _initializeBuilder(GheroDataDataBuilder b) =>
       b..G__typename = 'Character';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -166,11 +179,13 @@ abstract class GheroDataData
   @override
   String get name;
   static Serializer<GheroDataData> get serializer => _$gheroDataDataSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GheroDataData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GheroDataData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GheroDataData.serializer,
@@ -216,6 +231,7 @@ abstract class GcomparisonFieldsData
 
   static void _initializeBuilder(GcomparisonFieldsDataBuilder b) =>
       b..G__typename = 'Character';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -227,11 +243,13 @@ abstract class GcomparisonFieldsData
   GcomparisonFieldsData_friendsConnection get friendsConnection;
   static Serializer<GcomparisonFieldsData> get serializer =>
       _$gcomparisonFieldsDataSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GcomparisonFieldsData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GcomparisonFieldsData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GcomparisonFieldsData.serializer,
@@ -253,6 +271,7 @@ abstract class GcomparisonFieldsData_friendsConnection
   static void _initializeBuilder(
           GcomparisonFieldsData_friendsConnectionBuilder b) =>
       b..G__typename = 'FriendsConnection';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -262,11 +281,13 @@ abstract class GcomparisonFieldsData_friendsConnection
   BuiltList<GcomparisonFieldsData_friendsConnection_edges?>? get edges;
   static Serializer<GcomparisonFieldsData_friendsConnection> get serializer =>
       _$gcomparisonFieldsDataFriendsConnectionSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GcomparisonFieldsData_friendsConnection.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GcomparisonFieldsData_friendsConnection? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -289,6 +310,7 @@ abstract class GcomparisonFieldsData_friendsConnection_edges
   static void _initializeBuilder(
           GcomparisonFieldsData_friendsConnection_edgesBuilder b) =>
       b..G__typename = 'FriendsEdge';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -296,11 +318,13 @@ abstract class GcomparisonFieldsData_friendsConnection_edges
   GheroDataData? get node;
   static Serializer<GcomparisonFieldsData_friendsConnection_edges>
       get serializer => _$gcomparisonFieldsDataFriendsConnectionEdgesSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GcomparisonFieldsData_friendsConnection_edges.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GcomparisonFieldsData_friendsConnection_edges? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
