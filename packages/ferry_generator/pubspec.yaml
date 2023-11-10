@@ -12,7 +12,7 @@ dependencies:
   code_builder: ^4.3.0
   build: ^2.0.0
   path: ^1.8.0
-  ferry_exec: ^0.3.1
+  ferry_exec: ^0.4.0
   yaml: ^3.1.0
   dart_style: ^2.3.2
   glob: ^2.0.1

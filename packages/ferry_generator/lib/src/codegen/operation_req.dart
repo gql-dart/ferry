@@ -159,6 +159,15 @@ Class _buildOperationReqClass(
           ..lambda = true
           ..body = dataTypeRef.property('fromJson').call([refer('json')]).code,
       ),
+      Method(
+        (b) => b
+          ..annotations.add(refer('override'))
+          ..returns = refer('Map<String, dynamic>')
+          ..type = MethodType.getter
+          ..name = 'varsToJson'
+          ..lambda = true
+          ..body = (refer('vars').property('toJson').call([])).code,
+      ),
     ],
     initializers: {
       'operation': refer('Operation', 'package:gql_exec/gql_exec.dart').call(
