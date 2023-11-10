@@ -31,6 +31,7 @@ abstract class GAllPokemonReq
       operationName: 'AllPokemon',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GAllPokemonVars get vars;
   @override
@@ -40,6 +41,7 @@ abstract class GAllPokemonReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -61,12 +63,21 @@ abstract class GAllPokemonReq
   @override
   _i2.GAllPokemonData? parseData(Map<String, dynamic> json) =>
       _i2.GAllPokemonData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
+
   static Serializer<GAllPokemonReq> get serializer =>
       _$gAllPokemonReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GAllPokemonReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GAllPokemonReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GAllPokemonReq.serializer,

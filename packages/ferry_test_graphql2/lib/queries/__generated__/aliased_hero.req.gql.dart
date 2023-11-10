@@ -68,6 +68,9 @@ abstract class GAliasedHeroReq
   @override
   Map<String, dynamic> varsToJson() => vars.toJson();
 
+  @override
+  Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
+
   static Serializer<GAliasedHeroReq> get serializer =>
       _$gAliasedHeroReqSerializer;
 

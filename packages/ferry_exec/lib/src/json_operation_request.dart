@@ -38,7 +38,7 @@ class JsonOperationRequest
   JsonOperationRequest(
       {required this.operation,
       required this.fetchPolicy,
-      required this.requestId,
+      this.requestId,
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.executeOnListen = true,
@@ -54,6 +54,9 @@ class JsonOperationRequest
 
   @override
   Map<String, dynamic> varsToJson() => vars;
+
+  @override
+  Map<String, dynamic> dataToJson(Map<String, dynamic> data) => data;
 
   @override
   bool operator ==(Object o) {

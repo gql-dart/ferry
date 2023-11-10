@@ -45,7 +45,7 @@ Stream<Set<String>> operationDataChangeStream<TData, TVars>(
           },
           document: request.operation.document,
           operationName: request.operation.operationName,
-          variables: request.varsToJson,
+          variables: request.varsToJson(),
           typePolicies: typePolicies,
           addTypename: addTypename,
           returnPartialData: true,

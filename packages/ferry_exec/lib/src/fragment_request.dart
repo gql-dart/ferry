@@ -22,4 +22,6 @@ abstract interface class FragmentRequest<TData, TVars> {
   TData? parseData(Map<String, dynamic> json);
 
   Map<String, dynamic> varsToJson();
+
+  Map<String, dynamic> dataToJson(TData data);
 }

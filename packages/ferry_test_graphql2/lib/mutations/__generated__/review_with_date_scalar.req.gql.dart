@@ -68,6 +68,9 @@ abstract class GReviewWithDateReq
   @override
   Map<String, dynamic> varsToJson() => vars.toJson();
 
+  @override
+  Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
+
   static Serializer<GReviewWithDateReq> get serializer =>
       _$gReviewWithDateReqSerializer;
 

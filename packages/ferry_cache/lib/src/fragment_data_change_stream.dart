@@ -36,7 +36,7 @@ Stream<Set<String>> fragmentDataChangeStream<TData, TVars>(
           idFields: request.idFields,
           fragmentName: request.fragmentName,
           document: request.document,
-          variables: request.varsToJson,
+          variables: request.varsToJson(),
           typePolicies: typePolicies,
           addTypename: addTypename,
           returnPartialData: true,

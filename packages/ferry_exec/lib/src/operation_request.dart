@@ -41,5 +41,11 @@ abstract interface class OperationRequest<TData, TVars> {
   /// This is a simple wrapper on the static fromJson method on the generated class.
   TData? parseData(Map<String, dynamic> json);
 
+  /// Serializes data into a JSON object
+  /// This is a simple wrapper on the `toJson` method on the data class
+  Map<String, dynamic> dataToJson(TData data);
+
+  /// Serializes variables into a JSON object
+  /// This is a simple wrapper on the `toJson` method on the variables class
   Map<String, dynamic> varsToJson();
 }

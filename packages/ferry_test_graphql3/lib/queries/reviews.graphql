@@ -1,7 +1,0 @@
-# import "./fragments.graphql"
-
-query GetExploreVideos {
-  getExploreVideos{
-    ...VideoViewFragment
-  }
-}

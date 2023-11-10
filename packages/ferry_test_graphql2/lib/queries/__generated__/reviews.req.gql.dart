@@ -67,6 +67,9 @@ abstract class GReviewsReq
   @override
   Map<String, dynamic> varsToJson() => vars.toJson();
 
+  @override
+  Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
+
   static Serializer<GReviewsReq> get serializer => _$gReviewsReqSerializer;
 
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(

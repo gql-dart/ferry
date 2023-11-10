@@ -374,7 +374,11 @@ class _$GAllPokemonData extends GAllPokemonData {
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, G__typename.hashCode), pokemons.hashCode));
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, pokemons.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 
   @override
@@ -487,7 +491,11 @@ class _$GAllPokemonData_pokemons extends GAllPokemonData_pokemons {
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, G__typename.hashCode), results.hashCode));
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, results.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 
   @override
@@ -626,14 +634,15 @@ class _$GAllPokemonData_pokemons_results
 
   @override
   int get hashCode {
-    return $jf($jc(
-        $jc(
-            $jc(
-                $jc($jc($jc(0, G__typename.hashCode), height.hashCode),
-                    weight.hashCode),
-                id.hashCode),
-            name.hashCode),
-        avatar.hashCode));
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, height.hashCode);
+    _$hash = $jc(_$hash, weight.hashCode);
+    _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, name.hashCode);
+    _$hash = $jc(_$hash, avatar.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 
   @override
@@ -788,7 +797,11 @@ class _$GAllPokemonData_pokemons_results_height
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, G__typename.hashCode), in_meter.hashCode));
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, in_meter.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 
   @override
@@ -895,7 +908,11 @@ class _$GAllPokemonData_pokemons_results_weight
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, G__typename.hashCode), in_kg.hashCode));
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, in_kg.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 
   @override
@@ -962,4 +979,4 @@ class GAllPokemonData_pokemons_results_weightBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas
+// ignore_for_file: deprecated_member_use_from_same_package,type=lint
