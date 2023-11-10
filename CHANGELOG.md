@@ -11,6 +11,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 Packages with breaking changes:
 
+
  - [`ferry_exec` - `v0.4.0`](#ferry_exec---v040)
 
 Packages with other changes:
@@ -36,6 +37,13 @@ Packages with dependency updates only:
 #### `ferry_exec` - `v0.4.0`
 
  - **BREAKING** **FEAT**(ferry_exec): add `varToJson()` method to OperationRequest and FragmentRequest in order to make the cache work without casts to dynamic.
+ - `ferry_flutter` - `v0.8.1-dev.4`
+
+---
+
+#### `ferry_cache` - `v0.7.1-dev.4`
+
+ - **FEAT**(ferry_generator): add option to reuse data classes for fragments with a single inline fragment  spread as selection (#530).
 
 
 ## 2023-08-13

@@ -38,6 +38,8 @@ Future<Client> _initClientIsolate(
 
   final box = await Hive.openBox<Map<String, dynamic>>("graphql");
 
+  /// This deletes all cached content. useful for an example, not so much for a real-world app
+  /// Remove this line when you copy this code for your app.
   await box.clear();
 
   final store = HiveStore(box);

@@ -1,3 +1,7 @@
+## 0.7.1-dev.4
+
+ - **FEAT**(ferry_generator): add option to reuse data classes for fragments with a single inline fragment  spread as selection (#530).
+
 ## 0.7.1-dev.3
 
  - **FIX**(normalize): When there are dangling references in child objects of a list, by default do not treat the whole entity as partial data, but remove it from the list. This can be configured using the allowDanglingReference parameter.
