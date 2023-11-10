@@ -1,6 +1,6 @@
 import 'package:gql/ast.dart';
 
-abstract class FragmentRequest<TData, TVars> {
+abstract interface class FragmentRequest<TData, TVars> {
   TVars get vars;
 
   DocumentNode get document;
@@ -20,4 +20,6 @@ abstract class FragmentRequest<TData, TVars> {
 
   /// This is a simple wrapper on the static fromJson method on the generated class.
   TData? parseData(Map<String, dynamic> json);
+
+  Map<String, dynamic> varsToJson();
 }
