@@ -15,6 +15,69 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`ferry` - `v0.15.0-dev.0+2`](#ferry---v0150-dev02)
+ - [`ferry_cache` - `v0.8.0-dev.0+1`](#ferry_cache---v080-dev01)
+ - [`ferry_exec` - `v0.5.0-dev.0+1`](#ferry_exec---v050-dev01)
+ - [`ferry_flutter` - `v0.9.0-dev.0+1`](#ferry_flutter---v090-dev01)
+ - [`ferry_generator` - `v0.8.2-dev.0+1`](#ferry_generator---v082-dev01)
+ - [`ferry_hive_store` - `v0.5.1-dev.0+1`](#ferry_hive_store---v051-dev01)
+ - [`ferry_store` - `v0.5.3-dev.0+1`](#ferry_store---v053-dev01)
+ - [`normalize` - `v0.9.0-dev.0+1`](#normalize---v090-dev01)
+ - [`ferry_test_graphql2` - `v0.2.4-dev.0+1`](#ferry_test_graphql2---v024-dev01)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `ferry_test_graphql2` - `v0.2.4-dev.0+1`
+
+---
+
+#### `ferry` - `v0.15.0-dev.0+2`
+
+ - **DOCS**: add topics (#548).
+
+#### `ferry_cache` - `v0.8.0-dev.0+1`
+
+ - **DOCS**: add topics (#548).
+
+#### `ferry_exec` - `v0.5.0-dev.0+1`
+
+ - **DOCS**: add topics (#548).
+
+#### `ferry_flutter` - `v0.9.0-dev.0+1`
+
+ - **DOCS**: add topics (#548).
+
+#### `ferry_generator` - `v0.8.2-dev.0+1`
+
+ - **DOCS**: add topics (#548).
+
+#### `ferry_hive_store` - `v0.5.1-dev.0+1`
+
+ - **DOCS**: add topics (#548).
+
+#### `ferry_store` - `v0.5.3-dev.0+1`
+
+ - **DOCS**: add topics (#548).
+
+#### `normalize` - `v0.9.0-dev.0+1`
+
+ - **DOCS**: add topics (#548).
+
+
+## 2023-11-11
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`ferry` - `v0.15.0+1`](#ferry---v01501)
  - [`ferry_cache` - `v0.8.0`](#ferry_cache---v080)
  - [`ferry_flutter` - `v0.9.0`](#ferry_flutter---v090)

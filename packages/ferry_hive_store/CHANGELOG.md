@@ -1,3 +1,7 @@
+## 0.5.1-dev.0+1
+
+ - **DOCS**: add topics (#548).
+
 ## 0.5.1-dev.6
 
  - **REFACTOR**: apply lints fixes (#479).
