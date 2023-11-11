@@ -5,6 +5,9 @@ description: Normalization and denormalization of GraphQL responses in Dart
 repository: https://github.com/gql-dart/ferry
 environment:
   sdk: '>=2.12.0 <3.0.0'
+topics:
+  - graphql
+  - gql
 dependencies:
   gql: '>=0.14.0 <2.0.0'
   collection: ^1.15.0

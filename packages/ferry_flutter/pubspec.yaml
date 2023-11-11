@@ -5,6 +5,10 @@ description: Flutter widgets for the Ferry GraphQL client
 repository: https://github.com/gql-dart/ferry
 environment:
   sdk: '>=2.12.0 <3.0.0'
+topics:
+  - graphql
+  - gql
+  - ferry
 dependencies:
   ferry: ^0.15.0+1
   gql_exec: '>=0.4.0 <2.0.0'
