@@ -1,3 +1,9 @@
+## 0.8.2-dev.2
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **FEAT**(ferry_exec): remove usage of dynamic in cache and AddTypeNameTypedLink by adding new methods to operationrequest  (#547).
+
 ## 0.8.2-dev.1
 
  - **FEAT**(ferry_generator): experimental: add option to reuse data classes for fragments with a single inline fragment spread as selection (#530).

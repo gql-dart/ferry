@@ -3,6 +3,53 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2023-11-11
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - [`ferry` - `v0.15.0-dev.5`](#ferry---v0150-dev5)
+ - [`ferry_cache` - `v0.7.1-dev.5`](#ferry_cache---v071-dev5)
+ - [`ferry_exec` - `v0.5.0-dev.0`](#ferry_exec---v050-dev0)
+ - [`ferry_flutter` - `v0.8.1-dev.5`](#ferry_flutter---v081-dev5)
+ - [`ferry_generator` - `v0.8.2-dev.2`](#ferry_generator---v082-dev2)
+ - [`ferry_test_graphql2` - `v0.2.4-dev.1`](#ferry_test_graphql2---v024-dev1)
+
+Packages with other changes:
+
+ - There are no other changes in this release.
+
+---
+
+#### `ferry` - `v0.15.0-dev.5`
+
+ - **BREAKING** **FEAT**(ferry_exec): remove usage of dynamic in cache and AddTypeNameTypedLink by adding new methods to operationrequest  (#547).
+
+#### `ferry_cache` - `v0.7.1-dev.5`
+
+ - **FEAT**(ferry_generator): add option to reuse data classes for fragments with a single inline fragment  spread as selection (#530).
+ - **BREAKING** **FEAT**(ferry_exec): remove usage of dynamic in cache and AddTypeNameTypedLink by adding new methods to operationrequest  (#547).
+
+#### `ferry_exec` - `v0.5.0-dev.0`
+
+ - **BREAKING** **FEAT**(ferry_exec): remove usage of dynamic in cache and AddTypeNameTypedLink by adding new methods to operationrequest  (#547).
+
+#### `ferry_flutter` - `v0.8.1-dev.5`
+
+ - **BREAKING** **FEAT**(ferry_exec): remove usage of dynamic in cache and AddTypeNameTypedLink by adding new methods to operationrequest  (#547).
+
+#### `ferry_generator` - `v0.8.2-dev.2`
+
+ - **BREAKING** **FEAT**(ferry_exec): remove usage of dynamic in cache and AddTypeNameTypedLink by adding new methods to operationrequest  (#547).
+
+#### `ferry_test_graphql2` - `v0.2.4-dev.1`
+
+ - **BREAKING** **FEAT**(ferry_exec): remove usage of dynamic in cache and AddTypeNameTypedLink by adding new methods to operationrequest  (#547).
+
+
 ## 2023-11-10
 
 ### Changes

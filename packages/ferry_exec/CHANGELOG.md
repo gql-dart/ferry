@@ -1,3 +1,9 @@
+## 0.5.0-dev.0
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **FEAT**(ferry_exec): remove usage of dynamic in cache and AddTypeNameTypedLink by adding new methods to operationrequest  (#547).
+
 ## 0.4.0
 
 > Note: This release has breaking changes.
