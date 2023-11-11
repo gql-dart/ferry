@@ -11,6 +11,37 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 Packages with breaking changes:
 
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`ferry` - `v0.15.0+1`](#ferry---v01501)
+ - [`ferry_cache` - `v0.8.0`](#ferry_cache---v080)
+ - [`ferry_flutter` - `v0.9.0`](#ferry_flutter---v090)
+
+Packages graduated to a stable release (see pre-releases prior to the stable version for changelog entries):
+
+ - `ferry` - `v0.15.0+1`
+ - `ferry_cache` - `v0.8.0`
+ - `ferry_flutter` - `v0.9.0`
+
+---
+
+#### `ferry` - `v0.15.0+1`
+
+#### `ferry_cache` - `v0.8.0`
+
+#### `ferry_flutter` - `v0.9.0`
+
+
+## 2023-11-11
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
  - [`ferry_cache` - `v0.8.0-dev.0`](#ferry_cache---v080-dev0)
  - [`ferry_flutter` - `v0.9.0-dev.0`](#ferry_flutter---v090-dev0)
 
