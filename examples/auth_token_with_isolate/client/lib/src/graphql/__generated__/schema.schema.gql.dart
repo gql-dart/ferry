@@ -20,10 +20,12 @@ abstract class GAuthorsOrder
   GAuthorsOrderField get field;
   GDirection get direction;
   static Serializer<GAuthorsOrder> get serializer => _$gAuthorsOrderSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GAuthorsOrder.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GAuthorsOrder? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GAuthorsOrder.serializer,
@@ -51,7 +53,9 @@ class GAuthorsOrderField extends EnumClass {
 
   static Serializer<GAuthorsOrderField> get serializer =>
       _$gAuthorsOrderFieldSerializer;
+
   static BuiltSet<GAuthorsOrderField> get values => _$gAuthorsOrderFieldValues;
+
   static GAuthorsOrderField valueOf(String name) =>
       _$gAuthorsOrderFieldValueOf(name);
 }
@@ -66,10 +70,12 @@ abstract class GdeleteAuthorInput
   int get id;
   static Serializer<GdeleteAuthorInput> get serializer =>
       _$gdeleteAuthorInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GdeleteAuthorInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GdeleteAuthorInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GdeleteAuthorInput.serializer,
@@ -91,7 +97,9 @@ class GDirection extends EnumClass {
   static const GDirection gUnknownEnumValue = _$gDirectiongUnknownEnumValue;
 
   static Serializer<GDirection> get serializer => _$gDirectionSerializer;
+
   static BuiltSet<GDirection> get values => _$gDirectionValues;
+
   static GDirection valueOf(String name) => _$gDirectionValueOf(name);
 }
 
@@ -103,10 +111,12 @@ abstract class GloginInput implements Built<GloginInput, GloginInputBuilder> {
   String get username;
   String get password;
   static Serializer<GloginInput> get serializer => _$gloginInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GloginInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GloginInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GloginInput.serializer,
@@ -122,10 +132,12 @@ abstract class GNewAuthor implements Built<GNewAuthor, GNewAuthorBuilder> {
   String get firstName;
   String get lastName;
   static Serializer<GNewAuthor> get serializer => _$gNewAuthorSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GNewAuthor.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GNewAuthor? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GNewAuthor.serializer,

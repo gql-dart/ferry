@@ -71,6 +71,11 @@ abstract class GCreateReviewReq
   @override
   Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
 
+  @override
+  _i1.OperationRequest<_i2.GCreateReviewData, _i3.GCreateReviewVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GCreateReviewReq> get serializer =>
       _$gCreateReviewReqSerializer;
 

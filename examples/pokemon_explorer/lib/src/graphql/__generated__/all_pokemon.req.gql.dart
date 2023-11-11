@@ -70,6 +70,11 @@ abstract class GAllPokemonReq
   @override
   Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
 
+  @override
+  _i1.OperationRequest<_i2.GAllPokemonData, _i3.GAllPokemonVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GAllPokemonReq> get serializer =>
       _$gAllPokemonReqSerializer;
 

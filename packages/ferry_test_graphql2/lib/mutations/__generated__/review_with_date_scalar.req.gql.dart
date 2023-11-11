@@ -71,6 +71,11 @@ abstract class GReviewWithDateReq
   @override
   Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
 
+  @override
+  _i1.OperationRequest<_i2.GReviewWithDateData, _i3.GReviewWithDateVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GReviewWithDateReq> get serializer =>
       _$gReviewWithDateReqSerializer;
 

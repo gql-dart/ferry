@@ -16,14 +16,17 @@ abstract class GLoginData implements Built<GLoginData, GLoginDataBuilder> {
 
   static void _initializeBuilder(GLoginDataBuilder b) =>
       b..G__typename = 'Mutation';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GLoginData_login? get login;
   static Serializer<GLoginData> get serializer => _$gLoginDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GLoginData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GLoginData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GLoginData.serializer,
@@ -40,15 +43,18 @@ abstract class GLoginData_login
 
   static void _initializeBuilder(GLoginData_loginBuilder b) =>
       b..G__typename = 'jwtToken';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get token;
   static Serializer<GLoginData_login> get serializer =>
       _$gLoginDataLoginSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GLoginData_login.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GLoginData_login? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GLoginData_login.serializer,

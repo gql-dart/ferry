@@ -70,6 +70,11 @@ abstract class GPokemonDetailReq
   @override
   Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
 
+  @override
+  _i1.OperationRequest<_i2.GPokemonDetailData, _i3.GPokemonDetailVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GPokemonDetailReq> get serializer =>
       _$gPokemonDetailReqSerializer;
 

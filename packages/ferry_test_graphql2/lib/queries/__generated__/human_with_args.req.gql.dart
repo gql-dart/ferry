@@ -71,6 +71,11 @@ abstract class GHumanWithArgsReq
   @override
   Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
 
+  @override
+  _i1.OperationRequest<_i2.GHumanWithArgsData, _i3.GHumanWithArgsVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GHumanWithArgsReq> get serializer =>
       _$gHumanWithArgsReqSerializer;
 

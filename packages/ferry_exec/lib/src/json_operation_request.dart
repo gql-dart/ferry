@@ -88,4 +88,20 @@ class JsonOperationRequest
         updateResult.hashCode ^
         optimisticResponse.hashCode;
   }
+
+  @override
+  JsonOperationRequest transformOperation(
+      Operation Function(Operation) transform) {
+    return JsonOperationRequest(
+      operation: transform(operation),
+      fetchPolicy: fetchPolicy,
+      vars: vars,
+      requestId: requestId,
+      updateCacheHandlerKey: updateCacheHandlerKey,
+      updateCacheHandlerContext: updateCacheHandlerContext,
+      executeOnListen: executeOnListen,
+      updateResult: updateResult,
+      optimisticResponse: optimisticResponse,
+    );
+  }
 }

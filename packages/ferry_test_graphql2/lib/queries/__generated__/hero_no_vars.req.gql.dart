@@ -71,6 +71,11 @@ abstract class GHeroNoVarsReq
   @override
   Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
 
+  @override
+  _i1.OperationRequest<_i2.GHeroNoVarsData, _i3.GHeroNoVarsVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GHeroNoVarsReq> get serializer =>
       _$gHeroNoVarsReqSerializer;
 

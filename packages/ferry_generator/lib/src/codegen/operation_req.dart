@@ -178,6 +178,33 @@ Class _buildOperationReqClass(
           ..lambda = true
           ..body = (refer('data').property('toJson').call([])).code,
       ),
+      Method(
+        (b) => b
+          ..annotations.add(refer('override'))
+          ..returns = TypeReference((b) => b
+            ..symbol = 'OperationRequest'
+            ..url = 'package:ferry_exec/ferry_exec.dart'
+            ..types.addAll([dataTypeRef, varTypeRef]))
+          ..name = 'transformOperation'
+          ..requiredParameters.add(
+            Parameter(
+              (b) => b
+                ..type = FunctionType((b) => b
+                  ..returnType =
+                      refer('Operation', 'package:gql_exec/gql_exec.dart')
+                  ..requiredParameters.add(
+                      refer('Operation', 'package:gql_exec/gql_exec.dart')))
+                ..name = 'transform',
+            ),
+          )
+          ..lambda = true
+          ..body = refer('this').property('rebuild').call([
+            CodeExpression(Code('''
+              (b) => b
+                ..operation = transform(operation)
+            ''')),
+          ]).code,
+      )
     ],
     initializers: {
       'operation': refer('Operation', 'package:gql_exec/gql_exec.dart').call(

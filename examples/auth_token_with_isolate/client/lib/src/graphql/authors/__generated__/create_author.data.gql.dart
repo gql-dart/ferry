@@ -18,15 +18,18 @@ abstract class GCreateAuthorData
 
   static void _initializeBuilder(GCreateAuthorDataBuilder b) =>
       b..G__typename = 'Mutation';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GCreateAuthorData_createAuthor? get createAuthor;
   static Serializer<GCreateAuthorData> get serializer =>
       _$gCreateAuthorDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreateAuthorData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateAuthorData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreateAuthorData.serializer,
@@ -46,6 +49,7 @@ abstract class GCreateAuthorData_createAuthor
 
   static void _initializeBuilder(GCreateAuthorData_createAuthorBuilder b) =>
       b..G__typename = 'Author';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
@@ -53,10 +57,12 @@ abstract class GCreateAuthorData_createAuthor
   String get lastName;
   static Serializer<GCreateAuthorData_createAuthor> get serializer =>
       _$gCreateAuthorDataCreateAuthorSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreateAuthorData_createAuthor.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateAuthorData_createAuthor? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreateAuthorData_createAuthor.serializer,

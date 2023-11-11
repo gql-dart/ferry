@@ -18,14 +18,15 @@ class AddTypenameTypedLink extends TypedLink {
   OperationRequest<TData, TVars> _addTypename<TData, TVars>(
     OperationRequest<TData, TVars> request,
   ) =>
-      (request as dynamic).rebuild(
-        (b) => b
-          ..operation = Operation(
-            document: transform(
-              request.operation.document,
-              [AddTypenameVisitor()],
-            ),
-            operationName: request.operation.operationName,
+      request.transformOperation(
+        (op) => Operation(
+          document: transform(
+            op.document,
+            [
+              AddTypenameVisitor(),
+            ],
           ),
+          operationName: request.operation.operationName,
+        ),
       );
 }

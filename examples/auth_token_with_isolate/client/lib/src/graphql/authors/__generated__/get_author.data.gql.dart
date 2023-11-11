@@ -19,15 +19,18 @@ abstract class GGetAuthorByIdData
 
   static void _initializeBuilder(GGetAuthorByIdDataBuilder b) =>
       b..G__typename = 'Query';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GGetAuthorByIdData_author? get author;
   static Serializer<GGetAuthorByIdData> get serializer =>
       _$gGetAuthorByIdDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GGetAuthorByIdData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GGetAuthorByIdData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GGetAuthorByIdData.serializer,
@@ -46,6 +49,7 @@ abstract class GGetAuthorByIdData_author
 
   static void _initializeBuilder(GGetAuthorByIdData_authorBuilder b) =>
       b..G__typename = 'Author';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
@@ -54,10 +58,12 @@ abstract class GGetAuthorByIdData_author
   GGetAuthorByIdData_author_quotes? get quotes;
   static Serializer<GGetAuthorByIdData_author> get serializer =>
       _$gGetAuthorByIdDataAuthorSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GGetAuthorByIdData_author.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GGetAuthorByIdData_author? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GGetAuthorByIdData_author.serializer,
@@ -77,15 +83,18 @@ abstract class GGetAuthorByIdData_author_quotes
 
   static void _initializeBuilder(GGetAuthorByIdData_author_quotesBuilder b) =>
       b..G__typename = 'QuoteConnection';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   BuiltList<GGetAuthorByIdData_author_quotes_edges?>? get edges;
   static Serializer<GGetAuthorByIdData_author_quotes> get serializer =>
       _$gGetAuthorByIdDataAuthorQuotesSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GGetAuthorByIdData_author_quotes.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GGetAuthorByIdData_author_quotes? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -107,15 +116,18 @@ abstract class GGetAuthorByIdData_author_quotes_edges
   static void _initializeBuilder(
           GGetAuthorByIdData_author_quotes_edgesBuilder b) =>
       b..G__typename = 'QuoteEdge';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GGetAuthorByIdData_author_quotes_edges_node? get node;
   static Serializer<GGetAuthorByIdData_author_quotes_edges> get serializer =>
       _$gGetAuthorByIdDataAuthorQuotesEdgesSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GGetAuthorByIdData_author_quotes_edges.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GGetAuthorByIdData_author_quotes_edges? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -137,6 +149,7 @@ abstract class GGetAuthorByIdData_author_quotes_edges_node
   static void _initializeBuilder(
           GGetAuthorByIdData_author_quotes_edges_nodeBuilder b) =>
       b..G__typename = 'Quote';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   @BuiltValueField(wireName: '_id')
@@ -145,10 +158,12 @@ abstract class GGetAuthorByIdData_author_quotes_edges_node
   String get text;
   static Serializer<GGetAuthorByIdData_author_quotes_edges_node>
       get serializer => _$gGetAuthorByIdDataAuthorQuotesEdgesNodeSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GGetAuthorByIdData_author_quotes_edges_node.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GGetAuthorByIdData_author_quotes_edges_node? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

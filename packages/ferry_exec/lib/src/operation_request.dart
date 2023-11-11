@@ -48,4 +48,7 @@ abstract interface class OperationRequest<TData, TVars> {
   /// Serializes variables into a JSON object
   /// This is a simple wrapper on the `toJson` method on the variables class
   Map<String, dynamic> varsToJson();
+
+  OperationRequest<TData, TVars> transformOperation(
+      Operation Function(Operation) transform);
 }

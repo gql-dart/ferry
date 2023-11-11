@@ -32,6 +32,7 @@ abstract class GGetAuthorByIdReq
       operationName: 'GetAuthorById',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GGetAuthorByIdVars get vars;
   @override
@@ -41,6 +42,7 @@ abstract class GGetAuthorByIdReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -62,12 +64,26 @@ abstract class GGetAuthorByIdReq
   @override
   _i2.GGetAuthorByIdData? parseData(Map<String, dynamic> json) =>
       _i2.GGetAuthorByIdData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GGetAuthorByIdData, _i3.GGetAuthorByIdVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GGetAuthorByIdReq> get serializer =>
       _$gGetAuthorByIdReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GGetAuthorByIdReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GGetAuthorByIdReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GGetAuthorByIdReq.serializer,

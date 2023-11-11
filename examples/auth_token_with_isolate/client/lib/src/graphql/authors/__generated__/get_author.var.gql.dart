@@ -19,10 +19,12 @@ abstract class GGetAuthorByIdVars
   String get id;
   static Serializer<GGetAuthorByIdVars> get serializer =>
       _$gGetAuthorByIdVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GGetAuthorByIdVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GGetAuthorByIdVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GGetAuthorByIdVars.serializer,
