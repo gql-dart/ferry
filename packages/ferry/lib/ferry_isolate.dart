@@ -99,8 +99,8 @@ class IsolateClient extends TypedLink {
     return _handleStreamCommand<OperationResponse<TData, TVars>>(
         (port) => RequestCommand(port.sendPort, request),
         (response, sink) => sink.add(OperationResponse<TData, TVars>(
-              operationRequest: request,
-              linkException: response!.linkException,
+              operationRequest: response!.operationRequest,
+              linkException: response.linkException,
               graphqlErrors: response.graphqlErrors,
               dataSource: response.dataSource,
               extensions: response.extensions,

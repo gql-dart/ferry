@@ -150,18 +150,26 @@ void main() {
       unawaited(expectLater(
           stream,
           emitsInOrder([
-            OperationResponse(
-                data: GHumanWithArgsData((b) => b
-                  ..human.id = '1'
-                  ..human.name = 'Luke'),
-                dataSource: DataSource.Link,
-                operationRequest: req),
-            OperationResponse(
-                data: GHumanWithArgsData((b) => b
-                  ..human.id = '2'
-                  ..human.name = 'Bert'),
-                dataSource: DataSource.Cache,
-                operationRequest: req),
+            isA<OperationResponse<GHumanWithArgsData, GHumanWithArgsVars>>()
+                .having(
+                    (p) => p.data,
+                    'data',
+                    GHumanWithArgsData((b) => b
+                      ..human.id = '1'
+                      ..human.name = 'Luke'))
+                .having((p) => p.linkException, 'linkException', isNull)
+                .having((p) => p.graphqlErrors, 'errors', isNull)
+                .having((p) => p.dataSource, 'source', DataSource.Link),
+            isA<OperationResponse<GHumanWithArgsData, GHumanWithArgsVars>>()
+                .having(
+                    (p) => p.data,
+                    'data',
+                    GHumanWithArgsData((b) => b
+                      ..human.id = '2'
+                      ..human.name = 'Bert'))
+                .having((p) => p.linkException, 'linkException', isNull)
+                .having((p) => p.graphqlErrors, 'errors', isNull)
+                .having((p) => p.dataSource, 'source', DataSource.Cache),
             emitsDone,
           ])));
 
@@ -189,16 +197,21 @@ void main() {
       unawaited(expectLater(
           stream,
           emitsInOrder([
-            OperationResponse(
-                data: GHumanWithArgsData((b) => b
-                  ..human.id = '1'
-                  ..human.name = 'Luke'),
-                dataSource: DataSource.Link,
-                operationRequest: req),
-            OperationResponse(
-                operationRequest: req,
-                data: null,
-                dataSource: DataSource.Cache),
+            isA<OperationResponse<GHumanWithArgsData, GHumanWithArgsVars>>()
+                .having(
+                    (p) => p.data,
+                    'data',
+                    GHumanWithArgsData((b) => b
+                      ..human.id = '1'
+                      ..human.name = 'Luke'))
+                .having((p) => p.linkException, 'linkException', isNull)
+                .having((p) => p.graphqlErrors, 'errors', isNull)
+                .having((p) => p.dataSource, 'source', DataSource.Link),
+            isA<OperationResponse<GHumanWithArgsData?, GHumanWithArgsVars>>()
+                .having((p) => p.data, 'data', isNull)
+                .having((p) => p.linkException, 'linkException', isNull)
+                .having((p) => p.graphqlErrors, 'errors', isNull)
+                .having((p) => p.dataSource, 'source', DataSource.Cache),
             emitsDone,
           ])));
 
