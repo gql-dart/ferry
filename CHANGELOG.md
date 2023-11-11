@@ -11,6 +11,39 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 Packages with breaking changes:
 
+ - [`ferry_cache` - `v0.7.1-dev.6`](#ferry_cache---v071-dev6)
+
+Packages with other changes:
+
+ - [`ferry` - `v0.15.0-dev.6`](#ferry---v0150-dev6)
+ - [`ferry_flutter` - `v0.8.1-dev.6`](#ferry_flutter---v081-dev6)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `ferry_flutter` - `v0.8.1-dev.6`
+
+---
+
+#### `ferry_cache` - `v0.7.1-dev.6`
+
+ - **FEAT**(ferry_generator): add option to reuse data classes for fragments with a single inline fragment  spread as selection (#530).
+ - **BREAKING** **FEAT**(ferry_exec): remove usage of dynamic in cache and AddTypeNameTypedLink by adding new methods to operationrequest  (#547).
+
+#### `ferry` - `v0.15.0-dev.6`
+
+ - **FIX**(ferry): Fix problem with operationRequest generated on initial request being included in response each time. (#545).
+
+
+## 2023-11-11
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
  - [`ferry` - `v0.15.0-dev.5`](#ferry---v0150-dev5)
  - [`ferry_cache` - `v0.7.1-dev.5`](#ferry_cache---v071-dev5)
  - [`ferry_exec` - `v0.5.0-dev.0`](#ferry_exec---v050-dev0)

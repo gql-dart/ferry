@@ -1,3 +1,10 @@
+## 0.7.1-dev.6
+
+> Note: This release has breaking changes.
+
+ - **FEAT**(ferry_generator): add option to reuse data classes for fragments with a single inline fragment  spread as selection (#530).
+ - **BREAKING** **FEAT**(ferry_exec): remove usage of dynamic in cache and AddTypeNameTypedLink by adding new methods to operationrequest  (#547).
+
 ## 0.7.1-dev.5
 
 > Note: This release has breaking changes.
