@@ -11,6 +11,39 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 Packages with breaking changes:
 
+ - [`ferry_cache` - `v0.7.2`](#ferry_cache---v072)
+
+Packages with other changes:
+
+ - [`ferry` - `v0.15.0+1`](#ferry---v01501)
+ - [`ferry_flutter` - `v0.8.1+1`](#ferry_flutter---v0811)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `ferry` - `v0.15.0+1`
+ - `ferry_flutter` - `v0.8.1+1`
+
+---
+
+#### `ferry_cache` - `v0.7.2`
+
+ - REFACTOR(ferry_cache): use new methods in `OperationRequest` class from ferry_exec to avoid casts to dynamic
+
+ - **FIX**(normalize): When there are dangling references in child objects of a list, by default do not treat the whole entity as partial data, but remove it from the list. This can be configured using the allowDanglingReference parameter.
+ - **FEAT**(ferry_generator): add option to reuse data classes for fragments with a single inline fragment  spread as selection (#530).
+ - **BREAKING** **FEAT**(ferry_exec): remove usage of dynamic in cache and AddTypeNameTypedLink by adding new methods to operationrequest  (#547).
+
+
+## 2023-11-11
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
  - [`ferry_cache` - `v0.7.1`](#ferry_cache---v071)
  - [`ferry_flutter` - `v0.8.1`](#ferry_flutter---v081)
  - [`ferry_generator` - `v0.8.2`](#ferry_generator---v082)

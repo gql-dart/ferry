@@ -1,3 +1,13 @@
+## 0.7.2
+
+> Note: This release has breaking changes.
+
+ - REFACTOR(ferry_cache): use new methods in `OperationRequest` class from ferry_exec to avoid casts to dynamic
+
+ - **FIX**(normalize): When there are dangling references in child objects of a list, by default do not treat the whole entity as partial data, but remove it from the list. This can be configured using the allowDanglingReference parameter.
+ - **FEAT**(ferry_generator): add option to reuse data classes for fragments with a single inline fragment  spread as selection (#530).
+ - **BREAKING** **FEAT**(ferry_exec): remove usage of dynamic in cache and AddTypeNameTypedLink by adding new methods to operationrequest  (#547).
+
 ## 0.7.1-dev.6
 
 > Note: This release has breaking changes.
