@@ -1,3 +1,9 @@
+## 0.4.0
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **FEAT**(ferry_exec): add `varToJson()` method to OperationRequest and FragmentRequest in order to make the cache work without casts to dynamic.
+
 ## 0.3.1
 
  - Bump "ferry_exec" to `0.3.1`.

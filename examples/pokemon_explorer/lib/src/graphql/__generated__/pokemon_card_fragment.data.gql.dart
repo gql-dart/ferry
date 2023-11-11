@@ -27,6 +27,7 @@ abstract class GNestedFragmentData
 
   static void _initializeBuilder(GNestedFragmentDataBuilder b) =>
       b..G__typename = 'Pokemon';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -38,11 +39,13 @@ abstract class GNestedFragmentData
   String get avatar;
   static Serializer<GNestedFragmentData> get serializer =>
       _$gNestedFragmentDataSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GNestedFragmentData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GNestedFragmentData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GNestedFragmentData.serializer,
@@ -89,6 +92,7 @@ abstract class GPokemonCardData
 
   static void _initializeBuilder(GPokemonCardDataBuilder b) =>
       b..G__typename = 'Pokemon';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -104,11 +108,13 @@ abstract class GPokemonCardData
   GPokemonCardData_weight? get weight;
   static Serializer<GPokemonCardData> get serializer =>
       _$gPokemonCardDataSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPokemonCardData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPokemonCardData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GPokemonCardData.serializer,
@@ -128,6 +134,7 @@ abstract class GPokemonCardData_height
 
   static void _initializeBuilder(GPokemonCardData_heightBuilder b) =>
       b..G__typename = 'Height';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -135,11 +142,13 @@ abstract class GPokemonCardData_height
   String? get in_meter;
   static Serializer<GPokemonCardData_height> get serializer =>
       _$gPokemonCardDataHeightSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPokemonCardData_height.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPokemonCardData_height? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GPokemonCardData_height.serializer,
@@ -159,6 +168,7 @@ abstract class GPokemonCardData_weight
 
   static void _initializeBuilder(GPokemonCardData_weightBuilder b) =>
       b..G__typename = 'Weight';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -166,11 +176,13 @@ abstract class GPokemonCardData_weight
   String? get in_kg;
   static Serializer<GPokemonCardData_weight> get serializer =>
       _$gPokemonCardDataWeightSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPokemonCardData_weight.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPokemonCardData_weight? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GPokemonCardData_weight.serializer,

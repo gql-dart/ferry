@@ -19,7 +19,9 @@ class GCacheControlScope extends EnumClass {
 
   static Serializer<GCacheControlScope> get serializer =>
       _$gCacheControlScopeSerializer;
+
   static BuiltSet<GCacheControlScope> get values => _$gCacheControlScopeValues;
+
   static GCacheControlScope valueOf(String name) =>
       _$gCacheControlScopeValueOf(name);
 }

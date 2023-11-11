@@ -2,7 +2,7 @@ import 'package:gql_exec/gql_exec.dart';
 
 import 'package:ferry_exec/src/fetch_policy.dart';
 
-abstract class OperationRequest<TData, TVars> {
+abstract interface class OperationRequest<TData, TVars> {
   TVars get vars;
 
   Operation get operation;
@@ -40,4 +40,15 @@ abstract class OperationRequest<TData, TVars> {
   ///
   /// This is a simple wrapper on the static fromJson method on the generated class.
   TData? parseData(Map<String, dynamic> json);
+
+  /// Serializes data into a JSON object
+  /// This is a simple wrapper on the `toJson` method on the data class
+  Map<String, dynamic> dataToJson(TData data);
+
+  /// Serializes variables into a JSON object
+  /// This is a simple wrapper on the `toJson` method on the variables class
+  Map<String, dynamic> varsToJson();
+
+  OperationRequest<TData, TVars> transformOperation(
+      Operation Function(Operation) transform);
 }

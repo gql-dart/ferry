@@ -27,6 +27,7 @@ abstract class GReviewFragmentData
 
   static void _initializeBuilder(GReviewFragmentDataBuilder b) =>
       b..G__typename = 'Review';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -36,11 +37,13 @@ abstract class GReviewFragmentData
   String? get commentary;
   static Serializer<GReviewFragmentData> get serializer =>
       _$gReviewFragmentDataSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GReviewFragmentData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GReviewFragmentData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GReviewFragmentData.serializer,

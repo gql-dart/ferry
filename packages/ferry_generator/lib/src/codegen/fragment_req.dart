@@ -76,6 +76,27 @@ Class _buildFragmentReqClass(
           ..lambda = true
           ..body = dataTypeRef.property('fromJson').call([refer('json')]).code,
       ),
+      Method(
+        (b) => b
+          ..annotations.add(refer('override'))
+          ..returns = refer('Map<String, dynamic>')
+          ..name = 'varsToJson'
+          ..lambda = true
+          ..body = refer('vars').property('toJson').call([]).code,
+      ),
+      Method(
+        (b) => b
+          ..annotations.add(refer('override'))
+          ..returns = refer('Map<String, dynamic>')
+          ..name = 'dataToJson'
+          ..requiredParameters.add(Parameter(
+            (b) => b
+              ..type = refer('dynamic')
+              ..name = 'data',
+          ))
+          ..lambda = true
+          ..body = (refer('data').property('toJson').call([])).code,
+      )
     ],
     initializers: {
       'document': refer('document', '#ast'),

@@ -29,6 +29,7 @@ abstract class GReviewFragmentReq
   static void _initializeBuilder(GReviewFragmentReqBuilder b) => b
     ..document = _i4.document
     ..fragmentName = 'ReviewFragment';
+
   @override
   _i3.GReviewFragmentVars get vars;
   @override
@@ -40,12 +41,21 @@ abstract class GReviewFragmentReq
   @override
   _i2.GReviewFragmentData? parseData(Map<String, dynamic> json) =>
       _i2.GReviewFragmentData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
+
   static Serializer<GReviewFragmentReq> get serializer =>
       _$gReviewFragmentReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GReviewFragmentReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GReviewFragmentReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GReviewFragmentReq.serializer,

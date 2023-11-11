@@ -17,10 +17,12 @@ abstract class GLoginVars implements Built<GLoginVars, GLoginVarsBuilder> {
   String get username;
   String get password;
   static Serializer<GLoginVars> get serializer => _$gLoginVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GLoginVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GLoginVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GLoginVars.serializer,

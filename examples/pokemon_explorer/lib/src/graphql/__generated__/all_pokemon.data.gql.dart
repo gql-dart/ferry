@@ -20,15 +20,18 @@ abstract class GAllPokemonData
 
   static void _initializeBuilder(GAllPokemonDataBuilder b) =>
       b..G__typename = 'Query';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GAllPokemonData_pokemons? get pokemons;
   static Serializer<GAllPokemonData> get serializer =>
       _$gAllPokemonDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GAllPokemonData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GAllPokemonData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GAllPokemonData.serializer,
@@ -47,15 +50,18 @@ abstract class GAllPokemonData_pokemons
 
   static void _initializeBuilder(GAllPokemonData_pokemonsBuilder b) =>
       b..G__typename = 'PokemonList';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   BuiltList<GAllPokemonData_pokemons_results?>? get results;
   static Serializer<GAllPokemonData_pokemons> get serializer =>
       _$gAllPokemonDataPokemonsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GAllPokemonData_pokemons.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GAllPokemonData_pokemons? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GAllPokemonData_pokemons.serializer,
@@ -76,6 +82,7 @@ abstract class GAllPokemonData_pokemons_results
 
   static void _initializeBuilder(GAllPokemonData_pokemons_resultsBuilder b) =>
       b..G__typename = 'Pokemon';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -91,11 +98,13 @@ abstract class GAllPokemonData_pokemons_results
   String get avatar;
   static Serializer<GAllPokemonData_pokemons_results> get serializer =>
       _$gAllPokemonDataPokemonsResultsSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GAllPokemonData_pokemons_results.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GAllPokemonData_pokemons_results? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -118,6 +127,7 @@ abstract class GAllPokemonData_pokemons_results_height
   static void _initializeBuilder(
           GAllPokemonData_pokemons_results_heightBuilder b) =>
       b..G__typename = 'Height';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -125,11 +135,13 @@ abstract class GAllPokemonData_pokemons_results_height
   String? get in_meter;
   static Serializer<GAllPokemonData_pokemons_results_height> get serializer =>
       _$gAllPokemonDataPokemonsResultsHeightSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GAllPokemonData_pokemons_results_height.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GAllPokemonData_pokemons_results_height? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -152,6 +164,7 @@ abstract class GAllPokemonData_pokemons_results_weight
   static void _initializeBuilder(
           GAllPokemonData_pokemons_results_weightBuilder b) =>
       b..G__typename = 'Weight';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -159,11 +172,13 @@ abstract class GAllPokemonData_pokemons_results_weight
   String? get in_kg;
   static Serializer<GAllPokemonData_pokemons_results_weight> get serializer =>
       _$gAllPokemonDataPokemonsResultsWeightSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GAllPokemonData_pokemons_results_weight.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GAllPokemonData_pokemons_results_weight? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

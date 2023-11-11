@@ -159,6 +159,52 @@ Class _buildOperationReqClass(
           ..lambda = true
           ..body = dataTypeRef.property('fromJson').call([refer('json')]).code,
       ),
+      Method((b) => b
+        ..annotations.add(refer('override'))
+        ..returns = refer('Map<String, dynamic>')
+        ..name = 'varsToJson'
+        ..lambda = true
+        ..body = (refer('vars').property('toJson').call([])).code),
+      Method(
+        (b) => b
+          ..annotations.add(refer('override'))
+          ..returns = refer('Map<String, dynamic>')
+          ..name = 'dataToJson'
+          ..requiredParameters.add(Parameter(
+            (b) => b
+              ..type = refer('dynamic')
+              ..name = 'data',
+          ))
+          ..lambda = true
+          ..body = (refer('data').property('toJson').call([])).code,
+      ),
+      Method(
+        (b) => b
+          ..annotations.add(refer('override'))
+          ..returns = TypeReference((b) => b
+            ..symbol = 'OperationRequest'
+            ..url = 'package:ferry_exec/ferry_exec.dart'
+            ..types.addAll([dataTypeRef, varTypeRef]))
+          ..name = 'transformOperation'
+          ..requiredParameters.add(
+            Parameter(
+              (b) => b
+                ..type = FunctionType((b) => b
+                  ..returnType =
+                      refer('Operation', 'package:gql_exec/gql_exec.dart')
+                  ..requiredParameters.add(
+                      refer('Operation', 'package:gql_exec/gql_exec.dart')))
+                ..name = 'transform',
+            ),
+          )
+          ..lambda = true
+          ..body = refer('this').property('rebuild').call([
+            CodeExpression(Code('''
+              (b) => b
+                ..operation = transform(operation)
+            ''')),
+          ]).code,
+      )
     ],
     initializers: {
       'operation': refer('Operation', 'package:gql_exec/gql_exec.dart').call(

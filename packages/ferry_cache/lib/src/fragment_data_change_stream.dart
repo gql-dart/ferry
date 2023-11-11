@@ -36,8 +36,7 @@ Stream<Set<String>> fragmentDataChangeStream<TData, TVars>(
           idFields: request.idFields,
           fragmentName: request.fragmentName,
           document: request.document,
-          // TODO: don't cast to dynamic
-          variables: (request.vars as dynamic)?.toJson(),
+          variables: request.varsToJson(),
           typePolicies: typePolicies,
           addTypename: addTypename,
           returnPartialData: true,

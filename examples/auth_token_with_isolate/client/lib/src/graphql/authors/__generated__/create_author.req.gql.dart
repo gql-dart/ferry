@@ -32,6 +32,7 @@ abstract class GCreateAuthorReq
       operationName: 'CreateAuthor',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GCreateAuthorVars get vars;
   @override
@@ -41,6 +42,7 @@ abstract class GCreateAuthorReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -62,12 +64,26 @@ abstract class GCreateAuthorReq
   @override
   _i2.GCreateAuthorData? parseData(Map<String, dynamic> json) =>
       _i2.GCreateAuthorData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GCreateAuthorData, _i3.GCreateAuthorVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GCreateAuthorReq> get serializer =>
       _$gCreateAuthorReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GCreateAuthorReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateAuthorReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GCreateAuthorReq.serializer,

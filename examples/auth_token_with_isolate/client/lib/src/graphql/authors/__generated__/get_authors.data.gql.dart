@@ -19,15 +19,18 @@ abstract class GGetAuthorsData
 
   static void _initializeBuilder(GGetAuthorsDataBuilder b) =>
       b..G__typename = 'Query';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GGetAuthorsData_authors? get authors;
   static Serializer<GGetAuthorsData> get serializer =>
       _$gGetAuthorsDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GGetAuthorsData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GGetAuthorsData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GGetAuthorsData.serializer,
@@ -45,15 +48,18 @@ abstract class GGetAuthorsData_authors
 
   static void _initializeBuilder(GGetAuthorsData_authorsBuilder b) =>
       b..G__typename = 'AuthorConnection';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   BuiltList<GGetAuthorsData_authors_edges?>? get edges;
   static Serializer<GGetAuthorsData_authors> get serializer =>
       _$gGetAuthorsDataAuthorsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GGetAuthorsData_authors.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GGetAuthorsData_authors? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GGetAuthorsData_authors.serializer,
@@ -73,15 +79,18 @@ abstract class GGetAuthorsData_authors_edges
 
   static void _initializeBuilder(GGetAuthorsData_authors_edgesBuilder b) =>
       b..G__typename = 'AuthorEdge';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GGetAuthorsData_authors_edges_node? get node;
   static Serializer<GGetAuthorsData_authors_edges> get serializer =>
       _$gGetAuthorsDataAuthorsEdgesSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GGetAuthorsData_authors_edges.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GGetAuthorsData_authors_edges? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GGetAuthorsData_authors_edges.serializer,
@@ -101,6 +110,7 @@ abstract class GGetAuthorsData_authors_edges_node
 
   static void _initializeBuilder(GGetAuthorsData_authors_edges_nodeBuilder b) =>
       b..G__typename = 'Author';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
@@ -108,10 +118,12 @@ abstract class GGetAuthorsData_authors_edges_node
   String get lastName;
   static Serializer<GGetAuthorsData_authors_edges_node> get serializer =>
       _$gGetAuthorsDataAuthorsEdgesNodeSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GGetAuthorsData_authors_edges_node.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GGetAuthorsData_authors_edges_node? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

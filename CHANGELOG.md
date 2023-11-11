@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## 2023-09-12
+## 2023-11-10
 
 ### Changes
 
@@ -11,19 +11,32 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 Packages with breaking changes:
 
- - There are no breaking changes in this release.
+
+ - [`ferry_exec` - `v0.4.0`](#ferry_exec---v040)
 
 Packages with other changes:
 
- - [`ferry_cache` - `v0.7.1-dev.4`](#ferry_cache---v071-dev4)
  - [`ferry` - `v0.15.0-dev.4`](#ferry---v0150-dev4)
+ - [`ferry_test_graphql2` - `v0.2.4-dev.1`](#ferry_test_graphql2---v024-dev1)
  - [`ferry_flutter` - `v0.8.1-dev.4`](#ferry_flutter---v081-dev4)
+ - [`ferry_cache` - `v0.7.1-dev.4`](#ferry_cache---v071-dev4)
+ - [`ferry_generator` - `v0.8.2-dev.2`](#ferry_generator---v082-dev2)
 
 Packages with dependency updates only:
 
 > Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
 
  - `ferry` - `v0.15.0-dev.4`
+ - `ferry_test_graphql2` - `v0.2.4-dev.1`
+ - `ferry_flutter` - `v0.8.1-dev.4`
+ - `ferry_cache` - `v0.7.1-dev.4`
+ - `ferry_generator` - `v0.8.2-dev.2`
+
+---
+
+#### `ferry_exec` - `v0.4.0`
+
+ - **BREAKING** **FEAT**(ferry_exec): add `varToJson()` method to OperationRequest and FragmentRequest in order to make the cache work without casts to dynamic.
  - `ferry_flutter` - `v0.8.1-dev.4`
 
 ---

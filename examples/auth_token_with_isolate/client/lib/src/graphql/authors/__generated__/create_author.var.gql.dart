@@ -20,10 +20,12 @@ abstract class GCreateAuthorVars
   String get lastName;
   static Serializer<GCreateAuthorVars> get serializer =>
       _$gCreateAuthorVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreateAuthorVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateAuthorVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreateAuthorVars.serializer,

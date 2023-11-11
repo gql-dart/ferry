@@ -5,7 +5,7 @@ import 'package:meta/meta.dart';
 import 'package:rxdart/transformers.dart';
 
 @internal
-abstract class IsolateCommand {
+abstract interface class IsolateCommand {
   SendPort sendPort;
 
   IsolateCommand(this.sendPort);

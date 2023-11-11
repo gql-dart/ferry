@@ -31,6 +31,7 @@ abstract class GReviewsReq
       operationName: 'Reviews',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GReviewsVars get vars;
   @override
@@ -40,6 +41,7 @@ abstract class GReviewsReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -61,11 +63,25 @@ abstract class GReviewsReq
   @override
   _i2.GReviewsData? parseData(Map<String, dynamic> json) =>
       _i2.GReviewsData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GReviewsData, _i3.GReviewsVars> transformOperation(
+          _i4.Operation Function(_i4.Operation) transform) =>
+      this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GReviewsReq> get serializer => _$gReviewsReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GReviewsReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GReviewsReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GReviewsReq.serializer,

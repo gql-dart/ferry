@@ -32,6 +32,7 @@ abstract class GReviewWithDateReq
       operationName: 'ReviewWithDate',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GReviewWithDateVars get vars;
   @override
@@ -41,6 +42,7 @@ abstract class GReviewWithDateReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -62,12 +64,26 @@ abstract class GReviewWithDateReq
   @override
   _i2.GReviewWithDateData? parseData(Map<String, dynamic> json) =>
       _i2.GReviewWithDateData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GReviewWithDateData, _i3.GReviewWithDateVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GReviewWithDateReq> get serializer =>
       _$gReviewWithDateReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GReviewWithDateReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GReviewWithDateReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GReviewWithDateReq.serializer,
