@@ -1,3 +1,7 @@
+## 0.15.0
+
+ - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.
+
 ## 0.15.0-dev.6
 
  - **FIX**(ferry): Fix problem with operationRequest generated on initial request being included in response each time. (#545).

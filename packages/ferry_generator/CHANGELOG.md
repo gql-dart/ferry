@@ -1,3 +1,7 @@
+## 0.8.2
+
+ - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.
+
 ## 0.8.2-dev.2
 
 > Note: This release has breaking changes.

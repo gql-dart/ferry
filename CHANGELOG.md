@@ -11,6 +11,52 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 Packages with breaking changes:
 
+ - [`ferry_cache` - `v0.7.1`](#ferry_cache---v071)
+ - [`ferry_flutter` - `v0.8.1`](#ferry_flutter---v081)
+ - [`ferry_generator` - `v0.8.2`](#ferry_generator---v082)
+ - [`ferry_test_graphql2` - `v0.2.4`](#ferry_test_graphql2---v024)
+
+Packages with other changes:
+
+ - [`ferry` - `v0.15.0`](#ferry---v0150)
+ - [`ferry_exec` - `v0.5.0`](#ferry_exec---v050)
+ - [`normalize` - `v0.9.0`](#normalize---v090)
+
+Packages graduated to a stable release (see pre-releases prior to the stable version for changelog entries):
+
+ - `ferry` - `v0.15.0`
+ - `ferry_cache` - `v0.7.1`
+ - `ferry_exec` - `v0.5.0`
+ - `ferry_flutter` - `v0.8.1`
+ - `ferry_generator` - `v0.8.2`
+ - `ferry_test_graphql2` - `v0.2.4`
+ - `normalize` - `v0.9.0`
+
+---
+
+#### `ferry_cache` - `v0.7.1`
+
+#### `ferry_flutter` - `v0.8.1`
+
+#### `ferry_generator` - `v0.8.2`
+
+#### `ferry_test_graphql2` - `v0.2.4`
+
+#### `ferry` - `v0.15.0`
+
+#### `ferry_exec` - `v0.5.0`
+
+#### `normalize` - `v0.9.0`
+
+
+## 2023-11-11
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
  - [`ferry_cache` - `v0.7.1-dev.6`](#ferry_cache---v071-dev6)
 
 Packages with other changes:
