@@ -11,6 +11,42 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 Packages with breaking changes:
 
+ - [`ferry` - `v0.15.0-dev.3`](#ferry---v0150-dev3)
+
+Packages with other changes:
+
+ - [`ferry_generator` - `v0.8.2-dev.3`](#ferry_generator---v082-dev3)
+ - [`ferry_flutter` - `v0.9.0-dev.3`](#ferry_flutter---v090-dev3)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `ferry_flutter` - `v0.9.0-dev.3`
+
+---
+
+#### `ferry` - `v0.15.0-dev.3`
+
+ - **FIX**(ferry): Fix problem with operationRequest generated on initial request being included in response each time. (#545).
+ - **DOCS**: add topics (#548).
+ - **BREAKING** **FEAT**(ferry_exec): remove usage of dynamic in cache and AddTypeNameTypedLink by adding new methods to operationrequest  (#547).
+
+#### `ferry_generator` - `v0.8.2-dev.3`
+
+ - **FEAT**(ferry_generator): support adding  in the config of build.yaml in your graphql_builder in order to wrap nullable fields into a Value type in order to distinguish between absent and null values in inputs (#549).
+ - **DOCS**(ferry_generator): fix CHANGELOG (#550).
+ - **DOCS**: add topics (#548).
+
+
+## 2023-11-12
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
  - [`ferry` - `v0.15.0-dev.2`](#ferry---v0150-dev2)
  - [`ferry_generator` - `v0.8.2-dev.2`](#ferry_generator---v082-dev2)
 
