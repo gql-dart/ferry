@@ -1,3 +1,7 @@
+## 0.5.2+1
+
+ - **DOCS**: add topics (#548).
+
 ## 0.5.1-dev.2
 
  - **DOCS**: add topics (#548).
