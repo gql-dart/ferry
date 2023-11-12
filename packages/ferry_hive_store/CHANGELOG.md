@@ -1,3 +1,7 @@
+## 0.5.2-dev.1
+
+ - **DOCS**: add topics (#548).
+
 ## 0.5.2
 
 - add topics

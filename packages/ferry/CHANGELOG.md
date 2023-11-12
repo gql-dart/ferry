@@ -1,3 +1,11 @@
+## 0.15.0-dev.4
+
+> Note: This release has breaking changes.
+
+ - **FIX**(ferry): Fix problem with operationRequest generated on initial request being included in response each time. (#545).
+ - **DOCS**: add topics (#548).
+ - **BREAKING** **FEAT**(ferry_exec): remove usage of dynamic in cache and AddTypeNameTypedLink by adding new methods to operationrequest  (#547).
+
 ## 0.15.0-dev.3
 
 > Note: This release has breaking changes.

@@ -11,6 +11,40 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 Packages with breaking changes:
 
+ - [`ferry` - `v0.15.0-dev.4`](#ferry---v0150-dev4)
+
+Packages with other changes:
+
+ - [`ferry_hive_store` - `v0.5.2-dev.1`](#ferry_hive_store---v052-dev1)
+ - [`ferry_flutter` - `v0.9.0-dev.4`](#ferry_flutter---v090-dev4)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `ferry_flutter` - `v0.9.0-dev.4`
+
+---
+
+#### `ferry` - `v0.15.0-dev.4`
+
+ - **FIX**(ferry): Fix problem with operationRequest generated on initial request being included in response each time. (#545).
+ - **DOCS**: add topics (#548).
+ - **BREAKING** **FEAT**(ferry_exec): remove usage of dynamic in cache and AddTypeNameTypedLink by adding new methods to operationrequest  (#547).
+
+#### `ferry_hive_store` - `v0.5.2-dev.1`
+
+ - **DOCS**: add topics (#548).
+
+
+## 2023-11-12
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
  - There are no breaking changes in this release.
 
 Packages with other changes:
