@@ -1,3 +1,12 @@
+## 0.8.2-dev.2
+
+> Note: This release has breaking changes.
+
+ - **FEAT**(ferry_generator): support adding  in the config of build.yaml in your graphql_builder in order to wrap nullable fields into a Value type in order to distinguish between absent and null values in inputs (#549).
+ - **DOCS**(ferry_generator): fix CHANGELOG (#550).
+ - **DOCS**: add topics (#548).
+ - **BREAKING** **FEAT**(ferry_exec): remove usage of dynamic in cache and AddTypeNameTypedLink by adding new methods to operationrequest  (#547).
+
 ## 0.8.2-dev.1
 
  - **FEAT**(ferry_generator): support adding `tristate_optionals: true` in the config of build.yaml in your graphql_builder in order to wrap nullable fields into a Value type in order to distinguish between absent and null values in inputs (#549).
