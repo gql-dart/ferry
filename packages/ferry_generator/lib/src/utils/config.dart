@@ -22,6 +22,7 @@ class BuilderConfig {
   final String sourceExtension;
   final InlineFragmentSpreadWhenExtensionConfig whenExtensionConfig;
   final DataClassConfig dataClassConfig;
+  final TriStateValueConfig triStateOptionalsConfig;
 
   BuilderConfig(Map<String, dynamic> config)
       : schemaId = config['schema'] == null
@@ -39,7 +40,8 @@ class BuilderConfig {
         outputDir = config['output_dir'] ?? '__generated__',
         sourceExtension = config['source_extension'] ?? '.graphql',
         whenExtensionConfig = _getWhenExtensionConfig(config),
-        dataClassConfig = _getDataClassConfig(config);
+        dataClassConfig = _getDataClassConfig(config),
+        triStateOptionalsConfig = _getTriStateOptionalsConfig(config);
 }
 
 DataClassConfig _getDataClassConfig(Map<String, dynamic> config) {
@@ -129,4 +131,16 @@ Map<String, String> _enumFallbackMap(YamlMap? enumFallbacks) {
       ),
     ),
   );
+}
+
+TriStateValueConfig _getTriStateOptionalsConfig(Map<String, dynamic>? config) {
+  final Object? configValue = config?['tristate_optionals'];
+
+  if (configValue is bool) {
+    return configValue
+        ? TriStateValueConfig.onAllNullableFields
+        : TriStateValueConfig.never;
+  }
+
+  return TriStateValueConfig.never;
 }

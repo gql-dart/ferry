@@ -5,6 +5,7 @@ targets:
         enabled: true
         options:
           schema: ferry_test_graphql2|lib/schema/schema.graphql
+          tristate_optionals: false
           data_class_config:
             reuse_fragments: true
           type_overrides:
