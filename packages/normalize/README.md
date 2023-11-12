@@ -6,23 +6,35 @@
 [![Discord][discord-badge]][discord-link]
 
 [license-badge]: https://img.shields.io/github/license/gql-dart/ferry.svg?style=for-the-badge
+
 [license-link]: https://github.com/gql-dart/ferry/blob/master/LICENSE
+
 [prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge
+
 [prs-link]: https://github.com/gql-dart/ferry/issues
 
 [github-watch-badge]: https://img.shields.io/github/watchers/gql-dart/ferry.svg?style=for-the-badge&logo=github&logoColor=ffffff
+
 [github-watch-link]: https://github.com/gql-dart/ferry/watchers
+
 [github-star-badge]: https://img.shields.io/github/stars/gql-dart/ferry.svg?style=for-the-badge&logo=github&logoColor=ffffff
+
 [github-star-link]: https://github.com/gql-dart/ferry/stargazers
+
 [github-forks-badge]: https://img.shields.io/github/forks/gql-dart/ferry.svg?style=for-the-badge&logo=github&logoColor=ffffff
+
 [github-forks-link]: https://github.com/gql-dart/ferry/network/members
 
 [discord-badge]: https://img.shields.io/discord/559455668810153989.svg?style=for-the-badge&logo=discord&logoColor=ffffff
-[discord-link]: https://discord.gg/QRTfXE
+
+[discord-link]: https://discord.gg/YBFCTXNbwY
 
 Normalizes and denormalizes data for GraphQL operations.
 
-The `normalize` function writes normalized documents to a normalized `Map` and can be used to cache results of GraphQL queries. It traverses the [GraphQL AST](https://github.com/gql-dart/gql/blob/master/gql/README.md) and only includes the fields specified in the GraphQL Document in the normalized results.
+The `normalize` function writes normalized documents to a normalized `Map` and can be used to cache
+results of GraphQL queries. It traverses
+the [GraphQL AST](https://github.com/gql-dart/gql/blob/master/gql/README.md) and only includes the
+fields specified in the GraphQL Document in the normalized results.
 
 The `normalize` function only normalizes entities that include a `__typename` field and a valid ID.
 
@@ -42,7 +54,7 @@ The library includes the following methods:
 ## Features
 
 | Feature                                                                                                                           | Progress |
-| :-------------------------------------------------------------------------------------------------------------------------------- | :------: |
+|:----------------------------------------------------------------------------------------------------------------------------------|:--------:|
 | Fragments                                                                                                                         |    ✅     |
 | Variables                                                                                                                         |    ✅     |
 | Interface & Union types                                                                                                           |    ✅     |
@@ -162,7 +174,9 @@ Which will produce the following normalized result:
 }
 ```
 
-If we later want to denormalize this data (for example, when reading from a cache), we can call `denormalize` on the normalizedMap from above. This will give us back the original data response object.
+If we later want to denormalize this data (for example, when reading from a cache), we can
+call `denormalize` on the normalizedMap from above. This will give us back the original data
+response object.
 
 ```dart
 denormalizeOperation(
@@ -173,17 +187,26 @@ denormalizeOperation(
 
 ## Limitations
 
-`TypePolicy.keyFields` and `FieldPolicy.keyArgs` currently only accept a flat list of `String`s. Functions and nested lists of strings and are not yet supported. `FieldPolicy.merge` and `FieldPolicy.read` are also not yet supported.
+`TypePolicy.keyFields` and `FieldPolicy.keyArgs` currently only accept a flat list of `String`s.
+Functions and nested lists of strings and are not yet supported. `FieldPolicy.merge`
+and `FieldPolicy.read` are also not yet supported.
 
 ## Dependencies
 
 This library depends on the [gql](https://github.com/gql-dart/gql) library.
 
 [license-badge]: https://img.shields.io/github/license/gql-dart/normalize.svg?style=flat-square
+
 [license-link]: https://github.com/gql-dart/normalize/blob/master/LICENSE
+
 [prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
+
 [prs-link]: http://makeapullrequest.com
+
 [github-watch-badge]: https://img.shields.io/github/watchers/gql-dart/normalize.svg?style=flat-square&logo=github&logoColor=ffffff
+
 [github-watch-link]: https://github.com/gql-dart/normalize/watchers
+
 [github-star-badge]: https://img.shields.io/github/stars/gql-dart/normalize.svg?style=flat-square&logo=github&logoColor=ffffff
+
 [github-star-link]: https://github.com/gql-dart/normalize/stargazers
