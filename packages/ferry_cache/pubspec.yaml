@@ -22,3 +22,4 @@ dev_dependencies:
   ferry_test_graphql2: ^0.2.4-dev.0+1
   gql_exec: ^1.0.0
   gql: ^1.0.0
+  gql_tristate_value: ^1.0.0

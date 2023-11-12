@@ -79,6 +79,24 @@ class GraphqlBuilder implements Builder {
           'When extensions require add_typenames to be true. Consider setting add_typenames to true in your build.yaml or disabling when_extensions in your build.yaml.');
     }
 
+    final triStateValueConfig = config.triStateOptionalsConfig;
+
+    final schemaOutputAsset =
+        outputAssetId(_schemaId!, schemaExtension, config.outputDir);
+
+    final schemaUrl = schemaOutputAsset.uri.toString();
+    final schemaAllocator = GqlAllocator(
+      buildStep.inputId.uri.toString(),
+      config.sourceExtension,
+      outputAssetId(buildStep.inputId, schemaExtension, config.outputDir)
+          .uri
+          .toString(),
+      schemaUrl,
+      config.outputDir,
+    );
+
+    final varAllocator = schemaAllocator;
+
     final libs = <String, Library>{
       astExtension: buildAstLibrary(doc),
       dataExtension: buildDataLibrary(
@@ -90,29 +108,31 @@ class GraphqlBuilder implements Builder {
         config.dataClassConfig,
       ),
       varExtension: buildVarLibrary(
-        doc,
-        addTypenames(schema),
-        p.basename(generatedFilePath(buildStep.inputId, varExtension)),
-        config.typeOverrides,
-      ),
+          doc,
+          addTypenames(schema),
+          p.basename(generatedFilePath(buildStep.inputId, varExtension)),
+          config.typeOverrides,
+          varAllocator,
+          triStateValueConfig),
       reqExtension: buildReqLibrary(
         doc,
         p.basename(generatedFilePath(buildStep.inputId, reqExtension)),
       ),
       schemaExtension: buildSchemaLibrary(
-        doc,
-        p.basename(generatedFilePath(buildStep.inputId, schemaExtension)),
-        config.typeOverrides,
-        config.enumFallbackConfig,
-        generatePossibleTypesMap: config.shouldGeneratePossibleTypes,
-      ),
+          doc,
+          p.basename(generatedFilePath(buildStep.inputId, schemaExtension)),
+          config.typeOverrides,
+          config.enumFallbackConfig,
+          generatePossibleTypesMap: config.shouldGeneratePossibleTypes,
+          allocator: schemaAllocator,
+          triStateValueConfig: triStateValueConfig),
     };
 
     for (var entry in libs.entries) {
       final generatedAsset =
           outputAssetId(buildStep.inputId, entry.key, config.outputDir);
       final schemaOutputAsset =
-          outputAssetId(_schemaId!, schemaExtension, config.outputDir);
+          outputAssetId(_schemaId, schemaExtension, config.outputDir);
 
       final allocator = GqlAllocator(
         buildStep.inputId.uri.toString(),
