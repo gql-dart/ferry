@@ -1,3 +1,5 @@
+## 0.9.0
+
 ## 0.8.2-dev.3
 
  - **FEAT**(ferry_generator): support adding  in the config of build.yaml in your graphql_builder in order to wrap nullable fields into a Value type in order to distinguish between absent and null values in inputs (#549).
