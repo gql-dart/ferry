@@ -1,5 +1,5 @@
 name: ferry_hive_store
-version: 0.5.1-dev.0+1
+version: 0.5.1-dev.1
 homepage: https://ferrygraphql.com/
 description: Hive-based Store implementation for Ferry GraphQL client
 repository: https://github.com/gql-dart/ferry
