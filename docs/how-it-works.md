@@ -26,27 +26,27 @@ Ferry is made up of several individual packages:
 | [![version][package:ferry_hive_store:version]][package:ferry_hive_store] | [package:ferry_hive_store][package:ferry_hive_store:source] | Hive implementation of `ferry_store`            |
 | [![version][package:normalize:version]][package:normalize]               | [package:normalize][package:normalize:source]               | Normalization / denormalization of GraphQL data |
 
-[package:ferry:source]: https://github.com/gql-dart/ferry/tree/master/ferry
+[package:ferry:source]: https://github.com/gql-dart/ferry/tree/master/packages/ferry
 [package:ferry]: https://pub.dartlang.org/packages/ferry
 [package:ferry:version]: https://img.shields.io/pub/v/ferry.svg?style=flat-square
-[package:ferry_cache:source]: https://github.com/gql-dart/ferry/tree/master/ferry_cache
+[package:ferry_cache:source]: https://github.com/gql-dart/ferry/tree/master/packages/ferry_cache
 [package:ferry_cache]: https://pub.dartlang.org/packages/ferry_cache
 [package:ferry_cache:version]: https://img.shields.io/pub/v/ferry_cache.svg?style=flat-square
-[package:ferry_exec:source]: https://github.com/gql-dart/ferry/tree/master/ferry_exec
+[package:ferry_exec:source]: https://github.com/gql-dart/ferry/tree/master/packages/ferry_exec
 [package:ferry_exec]: https://pub.dartlang.org/packages/ferry_exec
 [package:ferry_exec:version]: https://img.shields.io/pub/v/ferry_exec.svg?style=flat-square
-[package:ferry_flutter:source]: https://github.com/gql-dart/ferry/tree/master/ferry_flutter
+[package:ferry_flutter:source]: https://github.com/gql-dart/ferry/tree/master/packages/ferry_flutter
 [package:ferry_flutter]: https://pub.dartlang.org/packages/ferry_flutter
 [package:ferry_flutter:version]: https://img.shields.io/pub/v/ferry_flutter.svg?style=flat-square
-[package:ferry_generator:source]: https://github.com/gql-dart/ferry/tree/master/ferry_generator
+[package:ferry_generator:source]: https://github.com/gql-dart/ferry/tree/master/packages/ferry_generator
 [package:ferry_generator]: https://pub.dartlang.org/packages/ferry_generator
 [package:ferry_generator:version]: https://img.shields.io/pub/v/ferry_generator.svg?style=flat-square
-[package:ferry_store:source]: https://github.com/gql-dart/ferry/tree/master/ferry_store
+[package:ferry_store:source]: https://github.com/gql-dart/ferry/tree/master/packages/ferry_store
 [package:ferry_store]: https://pub.dartlang.org/packages/ferry_store
 [package:ferry_store:version]: https://img.shields.io/pub/v/ferry_store.svg?style=flat-square
-[package:ferry_hive_store:source]: https://github.com/gql-dart/ferry/tree/master/ferry_hive_store
+[package:ferry_hive_store:source]: https://github.com/gql-dart/ferry/tree/master/packages/ferry_hive_store
 [package:ferry_hive_store]: https://pub.dartlang.org/packages/ferry_hive_store
 [package:ferry_hive_store:version]: https://img.shields.io/pub/v/ferry_hive_store.svg?style=flat-square
-[package:normalize:source]: https://github.com/gql-dart/ferry/tree/master/normalize
+[package:normalize:source]: https://github.com/gql-dart/ferry/tree/master/packages/normalize
 [package:normalize]: https://pub.dartlang.org/packages/normalize
 [package:normalize:version]: https://img.shields.io/pub/v/normalize.svg?style=flat-square
