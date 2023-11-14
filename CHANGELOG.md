@@ -3,6 +3,35 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2023-11-14
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`ferry` - `v0.15.0-dev.6`](#ferry---v0150-dev6)
+ - [`ferry_flutter` - `v0.9.0-dev.6`](#ferry_flutter---v090-dev6)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `ferry_flutter` - `v0.9.0-dev.6`
+
+---
+
+#### `ferry` - `v0.15.0-dev.6`
+
+ - **FIX**(ferry): Fix problem with operationRequest generated on initial request being included in response each time. (#545).
+ - **DOCS**: add topics (#548).
+
+
 ## 2023-11-12
 
 ### Changes

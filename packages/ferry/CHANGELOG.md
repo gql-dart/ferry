@@ -1,3 +1,8 @@
+## 0.15.0-dev.6
+
+ - **FIX**(ferry): Fix problem with operationRequest generated on initial request being included in response each time. (#545).
+ - **DOCS**: add topics (#548).
+
 ## 0.15.0-dev.5
 
 > Note: This release has breaking changes.
