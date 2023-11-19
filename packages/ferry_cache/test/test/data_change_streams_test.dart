@@ -24,7 +24,9 @@ final han = GHeroWithFragmentsData_hero(
     ..id = 'han'
     ..name = 'Han Solo'
     ..friendsConnection.totalCount = 1
-    ..friendsConnection.edges.add(GHeroWithFragmentsData_hero_friendsConnection_edges(
+    ..friendsConnection
+        .edges
+        .add(GHeroWithFragmentsData_hero_friendsConnection_edges(
           (b) => b..node = GheroDataData.fromJson(luke.toJson())!.toBuilder(),
         )),
 );
@@ -75,7 +77,8 @@ void main() {
     });
 
     group('root operation data changes', () {
-      test("doesn't trigger with changes to unused root operation fields", () async {
+      test("doesn't trigger with changes to unused root operation fields",
+          () async {
         final stream = operationDataChangeStream(
           heroReq,
           true,
@@ -226,7 +229,9 @@ void main() {
     });
 
     group('optimistic patch changes', () {
-      test("doesn't trigger with optimistic patches that don't affect operation root", () async {
+      test(
+          "doesn't trigger with optimistic patches that don't affect operation root",
+          () async {
         final stream = operationDataChangeStream(
           heroReq,
           true,
@@ -257,7 +262,8 @@ void main() {
         await cache.dispose();
       });
 
-      test('triggers with optimistic patches that affect operation root', () async {
+      test('triggers with optimistic patches that affect operation root',
+          () async {
         final stream = operationDataChangeStream(
           heroReq,
           true,
@@ -294,7 +300,8 @@ void main() {
         await cache.dispose();
       });
 
-      test('triggers with optimistic patches that affect referenced entities', () async {
+      test('triggers with optimistic patches that affect referenced entities',
+          () async {
         final stream = operationDataChangeStream(
           heroReq,
           true,
@@ -406,7 +413,8 @@ void main() {
         await Future.delayed(Duration.zero);
         cache.writeFragment<GheroDataData, GheroDataVars>(
           lukeFragment,
-          GheroDataData.fromJson(luke.toJson())!.rebuild((b) => b..name = 'Luca'),
+          GheroDataData.fromJson(luke.toJson())!
+              .rebuild((b) => b..name = 'Luca'),
         );
 
         await Future.delayed(Duration.zero);
@@ -447,8 +455,10 @@ void main() {
         await cache.dispose();
       });
 
-      test('triggers when a change is made on an object that was added later', () async {
-        final lukeAndFriends = GcomparisonFieldsReq((b) => b..idFields = {'id': 'luke'});
+      test('triggers when a change is made on an object that was added later',
+          () async {
+        final lukeAndFriends =
+            GcomparisonFieldsReq((b) => b..idFields = {'id': 'luke'});
         final stream = fragmentDataChangeStream(
           lukeAndFriends,
           true,
@@ -475,16 +485,19 @@ void main() {
         cache.writeFragment<GcomparisonFieldsData, GcomparisonFieldsVars>(
             lukeAndFriends,
             GcomparisonFieldsData.fromJson(luke
-                .rebuild((data) => data.friendsConnection.edges
-                        .add(GHeroWithFragmentsData_hero_friendsConnection_edges(
-                      (b) => b..node = GheroDataData.fromJson(vader.toJson())!.toBuilder(),
+                .rebuild((data) => data.friendsConnection.edges.add(
+                        GHeroWithFragmentsData_hero_friendsConnection_edges(
+                      (b) => b
+                        ..node =
+                            GheroDataData.fromJson(vader.toJson())!.toBuilder(),
                     )))
                 .toJson())!);
 
         await Future.delayed(Duration.zero);
         cache.writeFragment<GheroDataData, GheroDataVars>(
             GheroDataReq((b) => b..idFields = {'id': 'vader'}),
-            GheroDataData.fromJson(vader.rebuild((data) => data.name = 'Daddy <3').toJson())!);
+            GheroDataData.fromJson(
+                vader.rebuild((data) => data.name = 'Daddy <3').toJson())!);
 
         await Future.delayed(Duration.zero);
         await cache.dispose();

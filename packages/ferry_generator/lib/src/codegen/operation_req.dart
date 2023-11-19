@@ -82,7 +82,8 @@ Class _buildOperationReqClass(
         (b) => b
           ..annotations.addAll([
             refer('override'),
-            refer('BuiltValueField', 'package:built_value/built_value.dart').call([], {
+            refer('BuiltValueField', 'package:built_value/built_value.dart')
+                .call([], {
               'serialize': refer('false'),
             }),
           ])
@@ -192,8 +193,10 @@ Class _buildOperationReqClass(
             Parameter(
               (b) => b
                 ..type = FunctionType((b) => b
-                  ..returnType = refer('Operation', 'package:gql_exec/gql_exec.dart')
-                  ..requiredParameters.add(refer('Operation', 'package:gql_exec/gql_exec.dart')))
+                  ..returnType =
+                      refer('Operation', 'package:gql_exec/gql_exec.dart')
+                  ..requiredParameters.add(
+                      refer('Operation', 'package:gql_exec/gql_exec.dart')))
                 ..name = 'transform',
             ),
           )
