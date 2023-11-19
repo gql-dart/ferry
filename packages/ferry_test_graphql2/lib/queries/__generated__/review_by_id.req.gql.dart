@@ -69,7 +69,7 @@ abstract class GReviewsByIDReq
   Map<String, dynamic> varsToJson() => vars.toJson();
 
   @override
-  Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
+  Map<String, dynamic> dataToJson(_i2.GReviewsByIDData data) => data.toJson();
 
   @override
   _i1.OperationRequest<_i2.GReviewsByIDData, _i3.GReviewsByIDVars>

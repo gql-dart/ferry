@@ -69,7 +69,7 @@ abstract class GAliasedHeroReq
   Map<String, dynamic> varsToJson() => vars.toJson();
 
   @override
-  Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
+  Map<String, dynamic> dataToJson(_i2.GAliasedHeroData data) => data.toJson();
 
   @override
   _i1.OperationRequest<_i2.GAliasedHeroData, _i3.GAliasedHeroVars>

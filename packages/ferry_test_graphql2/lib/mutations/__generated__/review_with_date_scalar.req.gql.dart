@@ -69,7 +69,8 @@ abstract class GReviewWithDateReq
   Map<String, dynamic> varsToJson() => vars.toJson();
 
   @override
-  Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
+  Map<String, dynamic> dataToJson(_i2.GReviewWithDateData data) =>
+      data.toJson();
 
   @override
   _i1.OperationRequest<_i2.GReviewWithDateData, _i3.GReviewWithDateVars>

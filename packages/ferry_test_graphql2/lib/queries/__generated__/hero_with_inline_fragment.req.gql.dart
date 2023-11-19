@@ -70,7 +70,8 @@ abstract class GHeroForEpisodeReq
   Map<String, dynamic> varsToJson() => vars.toJson();
 
   @override
-  Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
+  Map<String, dynamic> dataToJson(_i2.GHeroForEpisodeData data) =>
+      data.toJson();
 
   @override
   _i1.OperationRequest<_i2.GHeroForEpisodeData, _i3.GHeroForEpisodeVars>
@@ -121,7 +122,7 @@ abstract class GDroidFragmentReq
   Map<String, dynamic> varsToJson() => vars.toJson();
 
   @override
-  Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
+  Map<String, dynamic> dataToJson(_i2.GDroidFragmentData data) => data.toJson();
 
   static Serializer<GDroidFragmentReq> get serializer =>
       _$gDroidFragmentReqSerializer;

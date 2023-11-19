@@ -69,7 +69,7 @@ abstract class GHumanWithArgsReq
   Map<String, dynamic> varsToJson() => vars.toJson();
 
   @override
-  Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
+  Map<String, dynamic> dataToJson(_i2.GHumanWithArgsData data) => data.toJson();
 
   @override
   _i1.OperationRequest<_i2.GHumanWithArgsData, _i3.GHumanWithArgsVars>

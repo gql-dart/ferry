@@ -69,7 +69,7 @@ abstract class GHeroNoVarsReq
   Map<String, dynamic> varsToJson() => vars.toJson();
 
   @override
-  Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
+  Map<String, dynamic> dataToJson(_i2.GHeroNoVarsData data) => data.toJson();
 
   @override
   _i1.OperationRequest<_i2.GHeroNoVarsData, _i3.GHeroNoVarsVars>
