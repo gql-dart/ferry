@@ -26,13 +26,16 @@ class BuilderConfig {
   final DataToJsonMode dataToJsonMode;
 
   BuilderConfig(Map<String, dynamic> config)
-      : schemaId = config['schema'] == null ? null : AssetId.parse(config['schema'] as String),
+      : schemaId = config['schema'] == null
+            ? null
+            : AssetId.parse(config['schema'] as String),
         schemaIds = (config['schemas'] as YamlList?)
             ?.map((dynamic schema) => AssetId.parse(schema as String))
             .toList(),
         shouldAddTypenames = config['add_typenames'] ?? true,
         typeOverrides = _getTypeOverrides(config['type_overrides']),
-        shouldGeneratePossibleTypes = config['generate_possible_types_map'] ?? true,
+        shouldGeneratePossibleTypes =
+            config['generate_possible_types_map'] ?? true,
         customSerializers = _getCustomSerializers(config['custom_serializers']),
         enumFallbackConfig = _getEnumFallbackConfig(config),
         outputDir = config['output_dir'] ?? '__generated__',
@@ -57,7 +60,8 @@ DataClassConfig _getDataClassConfig(Map<String, dynamic> config) {
   return dataClassConfig;
 }
 
-InlineFragmentSpreadWhenExtensionConfig _getWhenExtensionConfig(Map<String, dynamic> config) {
+InlineFragmentSpreadWhenExtensionConfig _getWhenExtensionConfig(
+    Map<String, dynamic> config) {
   if (config['when_extensions'] == null) {
     return const InlineFragmentSpreadWhenExtensionConfig(
       generateMaybeWhenExtensionMethod: false,
@@ -66,7 +70,8 @@ InlineFragmentSpreadWhenExtensionConfig _getWhenExtensionConfig(Map<String, dyna
   }
   final whenExtensionYamlMap = config['when_extensions'] as YamlMap;
   return InlineFragmentSpreadWhenExtensionConfig(
-    generateMaybeWhenExtensionMethod: whenExtensionYamlMap['maybeWhen'] ?? false,
+    generateMaybeWhenExtensionMethod:
+        whenExtensionYamlMap['maybeWhen'] ?? false,
     generateWhenExtensionMethod: whenExtensionYamlMap['when'] ?? false,
   );
 }
@@ -110,7 +115,8 @@ EnumFallbackConfig _getEnumFallbackConfig(Map<String, dynamic>? config) {
   }
 
   return EnumFallbackConfig(
-    globalEnumFallbackName: (config['global_enum_fallback_name'] ?? 'gUnknownEnumValue') as String,
+    globalEnumFallbackName:
+        (config['global_enum_fallback_name'] ?? 'gUnknownEnumValue') as String,
     generateFallbackValuesGlobally: config['global_enum_fallbacks'] == true,
     fallbackValueMap: _enumFallbackMap(config['enum_fallbacks']),
   );
@@ -133,7 +139,9 @@ TriStateValueConfig _getTriStateOptionalsConfig(Map<String, dynamic>? config) {
   final Object? configValue = config?['tristate_optionals'];
 
   if (configValue is bool) {
-    return configValue ? TriStateValueConfig.onAllNullableFields : TriStateValueConfig.never;
+    return configValue
+        ? TriStateValueConfig.onAllNullableFields
+        : TriStateValueConfig.never;
   }
 
   return TriStateValueConfig.never;
