@@ -1,3 +1,9 @@
+## 0.2.4-dev.3
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **FEAT**(ferry_generator): make dataToJson() method type safe by using the generic data type instead of dynamic.
+
 ## 0.2.4-dev.2
 
  - **FEAT**(ferry_generator): support adding  in the config of build.yaml in your graphql_builder in order to wrap nullable fields into a Value type in order to distinguish between absent and null values in inputs (#549).

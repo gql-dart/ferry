@@ -1,3 +1,9 @@
+## 0.9.0-dev.1
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **FEAT**(ferry_generator): make dataToJson() method type safe by using the generic data type instead of dynamic.
+
 ## 0.9.0-dev.0+1
 
 - **DOCS**: add topics (#548)

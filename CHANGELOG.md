@@ -3,6 +3,43 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2023-11-19
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - [`ferry_generator` - `v0.9.0-dev.1`](#ferry_generator---v090-dev1)
+ - [`ferry_test_graphql2` - `v0.2.4-dev.3`](#ferry_test_graphql2---v024-dev3)
+
+Packages with other changes:
+
+ - [`ferry` - `v0.15.0-dev.7`](#ferry---v0150-dev7)
+ - [`ferry_flutter` - `v0.9.0-dev.7`](#ferry_flutter---v090-dev7)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `ferry_flutter` - `v0.9.0-dev.7`
+
+---
+
+#### `ferry_generator` - `v0.9.0-dev.1`
+
+ - **BREAKING** **FEAT**(ferry_generator): make dataToJson() method type safe by using the generic data type instead of dynamic.
+
+#### `ferry_test_graphql2` - `v0.2.4-dev.3`
+
+ - **BREAKING** **FEAT**(ferry_generator): make dataToJson() method type safe by using the generic data type instead of dynamic.
+
+#### `ferry` - `v0.15.0-dev.7`
+
+ - **DOCS**: add topics (#548).
+
+
 ## 2023-11-14
 
 ### Changes
