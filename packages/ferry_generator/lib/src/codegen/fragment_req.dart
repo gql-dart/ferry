@@ -1,4 +1,5 @@
 import 'package:code_builder/code_builder.dart';
+import 'package:ferry_generator/src/utils/config.dart';
 import 'package:gql/ast.dart';
 import 'package:gql_code_builder/source.dart';
 import 'package:gql_code_builder/src/built_class.dart';
@@ -6,14 +7,16 @@ import 'package:gql_code_builder/src/common.dart';
 
 List<Class> buildFragmentReqClasses(
   SourceNode docSource,
+  DataToJsonMode dataToVarsMode,
 ) =>
     docSource.document.definitions
         .whereType<FragmentDefinitionNode>()
-        .map(_buildFragmentReqClass)
+        .map((node) => _buildFragmentReqClass(node, dataToVarsMode))
         .toList();
 
 Class _buildFragmentReqClass(
   FragmentDefinitionNode node,
+  DataToJsonMode dataToVarsMode,
 ) {
   final dataTypeRef = refer('${builtClassName(node.name.value)}Data', '#data');
   final varTypeRef = refer('${builtClassName(node.name.value)}Vars', '#var');
@@ -91,7 +94,7 @@ Class _buildFragmentReqClass(
           ..name = 'dataToJson'
           ..requiredParameters.add(Parameter(
             (b) => b
-              ..type = refer('dynamic')
+              ..type = dataToVarsMode.getDataToJsonParamType(dataTypeRef)
               ..name = 'data',
           ))
           ..lambda = true

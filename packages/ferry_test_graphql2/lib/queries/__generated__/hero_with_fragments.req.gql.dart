@@ -72,7 +72,8 @@ abstract class GHeroWithFragmentsReq
   Map<String, dynamic> varsToJson() => vars.toJson();
 
   @override
-  Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
+  Map<String, dynamic> dataToJson(_i2.GHeroWithFragmentsData data) =>
+      data.toJson();
 
   @override
   _i1.OperationRequest<_i2.GHeroWithFragmentsData, _i3.GHeroWithFragmentsVars>
@@ -123,7 +124,7 @@ abstract class GheroDataReq
   Map<String, dynamic> varsToJson() => vars.toJson();
 
   @override
-  Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
+  Map<String, dynamic> dataToJson(_i2.GheroDataData data) => data.toJson();
 
   static Serializer<GheroDataReq> get serializer => _$gheroDataReqSerializer;
 
@@ -170,7 +171,8 @@ abstract class GcomparisonFieldsReq
   Map<String, dynamic> varsToJson() => vars.toJson();
 
   @override
-  Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
+  Map<String, dynamic> dataToJson(_i2.GcomparisonFieldsData data) =>
+      data.toJson();
 
   static Serializer<GcomparisonFieldsReq> get serializer =>
       _$gcomparisonFieldsReqSerializer;

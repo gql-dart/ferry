@@ -1,5 +1,6 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:code_builder/code_builder.dart';
+import 'package:ferry_generator/src/utils/config.dart';
 import 'package:gql/ast.dart';
 import 'package:gql_code_builder/source.dart';
 import 'package:gql_code_builder/src/built_class.dart';
@@ -7,14 +8,16 @@ import 'package:gql_code_builder/src/common.dart';
 
 List<Class> buildOperationReqClasses(
   SourceNode docSource,
+  DataToJsonMode dataToVarsMode,
 ) =>
     docSource.document.definitions
         .whereType<OperationDefinitionNode>()
-        .map(_buildOperationReqClass)
+        .map((node) => _buildOperationReqClass(node, dataToVarsMode))
         .toList();
 
 Class _buildOperationReqClass(
   OperationDefinitionNode node,
+  DataToJsonMode dataToVarsMode,
 ) {
   final dataTypeRef = refer('${builtClassName(node.name!.value)}Data', '#data');
   final nullableDataTypeRef = TypeReference(
@@ -79,8 +82,7 @@ Class _buildOperationReqClass(
         (b) => b
           ..annotations.addAll([
             refer('override'),
-            refer('BuiltValueField', 'package:built_value/built_value.dart')
-                .call([], {
+            refer('BuiltValueField', 'package:built_value/built_value.dart').call([], {
               'serialize': refer('false'),
             }),
           ])
@@ -172,7 +174,7 @@ Class _buildOperationReqClass(
           ..name = 'dataToJson'
           ..requiredParameters.add(Parameter(
             (b) => b
-              ..type = refer('dynamic')
+              ..type = dataToVarsMode.getDataToJsonParamType(dataTypeRef)
               ..name = 'data',
           ))
           ..lambda = true
@@ -190,10 +192,8 @@ Class _buildOperationReqClass(
             Parameter(
               (b) => b
                 ..type = FunctionType((b) => b
-                  ..returnType =
-                      refer('Operation', 'package:gql_exec/gql_exec.dart')
-                  ..requiredParameters.add(
-                      refer('Operation', 'package:gql_exec/gql_exec.dart')))
+                  ..returnType = refer('Operation', 'package:gql_exec/gql_exec.dart')
+                  ..requiredParameters.add(refer('Operation', 'package:gql_exec/gql_exec.dart')))
                 ..name = 'transform',
             ),
           )
