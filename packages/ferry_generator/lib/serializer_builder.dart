@@ -21,25 +21,21 @@ Builder serializerBuilder(
 class SerializerBuilder implements Builder {
   BuilderConfig config;
 
-  SerializerBuilder(Map<String, dynamic> config)
-      : config = BuilderConfig(config);
+  SerializerBuilder(Map<String, dynamic> config) : config = BuilderConfig(config);
 
   final outputFileName = 'serializers.gql.dart';
 
   // create a path for the serializers output in same directory as schema
-  List<String> pathSegments(AssetId schemaId) =>
-      outputAssetId(schemaId, '', config.outputDir).pathSegments
-        ..removeLast()
-        ..add(outputFileName);
+  List<String> pathSegments(AssetId schemaId) => outputAssetId(schemaId, '', config.outputDir).pathSegments
+    ..removeLast()
+    ..add(outputFileName);
 
   @override
   Map<String, List<String>> get buildExtensions {
     final inputToOutputMap = <String, List<String>>{};
     if (config.schemaId != null) {
       // buildExtensions already include the 'lib' path segment, so we must remove it here
-      inputToOutputMap[r'$lib$'] = [
-        p.joinAll(pathSegments(config.schemaId!).skip(1))
-      ];
+      inputToOutputMap[r'$lib$'] = [p.joinAll(pathSegments(config.schemaId!).skip(1))];
     }
 
     if (config.schemaIds != null) {
@@ -62,8 +58,7 @@ class SerializerBuilder implements Builder {
           _excludeFiles.add(Glob('$dirPath/**.gql.dart'));
         }
       }
-      await buildSchema(
-          buildStep, config.schemaId!, _generatedFiles, _excludeFiles);
+      await buildSchema(buildStep, config.schemaId!, _generatedFiles, _excludeFiles);
     }
 
     if (config.schemaIds != null) {
@@ -78,31 +73,33 @@ class SerializerBuilder implements Builder {
     }
   }
 
-  FutureOr<void> buildSchema(BuildStep buildStep, AssetId schemaId,
-      Glob generatedFiles, List<Glob> excludeFiles) async {
+  FutureOr<void> buildSchema(
+      BuildStep buildStep, AssetId schemaId, Glob generatedFiles, List<Glob> excludeFiles) async {
     /// BuiltValue classes with serializers. These will be added automatically
     /// using `@SerializersFor`.
-    final builtClasses =
-        SplayTreeSet<ClassElement>((a, b) => a.name.compareTo(b.name));
+    final builtClasses = SplayTreeSet<ClassElement>((a, b) => a.name.compareTo(b.name));
 
     /// Non BuiltValue classes with serializers (i.e. inline fragment classes).
     /// These need to be added manually since `@SerializersFor` only recognizes
     /// BuiltValue classes.
-    final nonBuiltClasses =
-        SplayTreeSet<ClassElement>((a, b) => a.name.compareTo(b.name));
+    final nonBuiltClasses = SplayTreeSet<ClassElement>((a, b) => a.name.compareTo(b.name));
 
     final hasSerializer = (ClassElement c) => c.fields.any((field) =>
         field.isStatic &&
         field.name == 'serializer' &&
         field.type.element?.name == 'Serializer' &&
-        field.type.element?.source?.uri.toString() ==
-            'package:built_value/serializer.dart');
+        field.type.element?.source?.uri.toString() == 'package:built_value/serializer.dart');
 
     final isBuiltValue = (ClassElement c) => c.allSupertypes.any((interface) =>
-        (interface.element.name == 'Built' ||
-            interface.element.name == 'EnumClass') &&
-        interface.element.source.uri.toString() ==
-            'package:built_value/built_value.dart');
+        (interface.element.name == 'Built' || interface.element.name == 'EnumClass') &&
+        interface.element.source.uri.toString() == 'package:built_value/built_value.dart');
+
+    final isFerryOperation = (ClassElement c) {
+      print(c.allSupertypes.map((interface) => interface.element.name + "," + interface.element.source.uri.toString()));
+      return c.allSupertypes.any((interface) =>
+          interface.element.name == 'OperationRequest' &&
+          interface.element.source.uri.toString() == 'package:ferry_exec/src/operation_request.dart');
+    };
 
     final excludeFileIds = <String, AssetId>{};
     for (final excludeGlob in excludeFiles) {
@@ -116,7 +113,7 @@ class SerializerBuilder implements Builder {
       final lib = await buildStep.resolver.libraryFor(input);
       lib.units
           .expand((cu) => cu.classes)
-          .where((c) => hasSerializer(c) && isBuiltValue(c))
+          .where((c) => hasSerializer(c) && isBuiltValue(c) && !isFerryOperation(c))
           .forEach(builtClasses.add);
 
       lib.units
