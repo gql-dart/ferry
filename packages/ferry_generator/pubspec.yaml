@@ -12,7 +12,7 @@ topics:
   - codegen
 dependencies:
   gql: '>=0.14.0 <2.0.0'
-  gql_code_builder: ^0.9.2
+  gql_code_builder: ^0.10.0
   gql_tristate_value: ^1.0.0
   built_collection: ^5.0.0
   code_builder: ^4.3.0
