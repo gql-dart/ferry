@@ -15,6 +15,7 @@ class BuilderConfig {
   final List<AssetId>? schemaIds;
   final bool shouldAddTypenames;
   final bool shouldGeneratePossibleTypes;
+  final bool shouldGenerateVarsCreateFactories;
   final Map<String, Reference> typeOverrides;
   final Set<Reference> customSerializers;
   final EnumFallbackConfig enumFallbackConfig;
@@ -33,6 +34,8 @@ class BuilderConfig {
             ?.map((dynamic schema) => AssetId.parse(schema as String))
             .toList(),
         shouldAddTypenames = config['add_typenames'] ?? true,
+        shouldGenerateVarsCreateFactories =
+            config['vars_create_factories'] ?? false,
         typeOverrides = _getTypeOverrides(config['type_overrides']),
         shouldGeneratePossibleTypes =
             config['generate_possible_types_map'] ?? true,
