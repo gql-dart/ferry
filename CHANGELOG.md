@@ -15,6 +15,27 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`ferry_generator` - `v0.9.1`](#ferry_generator---v091)
+
+---
+
+#### `ferry_generator` - `v0.9.1`
+
+ - Bump "ferry_generator" to `0.9.1`.
+
+
+## 2024-01-14
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`ferry_generator` - `v0.9.0-dev.2`](#ferry_generator---v090-dev2)
 
 ---
