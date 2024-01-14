@@ -1,3 +1,7 @@
+## 0.9.1-dev.0
+
+ - Bump "ferry_generator" to `0.9.1-dev.0`.
+
 ## 0.9.1
 
  - Bump "ferry_generator" to `0.9.1`.
