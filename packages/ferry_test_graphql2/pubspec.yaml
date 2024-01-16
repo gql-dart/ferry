@@ -1,5 +1,5 @@
 name: ferry_test_graphql2
-version: 0.2.4-dev.3
+version: 0.2.4-dev.4
 description: Example GraphQL Operations, used in Ferry tests
 repository: https://github.com/gql-dart/ferry
 environment:

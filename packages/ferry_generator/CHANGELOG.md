@@ -1,3 +1,7 @@
+## 0.9.1-dev.1
+
+ - **FEAT**(vars-builder-generator): Adding documentation for new codegen options.
+
 ## 0.9.1-dev.0
 
  - Bump "ferry_generator" to `0.9.1-dev.0`.

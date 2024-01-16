@@ -1,3 +1,7 @@
+## 0.2.4-dev.4
+
+ - **FEAT**(vars-builder-generator): Adding gql_code_builder vars builder dep.
+
 ## 0.2.4-dev.3
 
 > Note: This release has breaking changes.
