@@ -1,3 +1,15 @@
+## 0.9.1-dev.0
+
+ - Bump "ferry_generator" to `0.9.1-dev.0`.
+
+## 0.9.1
+
+ - Bump "ferry_generator" to `0.9.1`.
+
+## 0.9.0-dev.2
+
+ - **FEAT**(ferry_generator): allow analyzer 6.0.
+
 ## 0.9.0-dev.1
 
 > Note: This release has breaking changes.

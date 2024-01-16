@@ -3,6 +3,131 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2024-01-14
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`normalize` - `v0.9.1-dev.0`](#normalize---v091-dev0)
+ - [`ferry_cache` - `v0.8.0-dev.2`](#ferry_cache---v080-dev2)
+ - [`ferry` - `v0.15.0-dev.8`](#ferry---v0150-dev8)
+ - [`ferry_flutter` - `v0.9.0-dev.8`](#ferry_flutter---v090-dev8)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `ferry_cache` - `v0.8.0-dev.2`
+ - `ferry` - `v0.15.0-dev.8`
+ - `ferry_flutter` - `v0.9.0-dev.8`
+
+---
+
+#### `normalize` - `v0.9.1-dev.0`
+
+ - Bump "normalize" to `0.9.1-dev.0`.
+
+
+## 2024-01-14
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`ferry_generator` - `v0.9.1-dev.0`](#ferry_generator---v091-dev0)
+
+---
+
+#### `ferry_generator` - `v0.9.1-dev.0`
+
+ - Bump "ferry_generator" to `0.9.1-dev.0`.
+
+
+## 2024-01-14
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`normalize` - `v0.9.1`](#normalize---v091)
+ - [`ferry_cache` - `v0.8.0-dev.2`](#ferry_cache---v080-dev2)
+ - [`ferry` - `v0.15.0-dev.8`](#ferry---v0150-dev8)
+ - [`ferry_flutter` - `v0.9.0-dev.8`](#ferry_flutter---v090-dev8)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `ferry_cache` - `v0.8.0-dev.2`
+ - `ferry` - `v0.15.0-dev.8`
+ - `ferry_flutter` - `v0.9.0-dev.8`
+
+---
+
+#### `normalize` - `v0.9.1`
+
+
+## 2024-01-14
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`ferry_generator` - `v0.9.1`](#ferry_generator---v091)
+
+---
+
+#### `ferry_generator` - `v0.9.1`
+
+ - Bump "ferry_generator" to `0.9.1`.
+
+
+## 2024-01-14
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`ferry_generator` - `v0.9.0-dev.2`](#ferry_generator---v090-dev2)
+
+---
+
+#### `ferry_generator` - `v0.9.0-dev.2`
+
+ - **FEAT**(ferry_generator): allow analyzer 6.0.
+
+
 ## 2023-11-19
 
 ### Changes

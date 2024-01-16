@@ -1,3 +1,9 @@
+## 0.9.1-dev.0
+
+ - Bump "normalize" to `0.9.1-dev.0`.
+
+## 0.9.1
+
 ## 0.9.0-dev.0+1
 
  - **DOCS**: add topics (#548).
