@@ -1,224 +1,251 @@
 ## 0.16.0
 
-## 0.15.0-dev.8
-
- - **FEAT**: pass context to gql links.
+- **FEAT**: pass context to gql links.
 
 ## 0.15.0-dev.7
 
- - **DOCS**: add topics (#548).
+- **DOCS**: add topics (#548).
 
 ## 0.15.0-dev.6
 
- - **FIX**(ferry): Fix problem with operationRequest generated on initial request being included in response each time. (#545).
- - **DOCS**: add topics (#548).
+- **FIX**(ferry): Fix problem with operationRequest generated on initial request being included in
+  response each time. (#545).
+- **DOCS**: add topics (#548).
 
 ## 0.15.0-dev.5
 
 > Note: This release has breaking changes.
 
- - **FIX**(ferry): Fix problem with operationRequest generated on initial request being included in response each time. (#545).
- - **DOCS**: add topics (#548).
- - **BREAKING** **FEAT**(ferry_exec): remove usage of dynamic in cache and AddTypeNameTypedLink by adding new methods to operationrequest  (#547).
+- **FIX**(ferry): Fix problem with operationRequest generated on initial request being included in
+  response each time. (#545).
+- **DOCS**: add topics (#548).
+- **BREAKING** **FEAT**(ferry_exec): remove usage of dynamic in cache and AddTypeNameTypedLink by
+  adding new methods to operationrequest  (#547).
 
 ## 0.15.0-dev.4
 
 > Note: This release has breaking changes.
 
- - **FIX**(ferry): Fix problem with operationRequest generated on initial request being included in response each time. (#545).
- - **DOCS**: add topics (#548).
- - **BREAKING** **FEAT**(ferry_exec): remove usage of dynamic in cache and AddTypeNameTypedLink by adding new methods to operationrequest  (#547).
+- **FIX**(ferry): Fix problem with operationRequest generated on initial request being included in
+  response each time. (#545).
+- **DOCS**: add topics (#548).
+- **BREAKING** **FEAT**(ferry_exec): remove usage of dynamic in cache and AddTypeNameTypedLink by
+  adding new methods to operationrequest  (#547).
 
 ## 0.15.0-dev.3
 
 > Note: This release has breaking changes.
 
- - **FIX**(ferry): Fix problem with operationRequest generated on initial request being included in response each time. (#545).
- - **DOCS**: add topics (#548).
- - **BREAKING** **FEAT**(ferry_exec): remove usage of dynamic in cache and AddTypeNameTypedLink by adding new methods to operationrequest  (#547).
+- **FIX**(ferry): Fix problem with operationRequest generated on initial request being included in
+  response each time. (#545).
+- **DOCS**: add topics (#548).
+- **BREAKING** **FEAT**(ferry_exec): remove usage of dynamic in cache and AddTypeNameTypedLink by
+  adding new methods to operationrequest  (#547).
 
 ## 0.15.0-dev.2
 
 > Note: This release has breaking changes.
 
- - **FIX**(ferry): Fix problem with operationRequest generated on initial request being included in response each time. (#545).
- - **DOCS**: add topics (#548).
- - **BREAKING** **FEAT**(ferry_exec): remove usage of dynamic in cache and AddTypeNameTypedLink by adding new methods to operationrequest  (#547).
+- **FIX**(ferry): Fix problem with operationRequest generated on initial request being included in
+  response each time. (#545).
+- **DOCS**: add topics (#548).
+- **BREAKING** **FEAT**(ferry_exec): remove usage of dynamic in cache and AddTypeNameTypedLink by
+  adding new methods to operationrequest  (#547).
 
 ## 0.15.0-dev.1
 
- - Update a dependency to the latest release.
+- Update a dependency to the latest release.
 
 ## 0.15.0-dev.0+2
 
- - **DOCS**: add topics (#548).
+- **DOCS**: add topics (#548).
 
 ## 0.15.0+1
 
- - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.
+- Graduate package to a stable release. See pre-releases prior to this version for changelog
+  entries.
 
 ## 0.15.0-dev.0+1
 
- - Update a dependency to the latest release.
+- Update a dependency to the latest release.
 
 ## 0.15.0
 
- - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.
+- Graduate package to a stable release. See pre-releases prior to this version for changelog
+  entries.
 
 ## 0.15.0-dev.6
 
- - **FIX**(ferry): Fix problem with operationRequest generated on initial request being included in response each time. (#545).
+- **FIX**(ferry): Fix problem with operationRequest generated on initial request being included in
+  response each time. (#545).
 
 ## 0.15.0-dev.5
 
 > Note: This release has breaking changes.
 
- - **BREAKING** **FEAT**(ferry_exec): remove usage of dynamic in cache and AddTypeNameTypedLink by adding new methods to operationrequest  (#547).
+- **BREAKING** **FEAT**(ferry_exec): remove usage of dynamic in cache and AddTypeNameTypedLink by
+  adding new methods to operationrequest  (#547).
 
 ## 0.15.0-dev.4
 
- - Update a dependency to the latest release.
+- Update a dependency to the latest release.
 
 ## 0.15.0-dev.3
 
- - Update a dependency to the latest release.
+- Update a dependency to the latest release.
 
 ## 0.15.0-dev.2
 
- - Update a dependency to the latest release.
+- Update a dependency to the latest release.
 
 ## 0.15.0-dev.1
 
 > Note: This release has breaking changes.
 
- - **DOCS**: cleanup buggy autogenerated CHANGELOG from melos (#523).
- - **BREAKING** **REFACTOR**(normalize): Add const constructors to `FieldPolicy` and `TypePolicy` (#526).
+- **DOCS**: cleanup buggy autogenerated CHANGELOG from melos (#523).
+- **BREAKING** **REFACTOR**(normalize): Add const constructors to `FieldPolicy` and `TypePolicy` (
+  #526).
 
 ## 0.15.0-dev.0
 
 > Note: This release has breaking changes.
 
- - **BREAKING** **REFACTOR**(normalize): Add const constructors to `FieldPolicy` and `TypePolicy` (#526).
+- **BREAKING** **REFACTOR**(normalize): Add const constructors to `FieldPolicy` and `TypePolicy` (
+  #526).
 
 ## 0.14.2+1
 
- - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.
+- Graduate package to a stable release. See pre-releases prior to this version for changelog
+  entries.
 
 ## 0.14.2-dev.0+1
 
- - **DOCS**: cleanup buggy autogenerated CHANGELOG from melos (#523).
+- **DOCS**: cleanup buggy autogenerated CHANGELOG from melos (#523).
 
 ## 0.14.2
 
- - support version 1.0.0 of gql, gql_exec, gql_link.
+- support version 1.0.0 of gql, gql_exec, gql_link.
 
 ## 0.14.0-dev.9
 
 > Note: This release has breaking changes.
 
- - **REFACTOR**(ferry): FetchPolicyTypedLink.request() to avoid pending timers in tests (#427).
- - **REFACTOR**(ferry): use scheduleMicrostask instead of Future.delayed in order to no have pending timers in widget tests.
- - **FIX**(normalize): When there are dangling references in child objects of a list, by default do not treat the whole entity as partial data, but remove it from the list. This can be configured using the allowDanglingReference parameter.
- - **FIX**(ferry): Re-use the same stream for multiple requests when possible (#487).
- - **FIX**(ferry): add stacktrace to error handler in GqlTypedLink (#467).
- - **FIX**(ferry): send error to main isolate when data message could not be serialized (#455).
- - **FIX**(ferry_cache): ensure emitting only one update per updated data ID in cache in watchQuery/watchFragment (#416).
- - **FIX**(ferry): remove broken isolateSpawn functionality, FlutterIsolate does not support passing functions (#413).
- - **FIX**: pin normalize 0.6.0.
- - **FIX**(ferry): call cache handlers for every response from DataSource.Link.
- - **FIX**(ferry): add dispose method to TypedLinks (#272).
- - **FEAT**: support stable 1.0.0 versions of depenencies gql, gql_exec, gql_link (#521).
- - **FEAT**(ferry_generator): when/maybeWhen extensions (#470).
- - **FEAT**(ferry): add watchQuery, watchFragment, clearOptimisticPatches to IsolateClient  (#460).
- - **FEAT**(ferry): improve isolate error handling (#448).
- - **FEAT**(ferry): verify that updateResult function can be sent to the other isolate in debug mode using asserts and provide a better error message if updatgeResult cannot be serialized (#425).
- - **FEAT**(ferry): refactor isolateCommands, add addRequestToRequestController method (#422).
- - **FEAT**(ferry): add removeOptimisticResponse to isolate client (#412).
- - **FEAT**(ferry): add IsolateClient (#405).
- - **FEAT**: generate possibleTypesMap in ferry_generator (#371).
- - **FEAT**: add Reviews subscription to test graphql.
- - **DOCS**(ferry): add basic documentation for field policy (#494).
- - **DOCS**(ferry): fix typo in CHANGELOG (#384).
- - **DOCS**: remove stale code (#271).
- - **BREAKING** **FIX**(ferry): remove optimistic patch when listener unsubscribes before link responds with data instead of leaking optimistic patch forever (#466).
- - **BREAKING** **FIX**(ferry_generator): properly generate nullable types for nullable elements in Lists (#445).
- - **BREAKING** **CHORE**: update gql_code_builder, gql_exec and vestigial analyzer pubspec entry.
+- **REFACTOR**(ferry): FetchPolicyTypedLink.request() to avoid pending timers in tests (#427).
+- **REFACTOR**(ferry): use scheduleMicrostask instead of Future.delayed in order to no have pending
+  timers in widget tests.
+- **FIX**(normalize): When there are dangling references in child objects of a list, by default do
+  not treat the whole entity as partial data, but remove it from the list. This can be configured
+  using the allowDanglingReference parameter.
+- **FIX**(ferry): Re-use the same stream for multiple requests when possible (#487).
+- **FIX**(ferry): add stacktrace to error handler in GqlTypedLink (#467).
+- **FIX**(ferry): send error to main isolate when data message could not be serialized (#455).
+- **FIX**(ferry_cache): ensure emitting only one update per updated data ID in cache in
+  watchQuery/watchFragment (#416).
+- **FIX**(ferry): remove broken isolateSpawn functionality, FlutterIsolate does not support passing
+  functions (#413).
+- **FIX**: pin normalize 0.6.0.
+- **FIX**(ferry): call cache handlers for every response from DataSource.Link.
+- **FIX**(ferry): add dispose method to TypedLinks (#272).
+- **FEAT**: support stable 1.0.0 versions of depenencies gql, gql_exec, gql_link (#521).
+- **FEAT**(ferry_generator): when/maybeWhen extensions (#470).
+- **FEAT**(ferry): add watchQuery, watchFragment, clearOptimisticPatches to IsolateClient  (#460).
+- **FEAT**(ferry): improve isolate error handling (#448).
+- **FEAT**(ferry): verify that updateResult function can be sent to the other isolate in debug mode
+  using asserts and provide a better error message if updatgeResult cannot be serialized (#425).
+- **FEAT**(ferry): refactor isolateCommands, add addRequestToRequestController method (#422).
+- **FEAT**(ferry): add removeOptimisticResponse to isolate client (#412).
+- **FEAT**(ferry): add IsolateClient (#405).
+- **FEAT**: generate possibleTypesMap in ferry_generator (#371).
+- **FEAT**: add Reviews subscription to test graphql.
+- **DOCS**(ferry): add basic documentation for field policy (#494).
+- **DOCS**(ferry): fix typo in CHANGELOG (#384).
+- **DOCS**: remove stale code (#271).
+- **BREAKING** **FIX**(ferry): remove optimistic patch when listener unsubscribes before link
+  responds with data instead of leaking optimistic patch forever (#466).
+- **BREAKING** **FIX**(ferry_generator): properly generate nullable types for nullable elements in
+  Lists (#445).
+- **BREAKING** **CHORE**: update gql_code_builder, gql_exec and vestigial analyzer pubspec entry.
 
 ## 0.14.0-dev.1
 
- - **FIX**: When there are dangling references in child objects of a list, by default do not treat the whole entity as partial data, but remove it from the list. This can be configured using the allowDanglingReference parameter.
+- **FIX**: When there are dangling references in child objects of a list, by default do not treat
+  the whole entity as partial data, but remove it from the list. This can be configured using the
+  allowDanglingReference parameter.
 
 ## 0.14.0-dev.0+2
 
- - **DOCS**: add basic documentation for field policy (#494).
+- **DOCS**: add basic documentation for field policy (#494).
 
 ## 0.14.0+1
 
- - Update a dependency to the latest release.
+- Update a dependency to the latest release.
 
 ## 0.14.0
 
- - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.
+- Graduate package to a stable release. See pre-releases prior to this version for changelog
+  entries.
 
 ## 0.14.0-dev.5
 
- - **FIX**: Re-use the same stream for multiple requests when possible (#487).
+- **FIX**: Re-use the same stream for multiple requests when possible (#487).
 
 ## 0.14.0-dev.4
 
- - Update a dependency to the latest release.
+- Update a dependency to the latest release.
 
 ## 0.14.0-dev.3
 
- - Update a dependency to the latest release.
+- Update a dependency to the latest release.
 
 ## 0.14.0-dev.2
 
- - **FIX**: add stacktrace to error handler in GqlTypedLink (#467).
- - **FEAT**: when/maybeWhen extensions (#470).
+- **FIX**: add stacktrace to error handler in GqlTypedLink (#467).
+- **FEAT**: when/maybeWhen extensions (#470).
 
 ## 0.14.0-dev.1
 
 > Note: This release has breaking changes.
 
- - **BREAKING** **FIX**: remove optimistic patch when listener unsubscribes before link responds with data instead of leaking optimistic patch forever (#466).
- 
+- **BREAKING** **FIX**: remove optimistic patch when listener unsubscribes before link responds with
+  data instead of leaking optimistic patch forever (#466).
+
 ## 0.13.1-dev.1
 
- - **FEAT**: add watchQuery, watchFragment, clearOptimisticPatches to IsolateClient  (#460).
+- **FEAT**: add watchQuery, watchFragment, clearOptimisticPatches to IsolateClient  (#460).
 
 ## 0.13.1
 
- - **FIX**: send error to main isolate when data message could not be serialized (#455).
- - **FEAT**: add watchQuery, watchFragment, clearOptimisticPatches to IsolateClient  (#460).
+- **FIX**: send error to main isolate when data message could not be serialized (#455).
+- **FEAT**: add watchQuery, watchFragment, clearOptimisticPatches to IsolateClient  (#460).
 
 ## 0.13.0-dev.1
 
- - **FEAT**: add watchQuery, watchFragment, clearOptimisticPatches to IsolateClient  (#460).
+- **FEAT**: add watchQuery, watchFragment, clearOptimisticPatches to IsolateClient  (#460).
 
 ## 0.13.0-dev.0+1
 
- - **FIX**: send error to main isolate when data message could not be serialized (#455).
+- **FIX**: send error to main isolate when data message could not be serialized (#455).
 
 ## 0.13.0
 
- - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.
+- Graduate package to a stable release. See pre-releases prior to this version for changelog
+  entries.
 
 ## 0.13.0-dev.1
 
- - **FEAT**: improve isolate error handling (#448).
+- **FEAT**: improve isolate error handling (#448).
 
 ## 0.13.0-dev.0
 
 > Note: This release has breaking changes.
 
- - **BREAKING** **FIX**: properly generate nullable types for nullable elements in Lists (#445).
+- **BREAKING** **FIX**: properly generate nullable types for nullable elements in Lists (#445).
 
 ## 0.12.0
 
 > Note: This release has breaking changes.
 
- - **BREAKING** **FIX**: properly generate nullable types for nullable elements in Lists.
+- **BREAKING** **FIX**: properly generate nullable types for nullable elements in Lists.
 
 ## 0.11.3-dev.0+1
 
@@ -226,195 +253,201 @@
 
 ## 0.11.2-dev.0+2
 
- - **REFACTOR**: FetchPolicyTypedLink.request() to avoid pending timers in tests (#427).
-
+- **REFACTOR**: FetchPolicyTypedLink.request() to avoid pending timers in tests (#427).
 
 ## 0.11.2
 
- - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.
- - Add IsolateClient for running queries in a separete Isolate. For details click [here](https://github.com/gql-dart/ferry/blob/master/docs/isolates.md)
+- Graduate package to a stable release. See pre-releases prior to this version for changelog
+  entries.
+- Add IsolateClient for running queries in a separete Isolate. For details
+  click [here](https://github.com/gql-dart/ferry/blob/master/docs/isolates.md)
 
 ## 0.11.2-dev.4
 
- - **FEAT**: verify that updateResult function can be sent to the other isolate in debug mode using asserts and provide a better error message if updatgeResult cannot be serialized (#425).
+- **FEAT**: verify that updateResult function can be sent to the other isolate in debug mode using
+  asserts and provide a better error message if updatgeResult cannot be serialized (#425).
 
 ## 0.11.2-dev.3
 
- - **REFACTOR**: use scheduleMicrostask instead of Future.delayed in order to no have pending timers in widget tests.
+- **REFACTOR**: use scheduleMicrostask instead of Future.delayed in order to no have pending timers
+  in widget tests.
 
 ## 0.11.2-dev.2
 
- - **FEAT**: refactor isolateCommands, add addRequestToRequestController method (#422).
+- **FEAT**: refactor isolateCommands, add addRequestToRequestController method (#422).
 
 ## 0.11.2-dev.1
 
- - **FIX**: ensure emitting only one update per updated data ID in cache in watchQuery/watchFragment (#416).
+- **FIX**: ensure emitting only one update per updated data ID in cache in
+  watchQuery/watchFragment (#416).
 
 ## 0.11.2-dev.0
 
- - **REFACTOR**: use a generic type parameter for the init params instead of a Map<String,dynamic>.
- - **REFACTOR**: refactore handleCommand.
- - **REFACTOR**: refactore handleCommand.
- - **REFACTOR**: cleanup request response communication.
- - **FIX**: remove broken isolateSpawn functionality, FlutterIsolate does not support passing functions (#413).
- - **FEAT**: add removeOptimisticResponse to isolate client (#412).
- - **FEAT**: add IsolateClient (#405).
- - **FEAT**: refactor single response commands.
- - **FEAT**: more IsolateClient features.
- - **FEAT**: refactor IsolateClient, add more commands.
- - **FEAT**: add more methods to IsolateClient.
- - **FEAT**: add IsolateClient.
- - **DOCS**: add example for token refresh over isolate.
+- **REFACTOR**: use a generic type parameter for the init params instead of a Map<String,dynamic>.
+- **REFACTOR**: refactore handleCommand.
+- **REFACTOR**: refactore handleCommand.
+- **REFACTOR**: cleanup request response communication.
+- **FIX**: remove broken isolateSpawn functionality, FlutterIsolate does not support passing
+  functions (#413).
+- **FEAT**: add removeOptimisticResponse to isolate client (#412).
+- **FEAT**: add IsolateClient (#405).
+- **FEAT**: refactor single response commands.
+- **FEAT**: more IsolateClient features.
+- **FEAT**: refactor IsolateClient, add more commands.
+- **FEAT**: add more methods to IsolateClient.
+- **FEAT**: add IsolateClient.
+- **DOCS**: add example for token refresh over isolate.
 
 ## 0.11.1
 
- - **REFACTOR**: use a generic type parameter for the init params instead of a Map<String,dynamic>.
- - **REFACTOR**: refactore handleCommand.
- - **REFACTOR**: refactore handleCommand.
- - **REFACTOR**: cleanup request response communication.
- - **FEAT**: refactor single response commands.
- - **FEAT**: more IsolateClient features.
- - **FEAT**: refactor IsolateClient, add more commands.
- - **FEAT**: add more methods to IsolateClient.
- - **FEAT**: add IsolateClient.
- - **DOCS**: add example for token refresh over isolate.
- - **DOCS**: fix typo in CHANGELOG (#384).
+- **REFACTOR**: use a generic type parameter for the init params instead of a Map<String,dynamic>.
+- **REFACTOR**: refactore handleCommand.
+- **REFACTOR**: refactore handleCommand.
+- **REFACTOR**: cleanup request response communication.
+- **FEAT**: refactor single response commands.
+- **FEAT**: more IsolateClient features.
+- **FEAT**: refactor IsolateClient, add more commands.
+- **FEAT**: add more methods to IsolateClient.
+- **FEAT**: add IsolateClient.
+- **DOCS**: add example for token refresh over isolate.
+- **DOCS**: fix typo in CHANGELOG (#384).
 
 ## 0.11.0+1
 
- - Update a dependency to the latest release.
+- Update a dependency to the latest release.
 
 ## 0.11.0
 
- - BREAKING: require `possibleTypesMap` (generated by ferry_generator in your schema.gql.dart file)
-   in the constructor of the `Cache` 
-   when fragments, interfaces or unions are involved
+- BREAKING: require `possibleTypesMap` (generated by ferry_generator in your schema.gql.dart file)
+  in the constructor of the `Cache`
+  when fragments, interfaces or unions are involved
 
 ## 0.10.5
 
 > Note: This release has breaking changes.
 
- - **FIX**: pin normalize 0.6.0.
- - **FIX**: call cache handlers for every response from DataSource.Link.
- - **FIX**: add dispose method to TypedLinks (#272).
- - **FEAT**: generate possibleTypesMap in ferry_generator (#371).
- - **FEAT**: add Reviews subscription to test graphql.
- - **DOCS**: remove stale code (#271).
- - **BREAKING** **CHORE**: update gql_code_builder, gql_exec and vestigial analyzer pubspec entry.
+- **FIX**: pin normalize 0.6.0.
+- **FIX**: call cache handlers for every response from DataSource.Link.
+- **FIX**: add dispose method to TypedLinks (#272).
+- **FEAT**: generate possibleTypesMap in ferry_generator (#371).
+- **FEAT**: add Reviews subscription to test graphql.
+- **DOCS**: remove stale code (#271).
+- **BREAKING** **CHORE**: update gql_code_builder, gql_exec and vestigial analyzer pubspec entry.
 
 ## 0.10.5-dev.3
 
 > Note: This release has breaking changes.
 
- - **BREAKING** **CHORE**: update gql_code_builder, gql_exec and vestigial analyzer pubspec entry.
+- **BREAKING** **CHORE**: update gql_code_builder, gql_exec and vestigial analyzer pubspec entry.
 
 ## 0.10.5-dev.2
 
- - **TEST**: add back test.
- - **FIX**: call cache handlers for every response from DataSource.Link.
- - **CHORE**: publish packages.
- - **CHORE**: publish packages.
+- **TEST**: add back test.
+- **FIX**: call cache handlers for every response from DataSource.Link.
+- **CHORE**: publish packages.
+- **CHORE**: publish packages.
 
 ## 0.10.5-dev.1
 
- - **FIX**: add dispose method to TypedLinks (#272).
- - **FEAT**: add Reviews subscription to test graphql.
- - **DOCS**: remove stale code (#271).
- - **CHORE**: publish packages.
- - **CHORE**: publish packages.
- - **CHORE**: restructure repo (#269).
+- **FIX**: add dispose method to TypedLinks (#272).
+- **FEAT**: add Reviews subscription to test graphql.
+- **DOCS**: remove stale code (#271).
+- **CHORE**: publish packages.
+- **CHORE**: publish packages.
+- **CHORE**: restructure repo (#269).
 
 ## 0.10.4-dev.8
 
- - **DOCS**: remove stale code (#271).
+- **DOCS**: remove stale code (#271).
 
 ## 0.10.4-dev.7
 
- - **FIX**: add dispose method to TypedLinks (#272).
+- **FIX**: add dispose method to TypedLinks (#272).
 
 ## 0.10.4-dev.6
 
- - **FIX**: add missing dependencies (#268).
+- **FIX**: add missing dependencies (#268).
 
 ## 0.10.4-dev.5
 
- - **FIX**: add missing dependencies (#267).
+- **FIX**: add missing dependencies (#267).
 
 ## 0.10.4-dev.4
 
- - **FIX**: add missing override annotations (#261).
+- **FIX**: add missing override annotations (#261).
 
 ## 0.10.4-dev.3
 
- - **FEAT**: add github action for validating formatting (#260).
+- **FEAT**: add github action for validating formatting (#260).
 
 ## 0.10.4-dev.2
 
- - **FEAT**: add extensions to response (#259).
+- **FEAT**: add extensions to response (#259).
 
 ## 0.10.4-dev.1
 
 > Note: This release has breaking changes.
 
- - **BREAKING** **FEAT**: build generated files to __generated__ subdirectory.
+- **BREAKING** **FEAT**: build generated files to __generated__ subdirectory.
 
 ## 0.10.4-dev.0+1
 
- - **FIX**: move pedantic to dependency (#257).
+- **FIX**: move pedantic to dependency (#257).
 
 ## 0.10.4
 
- - **FEAT**: update dependences.
- - **FEAT**: update dependences.
- - **CHORE**: publish packages.
- - **CHORE**: publish packages.
+- **FEAT**: update dependences.
+- **FEAT**: update dependences.
+- **CHORE**: publish packages.
+- **CHORE**: publish packages.
 
 ## 0.10.3
 
- - **FEAT**: update dependences.
- - **CHORE**: publish packages.
- - **CHORE**: publish packages.
+- **FEAT**: update dependences.
+- **CHORE**: publish packages.
+- **CHORE**: publish packages.
 
 ## 0.10.2+2
 
- - Update a dependency to the latest release.
+- Update a dependency to the latest release.
 
 ## 0.10.2+1
 
- - **FIX**: resolve static analysis issues.
- - **FIX**: resolve static analysis issues.
- - **CHORE**: publish packages.
- - **CHORE**: publish packages.
- - **CHORE**: publish packages.
- - **CHORE**: publish packages.
+- **FIX**: resolve static analysis issues.
+- **FIX**: resolve static analysis issues.
+- **CHORE**: publish packages.
+- **CHORE**: publish packages.
+- **CHORE**: publish packages.
+- **CHORE**: publish packages.
 
 ## 0.10.2
 
- - **FIX**: resolve static analysis issues.
- - **FEAT**: migrate to null safety.
- - **FEAT**: migrate to null safety.
- - **CHORE**: publish packages.
- - **CHORE**: publish packages.
+- **FIX**: resolve static analysis issues.
+- **FEAT**: migrate to null safety.
+- **FEAT**: migrate to null safety.
+- **CHORE**: publish packages.
+- **CHORE**: publish packages.
 
 ## 0.10.1
 
- - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.
+- Graduate package to a stable release. See pre-releases prior to this version for changelog
+  entries.
 
 ## 0.10.1-0.1.nullsafety.1
 
- - **FIX**: update build_runner.
+- **FIX**: update build_runner.
 
 ## 0.10.1-0.1.nullsafety.0
 
- - **FEAT**: migrate to null safety.
- - **CHORE**: bump versions to match melos style.
- - **CHORE**: publish packages.
- - **CHORE**: prepare changelogs for melos.
+- **FEAT**: migrate to null safety.
+- **CHORE**: bump versions to match melos style.
+- **CHORE**: publish packages.
+- **CHORE**: prepare changelogs for melos.
 
 ## 0.10.0-1.0.nullsafety.0
 
- - **FEAT**: migrate to null safety.
- - **CHORE**: prepare changelogs for melos.
+- **FEAT**: migrate to null safety.
+- **CHORE**: prepare changelogs for melos.
 
 ## [0.10.0-nullsafety.0]
 
@@ -428,7 +461,8 @@
 
 ## [0.9.3]
 
-- fix bug causing `FetchPolicy.CacheFirst` & `FetchPolicy.CacheAndNetwork` to only receive the first response from Link
+- fix bug causing `FetchPolicy.CacheFirst` & `FetchPolicy.CacheAndNetwork` to only receive the first
+  response from Link
 
 ## [0.9.2]
 
@@ -447,8 +481,10 @@
 
 - bump `ferry_cache` version
 - `OperationRequest.requestId` no longer assigned `uuid` by default
-- `CacheProxy.writeQuery` and `CacheProxy.writeFragment` now use the entire optimistic request rather than just the requestId
-- update `OfflineMutationTypedLink` to not depend on `requestId` as it is no longer assigned by default
+- `CacheProxy.writeQuery` and `CacheProxy.writeFragment` now use the entire optimistic request
+  rather than just the requestId
+- update `OfflineMutationTypedLink` to not depend on `requestId` as it is no longer assigned by
+  default
 - bump `normalize` version
 
 ## [0.8.0] - 2020-10-10
