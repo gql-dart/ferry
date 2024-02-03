@@ -15,6 +15,25 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`ferry_generator` - `v0.10.0`](#ferry_generator---v0100)
+
+---
+
+#### `ferry_generator` - `v0.10.0`
+
+
+## 2024-02-03
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`ferry_exec` - `v0.6.0`](#ferry_exec---v060)
  - [`ferry_flutter` - `v0.9.0-dev.9`](#ferry_flutter---v090-dev9)
  - [`ferry_cache` - `v0.8.0-dev.3`](#ferry_cache---v080-dev3)
