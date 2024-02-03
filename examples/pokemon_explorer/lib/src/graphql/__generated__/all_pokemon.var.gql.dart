@@ -12,7 +12,7 @@ abstract class GAllPokemonVars
     implements Built<GAllPokemonVars, GAllPokemonVarsBuilder> {
   GAllPokemonVars._();
 
-  factory GAllPokemonVars([Function(GAllPokemonVarsBuilder b) updates]) =
+  factory GAllPokemonVars([void Function(GAllPokemonVarsBuilder b) updates]) =
       _$GAllPokemonVars;
 
   int get limit;

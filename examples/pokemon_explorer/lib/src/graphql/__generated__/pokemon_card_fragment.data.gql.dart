@@ -23,7 +23,8 @@ abstract class GNestedFragmentData
   GNestedFragmentData._();
 
   factory GNestedFragmentData(
-      [Function(GNestedFragmentDataBuilder b) updates]) = _$GNestedFragmentData;
+          [void Function(GNestedFragmentDataBuilder b) updates]) =
+      _$GNestedFragmentData;
 
   static void _initializeBuilder(GNestedFragmentDataBuilder b) =>
       b..G__typename = 'Pokemon';
@@ -87,7 +88,7 @@ abstract class GPokemonCardData
         GNestedFragment {
   GPokemonCardData._();
 
-  factory GPokemonCardData([Function(GPokemonCardDataBuilder b) updates]) =
+  factory GPokemonCardData([void Function(GPokemonCardDataBuilder b) updates]) =
       _$GPokemonCardData;
 
   static void _initializeBuilder(GPokemonCardDataBuilder b) =>
@@ -129,7 +130,7 @@ abstract class GPokemonCardData_height
   GPokemonCardData_height._();
 
   factory GPokemonCardData_height(
-          [Function(GPokemonCardData_heightBuilder b) updates]) =
+          [void Function(GPokemonCardData_heightBuilder b) updates]) =
       _$GPokemonCardData_height;
 
   static void _initializeBuilder(GPokemonCardData_heightBuilder b) =>
@@ -163,7 +164,7 @@ abstract class GPokemonCardData_weight
   GPokemonCardData_weight._();
 
   factory GPokemonCardData_weight(
-          [Function(GPokemonCardData_weightBuilder b) updates]) =
+          [void Function(GPokemonCardData_weightBuilder b) updates]) =
       _$GPokemonCardData_weight;
 
   static void _initializeBuilder(GPokemonCardData_weightBuilder b) =>

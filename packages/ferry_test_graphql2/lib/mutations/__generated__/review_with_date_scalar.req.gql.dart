@@ -23,7 +23,8 @@ abstract class GReviewWithDateReq
         _i1.OperationRequest<_i2.GReviewWithDateData, _i3.GReviewWithDateVars> {
   GReviewWithDateReq._();
 
-  factory GReviewWithDateReq([Function(GReviewWithDateReqBuilder b) updates]) =
+  factory GReviewWithDateReq(
+          [void Function(GReviewWithDateReqBuilder b) updates]) =
       _$GReviewWithDateReq;
 
   static void _initializeBuilder(GReviewWithDateReqBuilder b) => b
@@ -41,6 +42,7 @@ abstract class GReviewWithDateReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -61,6 +63,9 @@ abstract class GReviewWithDateReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GReviewWithDateData? parseData(Map<String, dynamic> json) =>
       _i2.GReviewWithDateData.fromJson(json);

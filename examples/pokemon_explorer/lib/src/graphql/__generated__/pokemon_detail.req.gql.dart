@@ -22,7 +22,8 @@ abstract class GPokemonDetailReq
         _i1.OperationRequest<_i2.GPokemonDetailData, _i3.GPokemonDetailVars> {
   GPokemonDetailReq._();
 
-  factory GPokemonDetailReq([Function(GPokemonDetailReqBuilder b) updates]) =
+  factory GPokemonDetailReq(
+          [void Function(GPokemonDetailReqBuilder b) updates]) =
       _$GPokemonDetailReq;
 
   static void _initializeBuilder(GPokemonDetailReqBuilder b) => b
@@ -40,6 +41,7 @@ abstract class GPokemonDetailReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -61,6 +63,9 @@ abstract class GPokemonDetailReq
   @override
   bool get executeOnListen;
   @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
+  @override
   _i2.GPokemonDetailData? parseData(Map<String, dynamic> json) =>
       _i2.GPokemonDetailData.fromJson(json);
 
@@ -68,7 +73,7 @@ abstract class GPokemonDetailReq
   Map<String, dynamic> varsToJson() => vars.toJson();
 
   @override
-  Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
+  Map<String, dynamic> dataToJson(_i2.GPokemonDetailData data) => data.toJson();
 
   @override
   _i1.OperationRequest<_i2.GPokemonDetailData, _i3.GPokemonDetailVars>

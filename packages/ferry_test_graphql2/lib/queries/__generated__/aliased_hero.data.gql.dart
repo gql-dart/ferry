@@ -16,7 +16,7 @@ abstract class GAliasedHeroData
     implements Built<GAliasedHeroData, GAliasedHeroDataBuilder> {
   GAliasedHeroData._();
 
-  factory GAliasedHeroData([Function(GAliasedHeroDataBuilder b) updates]) =
+  factory GAliasedHeroData([void Function(GAliasedHeroDataBuilder b) updates]) =
       _$GAliasedHeroData;
 
   static void _initializeBuilder(GAliasedHeroDataBuilder b) =>
@@ -47,7 +47,7 @@ abstract class GAliasedHeroData_empireHero
   GAliasedHeroData_empireHero._();
 
   factory GAliasedHeroData_empireHero(
-          [Function(GAliasedHeroData_empireHeroBuilder b) updates]) =
+          [void Function(GAliasedHeroData_empireHeroBuilder b) updates]) =
       _$GAliasedHeroData_empireHero;
 
   static void _initializeBuilder(GAliasedHeroData_empireHeroBuilder b) =>
@@ -79,7 +79,7 @@ abstract class GAliasedHeroData_jediHero
   GAliasedHeroData_jediHero._();
 
   factory GAliasedHeroData_jediHero(
-          [Function(GAliasedHeroData_jediHeroBuilder b) updates]) =
+          [void Function(GAliasedHeroData_jediHeroBuilder b) updates]) =
       _$GAliasedHeroData_jediHero;
 
   static void _initializeBuilder(GAliasedHeroData_jediHeroBuilder b) =>

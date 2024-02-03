@@ -23,7 +23,8 @@ abstract class GReviewFragmentReq
         _i1.FragmentRequest<_i2.GReviewFragmentData, _i3.GReviewFragmentVars> {
   GReviewFragmentReq._();
 
-  factory GReviewFragmentReq([Function(GReviewFragmentReqBuilder b) updates]) =
+  factory GReviewFragmentReq(
+          [void Function(GReviewFragmentReqBuilder b) updates]) =
       _$GReviewFragmentReq;
 
   static void _initializeBuilder(GReviewFragmentReqBuilder b) => b

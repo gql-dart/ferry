@@ -13,7 +13,8 @@ abstract class GNestedFragmentVars
   GNestedFragmentVars._();
 
   factory GNestedFragmentVars(
-      [Function(GNestedFragmentVarsBuilder b) updates]) = _$GNestedFragmentVars;
+          [void Function(GNestedFragmentVarsBuilder b) updates]) =
+      _$GNestedFragmentVars;
 
   static Serializer<GNestedFragmentVars> get serializer =>
       _$gNestedFragmentVarsSerializer;
@@ -34,7 +35,7 @@ abstract class GPokemonCardVars
     implements Built<GPokemonCardVars, GPokemonCardVarsBuilder> {
   GPokemonCardVars._();
 
-  factory GPokemonCardVars([Function(GPokemonCardVarsBuilder b) updates]) =
+  factory GPokemonCardVars([void Function(GPokemonCardVarsBuilder b) updates]) =
       _$GPokemonCardVars;
 
   static Serializer<GPokemonCardVars> get serializer =>

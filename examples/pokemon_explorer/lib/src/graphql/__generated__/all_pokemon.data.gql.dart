@@ -15,7 +15,7 @@ abstract class GAllPokemonData
     implements Built<GAllPokemonData, GAllPokemonDataBuilder> {
   GAllPokemonData._();
 
-  factory GAllPokemonData([Function(GAllPokemonDataBuilder b) updates]) =
+  factory GAllPokemonData([void Function(GAllPokemonDataBuilder b) updates]) =
       _$GAllPokemonData;
 
   static void _initializeBuilder(GAllPokemonDataBuilder b) =>
@@ -45,7 +45,7 @@ abstract class GAllPokemonData_pokemons
   GAllPokemonData_pokemons._();
 
   factory GAllPokemonData_pokemons(
-          [Function(GAllPokemonData_pokemonsBuilder b) updates]) =
+          [void Function(GAllPokemonData_pokemonsBuilder b) updates]) =
       _$GAllPokemonData_pokemons;
 
   static void _initializeBuilder(GAllPokemonData_pokemonsBuilder b) =>
@@ -77,7 +77,7 @@ abstract class GAllPokemonData_pokemons_results
   GAllPokemonData_pokemons_results._();
 
   factory GAllPokemonData_pokemons_results(
-          [Function(GAllPokemonData_pokemons_resultsBuilder b) updates]) =
+          [void Function(GAllPokemonData_pokemons_resultsBuilder b) updates]) =
       _$GAllPokemonData_pokemons_results;
 
   static void _initializeBuilder(GAllPokemonData_pokemons_resultsBuilder b) =>
@@ -121,7 +121,7 @@ abstract class GAllPokemonData_pokemons_results_height
   GAllPokemonData_pokemons_results_height._();
 
   factory GAllPokemonData_pokemons_results_height(
-      [Function(GAllPokemonData_pokemons_results_heightBuilder b)
+      [void Function(GAllPokemonData_pokemons_results_heightBuilder b)
           updates]) = _$GAllPokemonData_pokemons_results_height;
 
   static void _initializeBuilder(
@@ -158,7 +158,7 @@ abstract class GAllPokemonData_pokemons_results_weight
   GAllPokemonData_pokemons_results_weight._();
 
   factory GAllPokemonData_pokemons_results_weight(
-      [Function(GAllPokemonData_pokemons_results_weightBuilder b)
+      [void Function(GAllPokemonData_pokemons_results_weightBuilder b)
           updates]) = _$GAllPokemonData_pokemons_results_weight;
 
   static void _initializeBuilder(

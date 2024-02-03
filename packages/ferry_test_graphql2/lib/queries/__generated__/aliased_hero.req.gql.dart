@@ -23,7 +23,7 @@ abstract class GAliasedHeroReq
         _i1.OperationRequest<_i2.GAliasedHeroData, _i3.GAliasedHeroVars> {
   GAliasedHeroReq._();
 
-  factory GAliasedHeroReq([Function(GAliasedHeroReqBuilder b) updates]) =
+  factory GAliasedHeroReq([void Function(GAliasedHeroReqBuilder b) updates]) =
       _$GAliasedHeroReq;
 
   static void _initializeBuilder(GAliasedHeroReqBuilder b) => b
@@ -41,6 +41,7 @@ abstract class GAliasedHeroReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -61,6 +62,9 @@ abstract class GAliasedHeroReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GAliasedHeroData? parseData(Map<String, dynamic> json) =>
       _i2.GAliasedHeroData.fromJson(json);

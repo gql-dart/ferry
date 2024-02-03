@@ -23,7 +23,8 @@ abstract class GReviewsReq
         _i1.OperationRequest<_i2.GReviewsData, _i3.GReviewsVars> {
   GReviewsReq._();
 
-  factory GReviewsReq([Function(GReviewsReqBuilder b) updates]) = _$GReviewsReq;
+  factory GReviewsReq([void Function(GReviewsReqBuilder b) updates]) =
+      _$GReviewsReq;
 
   static void _initializeBuilder(GReviewsReqBuilder b) => b
     ..operation = _i4.Operation(
@@ -40,6 +41,7 @@ abstract class GReviewsReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -60,6 +62,9 @@ abstract class GReviewsReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GReviewsData? parseData(Map<String, dynamic> json) =>
       _i2.GReviewsData.fromJson(json);

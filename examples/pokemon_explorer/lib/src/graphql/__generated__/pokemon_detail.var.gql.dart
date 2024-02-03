@@ -12,7 +12,8 @@ abstract class GPokemonDetailVars
     implements Built<GPokemonDetailVars, GPokemonDetailVarsBuilder> {
   GPokemonDetailVars._();
 
-  factory GPokemonDetailVars([Function(GPokemonDetailVarsBuilder b) updates]) =
+  factory GPokemonDetailVars(
+          [void Function(GPokemonDetailVarsBuilder b) updates]) =
       _$GPokemonDetailVars;
 
   String get id;

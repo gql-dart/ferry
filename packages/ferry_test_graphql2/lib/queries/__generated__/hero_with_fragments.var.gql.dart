@@ -16,7 +16,7 @@ abstract class GHeroWithFragmentsVars
   GHeroWithFragmentsVars._();
 
   factory GHeroWithFragmentsVars(
-          [Function(GHeroWithFragmentsVarsBuilder b) updates]) =
+          [void Function(GHeroWithFragmentsVarsBuilder b) updates]) =
       _$GHeroWithFragmentsVars;
 
   _i1.GEpisode? get episode;
@@ -39,7 +39,7 @@ abstract class GheroDataVars
     implements Built<GheroDataVars, GheroDataVarsBuilder> {
   GheroDataVars._();
 
-  factory GheroDataVars([Function(GheroDataVarsBuilder b) updates]) =
+  factory GheroDataVars([void Function(GheroDataVarsBuilder b) updates]) =
       _$GheroDataVars;
 
   static Serializer<GheroDataVars> get serializer => _$gheroDataVarsSerializer;
@@ -61,7 +61,7 @@ abstract class GcomparisonFieldsVars
   GcomparisonFieldsVars._();
 
   factory GcomparisonFieldsVars(
-          [Function(GcomparisonFieldsVarsBuilder b) updates]) =
+          [void Function(GcomparisonFieldsVarsBuilder b) updates]) =
       _$GcomparisonFieldsVars;
 
   int? get first;

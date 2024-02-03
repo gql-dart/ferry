@@ -23,7 +23,7 @@ abstract class GHeroNoVarsReq
         _i1.OperationRequest<_i2.GHeroNoVarsData, _i3.GHeroNoVarsVars> {
   GHeroNoVarsReq._();
 
-  factory GHeroNoVarsReq([Function(GHeroNoVarsReqBuilder b) updates]) =
+  factory GHeroNoVarsReq([void Function(GHeroNoVarsReqBuilder b) updates]) =
       _$GHeroNoVarsReq;
 
   static void _initializeBuilder(GHeroNoVarsReqBuilder b) => b
@@ -41,6 +41,7 @@ abstract class GHeroNoVarsReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -61,6 +62,9 @@ abstract class GHeroNoVarsReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GHeroNoVarsData? parseData(Map<String, dynamic> json) =>
       _i2.GHeroNoVarsData.fromJson(json);
