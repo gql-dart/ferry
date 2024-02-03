@@ -16,7 +16,7 @@ abstract class GReviewsByIDData
     implements Built<GReviewsByIDData, GReviewsByIDDataBuilder> {
   GReviewsByIDData._();
 
-  factory GReviewsByIDData([Function(GReviewsByIDDataBuilder b) updates]) =
+  factory GReviewsByIDData([void Function(GReviewsByIDDataBuilder b) updates]) =
       _$GReviewsByIDData;
 
   static void _initializeBuilder(GReviewsByIDDataBuilder b) =>
@@ -45,7 +45,7 @@ abstract class GReviewsByIDData_review
   GReviewsByIDData_review._();
 
   factory GReviewsByIDData_review(
-          [Function(GReviewsByIDData_reviewBuilder b) updates]) =
+          [void Function(GReviewsByIDData_reviewBuilder b) updates]) =
       _$GReviewsByIDData_review;
 
   static void _initializeBuilder(GReviewsByIDData_reviewBuilder b) =>

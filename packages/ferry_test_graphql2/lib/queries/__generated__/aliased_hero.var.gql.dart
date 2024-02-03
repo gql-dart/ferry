@@ -15,7 +15,7 @@ abstract class GAliasedHeroVars
     implements Built<GAliasedHeroVars, GAliasedHeroVarsBuilder> {
   GAliasedHeroVars._();
 
-  factory GAliasedHeroVars([Function(GAliasedHeroVarsBuilder b) updates]) =
+  factory GAliasedHeroVars([void Function(GAliasedHeroVarsBuilder b) updates]) =
       _$GAliasedHeroVars;
 
   _i1.GEpisode get ep;

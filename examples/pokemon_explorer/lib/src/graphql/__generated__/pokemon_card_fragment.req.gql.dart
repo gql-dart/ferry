@@ -22,7 +22,8 @@ abstract class GNestedFragmentReq
         _i1.FragmentRequest<_i2.GNestedFragmentData, _i3.GNestedFragmentVars> {
   GNestedFragmentReq._();
 
-  factory GNestedFragmentReq([Function(GNestedFragmentReqBuilder b) updates]) =
+  factory GNestedFragmentReq(
+          [void Function(GNestedFragmentReqBuilder b) updates]) =
       _$GNestedFragmentReq;
 
   static void _initializeBuilder(GNestedFragmentReqBuilder b) => b
@@ -45,7 +46,8 @@ abstract class GNestedFragmentReq
   Map<String, dynamic> varsToJson() => vars.toJson();
 
   @override
-  Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
+  Map<String, dynamic> dataToJson(_i2.GNestedFragmentData data) =>
+      data.toJson();
 
   static Serializer<GNestedFragmentReq> get serializer =>
       _$gNestedFragmentReqSerializer;
@@ -68,7 +70,7 @@ abstract class GPokemonCardReq
         _i1.FragmentRequest<_i2.GPokemonCardData, _i3.GPokemonCardVars> {
   GPokemonCardReq._();
 
-  factory GPokemonCardReq([Function(GPokemonCardReqBuilder b) updates]) =
+  factory GPokemonCardReq([void Function(GPokemonCardReqBuilder b) updates]) =
       _$GPokemonCardReq;
 
   static void _initializeBuilder(GPokemonCardReqBuilder b) => b
@@ -91,7 +93,7 @@ abstract class GPokemonCardReq
   Map<String, dynamic> varsToJson() => vars.toJson();
 
   @override
-  Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
+  Map<String, dynamic> dataToJson(_i2.GPokemonCardData data) => data.toJson();
 
   static Serializer<GPokemonCardReq> get serializer =>
       _$gPokemonCardReqSerializer;

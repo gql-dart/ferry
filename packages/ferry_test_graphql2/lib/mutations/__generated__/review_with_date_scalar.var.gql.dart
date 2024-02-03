@@ -16,7 +16,8 @@ abstract class GReviewWithDateVars
   GReviewWithDateVars._();
 
   factory GReviewWithDateVars(
-      [Function(GReviewWithDateVarsBuilder b) updates]) = _$GReviewWithDateVars;
+          [void Function(GReviewWithDateVarsBuilder b) updates]) =
+      _$GReviewWithDateVars;
 
   _i1.GEpisode? get episode;
   _i1.GReviewInput get review;

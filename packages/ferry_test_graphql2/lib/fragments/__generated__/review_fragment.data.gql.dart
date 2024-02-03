@@ -23,7 +23,8 @@ abstract class GReviewFragmentData
   GReviewFragmentData._();
 
   factory GReviewFragmentData(
-      [Function(GReviewFragmentDataBuilder b) updates]) = _$GReviewFragmentData;
+          [void Function(GReviewFragmentDataBuilder b) updates]) =
+      _$GReviewFragmentData;
 
   static void _initializeBuilder(GReviewFragmentDataBuilder b) =>
       b..G__typename = 'Review';

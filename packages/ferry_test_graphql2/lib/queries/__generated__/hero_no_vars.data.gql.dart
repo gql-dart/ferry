@@ -13,7 +13,7 @@ abstract class GHeroNoVarsData
     implements Built<GHeroNoVarsData, GHeroNoVarsDataBuilder> {
   GHeroNoVarsData._();
 
-  factory GHeroNoVarsData([Function(GHeroNoVarsDataBuilder b) updates]) =
+  factory GHeroNoVarsData([void Function(GHeroNoVarsDataBuilder b) updates]) =
       _$GHeroNoVarsData;
 
   static void _initializeBuilder(GHeroNoVarsDataBuilder b) =>
@@ -42,7 +42,7 @@ abstract class GHeroNoVarsData_hero
   GHeroNoVarsData_hero._();
 
   factory GHeroNoVarsData_hero(
-          [Function(GHeroNoVarsData_heroBuilder b) updates]) =
+          [void Function(GHeroNoVarsData_heroBuilder b) updates]) =
       _$GHeroNoVarsData_hero;
 
   static void _initializeBuilder(GHeroNoVarsData_heroBuilder b) =>

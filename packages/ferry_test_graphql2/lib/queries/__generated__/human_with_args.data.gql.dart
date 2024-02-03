@@ -14,7 +14,8 @@ abstract class GHumanWithArgsData
     implements Built<GHumanWithArgsData, GHumanWithArgsDataBuilder> {
   GHumanWithArgsData._();
 
-  factory GHumanWithArgsData([Function(GHumanWithArgsDataBuilder b) updates]) =
+  factory GHumanWithArgsData(
+          [void Function(GHumanWithArgsDataBuilder b) updates]) =
       _$GHumanWithArgsData;
 
   static void _initializeBuilder(GHumanWithArgsDataBuilder b) =>
@@ -44,7 +45,7 @@ abstract class GHumanWithArgsData_human
   GHumanWithArgsData_human._();
 
   factory GHumanWithArgsData_human(
-          [Function(GHumanWithArgsData_humanBuilder b) updates]) =
+          [void Function(GHumanWithArgsData_humanBuilder b) updates]) =
       _$GHumanWithArgsData_human;
 
   static void _initializeBuilder(GHumanWithArgsData_humanBuilder b) =>
@@ -78,7 +79,7 @@ abstract class GHumanWithArgsData_human_friendsConnection
   GHumanWithArgsData_human_friendsConnection._();
 
   factory GHumanWithArgsData_human_friendsConnection(
-      [Function(GHumanWithArgsData_human_friendsConnectionBuilder b)
+      [void Function(GHumanWithArgsData_human_friendsConnectionBuilder b)
           updates]) = _$GHumanWithArgsData_human_friendsConnection;
 
   static void _initializeBuilder(
@@ -111,7 +112,8 @@ abstract class GHumanWithArgsData_human_friendsConnection_friends
   GHumanWithArgsData_human_friendsConnection_friends._();
 
   factory GHumanWithArgsData_human_friendsConnection_friends(
-      [Function(GHumanWithArgsData_human_friendsConnection_friendsBuilder b)
+      [void Function(
+              GHumanWithArgsData_human_friendsConnection_friendsBuilder b)
           updates]) = _$GHumanWithArgsData_human_friendsConnection_friends;
 
   static void _initializeBuilder(

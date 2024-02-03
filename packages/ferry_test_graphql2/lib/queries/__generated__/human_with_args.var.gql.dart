@@ -13,7 +13,8 @@ abstract class GHumanWithArgsVars
     implements Built<GHumanWithArgsVars, GHumanWithArgsVarsBuilder> {
   GHumanWithArgsVars._();
 
-  factory GHumanWithArgsVars([Function(GHumanWithArgsVarsBuilder b) updates]) =
+  factory GHumanWithArgsVars(
+          [void Function(GHumanWithArgsVarsBuilder b) updates]) =
       _$GHumanWithArgsVars;
 
   String get id;

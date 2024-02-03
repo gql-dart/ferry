@@ -23,7 +23,8 @@ abstract class GHumanWithArgsReq
         _i1.OperationRequest<_i2.GHumanWithArgsData, _i3.GHumanWithArgsVars> {
   GHumanWithArgsReq._();
 
-  factory GHumanWithArgsReq([Function(GHumanWithArgsReqBuilder b) updates]) =
+  factory GHumanWithArgsReq(
+          [void Function(GHumanWithArgsReqBuilder b) updates]) =
       _$GHumanWithArgsReq;
 
   static void _initializeBuilder(GHumanWithArgsReqBuilder b) => b
@@ -41,6 +42,7 @@ abstract class GHumanWithArgsReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -61,6 +63,9 @@ abstract class GHumanWithArgsReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GHumanWithArgsData? parseData(Map<String, dynamic> json) =>
       _i2.GHumanWithArgsData.fromJson(json);
