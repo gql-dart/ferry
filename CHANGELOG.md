@@ -11,6 +11,27 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 Packages with breaking changes:
 
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`ferry_flutter` - `v0.9.0-dev.0+1`](#ferry_flutter---v090-dev01)
+
+---
+
+#### `ferry_flutter` - `v0.9.0-dev.0+1`
+
+ - **DOCS**: add topics (#548).
+
+
+## 2024-02-03
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
  - [`ferry_hive_store` - `v0.5.2`](#ferry_hive_store---v052)
  - [`ferry_store` - `v0.5.3+1`](#ferry_store---v0531)
  - [`normalize` - `v0.9.1`](#normalize---v091)
