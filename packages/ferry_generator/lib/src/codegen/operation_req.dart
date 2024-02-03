@@ -65,6 +65,10 @@ Class _buildOperationReqClass(
           ).call([], {
             'operation': refer('operation'),
             'variables': refer('vars').property('toJson').call([]),
+            'context': refer('context').ifNullThen(refer(
+              'Context',
+              'package:gql_exec/gql_exec.dart',
+            ).constInstance([])),
           }).code,
       ),
       Method(
@@ -146,6 +150,24 @@ Class _buildOperationReqClass(
           ..returns = refer('bool')
           ..type = MethodType.getter
           ..name = 'executeOnListen',
+      ),
+      Method(
+        (b) => b
+          ..annotations.addAll([
+            refer('override'),
+            refer('BuiltValueField', 'package:built_value/built_value.dart')
+                .call([], {
+              'serialize': refer('false'),
+            }),
+          ])
+          ..returns = TypeReference(
+            (b) => b
+              ..symbol = 'Context'
+              ..url = 'package:gql_exec/gql_exec.dart'
+              ..isNullable = true,
+          )
+          ..type = MethodType.getter
+          ..name = 'context',
       ),
       Method(
         (b) => b

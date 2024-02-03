@@ -35,6 +35,9 @@ class JsonOperationRequest
   @override
   Request get execRequest => Request(operation: operation, variables: vars);
 
+  @override
+  final Context? context;
+
   JsonOperationRequest(
       {required this.operation,
       required this.fetchPolicy,
@@ -44,7 +47,8 @@ class JsonOperationRequest
       this.executeOnListen = true,
       required this.vars,
       this.updateResult,
-      this.optimisticResponse});
+      this.optimisticResponse,
+      this.context});
 
   @override
   Map<String, dynamic> parseData(Map<String, dynamic> json) => json;
@@ -93,15 +97,15 @@ class JsonOperationRequest
   JsonOperationRequest transformOperation(
       Operation Function(Operation) transform) {
     return JsonOperationRequest(
-      operation: transform(operation),
-      fetchPolicy: fetchPolicy,
-      vars: vars,
-      requestId: requestId,
-      updateCacheHandlerKey: updateCacheHandlerKey,
-      updateCacheHandlerContext: updateCacheHandlerContext,
-      executeOnListen: executeOnListen,
-      updateResult: updateResult,
-      optimisticResponse: optimisticResponse,
-    );
+        operation: transform(operation),
+        fetchPolicy: fetchPolicy,
+        vars: vars,
+        requestId: requestId,
+        updateCacheHandlerKey: updateCacheHandlerKey,
+        updateCacheHandlerContext: updateCacheHandlerContext,
+        executeOnListen: executeOnListen,
+        updateResult: updateResult,
+        optimisticResponse: optimisticResponse,
+        context: context);
   }
 }

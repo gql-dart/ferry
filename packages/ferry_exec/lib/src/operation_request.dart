@@ -36,6 +36,9 @@ abstract interface class OperationRequest<TData, TVars> {
   /// controller when the stream returned by `request()` is listened to
   bool get executeOnListen;
 
+  /// The [Context] to be passed to links.
+  Context? get context;
+
   /// Parses data into a concrete type for the given operation
   ///
   /// This is a simple wrapper on the static fromJson method on the generated class.
