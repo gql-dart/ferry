@@ -1,3 +1,5 @@
+## 0.16.0
+
 ## 0.15.0-dev.8
 
  - **FEAT**: pass context to gql links.
