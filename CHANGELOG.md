@@ -15,6 +15,27 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`ferry_test_graphql2` - `v0.3.0`](#ferry_test_graphql2---v030)
+
+---
+
+#### `ferry_test_graphql2` - `v0.3.0`
+
+ - update generated code
+
+
+## 2024-02-03
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`ferry` - `v0.16.0`](#ferry---v0160)
  - [`ferry_flutter` - `v0.9.0-dev.9`](#ferry_flutter---v090-dev9)
 

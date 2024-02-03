@@ -1,3 +1,7 @@
+## 0.3.0
+
+ - update generated code
+
 ## 0.2.4-dev.5
 
  - **FEAT**: update generated code.
