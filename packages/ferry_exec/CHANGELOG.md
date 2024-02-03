@@ -1,3 +1,7 @@
+## 0.5.0-dev.1
+
+ - **FEAT**: pass context to gql links.
+
 ## 0.5.0-dev.0+1
 
  - **DOCS**: add topics (#548).

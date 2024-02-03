@@ -1,3 +1,7 @@
+## 0.2.4-dev.5
+
+ - **FEAT**: update generated code.
+
 ## 0.2.4-dev.4
 
  - **FEAT**(vars-builder-generator): Adding gql_code_builder vars builder dep.

@@ -3,6 +3,51 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2024-02-03
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`ferry` - `v0.15.0-dev.8`](#ferry---v0150-dev8)
+ - [`ferry_exec` - `v0.5.0-dev.1`](#ferry_exec---v050-dev1)
+ - [`ferry_generator` - `v0.9.1-dev.2`](#ferry_generator---v091-dev2)
+ - [`ferry_test_graphql2` - `v0.2.4-dev.5`](#ferry_test_graphql2---v024-dev5)
+ - [`ferry_flutter` - `v0.9.0-dev.8`](#ferry_flutter---v090-dev8)
+ - [`ferry_cache` - `v0.8.0-dev.2`](#ferry_cache---v080-dev2)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `ferry_flutter` - `v0.9.0-dev.8`
+ - `ferry_cache` - `v0.8.0-dev.2`
+
+---
+
+#### `ferry` - `v0.15.0-dev.8`
+
+ - **FEAT**: pass context to gql links.
+
+#### `ferry_exec` - `v0.5.0-dev.1`
+
+ - **FEAT**: pass context to gql links.
+
+#### `ferry_generator` - `v0.9.1-dev.2`
+
+ - **FEAT**: pass context to gql links.
+
+#### `ferry_test_graphql2` - `v0.2.4-dev.5`
+
+ - **FEAT**: update generated code.
+
+
 ## 2024-01-16
 
 ### Changes

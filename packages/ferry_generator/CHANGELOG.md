@@ -1,3 +1,7 @@
+## 0.9.1-dev.2
+
+ - **FEAT**: pass context to gql links.
+
 ## 0.9.1-dev.1
 
  - **FEAT**(vars-builder-generator): Adding documentation for new codegen options.
