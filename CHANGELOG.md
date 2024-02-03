@@ -11,6 +11,49 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 Packages with breaking changes:
 
+ - [`ferry_hive_store` - `v0.5.2`](#ferry_hive_store---v052)
+ - [`ferry_store` - `v0.5.3+1`](#ferry_store---v0531)
+ - [`normalize` - `v0.9.1`](#normalize---v091)
+
+Packages with other changes:
+
+ - [`ferry_flutter` - `v0.9.0`](#ferry_flutter---v090)
+ - [`ferry_cache` - `v0.9.0+1`](#ferry_cache---v0901)
+ - [`ferry` - `v0.16.0+1`](#ferry---v01601)
+
+Packages graduated to a stable release (see pre-releases prior to the stable version for changelog entries):
+
+ - `ferry_flutter` - `v0.9.0`
+ - `ferry_hive_store` - `v0.5.2`
+ - `ferry_store` - `v0.5.3+1`
+ - `normalize` - `v0.9.1`
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `ferry_cache` - `v0.9.0+1`
+ - `ferry` - `v0.16.0+1`
+
+---
+
+#### `ferry_hive_store` - `v0.5.2`
+
+#### `ferry_store` - `v0.5.3+1`
+
+#### `normalize` - `v0.9.1`
+
+#### `ferry_flutter` - `v0.9.0`
+
+
+## 2024-02-03
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
  - There are no breaking changes in this release.
 
 Packages with other changes:
