@@ -1,10 +1,8 @@
 ## 0.6.0
 
- - - **FEAT**: pass context to gql links.
+> Note: This release has breaking changes.
 
-## 0.6.0
-
-- **FEAT**: pass context to gql links.
+- **BREAKING** **FEAT**: pass context to gql links.
 
 ## 0.5.0-dev.0+1
 

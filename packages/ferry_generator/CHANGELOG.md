@@ -1,30 +1,29 @@
 ## 0.10.0
 
-## 0.9.1-dev.2
-
- - **FEAT**: pass context to gql links.
+- **FEAT**: pass context to gql links.
 
 ## 0.9.1-dev.1
 
- - **FEAT**(vars-builder-generator): Adding documentation for new codegen options.
+- **FEAT**(vars-builder-generator): Adding documentation for new codegen options.
 
 ## 0.9.1-dev.0
 
- - Bump "ferry_generator" to `0.9.1-dev.0`.
+- Bump "ferry_generator" to `0.9.1-dev.0`.
 
 ## 0.9.1
 
- - Bump "ferry_generator" to `0.9.1`.
+- Bump "ferry_generator" to `0.9.1`.
 
 ## 0.9.0-dev.2
 
- - **FEAT**(ferry_generator): allow analyzer 6.0.
+- **FEAT**(ferry_generator): allow analyzer 6.0.
 
 ## 0.9.0-dev.1
 
 > Note: This release has breaking changes.
 
- - **BREAKING** **FEAT**(ferry_generator): make dataToJson() method type safe by using the generic data type instead of dynamic.
+- **BREAKING** **FEAT**(ferry_generator): make dataToJson() method type safe by using the generic
+  data type instead of dynamic.
 
 ## 0.9.0-dev.0+1
 
