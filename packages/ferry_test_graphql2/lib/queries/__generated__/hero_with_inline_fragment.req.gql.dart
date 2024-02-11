@@ -24,7 +24,8 @@ abstract class GHeroForEpisodeReq
         _i1.OperationRequest<_i2.GHeroForEpisodeData, _i3.GHeroForEpisodeVars> {
   GHeroForEpisodeReq._();
 
-  factory GHeroForEpisodeReq([Function(GHeroForEpisodeReqBuilder b) updates]) =
+  factory GHeroForEpisodeReq(
+          [void Function(GHeroForEpisodeReqBuilder b) updates]) =
       _$GHeroForEpisodeReq;
 
   static void _initializeBuilder(GHeroForEpisodeReqBuilder b) => b
@@ -42,6 +43,7 @@ abstract class GHeroForEpisodeReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -62,6 +64,9 @@ abstract class GHeroForEpisodeReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GHeroForEpisodeData? parseData(Map<String, dynamic> json) =>
       _i2.GHeroForEpisodeData.fromJson(json);
@@ -99,7 +104,8 @@ abstract class GDroidFragmentReq
         _i1.FragmentRequest<_i2.GDroidFragmentData, _i3.GDroidFragmentVars> {
   GDroidFragmentReq._();
 
-  factory GDroidFragmentReq([Function(GDroidFragmentReqBuilder b) updates]) =
+  factory GDroidFragmentReq(
+          [void Function(GDroidFragmentReqBuilder b) updates]) =
       _$GDroidFragmentReq;
 
   static void _initializeBuilder(GDroidFragmentReqBuilder b) => b

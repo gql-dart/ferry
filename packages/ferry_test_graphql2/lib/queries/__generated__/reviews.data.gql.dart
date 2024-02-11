@@ -16,7 +16,7 @@ abstract class GReviewsData
     implements Built<GReviewsData, GReviewsDataBuilder> {
   GReviewsData._();
 
-  factory GReviewsData([Function(GReviewsDataBuilder b) updates]) =
+  factory GReviewsData([void Function(GReviewsDataBuilder b) updates]) =
       _$GReviewsData;
 
   static void _initializeBuilder(GReviewsDataBuilder b) =>
@@ -44,7 +44,7 @@ abstract class GReviewsData_reviews
   GReviewsData_reviews._();
 
   factory GReviewsData_reviews(
-          [Function(GReviewsData_reviewsBuilder b) updates]) =
+          [void Function(GReviewsData_reviewsBuilder b) updates]) =
       _$GReviewsData_reviews;
 
   static void _initializeBuilder(GReviewsData_reviewsBuilder b) =>

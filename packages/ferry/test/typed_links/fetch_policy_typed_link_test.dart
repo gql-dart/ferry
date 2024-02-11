@@ -12,6 +12,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:ferry/src/fetch_policy_typed_link.dart';
 import 'package:ferry_test_graphql2/queries/__generated__/human_with_args.req.gql.dart';
 import 'package:ferry_test_graphql2/queries/__generated__/human_with_args.data.gql.dart';
+import 'package:ferry_test_graphql2/fragments/__generated__/human_fragment.req.gql.dart';
 
 import './fetch_policy_typed_link_test.mocks.dart';
 
@@ -50,10 +51,13 @@ void main() {
     late StreamController<OperationRequest> requestController;
     late TypedLink typedLink;
     late Cache cache;
+    late FetchPolicyTypedLink fetchPolicyTypedLink;
 
     setUp(() {
       requestController = StreamController<OperationRequest>();
       cache = Cache();
+      fetchPolicyTypedLink = FetchPolicyTypedLink(link: mockLink, cache: cache);
+
       typedLink = TypedLink.from([
         TypedLink.function(
           <TData, TVars>(req, [forward]) => requestController.stream
@@ -62,7 +66,7 @@ void main() {
                 (req) => forward!(req),
               ),
         ),
-        FetchPolicyTypedLink(link: mockLink, cache: cache),
+        fetchPolicyTypedLink,
       ]);
     });
 
@@ -164,6 +168,54 @@ void main() {
           ]),
         );
       });
+
+      test('emit new event when cache changes', () async {
+        final modifiedName = 'modified name';
+        final modifiedData = GHumanWithArgsData(
+          (b) => b
+            ..human.id = 'steve'
+            ..human.name = modifiedName
+            ..human.height = 1.88,
+        );
+
+        when(mockLink.request(any, any)).thenAnswer((_) => Stream.fromIterable([
+              Response(data: data.toJson(), response: {}),
+            ]));
+
+        final stream = fetchPolicyTypedLink.request(req);
+
+        unawaited(expectLater(
+          stream,
+          emitsInOrder([
+            //  Data emitted from making a request.
+            equals(
+              OperationResponse(
+                operationRequest: req,
+                dataSource: DataSource.Link,
+                data: data,
+              ),
+            ),
+            // Data emitted because of changes in cache [writeFragment].
+            equals(
+              OperationResponse(
+                operationRequest: req,
+                dataSource: DataSource.Cache,
+                data: modifiedData,
+              ),
+            ),
+          ]),
+        ));
+
+        await pumpEventQueue();
+
+        final fragmentRequest = GHumanFragmentReq(
+          (b) => b.idFields = {'id': 'steve'},
+        );
+        final currentCacheData = cache.readFragment(fragmentRequest);
+        final modifiedCacheData =
+            currentCacheData!.rebuild((b) => b.name = modifiedName);
+        cache.writeFragment(fragmentRequest, modifiedCacheData);
+      });
     });
 
     group('.NetworkOnly', () {
@@ -184,6 +236,54 @@ void main() {
         requestController.add(req);
         final second = await queue.next;
         expect(second.dataSource, equals(DataSource.Link));
+      });
+
+      test('emit new event when cache changes', () async {
+        final modifiedName = 'modified name';
+        final modifiedData = GHumanWithArgsData(
+          (b) => b
+            ..human.id = 'steve'
+            ..human.name = modifiedName
+            ..human.height = 1.88,
+        );
+
+        when(mockLink.request(any, any)).thenAnswer((_) => Stream.fromIterable([
+              Response(data: data.toJson(), response: {}),
+            ]));
+
+        final stream = fetchPolicyTypedLink.request(req);
+
+        unawaited(expectLater(
+          stream,
+          emitsInOrder([
+            //  Data emitted from making a request.
+            equals(
+              OperationResponse(
+                operationRequest: req,
+                dataSource: DataSource.Link,
+                data: data,
+              ),
+            ),
+            // Data emitted because of changes in cache [writeFragment].
+            equals(
+              OperationResponse(
+                operationRequest: req,
+                dataSource: DataSource.Cache,
+                data: modifiedData,
+              ),
+            ),
+          ]),
+        ));
+
+        await pumpEventQueue();
+
+        final fragmentRequest = GHumanFragmentReq(
+          (b) => b.idFields = {'id': 'steve'},
+        );
+        final currentCacheData = cache.readFragment(fragmentRequest);
+        final modifiedCacheData =
+            currentCacheData!.rebuild((b) => b.name = modifiedName);
+        cache.writeFragment(fragmentRequest, modifiedCacheData);
       });
     });
 
@@ -208,6 +308,56 @@ void main() {
         final response = await queue.next;
         expect(response.dataSource, equals(DataSource.Cache));
         expect(response.data, equals(data));
+      });
+
+      test('emit new event when cache changes', () async {
+        final modifiedName = 'modified name';
+        final modifiedData = GHumanWithArgsData(
+          (b) => b
+            ..human.id = 'steve'
+            ..human.name = modifiedName
+            ..human.height = 1.88,
+        );
+
+        when(mockLink.request(any, any)).thenAnswer((_) => Stream.fromIterable([
+              Response(data: data.toJson(), response: {}),
+            ]));
+
+        final stream = fetchPolicyTypedLink.request(req);
+        // Inistal cache data.
+        cache.writeQuery(req, data);
+
+        unawaited(expectLater(
+          stream,
+          emitsInOrder([
+            //  Initial data emitted from cache.
+            equals(
+              OperationResponse(
+                operationRequest: req,
+                dataSource: DataSource.Cache,
+                data: data,
+              ),
+            ),
+            // Data emitted because of changes in cache [writeFragment].
+            equals(
+              OperationResponse(
+                operationRequest: req,
+                dataSource: DataSource.Cache,
+                data: modifiedData,
+              ),
+            ),
+          ]),
+        ));
+
+        await pumpEventQueue();
+
+        final fragmentRequest = GHumanFragmentReq(
+          (b) => b.idFields = {'id': 'steve'},
+        );
+        final currentCacheData = cache.readFragment(fragmentRequest);
+        final modifiedCacheData =
+            currentCacheData!.rebuild((b) => b.name = modifiedName);
+        cache.writeFragment(fragmentRequest, modifiedCacheData);
       });
     });
 

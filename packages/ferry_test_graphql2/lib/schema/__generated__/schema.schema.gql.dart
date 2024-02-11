@@ -46,7 +46,7 @@ abstract class GReviewInput
     implements Built<GReviewInput, GReviewInputBuilder> {
   GReviewInput._();
 
-  factory GReviewInput([Function(GReviewInputBuilder b) updates]) =
+  factory GReviewInput([void Function(GReviewInputBuilder b) updates]) =
       _$GReviewInput;
 
   int get stars;
@@ -70,7 +70,8 @@ abstract class GReviewInput
 abstract class GColorInput implements Built<GColorInput, GColorInputBuilder> {
   GColorInput._();
 
-  factory GColorInput([Function(GColorInputBuilder b) updates]) = _$GColorInput;
+  factory GColorInput([void Function(GColorInputBuilder b) updates]) =
+      _$GColorInput;
 
   int get red;
   int get green;

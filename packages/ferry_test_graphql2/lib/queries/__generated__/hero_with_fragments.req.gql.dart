@@ -26,7 +26,7 @@ abstract class GHeroWithFragmentsReq
   GHeroWithFragmentsReq._();
 
   factory GHeroWithFragmentsReq(
-          [Function(GHeroWithFragmentsReqBuilder b) updates]) =
+          [void Function(GHeroWithFragmentsReqBuilder b) updates]) =
       _$GHeroWithFragmentsReq;
 
   static void _initializeBuilder(GHeroWithFragmentsReqBuilder b) => b
@@ -44,6 +44,7 @@ abstract class GHeroWithFragmentsReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -64,6 +65,9 @@ abstract class GHeroWithFragmentsReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GHeroWithFragmentsData? parseData(Map<String, dynamic> json) =>
       _i2.GHeroWithFragmentsData.fromJson(json);
@@ -101,7 +105,7 @@ abstract class GheroDataReq
         _i1.FragmentRequest<_i2.GheroDataData, _i3.GheroDataVars> {
   GheroDataReq._();
 
-  factory GheroDataReq([Function(GheroDataReqBuilder b) updates]) =
+  factory GheroDataReq([void Function(GheroDataReqBuilder b) updates]) =
       _$GheroDataReq;
 
   static void _initializeBuilder(GheroDataReqBuilder b) => b
@@ -148,7 +152,7 @@ abstract class GcomparisonFieldsReq
   GcomparisonFieldsReq._();
 
   factory GcomparisonFieldsReq(
-          [Function(GcomparisonFieldsReqBuilder b) updates]) =
+          [void Function(GcomparisonFieldsReqBuilder b) updates]) =
       _$GcomparisonFieldsReq;
 
   static void _initializeBuilder(GcomparisonFieldsReqBuilder b) => b

@@ -14,7 +14,8 @@ abstract class GReviewFragmentVars
   GReviewFragmentVars._();
 
   factory GReviewFragmentVars(
-      [Function(GReviewFragmentVarsBuilder b) updates]) = _$GReviewFragmentVars;
+          [void Function(GReviewFragmentVarsBuilder b) updates]) =
+      _$GReviewFragmentVars;
 
   static Serializer<GReviewFragmentVars> get serializer =>
       _$gReviewFragmentVarsSerializer;

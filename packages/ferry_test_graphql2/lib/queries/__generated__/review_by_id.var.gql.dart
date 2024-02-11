@@ -13,7 +13,7 @@ abstract class GReviewsByIDVars
     implements Built<GReviewsByIDVars, GReviewsByIDVarsBuilder> {
   GReviewsByIDVars._();
 
-  factory GReviewsByIDVars([Function(GReviewsByIDVarsBuilder b) updates]) =
+  factory GReviewsByIDVars([void Function(GReviewsByIDVarsBuilder b) updates]) =
       _$GReviewsByIDVars;
 
   String get id;

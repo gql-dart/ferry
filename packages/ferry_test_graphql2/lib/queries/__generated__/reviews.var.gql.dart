@@ -15,7 +15,7 @@ abstract class GReviewsVars
     implements Built<GReviewsVars, GReviewsVarsBuilder> {
   GReviewsVars._();
 
-  factory GReviewsVars([Function(GReviewsVarsBuilder b) updates]) =
+  factory GReviewsVars([void Function(GReviewsVarsBuilder b) updates]) =
       _$GReviewsVars;
 
   _i1.GEpisode? get episode;
