@@ -1,3 +1,7 @@
+## 0.6.1-dev.0+1
+
+ - **DOCS**(ferry_exec): fix typo.
+
 ## 0.6.1
 
 - Graduate package to a stable release. See pre-releases prior to this version for changelog
