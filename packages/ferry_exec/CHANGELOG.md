@@ -1,3 +1,7 @@
+## 0.6.0-dev.0+1
+
+ - **FIX**(ferry_exec): pass context for JsonOperationRequests (#580).
+
 ## 0.6.0
 
 > Note: This release has breaking changes.
