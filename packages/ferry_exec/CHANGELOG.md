@@ -1,10 +1,11 @@
 ## 0.6.1
 
- - n
+- Graduate package to a stable release. See pre-releases prior to this version for changelog
+  entries.
 
 ## 0.6.0-dev.0+1
 
- - **FIX**(ferry_exec): pass context for JsonOperationRequests (#580).
+- **FIX**(ferry_exec): pass context for JsonOperationRequests (#580).
 
 ## 0.6.0
 
