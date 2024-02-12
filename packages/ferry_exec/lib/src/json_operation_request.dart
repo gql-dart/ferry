@@ -33,7 +33,10 @@ class JsonOperationRequest
   final Operation operation;
 
   @override
-  Request get execRequest => Request(operation: operation, variables: vars);
+  Request get execRequest => Request(
+      operation: operation,
+      variables: vars,
+      context: context ?? const Context());
 
   @override
   final Context? context;
