@@ -15,6 +15,42 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`ferry_exec` - `v0.6.1`](#ferry_exec---v061)
+ - [`ferry_flutter` - `v0.9.0-dev.2`](#ferry_flutter---v090-dev2)
+ - [`ferry` - `v0.16.0-dev.1`](#ferry---v0160-dev1)
+ - [`ferry_cache` - `v0.9.0-dev.1`](#ferry_cache---v090-dev1)
+ - [`ferry_generator` - `v0.10.0-dev.1`](#ferry_generator---v0100-dev1)
+ - [`ferry_test_graphql2` - `v0.3.0-dev.1`](#ferry_test_graphql2---v030-dev1)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `ferry_flutter` - `v0.9.0-dev.2`
+ - `ferry` - `v0.16.0-dev.1`
+ - `ferry_cache` - `v0.9.0-dev.1`
+ - `ferry_generator` - `v0.10.0-dev.1`
+ - `ferry_test_graphql2` - `v0.3.0-dev.1`
+
+---
+
+#### `ferry_exec` - `v0.6.1`
+
+ - n
+
+
+## 2024-02-12
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`ferry_exec` - `v0.6.0-dev.0+1`](#ferry_exec---v060-dev01)
  - [`ferry_cache` - `v0.9.0-dev.0+2`](#ferry_cache---v090-dev02)
  - [`ferry_generator` - `v0.10.0-dev.0+1`](#ferry_generator---v0100-dev01)
