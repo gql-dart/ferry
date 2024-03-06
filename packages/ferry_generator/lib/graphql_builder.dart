@@ -129,7 +129,9 @@ class GraphqlBuilder implements Builder {
           config.enumFallbackConfig,
           generatePossibleTypesMap: config.shouldGeneratePossibleTypes,
           allocator: schemaAllocator,
-          triStateValueConfig: triStateValueConfig),
+          triStateValueConfig: triStateValueConfig,
+          generateVarsCreateFactories:
+              config.shouldGenerateVarsCreateFactories),
     };
 
     for (var entry in libs.entries) {
