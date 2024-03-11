@@ -1,3 +1,7 @@
+## 0.3.0-dev.2
+
+ - **FEAT**(ferry_generator): Passing through builder options to schema builder (#585).
+
 ## 0.3.0-dev.1
 
  - Update a dependency to the latest release.

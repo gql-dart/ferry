@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2024-03-11
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`ferry_generator` - `v0.10.0-dev.2`](#ferry_generator---v0100-dev2)
+ - [`ferry_test_graphql2` - `v0.3.0-dev.2`](#ferry_test_graphql2---v030-dev2)
+
+---
+
+#### `ferry_generator` - `v0.10.0-dev.2`
+
+ - **FEAT**(ferry_generator): Passing through builder options to schema builder (#585).
+
+#### `ferry_test_graphql2` - `v0.3.0-dev.2`
+
+ - **FEAT**(ferry_generator): Passing through builder options to schema builder (#585).
+
+
 ## 2024-02-12
 
 ### Changes
