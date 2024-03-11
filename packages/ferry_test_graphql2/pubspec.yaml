@@ -12,12 +12,7 @@ dependencies:
   ferry_exec: ^0.6.1-dev.0+1
   built_value: ^8.0.4
   built_collection: ^5.0.0
-  #gql_code_builder: ^0.10.0+1
-  gql_code_builder: 
-    git:
-      url: 'https://github.com/gql-dart/gql.git'
-      ref: 'bfafca57c04e5615bb38cd74f6e6b3e71d18994f'
-      path: ./codegen/gql_code_builder
+  gql_code_builder: ^0.11.0
 dev_dependencies:
   test: ^1.16.8
   build_runner: ^2.0.2
