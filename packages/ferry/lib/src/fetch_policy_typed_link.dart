@@ -72,7 +72,8 @@ class FetchPolicyTypedLink extends TypedLink {
             .request(operationRequest)
             .doOnData(_removeOptimisticPatch)
             .doOnData(_writeToCache)
-            .doOnCancel(() => cache.removeOptimisticPatch(operationRequest));
+            .doOnCancel(() => cache.removeOptimisticPatch(operationRequest))
+            .concatWith([_cacheTypedLink.request(operationRequest).skip(1)]);
       case FetchPolicy.CacheOnly:
         return _cacheTypedLink.request(operationRequest);
       case FetchPolicy.CacheFirst:

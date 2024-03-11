@@ -5,6 +5,8 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
+import 'package:ferry_test_graphql2/fragments/__generated__/human_fragment.data.gql.dart'
+    as _i2;
 import 'package:ferry_test_graphql2/schema/__generated__/serializers.gql.dart'
     as _i1;
 
@@ -41,7 +43,8 @@ abstract class GHumanWithArgsData
 
 abstract class GHumanWithArgsData_human
     implements
-        Built<GHumanWithArgsData_human, GHumanWithArgsData_humanBuilder> {
+        Built<GHumanWithArgsData_human, GHumanWithArgsData_humanBuilder>,
+        _i2.GHumanFragment {
   GHumanWithArgsData_human._();
 
   factory GHumanWithArgsData_human(
@@ -51,15 +54,21 @@ abstract class GHumanWithArgsData_human
   static void _initializeBuilder(GHumanWithArgsData_humanBuilder b) =>
       b..G__typename = 'Human';
 
+  @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
+  @override
   String get id;
+  @override
   String get name;
+  @override
   double? get height;
+  @override
   GHumanWithArgsData_human_friendsConnection get friendsConnection;
   static Serializer<GHumanWithArgsData_human> get serializer =>
       _$gHumanWithArgsDataHumanSerializer;
 
+  @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GHumanWithArgsData_human.serializer,
         this,
@@ -75,7 +84,8 @@ abstract class GHumanWithArgsData_human
 abstract class GHumanWithArgsData_human_friendsConnection
     implements
         Built<GHumanWithArgsData_human_friendsConnection,
-            GHumanWithArgsData_human_friendsConnectionBuilder> {
+            GHumanWithArgsData_human_friendsConnectionBuilder>,
+        _i2.GHumanFragment_friendsConnection {
   GHumanWithArgsData_human_friendsConnection._();
 
   factory GHumanWithArgsData_human_friendsConnection(
@@ -86,12 +96,15 @@ abstract class GHumanWithArgsData_human_friendsConnection
           GHumanWithArgsData_human_friendsConnectionBuilder b) =>
       b..G__typename = 'FriendsConnection';
 
+  @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
+  @override
   BuiltList<GHumanWithArgsData_human_friendsConnection_friends?>? get friends;
   static Serializer<GHumanWithArgsData_human_friendsConnection>
       get serializer => _$gHumanWithArgsDataHumanFriendsConnectionSerializer;
 
+  @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GHumanWithArgsData_human_friendsConnection.serializer,
         this,
@@ -108,7 +121,8 @@ abstract class GHumanWithArgsData_human_friendsConnection
 abstract class GHumanWithArgsData_human_friendsConnection_friends
     implements
         Built<GHumanWithArgsData_human_friendsConnection_friends,
-            GHumanWithArgsData_human_friendsConnection_friendsBuilder> {
+            GHumanWithArgsData_human_friendsConnection_friendsBuilder>,
+        _i2.GHumanFragment_friendsConnection_friends {
   GHumanWithArgsData_human_friendsConnection_friends._();
 
   factory GHumanWithArgsData_human_friendsConnection_friends(
@@ -120,14 +134,18 @@ abstract class GHumanWithArgsData_human_friendsConnection_friends
           GHumanWithArgsData_human_friendsConnection_friendsBuilder b) =>
       b..G__typename = 'Character';
 
+  @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
+  @override
   String get id;
+  @override
   String get name;
   static Serializer<GHumanWithArgsData_human_friendsConnection_friends>
       get serializer =>
           _$gHumanWithArgsDataHumanFriendsConnectionFriendsSerializer;
 
+  @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GHumanWithArgsData_human_friendsConnection_friends.serializer,
         this,

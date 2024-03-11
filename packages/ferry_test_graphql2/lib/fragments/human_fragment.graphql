@@ -1,0 +1,11 @@
+fragment HumanFragment on Human {
+  id
+  name
+  height
+  friendsConnection(first: 10, after: $friendsAfter) {
+    friends {
+      id
+      name
+    }
+  }
+}

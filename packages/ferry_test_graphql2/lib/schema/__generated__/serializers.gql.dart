@@ -6,6 +6,15 @@ import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart' show StandardJsonPlugin;
 import 'package:ferry_exec/ferry_exec.dart';
 import 'package:ferry_test_graphql2/date_serializer.dart' show DateSerializer;
+import 'package:ferry_test_graphql2/fragments/__generated__/human_fragment.data.gql.dart'
+    show
+        GHumanFragmentData,
+        GHumanFragmentData_friendsConnection,
+        GHumanFragmentData_friendsConnection_friends;
+import 'package:ferry_test_graphql2/fragments/__generated__/human_fragment.req.gql.dart'
+    show GHumanFragmentReq;
+import 'package:ferry_test_graphql2/fragments/__generated__/human_fragment.var.gql.dart'
+    show GHumanFragmentVars;
 import 'package:ferry_test_graphql2/fragments/__generated__/review_fragment.data.gql.dart'
     show GReviewFragmentData;
 import 'package:ferry_test_graphql2/fragments/__generated__/review_fragment.req.gql.dart'
@@ -128,6 +137,11 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GHeroWithFragmentsData_hero_friendsConnection_edges,
   GHeroWithFragmentsReq,
   GHeroWithFragmentsVars,
+  GHumanFragmentData,
+  GHumanFragmentData_friendsConnection,
+  GHumanFragmentData_friendsConnection_friends,
+  GHumanFragmentReq,
+  GHumanFragmentVars,
   GHumanWithArgsData,
   GHumanWithArgsData_human,
   GHumanWithArgsData_human_friendsConnection,
