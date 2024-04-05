@@ -10,5 +10,5 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final client = await initIsolateClient();
   GetIt.I.registerLazySingleton<TypedLink>(() => client);
-  runApp(App());
+  runApp(const App());
 }

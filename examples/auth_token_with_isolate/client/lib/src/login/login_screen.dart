@@ -71,10 +71,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 16),
                   if (error != null)
                     Text(error!,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText2!
-                            .copyWith(color: Theme.of(context).errorColor)),
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: Theme.of(context).colorScheme.error)),
                   Consumer(
                     builder: (context, ref, _) => ElevatedButton(
                       onPressed: () async {

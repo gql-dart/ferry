@@ -5,7 +5,7 @@ import './graphql/__generated__/pokemon_card_fragment.data.gql.dart';
 class PokemonCard extends StatelessWidget {
   final GPokemonCard pokemon;
 
-  const PokemonCard({required this.pokemon});
+  const PokemonCard({super.key, required this.pokemon});
 
   @override
   Widget build(BuildContext context) {
@@ -30,15 +30,15 @@ class PokemonCard extends StatelessWidget {
               ),
               Text(
                 pokemon.name,
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).textTheme.titleLarge,
               ),
               Text(
                 'height: ${pokemon.height?.in_meter ?? 0}',
-                style: Theme.of(context).textTheme.subtitle1,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
               Text(
                 'weight: ${pokemon.weight?.in_kg ?? 0}',
-                style: Theme.of(context).textTheme.subtitle1,
+                style: Theme.of(context).textTheme.titleMedium,
               )
             ],
           ),
