@@ -4,6 +4,8 @@ import 'pokemon_list.dart';
 import './pokemon_detail.dart';
 
 class App extends StatelessWidget {
+  const App({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,7 +19,7 @@ class App extends StatelessWidget {
                 builder: (_) => PokemonDetailScreen(
                     id: (settings.arguments as Map)["id"]!));
           default:
-            return MaterialPageRoute(builder: (_) => Scaffold());
+            return MaterialPageRoute(builder: (_) => const Scaffold());
         }
       },
     );

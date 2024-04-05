@@ -71,10 +71,10 @@ class MyHomePage extends StatelessWidget {
         title: const Text("Authors"),
         actions: const [_LogoutAction()],
       ),
-      body: Center(
+      body: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
+          children: [
             Expanded(child: _Authors()),
           ],
         ),

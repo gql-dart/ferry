@@ -13,11 +13,13 @@ import './pokemon_card.dart';
 class PokemonListScreen extends StatelessWidget {
   final client = GetIt.I<TypedLink>();
 
+  PokemonListScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('All Pokemon'),
+        title: const Text('All Pokemon'),
       ),
       body: Operation<GAllPokemonData, GAllPokemonVars>(
         client: client,

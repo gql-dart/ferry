@@ -13,7 +13,7 @@ class PokemonDetailScreen extends StatelessWidget {
 
   final int id;
 
-  PokemonDetailScreen({required this.id});
+  PokemonDetailScreen({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +27,11 @@ class PokemonDetailScreen extends StatelessWidget {
         response,
         error,
       ) {
-        if (response!.loading)
+        if (response!.loading) {
           return Scaffold(
               appBar: AppBar(),
-              body: Center(child: CircularProgressIndicator()));
+              body: const Center(child: CircularProgressIndicator()));
+        }
 
         final pokemon = response.data?.pokemon;
 
@@ -43,20 +44,20 @@ class PokemonDetailScreen extends StatelessWidget {
                 PokemonCard(
                   pokemon: pokemon,
                 ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
               ),
               Text(
                 'Height',
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).textTheme.titleLarge,
               ),
               if (pokemon != null) Text('${pokemon.height?.in_meter ?? 0}'),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
               ),
               Text(
                 'Weight',
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).textTheme.titleLarge,
               ),
               if (pokemon != null) Text('${pokemon.weight?.in_kg ?? 0}'),
             ],
