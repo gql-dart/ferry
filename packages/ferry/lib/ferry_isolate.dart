@@ -265,7 +265,6 @@ class IsolateClient extends TypedLink {
     _commandSendPort.send(DisposeCommand(receivePort.sendPort));
     await receivePort.first;
     receivePort.close();
-    _globalReceivePort.close();
     _messageHandlerReceivePort?.close();
     return super.dispose();
   }
