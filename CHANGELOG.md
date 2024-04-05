@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2024-04-05
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`ferry` - `v0.16.0-dev.2`](#ferry---v0160-dev2)
+ - [`ferry_flutter` - `v0.9.0-dev.3`](#ferry_flutter---v090-dev3)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `ferry_flutter` - `v0.9.0-dev.3`
+
+---
+
+#### `ferry` - `v0.16.0-dev.2`
+
+ - **FEAT**(ferry): make commandSendPort public so it can be shared between isolates (#587).
+
+
 ## 2024-03-11
 
 ### Changes

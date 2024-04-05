@@ -1,3 +1,7 @@
+## 0.16.0-dev.2
+
+ - **FEAT**(ferry): make commandSendPort public so it can be shared between isolates (#587).
+
 ## 0.16.0-dev.1
 
  - Update a dependency to the latest release.
