@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:isolate';
 
 import 'package:ferry/ferry.dart';
@@ -314,15 +315,17 @@ void main() {
           _initAutoResponderForReviewsLinkClient,
           params: null);
 
-      void localFunc() {}
+      final receivePort = ReceivePort();
 
       addTearDown(client.dispose);
+      addTearDown(receivePort.close);
       //closure that captures local state, cannot be sent to isolate
       final invalidMergeReviews =
           (GReviewsData? previousResult, GReviewsData? fetchMoreResult) {
-        // try to call this locally declared function
-        // -> this will make the invalidMergeReviews non-transmittable for sure
-        localFunc();
+        // try to reference receivePort, which is a closure variable
+        // with native function type, which cannot be sent to isolate
+        // so sending this function through isolate will throw an error
+        receivePort.runtimeType;
         return null;
       };
 
