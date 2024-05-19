@@ -1,6 +1,6 @@
 name: ferry_cache
 version: 0.9.0-dev.1
-homepage: https://ferrygraphql.com/
+homepage: https://ferry.gql-dart.dev
 description: A normalized, strongly typed, optimistic cache for GraphQL Operations and Fragments
 repository: https://github.com/gql-dart/ferry
 environment:

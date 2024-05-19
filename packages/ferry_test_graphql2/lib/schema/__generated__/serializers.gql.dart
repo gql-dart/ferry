@@ -88,7 +88,7 @@ import 'package:ferry_test_graphql2/queries/__generated__/reviews.var.gql.dart'
     show GReviewsVars;
 import 'package:ferry_test_graphql2/schema/__generated__/schema.schema.gql.dart'
     show GColorInput, GEpisode, GISODate, GLengthUnit, GReviewInput;
-import 'package:gql_code_builder/src/serializers/operation_serializer.dart'
+import 'package:gql_code_builder_serializers/gql_code_builder_serializers.dart'
     show OperationSerializer;
 
 part 'serializers.gql.g.dart';
