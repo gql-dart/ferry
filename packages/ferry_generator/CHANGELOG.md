@@ -1,3 +1,7 @@
+## 0.12.0-dev.1
+
+ - **DOCS**(ferry_generator): add docs for new dependency.
+
 ## 0.12.0-dev.0
 
 > Note: This release has breaking changes.
