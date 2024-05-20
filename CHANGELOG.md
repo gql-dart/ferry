@@ -11,6 +11,27 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 Packages with breaking changes:
 
+ - [`ferry_flutter` - `v0.9.1`](#ferry_flutter---v091)
+
+Packages with other changes:
+
+ - There are no other changes in this release.
+
+---
+
+#### `ferry_flutter` - `v0.9.1`
+
+ - **BREAKING** **FEAT**(ferry_generator): update to gql_code_builders 0.12.0. this extracted the common serializers to a separate package. clients need to add gql_code_builder_serializers to their dependencies if they use ferry_generator. (#601).
+
+
+## 2024-05-20
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
  - [`ferry_flutter` - `v0.9.0-dev.6`](#ferry_flutter---v090-dev6)
 
 Packages with other changes:
