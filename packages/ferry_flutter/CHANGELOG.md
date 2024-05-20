@@ -1,26 +1,6 @@
 ## 0.9.1
 
-> Note: This release has breaking changes.
-
- - **BREAKING** **FEAT**(ferry_generator): update to gql_code_builders 0.12.0. this extracted the common serializers to a separate package. clients need to add gql_code_builder_serializers to their dependencies if they use ferry_generator. (#601).
-
-## 0.9.0-dev.6
-
-> Note: This release has breaking changes.
-
- - **BREAKING** **FEAT**(ferry_generator): update to gql_code_builders 0.12.0. this extracted the common serializers to a separate package. clients need to add gql_code_builder_serializers to their dependencies if they use ferry_generator. (#601).
-
-## 0.9.0-dev.5
-
-> Note: This release has breaking changes.
-
- - **BREAKING** **FEAT**(ferry_generator): update to gql_code_builders 0.12.0. this extracted the common serializers to a separate package. clients need to add gql_code_builder_serializers to their dependencies if they use ferry_generator. (#601).
-
-## 0.9.0-dev.4
-
-> Note: This release has breaking changes.
-
- - **BREAKING** **FEAT**(ferry_generator): update to gql_code_builders 0.12.0. this extracted the common serializers to a separate package. clients need to add gql_code_builder_serializers to their dependencies if they use ferry_generator. (#601).
+- Update a dependency to the latest release.
 
 ## 0.9.0-dev.8
 
