@@ -1,6 +1,6 @@
 name: ferry_hive_store
 version: 0.5.2
-homepage: https://ferrygraphql.com/
+homepage: https://ferry.gql-dart.dev
 description: Hive-based Store implementation for Ferry GraphQL client
 repository: https://github.com/gql-dart/ferry
 environment:

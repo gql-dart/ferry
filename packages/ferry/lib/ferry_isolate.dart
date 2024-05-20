@@ -322,7 +322,7 @@ class IsolateClient extends TypedLink {
 
   /// adds a request to the requestController of the client on the isolate
   /// this is useful for re-fetch and pagination
-  /// see https://ferrygraphql.com/docs/pagination
+  /// see https://ferry.gql-dart.dev/docs/pagination
   Future<void> addRequestToRequestController<TData, TVars>(
       OperationRequest<TData, TVars> request) {
     _debugAssertUpdateResultTransferrable(request);

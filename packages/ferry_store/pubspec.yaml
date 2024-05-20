@@ -1,6 +1,6 @@
 name: ferry_store
 version: 0.5.3+1
-homepage: https://ferrygraphql.com/
+homepage: https://ferry.gql-dart.dev
 description: Default Store for Ferry GraphQL client
 repository: https://github.com/gql-dart/ferry
 environment:

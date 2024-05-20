@@ -131,7 +131,7 @@ class SerializerBuilder implements Builder {
       // GraphQL Operation serializer
       refer(
         'OperationSerializer',
-        'package:gql_code_builder/src/serializers/operation_serializer.dart',
+        'package:gql_code_builder_serializers/gql_code_builder_serializers.dart',
       ).call([]),
       // User-defined custom serializers
       ...config.customSerializers.map((ref) => ref.call([])),

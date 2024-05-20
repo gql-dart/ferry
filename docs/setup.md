@@ -13,6 +13,8 @@ Add the following to your `pubspec.yaml`:
 dependencies:
   ferry: #[latest-version]
   gql_http_link: #[latest-version]
+  # common serializers, which the code generator will assume are available
+  gql_code_builder_serializers: #[latest-version]
 
 dev_dependencies:
   ferry_generator: #[latest-version]
