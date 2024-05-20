@@ -1,5 +1,5 @@
 name: ferry_generator
-version: 0.10.0-dev.3
+version: 0.11.0
 homepage: https://ferry.gql-dart.dev
 description: Generated types for Ferry GraphQL Client
 repository: https://github.com/gql-dart/ferry

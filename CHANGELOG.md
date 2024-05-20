@@ -11,6 +11,27 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 Packages with breaking changes:
 
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`ferry_generator` - `v0.11.0`](#ferry_generator---v0110)
+
+---
+
+#### `ferry_generator` - `v0.11.0`
+
+ - n
+
+
+## 2024-05-20
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
  - [`ferry` - `v0.16.0-dev.3`](#ferry---v0160-dev3)
  - [`ferry_cache` - `v0.9.0-dev.2`](#ferry_cache---v090-dev2)
  - [`ferry_exec` - `v0.6.1-dev.1`](#ferry_exec---v061-dev1)
