@@ -1,3 +1,9 @@
+## 0.6.0-dev.0
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **FEAT**(ferry_generator): update to gql_code_builders 0.12.0. this extracted the common serializers to a separate package. clients need to add gql_code_builder_serializers to their dependencies if they use ferry_generator. (#601).
+
 ## 0.5.2
 
  - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.

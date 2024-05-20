@@ -3,6 +3,62 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2024-05-20
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - [`ferry` - `v0.16.0-dev.3`](#ferry---v0160-dev3)
+ - [`ferry_cache` - `v0.9.0-dev.2`](#ferry_cache---v090-dev2)
+ - [`ferry_exec` - `v0.6.1-dev.1`](#ferry_exec---v061-dev1)
+ - [`ferry_flutter` - `v0.9.0-dev.4`](#ferry_flutter---v090-dev4)
+ - [`ferry_generator` - `v0.10.0-dev.3`](#ferry_generator---v0100-dev3)
+ - [`ferry_hive_store` - `v0.6.0-dev.0`](#ferry_hive_store---v060-dev0)
+ - [`ferry_store` - `v0.6.0-dev.0`](#ferry_store---v060-dev0)
+ - [`ferry_test_graphql2` - `v0.3.0-dev.3`](#ferry_test_graphql2---v030-dev3)
+
+Packages with other changes:
+
+ - There are no other changes in this release.
+
+---
+
+#### `ferry` - `v0.16.0-dev.3`
+
+ - **BREAKING** **FEAT**(ferry_generator): update to gql_code_builders 0.12.0. this extracted the common serializers to a separate package. clients need to add gql_code_builder_serializers to their dependencies if they use ferry_generator. (#601).
+
+#### `ferry_cache` - `v0.9.0-dev.2`
+
+ - **BREAKING** **FEAT**(ferry_generator): update to gql_code_builders 0.12.0. this extracted the common serializers to a separate package. clients need to add gql_code_builder_serializers to their dependencies if they use ferry_generator. (#601).
+
+#### `ferry_exec` - `v0.6.1-dev.1`
+
+ - **BREAKING** **FEAT**(ferry_generator): update to gql_code_builders 0.12.0. this extracted the common serializers to a separate package. clients need to add gql_code_builder_serializers to their dependencies if they use ferry_generator. (#601).
+
+#### `ferry_flutter` - `v0.9.0-dev.4`
+
+ - **BREAKING** **FEAT**(ferry_generator): update to gql_code_builders 0.12.0. this extracted the common serializers to a separate package. clients need to add gql_code_builder_serializers to their dependencies if they use ferry_generator. (#601).
+
+#### `ferry_generator` - `v0.10.0-dev.3`
+
+ - **BREAKING** **FEAT**(ferry_generator): update to gql_code_builders 0.12.0. this extracted the common serializers to a separate package. clients need to add gql_code_builder_serializers to their dependencies if they use ferry_generator. (#601).
+
+#### `ferry_hive_store` - `v0.6.0-dev.0`
+
+ - **BREAKING** **FEAT**(ferry_generator): update to gql_code_builders 0.12.0. this extracted the common serializers to a separate package. clients need to add gql_code_builder_serializers to their dependencies if they use ferry_generator. (#601).
+
+#### `ferry_store` - `v0.6.0-dev.0`
+
+ - **BREAKING** **FEAT**(ferry_generator): update to gql_code_builders 0.12.0. this extracted the common serializers to a separate package. clients need to add gql_code_builder_serializers to their dependencies if they use ferry_generator. (#601).
+
+#### `ferry_test_graphql2` - `v0.3.0-dev.3`
+
+ - **BREAKING** **FEAT**(ferry_generator): update to gql_code_builders 0.12.0. this extracted the common serializers to a separate package. clients need to add gql_code_builder_serializers to their dependencies if they use ferry_generator. (#601).
+
+
 ## 2024-04-05
 
 ### Changes
