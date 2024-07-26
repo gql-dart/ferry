@@ -1,6 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
 
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart' show StandardJsonPlugin;
@@ -86,9 +87,10 @@ import 'package:ferry_test_graphql2/queries/__generated__/reviews.req.gql.dart'
     show GReviewsReq;
 import 'package:ferry_test_graphql2/queries/__generated__/reviews.var.gql.dart'
     show GReviewsVars;
-import 'package:ferry_test_graphql2/schema/__generated__/schema.schema.gql.dart'
-    show GColorInput, GEpisode, GISODate, GLengthUnit, GReviewInput;
-import 'package:gql_code_builder/src/serializers/operation_serializer.dart'
+import 'package:ferry_test_graphql2/schema/__generated__/schema.schema.gql.dart';
+import 'package:ferry_test_graphql2/schema/__generated__/serializers.gql.dart'
+    as _$external_serializers;
+import 'package:gql_code_builder_serializers/gql_code_builder_serializers.dart'
     show OperationSerializer;
 
 part 'serializers.gql.g.dart';
@@ -97,6 +99,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   ..add(OperationSerializer())
   ..add(DateSerializer())
   ..add(GHeroForEpisodeData_hero.serializer)
+  ..addAll(_$external_serializers.serializers.serializers)
   ..addPlugin(StandardJsonPlugin());
 @SerializersFor([
   GAliasedHeroData,
