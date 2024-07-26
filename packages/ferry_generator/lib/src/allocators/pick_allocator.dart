@@ -4,12 +4,14 @@ import 'package:code_builder/code_builder.dart';
 class PickAllocator implements Allocator {
   final List<String> doNotPick;
   final List<String> include;
+  final Map<String, String> aliasedImports;
 
   final Map<String, List<String>?> _imports = {};
 
   PickAllocator({
     this.doNotPick = const [],
     this.include = const [],
+    this.aliasedImports = const {},
   }) {
     for (final url in include) {
       _imports[url] = null;
@@ -30,6 +32,9 @@ class PickAllocator implements Allocator {
     } else if (doNotPick.contains(url) || include.contains(url)) {
       _imports.putIfAbsent(url, () => null);
       return symbol;
+    } else if (aliasedImports.containsKey(url)) {
+      final alias = aliasedImports[url]!;
+      return '$alias.$symbol';
     }
 
     _imports.update(url, (symbols) => symbols?..add(symbol),
@@ -39,9 +44,13 @@ class PickAllocator implements Allocator {
   }
 
   @override
-  Iterable<Directive> get imports => _imports.entries.map(
+  Iterable<Directive> get imports => _imports.entries
+      .map(
         (u) => u.value == null
             ? Directive.import(u.key)
             : Directive.import(u.key, show: u.value!),
-      );
+      )
+      .followedBy(aliasedImports.entries.map(
+        (e) => Directive.import(e.key, as: e.value),
+      ));
 }

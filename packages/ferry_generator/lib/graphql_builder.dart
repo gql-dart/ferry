@@ -46,7 +46,7 @@ class GraphqlBuilder implements Builder {
   @override
   FutureOr<void> build(BuildStep buildStep) async {
     SourceNode? schema;
-    AssetId? _schemaId;
+    late AssetId _schemaId;
     final doc = await readDocument(buildStep, config.sourceExtension);
     final docPackage = buildStep.inputId.package;
     final docDirPath = p.dirname(buildStep.inputId.path);
@@ -82,7 +82,7 @@ class GraphqlBuilder implements Builder {
     final triStateValueConfig = config.triStateOptionalsConfig;
 
     final schemaOutputAsset =
-        outputAssetId(_schemaId!, schemaExtension, config.outputDir);
+        outputAssetId(_schemaId, schemaExtension, config.outputDir);
 
     final schemaUrl = schemaOutputAsset.uri.toString();
     final schemaAllocator = GqlAllocator(
@@ -123,15 +123,15 @@ class GraphqlBuilder implements Builder {
         dataToVarsMode,
       ),
       schemaExtension: buildSchemaLibrary(
-          doc,
-          p.basename(generatedFilePath(buildStep.inputId, schemaExtension)),
-          config.typeOverrides,
-          config.enumFallbackConfig,
-          generatePossibleTypesMap: config.shouldGeneratePossibleTypes,
-          allocator: schemaAllocator,
-          triStateValueConfig: triStateValueConfig,
-          generateVarsCreateFactories:
-              config.shouldGenerateVarsCreateFactories),
+        doc,
+        p.basename(generatedFilePath(buildStep.inputId, schemaExtension)),
+        config.typeOverrides,
+        config.enumFallbackConfig,
+        generatePossibleTypesMap: config.shouldGeneratePossibleTypes,
+        allocator: schemaAllocator,
+        triStateValueConfig: triStateValueConfig,
+        generateVarsCreateFactories: config.shouldGenerateVarsCreateFactories,
+      ),
     };
 
     for (var entry in libs.entries) {

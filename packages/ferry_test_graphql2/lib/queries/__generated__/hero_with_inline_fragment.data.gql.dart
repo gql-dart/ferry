@@ -6,7 +6,7 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:ferry_test_graphql2/schema/__generated__/serializers.gql.dart'
     as _i1;
-import 'package:gql_code_builder_serializers/gql_code_builder_serializers.dart'
+import 'package:gql_code_builder/src/serializers/inline_fragment_serializer.dart'
     as _i2;
 
 part 'hero_with_inline_fragment.data.gql.g.dart';
