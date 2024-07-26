@@ -1,4 +1,5 @@
 import 'package:ferry_exec/ferry_exec.dart';
+import 'package:ferry_test_graphql2/schema/__generated__/serializers.gql.dart';
 import 'package:test/test.dart';
 import 'package:ferry_test_graphql2/queries/__generated__/reviews.req.gql.dart';
 

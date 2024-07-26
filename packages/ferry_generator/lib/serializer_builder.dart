@@ -143,7 +143,8 @@ class SerializerBuilder implements Builder {
     // if the schema is defined in a different package
     // we need to import the serializers from that package
     // and add them to the serializers of this package
-    final isExternalSchema = schemaId != buildStep.inputId;
+    final isExternalSchema = schemaId.package != buildStep.inputId.package;
+
     final externalSerializersExpression = isExternalSchema
         ? refer('serializers',
                 _externalSchemaSerializersImport(schemaId, config))
