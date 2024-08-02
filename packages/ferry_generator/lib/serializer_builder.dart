@@ -4,6 +4,7 @@ import 'dart:collection';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
+import 'package:gql_code_builder/serializer.dart';
 import 'package:path/path.dart' as p;
 import 'package:glob/glob.dart';
 
@@ -155,7 +156,7 @@ class SerializerBuilder implements Builder {
       builtClasses,
       outputFileName.replaceFirst('.gql.dart', '.gql.g.dart'),
       additionalSerializers,
-      externalSerializersExpression,
+      externalSerializers: externalSerializersExpression,
     );
 
     final allocator = PickAllocator(doNotPick: [
@@ -198,72 +199,4 @@ String _externalSchemaSerializersImport(
   final outPutPath = p.joinAll(serializersPathSegments);
 
   return 'package:${outPutId.package}/$outPutPath';
-}
-
-Expression withCustomSerializers(
-  Expression serializersExpression,
-  Set<Expression> customSerializers,
-) =>
-    customSerializers.fold(
-      serializersExpression,
-      (exp, serializer) => exp.cascade("add").call([serializer]),
-    );
-
-Library buildSerializerLibrary(
-  Set<ClassElement> builtClasses,
-  String partDirectiveUrl,
-  Set<Expression> additionalSerializers,
-  Expression? externalSerializers,
-) =>
-    Library(
-      (b) => b
-        ..directives.add(Directive.part(partDirectiveUrl))
-        ..body.addAll([
-          withCustomSerializers(
-            declareFinal(
-              "_serializersBuilder",
-              type: refer(
-                  "SerializersBuilder", "package:built_value/serializer.dart"),
-            )
-                .assign(
-                  refer(r"_$serializers"),
-                )
-                .property("toBuilder")
-                .call([]),
-            additionalSerializers,
-          )
-              ._conditionalWrap(
-                externalSerializers != null,
-                (expr) => expr.cascade("addAll").call([externalSerializers!]),
-              )
-              .cascade("addPlugin")
-              .call([
-            refer(
-              "StandardJsonPlugin",
-              "package:built_value/standard_json_plugin.dart",
-            ).call([])
-          ]).statement,
-          refer("@SerializersFor", "package:built_value/serializer.dart").call([
-            literalList(
-              builtClasses
-                  .map<Reference>(
-                    (c) => refer(c.name, c.source.uri.toString()),
-                  )
-                  .toList()
-                ..sort((a, b) => a.symbol!.compareTo(b.symbol!)),
-            )
-          ]),
-          declareFinal("serializers",
-                  type: refer(
-                      "Serializers", "package:built_value/serializer.dart"))
-              .assign(refer("_serializersBuilder"))
-              .property("build")
-              .call([]).statement,
-        ]),
-    );
-
-extension on Expression {
-  Expression _conditionalWrap(
-          bool condition, Expression Function(Expression) wrap) =>
-      condition ? wrap(this) : this;
 }
