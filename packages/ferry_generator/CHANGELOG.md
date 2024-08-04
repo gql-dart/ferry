@@ -1,3 +1,7 @@
+## 0.12.0
+
+ - **FEAT**(ferry_generator): external schema import (#606).
+
 ## 0.12.0-dev.1
 
  - **DOCS**(ferry_generator): add docs for new dependency.

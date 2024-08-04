@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2024-08-04
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`ferry_generator` - `v0.12.0`](#ferry_generator---v0120)
+
+---
+
+#### `ferry_generator` - `v0.12.0`
+
+ - **FEAT**(ferry_generator): external schema import (#606).
+
+
 ## 2024-05-20
 
 ### Changes
