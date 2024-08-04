@@ -1,9 +1,7 @@
-
-
 fragment HumanFrag on Human {
-
     id
     birthday
+    height(unit: METER)
 }
 
 query HumanQuery($id: ID!) {

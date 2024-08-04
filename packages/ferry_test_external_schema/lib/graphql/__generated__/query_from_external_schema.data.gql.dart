@@ -57,6 +57,8 @@ abstract class GHumanQueryData_human
   String get id;
   @override
   DateTime get birthday;
+  @override
+  double? get height;
   static Serializer<GHumanQueryData_human> get serializer =>
       _$gHumanQueryDataHumanSerializer;
 
@@ -77,6 +79,7 @@ abstract class GHumanFrag {
   String get G__typename;
   String get id;
   DateTime get birthday;
+  double? get height;
   Map<String, dynamic> toJson();
 }
 
@@ -97,6 +100,8 @@ abstract class GHumanFragData
   String get id;
   @override
   DateTime get birthday;
+  @override
+  double? get height;
   static Serializer<GHumanFragData> get serializer =>
       _$gHumanFragDataSerializer;
 

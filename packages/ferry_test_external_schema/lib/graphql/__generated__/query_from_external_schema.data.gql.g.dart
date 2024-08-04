@@ -87,7 +87,14 @@ class _$GHumanQueryData_humanSerializer
       serializers.serialize(object.birthday,
           specifiedType: const FullType(DateTime)),
     ];
-
+    Object? value;
+    value = object.height;
+    if (value != null) {
+      result
+        ..add('height')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(double)));
+    }
     return result;
   }
 
@@ -114,6 +121,10 @@ class _$GHumanQueryData_humanSerializer
         case 'birthday':
           result.birthday = serializers.deserialize(value,
               specifiedType: const FullType(DateTime))! as DateTime;
+          break;
+        case 'height':
+          result.height = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double?;
           break;
       }
     }
@@ -142,7 +153,14 @@ class _$GHumanFragDataSerializer
       serializers.serialize(object.birthday,
           specifiedType: const FullType(DateTime)),
     ];
-
+    Object? value;
+    value = object.height;
+    if (value != null) {
+      result
+        ..add('height')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(double)));
+    }
     return result;
   }
 
@@ -169,6 +187,10 @@ class _$GHumanFragDataSerializer
         case 'birthday':
           result.birthday = serializers.deserialize(value,
               specifiedType: const FullType(DateTime))! as DateTime;
+          break;
+        case 'height':
+          result.height = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double?;
           break;
       }
     }
@@ -299,13 +321,18 @@ class _$GHumanQueryData_human extends GHumanQueryData_human {
   final String id;
   @override
   final DateTime birthday;
+  @override
+  final double? height;
 
   factory _$GHumanQueryData_human(
           [void Function(GHumanQueryData_humanBuilder)? updates]) =>
       (new GHumanQueryData_humanBuilder()..update(updates))._build();
 
   _$GHumanQueryData_human._(
-      {required this.G__typename, required this.id, required this.birthday})
+      {required this.G__typename,
+      required this.id,
+      required this.birthday,
+      this.height})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GHumanQueryData_human', 'G__typename');
@@ -329,7 +356,8 @@ class _$GHumanQueryData_human extends GHumanQueryData_human {
     return other is GHumanQueryData_human &&
         G__typename == other.G__typename &&
         id == other.id &&
-        birthday == other.birthday;
+        birthday == other.birthday &&
+        height == other.height;
   }
 
   @override
@@ -338,6 +366,7 @@ class _$GHumanQueryData_human extends GHumanQueryData_human {
     _$hash = $jc(_$hash, G__typename.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, birthday.hashCode);
+    _$hash = $jc(_$hash, height.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -347,7 +376,8 @@ class _$GHumanQueryData_human extends GHumanQueryData_human {
     return (newBuiltValueToStringHelper(r'GHumanQueryData_human')
           ..add('G__typename', G__typename)
           ..add('id', id)
-          ..add('birthday', birthday))
+          ..add('birthday', birthday)
+          ..add('height', height))
         .toString();
   }
 }
@@ -368,6 +398,10 @@ class GHumanQueryData_humanBuilder
   DateTime? get birthday => _$this._birthday;
   set birthday(DateTime? birthday) => _$this._birthday = birthday;
 
+  double? _height;
+  double? get height => _$this._height;
+  set height(double? height) => _$this._height = height;
+
   GHumanQueryData_humanBuilder() {
     GHumanQueryData_human._initializeBuilder(this);
   }
@@ -378,6 +412,7 @@ class GHumanQueryData_humanBuilder
       _G__typename = $v.G__typename;
       _id = $v.id;
       _birthday = $v.birthday;
+      _height = $v.height;
       _$v = null;
     }
     return this;
@@ -405,7 +440,8 @@ class GHumanQueryData_humanBuilder
             id: BuiltValueNullFieldError.checkNotNull(
                 id, r'GHumanQueryData_human', 'id'),
             birthday: BuiltValueNullFieldError.checkNotNull(
-                birthday, r'GHumanQueryData_human', 'birthday'));
+                birthday, r'GHumanQueryData_human', 'birthday'),
+            height: height);
     replace(_$result);
     return _$result;
   }
@@ -418,12 +454,17 @@ class _$GHumanFragData extends GHumanFragData {
   final String id;
   @override
   final DateTime birthday;
+  @override
+  final double? height;
 
   factory _$GHumanFragData([void Function(GHumanFragDataBuilder)? updates]) =>
       (new GHumanFragDataBuilder()..update(updates))._build();
 
   _$GHumanFragData._(
-      {required this.G__typename, required this.id, required this.birthday})
+      {required this.G__typename,
+      required this.id,
+      required this.birthday,
+      this.height})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GHumanFragData', 'G__typename');
@@ -446,7 +487,8 @@ class _$GHumanFragData extends GHumanFragData {
     return other is GHumanFragData &&
         G__typename == other.G__typename &&
         id == other.id &&
-        birthday == other.birthday;
+        birthday == other.birthday &&
+        height == other.height;
   }
 
   @override
@@ -455,6 +497,7 @@ class _$GHumanFragData extends GHumanFragData {
     _$hash = $jc(_$hash, G__typename.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, birthday.hashCode);
+    _$hash = $jc(_$hash, height.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -464,7 +507,8 @@ class _$GHumanFragData extends GHumanFragData {
     return (newBuiltValueToStringHelper(r'GHumanFragData')
           ..add('G__typename', G__typename)
           ..add('id', id)
-          ..add('birthday', birthday))
+          ..add('birthday', birthday)
+          ..add('height', height))
         .toString();
   }
 }
@@ -485,6 +529,10 @@ class GHumanFragDataBuilder
   DateTime? get birthday => _$this._birthday;
   set birthday(DateTime? birthday) => _$this._birthday = birthday;
 
+  double? _height;
+  double? get height => _$this._height;
+  set height(double? height) => _$this._height = height;
+
   GHumanFragDataBuilder() {
     GHumanFragData._initializeBuilder(this);
   }
@@ -495,6 +543,7 @@ class GHumanFragDataBuilder
       _G__typename = $v.G__typename;
       _id = $v.id;
       _birthday = $v.birthday;
+      _height = $v.height;
       _$v = null;
     }
     return this;
@@ -522,7 +571,8 @@ class GHumanFragDataBuilder
             id: BuiltValueNullFieldError.checkNotNull(
                 id, r'GHumanFragData', 'id'),
             birthday: BuiltValueNullFieldError.checkNotNull(
-                birthday, r'GHumanFragData', 'birthday'));
+                birthday, r'GHumanFragData', 'birthday'),
+            height: height);
     replace(_$result);
     return _$result;
   }

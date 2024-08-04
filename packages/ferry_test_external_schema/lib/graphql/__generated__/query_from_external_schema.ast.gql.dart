@@ -27,6 +27,18 @@ const HumanFrag = _i1.FragmentDefinitionNode(
       directives: [],
       selectionSet: null,
     ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'height'),
+      alias: null,
+      arguments: [
+        _i1.ArgumentNode(
+          name: _i1.NameNode(value: 'unit'),
+          value: _i1.EnumValueNode(name: _i1.NameNode(value: 'METER')),
+        )
+      ],
+      directives: [],
+      selectionSet: null,
+    ),
   ]),
 );
 const HumanQuery = _i1.OperationDefinitionNode(
