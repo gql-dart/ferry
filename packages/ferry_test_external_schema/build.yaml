@@ -1,0 +1,24 @@
+targets:
+  $default:
+    builders:
+      ferry_generator|graphql_builder:
+        enabled: true
+        options:
+          schema: ferry_test_graphql2|lib/schema/schema.graphql
+          tristate_optionals: false
+          vars_create_factories: false
+          data_to_json: type_safe
+          type_overrides:
+            Date:
+              name: DateTime
+
+      ferry_generator|serializer_builder:
+        enabled: true
+        options:
+          schema: ferry_test_graphql2|lib/schema/schema.graphql
+          type_overrides:
+            Date:
+              name: DateTime
+          custom_serializers:
+            - import: 'package:ferry_test_graphql2/date_serializer.dart'
+              name: DateSerializer

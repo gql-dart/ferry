@@ -1,0 +1,14 @@
+
+
+fragment HumanFrag on Human {
+
+    id
+    birthday
+}
+
+query HumanQuery($id: ID!) {
+
+    human(id: $id) {
+        ...HumanFrag
+    }
+}

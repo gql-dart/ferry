@@ -19,6 +19,7 @@ class GqlAllocator implements Allocator {
   final String sourceExtension;
   final String currentUrl;
   final String schemaUrl;
+  final String serializerUrl;
   final String outputDir;
 
   final _imports = <String, int?>{};
@@ -29,6 +30,7 @@ class GqlAllocator implements Allocator {
     this.sourceExtension,
     this.currentUrl,
     this.schemaUrl,
+    this.serializerUrl,
     this.outputDir,
   );
 
@@ -69,7 +71,7 @@ class GqlAllocator implements Allocator {
       if (uri.fragment == 'schema') {
         replacedUrl = schemaUrl;
       } else if (uri.fragment == 'serializer') {
-        replacedUrl = '${p.dirname(schemaUrl)}/serializers.gql.dart';
+        replacedUrl = '${p.dirname(serializerUrl)}/serializers.gql.dart';
       } else {
         replacedUrl = outputPath(sourceUrl, outputDir).replaceAll(
           RegExp(r'.graphql$'),

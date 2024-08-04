@@ -85,6 +85,9 @@ class GraphqlBuilder implements Builder {
         outputAssetId(_schemaId, schemaExtension, config.outputDir);
 
     final schemaUrl = schemaOutputAsset.uri.toString();
+    final serializerOutputAsset =
+        AssetId(buildStep.inputId.package, schemaOutputAsset.path);
+    final serializerUrl = serializerOutputAsset.uri.toString();
     final schemaAllocator = GqlAllocator(
       buildStep.inputId.uri.toString(),
       config.sourceExtension,
@@ -92,6 +95,7 @@ class GraphqlBuilder implements Builder {
           .uri
           .toString(),
       schemaUrl,
+      serializerUrl,
       config.outputDir,
     );
 
@@ -140,11 +144,15 @@ class GraphqlBuilder implements Builder {
       final schemaOutputAsset =
           outputAssetId(_schemaId, schemaExtension, config.outputDir);
 
+      final serialzerOutputAsset =
+          AssetId(buildStep.inputId.package, schemaOutputAsset.path);
+
       final allocator = GqlAllocator(
         buildStep.inputId.uri.toString(),
         config.sourceExtension,
         generatedAsset.uri.toString(),
         schemaOutputAsset.uri.toString(),
+        serialzerOutputAsset.uri.toString(),
         config.outputDir,
       );
 
