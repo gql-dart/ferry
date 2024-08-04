@@ -91,19 +91,6 @@ class SerializerBuilder implements Builder {
     final nonBuiltClasses =
         SplayTreeSet<ClassElement>((a, b) => a.name.compareTo(b.name));
 
-    final hasSerializer = (ClassElement c) => c.fields.any((field) =>
-        field.isStatic &&
-        field.name == 'serializer' &&
-        field.type.element?.name == 'Serializer' &&
-        field.type.element?.source?.uri.toString() ==
-            'package:built_value/serializer.dart');
-
-    final isBuiltValue = (ClassElement c) => c.allSupertypes.any((interface) =>
-        (interface.element.name == 'Built' ||
-            interface.element.name == 'EnumClass') &&
-        interface.element.source.uri.toString() ==
-            'package:built_value/built_value.dart');
-
     final excludeFileIds = <String, AssetId>{};
     for (final excludeGlob in excludeFiles) {
       await for (final fileAssetId in buildStep.findAssets(excludeGlob)) {
@@ -114,17 +101,9 @@ class SerializerBuilder implements Builder {
     await for (final input in buildStep.findAssets(generatedFiles)) {
       if (excludeFileIds.containsKey(input.path)) continue;
       final lib = await buildStep.resolver.libraryFor(input);
-      lib.units
-          .expand((cu) => cu.classes)
-          .where((c) => hasSerializer(c) && isBuiltValue(c))
-          .forEach(builtClasses.add);
-
-      lib.units
-          .expand((cu) => cu.classes)
-          .where(
-            (c) => hasSerializer(c) && !isBuiltValue(c),
-          )
-          .forEach(nonBuiltClasses.add);
+      final classes = extractClassesToGenerateSerializersFor(lib);
+      builtClasses.addAll(classes.builtClasses);
+      nonBuiltClasses.addAll(classes.nonBuiltClasses);
     }
 
     final additionalSerializers = <Expression>{
@@ -152,6 +131,20 @@ class SerializerBuilder implements Builder {
             .property('serializers')
         : null;
 
+    if (isExternalSchema) {
+      final externalSchemaId =
+          outputAssetId(schemaId, schemaExtension, config.outputDir);
+
+      final externalSchemaLibrary =
+          await buildStep.resolver.libraryFor(externalSchemaId);
+
+      final externalSchemaClasses =
+          extractClassesToGenerateSerializersFor(externalSchemaLibrary);
+
+      builtClasses.addAll(externalSchemaClasses.builtClasses);
+      nonBuiltClasses.addAll(externalSchemaClasses.nonBuiltClasses);
+    }
+
     final library = buildSerializerLibrary(
       builtClasses,
       outputFileName.replaceFirst('.gql.dart', '.gql.g.dart'),
@@ -165,7 +158,6 @@ class SerializerBuilder implements Builder {
       'package:built_collection/built_collection.dart',
       'package:ferry_exec/ferry_exec.dart',
       ...config.typeOverrides.values.map((ref) => ref.url).whereType<String>(),
-      if (isExternalSchema) _externalSchemaImport(schemaId, config),
     ], aliasedImports: {
       if (isExternalSchema)
         _externalSchemaSerializersImport(schemaId, config):
@@ -181,12 +173,6 @@ class SerializerBuilder implements Builder {
   }
 }
 
-String _externalSchemaImport(AssetId schemaId, BuilderConfig config) {
-  final outPutId = outputAssetId(schemaId, schemaExtension, config.outputDir);
-
-  return 'package:${outPutId.package}/${outPutId.path.replaceFirst(RegExp('^lib/'), '')}';
-}
-
 String _externalSchemaSerializersImport(
     AssetId schemaId, BuilderConfig config) {
   final outPutId = outputAssetId(schemaId, schemaExtension, config.outputDir);
@@ -199,4 +185,42 @@ String _externalSchemaSerializersImport(
   final outPutPath = p.joinAll(serializersPathSegments);
 
   return 'package:${outPutId.package}/$outPutPath';
+}
+
+bool hasSerializer(ClassElement c) => c.fields.any((field) =>
+    field.isStatic &&
+    field.name == 'serializer' &&
+    field.type.element?.name == 'Serializer' &&
+    field.type.element?.source?.uri.toString() ==
+        'package:built_value/serializer.dart');
+
+bool isBuiltValue(ClassElement c) => c.allSupertypes.any((interface) =>
+    (interface.element.name == 'Built' ||
+        interface.element.name == 'EnumClass') &&
+    interface.element.source.uri.toString() ==
+        'package:built_value/built_value.dart');
+
+typedef ClassesToGenerateSerializersFor = ({
+  Set<ClassElement> builtClasses,
+  Set<ClassElement> nonBuiltClasses
+});
+
+ClassesToGenerateSerializersFor extractClassesToGenerateSerializersFor(
+    LibraryElement externalSchemaLibrary) {
+  final builtClasses = externalSchemaLibrary.units
+      .expand((cu) => cu.classes)
+      .where((c) => hasSerializer(c) && isBuiltValue(c))
+      .toSet();
+
+  final nonBuiltClasses = externalSchemaLibrary.units
+      .expand((cu) => cu.classes)
+      .where(
+        (c) => hasSerializer(c) && !isBuiltValue(c),
+      )
+      .toSet();
+
+  return (
+    builtClasses: builtClasses,
+    nonBuiltClasses: nonBuiltClasses,
+  );
 }
