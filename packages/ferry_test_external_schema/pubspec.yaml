@@ -15,3 +15,4 @@ dev_dependencies:
     ferry_generator:
     ferry_test_graphql2:
     build_runner: ^2.0.0
+    pedantic: ^1.11.0
