@@ -1,0 +1,7 @@
+query Reviews {
+    reviews {
+        id
+        createdAt
+        commentary
+    }
+}

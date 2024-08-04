@@ -1,0 +1,18 @@
+name: ferry_test_external_schema
+description: A test package for testing external schema support in ferry.
+version: 1.0.0
+
+publish_to: 'none'
+
+environment:
+  sdk: ^3.0.0
+
+dependencies:
+  ferry:
+
+dev_dependencies:
+    test: ^1.16.8
+    ferry_generator:
+    ferry_test_graphql2:
+    build_runner: ^2.0.0
+    pedantic: ^1.11.0
