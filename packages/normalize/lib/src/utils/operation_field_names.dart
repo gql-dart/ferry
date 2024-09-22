@@ -10,7 +10,7 @@ import 'package:normalize/src/policies/type_policy.dart';
 /// Returns the root field names for a given operation.
 List<String> operationFieldNames<TData, TVars>(
   DocumentNode document,
-  String operationName,
+  String? operationName,
   Map<String, dynamic> vars,
   Map<String, TypePolicy> typePolicies,
   Map<String, Set<String>> possibleTypes,

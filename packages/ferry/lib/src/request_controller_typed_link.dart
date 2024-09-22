@@ -69,7 +69,7 @@ class RequestControllerTypedLink extends TypedLink {
           /// Temporarily add a listener so that [prev] doesn't shut down when
           /// switchMap is updating the stream.
           final sub = prev?.listen(null);
-          scheduleMicrotask(() => sub?.cancel());
+          Future.delayed(Duration.zero, () => sub?.cancel());
         },
       ).switchMap(
         (req) {

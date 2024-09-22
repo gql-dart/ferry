@@ -13,8 +13,8 @@ Map<String, dynamic> operationRootData<TData, TVars>(
 ) {
   final fieldNames = operationFieldNames(
     request.operation.document,
-    request.operation.operationName!,
-    (request.vars as dynamic).toJson(),
+    request.operation.operationName,
+    request.varsToJson(),
     typePolicies,
     possibleTypes,
   );

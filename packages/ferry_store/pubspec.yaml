@@ -10,7 +10,7 @@ topics:
   - gql
   - ferry
 dependencies:
-  rxdart: ^0.27.1
+  rxdart: ^0.28.0
   collection: ^1.15.0
 dev_dependencies:
   test: ^1.16.8

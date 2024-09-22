@@ -1,0 +1,14 @@
+
+
+
+query GetBooks {
+    books {
+        title
+        ... on Textbook {
+            courses
+        }
+        ... on ColoringBook {
+            colors
+        }
+    }
+}
