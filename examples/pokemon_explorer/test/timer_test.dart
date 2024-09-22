@@ -39,6 +39,9 @@ void main() {
         },
       );
       await tester.pumpWidget(_MyWidget(client));
+      await tester.runAsync(() {
+        return tester.pump(Duration.zero);
+      });
     },
     variant: policies,
   );

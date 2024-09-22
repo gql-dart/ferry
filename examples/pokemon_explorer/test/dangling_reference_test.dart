@@ -50,7 +50,7 @@ class _MyWidget extends StatelessWidget {
 }
 
 void main() {
-  testWidgets("test description", (WidgetTester tester) async {
+  testWidgets("skips dangling references", (WidgetTester tester) async {
     final client = Client(
       cache: Cache(possibleTypes: possibleTypesMap),
       link: Link.function((request, [forward]) {
@@ -93,5 +93,9 @@ void main() {
     expect(find.widgetWithText(ListTile, 'name0'), findsOneWidget);
     expect(find.widgetWithText(ListTile, 'name1'), findsNothing);
     expect(find.widgetWithText(ListTile, 'name2'), findsOneWidget);
+
+    await tester.runAsync(() {
+      return tester.pump(Duration.zero);
+    });
   });
 }
