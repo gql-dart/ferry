@@ -15,18 +15,21 @@ void main() {
 
     addTearDown(client.dispose);
 
-    final req =
-        JsonOperationRequest(operation: Operation(document: gql.parseString(r'''
+    final req = JsonOperationRequest(
+      operation: Operation(document: gql.parseString(r'''
        query Reviews {
             reviews(episode: $episode, first: $first, offset: $offset) {
               id
               stars
             }
-          }''')), fetchPolicy: FetchPolicy.CacheFirst, vars: {
-      'episode': 'NEWHOPE',
-      'first': 3,
-      'offset': 0,
-    });
+          }''')),
+      fetchPolicy: FetchPolicy.CacheFirst,
+      vars: {
+        'episode': 'NEWHOPE',
+        'first': 3,
+        'offset': 0,
+      },
+    );
 
     final result = await client.request(req).first;
 
