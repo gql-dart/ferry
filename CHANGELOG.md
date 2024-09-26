@@ -3,6 +3,58 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2024-09-26
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - [`ferry` - `v0.16.0-dev.4`](#ferry---v0160-dev4)
+ - [`ferry_cache` - `v0.9.0-dev.3`](#ferry_cache---v090-dev3)
+ - [`ferry_hive_store` - `v0.6.0-dev.1`](#ferry_hive_store---v060-dev1)
+ - [`ferry_store` - `v0.6.0-dev.1`](#ferry_store---v060-dev1)
+ - [`ferry_test_graphql2` - `v0.3.0-dev.4`](#ferry_test_graphql2---v030-dev4)
+ - [`normalize` - `v0.10.0-dev.0`](#normalize---v0100-dev0)
+
+Packages with other changes:
+
+ - [`ferry_flutter` - `v0.9.1-dev.0+1`](#ferry_flutter---v091-dev01)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `ferry_flutter` - `v0.9.1-dev.0+1`
+
+---
+
+#### `ferry` - `v0.16.0-dev.4`
+
+ - **BREAKING** **CHORE**(deps): upgrade rxdart to v0.28.0 (#612).
+
+#### `ferry_cache` - `v0.9.0-dev.3`
+
+ - **BREAKING** **CHORE**(deps): upgrade rxdart to v0.28.0 (#612).
+
+#### `ferry_hive_store` - `v0.6.0-dev.1`
+
+ - **BREAKING** **CHORE**(deps): upgrade rxdart to v0.28.0 (#612).
+
+#### `ferry_store` - `v0.6.0-dev.1`
+
+ - **BREAKING** **CHORE**(deps): upgrade rxdart to v0.28.0 (#612).
+
+#### `ferry_test_graphql2` - `v0.3.0-dev.4`
+
+ - **BREAKING** **CHORE**(deps): upgrade rxdart to v0.28.0 (#612).
+
+#### `normalize` - `v0.10.0-dev.0`
+
+ - **BREAKING** **CHORE**(deps): upgrade rxdart to v0.28.0 (#612).
+
+
 ## 2024-08-04
 
 ### Changes

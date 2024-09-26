@@ -1,3 +1,9 @@
+## 0.6.0-dev.1
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **CHORE**(deps): upgrade rxdart to v0.28.0 (#612).
+
 ## 0.6.0-dev.0
 
 > Note: This release has breaking changes.
