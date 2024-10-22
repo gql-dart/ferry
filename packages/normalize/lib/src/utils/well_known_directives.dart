@@ -5,7 +5,7 @@ import 'package:gql/ast.dart';
 /// - a @skip directive with an if-argument that evaluates to true
 /// - a @include directive with an if-argument that evaluates to false
 bool isSkipped(SelectionNode node, Map<String, dynamic> variables) {
-  final directives = node.accept(_SelectionNodeDirectiveVisitor.instance);
+  final directives = node.accept(const _SelectionNodeDirectiveVisitor());
 
   final skipOrIncludeDirective = directives?.firstWhereOrNull(
       (directive) => const {'skip', 'include'}.contains(directive.name.value));
@@ -41,7 +41,7 @@ bool isSkipped(SelectionNode node, Map<String, dynamic> variables) {
 
 class _SelectionNodeDirectiveVisitor
     extends SimpleVisitor<List<DirectiveNode>?> {
-  static final instance = _SelectionNodeDirectiveVisitor();
+  const _SelectionNodeDirectiveVisitor();
 
   @override
   List<DirectiveNode> visitFieldNode(FieldNode node) {

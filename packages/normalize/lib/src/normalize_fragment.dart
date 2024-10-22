@@ -44,7 +44,7 @@ void normalizeFragment({
   // Always add typenames to ensure data is stored with typename
   document = transform(
     document,
-    [AddTypenameVisitor()],
+    const [AddTypenameVisitor()],
   );
 
   final fragmentMap = getFragmentMap(document);
