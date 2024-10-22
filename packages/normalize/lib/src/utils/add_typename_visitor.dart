@@ -1,6 +1,8 @@
 import 'package:gql/ast.dart';
 
 class AddTypenameVisitor extends TransformingVisitor {
+  const AddTypenameVisitor();
+
   @override
   FieldNode visitFieldNode(FieldNode node) {
     if (node.selectionSet == null) {
