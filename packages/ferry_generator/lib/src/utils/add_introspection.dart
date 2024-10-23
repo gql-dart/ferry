@@ -14,6 +14,8 @@ const typenameField = FieldDefinitionNode(
 );
 
 class AddTypenameField extends TransformingVisitor {
+  const AddTypenameField();
+
   @override
   ObjectTypeDefinitionNode visitObjectTypeDefinitionNode(
     ObjectTypeDefinitionNode node,
