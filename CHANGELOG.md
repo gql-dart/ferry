@@ -3,6 +3,46 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2024-10-23
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`ferry` - `v0.16.0-dev.5`](#ferry---v0160-dev5)
+ - [`ferry_generator` - `v0.12.0-dev.0+1`](#ferry_generator---v0120-dev01)
+ - [`normalize` - `v0.10.0-dev.1`](#normalize---v0100-dev1)
+ - [`ferry_flutter` - `v0.9.1-dev.1`](#ferry_flutter---v091-dev1)
+ - [`ferry_cache` - `v0.9.0-dev.4`](#ferry_cache---v090-dev4)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `ferry_flutter` - `v0.9.1-dev.1`
+ - `ferry_cache` - `v0.9.0-dev.4`
+
+---
+
+#### `ferry` - `v0.16.0-dev.5`
+
+ - **REFACTOR**(ferry): Use const to list.
+
+#### `ferry_generator` - `v0.12.0-dev.0+1`
+
+ - **REFACTOR**(ferry_generator): Add const constructor to AddTypenameField.
+
+#### `normalize` - `v0.10.0-dev.1`
+
+ - **REFACTOR**(normalize): Add const constructor to visitors.
+
+
 ## 2024-09-26
 
 ### Changes

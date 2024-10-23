@@ -1,3 +1,7 @@
+## 0.10.0-dev.1
+
+ - **REFACTOR**(normalize): Add const constructor to visitors.
+
 ## 0.10.0-dev.0
 
 > Note: This release has breaking changes.

@@ -1,3 +1,7 @@
+## 0.12.0-dev.0+1
+
+ - **REFACTOR**(ferry_generator): Add const constructor to AddTypenameField.
+
 ## 0.12.0
 
  - **FEAT**(ferry_generator): external schema import (#606).

@@ -19,6 +19,6 @@ dev_dependencies:
   pedantic: ^1.11.0
   built_value_generator: ^8.1.1
   dart_style: ^2.3.2
-  ferry_generator: ^0.12.0
+  ferry_generator: ^0.12.0-dev.0+1
 
 
