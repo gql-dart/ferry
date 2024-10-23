@@ -22,7 +22,7 @@ class AddTypenameTypedLink extends TypedLink {
         (op) => Operation(
           document: transform(
             op.document,
-            [
+            const [
               AddTypenameVisitor(),
             ],
           ),
