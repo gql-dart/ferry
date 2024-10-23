@@ -69,7 +69,7 @@ class AddTypenameTypedLink extends TypedLink {
           ..operation = Operation(
             document: transform(
               request.operation.document,
-              [AddTypenameVisitor()],
+              const [AddTypenameVisitor()],
             ),
             operationName: request.operation.operationName,
           ),
