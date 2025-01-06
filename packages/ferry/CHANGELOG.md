@@ -1,3 +1,7 @@
+## 0.16.1+1
+
+ - Update a dependency to the latest release.
+
 ## 0.16.1
 
  - Bump "ferry" to `0.16.1`.

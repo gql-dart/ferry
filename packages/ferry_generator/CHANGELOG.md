@@ -1,3 +1,7 @@
+## 0.12.0+1
+
+ - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.
+
 ## 0.12.0-dev.0+1
 
  - **REFACTOR**(ferry_generator): Add const constructor to AddTypenameField.
