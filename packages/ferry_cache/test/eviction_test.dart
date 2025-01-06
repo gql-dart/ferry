@@ -122,6 +122,7 @@ void main() {
         hanReq.rebuild((b) => b..vars.friendsAfter = 'chewie'),
         hanData,
       );
+
       final entityId = cache.identify(hanData.human)!;
       final keyLuke =
           FieldKey.from('friendsConnection', {'first': 10, 'after': 'luke'});
@@ -168,6 +169,52 @@ void main() {
       cache.gc();
       expect(cache.store.get('Human:luke'), isNotNull);
       expect(cache.store.get('Human:chewie'), isNull);
+    });
+  });
+
+  group('evictOperation', () {
+    test('can evict Operation', () {
+      final cache = Cache();
+      addTearDown(() {
+        cache.dispose();
+      });
+      cache.writeQuery(
+        hanReq,
+        hanData,
+      );
+
+      cache.evictOperation(hanReq);
+
+      expect(cache.readQuery(hanReq), equals(null));
+
+      final gcResult = cache.gc();
+
+      expect(gcResult, equals({'Human:luke', 'Human:chewie', 'Human:han'}));
+
+      expect(cache.store.get('Query'), equals({'__typename': 'Query'}));
+
+      expect(cache.store.keys, equals({'Query'}));
+    });
+
+    test('only evicts given operation', () {
+      final cache = Cache();
+      addTearDown(() {
+        cache.dispose();
+      });
+      cache.writeQuery(
+        hanReq,
+        hanData,
+      );
+
+      cache.writeQuery(
+        chewieReq,
+        chewieData,
+      );
+
+      cache.evictOperation(hanReq);
+
+      expect(cache.readQuery(hanReq), equals(null));
+      expect(cache.readQuery(chewieReq), equals(chewieData));
     });
   });
 }
