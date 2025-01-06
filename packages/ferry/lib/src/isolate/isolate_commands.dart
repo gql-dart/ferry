@@ -307,3 +307,43 @@ class ClearOptimisticPatchesCommand extends IsolateCommand {
     sendPort.send(null);
   }
 }
+
+@internal
+class CacheKeysCommand extends IsolateCommand {
+  CacheKeysCommand(SendPort sendPort) : super(sendPort);
+
+  @override
+  void handle(
+      TypedLinkWithCacheAndRequestController link, ReceivePort receivePort) {
+    final keys = link.cache.store.keys;
+    sendPort.send(keys);
+  }
+}
+
+@internal
+class IdentifyCommand<T> extends IsolateCommand {
+  final T object;
+
+  IdentifyCommand(SendPort sendPort, this.object) : super(sendPort);
+
+  @override
+  void handle(
+      TypedLinkWithCacheAndRequestController link, ReceivePort receivePort) {
+    final id = link.cache.identify(object);
+    sendPort.send(id);
+  }
+}
+
+@internal
+class EvictOperationCommand<TData, TVars> extends IsolateCommand {
+  final OperationRequest<TData, TVars> request;
+
+  EvictOperationCommand(SendPort sendPort, this.request) : super(sendPort);
+
+  @override
+  void handle(
+      TypedLinkWithCacheAndRequestController link, ReceivePort receivePort) {
+    link.cache.evictOperation(request);
+    sendPort.send(null);
+  }
+}
