@@ -310,12 +310,9 @@ class Cache {
     }
   }
 
-  void _evictField(
-    String entityId,
-    String fieldName,
-    Map<String, dynamic> args,
-    OperationRequest? optimisticRequest,
-  ) {
+  void _evictField(String entityId, String fieldName, Map<String, dynamic> args,
+      OperationRequest? optimisticRequest,
+      [bool eraseCompletely = false]) {
     if (optimisticRequest != null) {
       /// Set field to `null` in optimistic patch
       optimisticPatchesStream.add({
@@ -349,22 +346,54 @@ class Cache {
 
       final entity = store.get(entityId);
       if (entity != null) {
-        store.put(
-          entityId,
-          entity.map(
-            // NOTE: we need to set to null rather than removing altogether
-            // to ensure that denormalize doesn't throw a [PartialDataException]
-            (key, value) => _fieldMatch(
-              key,
-              fieldName,
-              args,
-            )
-                ? MapEntry(key, null)
-                : MapEntry(key, value),
-          ),
-        );
+        if (eraseCompletely) {
+          store.put(
+            entityId,
+            {
+              for (final key in entity.keys)
+                if (!_fieldMatch(key, fieldName, args)) key: entity[key],
+            },
+          );
+        } else {
+          store.put(
+            entityId,
+            entity.map(
+              // NOTE: we need to set to null rather than removing altogether
+              // to ensure that denormalize doesn't throw a [PartialDataException]
+              (key, value) => _fieldMatch(
+                key,
+                fieldName,
+                args,
+              )
+                  ? MapEntry(key, null)
+                  : MapEntry(key, value),
+            ),
+          );
+        }
       }
       _eventStream.add(null);
+    }
+  }
+
+  /// Evicts all top-level fields from that operation from the cache.
+  /// Consider calling after this gc() to completely remove orphaned entities.
+  void evictOperation<TData, TVars>(OperationRequest<TData, TVars> request) {
+    final operationDefinition = utils.getOperationDefinition(
+        request.operation.document, request.operation.operationName);
+    final rootTypeName =
+        utils.resolveRootTypename(operationDefinition, typePolicies);
+
+    final fields = utils.operationFieldNames(
+      request.operation.document,
+      request.operation.operationName,
+      request.varsToJson(),
+      typePolicies,
+      possibleTypes,
+    );
+
+    for (final field in fields) {
+      final fieldKey = utils.FieldKey.parse(field);
+      _evictField(rootTypeName, fieldKey.fieldName, fieldKey.args, null, true);
     }
   }
 

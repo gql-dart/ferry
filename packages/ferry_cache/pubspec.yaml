@@ -19,7 +19,7 @@ dependencies:
   pedantic: ^1.11.0
 dev_dependencies:
   test: ^1.16.8
-  ferry_test_graphql2: ^0.4.0
+  ferry_test_graphql2: 
   gql_exec: ^1.0.0
   gql: ^1.0.0
   gql_tristate_value: ^1.0.0
