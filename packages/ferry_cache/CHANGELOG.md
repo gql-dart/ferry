@@ -1,3 +1,7 @@
+## 0.10.1-dev.0
+
+ - **FEAT**(ferr_cache): add evict operation.
+
 ## 0.10.0+1
 
  - Update a dependency to the latest release.
