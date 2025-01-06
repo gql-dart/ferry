@@ -11,6 +11,51 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 Packages with breaking changes:
 
+ - [`ferry_cache` - `v0.10.0-dev.0`](#ferry_cache---v0100-dev0)
+ - [`ferry_exec` - `v0.7.0-dev.0`](#ferry_exec---v070-dev0)
+ - [`ferry_test_graphql2` - `v0.4.0-dev.0`](#ferry_test_graphql2---v040-dev0)
+
+Packages with other changes:
+
+ - [`ferry` - `v0.16.1-dev.0+2`](#ferry---v0161-dev02)
+ - [`ferry_flutter` - `v0.9.1-dev.0+1`](#ferry_flutter---v091-dev01)
+ - [`ferry_generator` - `v0.12.0-dev.0+2`](#ferry_generator---v0120-dev02)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `ferry` - `v0.16.1-dev.0+2`
+ - `ferry_flutter` - `v0.9.1-dev.0+1`
+ - `ferry_generator` - `v0.12.0-dev.0+2`
+
+---
+
+#### `ferry_cache` - `v0.10.0-dev.0`
+
+ - **BREAKING** **FEAT**(ferry_generator): update to gql_code_builders 0.12.0. this extracted the common serializers to a separate package. clients need to add gql_code_builder_serializers to their dependencies if they use ferry_generator. (#601).
+ - **BREAKING** **CHORE**(deps): upgrade rxdart to v0.28.0 (#612).
+
+#### `ferry_exec` - `v0.7.0-dev.0`
+
+ - **DOCS**(ferry_exec): fix typo.
+ - **BREAKING** **FEAT**(ferry_generator): update to gql_code_builders 0.12.0. this extracted the common serializers to a separate package. clients need to add gql_code_builder_serializers to their dependencies if they use ferry_generator. (#601).
+
+#### `ferry_test_graphql2` - `v0.4.0-dev.0`
+
+ - **FEAT**(ferry_generator): Passing through builder options to schema builder (#585).
+ - **BREAKING** **FEAT**(ferry_generator): update to gql_code_builders 0.12.0. this extracted the common serializers to a separate package. clients need to add gql_code_builder_serializers to their dependencies if they use ferry_generator. (#601).
+ - **BREAKING** **CHORE**(deps): upgrade rxdart to v0.28.0 (#612).
+
+
+## 2025-01-06
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
  - [`ferry_exec` - `v0.6.1`](#ferry_exec---v061)
  - [`ferry_flutter` - `v0.9.1`](#ferry_flutter---v091)
 
