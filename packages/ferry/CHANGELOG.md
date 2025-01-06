@@ -1,3 +1,7 @@
+## 0.16.1-dev.1
+
+ - **FEAT**(ferry): add evict operation to ferry isolate client.
+
 ## 0.16.1-dev.0+3
 
  - Update a dependency to the latest release.

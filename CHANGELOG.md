@@ -15,6 +15,34 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`ferry` - `v0.16.1-dev.1`](#ferry---v0161-dev1)
+ - [`ferry_flutter` - `v0.9.1-dev.1`](#ferry_flutter---v091-dev1)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `ferry_flutter` - `v0.9.1-dev.1`
+
+---
+
+#### `ferry` - `v0.16.1-dev.1`
+
+ - **FEAT**(ferry): add evict operation to ferry isolate client.
+
+
+## 2025-01-06
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`ferry_cache` - `v0.10.1-dev.0`](#ferry_cache---v0101-dev0)
  - [`ferry` - `v0.16.1-dev.0+3`](#ferry---v0161-dev03)
  - [`ferry_flutter` - `v0.9.1-dev.0+2`](#ferry_flutter---v091-dev02)
