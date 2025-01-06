@@ -320,6 +320,29 @@ class IsolateClient extends TypedLink {
     return super.dispose();
   }
 
+  /// returns all top-level keys in the cache
+  Future<Iterable<String>> getCacheKeys() {
+    return _handleSingleResponseCommand(
+        (sendPort) => CacheKeysCommand(sendPort));
+  }
+
+  /// evicts to top level selections from the cache
+  /// e.g. a query like
+  /// ```graphql
+  ///  query GetPerson {
+  ///     person(id: "1") {
+  ///        id
+  ///        name
+  ///     }
+  ///  }
+  ///  ```
+  ///  would evict the field `Query`->`person({id:"1"})`
+  ///  Consider calling gcCache() after this to remove orphaned data
+  Future<void> evictOperation(OperationRequest request) {
+    return _handleSingleResponseCommand(
+        (sendPort) => EvictOperationCommand(sendPort, request));
+  }
+
   /// adds a request to the requestController of the client on the isolate
   /// this is useful for re-fetch and pagination
   /// see https://ferry.gql-dart.dev/docs/pagination
