@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2025-01-06
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`ferry` - `v0.16.1`](#ferry---v0161)
+ - [`ferry_flutter` - `v0.9.1-dev.2`](#ferry_flutter---v091-dev2)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `ferry_flutter` - `v0.9.1-dev.2`
+
+---
+
+#### `ferry` - `v0.16.1`
+
+ - Bump "ferry" to `0.16.1`.
+
+
 ## 2024-10-23
 
 ### Changes

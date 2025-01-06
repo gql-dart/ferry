@@ -10,7 +10,7 @@ topics:
   - gql
   - ferry
 dependencies:
-  ferry: ^0.16.0-dev.5
+  ferry: ^0.16.1
   gql_exec: '>=0.4.0 <2.0.0'
   ferry_exec: ^0.6.1-dev.1
   flutter:

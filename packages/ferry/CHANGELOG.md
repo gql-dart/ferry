@@ -1,3 +1,7 @@
+## 0.16.1
+
+ - Bump "ferry" to `0.16.1`.
+
 ## 0.16.0-dev.5
 
  - **REFACTOR**(ferry): Use const to list.
