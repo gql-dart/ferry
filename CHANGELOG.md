@@ -11,6 +11,44 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 Packages with breaking changes:
 
+ - [`ferry` - `v0.16.1`](#ferry---v0161)
+ - [`ferry_cache` - `v0.10.1`](#ferry_cache---v0101)
+ - [`ferry_flutter` - `v0.9.1`](#ferry_flutter---v091)
+ - [`ferry_store` - `v0.6.1`](#ferry_store---v061)
+
+Packages with other changes:
+
+ - [`ferry_hive_store` - `v0.6.0+1`](#ferry_hive_store---v0601)
+
+Packages graduated to a stable release (see pre-releases prior to the stable version for changelog entries):
+
+ - `ferry` - `v0.16.1`
+ - `ferry_cache` - `v0.10.1`
+ - `ferry_flutter` - `v0.9.1`
+ - `ferry_hive_store` - `v0.6.0+1`
+ - `ferry_store` - `v0.6.1`
+
+---
+
+#### `ferry` - `v0.16.1`
+
+#### `ferry_cache` - `v0.10.1`
+
+#### `ferry_flutter` - `v0.9.1`
+
+#### `ferry_store` - `v0.6.1`
+
+#### `ferry_hive_store` - `v0.6.0+1`
+
+
+## 2025-02-07
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
  - There are no breaking changes in this release.
 
 Packages with other changes:

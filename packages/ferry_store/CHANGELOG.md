@@ -1,3 +1,7 @@
+## 0.6.1
+
+ - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.
+
 ## 0.6.1-dev.0
 
  - **FEAT**(ferry_store): add flush method to allow persistent stores to write pending data to disk.
