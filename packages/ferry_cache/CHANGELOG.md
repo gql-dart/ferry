@@ -1,3 +1,11 @@
+## 0.10.1
+
+ - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.
+
+## 0.10.1-dev.1
+
+ - Update a dependency to the latest release.
+
 ## 0.10.1-dev.0
 
  - **FEAT**(ferr_cache): add evict operation.
