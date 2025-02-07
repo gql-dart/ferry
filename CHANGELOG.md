@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2025-02-07
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`ferry_store` - `v0.6.1-dev.0`](#ferry_store---v061-dev0)
+ - [`ferry_cache` - `v0.10.1-dev.1`](#ferry_cache---v0101-dev1)
+ - [`ferry_hive_store` - `v0.6.0-dev.0+1`](#ferry_hive_store---v060-dev01)
+ - [`ferry` - `v0.16.1-dev.2`](#ferry---v0161-dev2)
+ - [`ferry_flutter` - `v0.9.1-dev.2`](#ferry_flutter---v091-dev2)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `ferry_cache` - `v0.10.1-dev.1`
+ - `ferry_hive_store` - `v0.6.0-dev.0+1`
+ - `ferry` - `v0.16.1-dev.2`
+ - `ferry_flutter` - `v0.9.1-dev.2`
+
+---
+
+#### `ferry_store` - `v0.6.1-dev.0`
+
+ - **FEAT**(ferry_store): add flush method to allow persistent stores to write pending data to disk.
+
+
 ## 2025-01-06
 
 ### Changes
