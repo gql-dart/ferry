@@ -15,6 +15,29 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`ferry_hive_ce_store` - `v0.0.2-dev.0`](#ferry_hive_ce_store---v002-dev0)
+
+---
+
+#### `ferry_hive_ce_store` - `v0.0.2-dev.0`
+
+ - **FEAT**(ferry_hive_ce_store): flush.
+ - **FEAT**(ferry_hive_ce_store): lints.
+ - **FEAT**(ferry_hive_ce_store): inital commit.
+
+
+## 2025-02-07
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`ferry` - `v0.16.2-dev.0`](#ferry---v0162-dev0)
  - [`ferry_flutter` - `v0.9.1-dev.0+1`](#ferry_flutter---v091-dev01)
 
