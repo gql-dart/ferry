@@ -9,7 +9,6 @@ topics:
   - graphql
   - gql
   - ferry
-  - hive_ce
   - hive
 dependencies:
   hive_ce: ^2.0.0

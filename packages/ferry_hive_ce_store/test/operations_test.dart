@@ -1,4 +1,4 @@
-import 'package:ferry_hive_ce_store/ferry_hive_store.dart';
+import 'package:ferry_hive_ce_store/ferry_hive_ce_store.dart';
 import 'package:test/test.dart';
 import 'package:hive_ce/hive.dart';
 
