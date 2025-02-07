@@ -26,7 +26,7 @@ void main() {
         },
       };
 
-      final box = await Hive.openBox('graphql');
+      final box = await Hive.openBox<dynamic>('graphql');
       await box.clear();
       await box.putAll(data);
       final store = HiveStore(box);
@@ -49,7 +49,7 @@ void main() {
         },
       };
 
-      final box = await Hive.openBox('graphql');
+      final box = await Hive.openBox<dynamic>('graphql');
       await box.clear();
       await box.putAll(data);
       final store = HiveStore(box);
@@ -72,7 +72,7 @@ void main() {
         },
       };
 
-      final box = await Hive.openBox('graphql');
+      final box = await Hive.openBox<dynamic>('graphql');
       await box.clear();
       final store = HiveStore(box);
 
@@ -98,7 +98,7 @@ void main() {
         },
       };
 
-      final box = await Hive.openBox('graphql');
+      final box = await Hive.openBox<dynamic>('graphql');
       await box.clear();
       final store = HiveStore(box);
 
@@ -122,7 +122,7 @@ void main() {
         },
       };
 
-      final box = await Hive.openBox('graphql');
+      final box = await Hive.openBox<dynamic>('graphql');
       await box.clear();
       await box.putAll(data);
       final store = HiveStore(box);
@@ -149,7 +149,7 @@ void main() {
         },
       };
 
-      final box = await Hive.openBox('graphql');
+      final box = await Hive.openBox<dynamic>('graphql');
       await box.clear();
       await box.putAll(data);
       final store = HiveStore(box);
@@ -173,7 +173,7 @@ void main() {
         },
       };
 
-      final box = await Hive.openBox('graphql');
+      final box = await Hive.openBox<dynamic>('graphql');
       await box.clear();
       await box.putAll(data);
       final store = HiveStore(box);
@@ -194,7 +194,7 @@ void main() {
         },
       };
 
-      final box = await Hive.openBox('graphql');
+      final box = await Hive.openBox<dynamic>('graphql');
       await box.clear();
       await box.putAll(data);
       final store = HiveStore(box);
@@ -213,7 +213,7 @@ void main() {
         ]),
       );
 
-      await Future.delayed(Duration.zero);
+      await Future<void>.delayed(Duration.zero);
       store.put(data.keys.first, newData);
     });
 
@@ -230,7 +230,7 @@ void main() {
         },
       };
 
-      final box = await Hive.openBox('graphql');
+      final box = await Hive.openBox<dynamic>('graphql');
       await box.clear();
       await box.putAll(data);
       final store = HiveStore(box);
@@ -249,7 +249,7 @@ void main() {
         ]),
       );
 
-      await Future.delayed(Duration.zero);
+      await Future<void>.delayed(Duration.zero);
       await box.put(data.keys.first, newData);
     });
 
@@ -266,7 +266,7 @@ void main() {
         },
       };
 
-      final box = await Hive.openBox('graphql');
+      final box = await Hive.openBox<dynamic>('graphql');
       await box.clear();
       await box.putAll(data);
       final store = HiveStore(box);
@@ -279,7 +279,7 @@ void main() {
         ]),
       );
 
-      await Future.delayed(Duration.zero);
+      await Future<void>.delayed(Duration.zero);
       store.put(data.keys.first, data.values.first);
       await store.dispose();
     });
@@ -297,7 +297,7 @@ void main() {
         },
       };
 
-      final box = await Hive.openBox('graphql');
+      final box = await Hive.openBox<dynamic>('graphql');
       await box.clear();
       await box.putAll(data);
       final store = HiveStore(box);
@@ -316,7 +316,7 @@ void main() {
         ]),
       );
 
-      await Future.delayed(Duration.zero);
+      await Future<void>.delayed(Duration.zero);
       store.put(newPostKey, newPostValue);
       await store.dispose();
     });
