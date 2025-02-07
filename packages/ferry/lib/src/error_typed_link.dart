@@ -22,19 +22,21 @@ class ErrorTypedLink extends TypedLink {
     forward,
   ]) {
     try {
-      return forward!(operationRequest).transform(
-        StreamTransformer.fromHandlers(
-          handleError: (error, stackTrace, sink) => sink.add(
-            OperationResponse(
-              operationRequest: operationRequest,
-              linkException: error is LinkException
-                  ? error
-                  : TypedLinkException(error, stackTrace),
-              dataSource: DataSource.None,
+      return forward!(operationRequest)
+          .cast<OperationResponse<TData, TVars>>()
+          .transform(
+            StreamTransformer.fromHandlers(
+              handleError: (error, stackTrace, sink) => sink.add(
+                OperationResponse(
+                  operationRequest: operationRequest,
+                  linkException: error is LinkException
+                      ? error
+                      : TypedLinkException(error, stackTrace),
+                  dataSource: DataSource.None,
+                ),
+              ),
             ),
-          ),
-        ),
-      );
+          );
     } catch (error, stackTrace) {
       return Stream.value(
         OperationResponse(
