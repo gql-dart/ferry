@@ -155,3 +155,38 @@ class OperationSerializer extends JsonSerializer<Operation> {
 ```
 
 For more information about serialization using `built_value`, check out [this blog post](https://medium.com/dartlang/darts-built-value-for-serialization-f5db9d0f4159).
+
+
+### Json Scalars
+
+If your schema has a scalar for arbitrary Json values, you can use built_values `JsonObject` to represent this in a type-safe manner.
+
+Assuming the scalar name is 'JSON', here is how you can configure ferry to deseriallize to `JsonObject`
+For the `graphql_builder`, add 
+```yaml
+  ferry_generator|graphql_builder:
+      options:
+        type_overrides:
+            JSON:
+              name: JsonObject
+              import: "package:built_value/json_object.dart"
+
+```
+
+and your the `serializer_builder`, add
+
+
+```yaml
+
+ferry_generator|serializer_builder:
+    options:
+        type_overrides:
+            JSON:
+              name: JsonObject
+              import: "package:built_value/json_object.dart"
+         custom_serializers:
+            - import: "package:built_value/src/json_object_serializer.dart"
+              name: JsonObjectSerializer
+
+```
+
