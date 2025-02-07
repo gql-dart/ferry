@@ -16,4 +16,7 @@ abstract class Store {
   void clear();
 
   Future<void> dispose() async => null;
+
+  /// Flushes any pending writes to disk.
+  Future<void> flush() async => null;
 }
