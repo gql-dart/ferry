@@ -53,4 +53,7 @@ class HiveStore extends Store {
 
   @override
   Future<void> dispose() => box.close();
+
+  @override
+  Future<void> flush() => box.flush();
 }
