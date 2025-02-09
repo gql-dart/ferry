@@ -367,6 +367,11 @@ class IsolateClient extends TypedLink {
       return value as T;
     });
   }
+
+  /// flushes the store, persisting all pending changes to the disk
+  Future<void> flushStore() {
+    return _handleSingleResponseCommand((sendPort) => FlushCommand(sendPort));
+  }
 }
 
 // initialization message, send when creating the client
