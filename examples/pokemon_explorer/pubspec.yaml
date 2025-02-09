@@ -6,9 +6,9 @@ environment:
 dependencies:
   gql_link: '>=0.5.0 <2.0.0'
   gql_http_link: '>=0.4.0 <2.0.0'
-  ferry: ^0.16.2-dev.0
+  ferry: ^0.16.2-dev.1
   ferry_hive_store: ^0.6.0+1
-  ferry_flutter: ^0.9.1-dev.0+1
+  ferry_flutter: ^0.9.1-dev.1
   hive: ^2.0.0
   hive_flutter: ^1.1.0
   get_it: ^7.1.3

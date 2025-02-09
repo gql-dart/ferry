@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2025-02-09
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`ferry` - `v0.16.2-dev.1`](#ferry---v0162-dev1)
+ - [`ferry_flutter` - `v0.9.1-dev.1`](#ferry_flutter---v091-dev1)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `ferry_flutter` - `v0.9.1-dev.1`
+
+---
+
+#### `ferry` - `v0.16.2-dev.1`
+
+ - **FEAT**(ferry): expose store flush() in isolate client (#628).
+
+
 ## 2025-02-07
 
 ### Changes

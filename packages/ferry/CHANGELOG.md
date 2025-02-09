@@ -1,3 +1,7 @@
+## 0.16.2-dev.1
+
+ - **FEAT**(ferry): expose store flush() in isolate client (#628).
+
 ## 0.16.2-dev.0
 
  - **FEAT**(ferry): add evict operation to ferry isolate client.
