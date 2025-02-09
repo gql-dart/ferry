@@ -347,3 +347,15 @@ class EvictOperationCommand<TData, TVars> extends IsolateCommand {
     sendPort.send(null);
   }
 }
+
+@internal
+class FlushCommand extends IsolateCommand {
+  FlushCommand(SendPort sendPort) : super(sendPort);
+
+  @override
+  void handle(
+      TypedLinkWithCacheAndRequestController link, ReceivePort receivePort) {
+    link.cache.store.flush();
+    sendPort.send(null);
+  }
+}
