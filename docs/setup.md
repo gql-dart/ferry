@@ -40,7 +40,8 @@ final client = Client(link: link, cache: cache);
 
 ## Setup With HiveStore
 
-Ferry includes a `HiveStore` which enables offline data persistance, based on the `hive` package.
+Ferry includes a `HiveStore` which enables offline data persistence, based on the `hive` package.
+
 
 ### Install Dependencies
 
@@ -57,6 +58,12 @@ dev_dependencies:
   ferry_generator: #[latest-version]
   build_runner: #[latest-version]
 ```
+
+Since `hive` seems to be unmaintained, and the community forked it via the `hive_ce` package, Ferry also includes a `ferry_hive_ce_store` 
+with the same API.
+
+Since the underlying file formats are binary compatible, switching from `ferry_hive_store ` to `ferry_hive_ce_store` is possible without any data migration.
+
 
 :::important
 
