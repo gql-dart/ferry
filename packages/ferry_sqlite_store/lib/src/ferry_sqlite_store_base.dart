@@ -180,7 +180,7 @@ class Sqlite3StoreInMemoryFlush extends Store {
 
     // If distinct, filter out consecutive duplicates:
     if (distinct) {
-      return subject.distinct((prev, next) => _jsonEquals(prev, next));
+      return subject.distinct(_jsonEquals);
     } else {
       return subject;
     }
@@ -363,7 +363,7 @@ class Sqlite3StoreInMemoryWriteThrough extends Store {
     });
 
     if (distinct) {
-      return subject.distinct((prev, next) => _jsonEquals(prev, next));
+      return subject.distinct(_jsonEquals);
     } else {
       return subject;
     }
