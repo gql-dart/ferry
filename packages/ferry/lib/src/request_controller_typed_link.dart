@@ -73,6 +73,8 @@ class RequestControllerTypedLink extends TypedLink {
           Future.delayed(Duration.zero, () => sub?.cancel());
         },
       );
+      //Only use the first instance of the request stream for subscriptions, to ensure that a possible .done event is propagated.
+      //Note: This disables the paging and refetch feature for subscriptions.
       if (request.operation.getOperationType() == OperationType.subscription) {
         requestStream = requestStream.take(1);
       }
