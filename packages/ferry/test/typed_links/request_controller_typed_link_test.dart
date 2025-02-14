@@ -10,6 +10,7 @@ import 'package:ferry_test_graphql2/queries/__generated__/review_by_id.req.gql.d
 import 'package:ferry_test_graphql2/queries/__generated__/reviews.data.gql.dart';
 import 'package:ferry_test_graphql2/queries/__generated__/reviews.req.gql.dart';
 import 'package:ferry_test_graphql2/queries/__generated__/reviews.var.gql.dart';
+import 'package:gql/language.dart' as gql;
 import 'package:gql_exec/gql_exec.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:test/test.dart';
@@ -466,6 +467,38 @@ void main() {
       await Future.delayed(Duration.zero);
 
       await client.dispose();
+    });
+  });
+
+  group('done event for subscriptions', () {
+    late TypedLink typedLink;
+
+    setUp(() {
+      typedLink = TypedLink.from([
+        RequestControllerTypedLink(),
+        TypedLink.function(<TData, TVars>(request, [next]) =>
+            Stream<OperationResponse<TData, TVars>>.empty()),
+      ]);
+    });
+
+    test('onDone is propagated for subscriptions', () {
+      final stream = typedLink.request(
+        JsonOperationRequest(
+          fetchPolicy: FetchPolicy.NetworkOnly,
+          vars: {},
+          operation: Operation(
+            document: gql.parseString(r'''
+            subscription Sub {
+                reviews {
+                  id
+                  stars
+                }
+            }'''),
+          ),
+        ),
+      );
+
+      expect(stream, emitsInOrder([emitsDone]));
     });
   });
 }

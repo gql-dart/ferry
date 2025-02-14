@@ -1,6 +1,7 @@
 import 'dart:async';
 
-import 'package:ferry_exec/ferry_exec.dart';
+import 'package:ferry/ferry.dart';
+import 'package:gql_exec/gql_exec.dart';
 import 'package:rxdart/rxdart.dart';
 
 /// Allows multiple requests to be made by adding requests to the
@@ -57,7 +58,7 @@ class RequestControllerTypedLink extends TypedLink {
       // If no stream has been cached for this request, create a new one.
       ValueStream<OperationResponse<TData, TVars>>? prev;
       var initial = true;
-      stream = requestController.stream
+      var requestStream = requestController.stream
           .whereType<OperationRequest<TData, TVars>>()
           .where(
             (req) => req.requestId == null
@@ -71,7 +72,13 @@ class RequestControllerTypedLink extends TypedLink {
           final sub = prev?.listen(null);
           Future.delayed(Duration.zero, () => sub?.cancel());
         },
-      ).switchMap(
+      );
+      //Only use the first instance of the request stream for subscriptions, to ensure that a possible .done event is propagated.
+      //Note: This disables the paging and refetch feature for subscriptions.
+      if (request.operation.getOperationType() == OperationType.subscription) {
+        requestStream = requestStream.take(1);
+      }
+      stream = requestStream.switchMap(
         (req) {
           final stream = req.updateResult == null
               ? forward!(req)
