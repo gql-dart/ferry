@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2025-02-14
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - [`ferry` - `v0.16.2-dev.2`](#ferry---v0162-dev2)
+
+Packages with other changes:
+
+ - [`ferry_flutter` - `v0.9.1-dev.2`](#ferry_flutter---v091-dev2)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `ferry_flutter` - `v0.9.1-dev.2`
+
+---
+
+#### `ferry` - `v0.16.2-dev.2`
+
+ - **BREAKING** **FEAT**(ferry): propagate .done from websockets to returned stream. This this disables refetching/paging for subscriptions and thus a breaking change. See #629.
+
+
 ## 2025-02-09
 
 ### Changes

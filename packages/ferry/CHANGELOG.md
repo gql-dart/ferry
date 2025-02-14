@@ -1,3 +1,9 @@
+## 0.16.2-dev.2
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **FEAT**(ferry): propagate .done from websockets to returned stream. This this disables refetching/paging for subscriptions and thus a breaking change. See #629.
+
 ## 0.16.2-dev.1
 
  - **FEAT**(ferry): expose store flush() in isolate client (#628).
