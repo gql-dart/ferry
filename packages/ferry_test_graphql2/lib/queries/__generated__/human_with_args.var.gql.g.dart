@@ -152,9 +152,10 @@ class GHumanWithArgsVarsBuilder
   _$GHumanWithArgsVars _build() {
     final _$result = _$v ??
         new _$GHumanWithArgsVars._(
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GHumanWithArgsVars', 'id'),
-            friendsAfter: friendsAfter);
+          id: BuiltValueNullFieldError.checkNotNull(
+              id, r'GHumanWithArgsVars', 'id'),
+          friendsAfter: friendsAfter,
+        );
     replace(_$result);
     return _$result;
   }

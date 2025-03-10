@@ -157,8 +157,9 @@ class GHeroForEpisodeVarsBuilder
   _$GHeroForEpisodeVars _build() {
     final _$result = _$v ??
         new _$GHeroForEpisodeVars._(
-            ep: BuiltValueNullFieldError.checkNotNull(
-                ep, r'GHeroForEpisodeVars', 'ep'));
+          ep: BuiltValueNullFieldError.checkNotNull(
+              ep, r'GHeroForEpisodeVars', 'ep'),
+        );
     replace(_$result);
     return _$result;
   }

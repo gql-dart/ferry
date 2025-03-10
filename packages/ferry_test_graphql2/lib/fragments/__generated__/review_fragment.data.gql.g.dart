@@ -179,11 +179,12 @@ class GReviewFragmentDataBuilder
   _$GReviewFragmentData _build() {
     final _$result = _$v ??
         new _$GReviewFragmentData._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, r'GReviewFragmentData', 'G__typename'),
-            stars: BuiltValueNullFieldError.checkNotNull(
-                stars, r'GReviewFragmentData', 'stars'),
-            commentary: commentary);
+          G__typename: BuiltValueNullFieldError.checkNotNull(
+              G__typename, r'GReviewFragmentData', 'G__typename'),
+          stars: BuiltValueNullFieldError.checkNotNull(
+              stars, r'GReviewFragmentData', 'stars'),
+          commentary: commentary,
+        );
     replace(_$result);
     return _$result;
   }

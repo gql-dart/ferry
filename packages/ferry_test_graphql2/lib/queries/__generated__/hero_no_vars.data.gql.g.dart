@@ -217,9 +217,10 @@ class GHeroNoVarsDataBuilder
     try {
       _$result = _$v ??
           new _$GHeroNoVarsData._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GHeroNoVarsData', 'G__typename'),
-              hero: _hero?.build());
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename, r'GHeroNoVarsData', 'G__typename'),
+            hero: _hero?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -344,12 +345,13 @@ class GHeroNoVarsData_heroBuilder
   _$GHeroNoVarsData_hero _build() {
     final _$result = _$v ??
         new _$GHeroNoVarsData_hero._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, r'GHeroNoVarsData_hero', 'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GHeroNoVarsData_hero', 'id'),
-            name: BuiltValueNullFieldError.checkNotNull(
-                name, r'GHeroNoVarsData_hero', 'name'));
+          G__typename: BuiltValueNullFieldError.checkNotNull(
+              G__typename, r'GHeroNoVarsData_hero', 'G__typename'),
+          id: BuiltValueNullFieldError.checkNotNull(
+              id, r'GHeroNoVarsData_hero', 'id'),
+          name: BuiltValueNullFieldError.checkNotNull(
+              name, r'GHeroNoVarsData_hero', 'name'),
+        );
     replace(_$result);
     return _$result;
   }

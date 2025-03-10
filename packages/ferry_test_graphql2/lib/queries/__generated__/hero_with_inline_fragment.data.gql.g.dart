@@ -337,9 +337,10 @@ class GHeroForEpisodeDataBuilder
   _$GHeroForEpisodeData _build() {
     final _$result = _$v ??
         new _$GHeroForEpisodeData._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, r'GHeroForEpisodeData', 'G__typename'),
-            hero: hero);
+          G__typename: BuiltValueNullFieldError.checkNotNull(
+              G__typename, r'GHeroForEpisodeData', 'G__typename'),
+          hero: hero,
+        );
     replace(_$result);
     return _$result;
   }
@@ -444,10 +445,11 @@ class GHeroForEpisodeData_hero__baseBuilder
   _$GHeroForEpisodeData_hero__base _build() {
     final _$result = _$v ??
         new _$GHeroForEpisodeData_hero__base._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, r'GHeroForEpisodeData_hero__base', 'G__typename'),
-            name: BuiltValueNullFieldError.checkNotNull(
-                name, r'GHeroForEpisodeData_hero__base', 'name'));
+          G__typename: BuiltValueNullFieldError.checkNotNull(
+              G__typename, r'GHeroForEpisodeData_hero__base', 'G__typename'),
+          name: BuiltValueNullFieldError.checkNotNull(
+              name, r'GHeroForEpisodeData_hero__base', 'name'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -566,11 +568,12 @@ class GHeroForEpisodeData_hero__asDroidBuilder
   _$GHeroForEpisodeData_hero__asDroid _build() {
     final _$result = _$v ??
         new _$GHeroForEpisodeData_hero__asDroid._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                r'GHeroForEpisodeData_hero__asDroid', 'G__typename'),
-            name: BuiltValueNullFieldError.checkNotNull(
-                name, r'GHeroForEpisodeData_hero__asDroid', 'name'),
-            primaryFunction: primaryFunction);
+          G__typename: BuiltValueNullFieldError.checkNotNull(
+              G__typename, r'GHeroForEpisodeData_hero__asDroid', 'G__typename'),
+          name: BuiltValueNullFieldError.checkNotNull(
+              name, r'GHeroForEpisodeData_hero__asDroid', 'name'),
+          primaryFunction: primaryFunction,
+        );
     replace(_$result);
     return _$result;
   }
@@ -671,9 +674,10 @@ class GDroidFragmentDataBuilder
   _$GDroidFragmentData _build() {
     final _$result = _$v ??
         new _$GDroidFragmentData._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, r'GDroidFragmentData', 'G__typename'),
-            primaryFunction: primaryFunction);
+          G__typename: BuiltValueNullFieldError.checkNotNull(
+              G__typename, r'GDroidFragmentData', 'G__typename'),
+          primaryFunction: primaryFunction,
+        );
     replace(_$result);
     return _$result;
   }

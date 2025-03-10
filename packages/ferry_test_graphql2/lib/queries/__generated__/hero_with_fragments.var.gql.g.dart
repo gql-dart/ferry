@@ -205,7 +205,10 @@ class GHeroWithFragmentsVarsBuilder
   GHeroWithFragmentsVars build() => _build();
 
   _$GHeroWithFragmentsVars _build() {
-    final _$result = _$v ?? new _$GHeroWithFragmentsVars._(episode: episode);
+    final _$result = _$v ??
+        new _$GHeroWithFragmentsVars._(
+          episode: episode,
+        );
     replace(_$result);
     return _$result;
   }
@@ -343,7 +346,10 @@ class GcomparisonFieldsVarsBuilder
   GcomparisonFieldsVars build() => _build();
 
   _$GcomparisonFieldsVars _build() {
-    final _$result = _$v ?? new _$GcomparisonFieldsVars._(first: first);
+    final _$result = _$v ??
+        new _$GcomparisonFieldsVars._(
+          first: first,
+        );
     replace(_$result);
     return _$result;
   }

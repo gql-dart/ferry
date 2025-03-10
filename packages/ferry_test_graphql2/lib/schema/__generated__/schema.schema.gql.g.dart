@@ -331,11 +331,12 @@ class GReviewInputBuilder
     try {
       _$result = _$v ??
           new _$GReviewInput._(
-              stars: BuiltValueNullFieldError.checkNotNull(
-                  stars, r'GReviewInput', 'stars'),
-              commentary: commentary,
-              favorite_color: _favorite_color?.build(),
-              seenOn: _seenOn?.build());
+            stars: BuiltValueNullFieldError.checkNotNull(
+                stars, r'GReviewInput', 'stars'),
+            commentary: commentary,
+            favorite_color: _favorite_color?.build(),
+            seenOn: _seenOn?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -453,12 +454,13 @@ class GColorInputBuilder implements Builder<GColorInput, GColorInputBuilder> {
   _$GColorInput _build() {
     final _$result = _$v ??
         new _$GColorInput._(
-            red: BuiltValueNullFieldError.checkNotNull(
-                red, r'GColorInput', 'red'),
-            green: BuiltValueNullFieldError.checkNotNull(
-                green, r'GColorInput', 'green'),
-            blue: BuiltValueNullFieldError.checkNotNull(
-                blue, r'GColorInput', 'blue'));
+          red:
+              BuiltValueNullFieldError.checkNotNull(red, r'GColorInput', 'red'),
+          green: BuiltValueNullFieldError.checkNotNull(
+              green, r'GColorInput', 'green'),
+          blue: BuiltValueNullFieldError.checkNotNull(
+              blue, r'GColorInput', 'blue'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -538,8 +540,9 @@ class GISODateBuilder implements Builder<GISODate, GISODateBuilder> {
   _$GISODate _build() {
     final _$result = _$v ??
         new _$GISODate._(
-            value: BuiltValueNullFieldError.checkNotNull(
-                value, r'GISODate', 'value'));
+          value: BuiltValueNullFieldError.checkNotNull(
+              value, r'GISODate', 'value'),
+        );
     replace(_$result);
     return _$result;
   }

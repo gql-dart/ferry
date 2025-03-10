@@ -136,8 +136,9 @@ class GQueryHeroByEpisodeVarsBuilder
   _$GQueryHeroByEpisodeVars _build() {
     final _$result = _$v ??
         new _$GQueryHeroByEpisodeVars._(
-            episode: BuiltValueNullFieldError.checkNotNull(
-                episode, r'GQueryHeroByEpisodeVars', 'episode'));
+          episode: BuiltValueNullFieldError.checkNotNull(
+              episode, r'GQueryHeroByEpisodeVars', 'episode'),
+        );
     replace(_$result);
     return _$result;
   }

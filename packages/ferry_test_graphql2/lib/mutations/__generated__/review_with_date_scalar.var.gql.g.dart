@@ -183,7 +183,10 @@ class GReviewWithDateVarsBuilder
     try {
       _$result = _$v ??
           new _$GReviewWithDateVars._(
-              episode: episode, review: review.build(), createdAt: createdAt);
+            episode: episode,
+            review: review.build(),
+            createdAt: createdAt,
+          );
     } catch (_) {
       late String _$failedField;
       try {

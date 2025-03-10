@@ -234,9 +234,10 @@ class GReviewsDataBuilder
     try {
       _$result = _$v ??
           new _$GReviewsData._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GReviewsData', 'G__typename'),
-              reviews: _reviews?.build());
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename, r'GReviewsData', 'G__typename'),
+            reviews: _reviews?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -372,12 +373,13 @@ class GReviewsData_reviewsBuilder
   _$GReviewsData_reviews _build() {
     final _$result = _$v ??
         new _$GReviewsData_reviews._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, r'GReviewsData_reviews', 'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GReviewsData_reviews', 'id'),
-            createdAt: createdAt,
-            commentary: commentary);
+          G__typename: BuiltValueNullFieldError.checkNotNull(
+              G__typename, r'GReviewsData_reviews', 'G__typename'),
+          id: BuiltValueNullFieldError.checkNotNull(
+              id, r'GReviewsData_reviews', 'id'),
+          createdAt: createdAt,
+          commentary: commentary,
+        );
     replace(_$result);
     return _$result;
   }

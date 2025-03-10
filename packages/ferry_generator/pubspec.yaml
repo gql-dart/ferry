@@ -21,7 +21,8 @@ dependencies:
   path: ^1.8.0
   ferry_exec: ^0.7.0
   yaml: ^3.1.0
-  dart_style: ^2.3.2
+  dart_style: ^3.0.1
+  pub_semver: ^2.0.0
   glob: ^2.0.1
   built_value_generator: ^8.1.1
   built_value: ^8.1.2

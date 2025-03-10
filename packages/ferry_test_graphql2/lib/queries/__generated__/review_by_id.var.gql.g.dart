@@ -127,8 +127,9 @@ class GReviewsByIDVarsBuilder
   _$GReviewsByIDVars _build() {
     final _$result = _$v ??
         new _$GReviewsByIDVars._(
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GReviewsByIDVars', 'id'));
+          id: BuiltValueNullFieldError.checkNotNull(
+              id, r'GReviewsByIDVars', 'id'),
+        );
     replace(_$result);
     return _$result;
   }
