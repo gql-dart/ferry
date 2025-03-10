@@ -371,9 +371,10 @@ class GHumanWithArgsDataBuilder
     try {
       _$result = _$v ??
           new _$GHumanWithArgsData._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GHumanWithArgsData', 'G__typename'),
-              human: human.build());
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename, r'GHumanWithArgsData', 'G__typename'),
+            human: human.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -533,14 +534,15 @@ class GHumanWithArgsData_humanBuilder
     try {
       _$result = _$v ??
           new _$GHumanWithArgsData_human._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GHumanWithArgsData_human', 'G__typename'),
-              id: BuiltValueNullFieldError.checkNotNull(
-                  id, r'GHumanWithArgsData_human', 'id'),
-              name: BuiltValueNullFieldError.checkNotNull(
-                  name, r'GHumanWithArgsData_human', 'name'),
-              height: height,
-              friendsConnection: friendsConnection.build());
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename, r'GHumanWithArgsData_human', 'G__typename'),
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'GHumanWithArgsData_human', 'id'),
+            name: BuiltValueNullFieldError.checkNotNull(
+                name, r'GHumanWithArgsData_human', 'name'),
+            height: height,
+            friendsConnection: friendsConnection.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -669,9 +671,10 @@ class GHumanWithArgsData_human_friendsConnectionBuilder
     try {
       _$result = _$v ??
           new _$GHumanWithArgsData_human_friendsConnection._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                  r'GHumanWithArgsData_human_friendsConnection', 'G__typename'),
-              friends: _friends?.build());
+            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
+                r'GHumanWithArgsData_human_friendsConnection', 'G__typename'),
+            friends: _friends?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -812,14 +815,15 @@ class GHumanWithArgsData_human_friendsConnection_friendsBuilder
   _$GHumanWithArgsData_human_friendsConnection_friends _build() {
     final _$result = _$v ??
         new _$GHumanWithArgsData_human_friendsConnection_friends._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename,
-                r'GHumanWithArgsData_human_friendsConnection_friends',
-                'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(id,
-                r'GHumanWithArgsData_human_friendsConnection_friends', 'id'),
-            name: BuiltValueNullFieldError.checkNotNull(name,
-                r'GHumanWithArgsData_human_friendsConnection_friends', 'name'));
+          G__typename: BuiltValueNullFieldError.checkNotNull(
+              G__typename,
+              r'GHumanWithArgsData_human_friendsConnection_friends',
+              'G__typename'),
+          id: BuiltValueNullFieldError.checkNotNull(
+              id, r'GHumanWithArgsData_human_friendsConnection_friends', 'id'),
+          name: BuiltValueNullFieldError.checkNotNull(name,
+              r'GHumanWithArgsData_human_friendsConnection_friends', 'name'),
+        );
     replace(_$result);
     return _$result;
   }

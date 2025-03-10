@@ -149,8 +149,9 @@ class GHumanQueryVarsBuilder
   _$GHumanQueryVars _build() {
     final _$result = _$v ??
         new _$GHumanQueryVars._(
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GHumanQueryVars', 'id'));
+          id: BuiltValueNullFieldError.checkNotNull(
+              id, r'GHumanQueryVars', 'id'),
+        );
     replace(_$result);
     return _$result;
   }

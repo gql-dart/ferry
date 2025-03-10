@@ -128,8 +128,9 @@ class GAliasedHeroVarsBuilder
   _$GAliasedHeroVars _build() {
     final _$result = _$v ??
         new _$GAliasedHeroVars._(
-            ep: BuiltValueNullFieldError.checkNotNull(
-                ep, r'GAliasedHeroVars', 'ep'));
+          ep: BuiltValueNullFieldError.checkNotNull(
+              ep, r'GAliasedHeroVars', 'ep'),
+        );
     replace(_$result);
     return _$result;
   }

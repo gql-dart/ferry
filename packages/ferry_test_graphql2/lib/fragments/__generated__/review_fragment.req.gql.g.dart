@@ -207,12 +207,13 @@ class GReviewFragmentReqBuilder
     try {
       _$result = _$v ??
           new _$GReviewFragmentReq._(
-              vars: vars.build(),
-              document: BuiltValueNullFieldError.checkNotNull(
-                  document, r'GReviewFragmentReq', 'document'),
-              fragmentName: fragmentName,
-              idFields: BuiltValueNullFieldError.checkNotNull(
-                  idFields, r'GReviewFragmentReq', 'idFields'));
+            vars: vars.build(),
+            document: BuiltValueNullFieldError.checkNotNull(
+                document, r'GReviewFragmentReq', 'document'),
+            fragmentName: fragmentName,
+            idFields: BuiltValueNullFieldError.checkNotNull(
+                idFields, r'GReviewFragmentReq', 'idFields'),
+          );
     } catch (_) {
       late String _$failedField;
       try {

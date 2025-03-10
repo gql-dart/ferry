@@ -226,9 +226,10 @@ class GQueryHeroByEpisodeDataBuilder
     try {
       _$result = _$v ??
           new _$GQueryHeroByEpisodeData._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GQueryHeroByEpisodeData', 'G__typename'),
-              hero: _hero?.build());
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename, r'GQueryHeroByEpisodeData', 'G__typename'),
+            hero: _hero?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -356,12 +357,13 @@ class GQueryHeroByEpisodeData_heroBuilder
   _$GQueryHeroByEpisodeData_hero _build() {
     final _$result = _$v ??
         new _$GQueryHeroByEpisodeData_hero._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, r'GQueryHeroByEpisodeData_hero', 'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GQueryHeroByEpisodeData_hero', 'id'),
-            name: BuiltValueNullFieldError.checkNotNull(
-                name, r'GQueryHeroByEpisodeData_hero', 'name'));
+          G__typename: BuiltValueNullFieldError.checkNotNull(
+              G__typename, r'GQueryHeroByEpisodeData_hero', 'G__typename'),
+          id: BuiltValueNullFieldError.checkNotNull(
+              id, r'GQueryHeroByEpisodeData_hero', 'id'),
+          name: BuiltValueNullFieldError.checkNotNull(
+              name, r'GQueryHeroByEpisodeData_hero', 'name'),
+        );
     replace(_$result);
     return _$result;
   }

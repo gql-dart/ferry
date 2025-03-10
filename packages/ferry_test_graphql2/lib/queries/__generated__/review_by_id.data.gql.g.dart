@@ -261,9 +261,10 @@ class GReviewsByIDDataBuilder
     try {
       _$result = _$v ??
           new _$GReviewsByIDData._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GReviewsByIDData', 'G__typename'),
-              review: _review?.build());
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename, r'GReviewsByIDData', 'G__typename'),
+            review: _review?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -440,16 +441,17 @@ class GReviewsByIDData_reviewBuilder
     try {
       _$result = _$v ??
           new _$GReviewsByIDData_review._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GReviewsByIDData_review', 'G__typename'),
-              id: BuiltValueNullFieldError.checkNotNull(
-                  id, r'GReviewsByIDData_review', 'id'),
-              episode: episode,
-              stars: BuiltValueNullFieldError.checkNotNull(
-                  stars, r'GReviewsByIDData_review', 'stars'),
-              commentary: commentary,
-              createdAt: createdAt,
-              seenOn: seenOn.build());
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename, r'GReviewsByIDData_review', 'G__typename'),
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'GReviewsByIDData_review', 'id'),
+            episode: episode,
+            stars: BuiltValueNullFieldError.checkNotNull(
+                stars, r'GReviewsByIDData_review', 'stars'),
+            commentary: commentary,
+            createdAt: createdAt,
+            seenOn: seenOn.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

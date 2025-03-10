@@ -264,9 +264,10 @@ class GReviewWithDateDataBuilder
     try {
       _$result = _$v ??
           new _$GReviewWithDateData._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GReviewWithDateData', 'G__typename'),
-              createReview: _createReview?.build());
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename, r'GReviewWithDateData', 'G__typename'),
+            createReview: _createReview?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -433,14 +434,15 @@ class GReviewWithDateData_createReviewBuilder
     try {
       _$result = _$v ??
           new _$GReviewWithDateData_createReview._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                  r'GReviewWithDateData_createReview', 'G__typename'),
-              episode: episode,
-              stars: BuiltValueNullFieldError.checkNotNull(
-                  stars, r'GReviewWithDateData_createReview', 'stars'),
-              commentary: commentary,
-              createdAt: createdAt,
-              seenOn: seenOn.build());
+            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
+                r'GReviewWithDateData_createReview', 'G__typename'),
+            episode: episode,
+            stars: BuiltValueNullFieldError.checkNotNull(
+                stars, r'GReviewWithDateData_createReview', 'stars'),
+            commentary: commentary,
+            createdAt: createdAt,
+            seenOn: seenOn.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

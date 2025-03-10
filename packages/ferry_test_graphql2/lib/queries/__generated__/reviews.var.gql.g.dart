@@ -167,7 +167,11 @@ class GReviewsVarsBuilder
 
   _$GReviewsVars _build() {
     final _$result = _$v ??
-        new _$GReviewsVars._(episode: episode, first: first, offset: offset);
+        new _$GReviewsVars._(
+          episode: episode,
+          first: first,
+          offset: offset,
+        );
     replace(_$result);
     return _$result;
   }

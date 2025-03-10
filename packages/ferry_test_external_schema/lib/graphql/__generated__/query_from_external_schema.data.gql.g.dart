@@ -295,9 +295,10 @@ class GHumanQueryDataBuilder
     try {
       _$result = _$v ??
           new _$GHumanQueryData._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GHumanQueryData', 'G__typename'),
-              human: human.build());
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename, r'GHumanQueryData', 'G__typename'),
+            human: human.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -435,13 +436,14 @@ class GHumanQueryData_humanBuilder
   _$GHumanQueryData_human _build() {
     final _$result = _$v ??
         new _$GHumanQueryData_human._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, r'GHumanQueryData_human', 'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GHumanQueryData_human', 'id'),
-            birthday: BuiltValueNullFieldError.checkNotNull(
-                birthday, r'GHumanQueryData_human', 'birthday'),
-            height: height);
+          G__typename: BuiltValueNullFieldError.checkNotNull(
+              G__typename, r'GHumanQueryData_human', 'G__typename'),
+          id: BuiltValueNullFieldError.checkNotNull(
+              id, r'GHumanQueryData_human', 'id'),
+          birthday: BuiltValueNullFieldError.checkNotNull(
+              birthday, r'GHumanQueryData_human', 'birthday'),
+          height: height,
+        );
     replace(_$result);
     return _$result;
   }
@@ -566,13 +568,14 @@ class GHumanFragDataBuilder
   _$GHumanFragData _build() {
     final _$result = _$v ??
         new _$GHumanFragData._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, r'GHumanFragData', 'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GHumanFragData', 'id'),
-            birthday: BuiltValueNullFieldError.checkNotNull(
-                birthday, r'GHumanFragData', 'birthday'),
-            height: height);
+          G__typename: BuiltValueNullFieldError.checkNotNull(
+              G__typename, r'GHumanFragData', 'G__typename'),
+          id: BuiltValueNullFieldError.checkNotNull(
+              id, r'GHumanFragData', 'id'),
+          birthday: BuiltValueNullFieldError.checkNotNull(
+              birthday, r'GHumanFragData', 'birthday'),
+          height: height,
+        );
     replace(_$result);
     return _$result;
   }

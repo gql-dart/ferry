@@ -155,7 +155,10 @@ class GCreateReviewVarsBuilder
     _$GCreateReviewVars _$result;
     try {
       _$result = _$v ??
-          new _$GCreateReviewVars._(episode: episode, review: review.build());
+          new _$GCreateReviewVars._(
+            episode: episode,
+            review: review.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

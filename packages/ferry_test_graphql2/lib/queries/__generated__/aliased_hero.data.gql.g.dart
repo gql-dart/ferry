@@ -325,10 +325,11 @@ class GAliasedHeroDataBuilder
     try {
       _$result = _$v ??
           new _$GAliasedHeroData._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GAliasedHeroData', 'G__typename'),
-              empireHero: _empireHero?.build(),
-              jediHero: _jediHero?.build());
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename, r'GAliasedHeroData', 'G__typename'),
+            empireHero: _empireHero?.build(),
+            jediHero: _jediHero?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -476,13 +477,14 @@ class GAliasedHeroData_empireHeroBuilder
     try {
       _$result = _$v ??
           new _$GAliasedHeroData_empireHero._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GAliasedHeroData_empireHero', 'G__typename'),
-              id: BuiltValueNullFieldError.checkNotNull(
-                  id, r'GAliasedHeroData_empireHero', 'id'),
-              name: BuiltValueNullFieldError.checkNotNull(
-                  name, r'GAliasedHeroData_empireHero', 'name'),
-              from: from.build());
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename, r'GAliasedHeroData_empireHero', 'G__typename'),
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'GAliasedHeroData_empireHero', 'id'),
+            name: BuiltValueNullFieldError.checkNotNull(
+                name, r'GAliasedHeroData_empireHero', 'name'),
+            from: from.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -627,13 +629,14 @@ class GAliasedHeroData_jediHeroBuilder
     try {
       _$result = _$v ??
           new _$GAliasedHeroData_jediHero._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GAliasedHeroData_jediHero', 'G__typename'),
-              id: BuiltValueNullFieldError.checkNotNull(
-                  id, r'GAliasedHeroData_jediHero', 'id'),
-              name: BuiltValueNullFieldError.checkNotNull(
-                  name, r'GAliasedHeroData_jediHero', 'name'),
-              from: from.build());
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename, r'GAliasedHeroData_jediHero', 'G__typename'),
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'GAliasedHeroData_jediHero', 'id'),
+            name: BuiltValueNullFieldError.checkNotNull(
+                name, r'GAliasedHeroData_jediHero', 'name'),
+            from: from.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
