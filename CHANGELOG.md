@@ -3,6 +3,44 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2025-03-10
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`ferry` - `v0.16.2-dev.3`](#ferry---v0162-dev3)
+ - [`ferry_generator` - `v0.12.1-dev.0`](#ferry_generator---v0121-dev0)
+ - [`ferry_test_graphql2` - `v0.4.1-dev.0`](#ferry_test_graphql2---v041-dev0)
+ - [`ferry_flutter` - `v0.9.1-dev.3`](#ferry_flutter---v091-dev3)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `ferry_flutter` - `v0.9.1-dev.3`
+
+---
+
+#### `ferry` - `v0.16.2-dev.3`
+
+ - **FEAT**(ferry_generator): move to dart_style 3.0.0 (#632).
+
+#### `ferry_generator` - `v0.12.1-dev.0`
+
+ - **FEAT**(ferry_generator): move to dart_style 3.0.0 (#632).
+
+#### `ferry_test_graphql2` - `v0.4.1-dev.0`
+
+ - **FEAT**(ferry_generator): move to dart_style 3.0.0 (#632).
+
+
 ## 2025-02-14
 
 ### Changes

@@ -1,3 +1,7 @@
+## 0.4.1-dev.0
+
+ - **FEAT**(ferry_generator): move to dart_style 3.0.0 (#632).
+
 ## 0.4.0
 
  - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.

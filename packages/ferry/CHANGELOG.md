@@ -1,3 +1,7 @@
+## 0.16.2-dev.3
+
+ - **FEAT**(ferry_generator): move to dart_style 3.0.0 (#632).
+
 ## 0.16.2-dev.2
 
 > Note: This release has breaking changes.
