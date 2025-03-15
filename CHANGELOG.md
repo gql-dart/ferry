@@ -15,6 +15,27 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`ferry_generator` - `v0.12.1-dev.2`](#ferry_generator---v0121-dev2)
+
+---
+
+#### `ferry_generator` - `v0.12.1-dev.2`
+
+ - **FEAT**(ferry_generator): support analyzer ^7.0.0 (#635).
+
+
+## 2025-03-15
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`ferry_generator` - `v0.12.1-dev.1`](#ferry_generator---v0121-dev1)
 
 ---

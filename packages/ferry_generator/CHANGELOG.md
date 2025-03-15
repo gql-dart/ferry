@@ -1,3 +1,7 @@
+## 0.12.1-dev.2
+
+ - **FEAT**(ferry_generator): support analyzer ^7.0.0 (#635).
+
 ## 0.12.1-dev.1
 
  - **FEAT**(ferry_generator): allow analyzer 7.3.0 (#634).
