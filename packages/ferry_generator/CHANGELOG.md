@@ -1,3 +1,7 @@
+## 0.12.1-dev.1
+
+ - **FEAT**(ferry_generator): allow analyzer 7.3.0 (#634).
+
 ## 0.12.1-dev.0
 
  - **FEAT**(ferry_generator): move to dart_style 3.0.0 (#632).
