@@ -1,0 +1,16 @@
+# melos_managed_dependency_overrides: ferry,ferry_cache,ferry_exec,ferry_generator,ferry_store,ferry_test_graphql2,normalize
+dependency_overrides:
+  ferry:
+    path: ../ferry
+  ferry_cache:
+    path: ../ferry_cache
+  ferry_exec:
+    path: ../ferry_exec
+  ferry_generator:
+    path: ../ferry_generator
+  ferry_store:
+    path: ../ferry_store
+  ferry_test_graphql2:
+    path: ../ferry_test_graphql2
+  normalize:
+    path: ../normalize

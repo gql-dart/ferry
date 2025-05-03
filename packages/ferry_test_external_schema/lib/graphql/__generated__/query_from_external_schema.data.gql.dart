@@ -62,7 +62,6 @@ abstract class GHumanQueryData_human
   static Serializer<GHumanQueryData_human> get serializer =>
       _$gHumanQueryDataHumanSerializer;
 
-  @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GHumanQueryData_human.serializer,
         this,
@@ -80,7 +79,6 @@ abstract class GHumanFrag {
   String get id;
   DateTime get birthday;
   double? get height;
-  Map<String, dynamic> toJson();
 }
 
 abstract class GHumanFragData
@@ -105,7 +103,6 @@ abstract class GHumanFragData
   static Serializer<GHumanFragData> get serializer =>
       _$gHumanFragDataSerializer;
 
-  @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GHumanFragData.serializer,
         this,

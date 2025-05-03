@@ -85,7 +85,6 @@ abstract class GHeroForEpisodeData_hero__base
   static Serializer<GHeroForEpisodeData_hero__base> get serializer =>
       _$gHeroForEpisodeDataHeroBaseSerializer;
 
-  @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GHeroForEpisodeData_hero__base.serializer,
         this,
@@ -123,7 +122,6 @@ abstract class GHeroForEpisodeData_hero__asDroid
   static Serializer<GHeroForEpisodeData_hero__asDroid> get serializer =>
       _$gHeroForEpisodeDataHeroAsDroidSerializer;
 
-  @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GHeroForEpisodeData_hero__asDroid.serializer,
         this,
@@ -140,7 +138,6 @@ abstract class GHeroForEpisodeData_hero__asDroid
 abstract class GDroidFragment {
   String get G__typename;
   String? get primaryFunction;
-  Map<String, dynamic> toJson();
 }
 
 abstract class GDroidFragmentData
@@ -164,7 +161,6 @@ abstract class GDroidFragmentData
   static Serializer<GDroidFragmentData> get serializer =>
       _$gDroidFragmentDataSerializer;
 
-  @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GDroidFragmentData.serializer,
         this,
