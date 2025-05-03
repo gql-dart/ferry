@@ -20,7 +20,7 @@ dependencies:
 dev_dependencies:
   flutter_lints: 2.0.1
   build_runner: ^2.0.2
-  ferry_generator: ^0.12.1-dev.2
+  ferry_generator: ^0.13.0
   gql_code_builder_serializers: ^0.1.0
   flutter_test:
     sdk: flutter

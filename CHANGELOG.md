@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2025-05-03
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - [`ferry_generator` - `v0.13.0`](#ferry_generator---v0130)
+
+Packages with other changes:
+
+ - There are no other changes in this release.
+
+---
+
+#### `ferry_generator` - `v0.13.0`
+
+ - **BREAKING** **FEAT**(ferry_generator): upgrade gql_code_builder to 0.14.0.
+
+
 ## 2025-03-15
 
 ### Changes

@@ -1,3 +1,9 @@
+## 0.13.0
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **FEAT**(ferry_generator): upgrade gql_code_builder to 0.14.0.
+
 ## 0.12.1-dev.2
 
  - **FEAT**(ferry_generator): support analyzer ^7.0.0 (#635).
