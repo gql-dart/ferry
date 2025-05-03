@@ -3,3 +3,5 @@
 .DS_Store
 */.flutter-plugins*
 .dart_tool
+**/.claude/settings.local.json
+**/pubspec_overrides.yaml

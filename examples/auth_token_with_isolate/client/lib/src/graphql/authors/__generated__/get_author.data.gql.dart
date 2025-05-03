@@ -14,7 +14,8 @@ abstract class GGetAuthorByIdData
     implements Built<GGetAuthorByIdData, GGetAuthorByIdDataBuilder> {
   GGetAuthorByIdData._();
 
-  factory GGetAuthorByIdData([Function(GGetAuthorByIdDataBuilder b) updates]) =
+  factory GGetAuthorByIdData(
+          [void Function(GGetAuthorByIdDataBuilder b) updates]) =
       _$GGetAuthorByIdData;
 
   static void _initializeBuilder(GGetAuthorByIdDataBuilder b) =>
@@ -44,7 +45,7 @@ abstract class GGetAuthorByIdData_author
   GGetAuthorByIdData_author._();
 
   factory GGetAuthorByIdData_author(
-          [Function(GGetAuthorByIdData_authorBuilder b) updates]) =
+          [void Function(GGetAuthorByIdData_authorBuilder b) updates]) =
       _$GGetAuthorByIdData_author;
 
   static void _initializeBuilder(GGetAuthorByIdData_authorBuilder b) =>
@@ -78,7 +79,7 @@ abstract class GGetAuthorByIdData_author_quotes
   GGetAuthorByIdData_author_quotes._();
 
   factory GGetAuthorByIdData_author_quotes(
-          [Function(GGetAuthorByIdData_author_quotesBuilder b) updates]) =
+          [void Function(GGetAuthorByIdData_author_quotesBuilder b) updates]) =
       _$GGetAuthorByIdData_author_quotes;
 
   static void _initializeBuilder(GGetAuthorByIdData_author_quotesBuilder b) =>
@@ -110,8 +111,8 @@ abstract class GGetAuthorByIdData_author_quotes_edges
   GGetAuthorByIdData_author_quotes_edges._();
 
   factory GGetAuthorByIdData_author_quotes_edges(
-          [Function(GGetAuthorByIdData_author_quotes_edgesBuilder b) updates]) =
-      _$GGetAuthorByIdData_author_quotes_edges;
+      [void Function(GGetAuthorByIdData_author_quotes_edgesBuilder b)
+          updates]) = _$GGetAuthorByIdData_author_quotes_edges;
 
   static void _initializeBuilder(
           GGetAuthorByIdData_author_quotes_edgesBuilder b) =>
@@ -143,7 +144,7 @@ abstract class GGetAuthorByIdData_author_quotes_edges_node
   GGetAuthorByIdData_author_quotes_edges_node._();
 
   factory GGetAuthorByIdData_author_quotes_edges_node(
-      [Function(GGetAuthorByIdData_author_quotes_edges_nodeBuilder b)
+      [void Function(GGetAuthorByIdData_author_quotes_edges_nodeBuilder b)
           updates]) = _$GGetAuthorByIdData_author_quotes_edges_node;
 
   static void _initializeBuilder(

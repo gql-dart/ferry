@@ -129,8 +129,9 @@ class GPokemonDetailVarsBuilder
   _$GPokemonDetailVars _build() {
     final _$result = _$v ??
         new _$GPokemonDetailVars._(
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GPokemonDetailVars', 'id'));
+          id: BuiltValueNullFieldError.checkNotNull(
+              id, r'GPokemonDetailVars', 'id'),
+        );
     replace(_$result);
     return _$result;
   }

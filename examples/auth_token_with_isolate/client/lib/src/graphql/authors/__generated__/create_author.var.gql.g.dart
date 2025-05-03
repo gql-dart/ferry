@@ -151,10 +151,11 @@ class GCreateAuthorVarsBuilder
   _$GCreateAuthorVars _build() {
     final _$result = _$v ??
         new _$GCreateAuthorVars._(
-            firstName: BuiltValueNullFieldError.checkNotNull(
-                firstName, r'GCreateAuthorVars', 'firstName'),
-            lastName: BuiltValueNullFieldError.checkNotNull(
-                lastName, r'GCreateAuthorVars', 'lastName'));
+          firstName: BuiltValueNullFieldError.checkNotNull(
+              firstName, r'GCreateAuthorVars', 'firstName'),
+          lastName: BuiltValueNullFieldError.checkNotNull(
+              lastName, r'GCreateAuthorVars', 'lastName'),
+        );
     replace(_$result);
     return _$result;
   }

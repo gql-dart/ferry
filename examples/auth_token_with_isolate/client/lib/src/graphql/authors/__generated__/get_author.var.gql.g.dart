@@ -129,8 +129,9 @@ class GGetAuthorByIdVarsBuilder
   _$GGetAuthorByIdVars _build() {
     final _$result = _$v ??
         new _$GGetAuthorByIdVars._(
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GGetAuthorByIdVars', 'id'));
+          id: BuiltValueNullFieldError.checkNotNull(
+              id, r'GGetAuthorByIdVars', 'id'),
+        );
     replace(_$result);
     return _$result;
   }

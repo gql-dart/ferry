@@ -401,14 +401,15 @@ class GNestedFragmentDataBuilder
   _$GNestedFragmentData _build() {
     final _$result = _$v ??
         new _$GNestedFragmentData._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, r'GNestedFragmentData', 'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GNestedFragmentData', 'id'),
-            name: BuiltValueNullFieldError.checkNotNull(
-                name, r'GNestedFragmentData', 'name'),
-            avatar: BuiltValueNullFieldError.checkNotNull(
-                avatar, r'GNestedFragmentData', 'avatar'));
+          G__typename: BuiltValueNullFieldError.checkNotNull(
+              G__typename, r'GNestedFragmentData', 'G__typename'),
+          id: BuiltValueNullFieldError.checkNotNull(
+              id, r'GNestedFragmentData', 'id'),
+          name: BuiltValueNullFieldError.checkNotNull(
+              name, r'GNestedFragmentData', 'name'),
+          avatar: BuiltValueNullFieldError.checkNotNull(
+              avatar, r'GNestedFragmentData', 'avatar'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -561,16 +562,17 @@ class GPokemonCardDataBuilder
     try {
       _$result = _$v ??
           new _$GPokemonCardData._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GPokemonCardData', 'G__typename'),
-              id: BuiltValueNullFieldError.checkNotNull(
-                  id, r'GPokemonCardData', 'id'),
-              name: BuiltValueNullFieldError.checkNotNull(
-                  name, r'GPokemonCardData', 'name'),
-              avatar: BuiltValueNullFieldError.checkNotNull(
-                  avatar, r'GPokemonCardData', 'avatar'),
-              height: _height?.build(),
-              weight: _weight?.build());
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename, r'GPokemonCardData', 'G__typename'),
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'GPokemonCardData', 'id'),
+            name: BuiltValueNullFieldError.checkNotNull(
+                name, r'GPokemonCardData', 'name'),
+            avatar: BuiltValueNullFieldError.checkNotNull(
+                avatar, r'GPokemonCardData', 'avatar'),
+            height: _height?.build(),
+            weight: _weight?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -684,9 +686,10 @@ class GPokemonCardData_heightBuilder
   _$GPokemonCardData_height _build() {
     final _$result = _$v ??
         new _$GPokemonCardData_height._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, r'GPokemonCardData_height', 'G__typename'),
-            in_meter: in_meter);
+          G__typename: BuiltValueNullFieldError.checkNotNull(
+              G__typename, r'GPokemonCardData_height', 'G__typename'),
+          in_meter: in_meter,
+        );
     replace(_$result);
     return _$result;
   }
@@ -787,9 +790,10 @@ class GPokemonCardData_weightBuilder
   _$GPokemonCardData_weight _build() {
     final _$result = _$v ??
         new _$GPokemonCardData_weight._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, r'GPokemonCardData_weight', 'G__typename'),
-            in_kg: in_kg);
+          G__typename: BuiltValueNullFieldError.checkNotNull(
+              G__typename, r'GPokemonCardData_weight', 'G__typename'),
+          in_kg: in_kg,
+        );
     replace(_$result);
     return _$result;
   }

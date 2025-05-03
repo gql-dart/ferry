@@ -23,7 +23,7 @@ abstract class GLoginReq
         _i1.OperationRequest<_i2.GLoginData, _i3.GLoginVars> {
   GLoginReq._();
 
-  factory GLoginReq([Function(GLoginReqBuilder b) updates]) = _$GLoginReq;
+  factory GLoginReq([void Function(GLoginReqBuilder b) updates]) = _$GLoginReq;
 
   static void _initializeBuilder(GLoginReqBuilder b) => b
     ..operation = _i4.Operation(
@@ -40,6 +40,7 @@ abstract class GLoginReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -61,6 +62,9 @@ abstract class GLoginReq
   @override
   bool get executeOnListen;
   @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
+  @override
   _i2.GLoginData? parseData(Map<String, dynamic> json) =>
       _i2.GLoginData.fromJson(json);
 
@@ -68,7 +72,7 @@ abstract class GLoginReq
   Map<String, dynamic> varsToJson() => vars.toJson();
 
   @override
-  Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
+  Map<String, dynamic> dataToJson(_i2.GLoginData data) => data.toJson();
 
   @override
   _i1.OperationRequest<_i2.GLoginData, _i3.GLoginVars> transformOperation(

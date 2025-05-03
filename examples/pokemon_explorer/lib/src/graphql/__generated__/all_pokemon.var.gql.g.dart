@@ -145,10 +145,11 @@ class GAllPokemonVarsBuilder
   _$GAllPokemonVars _build() {
     final _$result = _$v ??
         new _$GAllPokemonVars._(
-            limit: BuiltValueNullFieldError.checkNotNull(
-                limit, r'GAllPokemonVars', 'limit'),
-            offset: BuiltValueNullFieldError.checkNotNull(
-                offset, r'GAllPokemonVars', 'offset'));
+          limit: BuiltValueNullFieldError.checkNotNull(
+              limit, r'GAllPokemonVars', 'limit'),
+          offset: BuiltValueNullFieldError.checkNotNull(
+              offset, r'GAllPokemonVars', 'offset'),
+        );
     replace(_$result);
     return _$result;
   }

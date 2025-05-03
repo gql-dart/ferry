@@ -203,9 +203,10 @@ class GLoginDataBuilder implements Builder<GLoginData, GLoginDataBuilder> {
     try {
       _$result = _$v ??
           new _$GLoginData._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GLoginData', 'G__typename'),
-              login: _login?.build());
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename, r'GLoginData', 'G__typename'),
+            login: _login?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -316,10 +317,11 @@ class GLoginData_loginBuilder
   _$GLoginData_login _build() {
     final _$result = _$v ??
         new _$GLoginData_login._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, r'GLoginData_login', 'G__typename'),
-            token: BuiltValueNullFieldError.checkNotNull(
-                token, r'GLoginData_login', 'token'));
+          G__typename: BuiltValueNullFieldError.checkNotNull(
+              G__typename, r'GLoginData_login', 'G__typename'),
+          token: BuiltValueNullFieldError.checkNotNull(
+              token, r'GLoginData_login', 'token'),
+        );
     replace(_$result);
     return _$result;
   }

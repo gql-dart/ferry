@@ -14,5 +14,6 @@ dev_dependencies:
     test: ^1.16.8
     ferry_generator:
     ferry_test_graphql2:
+    gql_code_builder_serializers: ^0.1.0
     build_runner: ^2.0.0
     pedantic: ^1.11.0

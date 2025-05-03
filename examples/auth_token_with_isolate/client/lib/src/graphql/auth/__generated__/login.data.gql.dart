@@ -12,7 +12,8 @@ part 'login.data.gql.g.dart';
 abstract class GLoginData implements Built<GLoginData, GLoginDataBuilder> {
   GLoginData._();
 
-  factory GLoginData([Function(GLoginDataBuilder b) updates]) = _$GLoginData;
+  factory GLoginData([void Function(GLoginDataBuilder b) updates]) =
+      _$GLoginData;
 
   static void _initializeBuilder(GLoginDataBuilder b) =>
       b..G__typename = 'Mutation';
@@ -38,7 +39,7 @@ abstract class GLoginData_login
     implements Built<GLoginData_login, GLoginData_loginBuilder> {
   GLoginData_login._();
 
-  factory GLoginData_login([Function(GLoginData_loginBuilder b) updates]) =
+  factory GLoginData_login([void Function(GLoginData_loginBuilder b) updates]) =
       _$GLoginData_login;
 
   static void _initializeBuilder(GLoginData_loginBuilder b) =>

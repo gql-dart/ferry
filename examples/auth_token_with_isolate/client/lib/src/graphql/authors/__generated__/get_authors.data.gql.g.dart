@@ -352,9 +352,10 @@ class GGetAuthorsDataBuilder
     try {
       _$result = _$v ??
           new _$GGetAuthorsData._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GGetAuthorsData', 'G__typename'),
-              authors: _authors?.build());
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename, r'GGetAuthorsData', 'G__typename'),
+            authors: _authors?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -470,9 +471,10 @@ class GGetAuthorsData_authorsBuilder
     try {
       _$result = _$v ??
           new _$GGetAuthorsData_authors._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GGetAuthorsData_authors', 'G__typename'),
-              edges: _edges?.build());
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename, r'GGetAuthorsData_authors', 'G__typename'),
+            edges: _edges?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -589,9 +591,10 @@ class GGetAuthorsData_authors_edgesBuilder
     try {
       _$result = _$v ??
           new _$GGetAuthorsData_authors_edges._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GGetAuthorsData_authors_edges', 'G__typename'),
-              node: _node?.build());
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename, r'GGetAuthorsData_authors_edges', 'G__typename'),
+            node: _node?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -738,14 +741,15 @@ class GGetAuthorsData_authors_edges_nodeBuilder
   _$GGetAuthorsData_authors_edges_node _build() {
     final _$result = _$v ??
         new _$GGetAuthorsData_authors_edges_node._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                r'GGetAuthorsData_authors_edges_node', 'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GGetAuthorsData_authors_edges_node', 'id'),
-            firstName: BuiltValueNullFieldError.checkNotNull(
-                firstName, r'GGetAuthorsData_authors_edges_node', 'firstName'),
-            lastName: BuiltValueNullFieldError.checkNotNull(
-                lastName, r'GGetAuthorsData_authors_edges_node', 'lastName'));
+          G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
+              r'GGetAuthorsData_authors_edges_node', 'G__typename'),
+          id: BuiltValueNullFieldError.checkNotNull(
+              id, r'GGetAuthorsData_authors_edges_node', 'id'),
+          firstName: BuiltValueNullFieldError.checkNotNull(
+              firstName, r'GGetAuthorsData_authors_edges_node', 'firstName'),
+          lastName: BuiltValueNullFieldError.checkNotNull(
+              lastName, r'GGetAuthorsData_authors_edges_node', 'lastName'),
+        );
     replace(_$result);
     return _$result;
   }

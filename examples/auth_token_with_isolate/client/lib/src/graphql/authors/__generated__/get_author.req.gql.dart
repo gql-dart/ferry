@@ -23,7 +23,8 @@ abstract class GGetAuthorByIdReq
         _i1.OperationRequest<_i2.GGetAuthorByIdData, _i3.GGetAuthorByIdVars> {
   GGetAuthorByIdReq._();
 
-  factory GGetAuthorByIdReq([Function(GGetAuthorByIdReqBuilder b) updates]) =
+  factory GGetAuthorByIdReq(
+          [void Function(GGetAuthorByIdReqBuilder b) updates]) =
       _$GGetAuthorByIdReq;
 
   static void _initializeBuilder(GGetAuthorByIdReqBuilder b) => b
@@ -41,6 +42,7 @@ abstract class GGetAuthorByIdReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -62,6 +64,9 @@ abstract class GGetAuthorByIdReq
   @override
   bool get executeOnListen;
   @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
+  @override
   _i2.GGetAuthorByIdData? parseData(Map<String, dynamic> json) =>
       _i2.GGetAuthorByIdData.fromJson(json);
 
@@ -69,7 +74,7 @@ abstract class GGetAuthorByIdReq
   Map<String, dynamic> varsToJson() => vars.toJson();
 
   @override
-  Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
+  Map<String, dynamic> dataToJson(_i2.GGetAuthorByIdData data) => data.toJson();
 
   @override
   _i1.OperationRequest<_i2.GGetAuthorByIdData, _i3.GGetAuthorByIdVars>

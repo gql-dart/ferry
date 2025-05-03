@@ -333,18 +333,19 @@ class GPokemonDetailReqBuilder
     try {
       _$result = _$v ??
           new _$GPokemonDetailReq._(
-              vars: vars.build(),
-              operation: BuiltValueNullFieldError.checkNotNull(
-                  operation, r'GPokemonDetailReq', 'operation'),
-              requestId: requestId,
-              updateResult: updateResult,
-              optimisticResponse: _optimisticResponse?.build(),
-              updateCacheHandlerKey: updateCacheHandlerKey,
-              updateCacheHandlerContext: updateCacheHandlerContext,
-              fetchPolicy: fetchPolicy,
-              executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, r'GPokemonDetailReq', 'executeOnListen'),
-              context: context);
+            vars: vars.build(),
+            operation: BuiltValueNullFieldError.checkNotNull(
+                operation, r'GPokemonDetailReq', 'operation'),
+            requestId: requestId,
+            updateResult: updateResult,
+            optimisticResponse: _optimisticResponse?.build(),
+            updateCacheHandlerKey: updateCacheHandlerKey,
+            updateCacheHandlerContext: updateCacheHandlerContext,
+            fetchPolicy: fetchPolicy,
+            executeOnListen: BuiltValueNullFieldError.checkNotNull(
+                executeOnListen, r'GPokemonDetailReq', 'executeOnListen'),
+            context: context,
+          );
     } catch (_) {
       late String _$failedField;
       try {

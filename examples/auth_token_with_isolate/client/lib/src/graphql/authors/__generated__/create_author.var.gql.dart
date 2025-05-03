@@ -13,7 +13,8 @@ abstract class GCreateAuthorVars
     implements Built<GCreateAuthorVars, GCreateAuthorVarsBuilder> {
   GCreateAuthorVars._();
 
-  factory GCreateAuthorVars([Function(GCreateAuthorVarsBuilder b) updates]) =
+  factory GCreateAuthorVars(
+          [void Function(GCreateAuthorVarsBuilder b) updates]) =
       _$GCreateAuthorVars;
 
   String get firstName;

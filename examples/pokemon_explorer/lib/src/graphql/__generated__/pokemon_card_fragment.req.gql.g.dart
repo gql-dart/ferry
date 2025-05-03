@@ -282,12 +282,13 @@ class GNestedFragmentReqBuilder
     try {
       _$result = _$v ??
           new _$GNestedFragmentReq._(
-              vars: vars.build(),
-              document: BuiltValueNullFieldError.checkNotNull(
-                  document, r'GNestedFragmentReq', 'document'),
-              fragmentName: fragmentName,
-              idFields: BuiltValueNullFieldError.checkNotNull(
-                  idFields, r'GNestedFragmentReq', 'idFields'));
+            vars: vars.build(),
+            document: BuiltValueNullFieldError.checkNotNull(
+                document, r'GNestedFragmentReq', 'document'),
+            fragmentName: fragmentName,
+            idFields: BuiltValueNullFieldError.checkNotNull(
+                idFields, r'GNestedFragmentReq', 'idFields'),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -426,12 +427,13 @@ class GPokemonCardReqBuilder
     try {
       _$result = _$v ??
           new _$GPokemonCardReq._(
-              vars: vars.build(),
-              document: BuiltValueNullFieldError.checkNotNull(
-                  document, r'GPokemonCardReq', 'document'),
-              fragmentName: fragmentName,
-              idFields: BuiltValueNullFieldError.checkNotNull(
-                  idFields, r'GPokemonCardReq', 'idFields'));
+            vars: vars.build(),
+            document: BuiltValueNullFieldError.checkNotNull(
+                document, r'GPokemonCardReq', 'document'),
+            fragmentName: fragmentName,
+            idFields: BuiltValueNullFieldError.checkNotNull(
+                idFields, r'GPokemonCardReq', 'idFields'),
+          );
     } catch (_) {
       late String _$failedField;
       try {

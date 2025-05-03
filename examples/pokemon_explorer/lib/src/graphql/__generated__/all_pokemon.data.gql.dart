@@ -87,19 +87,18 @@ abstract class GAllPokemonData_pokemons_results
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   @override
-  GAllPokemonData_pokemons_results_height? get height;
-  @override
-  GAllPokemonData_pokemons_results_weight? get weight;
-  @override
   int get id;
   @override
   String get name;
   @override
   String get avatar;
+  @override
+  GAllPokemonData_pokemons_results_height? get height;
+  @override
+  GAllPokemonData_pokemons_results_weight? get weight;
   static Serializer<GAllPokemonData_pokemons_results> get serializer =>
       _$gAllPokemonDataPokemonsResultsSerializer;
 
-  @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GAllPokemonData_pokemons_results.serializer,
         this,
@@ -136,7 +135,6 @@ abstract class GAllPokemonData_pokemons_results_height
   static Serializer<GAllPokemonData_pokemons_results_height> get serializer =>
       _$gAllPokemonDataPokemonsResultsHeightSerializer;
 
-  @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GAllPokemonData_pokemons_results_height.serializer,
         this,
@@ -173,7 +171,6 @@ abstract class GAllPokemonData_pokemons_results_weight
   static Serializer<GAllPokemonData_pokemons_results_weight> get serializer =>
       _$gAllPokemonDataPokemonsResultsWeightSerializer;
 
-  @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GAllPokemonData_pokemons_results_weight.serializer,
         this,

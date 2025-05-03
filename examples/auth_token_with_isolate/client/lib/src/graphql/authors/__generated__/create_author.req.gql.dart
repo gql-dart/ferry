@@ -23,7 +23,7 @@ abstract class GCreateAuthorReq
         _i1.OperationRequest<_i2.GCreateAuthorData, _i3.GCreateAuthorVars> {
   GCreateAuthorReq._();
 
-  factory GCreateAuthorReq([Function(GCreateAuthorReqBuilder b) updates]) =
+  factory GCreateAuthorReq([void Function(GCreateAuthorReqBuilder b) updates]) =
       _$GCreateAuthorReq;
 
   static void _initializeBuilder(GCreateAuthorReqBuilder b) => b
@@ -41,6 +41,7 @@ abstract class GCreateAuthorReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -62,6 +63,9 @@ abstract class GCreateAuthorReq
   @override
   bool get executeOnListen;
   @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
+  @override
   _i2.GCreateAuthorData? parseData(Map<String, dynamic> json) =>
       _i2.GCreateAuthorData.fromJson(json);
 
@@ -69,7 +73,7 @@ abstract class GCreateAuthorReq
   Map<String, dynamic> varsToJson() => vars.toJson();
 
   @override
-  Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
+  Map<String, dynamic> dataToJson(_i2.GCreateAuthorData data) => data.toJson();
 
   @override
   _i1.OperationRequest<_i2.GCreateAuthorData, _i3.GCreateAuthorVars>

@@ -14,7 +14,7 @@ abstract class GGetAuthorsData
     implements Built<GGetAuthorsData, GGetAuthorsDataBuilder> {
   GGetAuthorsData._();
 
-  factory GGetAuthorsData([Function(GGetAuthorsDataBuilder b) updates]) =
+  factory GGetAuthorsData([void Function(GGetAuthorsDataBuilder b) updates]) =
       _$GGetAuthorsData;
 
   static void _initializeBuilder(GGetAuthorsDataBuilder b) =>
@@ -43,7 +43,7 @@ abstract class GGetAuthorsData_authors
   GGetAuthorsData_authors._();
 
   factory GGetAuthorsData_authors(
-          [Function(GGetAuthorsData_authorsBuilder b) updates]) =
+          [void Function(GGetAuthorsData_authorsBuilder b) updates]) =
       _$GGetAuthorsData_authors;
 
   static void _initializeBuilder(GGetAuthorsData_authorsBuilder b) =>
@@ -74,7 +74,7 @@ abstract class GGetAuthorsData_authors_edges
   GGetAuthorsData_authors_edges._();
 
   factory GGetAuthorsData_authors_edges(
-          [Function(GGetAuthorsData_authors_edgesBuilder b) updates]) =
+          [void Function(GGetAuthorsData_authors_edgesBuilder b) updates]) =
       _$GGetAuthorsData_authors_edges;
 
   static void _initializeBuilder(GGetAuthorsData_authors_edgesBuilder b) =>
@@ -105,8 +105,8 @@ abstract class GGetAuthorsData_authors_edges_node
   GGetAuthorsData_authors_edges_node._();
 
   factory GGetAuthorsData_authors_edges_node(
-          [Function(GGetAuthorsData_authors_edges_nodeBuilder b) updates]) =
-      _$GGetAuthorsData_authors_edges_node;
+      [void Function(GGetAuthorsData_authors_edges_nodeBuilder b)
+          updates]) = _$GGetAuthorsData_authors_edges_node;
 
   static void _initializeBuilder(GGetAuthorsData_authors_edges_nodeBuilder b) =>
       b..G__typename = 'Author';
