@@ -57,20 +57,19 @@ abstract class GPokemonDetailData_pokemon
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   @override
-  GPokemonDetailData_pokemon_height? get height;
-  @override
-  GPokemonDetailData_pokemon_weight? get weight;
-  @override
   int get id;
   @override
   String get name;
   @override
   String get avatar;
+  @override
+  GPokemonDetailData_pokemon_height? get height;
+  @override
+  GPokemonDetailData_pokemon_weight? get weight;
   BuiltList<GPokemonDetailData_pokemon_stats?>? get stats;
   static Serializer<GPokemonDetailData_pokemon> get serializer =>
       _$gPokemonDetailDataPokemonSerializer;
 
-  @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPokemonDetailData_pokemon.serializer,
         this,
@@ -105,7 +104,6 @@ abstract class GPokemonDetailData_pokemon_height
   static Serializer<GPokemonDetailData_pokemon_height> get serializer =>
       _$gPokemonDetailDataPokemonHeightSerializer;
 
-  @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPokemonDetailData_pokemon_height.serializer,
         this,
@@ -141,7 +139,6 @@ abstract class GPokemonDetailData_pokemon_weight
   static Serializer<GPokemonDetailData_pokemon_weight> get serializer =>
       _$gPokemonDetailDataPokemonWeightSerializer;
 
-  @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPokemonDetailData_pokemon_weight.serializer,
         this,

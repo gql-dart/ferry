@@ -197,18 +197,6 @@ class _$GAllPokemonData_pokemons_resultsSerializer
           result.G__typename = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
-        case 'height':
-          result.height.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(GAllPokemonData_pokemons_results_height))!
-              as GAllPokemonData_pokemons_results_height);
-          break;
-        case 'weight':
-          result.weight.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(GAllPokemonData_pokemons_results_weight))!
-              as GAllPokemonData_pokemons_results_weight);
-          break;
         case 'id':
           result.id = serializers.deserialize(value,
               specifiedType: const FullType(int))! as int;
@@ -220,6 +208,18 @@ class _$GAllPokemonData_pokemons_resultsSerializer
         case 'avatar':
           result.avatar = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
+          break;
+        case 'height':
+          result.height.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(GAllPokemonData_pokemons_results_height))!
+              as GAllPokemonData_pokemons_results_height);
+          break;
+        case 'weight':
+          result.weight.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(GAllPokemonData_pokemons_results_weight))!
+              as GAllPokemonData_pokemons_results_weight);
           break;
       }
     }
@@ -437,9 +437,10 @@ class GAllPokemonDataBuilder
     try {
       _$result = _$v ??
           new _$GAllPokemonData._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GAllPokemonData', 'G__typename'),
-              pokemons: _pokemons?.build());
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename, r'GAllPokemonData', 'G__typename'),
+            pokemons: _pokemons?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -555,9 +556,10 @@ class GAllPokemonData_pokemonsBuilder
     try {
       _$result = _$v ??
           new _$GAllPokemonData_pokemons._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GAllPokemonData_pokemons', 'G__typename'),
-              results: _results?.build());
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename, r'GAllPokemonData_pokemons', 'G__typename'),
+            results: _results?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -579,15 +581,15 @@ class _$GAllPokemonData_pokemons_results
   @override
   final String G__typename;
   @override
-  final GAllPokemonData_pokemons_results_height? height;
-  @override
-  final GAllPokemonData_pokemons_results_weight? weight;
-  @override
   final int id;
   @override
   final String name;
   @override
   final String avatar;
+  @override
+  final GAllPokemonData_pokemons_results_height? height;
+  @override
+  final GAllPokemonData_pokemons_results_weight? weight;
 
   factory _$GAllPokemonData_pokemons_results(
           [void Function(GAllPokemonData_pokemons_resultsBuilder)? updates]) =>
@@ -595,11 +597,11 @@ class _$GAllPokemonData_pokemons_results
 
   _$GAllPokemonData_pokemons_results._(
       {required this.G__typename,
-      this.height,
-      this.weight,
       required this.id,
       required this.name,
-      required this.avatar})
+      required this.avatar,
+      this.height,
+      this.weight})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GAllPokemonData_pokemons_results', 'G__typename');
@@ -625,22 +627,22 @@ class _$GAllPokemonData_pokemons_results
     if (identical(other, this)) return true;
     return other is GAllPokemonData_pokemons_results &&
         G__typename == other.G__typename &&
-        height == other.height &&
-        weight == other.weight &&
         id == other.id &&
         name == other.name &&
-        avatar == other.avatar;
+        avatar == other.avatar &&
+        height == other.height &&
+        weight == other.weight;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, height.hashCode);
-    _$hash = $jc(_$hash, weight.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, name.hashCode);
     _$hash = $jc(_$hash, avatar.hashCode);
+    _$hash = $jc(_$hash, height.hashCode);
+    _$hash = $jc(_$hash, weight.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -649,11 +651,11 @@ class _$GAllPokemonData_pokemons_results
   String toString() {
     return (newBuiltValueToStringHelper(r'GAllPokemonData_pokemons_results')
           ..add('G__typename', G__typename)
-          ..add('height', height)
-          ..add('weight', weight)
           ..add('id', id)
           ..add('name', name)
-          ..add('avatar', avatar))
+          ..add('avatar', avatar)
+          ..add('height', height)
+          ..add('weight', weight))
         .toString();
   }
 }
@@ -668,18 +670,6 @@ class GAllPokemonData_pokemons_resultsBuilder
   String? get G__typename => _$this._G__typename;
   set G__typename(String? G__typename) => _$this._G__typename = G__typename;
 
-  GAllPokemonData_pokemons_results_heightBuilder? _height;
-  GAllPokemonData_pokemons_results_heightBuilder get height =>
-      _$this._height ??= new GAllPokemonData_pokemons_results_heightBuilder();
-  set height(GAllPokemonData_pokemons_results_heightBuilder? height) =>
-      _$this._height = height;
-
-  GAllPokemonData_pokemons_results_weightBuilder? _weight;
-  GAllPokemonData_pokemons_results_weightBuilder get weight =>
-      _$this._weight ??= new GAllPokemonData_pokemons_results_weightBuilder();
-  set weight(GAllPokemonData_pokemons_results_weightBuilder? weight) =>
-      _$this._weight = weight;
-
   int? _id;
   int? get id => _$this._id;
   set id(int? id) => _$this._id = id;
@@ -692,6 +682,18 @@ class GAllPokemonData_pokemons_resultsBuilder
   String? get avatar => _$this._avatar;
   set avatar(String? avatar) => _$this._avatar = avatar;
 
+  GAllPokemonData_pokemons_results_heightBuilder? _height;
+  GAllPokemonData_pokemons_results_heightBuilder get height =>
+      _$this._height ??= new GAllPokemonData_pokemons_results_heightBuilder();
+  set height(GAllPokemonData_pokemons_results_heightBuilder? height) =>
+      _$this._height = height;
+
+  GAllPokemonData_pokemons_results_weightBuilder? _weight;
+  GAllPokemonData_pokemons_results_weightBuilder get weight =>
+      _$this._weight ??= new GAllPokemonData_pokemons_results_weightBuilder();
+  set weight(GAllPokemonData_pokemons_results_weightBuilder? weight) =>
+      _$this._weight = weight;
+
   GAllPokemonData_pokemons_resultsBuilder() {
     GAllPokemonData_pokemons_results._initializeBuilder(this);
   }
@@ -700,11 +702,11 @@ class GAllPokemonData_pokemons_resultsBuilder
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
-      _height = $v.height?.toBuilder();
-      _weight = $v.weight?.toBuilder();
       _id = $v.id;
       _name = $v.name;
       _avatar = $v.avatar;
+      _height = $v.height?.toBuilder();
+      _weight = $v.weight?.toBuilder();
       _$v = null;
     }
     return this;
@@ -729,16 +731,17 @@ class GAllPokemonData_pokemons_resultsBuilder
     try {
       _$result = _$v ??
           new _$GAllPokemonData_pokemons_results._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                  r'GAllPokemonData_pokemons_results', 'G__typename'),
-              height: _height?.build(),
-              weight: _weight?.build(),
-              id: BuiltValueNullFieldError.checkNotNull(
-                  id, r'GAllPokemonData_pokemons_results', 'id'),
-              name: BuiltValueNullFieldError.checkNotNull(
-                  name, r'GAllPokemonData_pokemons_results', 'name'),
-              avatar: BuiltValueNullFieldError.checkNotNull(
-                  avatar, r'GAllPokemonData_pokemons_results', 'avatar'));
+            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
+                r'GAllPokemonData_pokemons_results', 'G__typename'),
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'GAllPokemonData_pokemons_results', 'id'),
+            name: BuiltValueNullFieldError.checkNotNull(
+                name, r'GAllPokemonData_pokemons_results', 'name'),
+            avatar: BuiltValueNullFieldError.checkNotNull(
+                avatar, r'GAllPokemonData_pokemons_results', 'avatar'),
+            height: _height?.build(),
+            weight: _weight?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -860,9 +863,10 @@ class GAllPokemonData_pokemons_results_heightBuilder
   _$GAllPokemonData_pokemons_results_height _build() {
     final _$result = _$v ??
         new _$GAllPokemonData_pokemons_results_height._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                r'GAllPokemonData_pokemons_results_height', 'G__typename'),
-            in_meter: in_meter);
+          G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
+              r'GAllPokemonData_pokemons_results_height', 'G__typename'),
+          in_meter: in_meter,
+        );
     replace(_$result);
     return _$result;
   }
@@ -971,9 +975,10 @@ class GAllPokemonData_pokemons_results_weightBuilder
   _$GAllPokemonData_pokemons_results_weight _build() {
     final _$result = _$v ??
         new _$GAllPokemonData_pokemons_results_weight._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                r'GAllPokemonData_pokemons_results_weight', 'G__typename'),
-            in_kg: in_kg);
+          G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
+              r'GAllPokemonData_pokemons_results_weight', 'G__typename'),
+          in_kg: in_kg,
+        );
     replace(_$result);
     return _$result;
   }

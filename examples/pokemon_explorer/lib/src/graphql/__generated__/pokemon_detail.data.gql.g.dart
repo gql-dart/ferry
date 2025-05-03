@@ -144,18 +144,6 @@ class _$GPokemonDetailData_pokemonSerializer
           result.G__typename = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
-        case 'height':
-          result.height.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(GPokemonDetailData_pokemon_height))!
-              as GPokemonDetailData_pokemon_height);
-          break;
-        case 'weight':
-          result.weight.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(GPokemonDetailData_pokemon_weight))!
-              as GPokemonDetailData_pokemon_weight);
-          break;
         case 'id':
           result.id = serializers.deserialize(value,
               specifiedType: const FullType(int))! as int;
@@ -167,6 +155,18 @@ class _$GPokemonDetailData_pokemonSerializer
         case 'avatar':
           result.avatar = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
+          break;
+        case 'height':
+          result.height.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(GPokemonDetailData_pokemon_height))!
+              as GPokemonDetailData_pokemon_height);
+          break;
+        case 'weight':
+          result.weight.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(GPokemonDetailData_pokemon_weight))!
+              as GPokemonDetailData_pokemon_weight);
           break;
         case 'stats':
           result.stats.replace(serializers.deserialize(value,
@@ -460,9 +460,10 @@ class GPokemonDetailDataBuilder
     try {
       _$result = _$v ??
           new _$GPokemonDetailData._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GPokemonDetailData', 'G__typename'),
-              pokemon: _pokemon?.build());
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename, r'GPokemonDetailData', 'G__typename'),
+            pokemon: _pokemon?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -483,15 +484,15 @@ class _$GPokemonDetailData_pokemon extends GPokemonDetailData_pokemon {
   @override
   final String G__typename;
   @override
-  final GPokemonDetailData_pokemon_height? height;
-  @override
-  final GPokemonDetailData_pokemon_weight? weight;
-  @override
   final int id;
   @override
   final String name;
   @override
   final String avatar;
+  @override
+  final GPokemonDetailData_pokemon_height? height;
+  @override
+  final GPokemonDetailData_pokemon_weight? weight;
   @override
   final BuiltList<GPokemonDetailData_pokemon_stats?>? stats;
 
@@ -501,11 +502,11 @@ class _$GPokemonDetailData_pokemon extends GPokemonDetailData_pokemon {
 
   _$GPokemonDetailData_pokemon._(
       {required this.G__typename,
-      this.height,
-      this.weight,
       required this.id,
       required this.name,
       required this.avatar,
+      this.height,
+      this.weight,
       this.stats})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
@@ -532,11 +533,11 @@ class _$GPokemonDetailData_pokemon extends GPokemonDetailData_pokemon {
     if (identical(other, this)) return true;
     return other is GPokemonDetailData_pokemon &&
         G__typename == other.G__typename &&
-        height == other.height &&
-        weight == other.weight &&
         id == other.id &&
         name == other.name &&
         avatar == other.avatar &&
+        height == other.height &&
+        weight == other.weight &&
         stats == other.stats;
   }
 
@@ -544,11 +545,11 @@ class _$GPokemonDetailData_pokemon extends GPokemonDetailData_pokemon {
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, height.hashCode);
-    _$hash = $jc(_$hash, weight.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, name.hashCode);
     _$hash = $jc(_$hash, avatar.hashCode);
+    _$hash = $jc(_$hash, height.hashCode);
+    _$hash = $jc(_$hash, weight.hashCode);
     _$hash = $jc(_$hash, stats.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -558,11 +559,11 @@ class _$GPokemonDetailData_pokemon extends GPokemonDetailData_pokemon {
   String toString() {
     return (newBuiltValueToStringHelper(r'GPokemonDetailData_pokemon')
           ..add('G__typename', G__typename)
-          ..add('height', height)
-          ..add('weight', weight)
           ..add('id', id)
           ..add('name', name)
           ..add('avatar', avatar)
+          ..add('height', height)
+          ..add('weight', weight)
           ..add('stats', stats))
         .toString();
   }
@@ -577,18 +578,6 @@ class GPokemonDetailData_pokemonBuilder
   String? get G__typename => _$this._G__typename;
   set G__typename(String? G__typename) => _$this._G__typename = G__typename;
 
-  GPokemonDetailData_pokemon_heightBuilder? _height;
-  GPokemonDetailData_pokemon_heightBuilder get height =>
-      _$this._height ??= new GPokemonDetailData_pokemon_heightBuilder();
-  set height(GPokemonDetailData_pokemon_heightBuilder? height) =>
-      _$this._height = height;
-
-  GPokemonDetailData_pokemon_weightBuilder? _weight;
-  GPokemonDetailData_pokemon_weightBuilder get weight =>
-      _$this._weight ??= new GPokemonDetailData_pokemon_weightBuilder();
-  set weight(GPokemonDetailData_pokemon_weightBuilder? weight) =>
-      _$this._weight = weight;
-
   int? _id;
   int? get id => _$this._id;
   set id(int? id) => _$this._id = id;
@@ -600,6 +589,18 @@ class GPokemonDetailData_pokemonBuilder
   String? _avatar;
   String? get avatar => _$this._avatar;
   set avatar(String? avatar) => _$this._avatar = avatar;
+
+  GPokemonDetailData_pokemon_heightBuilder? _height;
+  GPokemonDetailData_pokemon_heightBuilder get height =>
+      _$this._height ??= new GPokemonDetailData_pokemon_heightBuilder();
+  set height(GPokemonDetailData_pokemon_heightBuilder? height) =>
+      _$this._height = height;
+
+  GPokemonDetailData_pokemon_weightBuilder? _weight;
+  GPokemonDetailData_pokemon_weightBuilder get weight =>
+      _$this._weight ??= new GPokemonDetailData_pokemon_weightBuilder();
+  set weight(GPokemonDetailData_pokemon_weightBuilder? weight) =>
+      _$this._weight = weight;
 
   ListBuilder<GPokemonDetailData_pokemon_stats?>? _stats;
   ListBuilder<GPokemonDetailData_pokemon_stats?> get stats =>
@@ -615,11 +616,11 @@ class GPokemonDetailData_pokemonBuilder
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
-      _height = $v.height?.toBuilder();
-      _weight = $v.weight?.toBuilder();
       _id = $v.id;
       _name = $v.name;
       _avatar = $v.avatar;
+      _height = $v.height?.toBuilder();
+      _weight = $v.weight?.toBuilder();
       _stats = $v.stats?.toBuilder();
       _$v = null;
     }
@@ -645,17 +646,18 @@ class GPokemonDetailData_pokemonBuilder
     try {
       _$result = _$v ??
           new _$GPokemonDetailData_pokemon._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GPokemonDetailData_pokemon', 'G__typename'),
-              height: _height?.build(),
-              weight: _weight?.build(),
-              id: BuiltValueNullFieldError.checkNotNull(
-                  id, r'GPokemonDetailData_pokemon', 'id'),
-              name: BuiltValueNullFieldError.checkNotNull(
-                  name, r'GPokemonDetailData_pokemon', 'name'),
-              avatar: BuiltValueNullFieldError.checkNotNull(
-                  avatar, r'GPokemonDetailData_pokemon', 'avatar'),
-              stats: _stats?.build());
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename, r'GPokemonDetailData_pokemon', 'G__typename'),
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'GPokemonDetailData_pokemon', 'id'),
+            name: BuiltValueNullFieldError.checkNotNull(
+                name, r'GPokemonDetailData_pokemon', 'name'),
+            avatar: BuiltValueNullFieldError.checkNotNull(
+                avatar, r'GPokemonDetailData_pokemon', 'avatar'),
+            height: _height?.build(),
+            weight: _weight?.build(),
+            stats: _stats?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -663,7 +665,6 @@ class GPokemonDetailData_pokemonBuilder
         _height?.build();
         _$failedField = 'weight';
         _weight?.build();
-
         _$failedField = 'stats';
         _stats?.build();
       } catch (e) {
@@ -777,9 +778,10 @@ class GPokemonDetailData_pokemon_heightBuilder
   _$GPokemonDetailData_pokemon_height _build() {
     final _$result = _$v ??
         new _$GPokemonDetailData_pokemon_height._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                r'GPokemonDetailData_pokemon_height', 'G__typename'),
-            in_meter: in_meter);
+          G__typename: BuiltValueNullFieldError.checkNotNull(
+              G__typename, r'GPokemonDetailData_pokemon_height', 'G__typename'),
+          in_meter: in_meter,
+        );
     replace(_$result);
     return _$result;
   }
@@ -884,9 +886,10 @@ class GPokemonDetailData_pokemon_weightBuilder
   _$GPokemonDetailData_pokemon_weight _build() {
     final _$result = _$v ??
         new _$GPokemonDetailData_pokemon_weight._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                r'GPokemonDetailData_pokemon_weight', 'G__typename'),
-            in_kg: in_kg);
+          G__typename: BuiltValueNullFieldError.checkNotNull(
+              G__typename, r'GPokemonDetailData_pokemon_weight', 'G__typename'),
+          in_kg: in_kg,
+        );
     replace(_$result);
     return _$result;
   }
@@ -1000,10 +1003,11 @@ class GPokemonDetailData_pokemon_statsBuilder
   _$GPokemonDetailData_pokemon_stats _build() {
     final _$result = _$v ??
         new _$GPokemonDetailData_pokemon_stats._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                r'GPokemonDetailData_pokemon_stats', 'G__typename'),
-            id: id,
-            name: name);
+          G__typename: BuiltValueNullFieldError.checkNotNull(
+              G__typename, r'GPokemonDetailData_pokemon_stats', 'G__typename'),
+          id: id,
+          name: name,
+        );
     replace(_$result);
     return _$result;
   }

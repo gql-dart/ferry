@@ -123,8 +123,9 @@ class GUploadBuilder implements Builder<GUpload, GUploadBuilder> {
   _$GUpload _build() {
     final _$result = _$v ??
         new _$GUpload._(
-            value: BuiltValueNullFieldError.checkNotNull(
-                value, r'GUpload', 'value'));
+          value:
+              BuiltValueNullFieldError.checkNotNull(value, r'GUpload', 'value'),
+        );
     replace(_$result);
     return _$result;
   }

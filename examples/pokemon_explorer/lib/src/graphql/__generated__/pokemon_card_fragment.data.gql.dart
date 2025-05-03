@@ -13,7 +13,6 @@ abstract class GNestedFragment {
   int get id;
   String get name;
   String get avatar;
-  Map<String, dynamic> toJson();
 }
 
 abstract class GNestedFragmentData
@@ -41,7 +40,6 @@ abstract class GNestedFragmentData
   static Serializer<GNestedFragmentData> get serializer =>
       _$gNestedFragmentDataSerializer;
 
-  @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GNestedFragmentData.serializer,
         this,
@@ -65,20 +63,16 @@ abstract class GPokemonCard implements GNestedFragment {
   String get avatar;
   GPokemonCard_height? get height;
   GPokemonCard_weight? get weight;
-  @override
-  Map<String, dynamic> toJson();
 }
 
 abstract class GPokemonCard_height {
   String get G__typename;
   String? get in_meter;
-  Map<String, dynamic> toJson();
 }
 
 abstract class GPokemonCard_weight {
   String get G__typename;
   String? get in_kg;
-  Map<String, dynamic> toJson();
 }
 
 abstract class GPokemonCardData
@@ -110,7 +104,6 @@ abstract class GPokemonCardData
   static Serializer<GPokemonCardData> get serializer =>
       _$gPokemonCardDataSerializer;
 
-  @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPokemonCardData.serializer,
         this,
@@ -144,7 +137,6 @@ abstract class GPokemonCardData_height
   static Serializer<GPokemonCardData_height> get serializer =>
       _$gPokemonCardDataHeightSerializer;
 
-  @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPokemonCardData_height.serializer,
         this,
@@ -178,7 +170,6 @@ abstract class GPokemonCardData_weight
   static Serializer<GPokemonCardData_weight> get serializer =>
       _$gPokemonCardDataWeightSerializer;
 
-  @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPokemonCardData_weight.serializer,
         this,
