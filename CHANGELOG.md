@@ -11,6 +11,28 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 Packages with breaking changes:
 
+ - [`ferry_test_graphql2` - `v0.4.1-dev.1`](#ferry_test_graphql2---v041-dev1)
+
+Packages with other changes:
+
+ - There are no other changes in this release.
+
+---
+
+#### `ferry_test_graphql2` - `v0.4.1-dev.1`
+
+ - **BREAKING** **FEAT**(ferry_test_external_schema): update for new gql_code_builder version.
+ - **BREAKING** **FEAT**(ferry_generator): upgrade gql_code_builder to 0.14.0.
+
+
+## 2025-05-03
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
  - [`ferry_generator` - `v0.13.0`](#ferry_generator---v0130)
 
 Packages with other changes:
