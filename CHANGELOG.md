@@ -24,23 +24,6 @@ Packages with other changes:
  - **BREAKING** **FEAT**(ferry_test_external_schema): update for new gql_code_builder version.
  - **BREAKING** **FEAT**(ferry_generator): upgrade gql_code_builder to 0.14.0.
 
-
-## 2025-05-03
-
-### Changes
-
----
-
-Packages with breaking changes:
-
- - [`ferry_generator` - `v0.13.0`](#ferry_generator---v0130)
-
-Packages with other changes:
-
- - There are no other changes in this release.
-
----
-
 #### `ferry_generator` - `v0.13.0`
 
  - **BREAKING** **FEAT**(ferry_generator): upgrade gql_code_builder to 0.14.0.
