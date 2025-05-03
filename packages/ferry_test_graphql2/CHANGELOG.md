@@ -1,3 +1,11 @@
+## 0.4.1-dev.2
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **FEAT**(ferry_generator): upgrade to latest gql_code_builder (#637).
+ - **BREAKING** **FEAT**(ferry_test_external_schema): update for new gql_code_builder version.
+ - **BREAKING** **FEAT**(ferry_generator): upgrade gql_code_builder to 0.14.0.
+
 ## 0.4.1-dev.1
 
 > Note: This release has breaking changes.

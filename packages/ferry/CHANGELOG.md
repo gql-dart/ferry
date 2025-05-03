@@ -1,3 +1,9 @@
+## 0.16.2-dev.4
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **FEAT**(ferry_generator): upgrade to latest gql_code_builder (#637).
+
 ## 0.16.2-dev.3
 
  - **FEAT**(ferry_generator): move to dart_style 3.0.0 (#632).

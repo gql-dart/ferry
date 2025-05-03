@@ -11,6 +11,53 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 Packages with breaking changes:
 
+ - [`ferry` - `v0.16.2-dev.4`](#ferry---v0162-dev4)
+ - [`ferry_exec` - `v0.8.0-dev.0`](#ferry_exec---v080-dev0)
+ - [`ferry_generator` - `v0.14.0-dev.0`](#ferry_generator---v0140-dev0)
+ - [`ferry_test_graphql2` - `v0.4.1-dev.2`](#ferry_test_graphql2---v041-dev2)
+
+Packages with other changes:
+
+ - [`ferry_flutter` - `v0.9.1-dev.4`](#ferry_flutter---v091-dev4)
+ - [`ferry_cache` - `v0.10.1-dev.0+1`](#ferry_cache---v0101-dev01)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `ferry_flutter` - `v0.9.1-dev.4`
+ - `ferry_cache` - `v0.10.1-dev.0+1`
+
+---
+
+#### `ferry` - `v0.16.2-dev.4`
+
+ - **BREAKING** **FEAT**(ferry_generator): upgrade to latest gql_code_builder (#637).
+
+#### `ferry_exec` - `v0.8.0-dev.0`
+
+ - **BREAKING** **FEAT**(ferry_generator): upgrade to latest gql_code_builder (#637).
+
+#### `ferry_generator` - `v0.14.0-dev.0`
+
+ - **BREAKING** **FEAT**(ferry_generator): upgrade to latest gql_code_builder (#637).
+ - **BREAKING** **FEAT**(ferry_generator): upgrade gql_code_builder to 0.14.0.
+
+#### `ferry_test_graphql2` - `v0.4.1-dev.2`
+
+ - **BREAKING** **FEAT**(ferry_generator): upgrade to latest gql_code_builder (#637).
+ - **BREAKING** **FEAT**(ferry_test_external_schema): update for new gql_code_builder version.
+ - **BREAKING** **FEAT**(ferry_generator): upgrade gql_code_builder to 0.14.0.
+
+
+## 2025-05-03
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
  - [`ferry_test_graphql2` - `v0.4.1-dev.1`](#ferry_test_graphql2---v041-dev1)
 
 Packages with other changes:
