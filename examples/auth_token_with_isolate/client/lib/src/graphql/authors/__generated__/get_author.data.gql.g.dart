@@ -437,9 +437,10 @@ class GGetAuthorByIdDataBuilder
     try {
       _$result = _$v ??
           new _$GGetAuthorByIdData._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GGetAuthorByIdData', 'G__typename'),
-              author: _author?.build());
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename, r'GGetAuthorByIdData', 'G__typename'),
+            author: _author?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -596,15 +597,16 @@ class GGetAuthorByIdData_authorBuilder
     try {
       _$result = _$v ??
           new _$GGetAuthorByIdData_author._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GGetAuthorByIdData_author', 'G__typename'),
-              id: BuiltValueNullFieldError.checkNotNull(
-                  id, r'GGetAuthorByIdData_author', 'id'),
-              firstName: BuiltValueNullFieldError.checkNotNull(
-                  firstName, r'GGetAuthorByIdData_author', 'firstName'),
-              lastName: BuiltValueNullFieldError.checkNotNull(
-                  lastName, r'GGetAuthorByIdData_author', 'lastName'),
-              quotes: _quotes?.build());
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename, r'GGetAuthorByIdData_author', 'G__typename'),
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'GGetAuthorByIdData_author', 'id'),
+            firstName: BuiltValueNullFieldError.checkNotNull(
+                firstName, r'GGetAuthorByIdData_author', 'firstName'),
+            lastName: BuiltValueNullFieldError.checkNotNull(
+                lastName, r'GGetAuthorByIdData_author', 'lastName'),
+            quotes: _quotes?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -723,9 +725,10 @@ class GGetAuthorByIdData_author_quotesBuilder
     try {
       _$result = _$v ??
           new _$GGetAuthorByIdData_author_quotes._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                  r'GGetAuthorByIdData_author_quotes', 'G__typename'),
-              edges: _edges?.build());
+            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
+                r'GGetAuthorByIdData_author_quotes', 'G__typename'),
+            edges: _edges?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -849,9 +852,10 @@ class GGetAuthorByIdData_author_quotes_edgesBuilder
     try {
       _$result = _$v ??
           new _$GGetAuthorByIdData_author_quotes_edges._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                  r'GGetAuthorByIdData_author_quotes_edges', 'G__typename'),
-              node: _node?.build());
+            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
+                r'GGetAuthorByIdData_author_quotes_edges', 'G__typename'),
+            node: _node?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -1004,14 +1008,15 @@ class GGetAuthorByIdData_author_quotes_edges_nodeBuilder
   _$GGetAuthorByIdData_author_quotes_edges_node _build() {
     final _$result = _$v ??
         new _$GGetAuthorByIdData_author_quotes_edges_node._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                r'GGetAuthorByIdData_author_quotes_edges_node', 'G__typename'),
-            G_id: BuiltValueNullFieldError.checkNotNull(
-                G_id, r'GGetAuthorByIdData_author_quotes_edges_node', 'G_id'),
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GGetAuthorByIdData_author_quotes_edges_node', 'id'),
-            text: BuiltValueNullFieldError.checkNotNull(
-                text, r'GGetAuthorByIdData_author_quotes_edges_node', 'text'));
+          G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
+              r'GGetAuthorByIdData_author_quotes_edges_node', 'G__typename'),
+          G_id: BuiltValueNullFieldError.checkNotNull(
+              G_id, r'GGetAuthorByIdData_author_quotes_edges_node', 'G_id'),
+          id: BuiltValueNullFieldError.checkNotNull(
+              id, r'GGetAuthorByIdData_author_quotes_edges_node', 'id'),
+          text: BuiltValueNullFieldError.checkNotNull(
+              text, r'GGetAuthorByIdData_author_quotes_edges_node', 'text'),
+        );
     replace(_$result);
     return _$result;
   }

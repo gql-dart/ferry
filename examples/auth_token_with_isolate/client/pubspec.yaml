@@ -56,6 +56,7 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
   ferry_generator:
+  gql_code_builder_serializers: ^0.1.0
   build_runner:
   analyzer:
 # For information on the generic Dart part of this file, see the

@@ -12,7 +12,8 @@ part 'login.var.gql.g.dart';
 abstract class GLoginVars implements Built<GLoginVars, GLoginVarsBuilder> {
   GLoginVars._();
 
-  factory GLoginVars([Function(GLoginVarsBuilder b) updates]) = _$GLoginVars;
+  factory GLoginVars([void Function(GLoginVarsBuilder b) updates]) =
+      _$GLoginVars;
 
   String get username;
   String get password;

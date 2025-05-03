@@ -142,10 +142,11 @@ class GLoginVarsBuilder implements Builder<GLoginVars, GLoginVarsBuilder> {
   _$GLoginVars _build() {
     final _$result = _$v ??
         new _$GLoginVars._(
-            username: BuiltValueNullFieldError.checkNotNull(
-                username, r'GLoginVars', 'username'),
-            password: BuiltValueNullFieldError.checkNotNull(
-                password, r'GLoginVars', 'password'));
+          username: BuiltValueNullFieldError.checkNotNull(
+              username, r'GLoginVars', 'username'),
+          password: BuiltValueNullFieldError.checkNotNull(
+              password, r'GLoginVars', 'password'),
+        );
     replace(_$result);
     return _$result;
   }

@@ -13,7 +13,7 @@ abstract class GGetAuthorsVars
     implements Built<GGetAuthorsVars, GGetAuthorsVarsBuilder> {
   GGetAuthorsVars._();
 
-  factory GGetAuthorsVars([Function(GGetAuthorsVarsBuilder b) updates]) =
+  factory GGetAuthorsVars([void Function(GGetAuthorsVarsBuilder b) updates]) =
       _$GGetAuthorsVars;
 
   static Serializer<GGetAuthorsVars> get serializer =>

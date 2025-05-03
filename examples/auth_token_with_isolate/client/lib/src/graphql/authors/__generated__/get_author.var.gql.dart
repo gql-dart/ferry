@@ -13,7 +13,8 @@ abstract class GGetAuthorByIdVars
     implements Built<GGetAuthorByIdVars, GGetAuthorByIdVarsBuilder> {
   GGetAuthorByIdVars._();
 
-  factory GGetAuthorByIdVars([Function(GGetAuthorByIdVarsBuilder b) updates]) =
+  factory GGetAuthorByIdVars(
+          [void Function(GGetAuthorByIdVarsBuilder b) updates]) =
       _$GGetAuthorByIdVars;
 
   String get id;

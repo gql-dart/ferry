@@ -14,7 +14,7 @@ abstract class GAuthorsOrder
     implements Built<GAuthorsOrder, GAuthorsOrderBuilder> {
   GAuthorsOrder._();
 
-  factory GAuthorsOrder([Function(GAuthorsOrderBuilder b) updates]) =
+  factory GAuthorsOrder([void Function(GAuthorsOrderBuilder b) updates]) =
       _$GAuthorsOrder;
 
   GAuthorsOrderField get field;
@@ -64,7 +64,8 @@ abstract class GdeleteAuthorInput
     implements Built<GdeleteAuthorInput, GdeleteAuthorInputBuilder> {
   GdeleteAuthorInput._();
 
-  factory GdeleteAuthorInput([Function(GdeleteAuthorInputBuilder b) updates]) =
+  factory GdeleteAuthorInput(
+          [void Function(GdeleteAuthorInputBuilder b) updates]) =
       _$GdeleteAuthorInput;
 
   int get id;
@@ -106,7 +107,8 @@ class GDirection extends EnumClass {
 abstract class GloginInput implements Built<GloginInput, GloginInputBuilder> {
   GloginInput._();
 
-  factory GloginInput([Function(GloginInputBuilder b) updates]) = _$GloginInput;
+  factory GloginInput([void Function(GloginInputBuilder b) updates]) =
+      _$GloginInput;
 
   String get username;
   String get password;
@@ -127,7 +129,8 @@ abstract class GloginInput implements Built<GloginInput, GloginInputBuilder> {
 abstract class GNewAuthor implements Built<GNewAuthor, GNewAuthorBuilder> {
   GNewAuthor._();
 
-  factory GNewAuthor([Function(GNewAuthorBuilder b) updates]) = _$GNewAuthor;
+  factory GNewAuthor([void Function(GNewAuthorBuilder b) updates]) =
+      _$GNewAuthor;
 
   String get firstName;
   String get lastName;

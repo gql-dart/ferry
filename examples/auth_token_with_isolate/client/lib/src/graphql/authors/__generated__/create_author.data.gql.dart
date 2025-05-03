@@ -13,7 +13,8 @@ abstract class GCreateAuthorData
     implements Built<GCreateAuthorData, GCreateAuthorDataBuilder> {
   GCreateAuthorData._();
 
-  factory GCreateAuthorData([Function(GCreateAuthorDataBuilder b) updates]) =
+  factory GCreateAuthorData(
+          [void Function(GCreateAuthorDataBuilder b) updates]) =
       _$GCreateAuthorData;
 
   static void _initializeBuilder(GCreateAuthorDataBuilder b) =>
@@ -44,7 +45,7 @@ abstract class GCreateAuthorData_createAuthor
   GCreateAuthorData_createAuthor._();
 
   factory GCreateAuthorData_createAuthor(
-          [Function(GCreateAuthorData_createAuthorBuilder b) updates]) =
+          [void Function(GCreateAuthorData_createAuthorBuilder b) updates]) =
       _$GCreateAuthorData_createAuthor;
 
   static void _initializeBuilder(GCreateAuthorData_createAuthorBuilder b) =>

@@ -230,9 +230,10 @@ class GCreateAuthorDataBuilder
     try {
       _$result = _$v ??
           new _$GCreateAuthorData._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GCreateAuthorData', 'G__typename'),
-              createAuthor: _createAuthor?.build());
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename, r'GCreateAuthorData', 'G__typename'),
+            createAuthor: _createAuthor?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -375,14 +376,15 @@ class GCreateAuthorData_createAuthorBuilder
   _$GCreateAuthorData_createAuthor _build() {
     final _$result = _$v ??
         new _$GCreateAuthorData_createAuthor._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, r'GCreateAuthorData_createAuthor', 'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GCreateAuthorData_createAuthor', 'id'),
-            firstName: BuiltValueNullFieldError.checkNotNull(
-                firstName, r'GCreateAuthorData_createAuthor', 'firstName'),
-            lastName: BuiltValueNullFieldError.checkNotNull(
-                lastName, r'GCreateAuthorData_createAuthor', 'lastName'));
+          G__typename: BuiltValueNullFieldError.checkNotNull(
+              G__typename, r'GCreateAuthorData_createAuthor', 'G__typename'),
+          id: BuiltValueNullFieldError.checkNotNull(
+              id, r'GCreateAuthorData_createAuthor', 'id'),
+          firstName: BuiltValueNullFieldError.checkNotNull(
+              firstName, r'GCreateAuthorData_createAuthor', 'firstName'),
+          lastName: BuiltValueNullFieldError.checkNotNull(
+              lastName, r'GCreateAuthorData_createAuthor', 'lastName'),
+        );
     replace(_$result);
     return _$result;
   }

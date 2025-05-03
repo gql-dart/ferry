@@ -404,10 +404,11 @@ class GAuthorsOrderBuilder
   _$GAuthorsOrder _build() {
     final _$result = _$v ??
         new _$GAuthorsOrder._(
-            field: BuiltValueNullFieldError.checkNotNull(
-                field, r'GAuthorsOrder', 'field'),
-            direction: BuiltValueNullFieldError.checkNotNull(
-                direction, r'GAuthorsOrder', 'direction'));
+          field: BuiltValueNullFieldError.checkNotNull(
+              field, r'GAuthorsOrder', 'field'),
+          direction: BuiltValueNullFieldError.checkNotNull(
+              direction, r'GAuthorsOrder', 'direction'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -491,8 +492,9 @@ class GdeleteAuthorInputBuilder
   _$GdeleteAuthorInput _build() {
     final _$result = _$v ??
         new _$GdeleteAuthorInput._(
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GdeleteAuthorInput', 'id'));
+          id: BuiltValueNullFieldError.checkNotNull(
+              id, r'GdeleteAuthorInput', 'id'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -586,10 +588,11 @@ class GloginInputBuilder implements Builder<GloginInput, GloginInputBuilder> {
   _$GloginInput _build() {
     final _$result = _$v ??
         new _$GloginInput._(
-            username: BuiltValueNullFieldError.checkNotNull(
-                username, r'GloginInput', 'username'),
-            password: BuiltValueNullFieldError.checkNotNull(
-                password, r'GloginInput', 'password'));
+          username: BuiltValueNullFieldError.checkNotNull(
+              username, r'GloginInput', 'username'),
+          password: BuiltValueNullFieldError.checkNotNull(
+              password, r'GloginInput', 'password'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -684,10 +687,11 @@ class GNewAuthorBuilder implements Builder<GNewAuthor, GNewAuthorBuilder> {
   _$GNewAuthor _build() {
     final _$result = _$v ??
         new _$GNewAuthor._(
-            firstName: BuiltValueNullFieldError.checkNotNull(
-                firstName, r'GNewAuthor', 'firstName'),
-            lastName: BuiltValueNullFieldError.checkNotNull(
-                lastName, r'GNewAuthor', 'lastName'));
+          firstName: BuiltValueNullFieldError.checkNotNull(
+              firstName, r'GNewAuthor', 'firstName'),
+          lastName: BuiltValueNullFieldError.checkNotNull(
+              lastName, r'GNewAuthor', 'lastName'),
+        );
     replace(_$result);
     return _$result;
   }
