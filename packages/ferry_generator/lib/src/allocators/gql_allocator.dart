@@ -23,7 +23,7 @@ class GqlAllocator implements Allocator {
   final String outputDir;
 
   final _imports = <String, int?>{};
-  var _keys = 1;
+  final _urlsRequiringAliases = <String>[];
 
   GqlAllocator(
     this.sourceUrl,
@@ -63,7 +63,10 @@ class GqlAllocator implements Allocator {
         return symbol;
       }
 
-      return '_i${_imports.putIfAbsent(replacedUrl, _nextKey)}.$symbol';
+      _recordUrlForAlias(replacedUrl);
+      final aliasNumber = _getAliasForUrl(replacedUrl);
+      _imports[replacedUrl] = aliasNumber; // Track locally for imports
+      return '_i$aliasNumber.$symbol';
     }
 
     if (uri.path.isEmpty && uri.fragment.isNotEmpty) {
@@ -83,13 +86,38 @@ class GqlAllocator implements Allocator {
         return symbol;
       }
 
-      return '_i${_imports.putIfAbsent(replacedUrl, _nextKey)}.$symbol';
+      _recordUrlForAlias(replacedUrl);
+      final aliasNumber = _getAliasForUrl(replacedUrl);
+      _imports[replacedUrl] = aliasNumber; // Track locally for imports
+      return '_i$aliasNumber.$symbol';
     }
 
-    return '_i${_imports.putIfAbsent(url, _nextKey)}.$symbol';
+    _recordUrlForAlias(url);
+    final aliasNumber = _getAliasForUrl(url);
+    _imports[url] = aliasNumber; // Track locally for imports
+    return '_i$aliasNumber.$symbol';
   }
 
-  int _nextKey() => _keys++;
+  void _recordUrlForAlias(String url) {
+    if (!_urlsRequiringAliases.contains(url)) {
+      _urlsRequiringAliases.add(url);
+    }
+  }
+
+  int _getAliasForUrl(String url) {
+    // Return cached alias if already computed locally
+    final existingAlias = _imports[url];
+    if (existingAlias != null) {
+      return existingAlias;
+    }
+
+    // Deterministic assignment: sort all recorded URLs and assign based on position
+    final allUrls = _urlsRequiringAliases.toList()..sort();
+    final aliasNumber = allUrls.indexOf(url) + 1;
+
+    _imports[url] = aliasNumber;
+    return aliasNumber;
+  }
 
   @override
   Iterable<Directive> get imports => _imports.keys.map(
