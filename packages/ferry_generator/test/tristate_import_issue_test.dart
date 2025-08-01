@@ -1,3 +1,5 @@
+@TestOn('vm')
+
 import 'package:ferry_generator/graphql_builder.dart';
 import 'package:build_test/build_test.dart';
 import 'package:test/test.dart';

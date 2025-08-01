@@ -24,6 +24,7 @@ class GqlAllocator implements Allocator {
 
   final _imports = <String, int?>{};
   final _urlsRequiringAliases = <String>[];
+  Map<String, int>? _sortedAliasCache;
 
   GqlAllocator(
     this.sourceUrl,
@@ -101,6 +102,8 @@ class GqlAllocator implements Allocator {
   void _recordUrlForAlias(String url) {
     if (!_urlsRequiringAliases.contains(url)) {
       _urlsRequiringAliases.add(url);
+      // Invalidate cache when new URL is added
+      _sortedAliasCache = null;
     }
   }
 
@@ -111,12 +114,21 @@ class GqlAllocator implements Allocator {
       return existingAlias;
     }
 
-    // Deterministic assignment: sort all recorded URLs and assign based on position
-    final allUrls = _urlsRequiringAliases.toList()..sort();
-    final aliasNumber = allUrls.indexOf(url) + 1;
-
+    // Build sorted alias cache if not exists or invalidated
+    _sortedAliasCache ??= _buildSortedAliasMap();
+    
+    final aliasNumber = _sortedAliasCache![url]!;
     _imports[url] = aliasNumber;
     return aliasNumber;
+  }
+
+  Map<String, int> _buildSortedAliasMap() {
+    final sortedUrls = _urlsRequiringAliases.toList()..sort();
+    final aliasMap = <String, int>{};
+    for (int i = 0; i < sortedUrls.length; i++) {
+      aliasMap[sortedUrls[i]] = i + 1;
+    }
+    return aliasMap;
   }
 
   @override
