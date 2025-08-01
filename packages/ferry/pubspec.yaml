@@ -4,17 +4,17 @@ homepage: https://ferry.gql-dart.dev
 description: Ferry is a simple, powerful GraphQL Client for Flutter and Dart.
 repository: https://github.com/gql-dart/ferry
 environment:
-  sdk: ">=3.0.0 <4.0.0"
+  sdk: '>=3.0.0 <4.0.0'
 
 topics:
   - graphql
   - gql
   - ferry
 dependencies:
-  gql: ">=0.14.0 <2.0.0"
+  gql: '>=0.14.0 <2.0.0'
   rxdart: ^0.28.0
-  gql_link: ">=0.5.0 <2.0.0"
-  gql_exec: ">=0.4.0 <2.0.0"
+  gql_link: '>=0.5.0 <2.0.0'
+  gql_exec: '>=0.4.0 <2.0.0'
   meta: ^1.3.0
   collection: ^1.15.0
   hive: ^2.0.0

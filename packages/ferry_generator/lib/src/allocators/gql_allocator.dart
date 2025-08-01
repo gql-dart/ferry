@@ -116,7 +116,7 @@ class GqlAllocator implements Allocator {
 
     // Build sorted alias cache if not exists or invalidated
     _sortedAliasCache ??= _buildSortedAliasMap();
-    
+
     final aliasNumber = _sortedAliasCache![url]!;
     _imports[url] = aliasNumber;
     return aliasNumber;

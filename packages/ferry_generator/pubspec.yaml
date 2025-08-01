@@ -4,14 +4,14 @@ homepage: https://ferry.gql-dart.dev
 description: Generated types for Ferry GraphQL Client
 repository: https://github.com/gql-dart/ferry
 environment:
-  sdk: ">=3.0.0 <4.0.0"
+  sdk: '>=3.0.0 <4.0.0'
 topics:
   - graphql
   - gql
   - ferry
   - codegen
 dependencies:
-  gql: ">=0.14.0 <2.0.0"
+  gql: '>=0.14.0 <2.0.0'
   gql_code_builder: ^0.14.0
   gql_code_builder_serializers: ^0.1.0
   gql_tristate_value: ^1.0.0
@@ -26,9 +26,9 @@ dependencies:
   glob: ^2.0.1
   built_value_generator: ^8.1.1
   built_value: ^8.1.2
-  analyzer: ">=4.2.0 <8.0.0"
+  analyzer: '>=4.2.0 <8.0.0'
 dev_dependencies:
   test: ^1.16.8
   build_runner: ^2.0.2
-  build_test: ^3.0.0
+  build_test: ^2.0.0
   pedantic: ^1.11.0
