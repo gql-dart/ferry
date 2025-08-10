@@ -17,7 +17,7 @@ dependencies:
   gql_tristate_value: ^1.0.0
   built_collection: ^5.0.0
   code_builder: ^4.3.0
-  build: ^2.0.0
+  build: 2.4.2
   path: ^1.8.0
   ferry_exec: ^0.8.0-dev.0
   yaml: ^3.1.0
