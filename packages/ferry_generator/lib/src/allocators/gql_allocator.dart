@@ -22,15 +22,17 @@ class GqlAllocator implements Allocator {
   final String serializerUrl;
   final String outputDir;
 
-  /// Fixed imports are used to map specific package URLs to a specific import name.
-  final Map<Uri, String> _fixedImports;
-
   final _imports = <String, int?>{};
   var _keys = 1;
 
-  GqlAllocator(this.sourceUrl, this.sourceExtension, this.currentUrl,
-      this.schemaUrl, this.serializerUrl, this.outputDir,
-      [this._fixedImports = const <Uri, String>{}]);
+  GqlAllocator(
+    this.sourceUrl,
+    this.sourceExtension,
+    this.currentUrl,
+    this.schemaUrl,
+    this.serializerUrl,
+    this.outputDir,
+  );
 
   @override
   String allocate(Reference reference) {
@@ -42,14 +44,6 @@ class GqlAllocator implements Allocator {
     } else if (_doNotPrefix.contains(url)) {
       _imports.putIfAbsent(url, () => null);
       return symbol;
-    }
-
-    if (_fixedImports.containsKey(Uri.parse(url))) {
-      final importName = _fixedImports[Uri.parse(url)]!;
-
-      if (importName == currentUrl) {
-        return symbol;
-      }
     }
 
     final uri = Uri.parse(url);
