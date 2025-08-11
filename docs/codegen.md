@@ -214,6 +214,8 @@ By default, both are disabled.
 
 `vars_create_factories`: \[bool\] Whether to generate an additional factory constructor for the variables class. In contrast to the `built_value` builders, this factory constructor respects nullability for it's parameters. Defaults to false.
 
+`format`: \[bool\] Whether to allow formatting of the generated code. When set to false, adds `// dart format off` directive to the generated files. Defaults to true.
+
 Example:
 
 ```yaml
@@ -228,6 +230,7 @@ Example:
       global_enum_fallbacks: true # add a generated fallback value to all enums
       enum_fallbacks:
          MyEnumType: OTHER   # except for the type 'MyEnumType', use the value 'OTHER' as fallback there
+      format: false  # disable dart formatting for generated code
 
 ```
 
