@@ -169,7 +169,7 @@ class SerializerBuilder implements Builder {
       p.joinAll(pathSegments(schemaId)),
     );
 
-    await writeDocument(outputId, library, allocator, buildStep);
+    await writeDocument(outputId, library, allocator, buildStep, config.format);
   }
 }
 

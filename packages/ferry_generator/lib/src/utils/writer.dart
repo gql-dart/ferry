@@ -14,6 +14,7 @@ Future<void> writeDocument(
   Library library,
   Allocator allocator,
   BuildStep buildStep,
+  bool format,
 ) {
   if (library.body.isEmpty) return Future.value(null);
 
@@ -33,6 +34,7 @@ Future<void> writeDocument(
     outputId,
     '// GENERATED CODE - DO NOT MODIFY BY HAND\n'
             '// ignore_for_file: type=lint\n\n' +
+        (format ? '' : '// dart format off\n\n') +
         formatted,
   );
 }

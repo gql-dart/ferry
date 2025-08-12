@@ -153,7 +153,8 @@ class GraphqlBuilder implements Builder {
 
       final allocator = allocators[entry.key]!;
 
-      await writeDocument(generatedAsset, entry.value, allocator, buildStep);
+      await writeDocument(
+          generatedAsset, entry.value, allocator, buildStep, config.format);
     }
   }
 }

@@ -25,6 +25,7 @@ class BuilderConfig {
   final DataClassConfig dataClassConfig;
   final TriStateValueConfig triStateOptionalsConfig;
   final DataToJsonMode dataToJsonMode;
+  final bool format;
 
   BuilderConfig(Map<String, dynamic> config)
       : schemaId = config['schema'] == null
@@ -46,7 +47,8 @@ class BuilderConfig {
         whenExtensionConfig = _getWhenExtensionConfig(config),
         dataClassConfig = _getDataClassConfig(config),
         triStateOptionalsConfig = _getTriStateOptionalsConfig(config),
-        dataToJsonMode = getDataToJsonModeFromConfig(config);
+        dataToJsonMode = getDataToJsonModeFromConfig(config),
+        format = config['format'] ?? true;
 }
 
 DataClassConfig _getDataClassConfig(Map<String, dynamic> config) {
