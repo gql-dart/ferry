@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2025-08-24
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - [`ferry_generator` - `v0.14.0-dev.1`](#ferry_generator---v0140-dev1)
+
+Packages with other changes:
+
+ - There are no other changes in this release.
+
+---
+
+#### `ferry_generator` - `v0.14.0-dev.1`
+
+ - **FIX**(ferry_generator): pre-create allocators to ensure consistent imports (#644).
+ - **FEAT**(ferry_generator): add option to disable formatting (#640).
+ - **BREAKING** **FEAT**(ferry_generator): upgrade to build 3.0.0 and gql_code_builder 0.15.0 (#646).
+
+
 ## 2025-05-03
 
 ### Changes

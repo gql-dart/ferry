@@ -1,3 +1,11 @@
+## 0.14.0-dev.1
+
+> Note: This release has breaking changes.
+
+ - **FIX**(ferry_generator): pre-create allocators to ensure consistent imports (#644).
+ - **FEAT**(ferry_generator): add option to disable formatting (#640).
+ - **BREAKING** **FEAT**(ferry_generator): upgrade to build 3.0.0 and gql_code_builder 0.15.0 (#646).
+
 ## 0.14.0-dev.0
 
 > Note: This release has breaking changes.
