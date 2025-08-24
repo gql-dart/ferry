@@ -18,7 +18,7 @@ jobs:
       - name: Activate melos
         run: |
           echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
-          dart pub global activate melos 3.0.1
+          dart pub global activate melos 6.3.3
       - name: Bootstrap melos
         run: melos bs
       - name: Configure git user
