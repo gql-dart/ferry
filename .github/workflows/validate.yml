@@ -60,4 +60,4 @@ jobs:
       - name: Bootstrap melos
         run: melos bs
       - name: Run tests
-        run: melos exec --dir-exists=test -- flutter test
+        run: melos run test
