@@ -127,7 +127,6 @@ class GraphqlBuilder implements Builder {
           addTypenames(schema),
           p.basename(generatedFilePath(buildStep.inputId, varExtension)),
           config.typeOverrides,
-          allocators[varExtension]!,
           triStateValueConfig,
           config.shouldGenerateVarsCreateFactories),
       reqExtension: buildReqLibrary(

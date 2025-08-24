@@ -21,7 +21,7 @@ jobs:
       - name: Activate melos
         run: |
           echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
-          dart pub global activate melos 
+          dart pub global activate melos 3.0.1
       - name: Bootstrap melos
         run: melos bs
       - name: Analyze package
@@ -38,7 +38,7 @@ jobs:
       - name: Activate melos
         run: |
           echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
-          dart pub global activate melos 2.9.0
+          dart pub global activate melos 3.0.1
       - name: Bootstrap melos
         run: melos bs
       - name: Validate formatting
@@ -56,8 +56,8 @@ jobs:
       - name: Activate melos
         run: |
           echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
-          dart pub global activate melos 2.9.0
+          dart pub global activate melos 3.0.1
       - name: Bootstrap melos
         run: melos bs
       - name: Run tests
-        run: melos exec --dir-exists=test -- flutter test
+        run: melos run test

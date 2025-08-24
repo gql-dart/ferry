@@ -15,3 +15,23 @@ scripts:
       depends-on: build_runner
   analyze:
     exec: flutter analyze --no-fatal-infos
+  
+  test:
+    run: |
+      melos run test:dart --no-select
+      melos run test:flutter --no-select
+    description: Run all tests (dart test for Dart packages, flutter test for Flutter packages)
+  
+  test:dart:
+    exec: dart test
+    packageFilters:
+      flutter: false
+      dirExists: test
+    description: Run tests in Dart-only packages
+  
+  test:flutter:
+    exec: flutter test
+    packageFilters:
+      flutter: true
+      dirExists: test
+    description: Run tests in Flutter packages
