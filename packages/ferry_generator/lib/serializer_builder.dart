@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:collection';
 
-import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/dart/element/element2.dart';
 import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:gql_code_builder/serializer.dart';
@@ -83,13 +83,13 @@ class SerializerBuilder implements Builder {
     /// BuiltValue classes with serializers. These will be added automatically
     /// using `@SerializersFor`.
     final builtClasses =
-        SplayTreeSet<ClassElement>((a, b) => a.name.compareTo(b.name));
+        SplayTreeSet<ClassElement2>((a, b) => a.name3!.compareTo(b.name3!));
 
     /// Non BuiltValue classes with serializers (i.e. inline fragment classes).
     /// These need to be added manually since `@SerializersFor` only recognizes
     /// BuiltValue classes.
     final nonBuiltClasses =
-        SplayTreeSet<ClassElement>((a, b) => a.name.compareTo(b.name));
+        SplayTreeSet<ClassElement2>((a, b) => a.name3!.compareTo(b.name3!));
 
     final excludeFileIds = <String, AssetId>{};
     for (final excludeGlob in excludeFiles) {
@@ -116,7 +116,8 @@ class SerializerBuilder implements Builder {
       ...config.customSerializers.map((ref) => ref.call([])),
       // Serializers from data classes that aren't caught by `@SerializersFor`
       ...nonBuiltClasses.map<Expression>(
-        (c) => refer(c.name, c.source.uri.toString()).property('serializer'),
+        (c) =>
+            refer(c.name3!, c.library2.uri.toString()).property('serializer'),
       ),
     };
 
@@ -169,7 +170,7 @@ class SerializerBuilder implements Builder {
       p.joinAll(pathSegments(schemaId)),
     );
 
-    await writeDocument(outputId, library, allocator, buildStep);
+    await writeDocument(outputId, library, allocator, buildStep, config.format);
   }
 }
 
@@ -187,33 +188,31 @@ String _externalSchemaSerializersImport(
   return 'package:${outPutId.package}/$outPutPath';
 }
 
-bool hasSerializer(ClassElement c) => c.fields.any((field) =>
+bool hasSerializer(ClassElement2 c) => c.fields2.any((field) =>
     field.isStatic &&
-    field.name == 'serializer' &&
+    field.name3 == 'serializer' &&
     field.type.element?.name == 'Serializer' &&
     field.type.element?.source?.uri.toString() ==
         'package:built_value/serializer.dart');
 
-bool isBuiltValue(ClassElement c) => c.allSupertypes.any((interface) =>
+bool isBuiltValue(ClassElement2 c) => c.allSupertypes.any((interface) =>
     (interface.element.name == 'Built' ||
         interface.element.name == 'EnumClass') &&
     interface.element.source.uri.toString() ==
         'package:built_value/built_value.dart');
 
 typedef ClassesToGenerateSerializersFor = ({
-  Set<ClassElement> builtClasses,
-  Set<ClassElement> nonBuiltClasses
+  Set<ClassElement2> builtClasses,
+  Set<ClassElement2> nonBuiltClasses
 });
 
 ClassesToGenerateSerializersFor extractClassesToGenerateSerializersFor(
-    LibraryElement externalSchemaLibrary) {
-  final builtClasses = externalSchemaLibrary.units
-      .expand((cu) => cu.classes)
+    LibraryElement2 externalSchemaLibrary) {
+  final builtClasses = externalSchemaLibrary.classes
       .where((c) => hasSerializer(c) && isBuiltValue(c))
       .toSet();
 
-  final nonBuiltClasses = externalSchemaLibrary.units
-      .expand((cu) => cu.classes)
+  final nonBuiltClasses = externalSchemaLibrary.classes
       .where(
         (c) => hasSerializer(c) && !isBuiltValue(c),
       )

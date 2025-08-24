@@ -127,7 +127,6 @@ class GraphqlBuilder implements Builder {
           addTypenames(schema),
           p.basename(generatedFilePath(buildStep.inputId, varExtension)),
           config.typeOverrides,
-          allocators[varExtension]!,
           triStateValueConfig,
           config.shouldGenerateVarsCreateFactories),
       reqExtension: buildReqLibrary(
@@ -153,7 +152,8 @@ class GraphqlBuilder implements Builder {
 
       final allocator = allocators[entry.key]!;
 
-      await writeDocument(generatedAsset, entry.value, allocator, buildStep);
+      await writeDocument(
+          generatedAsset, entry.value, allocator, buildStep, config.format);
     }
   }
 }
