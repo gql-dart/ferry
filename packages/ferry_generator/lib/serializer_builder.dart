@@ -191,14 +191,14 @@ String _externalSchemaSerializersImport(
 bool hasSerializer(ClassElement2 c) => c.fields2.any((field) =>
     field.isStatic &&
     field.name3 == 'serializer' &&
-    field.type.element?.name == 'Serializer' &&
-    field.type.element?.source?.uri.toString() ==
+    field.type.element3?.name3 == 'Serializer' &&
+    field.type.element3?.library2?.uri.toString() ==
         'package:built_value/serializer.dart');
 
 bool isBuiltValue(ClassElement2 c) => c.allSupertypes.any((interface) =>
-    (interface.element.name == 'Built' ||
-        interface.element.name == 'EnumClass') &&
-    interface.element.source.uri.toString() ==
+    (interface.element3.name3 == 'Built' ||
+        interface.element3.name3 == 'EnumClass') &&
+    interface.element3.library2.uri.toString() ==
         'package:built_value/built_value.dart');
 
 typedef ClassesToGenerateSerializersFor = ({
