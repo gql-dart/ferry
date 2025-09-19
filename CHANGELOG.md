@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2025-09-19
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`ferry_generator` - `v0.14.0-dev.2`](#ferry_generator---v0140-dev2)
+
+---
+
+#### `ferry_generator` - `v0.14.0-dev.2`
+
+ - **FIX**(generator): support analyzer v7 APIs (#650).
+
+
 ## 2025-08-24
 
 ### Changes

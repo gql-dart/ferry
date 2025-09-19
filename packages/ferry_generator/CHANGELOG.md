@@ -1,3 +1,7 @@
+## 0.14.0-dev.2
+
+ - **FIX**(generator): support analyzer v7 APIs (#650).
+
 ## 0.14.0-dev.1
 
 > Note: This release has breaking changes.
