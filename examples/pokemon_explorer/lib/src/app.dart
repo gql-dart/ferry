@@ -46,6 +46,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
+    // ignore: avoid_print
     print('AppLifecycleState: $state');
     if (state == AppLifecycleState.hidden) {
       GetIt.I<Flush>().flush();
