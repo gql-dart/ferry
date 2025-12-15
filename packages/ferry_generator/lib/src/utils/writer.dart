@@ -4,7 +4,9 @@ import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:dart_style/dart_style.dart';
 
-final DartFormatter _dartfmt = DartFormatter();
+final DartFormatter _dartfmt = DartFormatter(
+  languageVersion: DartFormatter.latestShortStyleLanguageVersion,
+);
 
 Future<void> writeDocument(
   AssetId outputId,

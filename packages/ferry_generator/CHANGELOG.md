@@ -1,3 +1,7 @@
+## 0.12.0+3
+
+ - Support `build ^4.0.0` / `build_runner ^2.10.3` (requires Dart `^3.7.0`).
+
 ## 0.12.0+2
 
  - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.
