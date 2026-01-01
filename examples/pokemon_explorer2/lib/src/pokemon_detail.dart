@@ -8,7 +8,8 @@ import '../graphql/__generated__/pokemon_detail.var.gql.dart';
 import 'pokemon_card.dart';
 
 class PokemonDetailScreen extends StatelessWidget {
-  const PokemonDetailScreen({super.key, required this.client, required this.id});
+  const PokemonDetailScreen(
+      {super.key, required this.client, required this.id});
 
   final Client client;
   final int id;
