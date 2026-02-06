@@ -191,7 +191,7 @@ bool hasSerializer(ClassElement c) => c.fields.any((field) =>
     field.isStatic &&
     field.name == 'serializer' &&
     field.type.element?.name == 'Serializer' &&
-    field.type.element?.library?.uri.toString() ==
+    field.type.element?.library?.source.uri.toString() ==
         'package:built_value/serializer.dart');
 
 bool isBuiltValue(ClassElement c) => c.allSupertypes.any((interface) =>
@@ -207,11 +207,13 @@ typedef ClassesToGenerateSerializersFor = ({
 
 ClassesToGenerateSerializersFor extractClassesToGenerateSerializersFor(
     LibraryElement externalSchemaLibrary) {
-  final builtClasses = externalSchemaLibrary.units.expand((cu) => cu.classes)
+  final builtClasses = externalSchemaLibrary.units
+      .expand((cu) => cu.classes)
       .where((c) => hasSerializer(c) && isBuiltValue(c))
       .toSet();
 
-  final nonBuiltClasses = externalSchemaLibrary.units.expand((cu) => cu.classes)
+  final nonBuiltClasses = externalSchemaLibrary.units
+      .expand((cu) => cu.classes)
       .where(
         (c) => hasSerializer(c) && !isBuiltValue(c),
       )
