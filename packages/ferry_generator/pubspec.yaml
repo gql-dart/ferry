@@ -12,14 +12,14 @@ topics:
   - codegen
 dependencies:
   gql: '>=0.14.0 <2.0.0'
-  gql_code_builder: ^0.15.0
+  gql_code_builder: '>=0.15.0 <3.0.0'
   gql_code_builder_serializers: ^0.1.0
   gql_tristate_value: ^1.0.0
   built_collection: ^5.0.0
   code_builder: ^4.3.0
-  build: ^4.0.0
+  build: '>=2.0.0 <5.0.0'
   path: ^1.8.0
-  ferry_exec: ^0.8.0-dev.0
+  ferry_exec: '>=0.6.0 <1.0.0'
   yaml: ^3.1.0
   dart_style: ^3.0.1
   pub_semver: ^2.0.0
