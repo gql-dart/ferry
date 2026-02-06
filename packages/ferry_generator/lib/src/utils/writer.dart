@@ -3,11 +3,8 @@ import 'dart:async';
 import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:dart_style/dart_style.dart';
-import 'package:pub_semver/pub_semver.dart';
 
-final DartFormatter _dartfmt = DartFormatter(
-  languageVersion: Version(3, 6, 0),
-);
+final DartFormatter _dartfmt = DartFormatter();
 
 Future<void> writeDocument(
   AssetId outputId,
