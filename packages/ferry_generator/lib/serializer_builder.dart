@@ -116,7 +116,7 @@ class SerializerBuilder implements Builder {
       ...config.customSerializers.map((ref) => ref.call([])),
       // Serializers from data classes that aren't caught by `@SerializersFor`
       ...nonBuiltClasses.map<Expression>(
-        (c) => refer(c.name!, c.library.uri.toString()).property('serializer'),
+        (c) => refer(c.name!, c.source.uri.toString()).property('serializer'),
       ),
     };
 
@@ -197,7 +197,7 @@ bool hasSerializer(ClassElement c) => c.fields.any((field) =>
 bool isBuiltValue(ClassElement c) => c.allSupertypes.any((interface) =>
     (interface.element.name == 'Built' ||
         interface.element.name == 'EnumClass') &&
-    interface.element.library.uri.toString() ==
+    interface.element.source.uri.toString() ==
         'package:built_value/built_value.dart');
 
 typedef ClassesToGenerateSerializersFor = ({
@@ -207,11 +207,11 @@ typedef ClassesToGenerateSerializersFor = ({
 
 ClassesToGenerateSerializersFor extractClassesToGenerateSerializersFor(
     LibraryElement externalSchemaLibrary) {
-  final builtClasses = externalSchemaLibrary.classes
+  final builtClasses = externalSchemaLibrary.units.expand((cu) => cu.classes)
       .where((c) => hasSerializer(c) && isBuiltValue(c))
       .toSet();
 
-  final nonBuiltClasses = externalSchemaLibrary.classes
+  final nonBuiltClasses = externalSchemaLibrary.units.expand((cu) => cu.classes)
       .where(
         (c) => hasSerializer(c) && !isBuiltValue(c),
       )
