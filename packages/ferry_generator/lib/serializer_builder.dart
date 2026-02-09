@@ -116,7 +116,7 @@ class SerializerBuilder implements Builder {
       ...config.customSerializers.map((ref) => ref.call([])),
       // Serializers from data classes that aren't caught by `@SerializersFor`
       ...nonBuiltClasses.map<Expression>(
-        (c) => refer(c.name!, c.source.uri.toString()).property('serializer'),
+        (c) => refer(c.name!, _classLibraryUri(c)).property('serializer'),
       ),
     };
 
@@ -191,13 +191,13 @@ bool hasSerializer(ClassElement c) => c.fields.any((field) =>
     field.isStatic &&
     field.name == 'serializer' &&
     field.type.element?.name == 'Serializer' &&
-    field.type.element?.library?.source.uri.toString() ==
+    _libraryUri(field.type.element?.library) ==
         'package:built_value/serializer.dart');
 
 bool isBuiltValue(ClassElement c) => c.allSupertypes.any((interface) =>
     (interface.element.name == 'Built' ||
         interface.element.name == 'EnumClass') &&
-    interface.element.source.uri.toString() ==
+    _elementUri(interface.element) ==
         'package:built_value/built_value.dart');
 
 typedef ClassesToGenerateSerializersFor = ({
@@ -207,13 +207,13 @@ typedef ClassesToGenerateSerializersFor = ({
 
 ClassesToGenerateSerializersFor extractClassesToGenerateSerializersFor(
     LibraryElement externalSchemaLibrary) {
-  final builtClasses = externalSchemaLibrary.units
-      .expand((cu) => cu.classes)
+  final classes = _classesForLibrary(externalSchemaLibrary);
+
+  final builtClasses = classes
       .where((c) => hasSerializer(c) && isBuiltValue(c))
       .toSet();
 
-  final nonBuiltClasses = externalSchemaLibrary.units
-      .expand((cu) => cu.classes)
+  final nonBuiltClasses = classes
       .where(
         (c) => hasSerializer(c) && !isBuiltValue(c),
       )
@@ -223,4 +223,58 @@ ClassesToGenerateSerializersFor extractClassesToGenerateSerializersFor(
     builtClasses: builtClasses,
     nonBuiltClasses: nonBuiltClasses,
   );
+}
+
+Iterable<ClassElement> _classesForLibrary(LibraryElement library) {
+  final dynamic dynamicLibrary = library;
+
+  try {
+    final classes = dynamicLibrary.classes as Iterable<ClassElement>;
+    return classes;
+  } catch (_) {
+    // analyzer API variant without LibraryElement.classes
+  }
+
+  try {
+    final units = dynamicLibrary.units as Iterable<dynamic>;
+    return units.expand((unit) => unit.classes as Iterable<ClassElement>);
+  } catch (_) {
+    // analyzer API variant without LibraryElement.units
+  }
+
+  return const <ClassElement>[];
+}
+
+String _classLibraryUri(ClassElement classElement) {
+  final dynamic dynamicClass = classElement;
+  final dynamic library = dynamicClass.library;
+  return _libraryUri(library);
+}
+
+String _elementUri(dynamic element) {
+  if (element == null) return '';
+  try {
+    return (element.source.uri as Uri).toString();
+  } catch (_) {
+    // analyzer API variant without `source`.
+  }
+  try {
+    return _libraryUri(element.library);
+  } catch (_) {
+    return '';
+  }
+}
+
+String _libraryUri(dynamic library) {
+  if (library == null) return '';
+  try {
+    return (library.uri as Uri).toString();
+  } catch (_) {
+    // analyzer API variant without `uri`.
+  }
+  try {
+    return (library.source.uri as Uri).toString();
+  } catch (_) {
+    return '';
+  }
 }

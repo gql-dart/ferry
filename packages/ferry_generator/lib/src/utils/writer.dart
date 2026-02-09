@@ -3,8 +3,35 @@ import 'dart:async';
 import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:dart_style/dart_style.dart';
+import 'package:pub_semver/pub_semver.dart';
 
-final DartFormatter _dartfmt = DartFormatter();
+final DartFormatter _dartfmt = _buildFormatter();
+
+DartFormatter _buildFormatter() {
+  final named = <Symbol, dynamic>{};
+  try {
+    final latest = (DartFormatter as dynamic).latestLanguageVersion;
+    if (latest != null) {
+      named[#languageVersion] = latest;
+    }
+  } catch (_) {
+    // dart_style 2.x
+  }
+
+  try {
+    return Function.apply(DartFormatter.new, const [], named) as DartFormatter;
+  } catch (_) {
+    try {
+      return Function.apply(
+        DartFormatter.new,
+        const [],
+        {#languageVersion: Version(3, 0, 0)},
+      ) as DartFormatter;
+    } catch (_) {
+      return Function.apply(DartFormatter.new, const [], const {}) as DartFormatter;
+    }
+  }
+}
 
 Future<void> writeDocument(
   AssetId outputId,
