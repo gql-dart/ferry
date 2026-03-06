@@ -23,7 +23,8 @@ class ErrorTypedLink extends TypedLink {
   ]) {
     try {
       return forward!(operationRequest).transform(
-        StreamTransformer.fromHandlers(
+        StreamTransformer<OperationResponse<TData, TVars>,
+            OperationResponse<TData, TVars>>.fromHandlers(
           handleError: (error, stackTrace, sink) => sink.add(
             OperationResponse(
               operationRequest: operationRequest,
