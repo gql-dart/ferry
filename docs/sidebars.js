@@ -1,7 +1,7 @@
 module.exports = {
   mainSidebar: {
     Ferry: ['intro', 'how-it-works'],
-    'Getting Started': ['setup', 'codegen'],
+    'Getting Started': ['setup', 'codegen', 'codegen2', 'migration-generator2'],
     Fetching: ['queries', 'mutations', 'fetch-policies', 'pagination', 'error-handling'],
     Caching: ['cache-configuration', 'cache-interaction', 'garbage-collection'],
     Flutter: ['flutter', 'flutter-operation-widget', 'structuring-queries'],

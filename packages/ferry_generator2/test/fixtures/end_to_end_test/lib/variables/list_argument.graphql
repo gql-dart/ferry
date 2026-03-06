@@ -1,0 +1,5 @@
+query reviewsWithListArgument($episode: Episode!, $stars: [Int!]) {
+  reviews(episode: $episode, stars: $stars) {
+    episode
+  }
+}

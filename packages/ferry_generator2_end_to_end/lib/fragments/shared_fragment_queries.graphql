@@ -1,0 +1,43 @@
+fragment SharedAuthorFragment on Author {
+  displayName
+  ... on Person {
+    firstName
+    lastName
+  }
+  ... on Company {
+    name
+  }
+}
+
+fragment SharedBookFragment on Book {
+  title
+  author {
+    ...SharedAuthorFragment
+  }
+  tagMatrix
+  tagMatrixNullable
+  relatedBooks {
+    title
+    author {
+      ...SharedAuthorFragment
+    }
+  }
+  ... on Textbook {
+    courses
+  }
+  ... on ColoringBook {
+    colors
+  }
+}
+
+query SharedBooksA {
+  books {
+    ...SharedBookFragment
+  }
+}
+
+query SharedBooksB {
+  books {
+    ...SharedBookFragment
+  }
+}

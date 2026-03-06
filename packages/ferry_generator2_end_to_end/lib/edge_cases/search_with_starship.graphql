@@ -1,0 +1,16 @@
+query SearchWithStarship {
+  search(text: "falcon") {
+    __typename
+    ... on Starship {
+      id
+      name
+      length
+      coordinates
+    }
+    ... on Human {
+      id
+      name
+      appearsIn
+    }
+  }
+}

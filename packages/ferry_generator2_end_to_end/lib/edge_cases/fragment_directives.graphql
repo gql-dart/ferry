@@ -1,0 +1,11 @@
+query HeroFragmentDirectives($includeFrag: Boolean!, $skipName: Boolean!) {
+  hero(episode: NEWHOPE) {
+    __typename
+    id
+    ...HeroName @include(if: $includeFrag)
+  }
+}
+
+fragment HeroName on Character {
+  name @skip(if: $skipName)
+}

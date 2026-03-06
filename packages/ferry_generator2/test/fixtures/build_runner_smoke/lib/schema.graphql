@@ -1,0 +1,44 @@
+schema {
+  query: Query
+}
+
+enum Episode {
+  NEWHOPE
+  EMPIRE
+  JEDI
+}
+
+interface Character {
+  id: ID!
+  name: String!
+  friends: [Character]
+  appearsIn: [Episode]!
+}
+
+type Human implements Character {
+  id: ID!
+  name: String!
+  friends: [Character]
+  appearsIn: [Episode]!
+  homePlanet: String
+  starships: [Starship]
+}
+
+type Droid implements Character {
+  id: ID!
+  name: String!
+  friends: [Character]
+  appearsIn: [Episode]!
+  primaryFunction: String
+}
+
+type Starship {
+  id: ID!
+  name: String!
+}
+
+union SearchResult = Human | Droid | Starship
+
+type Query {
+  search(text: String): [SearchResult]
+}

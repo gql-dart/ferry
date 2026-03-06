@@ -1,0 +1,7 @@
+query ReviewByOneOf($by: ReviewBy!) {
+  reviewBy(by: $by) {
+    episode
+    stars
+  }
+}
+

@@ -1,0 +1,6 @@
+query PostsByLikes($likes: [PostLikesInput]) {
+  postsByLikes(likes: $likes) {
+    id
+    body
+  }
+}

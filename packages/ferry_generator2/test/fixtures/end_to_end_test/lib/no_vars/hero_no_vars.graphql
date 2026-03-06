@@ -1,0 +1,6 @@
+query HeroNoVars {
+  hero {
+    id
+    name
+  }
+}

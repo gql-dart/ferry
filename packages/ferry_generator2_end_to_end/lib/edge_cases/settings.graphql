@@ -1,0 +1,3 @@
+query Settings {
+  settings
+}

@@ -1,0 +1,37 @@
+fragment AuthorFragment on Author {
+  displayName
+  ... on Person {
+    firstName
+    lastName
+  }
+  ... on Company {
+    name
+  }
+}
+
+fragment BookFragment on Book {
+  author {
+    ...AuthorFragment
+  }
+  title
+  tagMatrix
+  tagMatrixNullable
+  relatedBooks {
+    title
+    author {
+      ...AuthorFragment
+    }
+  }
+  ... on Textbook {
+    courses
+  }
+  ... on ColoringBook {
+    colors
+  }
+}
+
+query GetBooks {
+  books {
+    ...BookFragment
+  }
+}

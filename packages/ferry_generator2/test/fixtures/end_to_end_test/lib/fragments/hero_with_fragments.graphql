@@ -1,0 +1,22 @@
+query HeroWithFragments($first: Int) {
+  hero(episode: JEDI) {
+    ...comparisonFields
+  }
+}
+
+fragment heroData on Character {
+  name
+}
+
+fragment comparisonFields on Character {
+  id
+  ...heroData
+  friendsConnection(first: $first) {
+    totalCount
+    edges {
+      node {
+        ...heroData
+      }
+    }
+  }
+}

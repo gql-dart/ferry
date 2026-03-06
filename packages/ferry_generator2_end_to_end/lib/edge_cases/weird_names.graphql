@@ -1,0 +1,12 @@
+query WeirdNames {
+  weirdNames {
+    class
+    toJson
+    fromJson
+    copyWith
+    hashCode
+    values
+    result
+    runtimeType
+  }
+}

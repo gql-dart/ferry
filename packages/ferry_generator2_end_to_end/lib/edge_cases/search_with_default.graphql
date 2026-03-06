@@ -1,0 +1,5 @@
+query SearchWithDefault($text: String = "skywalker") {
+  search(text: $text) {
+    __typename
+  }
+}

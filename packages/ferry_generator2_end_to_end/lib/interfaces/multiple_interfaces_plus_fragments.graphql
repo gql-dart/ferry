@@ -1,0 +1,30 @@
+
+query MultipleInterfaces {
+  cThing {
+      id
+        ... on Other {
+            ...CThingFragment
+        }
+  }
+  dThing {
+        id
+      ... on Other {
+          ...DThingFragment
+      }
+  }
+  other {
+      id
+      ...CThingFragment
+      ...DThingFragment
+  }
+}
+
+fragment CThingFragment on C {
+    id
+    cField
+}
+
+fragment DThingFragment on D {
+    id
+    dField
+}

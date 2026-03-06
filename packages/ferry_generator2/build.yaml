@@ -1,0 +1,21 @@
+targets:
+  $default:
+    sources:
+      - lib/**
+builders:
+  graphql_builder:
+    import: "package:ferry_generator2/graphql_builder.dart"
+    builder_factories: ["graphqlBuilder"]
+    build_extensions:
+      {
+        "{{inputDir}}/{{file}}.graphql":
+          [
+            "{{dir}}/__generated__/{{file}}.ast.gql.dart",
+            "{{dir}}/__generated__/{{file}}.data.gql.dart",
+            "{{dir}}/__generated__/{{file}}.var.gql.dart",
+            "{{dir}}/__generated__/{{file}}.req.gql.dart",
+            "{{dir}}/__generated__/{{file}}.schema.gql.dart",
+          ],
+      }
+    auto_apply: none
+    build_to: source

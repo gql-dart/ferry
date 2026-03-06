@@ -1,0 +1,13 @@
+query HeroConditionalTypeFragment($includeHuman: Boolean!) {
+  hero(episode: NEWHOPE) {
+    __typename
+    id
+    ... on Human @include(if: $includeHuman) {
+      ...HumanName
+    }
+  }
+}
+
+fragment HumanName on Human {
+  name
+}

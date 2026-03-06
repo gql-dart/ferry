@@ -1,0 +1,27 @@
+query DeepFragments {
+  hero(episode: NEWHOPE) {
+    __typename
+    ...FragLevel1
+  }
+}
+
+fragment FragLevel1 on Character {
+  id
+  ...FragLevel2
+}
+
+fragment FragLevel2 on Character {
+  name
+  ...FragLevel3
+}
+
+fragment FragLevel3 on Character {
+  friends {
+    ...FragLevel4
+  }
+}
+
+fragment FragLevel4 on Character {
+  id
+  name
+}
