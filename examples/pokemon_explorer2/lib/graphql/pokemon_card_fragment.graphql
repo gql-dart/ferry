@@ -1,0 +1,15 @@
+fragment PokemonCard on pokemon {
+  id
+  name
+  height
+  weight
+  pokemonsprites(limit: 1) {
+    sprites
+  }
+  pokemontypes(order_by: {slot: asc}) {
+    slot
+    type {
+      name
+    }
+  }
+}
