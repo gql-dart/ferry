@@ -7,7 +7,7 @@ import 'package:analyzer/dart/element/type.dart';
 import 'package:analyzer/error/error.dart';
 import 'package:build/build.dart';
 import 'package:build_test/build_test.dart';
-import 'package:ferry_generator2/graphql_builder.dart';
+import 'package:ferry_generator2/ferry_generator2.dart';
 import 'package:test/test.dart';
 import 'test_utils.dart';
 

@@ -1,7 +1,7 @@
 @TestOn('vm')
 
 import 'package:build_test/build_test.dart';
-import 'package:ferry_generator2/graphql_builder.dart';
+import 'package:ferry_generator2/ferry_generator2.dart';
 import 'package:logging/logging.dart';
 import 'package:test/test.dart';
 

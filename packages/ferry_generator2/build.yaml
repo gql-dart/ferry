@@ -4,7 +4,7 @@ targets:
       - lib/**
 builders:
   graphql_builder:
-    import: "package:ferry_generator2/graphql_builder.dart"
+    import: "package:ferry_generator2/ferry_generator2.dart"
     builder_factories: ["graphqlBuilder"]
     build_extensions:
       {
