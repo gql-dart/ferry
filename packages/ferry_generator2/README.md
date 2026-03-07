@@ -1,3 +1,9 @@
+[![MIT License][license-badge]][license-link]
+
+[license-badge]: https://img.shields.io/github/license/gql-dart/ferry.svg?style=for-the-badge
+
+[license-link]: https://github.com/gql-dart/ferry/blob/master/packages/ferry_generator2/LICENSE
+
 # ferry_generator2
 
 Next-gen GraphQL code generator for Ferry. It produces **plain Dart classes**
@@ -5,6 +11,15 @@ Next-gen GraphQL code generator for Ferry. It produces **plain Dart classes**
 on predictable, readable output and strong correctness checks.
 
 This package is used via `build_runner` and a `build.yaml` config.
+
+## License and authorship note
+
+`ferry_generator2` is licensed under MIT, same as the other Ferry packages.
+
+This package was written almost entirely with agentic tooling. Depending on the
+jurisdiction and the specific contribution, some or all of this code may not be
+copyrightable at all. The MIT license is provided to the extent copyright
+subsists.
 
 ## What it does
 
