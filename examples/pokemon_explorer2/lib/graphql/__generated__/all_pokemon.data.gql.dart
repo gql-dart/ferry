@@ -14,8 +14,8 @@ class GAllPokemonData {
   factory GAllPokemonData.fromJson(Map<String, dynamic> json) {
     return GAllPokemonData(
       pokemon: (json['pokemon'] as List<dynamic>)
-          .map(
-              (e) => _i1.GPokemonCardData.fromJson((e as Map<String, dynamic>)))
+          .map((_$e) =>
+              _i1.GPokemonCardData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
       G__typename: (json['__typename'] as String),
     );
@@ -26,9 +26,9 @@ class GAllPokemonData {
   final String G__typename;
 
   Map<String, dynamic> toJson() {
-    final result = <String, dynamic>{};
-    result['pokemon'] = pokemon.map((e) => e.toJson()).toList();
-    result['__typename'] = G__typename;
-    return result;
+    final _$result = <String, dynamic>{};
+    _$result['pokemon'] = this.pokemon.map((_$e) => _$e.toJson()).toList();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
   }
 }

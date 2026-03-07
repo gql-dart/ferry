@@ -14,8 +14,8 @@ class GPokemonDetailData {
   factory GPokemonDetailData.fromJson(Map<String, dynamic> json) {
     return GPokemonDetailData(
       pokemon: (json['pokemon'] as List<dynamic>)
-          .map((e) =>
-              GPokemonDetailData_pokemon.fromJson((e as Map<String, dynamic>)))
+          .map((_$e) => GPokemonDetailData_pokemon.fromJson(
+              (_$e as Map<String, dynamic>)))
           .toList(),
       G__typename: (json['__typename'] as String),
     );
@@ -26,10 +26,10 @@ class GPokemonDetailData {
   final String G__typename;
 
   Map<String, dynamic> toJson() {
-    final result = <String, dynamic>{};
-    result['pokemon'] = pokemon.map((e) => e.toJson()).toList();
-    result['__typename'] = G__typename;
-    return result;
+    final _$result = <String, dynamic>{};
+    _$result['pokemon'] = this.pokemon.map((_$e) => _$e.toJson()).toList();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
   }
 }
 
@@ -52,12 +52,12 @@ class GPokemonDetailData_pokemon implements _i1.GPokemonCard {
       height: json['height'] == null ? null : (json['height'] as int),
       weight: json['weight'] == null ? null : (json['weight'] as int),
       pokemonsprites: (json['pokemonsprites'] as List<dynamic>)
-          .map((e) => GPokemonDetailData_pokemon_pokemonsprites.fromJson(
-              (e as Map<String, dynamic>)))
+          .map((_$e) => GPokemonDetailData_pokemon_pokemonsprites.fromJson(
+              (_$e as Map<String, dynamic>)))
           .toList(),
       pokemontypes: (json['pokemontypes'] as List<dynamic>)
-          .map((e) => GPokemonDetailData_pokemon_pokemontypes.fromJson(
-              (e as Map<String, dynamic>)))
+          .map((_$e) => GPokemonDetailData_pokemon_pokemontypes.fromJson(
+              (_$e as Map<String, dynamic>)))
           .toList(),
       G__typename: (json['__typename'] as String),
       base_experience: json['base_experience'] == null
@@ -83,20 +83,22 @@ class GPokemonDetailData_pokemon implements _i1.GPokemonCard {
   final int? base_experience;
 
   Map<String, dynamic> toJson() {
-    final result = <String, dynamic>{};
-    result['id'] = id;
-    result['name'] = name;
-    final heightValue = height;
-    result['height'] = heightValue == null ? null : heightValue;
-    final weightValue = weight;
-    result['weight'] = weightValue == null ? null : weightValue;
-    result['pokemonsprites'] = pokemonsprites.map((e) => e.toJson()).toList();
-    result['pokemontypes'] = pokemontypes.map((e) => e.toJson()).toList();
-    result['__typename'] = G__typename;
-    final base_experienceValue = base_experience;
-    result['base_experience'] =
-        base_experienceValue == null ? null : base_experienceValue;
-    return result;
+    final _$result = <String, dynamic>{};
+    _$result['id'] = this.id;
+    _$result['name'] = this.name;
+    final _$heightValue = this.height;
+    _$result['height'] = _$heightValue == null ? null : _$heightValue;
+    final _$weightValue = this.weight;
+    _$result['weight'] = _$weightValue == null ? null : _$weightValue;
+    _$result['pokemonsprites'] =
+        this.pokemonsprites.map((_$e) => _$e.toJson()).toList();
+    _$result['pokemontypes'] =
+        this.pokemontypes.map((_$e) => _$e.toJson()).toList();
+    _$result['__typename'] = this.G__typename;
+    final _$base_experienceValue = this.base_experience;
+    _$result['base_experience'] =
+        _$base_experienceValue == null ? null : _$base_experienceValue;
+    return _$result;
   }
 }
 
@@ -120,10 +122,10 @@ class GPokemonDetailData_pokemon_pokemonsprites
   final String G__typename;
 
   Map<String, dynamic> toJson() {
-    final result = <String, dynamic>{};
-    result['sprites'] = sprites;
-    result['__typename'] = G__typename;
-    return result;
+    final _$result = <String, dynamic>{};
+    _$result['sprites'] = this.sprites;
+    _$result['__typename'] = this.G__typename;
+    return _$result;
   }
 }
 
@@ -154,12 +156,12 @@ class GPokemonDetailData_pokemon_pokemontypes
   final String G__typename;
 
   Map<String, dynamic> toJson() {
-    final result = <String, dynamic>{};
-    result['slot'] = slot;
-    final typeValue = type;
-    result['type'] = typeValue == null ? null : typeValue.toJson();
-    result['__typename'] = G__typename;
-    return result;
+    final _$result = <String, dynamic>{};
+    _$result['slot'] = this.slot;
+    final _$typeValue = this.type;
+    _$result['type'] = _$typeValue == null ? null : _$typeValue.toJson();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
   }
 }
 
@@ -183,9 +185,9 @@ class GPokemonDetailData_pokemon_pokemontypes_type
   final String G__typename;
 
   Map<String, dynamic> toJson() {
-    final result = <String, dynamic>{};
-    result['name'] = name;
-    result['__typename'] = G__typename;
-    return result;
+    final _$result = <String, dynamic>{};
+    _$result['name'] = this.name;
+    _$result['__typename'] = this.G__typename;
+    return _$result;
   }
 }

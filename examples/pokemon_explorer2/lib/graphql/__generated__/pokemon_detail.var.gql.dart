@@ -11,9 +11,9 @@ class GPokemonDetailVars {
   final int id;
 
   Map<String, dynamic> toJson() {
-    final result = <String, dynamic>{};
-    final idValue = id;
-    result['id'] = idValue;
-    return result;
+    final _$result = <String, dynamic>{};
+    final _$idValue = this.id;
+    _$result['id'] = _$idValue;
+    return _$result;
   }
 }

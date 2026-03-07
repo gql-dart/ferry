@@ -3,13 +3,16 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:ferry_exec/ferry_exec.dart' as _i1;
+import 'package:gql/ast.dart' as _i5;
 import 'package:gql_exec/gql_exec.dart' as _i4;
 import 'package:pokemon_explorer2/graphql/__generated__/all_pokemon.ast.gql.dart'
-    as _i5;
+    as _i6;
 import 'package:pokemon_explorer2/graphql/__generated__/all_pokemon.data.gql.dart'
     as _i2;
 import 'package:pokemon_explorer2/graphql/__generated__/all_pokemon.var.gql.dart'
     as _i3;
+import 'package:pokemon_explorer2/graphql/__generated__/pokemon_card_fragment.ast.gql.dart'
+    as _i7;
 
 class GAllPokemonReq
     implements _i1.OperationRequest<_i2.GAllPokemonData, _i3.GAllPokemonVars> {
@@ -49,8 +52,13 @@ class GAllPokemonReq
 
   final _i4.Context? context;
 
-  static final _i4.Operation _operation = _i4.Operation(
-    document: _i5.document,
+  static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
+    _i6.AllPokemon,
+    _i7.PokemonCard,
+  ]);
+
+  static const _i4.Operation _operation = _i4.Operation(
+    document: _document,
     operationName: 'AllPokemon',
   );
 

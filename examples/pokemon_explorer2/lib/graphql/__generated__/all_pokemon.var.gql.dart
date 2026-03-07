@@ -19,11 +19,11 @@ class GAllPokemonVars {
   final int offset;
 
   Map<String, dynamic> toJson() {
-    final result = <String, dynamic>{};
-    final limitValue = limit;
-    result['limit'] = limitValue;
-    final offsetValue = offset;
-    result['offset'] = offsetValue;
-    return result;
+    final _$result = <String, dynamic>{};
+    final _$limitValue = this.limit;
+    _$result['limit'] = _$limitValue;
+    final _$offsetValue = this.offset;
+    _$result['offset'] = _$offsetValue;
+    return _$result;
   }
 }

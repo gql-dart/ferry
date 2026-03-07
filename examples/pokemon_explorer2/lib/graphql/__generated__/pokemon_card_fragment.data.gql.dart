@@ -45,12 +45,12 @@ class GPokemonCardData implements GPokemonCard {
       height: json['height'] == null ? null : (json['height'] as int),
       weight: json['weight'] == null ? null : (json['weight'] as int),
       pokemonsprites: (json['pokemonsprites'] as List<dynamic>)
-          .map((e) => GPokemonCardData_pokemonsprites.fromJson(
-              (e as Map<String, dynamic>)))
+          .map((_$e) => GPokemonCardData_pokemonsprites.fromJson(
+              (_$e as Map<String, dynamic>)))
           .toList(),
       pokemontypes: (json['pokemontypes'] as List<dynamic>)
-          .map((e) => GPokemonCardData_pokemontypes.fromJson(
-              (e as Map<String, dynamic>)))
+          .map((_$e) => GPokemonCardData_pokemontypes.fromJson(
+              (_$e as Map<String, dynamic>)))
           .toList(),
       G__typename: (json['__typename'] as String),
     );
@@ -71,17 +71,19 @@ class GPokemonCardData implements GPokemonCard {
   final String G__typename;
 
   Map<String, dynamic> toJson() {
-    final result = <String, dynamic>{};
-    result['id'] = id;
-    result['name'] = name;
-    final heightValue = height;
-    result['height'] = heightValue == null ? null : heightValue;
-    final weightValue = weight;
-    result['weight'] = weightValue == null ? null : weightValue;
-    result['pokemonsprites'] = pokemonsprites.map((e) => e.toJson()).toList();
-    result['pokemontypes'] = pokemontypes.map((e) => e.toJson()).toList();
-    result['__typename'] = G__typename;
-    return result;
+    final _$result = <String, dynamic>{};
+    _$result['id'] = this.id;
+    _$result['name'] = this.name;
+    final _$heightValue = this.height;
+    _$result['height'] = _$heightValue == null ? null : _$heightValue;
+    final _$weightValue = this.weight;
+    _$result['weight'] = _$weightValue == null ? null : _$weightValue;
+    _$result['pokemonsprites'] =
+        this.pokemonsprites.map((_$e) => _$e.toJson()).toList();
+    _$result['pokemontypes'] =
+        this.pokemontypes.map((_$e) => _$e.toJson()).toList();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
   }
 }
 
@@ -103,10 +105,10 @@ class GPokemonCardData_pokemonsprites implements GPokemonCard_pokemonsprites {
   final String G__typename;
 
   Map<String, dynamic> toJson() {
-    final result = <String, dynamic>{};
-    result['sprites'] = sprites;
-    result['__typename'] = G__typename;
-    return result;
+    final _$result = <String, dynamic>{};
+    _$result['sprites'] = this.sprites;
+    _$result['__typename'] = this.G__typename;
+    return _$result;
   }
 }
 
@@ -135,12 +137,12 @@ class GPokemonCardData_pokemontypes implements GPokemonCard_pokemontypes {
   final String G__typename;
 
   Map<String, dynamic> toJson() {
-    final result = <String, dynamic>{};
-    result['slot'] = slot;
-    final typeValue = type;
-    result['type'] = typeValue == null ? null : typeValue.toJson();
-    result['__typename'] = G__typename;
-    return result;
+    final _$result = <String, dynamic>{};
+    _$result['slot'] = this.slot;
+    final _$typeValue = this.type;
+    _$result['type'] = _$typeValue == null ? null : _$typeValue.toJson();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
   }
 }
 
@@ -164,9 +166,9 @@ class GPokemonCardData_pokemontypes_type
   final String G__typename;
 
   Map<String, dynamic> toJson() {
-    final result = <String, dynamic>{};
-    result['name'] = name;
-    result['__typename'] = G__typename;
-    return result;
+    final _$result = <String, dynamic>{};
+    _$result['name'] = this.name;
+    _$result['__typename'] = this.G__typename;
+    return _$result;
   }
 }

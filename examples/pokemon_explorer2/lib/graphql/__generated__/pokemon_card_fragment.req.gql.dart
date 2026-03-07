@@ -25,7 +25,8 @@ class GPokemonCardReq
 
   final Map<String, dynamic> idFields;
 
-  static final _i3.DocumentNode _document = _i4.document;
+  static const _i3.DocumentNode _document =
+      _i3.DocumentNode(definitions: [_i4.PokemonCard]);
 
   _i2.GPokemonCardData? parseData(Map<String, dynamic> json) =>
       _i2.GPokemonCardData.fromJson(json);
