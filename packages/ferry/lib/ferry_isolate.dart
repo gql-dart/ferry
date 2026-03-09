@@ -148,20 +148,22 @@ class IsolateClient extends TypedLink {
     _debugAssertUpdateResultTransferrable(request);
 
     return _handleStreamCommand<OperationResponse<TData, TVars>>(
-        (port) => RequestCommand(port.sendPort, request),
-        (response, sink) => sink.add(OperationResponse<TData, TVars>(
-              operationRequest: response!.operationRequest,
-              linkException: response.linkException,
-              graphqlErrors: response.graphqlErrors,
-              dataSource: response.dataSource,
-              extensions: response.extensions,
-              data: response.data,
-            )));
+        (port) => RequestCommand(port.sendPort, request), (response, sink) {
+      final r = response as OperationResponse;
+      sink.add(OperationResponse<TData, TVars>(
+        operationRequest: request,
+        linkException: r.linkException,
+        graphqlErrors: r.graphqlErrors,
+        dataSource: r.dataSource,
+        extensions: r.extensions,
+        data: r.data,
+      ));
+    });
   }
 
   Stream<T> _handleStreamCommand<T>(
       IsolateCommand Function(ReceivePort) streamCommandFunc,
-      void Function(T?, Sink<T>) onData) {
+      void Function(dynamic, Sink<T>) onData) {
     final receivePort = ReceivePort();
 
     commandSendPort.send(streamCommandFunc(receivePort));
@@ -176,17 +178,17 @@ class IsolateClient extends TypedLink {
     ).transform(
       StreamTransformer.fromHandlers(
         handleData: (o, sink) {
-          switch ((o as RequestResponse<T>).type) {
+          final response = o as RequestResponse<dynamic>;
+          switch (response.type) {
             case RequestResponseType.initial:
               assert(cancelPort == null);
-              cancelPort = o.sendPort;
+              cancelPort = response.sendPort;
               break;
             case RequestResponseType.error:
-              sink.addError(o.exception!, o.stackTrace);
+              sink.addError(response.exception!, response.stackTrace);
               break;
             case RequestResponseType.data:
-              final response = o.data;
-              onData(response, sink);
+              onData(response.data, sink);
               break;
             case RequestResponseType.done:
               sink.close();
