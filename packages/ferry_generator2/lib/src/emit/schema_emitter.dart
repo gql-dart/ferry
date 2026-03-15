@@ -28,19 +28,7 @@ List<Spec> _buildEnum(
   final enumValues = schema.lookupEnumValueDefinitions(node);
   final fallbackName = _selectFallbackValueName(node, enumValues, config);
 
-  final values = <_EnumMappedValue>[
-    for (final value in enumValues)
-      _EnumMappedValue(
-        graphQLName: value.name.value,
-        dartName: identifier(value.name.value),
-        description: value.description?.value,
-      ),
-    if (fallbackName != null)
-      _EnumMappedValue(
-        graphQLName: fallbackName,
-        dartName: identifier(fallbackName),
-      ),
-  ];
+  final values = _mapEnumValues(enumValues, fallbackName);
 
   return [
     Enum(
@@ -165,6 +153,60 @@ class _EnumMappedValue {
     this.description,
   });
 }
+
+List<_EnumMappedValue> _mapEnumValues(
+  List<EnumValueDefinitionNode> enumValues,
+  String? fallbackName,
+) {
+  final rawValues = <_EnumMappedValue>[
+    for (final value in enumValues)
+      _EnumMappedValue(
+        graphQLName: value.name.value,
+        dartName: "",
+        description: value.description?.value,
+      ),
+    if (fallbackName != null)
+      _EnumMappedValue(
+        graphQLName: fallbackName,
+        dartName: "",
+      ),
+  ];
+
+  final usedNames = <String>{};
+  final resolvedNames = <String, String>{};
+
+  // Keep raw names that are already valid enum members so escaped values
+  // cannot steal them and force unnecessary renames.
+  for (final value in rawValues) {
+    if (_canUseEnumValueNameAsIs(value.graphQLName)) {
+      resolvedNames[value.graphQLName] = value.graphQLName;
+      usedNames.add(value.graphQLName);
+    }
+  }
+
+  for (final value in rawValues) {
+    if (resolvedNames.containsKey(value.graphQLName)) continue;
+
+    var candidate = enumValueIdentifier(value.graphQLName);
+    while (usedNames.contains(candidate)) {
+      candidate = "G$candidate";
+    }
+
+    resolvedNames[value.graphQLName] = candidate;
+    usedNames.add(candidate);
+  }
+
+  return [
+    for (final value in rawValues)
+      _EnumMappedValue(
+        graphQLName: value.graphQLName,
+        dartName: resolvedNames[value.graphQLName]!,
+        description: value.description,
+      ),
+  ];
+}
+
+bool _canUseEnumValueNameAsIs(String raw) => enumValueIdentifier(raw) == raw;
 
 class _SchemaEmitter {
   final SchemaIndex schema;

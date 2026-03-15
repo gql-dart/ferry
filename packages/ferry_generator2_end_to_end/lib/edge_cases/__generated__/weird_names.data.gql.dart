@@ -2,6 +2,8 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:ferry_generator2_end_to_end/graphql/__generated__/schema.schema.gql.dart'
+    as _i1;
 import 'package:ferry_generator2_end_to_end/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
 
@@ -73,6 +75,7 @@ class GWeirdNamesData_weirdNames {
     this.GcopyWith,
     this.GhashCode,
     List<String?>? Gvalues,
+    this.hasuraEnum,
     this.result,
     this.GruntimeType,
     this.G__typename = 'WeirdNames',
@@ -89,6 +92,9 @@ class GWeirdNamesData_weirdNames {
           ? null
           : List<String?>.unmodifiable(
               List<String?>.from((json['values'] as List<dynamic>))),
+      hasuraEnum: json['hasuraEnum'] == null
+          ? null
+          : _i1.GHasuraValuesEnum.fromJson((json['hasuraEnum'] as String)),
       result: json['result'] == null ? null : (json['result'] as String),
       GruntimeType:
           json['runtimeType'] == null ? null : (json['runtimeType'] as String),
@@ -107,6 +113,8 @@ class GWeirdNamesData_weirdNames {
   final String? GhashCode;
 
   final List<String?>? Gvalues;
+
+  final _i1.GHasuraValuesEnum? hasuraEnum;
 
   final String? result;
 
@@ -130,6 +138,9 @@ class GWeirdNamesData_weirdNames {
     _$result['values'] = _$GvaluesValue == null
         ? null
         : _$GvaluesValue.map((_$e) => _$e == null ? null : _$e).toList();
+    final _$hasuraEnumValue = this.hasuraEnum;
+    _$result['hasuraEnum'] =
+        _$hasuraEnumValue == null ? null : _$hasuraEnumValue.toJson();
     final _$resultValue = this.result;
     _$result['result'] = _$resultValue == null ? null : _$resultValue;
     final _$GruntimeTypeValue = this.GruntimeType;
@@ -152,6 +163,8 @@ class GWeirdNamesData_weirdNames {
     bool GhashCodeIsSet = false,
     List<String?>? Gvalues,
     bool GvaluesIsSet = false,
+    _i1.GHasuraValuesEnum? hasuraEnum,
+    bool hasuraEnumIsSet = false,
     String? result,
     bool resultIsSet = false,
     String? GruntimeType,
@@ -165,6 +178,7 @@ class GWeirdNamesData_weirdNames {
       GcopyWith: GcopyWithIsSet ? GcopyWith : this.GcopyWith,
       GhashCode: GhashCodeIsSet ? GhashCode : this.GhashCode,
       Gvalues: GvaluesIsSet ? Gvalues : this.Gvalues,
+      hasuraEnum: hasuraEnumIsSet ? hasuraEnum : this.hasuraEnum,
       result: resultIsSet ? result : this.result,
       GruntimeType: GruntimeTypeIsSet ? GruntimeType : this.GruntimeType,
       G__typename: G__typename ?? this.G__typename,
@@ -181,6 +195,7 @@ class GWeirdNamesData_weirdNames {
             GcopyWith == other.GcopyWith &&
             GhashCode == other.GhashCode &&
             _gqlUtils.listEquals(Gvalues, other.Gvalues) &&
+            hasuraEnum == other.hasuraEnum &&
             result == other.result &&
             GruntimeType == other.GruntimeType &&
             G__typename == other.G__typename);
@@ -196,6 +211,7 @@ class GWeirdNamesData_weirdNames {
         GcopyWith,
         GhashCode,
         _gqlUtils.listHash(Gvalues),
+        hasuraEnum,
         result,
         GruntimeType,
         G__typename);
@@ -203,6 +219,6 @@ class GWeirdNamesData_weirdNames {
 
   @override
   String toString() {
-    return 'GWeirdNamesData_weirdNames(Gclass: $Gclass, GtoJson: $GtoJson, GfromJson: $GfromJson, GcopyWith: $GcopyWith, GhashCode: $GhashCode, Gvalues: $Gvalues, result: $result, GruntimeType: $GruntimeType, G__typename: $G__typename)';
+    return 'GWeirdNamesData_weirdNames(Gclass: $Gclass, GtoJson: $GtoJson, GfromJson: $GfromJson, GcopyWith: $GcopyWith, GhashCode: $GhashCode, Gvalues: $Gvalues, hasuraEnum: $hasuraEnum, result: $result, GruntimeType: $GruntimeType, G__typename: $G__typename)';
   }
 }

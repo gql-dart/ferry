@@ -42,6 +42,72 @@ enum GEpisode {
   }
 }
 
+enum GTrollEnum {
+  GGname,
+  Gname,
+  GGindex,
+  Gindex,
+  gUnknownEnumValue;
+
+  static GTrollEnum fromJson(String value) {
+    switch (value) {
+      case r'name':
+        return GTrollEnum.GGname;
+      case r'Gname':
+        return GTrollEnum.Gname;
+      case r'index':
+        return GTrollEnum.GGindex;
+      case r'Gindex':
+        return GTrollEnum.Gindex;
+      default:
+        return GTrollEnum.gUnknownEnumValue;
+    }
+  }
+
+  String toJson() {
+    switch (this) {
+      case GTrollEnum.GGname:
+        return r'name';
+      case GTrollEnum.Gname:
+        return r'Gname';
+      case GTrollEnum.GGindex:
+        return r'index';
+      case GTrollEnum.Gindex:
+        return r'Gindex';
+      case GTrollEnum.gUnknownEnumValue:
+        return r'gUnknownEnumValue';
+    }
+  }
+}
+
+enum GHasuraValuesEnum {
+  Gname,
+  Gindex,
+  gUnknownEnumValue;
+
+  static GHasuraValuesEnum fromJson(String value) {
+    switch (value) {
+      case r'name':
+        return GHasuraValuesEnum.Gname;
+      case r'index':
+        return GHasuraValuesEnum.Gindex;
+      default:
+        return GHasuraValuesEnum.gUnknownEnumValue;
+    }
+  }
+
+  String toJson() {
+    switch (this) {
+      case GHasuraValuesEnum.Gname:
+        return r'name';
+      case GHasuraValuesEnum.Gindex:
+        return r'index';
+      case GHasuraValuesEnum.gUnknownEnumValue:
+        return r'gUnknownEnumValue';
+    }
+  }
+}
+
 enum GLengthUnit {
   METER,
   FOOT,

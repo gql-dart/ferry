@@ -41,6 +41,13 @@ enum Episode {
   JEDI
 }
 
+enum Troll {
+  name
+  Gname
+  index
+  Gindex
+}
+
 # A character from the Star Wars universe
 interface Character {
   # The ID of the character

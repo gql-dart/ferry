@@ -508,6 +508,7 @@ void main() {
         'copyWith': 'copy',
         'hashCode': 'hash',
         'values': ['a', null],
+        'hasuraEnum': 'name',
         'result': 'ok',
         'runtimeType': 'type',
       },
@@ -521,6 +522,7 @@ void main() {
     expect(weird.GcopyWith, 'copy');
     expect(weird.GhashCode, 'hash');
     expect(weird.Gvalues, equals(['a', null]));
+    expect(weird.hasuraEnum, _schema.GHasuraValuesEnum.Gname);
     expect(weird.result, 'ok');
     expect(weird.GruntimeType, 'type');
     expect(data.toJson(), equals(input));
@@ -1346,6 +1348,18 @@ void main() {
       _schema.GEpisode.fromJson('SURPRISE'),
       _schema.GEpisode.gUnknownEnumValue,
     );
+  });
+
+  test('enum values escape reserved instance members without collisions', () {
+    expect(_schema.GTrollEnum.fromJson('name'), _schema.GTrollEnum.GGname);
+    expect(_schema.GTrollEnum.fromJson('Gname'), _schema.GTrollEnum.Gname);
+    expect(_schema.GTrollEnum.fromJson('index'), _schema.GTrollEnum.GGindex);
+    expect(_schema.GTrollEnum.fromJson('Gindex'), _schema.GTrollEnum.Gindex);
+
+    expect(_schema.GTrollEnum.GGname.toJson(), 'name');
+    expect(_schema.GTrollEnum.Gname.toJson(), 'Gname');
+    expect(_schema.GTrollEnum.GGindex.toJson(), 'index');
+    expect(_schema.GTrollEnum.Gindex.toJson(), 'Gindex');
   });
 
   test('absent optional vars are omitted from JSON', () {
