@@ -23,6 +23,7 @@ import 'package:ferry_generator2_end_to_end/edge_cases/__generated__/uncondition
     as unconditional;
 import 'package:ferry_generator2_end_to_end/edge_cases/__generated__/weird_names.data.gql.dart';
 import 'package:ferry_generator2_end_to_end/fragments/__generated__/fragment_with_scalar_var.var.gql.dart';
+import 'package:ferry_generator2_end_to_end/fragments/__generated__/fragments_with_shared_transitive_fragments.data.gql.dart';
 import 'package:ferry_generator2_end_to_end/fragments/__generated__/hero_with_interface_subtyped_fragments.data.gql.dart';
 import 'package:ferry_generator2_end_to_end/fragments/__generated__/nested_duplicate_fragments.data.gql.dart';
 import 'package:ferry_generator2_end_to_end/fragments/__generated__/shared_fragment_queries.data.gql.dart';
@@ -76,6 +77,31 @@ void main() {
     expect(contents, contains('class GSharedBooksBData'));
     expect(contents, isNot(contains('class GSharedBooksAData_books')));
     expect(contents, isNot(contains('class GSharedBooksBData_books')));
+  });
+
+  test('transitive shared fragments build and round-trip once', () {
+    final input = {
+      '__typename': 'Query',
+      'hero': {
+        '__typename': 'Human',
+        'name': 'Luke',
+        'id': '1000',
+        'friendsConnection': {
+          '__typename': 'FriendsConnection',
+          'totalCount': 3,
+        },
+      },
+    };
+
+    final data = GHeroWith2FragmentsWithSharedTransitiveFragmentsData.fromJson(
+      input,
+    );
+
+    expect(data.hero, isNotNull);
+    expect(data.hero!.name, 'Luke');
+    expect(data.hero!.id, '1000');
+    expect(data.hero!.friendsConnection.totalCount, 3);
+    expect(data.toJson(), equals(input));
   });
 
   test('interface fragments generate typed nested selections', () {

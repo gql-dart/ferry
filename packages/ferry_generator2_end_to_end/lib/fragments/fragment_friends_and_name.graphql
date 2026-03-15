@@ -1,0 +1,8 @@
+# import './shared_fragment.graphql';
+
+fragment heroFriendsAndName on Character {
+    ...SharedFragment
+    friendsConnection(first: 3) {
+        totalCount
+    }
+}

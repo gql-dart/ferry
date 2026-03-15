@@ -44,41 +44,47 @@ Future<DocumentSource> _assetToSource(
   BuildStep buildStep,
   AssetId assetId,
   String sourceExtension,
-) async {
-  final sourceString = await buildStep.readAsString(assetId);
-  final imports = _getImports(
-    sourceString,
-    sourceExtension,
-    from: assetId,
-  );
+  Map<AssetId, Future<DocumentSource>> cache,
+) =>
+    cache.putIfAbsent(assetId, () async {
+      final sourceString = await buildStep.readAsString(assetId);
+      final imports = _getImports(
+        sourceString,
+        sourceExtension,
+        from: assetId,
+      );
 
-  final url = assetId.uri.toString();
+      final url = assetId.uri.toString();
 
-  return DocumentSource(
-    url: url,
-    document: parseString(
-      sourceString,
-      url: url,
-    ),
-    imports: await Stream.fromIterable(imports)
-        .asyncMap(
-          (importedAssetId) => _assetToSource(
-            buildStep,
-            importedAssetId,
-            sourceExtension,
-          ),
-        )
-        .toSet(),
-  );
-}
+      return DocumentSource(
+        url: url,
+        document: parseString(
+          sourceString,
+          url: url,
+        ),
+        imports: await Stream.fromIterable(imports)
+            .asyncMap(
+              (importedAssetId) => _assetToSource(
+                buildStep,
+                importedAssetId,
+                sourceExtension,
+                cache,
+              ),
+            )
+            .toSet(),
+      );
+    });
 
 Future<DocumentSource> readDocument(
   BuildStep buildStep,
   String sourceExtension, [
   AssetId? rootId,
-]) =>
-    _assetToSource(
-      buildStep,
-      rootId ?? buildStep.inputId,
-      sourceExtension,
-    );
+]) {
+  final cache = <AssetId, Future<DocumentSource>>{};
+  return _assetToSource(
+    buildStep,
+    rootId ?? buildStep.inputId,
+    sourceExtension,
+    cache,
+  );
+}
