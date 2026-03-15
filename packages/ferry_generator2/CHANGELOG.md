@@ -1,3 +1,7 @@
+## 0.1.0-dev.2
+
+ - **FIX**(generator2): default __typename for concrete data classes (#666).
+
 ## 0.1.0-dev.1
 
  - **FIX**(ferry_generator2): satisfy pub publish validation (#665).
