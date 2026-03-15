@@ -1,0 +1,6 @@
+# import './shared_fragment.graphql';
+
+fragment heroNameAndId on Character {
+    ...SharedFragment
+    id
+}

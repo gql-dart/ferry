@@ -13,23 +13,34 @@ class DocumentSource {
     this.imports = const {},
   });
 
+  Iterable<DocumentSource> uniqueSources() sync* {
+    yield* _walkUnique(<String>{});
+  }
+
+  Iterable<DocumentSource> _walkUnique(Set<String> visitedUrls) sync* {
+    if (!visitedUrls.add(url)) return;
+    yield this;
+    final orderedImports = imports.toList()
+      ..sort((left, right) => left.url.compareTo(right.url));
+    for (final import in orderedImports) {
+      yield* import._walkUnique(visitedUrls);
+    }
+  }
+
   DocumentNode get flatDocument => DocumentNode(
         definitions: <DefinitionNode>[
-          ...document.definitions,
-          ...imports.expand((source) => source.flatDocument.definitions),
+          for (final source in uniqueSources()) ...source.document.definitions,
         ],
       );
 
   Set<SourceRef> getRefs() => {
-        ...document.definitions.map(
-          (definition) => SourceRef(
-            identifier(definitionName(definition)),
-            url,
+        for (final source in uniqueSources())
+          ...source.document.definitions.map(
+            (definition) => SourceRef(
+              identifier(definitionName(definition)),
+              source.url,
+            ),
           ),
-        ),
-        ...imports.expand(
-          (import) => import.getRefs(),
-        ),
       };
 }
 
