@@ -1,5 +1,5 @@
 name: ferry_generator2
-version: 0.1.0-dev.0
+version: 0.1.0-dev.1
 homepage: https://ferry.gql-dart.dev
 description: Next-gen Ferry GraphQL code generator
 repository: https://github.com/gql-dart/ferry
@@ -26,4 +26,5 @@ dev_dependencies:
   build_test: ^3.3.2
   ferry_exec:
     path: ../ferry_exec
+  logging: ^1.2.0
   test: ^1.16.8

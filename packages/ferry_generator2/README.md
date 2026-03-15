@@ -185,7 +185,9 @@ scalars:
 
 ## Code structure (high-level)
 
-- `lib/graphql_builder.dart`: Build entry point, wiring + build rules.
+- `lib/ferry_generator2.dart`: Public build entry point.
+- `lib/src/graphql_builder.dart`: Build entry point implementation, wiring +
+  build rules.
 - `lib/src/config/`: build.yaml parsing + validation.
 - `lib/src/emit/`: code emitters
   - `ast_builder.dart`, `data_emitter*.dart`, `vars_emitter.dart`,
