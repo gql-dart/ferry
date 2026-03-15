@@ -326,7 +326,7 @@ class GFragLevel4Data implements GFragLevel4 {
 class GDeepFragmentsData {
   const GDeepFragmentsData({
     this.hero,
-    required this.G__typename,
+    this.G__typename = 'Query',
   });
 
   factory GDeepFragmentsData.fromJson(Map<String, dynamic> json) {

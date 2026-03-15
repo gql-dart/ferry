@@ -9,7 +9,7 @@ import 'package:ferry_generator2_end_to_end/graphql/__generated__/schema.utils.g
 class GSearchWithDefaultData {
   GSearchWithDefaultData({
     List<GSearchWithDefaultData_search?>? search,
-    required this.G__typename,
+    this.G__typename = 'Query',
   }) : search = search == null ? null : List.unmodifiable(search);
 
   factory GSearchWithDefaultData.fromJson(Map<String, dynamic> json) {

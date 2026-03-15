@@ -9,7 +9,7 @@ import 'package:ferry_generator2_end_to_end/graphql/__generated__/schema.utils.g
 class GPostsByLikesData {
   GPostsByLikesData({
     List<GPostsByLikesData_postsByLikes?>? postsByLikes,
-    required this.G__typename,
+    this.G__typename = 'Query',
   }) : postsByLikes =
             postsByLikes == null ? null : List.unmodifiable(postsByLikes);
 
@@ -79,7 +79,7 @@ class GPostsByLikesData_postsByLikes {
   const GPostsByLikesData_postsByLikes({
     required this.id,
     required this.body,
-    required this.G__typename,
+    this.G__typename = 'Post',
   });
 
   factory GPostsByLikesData_postsByLikes.fromJson(Map<String, dynamic> json) {

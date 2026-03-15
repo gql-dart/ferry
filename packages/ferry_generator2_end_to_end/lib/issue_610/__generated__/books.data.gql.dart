@@ -94,7 +94,7 @@ class GAuthorFragmentData__asPerson extends GAuthorFragmentData
     implements GAuthorFragment, GAuthorFragment__asPerson {
   GAuthorFragmentData__asPerson({
     required String displayName,
-    required String G__typename,
+    String G__typename = 'Person',
     required this.firstName,
     required this.lastName,
   }) : super(displayName: displayName, G__typename: G__typename);
@@ -159,7 +159,7 @@ class GAuthorFragmentData__asCompany extends GAuthorFragmentData
     implements GAuthorFragment, GAuthorFragment__asCompany {
   GAuthorFragmentData__asCompany({
     required String displayName,
-    required String G__typename,
+    String G__typename = 'Company',
     required this.name,
   }) : super(displayName: displayName, G__typename: G__typename);
 
@@ -460,7 +460,7 @@ class GBookFragmentData__asTextbook extends GBookFragmentData
     required List<List<String>> tagMatrix,
     List<List<String?>?>? tagMatrixNullable,
     required List<List<GBookFragmentData_relatedBooks>> relatedBooks,
-    required String G__typename,
+    String G__typename = 'Textbook',
     required List<String> courses,
   })  : courses = List.unmodifiable(courses),
         super(
@@ -575,7 +575,7 @@ class GBookFragmentData__asColoringBook extends GBookFragmentData
     required List<List<String>> tagMatrix,
     List<List<String?>?>? tagMatrixNullable,
     required List<List<GBookFragmentData_relatedBooks>> relatedBooks,
-    required String G__typename,
+    String G__typename = 'ColoringBook',
     required List<String> colors,
   })  : colors = List.unmodifiable(colors),
         super(
@@ -792,7 +792,7 @@ class GBookFragmentData__unknown extends GBookFragmentData
 class GGetBooksData {
   GGetBooksData({
     required List<GBookFragmentData> books,
-    required this.G__typename,
+    this.G__typename = 'Query',
   }) : books = List.unmodifiable(books);
 
   factory GGetBooksData.fromJson(Map<String, dynamic> json) {

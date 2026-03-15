@@ -44,6 +44,7 @@ import 'package:ferry_generator2_end_to_end/variables/__generated__/create_custo
 import 'package:ferry_generator2_end_to_end/variables/__generated__/create_review.data.gql.dart';
 import 'package:ferry_generator2_end_to_end/variables/__generated__/create_review.req.gql.dart';
 import 'package:ferry_generator2_end_to_end/variables/__generated__/create_review.var.gql.dart';
+import 'package:ferry_generator2_end_to_end/variables/__generated__/human_with_args.data.gql.dart';
 import 'package:ferry_generator2_end_to_end/graphql/__generated__/schema.schema.gql.dart'
     as _schema;
 import 'package:gql_tristate_value/gql_tristate_value.dart';
@@ -134,6 +135,26 @@ void main() {
     expect(result.G__typename, 'Starship');
   });
 
+  test('union fromJson uses __unknown for newly added runtime members', () {
+    // Simulate an older generated client receiving a newer union member that
+    // did not exist when the query classes were generated.
+    final data = GSearchWithStarshipData.fromJson({
+      '__typename': 'Query',
+      'search': [
+        {
+          '__typename': 'SpaceStation',
+        },
+      ],
+    });
+
+    final result = data.search!.single!;
+    // fromJson should fall back to the unknown branch but still preserve the
+    // concrete typename for downstream cache logic and diagnostics.
+    expect(result, isA<GSearchWithStarshipData_search__unknown>());
+    expect(result.G__typename, 'SpaceStation');
+    expect(result.toJson()['__typename'], 'SpaceStation');
+  });
+
   test('interface unknown fallback preserves typename', () {
     final data = GHeroWithInterfaceSubTypedFragmentsData.fromJson({
       '__typename': 'Query',
@@ -173,6 +194,42 @@ void main() {
       friends.first,
       isA<GheroFieldsFragmentData__asHuman_friends__unknown>(),
     );
+  });
+
+  test('concrete constructors default inferable typenames', () {
+    final objectData = GHumanWithArgsData(
+      human: GHumanWithArgsData_human(
+        name: 'Luke',
+        height: 1.72,
+      ),
+    );
+
+    expect(objectData.G__typename, 'Query');
+    expect(objectData.human, isNotNull);
+    expect(objectData.human!.G__typename, 'Human');
+    expect(
+      objectData.toJson(),
+      equals({
+        '__typename': 'Query',
+        'human': {
+          '__typename': 'Human',
+          'name': 'Luke',
+          'height': 1.72,
+        },
+      }),
+    );
+
+    final inlineData = GSearchWithStarshipData_search__asStarship(
+      id: '3000',
+      name: 'Falcon',
+      length: 34.75,
+      coordinates: const [
+        [1.0, 2.0],
+      ],
+    );
+
+    expect(inlineData.G__typename, 'Starship');
+    expect(inlineData.toJson()['__typename'], 'Starship');
   });
 
   test('interface friends preserve null entries', () {

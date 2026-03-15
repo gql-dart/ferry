@@ -9,7 +9,7 @@ import 'package:ferry_generator2_end_to_end/graphql/__generated__/schema.schema.
 class GReviewAddedData {
   const GReviewAddedData({
     this.reviewAdded,
-    required this.G__typename,
+    this.G__typename = 'Subscription',
   });
 
   factory GReviewAddedData.fromJson(Map<String, dynamic> json) {
@@ -70,7 +70,7 @@ class GReviewAddedData_reviewAdded {
     this.episode,
     required this.stars,
     this.commentary,
-    required this.G__typename,
+    this.G__typename = 'Review',
   });
 
   factory GReviewAddedData_reviewAdded.fromJson(Map<String, dynamic> json) {

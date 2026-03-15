@@ -75,6 +75,10 @@ List<Spec> buildSelectionSetClasses({
         extendsRef: null,
         superFields: const [],
         usesSuperToJson: false,
+        inferredTypename: _defaultTypenameForObjectType(
+          ctx,
+          selectionSet.parentTypeName,
+        ),
       ),
     );
     specs
@@ -158,6 +162,10 @@ List<Spec> buildSelectionSetClasses({
         extendsRef: refer(className),
         superFields: baseFields,
         usesSuperToJson: true,
+        inferredTypename: _defaultTypenameForObjectType(
+          ctx,
+          TypeName(typeName),
+        ),
       ),
     );
     specs.addAll(
@@ -187,6 +195,7 @@ List<Spec> buildSelectionSetClasses({
       extendsRef: refer(className),
       superFields: baseFields,
       usesSuperToJson: true,
+      inferredTypename: null,
     ),
   );
 
@@ -481,6 +490,7 @@ Class _buildConcreteClass({
   required Reference? extendsRef,
   required List<FieldSpec> superFields,
   required bool usesSuperToJson,
+  required String? inferredTypename,
 }) {
   final toJsonFields = usesSuperToJson
       ? fields.where((field) => !superFields.contains(field)).toList()
@@ -549,7 +559,13 @@ Class _buildConcreteClass({
         fields.where((field) => !superFields.contains(field)).map(_buildField),
       )
       ..constructors.addAll([
-        _buildConstructor(ctx, fields, extendsRef, superFields: superFields),
+        _buildConstructor(
+          ctx,
+          fields,
+          extendsRef,
+          superFields: superFields,
+          inferredTypename: inferredTypename,
+        ),
         _buildConcreteFromJson(ctx, className, fields),
       ])
       ..methods.addAll(methods),
@@ -561,6 +577,7 @@ Constructor _buildConstructor(
   List<FieldSpec> fieldsList,
   Reference? extendsRef, {
   List<FieldSpec> superFields = const [],
+  String? inferredTypename,
 }) {
   final wrapFields = fieldsList
       .where((field) => !superFields.contains(field))
@@ -576,13 +593,20 @@ Constructor _buildConstructor(
         : true;
     final shouldWrap = wrapFieldNames.contains(field.propertyName);
     final useToThis = !superFields.contains(field) && !shouldWrap;
+    final defaultTypename =
+        field.propertyName == "G__typename" ? inferredTypename : null;
     return Parameter(
-      (b) => b
-        ..name = field.propertyName
-        ..named = true
-        ..required = isRequired
-        ..toThis = useToThis
-        ..type = useToThis ? null : field.typeRef,
+      (b) {
+        b
+          ..name = field.propertyName
+          ..named = true
+          ..required = isRequired && defaultTypename == null
+          ..toThis = useToThis
+          ..type = useToThis ? null : field.typeRef;
+        if (defaultTypename != null) {
+          b.defaultTo = literalString(defaultTypename).code;
+        }
+      },
     );
   });
 
@@ -608,6 +632,18 @@ Constructor _buildConstructor(
       ..optionalParameters.addAll(namedParameters)
       ..initializers.addAll(initializers),
   );
+}
+
+String? _defaultTypenameForObjectType(
+  DataEmitterContext ctx,
+  TypeName typeName,
+) {
+  return ctx.schema.lookupTypeAs<ObjectTypeDefinitionNode>(
+            NameNode(value: typeName.value),
+          ) !=
+          null
+      ? typeName.value
+      : null;
 }
 
 Constructor _buildFromJsonFactory(

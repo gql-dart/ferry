@@ -202,7 +202,7 @@ class GFriendInfoData_friendsConnection
     implements GFriendInfo_friendsConnection {
   GFriendInfoData_friendsConnection({
     List<GCharacterBasicData?>? friends,
-    required this.G__typename,
+    this.G__typename = 'FriendsConnection',
   }) : friends = friends == null ? null : List.unmodifiable(friends);
 
   factory GFriendInfoData_friendsConnection.fromJson(
@@ -339,7 +339,7 @@ class GCharacterBasicData implements GCharacterBasic {
 class GSearchResultsQueryData {
   GSearchResultsQueryData({
     List<GSearchResultsQueryData_search?>? search,
-    required this.G__typename,
+    this.G__typename = 'Query',
   }) : search = search == null ? null : List.unmodifiable(search);
 
   factory GSearchResultsQueryData.fromJson(Map<String, dynamic> json) {
@@ -466,7 +466,7 @@ extension GSearchResultsQueryData_searchWhenExtension
 class GSearchResultsQueryData_search__asHuman
     extends GSearchResultsQueryData_search implements GCharacterDetails {
   GSearchResultsQueryData_search__asHuman({
-    required String G__typename,
+    String G__typename = 'Human',
     required this.id,
     required this.name,
     List<GFriendInfoData?>? friends,
@@ -563,7 +563,7 @@ class GSearchResultsQueryData_search__asHuman
 class GSearchResultsQueryData_search__asDroid
     extends GSearchResultsQueryData_search implements GCharacterDetails {
   GSearchResultsQueryData_search__asDroid({
-    required String G__typename,
+    String G__typename = 'Droid',
     required this.id,
     required this.name,
     List<GFriendInfoData?>? friends,

@@ -9,7 +9,7 @@ abstract class GHumanName {
 class GHumanNameData implements GHumanName {
   const GHumanNameData({
     required this.name,
-    required this.G__typename,
+    this.G__typename = 'Human',
   });
 
   factory GHumanNameData.fromJson(Map<String, dynamic> json) {
@@ -63,7 +63,7 @@ class GHumanNameData implements GHumanName {
 class GHeroUnconditionalTypeFragmentData {
   const GHeroUnconditionalTypeFragmentData({
     this.hero,
-    required this.G__typename,
+    this.G__typename = 'Query',
   });
 
   factory GHeroUnconditionalTypeFragmentData.fromJson(
@@ -182,7 +182,7 @@ extension GHeroUnconditionalTypeFragmentData_heroWhenExtension
 class GHeroUnconditionalTypeFragmentData_hero__asHuman
     extends GHeroUnconditionalTypeFragmentData_hero implements GHumanName {
   GHeroUnconditionalTypeFragmentData_hero__asHuman({
-    required String G__typename,
+    String G__typename = 'Human',
     required String id,
     required this.name,
   }) : super(G__typename: G__typename, id: id);

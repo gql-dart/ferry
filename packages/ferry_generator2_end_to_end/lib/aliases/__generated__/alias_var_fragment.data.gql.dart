@@ -27,7 +27,7 @@ class GPostFragmentData implements GPostFragment {
     required this.id,
     this.isFavorited,
     this.isLiked,
-    required this.G__typename,
+    this.G__typename = 'Post',
   });
 
   factory GPostFragmentData.fromJson(Map<String, dynamic> json) {
@@ -106,7 +106,7 @@ class GPostFragmentData implements GPostFragment {
 class GPostFragmentData_isFavorited implements GPostFragment_isFavorited {
   const GPostFragmentData_isFavorited({
     required this.totalCount,
-    required this.G__typename,
+    this.G__typename = 'PostLikes',
   });
 
   factory GPostFragmentData_isFavorited.fromJson(Map<String, dynamic> json) {
@@ -159,7 +159,7 @@ class GPostFragmentData_isFavorited implements GPostFragment_isFavorited {
 class GPostFragmentData_isLiked implements GPostFragment_isLiked {
   const GPostFragmentData_isLiked({
     required this.totalCount,
-    required this.G__typename,
+    this.G__typename = 'PostFavorites',
   });
 
   factory GPostFragmentData_isLiked.fromJson(Map<String, dynamic> json) {
@@ -213,7 +213,7 @@ class GPostFragmentData_isLiked implements GPostFragment_isLiked {
 class GPostsData {
   GPostsData({
     List<GPostFragmentData?>? posts,
-    required this.G__typename,
+    this.G__typename = 'Query',
   }) : posts = posts == null ? null : List.unmodifiable(posts);
 
   factory GPostsData.fromJson(Map<String, dynamic> json) {

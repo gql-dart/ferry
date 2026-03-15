@@ -12,7 +12,7 @@ import 'package:ferry_generator2_end_to_end/graphql/__generated__/schema.utils.g
 class GReviewWithDateData {
   const GReviewWithDateData({
     this.createReview,
-    required this.G__typename,
+    this.G__typename = 'Mutation',
   });
 
   factory GReviewWithDateData.fromJson(Map<String, dynamic> json) {
@@ -77,7 +77,7 @@ class GReviewWithDateData_createReview {
     this.createdAt,
     required List<CustomDate> seenOn,
     required List<String> custom,
-    required this.G__typename,
+    this.G__typename = 'Review',
   })  : seenOn = List.unmodifiable(seenOn),
         custom = List.unmodifiable(custom);
 

@@ -156,7 +156,9 @@ final data = GAllPokemonData(
 );
 ```
 
-When you construct data objects manually, `G__typename` is required on most classes.
+When you construct data objects manually, `G__typename` defaults for concrete
+object types when it can be inferred, but remains required for interface/union
+dispatch and `__unknown` cases.
 If you only use `fromJson`, it will be filled in for you.
 
 ## 4) Copying data (rebuild -> copyWith)

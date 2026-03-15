@@ -67,7 +67,7 @@ class GHeroNameData implements GHeroName {
 class GHeroFragmentDirectivesData {
   const GHeroFragmentDirectivesData({
     this.hero,
-    required this.G__typename,
+    this.G__typename = 'Query',
   });
 
   factory GHeroFragmentDirectivesData.fromJson(Map<String, dynamic> json) {

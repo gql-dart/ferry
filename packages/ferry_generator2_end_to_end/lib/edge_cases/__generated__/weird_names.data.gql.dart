@@ -9,7 +9,7 @@ import 'package:ferry_generator2_end_to_end/graphql/__generated__/schema.utils.g
 class GWeirdNamesData {
   const GWeirdNamesData({
     this.weirdNames,
-    required this.G__typename,
+    this.G__typename = 'Query',
   });
 
   factory GWeirdNamesData.fromJson(Map<String, dynamic> json) {
@@ -75,7 +75,7 @@ class GWeirdNamesData_weirdNames {
     List<String?>? Gvalues,
     this.result,
     this.GruntimeType,
-    required this.G__typename,
+    this.G__typename = 'WeirdNames',
   }) : Gvalues = Gvalues == null ? null : List.unmodifiable(Gvalues);
 
   factory GWeirdNamesData_weirdNames.fromJson(Map<String, dynamic> json) {

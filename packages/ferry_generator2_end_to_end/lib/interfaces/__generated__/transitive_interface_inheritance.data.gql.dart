@@ -5,7 +5,7 @@
 class GAThingTransitiveInterfaceInheritanceData {
   const GAThingTransitiveInterfaceInheritanceData({
     this.aThing,
-    required this.G__typename,
+    this.G__typename = 'Query',
   });
 
   factory GAThingTransitiveInterfaceInheritanceData.fromJson(
@@ -199,7 +199,7 @@ class GAThingTransitiveInterfaceInheritanceData_aThing__asB
 class GAThingTransitiveInterfaceInheritanceData_aThing__asJohn
     extends GAThingTransitiveInterfaceInheritanceData_aThing {
   GAThingTransitiveInterfaceInheritanceData_aThing__asJohn({
-    required String G__typename,
+    String G__typename = 'John',
     required String id,
     required this.johnOnly,
   }) : super(G__typename: G__typename, id: id);
@@ -306,7 +306,7 @@ class GAThingTransitiveInterfaceInheritanceData_aThing__unknown
 class GBThingTransitiveInterfaceInheritanceData {
   const GBThingTransitiveInterfaceInheritanceData({
     this.bThing,
-    required this.G__typename,
+    this.G__typename = 'Query',
   });
 
   factory GBThingTransitiveInterfaceInheritanceData.fromJson(
@@ -447,7 +447,7 @@ extension GBThingTransitiveInterfaceInheritanceData_bThingWhenExtension
 class GBThingTransitiveInterfaceInheritanceData_bThing__asFoo
     extends GBThingTransitiveInterfaceInheritanceData_bThing {
   GBThingTransitiveInterfaceInheritanceData_bThing__asFoo({
-    required String G__typename,
+    String G__typename = 'Foo',
     required String id,
     required String bField,
     required this.fooOnly,
@@ -509,7 +509,7 @@ class GBThingTransitiveInterfaceInheritanceData_bThing__asFoo
 class GBThingTransitiveInterfaceInheritanceData_bThing__asBar
     extends GBThingTransitiveInterfaceInheritanceData_bThing {
   GBThingTransitiveInterfaceInheritanceData_bThing__asBar({
-    required String G__typename,
+    String G__typename = 'Bar',
     required String id,
     required String bField,
     required this.barOnly,

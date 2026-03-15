@@ -5,7 +5,7 @@
 class GCreateCustomFieldData {
   const GCreateCustomFieldData({
     this.createCustomField,
-    required this.G__typename,
+    this.G__typename = 'Mutation',
   });
 
   factory GCreateCustomFieldData.fromJson(Map<String, dynamic> json) {

@@ -5,7 +5,7 @@
 class GHumanWithArgsData {
   const GHumanWithArgsData({
     this.human,
-    required this.G__typename,
+    this.G__typename = 'Query',
   });
 
   factory GHumanWithArgsData.fromJson(Map<String, dynamic> json) {
@@ -64,7 +64,7 @@ class GHumanWithArgsData_human {
   const GHumanWithArgsData_human({
     required this.name,
     this.height,
-    required this.G__typename,
+    this.G__typename = 'Human',
   });
 
   factory GHumanWithArgsData_human.fromJson(Map<String, dynamic> json) {
