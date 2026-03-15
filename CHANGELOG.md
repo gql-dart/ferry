@@ -15,6 +15,27 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`ferry_generator2` - `v0.1.0-dev.3`](#ferry_generator2---v010-dev3)
+
+---
+
+#### `ferry_generator2` - `v0.1.0-dev.3`
+
+ - **FIX**(generator2): dedupe transitive shared fragment imports (#667).
+
+
+## 2026-03-15
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`ferry_generator2` - `v0.1.0-dev.2`](#ferry_generator2---v010-dev2)
 
 ---

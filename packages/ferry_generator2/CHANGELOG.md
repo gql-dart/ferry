@@ -1,3 +1,7 @@
+## 0.1.0-dev.3
+
+ - **FIX**(generator2): dedupe transitive shared fragment imports (#667).
+
 ## 0.1.0-dev.2
 
  - **FIX**(generator2): default __typename for concrete data classes (#666).
