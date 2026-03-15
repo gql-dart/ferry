@@ -15,6 +15,27 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`ferry_generator2` - `v0.1.0-dev.4`](#ferry_generator2---v010-dev4)
+
+---
+
+#### `ferry_generator2` - `v0.1.0-dev.4`
+
+ - **FIX**(generator2): escape enum value member collisions (#668).
+
+
+## 2026-03-15
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`ferry_generator2` - `v0.1.0-dev.3`](#ferry_generator2---v010-dev3)
 
 ---

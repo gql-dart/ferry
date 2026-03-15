@@ -1,3 +1,7 @@
+## 0.1.0-dev.4
+
+ - **FIX**(generator2): escape enum value member collisions (#668).
+
 ## 0.1.0-dev.3
 
  - **FIX**(generator2): dedupe transitive shared fragment imports (#667).
