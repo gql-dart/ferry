@@ -9,7 +9,7 @@ import 'package:ferry_generator2_end_to_end/graphql/__generated__/schema.utils.g
 class GHeroWithInterfaceUnnamedFragmentsData {
   const GHeroWithInterfaceUnnamedFragmentsData({
     this.hero,
-    required this.G__typename,
+    this.G__typename = 'Query',
   });
 
   factory GHeroWithInterfaceUnnamedFragmentsData.fromJson(
@@ -152,7 +152,7 @@ class GHeroWithInterfaceUnnamedFragmentsData_hero__asHuman
   GHeroWithInterfaceUnnamedFragmentsData_hero__asHuman({
     required String id,
     required String name,
-    required String G__typename,
+    String G__typename = 'Human',
     this.homePlanet,
     List<GHeroWithInterfaceUnnamedFragmentsData_hero__asHuman_friends?>?
         friends,
@@ -322,7 +322,7 @@ extension GHeroWithInterfaceUnnamedFragmentsData_hero__asHuman_friendsWhenExtens
 class GHeroWithInterfaceUnnamedFragmentsData_hero__asHuman_friends__asHuman
     extends GHeroWithInterfaceUnnamedFragmentsData_hero__asHuman_friends {
   GHeroWithInterfaceUnnamedFragmentsData_hero__asHuman_friends__asHuman({
-    required String G__typename,
+    String G__typename = 'Human',
     required this.id,
     required this.name,
     this.homePlanet,
@@ -395,7 +395,7 @@ class GHeroWithInterfaceUnnamedFragmentsData_hero__asHuman_friends__asHuman
 class GHeroWithInterfaceUnnamedFragmentsData_hero__asHuman_friends__asDroid
     extends GHeroWithInterfaceUnnamedFragmentsData_hero__asHuman_friends {
   GHeroWithInterfaceUnnamedFragmentsData_hero__asHuman_friends__asDroid({
-    required String G__typename,
+    String G__typename = 'Droid',
     required this.id,
     required this.name,
     this.primaryFunction,
@@ -514,7 +514,7 @@ class GHeroWithInterfaceUnnamedFragmentsData_hero__asDroid
   GHeroWithInterfaceUnnamedFragmentsData_hero__asDroid({
     required String id,
     required String name,
-    required String G__typename,
+    String G__typename = 'Droid',
     this.primaryFunction,
   }) : super(id: id, name: name, G__typename: G__typename);
 

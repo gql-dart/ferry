@@ -11,7 +11,7 @@ import 'package:ferry_generator2_end_to_end/graphql/__generated__/schema.utils.g
 class GReviewsWithDefaultsData {
   GReviewsWithDefaultsData({
     List<GReviewsWithDefaultsData_reviews?>? reviews,
-    required this.G__typename,
+    this.G__typename = 'Query',
   }) : reviews = reviews == null ? null : List.unmodifiable(reviews);
 
   factory GReviewsWithDefaultsData.fromJson(Map<String, dynamic> json) {
@@ -79,7 +79,7 @@ class GReviewsWithDefaultsData {
 class GReviewsWithDefaultsData_reviews {
   const GReviewsWithDefaultsData_reviews({
     this.episode,
-    required this.G__typename,
+    this.G__typename = 'Review',
   });
 
   factory GReviewsWithDefaultsData_reviews.fromJson(Map<String, dynamic> json) {

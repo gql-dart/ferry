@@ -12,7 +12,7 @@ class GAliasedHeroData {
   const GAliasedHeroData({
     this.empireHero,
     this.jediHero,
-    required this.G__typename,
+    this.G__typename = 'Query',
   });
 
   factory GAliasedHeroData.fromJson(Map<String, dynamic> json) {

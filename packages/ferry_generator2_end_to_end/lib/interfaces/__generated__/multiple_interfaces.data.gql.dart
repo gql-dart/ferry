@@ -7,7 +7,7 @@ class GMultipleInterfacesData {
     this.cThing,
     this.dThing,
     this.other,
-    required this.G__typename,
+    this.G__typename = 'Query',
   });
 
   factory GMultipleInterfacesData.fromJson(Map<String, dynamic> json) {
@@ -214,7 +214,7 @@ class GMultipleInterfacesData_other {
     required this.cField,
     required this.dField,
     required this.otherField,
-    required this.G__typename,
+    this.G__typename = 'Other',
   });
 
   factory GMultipleInterfacesData_other.fromJson(Map<String, dynamic> json) {

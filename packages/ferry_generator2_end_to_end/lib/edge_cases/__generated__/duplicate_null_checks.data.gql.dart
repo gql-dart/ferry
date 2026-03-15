@@ -5,7 +5,7 @@
 class GDuplicateNullChecksData {
   const GDuplicateNullChecksData({
     this.duplicateNullChecks,
-    required this.G__typename,
+    this.G__typename = 'Query',
   });
 
   factory GDuplicateNullChecksData.fromJson(Map<String, dynamic> json) {

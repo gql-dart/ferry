@@ -125,7 +125,7 @@ class GheroIdData implements GheroId {
 class GHeroWith2FragmentsData {
   const GHeroWith2FragmentsData({
     this.hero,
-    required this.G__typename,
+    this.G__typename = 'Query',
   });
 
   factory GHeroWith2FragmentsData.fromJson(Map<String, dynamic> json) {

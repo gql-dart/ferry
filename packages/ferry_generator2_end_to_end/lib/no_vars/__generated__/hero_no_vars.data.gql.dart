@@ -5,7 +5,7 @@
 class GHeroNoVarsData {
   const GHeroNoVarsData({
     this.hero,
-    required this.G__typename,
+    this.G__typename = 'Query',
   });
 
   factory GHeroNoVarsData.fromJson(Map<String, dynamic> json) {

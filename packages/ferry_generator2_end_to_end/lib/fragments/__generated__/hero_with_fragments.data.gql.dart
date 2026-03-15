@@ -160,7 +160,7 @@ class GcomparisonFieldsData_friendsConnection
   GcomparisonFieldsData_friendsConnection({
     this.totalCount,
     List<GcomparisonFieldsData_friendsConnection_edges?>? edges,
-    required this.G__typename,
+    this.G__typename = 'FriendsConnection',
   }) : edges = edges == null ? null : List.unmodifiable(edges);
 
   factory GcomparisonFieldsData_friendsConnection.fromJson(
@@ -239,7 +239,7 @@ class GcomparisonFieldsData_friendsConnection_edges
     implements GcomparisonFields_friendsConnection_edges {
   const GcomparisonFieldsData_friendsConnection_edges({
     this.node,
-    required this.G__typename,
+    this.G__typename = 'FriendsEdge',
   });
 
   factory GcomparisonFieldsData_friendsConnection_edges.fromJson(
@@ -298,7 +298,7 @@ class GcomparisonFieldsData_friendsConnection_edges
 class GHeroWithFragmentsData {
   const GHeroWithFragmentsData({
     this.hero,
-    required this.G__typename,
+    this.G__typename = 'Query',
   });
 
   factory GHeroWithFragmentsData.fromJson(Map<String, dynamic> json) {

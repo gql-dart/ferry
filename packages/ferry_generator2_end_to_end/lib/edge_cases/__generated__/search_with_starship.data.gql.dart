@@ -11,7 +11,7 @@ import 'package:ferry_generator2_end_to_end/graphql/__generated__/schema.utils.g
 class GSearchWithStarshipData {
   GSearchWithStarshipData({
     List<GSearchWithStarshipData_search?>? search,
-    required this.G__typename,
+    this.G__typename = 'Query',
   }) : search = search == null ? null : List.unmodifiable(search);
 
   factory GSearchWithStarshipData.fromJson(Map<String, dynamic> json) {
@@ -138,7 +138,7 @@ extension GSearchWithStarshipData_searchWhenExtension
 class GSearchWithStarshipData_search__asStarship
     extends GSearchWithStarshipData_search {
   GSearchWithStarshipData_search__asStarship({
-    required String G__typename,
+    String G__typename = 'Starship',
     required this.id,
     required this.name,
     this.length,
@@ -231,7 +231,7 @@ class GSearchWithStarshipData_search__asStarship
 class GSearchWithStarshipData_search__asHuman
     extends GSearchWithStarshipData_search {
   GSearchWithStarshipData_search__asHuman({
-    required String G__typename,
+    String G__typename = 'Human',
     required this.id,
     required this.name,
     required List<_i1.GEpisode?> appearsIn,

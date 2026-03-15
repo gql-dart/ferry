@@ -5,7 +5,7 @@
 class GHumanWithDirectivesData {
   const GHumanWithDirectivesData({
     this.human,
-    required this.G__typename,
+    this.G__typename = 'Query',
   });
 
   factory GHumanWithDirectivesData.fromJson(Map<String, dynamic> json) {
@@ -64,7 +64,7 @@ class GHumanWithDirectivesData_human {
   const GHumanWithDirectivesData_human({
     this.id,
     this.name,
-    required this.G__typename,
+    this.G__typename = 'Human',
   });
 
   factory GHumanWithDirectivesData_human.fromJson(Map<String, dynamic> json) {

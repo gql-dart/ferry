@@ -15,7 +15,7 @@ class GDroidFragmentData implements GDroidFragment {
   const GDroidFragmentData({
     this.primaryFunction,
     this.result,
-    required this.G__typename,
+    this.G__typename = 'Droid',
   });
 
   factory GDroidFragmentData.fromJson(Map<String, dynamic> json) {
@@ -84,7 +84,7 @@ class GDroidFragmentData implements GDroidFragment {
 class GHeroForEpisodeData {
   const GHeroForEpisodeData({
     this.hero,
-    required this.G__typename,
+    this.G__typename = 'Query',
   });
 
   factory GHeroForEpisodeData.fromJson(Map<String, dynamic> json) {
@@ -264,7 +264,7 @@ class GHeroForEpisodeData_hero__asDroid extends GHeroForEpisodeData_hero
   GHeroForEpisodeData_hero__asDroid({
     required String name,
     List<GHeroForEpisodeData_hero_friends?>? friends,
-    required String G__typename,
+    String G__typename = 'Droid',
     this.primaryFunction,
     this.result,
   }) : super(name: name, friends: friends, G__typename: G__typename);

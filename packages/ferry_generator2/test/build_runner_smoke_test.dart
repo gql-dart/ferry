@@ -97,7 +97,6 @@ void main() {
   }
 
   final emptyData = GSearchResultsQueryData(
-    G__typename: 'Query',
     search: <GSearchResultsQueryData_search?>[],
   );
   final emptyJson = emptyData.toJson();

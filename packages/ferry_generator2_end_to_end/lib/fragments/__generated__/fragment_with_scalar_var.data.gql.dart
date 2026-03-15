@@ -20,7 +20,7 @@ class GPostFragmentForUser1Data implements GPostFragmentForUser1 {
   const GPostFragmentForUser1Data({
     required this.id,
     this.favoritedUsers,
-    required this.G__typename,
+    this.G__typename = 'Post',
   });
 
   factory GPostFragmentForUser1Data.fromJson(Map<String, dynamic> json) {
@@ -88,7 +88,7 @@ class GPostFragmentForUser1Data_favoritedUsers
     implements GPostFragmentForUser1_favoritedUsers {
   const GPostFragmentForUser1Data_favoritedUsers({
     required this.totalCount,
-    required this.G__typename,
+    this.G__typename = 'PostLikes',
   });
 
   factory GPostFragmentForUser1Data_favoritedUsers.fromJson(
@@ -143,7 +143,7 @@ class GPostFragmentForUser1Data_favoritedUsers
 class GPostsWithFixedVariableData {
   GPostsWithFixedVariableData({
     List<GPostFragmentForUser1Data?>? posts,
-    required this.G__typename,
+    this.G__typename = 'Query',
   }) : posts = posts == null ? null : List.unmodifiable(posts);
 
   factory GPostsWithFixedVariableData.fromJson(Map<String, dynamic> json) {

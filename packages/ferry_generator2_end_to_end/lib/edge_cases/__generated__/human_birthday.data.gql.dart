@@ -7,7 +7,7 @@ import 'package:ferry_generator2_end_to_end/custom/date.dart';
 class GHumanBirthdayData {
   const GHumanBirthdayData({
     this.human,
-    required this.G__typename,
+    this.G__typename = 'Query',
   });
 
   factory GHumanBirthdayData.fromJson(Map<String, dynamic> json) {
@@ -67,7 +67,7 @@ class GHumanBirthdayData_human {
     required this.id,
     required this.name,
     required this.birthday,
-    required this.G__typename,
+    this.G__typename = 'Human',
   });
 
   factory GHumanBirthdayData_human.fromJson(Map<String, dynamic> json) {

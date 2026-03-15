@@ -96,7 +96,7 @@ class GSharedAuthorFragmentData__asPerson extends GSharedAuthorFragmentData
     implements GSharedAuthorFragment, GSharedAuthorFragment__asPerson {
   GSharedAuthorFragmentData__asPerson({
     required String displayName,
-    required String G__typename,
+    String G__typename = 'Person',
     required this.firstName,
     required this.lastName,
   }) : super(displayName: displayName, G__typename: G__typename);
@@ -162,7 +162,7 @@ class GSharedAuthorFragmentData__asCompany extends GSharedAuthorFragmentData
     implements GSharedAuthorFragment, GSharedAuthorFragment__asCompany {
   GSharedAuthorFragmentData__asCompany({
     required String displayName,
-    required String G__typename,
+    String G__typename = 'Company',
     required this.name,
   }) : super(displayName: displayName, G__typename: G__typename);
 
@@ -467,7 +467,7 @@ class GSharedBookFragmentData__asTextbook extends GSharedBookFragmentData
     required List<List<String>> tagMatrix,
     List<List<String?>?>? tagMatrixNullable,
     required List<List<GSharedBookFragmentData_relatedBooks>> relatedBooks,
-    required String G__typename,
+    String G__typename = 'Textbook',
     required List<String> courses,
   })  : courses = List.unmodifiable(courses),
         super(
@@ -586,7 +586,7 @@ class GSharedBookFragmentData__asColoringBook extends GSharedBookFragmentData
     required List<List<String>> tagMatrix,
     List<List<String?>?>? tagMatrixNullable,
     required List<List<GSharedBookFragmentData_relatedBooks>> relatedBooks,
-    required String G__typename,
+    String G__typename = 'ColoringBook',
     required List<String> colors,
   })  : colors = List.unmodifiable(colors),
         super(
@@ -809,7 +809,7 @@ class GSharedBookFragmentData__unknown extends GSharedBookFragmentData
 class GSharedBooksAData {
   GSharedBooksAData({
     required List<GSharedBookFragmentData> books,
-    required this.G__typename,
+    this.G__typename = 'Query',
   }) : books = List.unmodifiable(books);
 
   factory GSharedBooksAData.fromJson(Map<String, dynamic> json) {
@@ -867,7 +867,7 @@ class GSharedBooksAData {
 class GSharedBooksBData {
   GSharedBooksBData({
     required List<GSharedBookFragmentData> books,
-    required this.G__typename,
+    this.G__typename = 'Query',
   }) : books = List.unmodifiable(books);
 
   factory GSharedBooksBData.fromJson(Map<String, dynamic> json) {

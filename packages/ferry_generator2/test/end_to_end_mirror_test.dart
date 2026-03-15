@@ -112,6 +112,7 @@ void main() {
         _assetId(_heroWithFragmentsInput, _dataExtension),
         _assetId(_listArgumentInput, _varExtension),
         _assetId(_createReviewInput, _varExtension),
+        _assetId(_createReviewInput, _dataExtension),
         _assetId(_createCustomFieldInput, _varExtension),
         _assetId(_reviewWithDateInput, _varExtension),
         _assetId(_reviewWithDateInput, _dataExtension),
@@ -447,6 +448,46 @@ void main() {
     expect(_declaresMethod(heroData, 'toString'), isTrue);
   });
 
+  test('data constructors default inferable typenames', () async {
+    final objectLibrary = _libraryFor(_createReviewInput, _dataExtension);
+    final objectUnit = await _resolvedUnit(objectLibrary);
+    final mutationClass = ast_utils.classDecl(objectUnit, 'GCreateReviewData');
+    final reviewClass =
+        ast_utils.classDecl(objectUnit, 'GCreateReviewData_createReview');
+
+    expect(
+      _constructorDecl(mutationClass).toSource(),
+      contains("this.G__typename = 'Mutation'"),
+    );
+    expect(
+      _constructorDecl(reviewClass).toSource(),
+      contains("this.G__typename = 'Review'"),
+    );
+
+    final polymorphicLibrary = _libraryFor(
+      _heroForEpisodeInput,
+      _dataExtension,
+    );
+    final polymorphicUnit = await _resolvedUnit(polymorphicLibrary);
+    final inlineClass = ast_utils.classDecl(
+      polymorphicUnit,
+      'GHeroForEpisodeData_hero__asDroid',
+    );
+    final unknownClass = ast_utils.classDecl(
+      polymorphicUnit,
+      'GHeroForEpisodeData_hero__unknown',
+    );
+
+    expect(
+      _constructorDecl(inlineClass).toSource(),
+      contains("String G__typename = 'Droid'"),
+    );
+    expect(
+      _constructorDecl(unknownClass).toSource(),
+      contains('required String G__typename'),
+    );
+  });
+
   test('data classes omit utilities when disabled', () async {
     final fixtureRoot = p.join(
       Directory.current.path,
@@ -710,6 +751,15 @@ MethodDeclaration _methodDecl(ClassDeclaration classDecl, String name) {
   return classDecl.members
       .whereType<MethodDeclaration>()
       .firstWhere((member) => member.name.lexeme == name);
+}
+
+ConstructorDeclaration _constructorDecl(
+  ClassDeclaration classDecl, [
+  String? name,
+]) {
+  return classDecl.members
+      .whereType<ConstructorDeclaration>()
+      .firstWhere((ctor) => ctor.name?.lexeme == name);
 }
 
 TypeAnnotation _fieldTypeAnnotation(
