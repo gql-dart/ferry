@@ -221,6 +221,17 @@ void main() {
     );
   });
 
+  test('enum values escape reserved instance members without collisions',
+      () async {
+    final library = _libraryFor(_schemaInput, _schemaExtension);
+    final trollEnum = _enumIn(library, 'GTroll');
+
+    expect(
+      trollEnum.constants.map((constant) => constant.name),
+      equals(['GGname', 'Gname', 'GGindex', 'Gindex']),
+    );
+  });
+
   test('aliases use response keys and alias fields', () async {
     final library = _libraryFor(_aliasedHeroInput, _dataExtension);
     expect(_classIn(library, 'GAliasedHeroData'), isNotNull);

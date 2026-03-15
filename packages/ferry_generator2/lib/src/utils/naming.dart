@@ -53,10 +53,21 @@ const _reserved = <String>[
   "serializer",
 ];
 
+const _enumReserved = <String>[
+  "name",
+  "index",
+];
+
 String builtClassName(String name) => "G$name";
 
 String identifier(String raw) => _escapePrivate(_escapeReserved(raw));
 
+String enumValueIdentifier(String raw) =>
+    _escapePrivate(_escapeEnumReserved(_escapeReserved(raw)));
+
 String _escapeReserved(String raw) => _reserved.contains(raw) ? "G$raw" : raw;
+
+String _escapeEnumReserved(String raw) =>
+    _enumReserved.contains(raw) ? "G$raw" : raw;
 
 String _escapePrivate(String raw) => raw.startsWith("_") ? "G$raw" : raw;

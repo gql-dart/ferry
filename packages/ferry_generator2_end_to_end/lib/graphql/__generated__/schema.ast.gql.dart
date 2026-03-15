@@ -479,6 +479,42 @@ const Episode = _i1.EnumTypeDefinitionNode(
     ),
   ],
 );
+const TrollEnum = _i1.EnumTypeDefinitionNode(
+  name: _i1.NameNode(value: 'TrollEnum'),
+  directives: [],
+  values: [
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'name'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'Gname'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'index'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'Gindex'),
+      directives: [],
+    ),
+  ],
+);
+const HasuraValuesEnum = _i1.EnumTypeDefinitionNode(
+  name: _i1.NameNode(value: 'HasuraValuesEnum'),
+  directives: [],
+  values: [
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'name'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'index'),
+      directives: [],
+    ),
+  ],
+);
 const Character = _i1.InterfaceTypeDefinitionNode(
   name: _i1.NameNode(value: 'Character'),
   directives: [],
@@ -1378,6 +1414,15 @@ const WeirdNames = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'hasuraEnum'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'HasuraValuesEnum'),
+        isNonNull: false,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'result'),
       directives: [],
       args: [],
@@ -2054,6 +2099,8 @@ const document = _i1.DocumentNode(definitions: [
   Mutation,
   Subscription,
   Episode,
+  TrollEnum,
+  HasuraValuesEnum,
   Character,
   LengthUnit,
   Human,

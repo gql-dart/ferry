@@ -57,6 +57,18 @@ enum Episode {
   JEDI
 }
 
+enum TrollEnum {
+  name
+  Gname
+  index
+  Gindex
+}
+
+enum HasuraValuesEnum {
+    name
+    index
+}
+
 """A character from the Star Wars universe."""
 interface Character {
   # The ID of the character
@@ -233,6 +245,7 @@ type WeirdNames {
   copyWith: String
   hashCode: String
   values: [String]
+  hasuraEnum: HasuraValuesEnum
   result: String
   runtimeType: String
 }
