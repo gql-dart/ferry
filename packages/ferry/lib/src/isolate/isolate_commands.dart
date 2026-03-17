@@ -69,15 +69,15 @@ String _describeEvent(Object? event) {
 }
 
 @internal
-class RequestCommand<TData, TVars> extends IsolateCommand {
-  final OperationRequest<TData, TVars> request;
+class RequestCommand extends IsolateCommand {
+  final OperationRequest request;
 
   RequestCommand(SendPort sendPort, this.request) : super(sendPort);
 
   @override
   void handle(TypedLinkWithCacheAndRequestController client,
       ReceivePort globalReceivePort) {
-    final stream = client.request<TData, TVars>(request);
+    final stream = client.request(request);
     _handleStreamRequest(sendPort, stream);
   }
 }
