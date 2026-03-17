@@ -1,0 +1,6 @@
+query HumanWithArgs($id: ID!) {
+  human(id: $id) {
+    name
+    height
+  }
+}

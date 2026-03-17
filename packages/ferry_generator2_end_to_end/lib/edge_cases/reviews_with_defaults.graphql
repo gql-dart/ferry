@@ -1,0 +1,8 @@
+query ReviewsWithDefaults(
+  $episode: Episode! = NEWHOPE
+  $stars: [Int!] = [5]
+) {
+  reviews(episode: $episode, stars: $stars) {
+    episode
+  }
+}

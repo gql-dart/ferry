@@ -1,0 +1,8 @@
+#import "pokemon_card_fragment.graphql"
+
+query PokemonDetail($id: Int!) {
+  pokemon(where: {id: {_eq: $id}}, limit: 1) {
+    ...PokemonCard
+    base_experience
+  }
+}

@@ -1,0 +1,3 @@
+fragment SharedFragment on Character {
+    name
+}

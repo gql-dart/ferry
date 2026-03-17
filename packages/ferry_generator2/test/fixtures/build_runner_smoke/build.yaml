@@ -1,0 +1,13 @@
+targets:
+  $default:
+    sources:
+      - $package$
+      - lib/**
+    builders:
+      ferry_generator2|graphql_builder:
+        options:
+          schema:
+            file: ferry_generator2_smoke|lib/schema.graphql
+            add_typenames: true
+          vars:
+            tristate_optionals: true

@@ -1,0 +1,14 @@
+# import './fragment_friends_and_name.graphql';
+# import './fragment_name_and_id.graphql';
+
+query HeroWith2FragmentsWithSharedTransitiveFragments {
+    hero(episode: JEDI) {
+        ...heroNameAndId
+        ...heroFriendsAndName
+    }
+}
+
+
+
+
+

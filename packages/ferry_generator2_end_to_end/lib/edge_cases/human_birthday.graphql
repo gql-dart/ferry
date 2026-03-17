@@ -1,0 +1,7 @@
+query HumanBirthday($id: ID!) {
+  human(id: $id) {
+    id
+    name
+    birthday
+  }
+}

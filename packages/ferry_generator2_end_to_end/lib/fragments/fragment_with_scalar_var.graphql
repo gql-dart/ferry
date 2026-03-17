@@ -1,0 +1,12 @@
+fragment PostFragmentForUser1 on Post {
+    id
+    favoritedUsers(filter: {premium: true}) {
+        totalCount
+    }
+}
+
+query PostsWithFixedVariable($filter: Json) {
+    posts(userId: "1", filter: $filter) {
+        ...PostFragmentForUser1
+    }
+}

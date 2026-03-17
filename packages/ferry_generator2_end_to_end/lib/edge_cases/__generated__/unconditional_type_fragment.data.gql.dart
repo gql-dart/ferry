@@ -1,0 +1,287 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint
+
+abstract class GHumanName {
+  String get name;
+  String get G__typename;
+}
+
+class GHumanNameData implements GHumanName {
+  const GHumanNameData({
+    required this.name,
+    this.G__typename = 'Human',
+  });
+
+  factory GHumanNameData.fromJson(Map<String, dynamic> json) {
+    return GHumanNameData(
+      name: (json['name'] as String),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final String name;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['name'] = this.name;
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GHumanNameData copyWith({
+    String? name,
+    String? G__typename,
+  }) {
+    return GHumanNameData(
+      name: name ?? this.name,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GHumanNameData &&
+            name == other.name &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, name, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GHumanNameData(name: $name, G__typename: $G__typename)';
+  }
+}
+
+/// The query type for the schema.
+class GHeroUnconditionalTypeFragmentData {
+  const GHeroUnconditionalTypeFragmentData({
+    this.hero,
+    this.G__typename = 'Query',
+  });
+
+  factory GHeroUnconditionalTypeFragmentData.fromJson(
+      Map<String, dynamic> json) {
+    return GHeroUnconditionalTypeFragmentData(
+      hero: json['hero'] == null
+          ? null
+          : GHeroUnconditionalTypeFragmentData_hero.fromJson(
+              (json['hero'] as Map<String, dynamic>)),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  /// Hero for a given episode.
+  final GHeroUnconditionalTypeFragmentData_hero? hero;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$heroValue = this.hero;
+    _$result['hero'] = _$heroValue == null ? null : _$heroValue.toJson();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GHeroUnconditionalTypeFragmentData copyWith({
+    GHeroUnconditionalTypeFragmentData_hero? hero,
+    bool heroIsSet = false,
+    String? G__typename,
+  }) {
+    return GHeroUnconditionalTypeFragmentData(
+      hero: heroIsSet ? hero : this.hero,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GHeroUnconditionalTypeFragmentData &&
+            hero == other.hero &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, hero, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GHeroUnconditionalTypeFragmentData(hero: $hero, G__typename: $G__typename)';
+  }
+}
+
+/// A character from the Star Wars universe.
+sealed class GHeroUnconditionalTypeFragmentData_hero {
+  const GHeroUnconditionalTypeFragmentData_hero({
+    required this.G__typename,
+    required this.id,
+  });
+
+  factory GHeroUnconditionalTypeFragmentData_hero.fromJson(
+      Map<String, dynamic> json) {
+    switch (json['__typename'] as String) {
+      case 'Human':
+        return GHeroUnconditionalTypeFragmentData_hero__asHuman.fromJson(json);
+      default:
+        return GHeroUnconditionalTypeFragmentData_hero__unknown.fromJson(json);
+    }
+  }
+
+  final String G__typename;
+
+  final String id;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['__typename'] = this.G__typename;
+    _$result['id'] = this.id;
+    return _$result;
+  }
+}
+
+extension GHeroUnconditionalTypeFragmentData_heroWhenExtension
+    on GHeroUnconditionalTypeFragmentData_hero {
+  _T when<_T>({
+    required _T Function(GHeroUnconditionalTypeFragmentData_hero__asHuman)
+        human,
+    required _T Function() orElse,
+  }) {
+    switch (G__typename) {
+      case 'Human':
+        return human(this as GHeroUnconditionalTypeFragmentData_hero__asHuman);
+      default:
+        return orElse();
+    }
+  }
+
+  _T maybeWhen<_T>({
+    _T Function(GHeroUnconditionalTypeFragmentData_hero__asHuman)? human,
+    required _T Function() orElse,
+  }) {
+    switch (G__typename) {
+      case 'Human':
+        return human == null
+            ? orElse()
+            : human(this as GHeroUnconditionalTypeFragmentData_hero__asHuman);
+      default:
+        return orElse();
+    }
+  }
+}
+
+class GHeroUnconditionalTypeFragmentData_hero__asHuman
+    extends GHeroUnconditionalTypeFragmentData_hero implements GHumanName {
+  GHeroUnconditionalTypeFragmentData_hero__asHuman({
+    String G__typename = 'Human',
+    required String id,
+    required this.name,
+  }) : super(G__typename: G__typename, id: id);
+
+  factory GHeroUnconditionalTypeFragmentData_hero__asHuman.fromJson(
+      Map<String, dynamic> json) {
+    return GHeroUnconditionalTypeFragmentData_hero__asHuman(
+      G__typename: (json['__typename'] as String),
+      id: (json['id'] as String),
+      name: (json['name'] as String),
+    );
+  }
+
+  final String name;
+
+  Map<String, dynamic> toJson() {
+    final _$result = super.toJson();
+    _$result['name'] = this.name;
+    return _$result;
+  }
+
+  GHeroUnconditionalTypeFragmentData_hero__asHuman copyWith({
+    String? G__typename,
+    String? id,
+    String? name,
+  }) {
+    return GHeroUnconditionalTypeFragmentData_hero__asHuman(
+      G__typename: G__typename ?? this.G__typename,
+      id: id ?? this.id,
+      name: name ?? this.name,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GHeroUnconditionalTypeFragmentData_hero__asHuman &&
+            G__typename == other.G__typename &&
+            id == other.id &&
+            name == other.name);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, G__typename, id, name);
+  }
+
+  @override
+  String toString() {
+    return 'GHeroUnconditionalTypeFragmentData_hero__asHuman(G__typename: $G__typename, id: $id, name: $name)';
+  }
+}
+
+/// A character from the Star Wars universe.
+class GHeroUnconditionalTypeFragmentData_hero__unknown
+    extends GHeroUnconditionalTypeFragmentData_hero {
+  GHeroUnconditionalTypeFragmentData_hero__unknown({
+    required String G__typename,
+    required String id,
+  }) : super(G__typename: G__typename, id: id);
+
+  factory GHeroUnconditionalTypeFragmentData_hero__unknown.fromJson(
+      Map<String, dynamic> json) {
+    return GHeroUnconditionalTypeFragmentData_hero__unknown(
+      G__typename: (json['__typename'] as String),
+      id: (json['id'] as String),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    final _$result = super.toJson();
+    return _$result;
+  }
+
+  GHeroUnconditionalTypeFragmentData_hero__unknown copyWith({
+    String? G__typename,
+    String? id,
+  }) {
+    return GHeroUnconditionalTypeFragmentData_hero__unknown(
+      G__typename: G__typename ?? this.G__typename,
+      id: id ?? this.id,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GHeroUnconditionalTypeFragmentData_hero__unknown &&
+            G__typename == other.G__typename &&
+            id == other.id);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, G__typename, id);
+  }
+
+  @override
+  String toString() {
+    return 'GHeroUnconditionalTypeFragmentData_hero__unknown(G__typename: $G__typename, id: $id)';
+  }
+}

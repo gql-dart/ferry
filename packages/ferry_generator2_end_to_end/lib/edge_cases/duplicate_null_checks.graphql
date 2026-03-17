@@ -1,0 +1,3 @@
+query DuplicateNullChecks($input: DuplicateNullChecksInput) {
+  duplicateNullChecks(input: $input)
+}

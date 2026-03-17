@@ -1,0 +1,34 @@
+query SearchResultsQuery {
+  search(text: "skywalker") {
+    ... on Human {
+      ...CharacterDetails
+    }
+    ... on Droid {
+      ...CharacterDetails
+    }
+  }
+}
+
+fragment CharacterDetails on Character {
+  id
+  name
+  friends {
+    ...FriendInfo
+  }
+  appearsIn
+}
+
+fragment FriendInfo on Character {
+  id
+  name
+  friendsConnection(first: 3) {
+    friends {
+      ...CharacterBasic
+    }
+  }
+}
+
+fragment CharacterBasic on Character {
+  id
+  name
+}

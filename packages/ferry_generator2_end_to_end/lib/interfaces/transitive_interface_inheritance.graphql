@@ -1,0 +1,27 @@
+query AThingTransitiveInterfaceInheritance {
+  aThing {
+    __typename
+    id
+    ... on B {
+      bField
+    }
+    ... on John {
+      johnOnly
+    }
+  }
+}
+
+query BThingTransitiveInterfaceInheritance {
+  bThing {
+    __typename
+    id
+    bField
+    ... on Foo {
+      fooOnly
+    }
+    ... on Bar {
+      barOnly
+    }
+  }
+}
+

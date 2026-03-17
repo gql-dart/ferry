@@ -1,0 +1,16 @@
+name: ferry_generator2_smoke
+publish_to: none
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  gql: ^1.0.0
+  gql_exec: ^1.1.0
+  gql_tristate_value: ^1.0.0
+  ferry_exec:
+    path: __FERRY_EXEC_PATH__
+
+dev_dependencies:
+  build_runner: ^2.0.2
+  ferry_generator2:
+    path: __FERRY_GENERATOR2_PATH__

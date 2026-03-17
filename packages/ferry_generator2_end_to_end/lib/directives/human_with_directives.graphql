@@ -1,0 +1,6 @@
+query HumanWithDirectives($includeName: Boolean!, $skipId: Boolean!) {
+  human(id: "1000") {
+    id @skip(if: $skipId)
+    name @include(if: $includeName)
+  }
+}

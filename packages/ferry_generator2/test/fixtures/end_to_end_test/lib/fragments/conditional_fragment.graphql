@@ -1,0 +1,11 @@
+query HeroConditionalFragment($includeName: Boolean!) {
+  hero(episode: NEWHOPE) {
+    __typename
+    id
+    ...HeroName @include(if: $includeName)
+  }
+}
+
+fragment HeroName on Character {
+  name
+}

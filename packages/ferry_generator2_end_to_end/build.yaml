@@ -1,0 +1,45 @@
+targets:
+  $default:
+    sources:
+      - $package$
+      - lib/**
+    builders:
+      ferry_generator2|graphql_builder:
+        options:
+          schema:
+            file: ferry_generator2_end_to_end|lib/graphql/schema.graphql
+            add_typenames: true
+          vars:
+            tristate_optionals: true
+          formatting:
+            language_version: 3.6
+          enums:
+            fallback:
+              global: true
+              name: gUnknownEnumValue
+          data_classes:
+            when_extensions:
+              when: true
+              maybe_when: true
+            utils:
+              copy_with: true
+              equals: true
+              hash_code: true
+              to_string: true
+          docs:
+            enabled: true
+          scalars:
+            Date:
+              type: CustomDate
+              import: package:ferry_generator2_end_to_end/custom/date.dart
+              from_json: customDateFromJson
+              to_json: customDateToJson
+            CustomField:
+              type: String
+            Json:
+              type: 'Map<String, dynamic>'
+          logging:
+            level: info
+            format: text
+          collections:
+            mode: unmodifiable

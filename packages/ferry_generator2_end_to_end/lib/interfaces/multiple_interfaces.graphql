@@ -1,0 +1,21 @@
+
+query MultipleInterfaces {
+  cThing {
+      id
+      ... on Other {
+          dField
+      }
+  }
+  dThing {
+      id
+      ... on Other {
+          cField
+      }
+  }
+  other {
+      id
+      cField
+      dField
+      otherField
+  }
+}

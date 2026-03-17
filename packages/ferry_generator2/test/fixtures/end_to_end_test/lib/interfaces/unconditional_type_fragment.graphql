@@ -1,0 +1,13 @@
+query HeroUnconditionalTypeFragment {
+  hero(episode: NEWHOPE) {
+    __typename
+    id
+    ... on Human {
+      ...HumanName
+    }
+  }
+}
+
+fragment HumanName on Human {
+  name
+}

@@ -1,0 +1,28 @@
+name: pokemon_explorer2
+description: "Pokemon explorer example using ferry_generator2."
+publish_to: none
+version: 0.0.1
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  ferry: ^0.16.2-dev.4
+  ferry_flutter: ^0.9.1-dev.4
+  gql: ^1.0.0
+  gql_exec: ^1.0.0
+  gql_http_link: ">=0.4.0 <2.0.0"
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  build_runner: ^2.0.2
+  ferry_generator2:
+    path: ../../packages/ferry_generator2
+
+flutter:
+  uses-material-design: true

@@ -1,3 +1,7 @@
+## 0.14.0-dev.3
+
+ - **CHORE**: update `build` to `^4.0.0` (#653).
+
 ## 0.14.0-dev.2
 
  - **FIX**(generator): support analyzer v7 APIs (#650).

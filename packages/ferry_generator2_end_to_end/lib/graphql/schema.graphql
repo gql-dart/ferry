@@ -1,0 +1,355 @@
+# Schema borrowed from https://github.com/apollographql/starwars-server
+
+schema {
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
+}
+
+directive @extends on OBJECT | INTERFACE
+
+directive @oneOf on INPUT_OBJECT
+
+"""The query type for the schema."""
+type Query {
+  "Hero for a given episode."
+  hero(episode: Episode): Character
+  "Reviews for a given episode."
+  reviews(episode: Episode!, stars: [Int!]): [Review]
+  reviewBy(by: ReviewBy!): Review
+  duplicateNullChecks(input: DuplicateNullChecksInput): String
+  search(text: String): [SearchResult]
+  character(id: ID!): Character
+  droid(id: ID!): Droid
+  human(id: ID!): Human
+  starship(id: ID!): Starship
+  posts(userId: ID!, filter: Json): [Post]
+  settings: Json
+  postsByLikes(likes: [PostLikesInput]): [Post]
+  weirdNames: WeirdNames
+  books: [Book!]!
+  aThing: A
+  bThing: B
+  cThing: C
+  dThing: D
+  other: Other
+}
+
+"""The mutation type for the schema."""
+type Mutation {
+  "Create a new review."
+  createReview(episode: Episode, review: ReviewInput!, createdAt: Date): Review
+  createCustomField(input: CustomFieldInput!): CustomField
+}
+
+"""The subscription type for the schema."""
+type Subscription {
+  reviewAdded(episode: Episode): Review
+}
+
+"""The episodes in the Star Wars trilogy."""
+enum Episode {
+  "Star Wars Episode IV: A New Hope, released in 1977."
+  NEWHOPE
+  # Star Wars Episode V: The Empire Strikes Back, released in 1980.
+  EMPIRE
+  # Star Wars Episode VI: Return of the Jedi, released in 1983.
+  JEDI
+}
+
+enum TrollEnum {
+  name
+  Gname
+  index
+  Gindex
+}
+
+enum HasuraValuesEnum {
+    name
+    index
+}
+
+"""A character from the Star Wars universe."""
+interface Character {
+  # The ID of the character
+  id: ID!
+  # The name of the character
+  name: String!
+  # The friends of the character, or an empty list if they have none
+  friends: [Character]
+  # The friends of the character exposed as a connection with edges
+  friendsConnection(first: Int, after: ID): FriendsConnection!
+  # The movies this character appears in
+  appearsIn: [Episode]!
+}
+
+# Units of height
+enum LengthUnit {
+  # The standard unit around the world
+  METER
+  # Primarily used in the United States
+  FOOT
+}
+
+# A humanoid creature from the Star Wars universe
+type Human implements Character {
+  # The ID of the human
+  id: ID!
+  # What this human calls themselves
+  name: String!
+  # The home planet of the human, or null if unknown
+  homePlanet: String
+  # Height in the preferred unit, default is meters
+  height(unit: LengthUnit = METER): Float
+  # Mass in kilograms, or null if unknown
+  mass: Float
+  # This human's friends, or an empty list if they have none
+  friends: [Character]
+  # The friends of the human exposed as a connection with edges
+  friendsConnection(first: Int, after: ID): FriendsConnection!
+  # The movies this human appears in
+  appearsIn: [Episode]!
+  # A list of starships this person has piloted, or an empty list if none
+  starships: [Starship]
+  # This person's birth date
+  birthday: Date!
+}
+
+# An autonomous mechanical character in the Star Wars universe
+type Droid implements Character {
+  # The ID of the droid
+  id: ID!
+  # What others call this droid
+  name: String!
+  # This droid's friends, or an empty list if they have none
+  friends: [Character]
+  # The friends of the droid exposed as a connection with edges
+  friendsConnection(first: Int, after: ID): FriendsConnection!
+  # The movies this droid appears in
+  appearsIn: [Episode]!
+  # This droid's primary function
+  primaryFunction: String
+  # Used in generator tests (e.g. local variable name collisions in emitters).
+  result: String
+}
+
+# A connection object for a character's friends
+type FriendsConnection {
+  # The total number of friends
+  totalCount: Int
+  # The edges for each of the character's friends.
+  edges: [FriendsEdge]
+  # A list of the friends, as a convenience when edges are not needed.
+  friends: [Character]
+  # Information for paginating this connection
+  pageInfo: PageInfo!
+}
+
+# An edge object for a character's friends
+type FriendsEdge {
+  # A cursor used for pagination
+  cursor: ID!
+  # The character represented by this friendship edge
+  node: Character
+}
+
+# Information for paginating this connection
+type PageInfo {
+  startCursor: ID
+  endCursor: ID
+  hasNextPage: Boolean!
+}
+
+# Represents a review for a movie
+type Review {
+  # The movie
+  episode: Episode
+  # The number of stars this review gave, 1-5
+  stars: Int!
+  # Comment about the movie
+  commentary: String
+  # Date review created
+  createdAt: Date
+  # Date episode seen
+  seenOn: [Date!]!
+  # A custom field
+  custom: [CustomField!]!
+}
+
+"""Input object sent when creating a new review."""
+input ReviewInput {
+  "0-5 stars."
+  stars: Int!
+  # Comment about the movie, optional
+  commentary: String
+  # Favorite color, optional
+  favorite_color: ColorInput
+  # Date viewed
+  seenOn: [Date]
+}
+
+"""OneOf input used to locate a review by exactly one criterion."""
+input ReviewBy @oneOf {
+  id: ID
+  createdAt: Date
+  seenOn: [Date]
+  favorite_color: ColorInput
+}
+
+input CustomFieldInput {
+  id: ID!
+  customField: CustomField
+}
+
+# The input object sent when passing in a color
+input ColorInput {
+  red: Int!
+  green: Int!
+  blue: Int!
+}
+
+"""Repro input for duplicate null checks in generated schema toJson."""
+input DuplicateNullChecksInput {
+  nullableText: String
+}
+
+type Starship {
+  # The ID of the starship
+  id: ID!
+  # The name of the starship
+  name: String!
+  # Length of the starship, along the longest axis
+  length(unit: LengthUnit = METER): Float
+  coordinates: [[Float!]!]
+}
+
+type Post {
+  id: ID!
+  body: String!
+  favoritedUsers(where: PostLikesInput, filter: Json): PostLikes
+  likedUsers(where: PostFavoritesInput): PostFavorites
+}
+
+type PostLikes {
+  totalCount: Int!
+}
+
+type PostFavorites {
+  totalCount: Int!
+}
+
+type WeirdNames {
+  class: String
+  toJson: String
+  fromJson: String
+  copyWith: String
+  hashCode: String
+  values: [String]
+  hasuraEnum: HasuraValuesEnum
+  result: String
+  runtimeType: String
+}
+
+input PostLikesInput {
+  id: ID!
+}
+
+input PostFavoritesInput {
+  id: ID!
+}
+
+"""Author interface."""
+interface Author {
+    "Display name for the author."
+    displayName: String!
+}
+
+type Person implements Author {
+    firstName: String!
+    lastName: String!
+    displayName: String!
+}
+
+type Company implements Author {
+    name: String!
+    displayName: String!
+}
+
+"""Book interface."""
+interface Book {
+    "Book title."
+    title: String!
+    author: Author!
+    tagMatrix: [[String!]!]!
+    tagMatrixNullable: [[String]]
+    relatedBooks: [[Book!]!]!
+}
+
+type Textbook implements Book {
+    title: String!
+    author: Author!
+    courses: [String!]!
+    tagMatrix: [[String!]!]!
+    tagMatrixNullable: [[String]]
+    relatedBooks: [[Book!]!]!
+}
+
+type ColoringBook implements Book {
+    title: String!
+    author: Author!
+    colors: [String!]!
+    tagMatrix: [[String!]!]!
+    tagMatrixNullable: [[String]]
+    relatedBooks: [[Book!]!]!
+}
+
+union SearchResult = Human | Droid | Starship
+
+scalar Date
+scalar ISODate
+scalar CustomField
+
+scalar Json
+
+# Transitive interface inheritance example from:
+# https://github.com/gql-dart/ferry/pull/656#issuecomment-3896296190
+interface A {
+  id: ID!
+}
+
+interface B implements A {
+  id: ID!
+  bField: String!
+}
+
+type Foo implements B {
+  id: ID!
+  bField: String!
+  fooOnly: String!
+}
+
+type Bar implements B {
+  id: ID!
+  bField: String!
+  barOnly: String!
+}
+
+type John implements A {
+  id: ID!
+  johnOnly: String!
+}
+
+interface C {
+    id: ID!
+    cField: String!
+}
+interface D {
+    id: ID!
+    dField: String!
+}
+type Other implements C & D {
+    id: ID!
+    otherField: String!
+    cField: String!
+    dField: String!
+}

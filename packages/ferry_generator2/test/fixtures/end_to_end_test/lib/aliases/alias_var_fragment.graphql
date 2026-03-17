@@ -1,0 +1,15 @@
+fragment PostFragment on Post {
+    id
+    isFavorited: favoritedUsers(where: {id: $userId}) {
+        totalCount
+    }
+    isLiked: likedUsers(where: {id: $userId}) {
+        totalCount
+    }
+}
+
+query Posts($userId: ID!) {
+    posts(userId: $userId) {
+        ...PostFragment
+    }
+}

@@ -1,0 +1,12 @@
+mutation CreateReviewWithDirectives(
+  $episode: Episode
+  $review: ReviewInput!
+  $includeReview: Boolean!
+  $skipCommentary: Boolean!
+) {
+  createReview(episode: $episode, review: $review) @include(if: $includeReview) {
+    episode
+    stars
+    commentary @skip(if: $skipCommentary)
+  }
+}

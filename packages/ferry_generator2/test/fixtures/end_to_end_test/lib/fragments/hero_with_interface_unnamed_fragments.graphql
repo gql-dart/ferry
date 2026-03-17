@@ -1,0 +1,24 @@
+query HeroWithInterfaceUnnamedFragments($episode: Episode!) {
+  hero(episode: $episode) {
+    id
+    name
+    ... on Human {
+      homePlanet
+      friends {
+        ... on Human {
+          id
+          name
+          homePlanet
+        }
+        ... on Droid {
+          id
+          name
+          primaryFunction
+        }
+      }
+    }
+    ... on Droid {
+      primaryFunction
+    }
+  }
+}

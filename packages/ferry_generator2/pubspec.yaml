@@ -1,0 +1,30 @@
+name: ferry_generator2
+version: 0.1.0-dev.4
+homepage: https://ferry.gql-dart.dev
+description: Next-gen Ferry GraphQL code generator
+repository: https://github.com/gql-dart/ferry
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+topics:
+  - graphql
+  - gql
+  - ferry
+  - codegen
+dependencies:
+  build: ^4.0.3
+  code_builder: ^4.3.0
+  dart_style: ^3.0.1
+  glob: ^2.0.1
+  gql: ">=0.14.0 <2.0.0"
+  gql_tristate_value: ^1.0.0
+  path: ^1.8.0
+  pub_semver: ^2.0.0
+  yaml: ^3.1.0
+dev_dependencies:
+  analyzer: ^9.0.0
+  build_runner: ^2.0.2
+  build_test: ^3.3.2
+  ferry_exec:
+    path: ../ferry_exec
+  logging: ^1.2.0
+  test: ^1.16.8

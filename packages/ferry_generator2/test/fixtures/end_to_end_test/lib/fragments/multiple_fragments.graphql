@@ -1,0 +1,17 @@
+
+
+fragment heroName on Character {
+    name
+}
+
+fragment  heroId  on Character {
+    id
+}
+
+
+query HeroWith2Fragments {
+    hero(episode: JEDI) {
+        ...heroName
+        ...heroId
+    }
+}
