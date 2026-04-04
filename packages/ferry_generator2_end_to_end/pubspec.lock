@@ -180,7 +180,7 @@ packages:
       path: "../ferry_generator2"
       relative: true
     source: path
-    version: "0.1.0-dev.3"
+    version: "0.1.0-dev.4"
   ferry_store:
     dependency: "direct overridden"
     description:

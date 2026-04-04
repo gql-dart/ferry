@@ -48,6 +48,7 @@ import 'package:ferry_generator2_end_to_end/variables/__generated__/create_revie
 import 'package:ferry_generator2_end_to_end/variables/__generated__/human_with_args.data.gql.dart';
 import 'package:ferry_generator2_end_to_end/graphql/__generated__/schema.schema.gql.dart'
     as _schema;
+import 'package:gql/ast.dart' as _i1;
 import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:test/test.dart';
 
@@ -964,7 +965,6 @@ void main() {
 
   test('review added subscription round-trips and vars serialize', () {
     final input = {
-      '__typename': 'Subscription',
       'reviewAdded': {
         '__typename': 'Review',
         'episode': 'EMPIRE',
@@ -987,6 +987,17 @@ void main() {
     final req = GReviewAddedReq(vars: vars);
     expect(req.execRequest.variables, equals(varsJson));
     expect(req.dataToJson(GReviewAddedData.fromJson(input)), equals(input));
+
+    final operation = req.operation.document.definitions.single
+        as _i1.OperationDefinitionNode;
+    expect(
+      operation.selectionSet.selections.whereType<_i1.FieldNode>().length,
+      1,
+    );
+    expect(
+      (operation.selectionSet.selections.single as _i1.FieldNode).name.value,
+      'reviewAdded',
+    );
   });
 
   test('operation request parseData and vars serialize', () {
