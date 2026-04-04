@@ -7,61 +7,48 @@ import 'package:ferry_generator2_end_to_end/graphql/__generated__/schema.schema.
 
 /// The subscription type for the schema.
 class GReviewAddedData {
-  const GReviewAddedData({
-    this.reviewAdded,
-    this.G__typename = 'Subscription',
-  });
+  const GReviewAddedData({this.reviewAdded});
 
   factory GReviewAddedData.fromJson(Map<String, dynamic> json) {
     return GReviewAddedData(
-      reviewAdded: json['reviewAdded'] == null
-          ? null
-          : GReviewAddedData_reviewAdded.fromJson(
-              (json['reviewAdded'] as Map<String, dynamic>)),
-      G__typename: (json['__typename'] as String),
-    );
+        reviewAdded: json['reviewAdded'] == null
+            ? null
+            : GReviewAddedData_reviewAdded.fromJson(
+                (json['reviewAdded'] as Map<String, dynamic>)));
   }
 
   final GReviewAddedData_reviewAdded? reviewAdded;
-
-  final String G__typename;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
     final _$reviewAddedValue = this.reviewAdded;
     _$result['reviewAdded'] =
         _$reviewAddedValue == null ? null : _$reviewAddedValue.toJson();
-    _$result['__typename'] = this.G__typename;
     return _$result;
   }
 
   GReviewAddedData copyWith({
     GReviewAddedData_reviewAdded? reviewAdded,
     bool reviewAddedIsSet = false,
-    String? G__typename,
   }) {
     return GReviewAddedData(
-      reviewAdded: reviewAddedIsSet ? reviewAdded : this.reviewAdded,
-      G__typename: G__typename ?? this.G__typename,
-    );
+        reviewAdded: reviewAddedIsSet ? reviewAdded : this.reviewAdded);
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GReviewAddedData &&
-            reviewAdded == other.reviewAdded &&
-            G__typename == other.G__typename);
+        (other is GReviewAddedData && reviewAdded == other.reviewAdded);
   }
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, reviewAdded, G__typename);
+    return Object.hash(runtimeType, reviewAdded);
   }
 
   @override
   String toString() {
-    return 'GReviewAddedData(reviewAdded: $reviewAdded, G__typename: $G__typename)';
+    return 'GReviewAddedData(reviewAdded: $reviewAdded)';
   }
 }
 

@@ -19,7 +19,10 @@ DefinitionNode _addTypenameDefinition(DefinitionNode definition) {
       name: definition.name,
       variableDefinitions: definition.variableDefinitions,
       directives: definition.directives,
-      selectionSet: _addTypenameSelectionSet(definition.selectionSet),
+      selectionSet: _addTypenameSelectionSet(
+        definition.selectionSet,
+        includeTypename: definition.type != OperationType.subscription,
+      ),
     );
   }
 
@@ -35,10 +38,13 @@ DefinitionNode _addTypenameDefinition(DefinitionNode definition) {
   return definition;
 }
 
-SelectionSetNode _addTypenameSelectionSet(SelectionSetNode selectionSet) {
+SelectionSetNode _addTypenameSelectionSet(
+  SelectionSetNode selectionSet, {
+  bool includeTypename = true,
+}) {
   final selections =
       selectionSet.selections.map(_addTypenameSelection).toList();
-  if (!_hasTypename(selections)) {
+  if (includeTypename && !_hasTypename(selections)) {
     selections.add(
       FieldNode(
         name: NameNode(value: "__typename"),
