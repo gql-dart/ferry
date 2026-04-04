@@ -1,3 +1,7 @@
+## 0.1.0-dev.5
+
+ - **FIX**(generator2): skip root __typename on subscriptions (#669).
+
 ## 0.1.0-dev.4
 
  - **FIX**(generator2): escape enum value member collisions (#668).

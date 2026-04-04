@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2026-04-04
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`ferry_generator2` - `v0.1.0-dev.5`](#ferry_generator2---v010-dev5)
+
+---
+
+#### `ferry_generator2` - `v0.1.0-dev.5`
+
+ - **FIX**(generator2): skip root __typename on subscriptions (#669).
+
+
 ## 2026-03-15
 
 ### Changes
