@@ -30,9 +30,14 @@ String _getEndpoint() {
       defaultValue: 'http://localhost:3010/graphql');
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -52,6 +57,27 @@ class MyApp extends StatelessWidget {
       ),
       home: const MyHomePage(),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.hidden) {
+      final ref = ProviderScope.containerOf(context, listen: false);
+      final client = ref.read(clientProvider);
+      client.flushStore();
+    }
   }
 }
 

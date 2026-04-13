@@ -1,0 +1,29 @@
+name: ferry_store_benchmark
+description: A starting point for Dart libraries or applications.
+version: 1.0.0
+publish_to: none
+# repository: https://github.com/my_org/my_repo
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+# Add regular dependencies here.
+dependencies:
+  ferry_cache:
+    path: ../../packages/ferry_cache
+  ferry_store:
+    path: ../../packages/ferry_store
+  ferry_hive_ce_store:
+    path: ../../packages/ferry_hive_ce_store
+  ferry_sqlite_store:
+    path: ../../packages/ferry_sqlite_store
+  benchmark_harness: ^2.3.1
+  hive_ce: ^2.0.0
+  sqlite3: ^2.7.3
+  rxdart: ^0.28.0
+
+
+
+dev_dependencies:
+  lints: ^5.0.0
+  test: ^1.24.0
