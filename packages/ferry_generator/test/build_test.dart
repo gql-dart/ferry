@@ -1,5 +1,4 @@
 @TestOn('vm')
-
 import 'package:ferry_generator/graphql_builder.dart';
 import 'package:ferry_generator/serializer_builder.dart';
 import 'package:build_test/build_test.dart';
@@ -136,69 +135,111 @@ void main() {
           module1MutationPath,
           module2SchemaPath,
           module2QueryPath,
-          module2MutationPath
+          module2MutationPath,
         },
         outputs: {
           mainSchemaAstPath: decodedMatches(
-              contains('const Platform = _i1.EnumTypeDefinitionNode(')),
-          mainSchemaSchemaPath:
-              decodedMatches(contains('class GPlatform extends EnumClass {')),
+            contains('const Platform = _i1.EnumTypeDefinitionNode('),
+          ),
+          mainSchemaSchemaPath: decodedMatches(
+            contains('class GPlatform extends EnumClass {'),
+          ),
           mainSchemaQueryAstPath: decodedMatches(
-              contains('const SignIn = _i1.OperationDefinitionNode(')),
-          mainSchemaQueryDataPath: decodedMatches(contains(
-              'import \'package:a/__generated__/serializers.gql.dart\' as _i1;\n')),
-          mainSchemaQueryVarPath: decodedMatches(contains(
-              'import \'package:a/__generated__/schema.schema.gql.dart\' as _i1;\n')),
-          mainSchemaQueryReqPath:
-              decodedMatches(contains('abstract class GSignInReq')),
+            contains('const SignIn = _i1.OperationDefinitionNode('),
+          ),
+          mainSchemaQueryDataPath: decodedMatches(
+            contains(
+              'import \'package:a/__generated__/serializers.gql.dart\' as _i1;\n',
+            ),
+          ),
+          mainSchemaQueryVarPath: decodedMatches(
+            contains(
+              'import \'package:a/__generated__/schema.schema.gql.dart\' as _i1;\n',
+            ),
+          ),
+          mainSchemaQueryReqPath: decodedMatches(
+            contains('abstract class GSignInReq'),
+          ),
           mainSchemaMutationAstPath: decodedMatches(
-              contains('const SignUp = _i1.OperationDefinitionNode(')),
-          mainSchemaMutationDataPath:
-              decodedMatches(contains('abstract class GSignUpData')),
-          mainSchemaMutationVarPath:
-              decodedMatches(contains('abstract class GSignUpVars')),
-          mainSchemaMutationReqPath:
-              decodedMatches(contains('abstract class GSignUpReq')),
+            contains('const SignUp = _i1.OperationDefinitionNode('),
+          ),
+          mainSchemaMutationDataPath: decodedMatches(
+            contains('abstract class GSignUpData'),
+          ),
+          mainSchemaMutationVarPath: decodedMatches(
+            contains('abstract class GSignUpVars'),
+          ),
+          mainSchemaMutationReqPath: decodedMatches(
+            contains('abstract class GSignUpReq'),
+          ),
           module1SchemaAstPath: decodedMatches(
-              contains('const Platform = _i1.EnumTypeDefinitionNode(')),
-          module1SchemaSchemaPath:
-              decodedMatches(contains('class GPlatform extends EnumClass {')),
+            contains('const Platform = _i1.EnumTypeDefinitionNode('),
+          ),
+          module1SchemaSchemaPath: decodedMatches(
+            contains('class GPlatform extends EnumClass {'),
+          ),
           module1SchemaQueryAstPath: decodedMatches(
-              contains('const SignIn = _i1.OperationDefinitionNode(')),
-          module1SchemaQueryDataPath: decodedMatches(contains(
-              'import \'package:a/module1/__generated__/serializers.gql.dart\' as _i1;\n')),
-          module1SchemaQueryVarPath: decodedMatches(contains(
-              'import \'package:a/module1/__generated__/schema1.schema.gql.dart\' as _i1;\n')),
-          module1SchemaQueryReqPath:
-              decodedMatches(contains('abstract class GSignInReq')),
+            contains('const SignIn = _i1.OperationDefinitionNode('),
+          ),
+          module1SchemaQueryDataPath: decodedMatches(
+            contains(
+              'import \'package:a/module1/__generated__/serializers.gql.dart\' as _i1;\n',
+            ),
+          ),
+          module1SchemaQueryVarPath: decodedMatches(
+            contains(
+              'import \'package:a/module1/__generated__/schema1.schema.gql.dart\' as _i1;\n',
+            ),
+          ),
+          module1SchemaQueryReqPath: decodedMatches(
+            contains('abstract class GSignInReq'),
+          ),
           module1SchemaMutationAstPath: decodedMatches(
-              contains('const SignUp = _i1.OperationDefinitionNode(')),
-          module1SchemaMutationDataPath:
-              decodedMatches(contains('abstract class GSignUpData')),
-          module1SchemaMutationVarPath:
-              decodedMatches(contains('abstract class GSignUpVars')),
-          module1SchemaMutationReqPath:
-              decodedMatches(contains('abstract class GSignUpReq')),
+            contains('const SignUp = _i1.OperationDefinitionNode('),
+          ),
+          module1SchemaMutationDataPath: decodedMatches(
+            contains('abstract class GSignUpData'),
+          ),
+          module1SchemaMutationVarPath: decodedMatches(
+            contains('abstract class GSignUpVars'),
+          ),
+          module1SchemaMutationReqPath: decodedMatches(
+            contains('abstract class GSignUpReq'),
+          ),
           module2SchemaAstPath: decodedMatches(
-              contains('const Platform = _i1.EnumTypeDefinitionNode(')),
-          module2SchemaSchemaPath:
-              decodedMatches(contains('class GPlatform extends EnumClass {')),
+            contains('const Platform = _i1.EnumTypeDefinitionNode('),
+          ),
+          module2SchemaSchemaPath: decodedMatches(
+            contains('class GPlatform extends EnumClass {'),
+          ),
           module2SchemaQueryAstPath: decodedMatches(
-              contains('const SignIn = _i1.OperationDefinitionNode(')),
-          module2SchemaQueryDataPath: decodedMatches(contains(
-              'import \'package:a/module2/__generated__/serializers.gql.dart\' as _i1;\n')),
-          module2SchemaQueryVarPath: decodedMatches(contains(
-              'import \'package:a/module2/__generated__/schema2.schema.gql.dart\' as _i1;\n')),
-          module2SchemaQueryReqPath:
-              decodedMatches(contains('abstract class GSignInReq')),
+            contains('const SignIn = _i1.OperationDefinitionNode('),
+          ),
+          module2SchemaQueryDataPath: decodedMatches(
+            contains(
+              'import \'package:a/module2/__generated__/serializers.gql.dart\' as _i1;\n',
+            ),
+          ),
+          module2SchemaQueryVarPath: decodedMatches(
+            contains(
+              'import \'package:a/module2/__generated__/schema2.schema.gql.dart\' as _i1;\n',
+            ),
+          ),
+          module2SchemaQueryReqPath: decodedMatches(
+            contains('abstract class GSignInReq'),
+          ),
           module2SchemaMutationAstPath: decodedMatches(
-              contains('const SignUp = _i1.OperationDefinitionNode(')),
-          module2SchemaMutationDataPath:
-              decodedMatches(contains('abstract class GSignUpData')),
-          module2SchemaMutationVarPath:
-              decodedMatches(contains('abstract class GSignUpVars')),
-          module2SchemaMutationReqPath:
-              decodedMatches(contains('abstract class GSignUpReq')),
+            contains('const SignUp = _i1.OperationDefinitionNode('),
+          ),
+          module2SchemaMutationDataPath: decodedMatches(
+            contains('abstract class GSignUpData'),
+          ),
+          module2SchemaMutationVarPath: decodedMatches(
+            contains('abstract class GSignUpVars'),
+          ),
+          module2SchemaMutationReqPath: decodedMatches(
+            contains('abstract class GSignUpReq'),
+          ),
         },
       );
     });
@@ -213,18 +254,23 @@ void main() {
       await testBuilder(
         SerializerBuilder(config),
         sourceAssets,
-        generateFor: {
-          r'a|lib/$lib$',
-          module1SchemaPath,
-          module2SchemaPath,
-        },
+        generateFor: {r'a|lib/$lib$', module1SchemaPath, module2SchemaPath},
         outputs: {
-          mainSchemaSerilizerPath: decodedMatches(contains(
-              'final SerializersBuilder _serializersBuilder = _\$serializers.toBuilder()')),
-          module1SchemaSerilizerPath: decodedMatches(contains(
-              'final SerializersBuilder _serializersBuilder = _\$serializers.toBuilder()')),
-          module2SchemaSerilizerPath: decodedMatches(contains(
-              'final SerializersBuilder _serializersBuilder = _\$serializers.toBuilder()')),
+          mainSchemaSerilizerPath: decodedMatches(
+            contains(
+              'final SerializersBuilder _serializersBuilder = _\$serializers.toBuilder()',
+            ),
+          ),
+          module1SchemaSerilizerPath: decodedMatches(
+            contains(
+              'final SerializersBuilder _serializersBuilder = _\$serializers.toBuilder()',
+            ),
+          ),
+          module2SchemaSerilizerPath: decodedMatches(
+            contains(
+              'final SerializersBuilder _serializersBuilder = _\$serializers.toBuilder()',
+            ),
+          ),
         },
       );
     });

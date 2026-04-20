@@ -4,9 +4,7 @@ import 'package:path/path.dart' as p;
 import '../utils/locations.dart';
 
 class GqlAllocator implements Allocator {
-  static const _doNotImport = [
-    'dart:core',
-  ];
+  static const _doNotImport = ['dart:core'];
 
   static const _doNotPrefix = [
     'package:built_value/built_value.dart',
@@ -49,15 +47,16 @@ class GqlAllocator implements Allocator {
     final uri = Uri.parse(url);
 
     if (uri.path.endsWith(sourceExtension)) {
-      final replacedUrl = uri
-          .replace(
-            path: outputPath(uri.path, outputDir).replaceAll(
-              RegExp(r'.graphql$'),
-              '.${uri.fragment}.gql.dart',
-            ),
-          )
-          .removeFragment()
-          .toString();
+      final replacedUrl =
+          uri
+              .replace(
+                path: outputPath(
+                  uri.path,
+                  outputDir,
+                ).replaceAll(RegExp(r'.graphql$'), '.${uri.fragment}.gql.dart'),
+              )
+              .removeFragment()
+              .toString();
 
       if (replacedUrl == currentUrl) {
         return symbol;
@@ -73,10 +72,10 @@ class GqlAllocator implements Allocator {
       } else if (uri.fragment == 'serializer') {
         replacedUrl = '${p.dirname(serializerUrl)}/serializers.gql.dart';
       } else {
-        replacedUrl = outputPath(sourceUrl, outputDir).replaceAll(
-          RegExp(r'.graphql$'),
-          '.${uri.fragment}.gql.dart',
-        );
+        replacedUrl = outputPath(
+          sourceUrl,
+          outputDir,
+        ).replaceAll(RegExp(r'.graphql$'), '.${uri.fragment}.gql.dart');
       }
 
       if (replacedUrl == currentUrl) {
@@ -93,8 +92,9 @@ class GqlAllocator implements Allocator {
 
   @override
   Iterable<Directive> get imports => _imports.keys.map(
-        (u) => _imports[u] == null
+    (u) =>
+        _imports[u] == null
             ? Directive.import(u)
             : Directive.import(u, as: '_i${_imports[u]}'),
-      );
+  );
 }

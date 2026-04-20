@@ -27,35 +27,33 @@ class BuilderConfig {
   final DataToJsonMode dataToJsonMode;
 
   BuilderConfig(Map<String, dynamic> config)
-      : schemaId = config['schema'] == null
-            ? null
-            : AssetId.parse(config['schema'] as String),
-        schemaIds = (config['schemas'] as YamlList?)
-            ?.map((dynamic schema) => AssetId.parse(schema as String))
-            .toList(),
-        shouldAddTypenames = config['add_typenames'] ?? true,
-        shouldGenerateVarsCreateFactories =
-            config['vars_create_factories'] ?? false,
-        typeOverrides = _getTypeOverrides(config['type_overrides']),
-        shouldGeneratePossibleTypes =
-            config['generate_possible_types_map'] ?? true,
-        customSerializers = _getCustomSerializers(config['custom_serializers']),
-        enumFallbackConfig = _getEnumFallbackConfig(config),
-        outputDir = config['output_dir'] ?? '__generated__',
-        sourceExtension = config['source_extension'] ?? '.graphql',
-        whenExtensionConfig = _getWhenExtensionConfig(config),
-        dataClassConfig = _getDataClassConfig(config),
-        triStateOptionalsConfig = _getTriStateOptionalsConfig(config),
-        dataToJsonMode = getDataToJsonModeFromConfig(config);
+    : schemaId =
+          config['schema'] == null
+              ? null
+              : AssetId.parse(config['schema'] as String),
+      schemaIds =
+          (config['schemas'] as YamlList?)
+              ?.map((dynamic schema) => AssetId.parse(schema as String))
+              .toList(),
+      shouldAddTypenames = config['add_typenames'] ?? true,
+      shouldGenerateVarsCreateFactories =
+          config['vars_create_factories'] ?? false,
+      typeOverrides = _getTypeOverrides(config['type_overrides']),
+      shouldGeneratePossibleTypes =
+          config['generate_possible_types_map'] ?? true,
+      customSerializers = _getCustomSerializers(config['custom_serializers']),
+      enumFallbackConfig = _getEnumFallbackConfig(config),
+      outputDir = config['output_dir'] ?? '__generated__',
+      sourceExtension = config['source_extension'] ?? '.graphql',
+      whenExtensionConfig = _getWhenExtensionConfig(config),
+      dataClassConfig = _getDataClassConfig(config),
+      triStateOptionalsConfig = _getTriStateOptionalsConfig(config),
+      dataToJsonMode = getDataToJsonModeFromConfig(config);
 }
 
 DataClassConfig _getDataClassConfig(Map<String, dynamic> config) {
   final dataClassConfig = switch (config) {
-    {
-      'data_class_config': {
-        'reuse_fragments': final reuseFragments,
-      }
-    } =>
+    {'data_class_config': {'reuse_fragments': final reuseFragments}} =>
       DataClassConfig(reuseFragments: reuseFragments == true),
     _ => const DataClassConfig(reuseFragments: false),
   };
@@ -64,7 +62,8 @@ DataClassConfig _getDataClassConfig(Map<String, dynamic> config) {
 }
 
 InlineFragmentSpreadWhenExtensionConfig _getWhenExtensionConfig(
-    Map<String, dynamic> config) {
+  Map<String, dynamic> config,
+) {
   if (config['when_extensions'] == null) {
     return const InlineFragmentSpreadWhenExtensionConfig(
       generateMaybeWhenExtensionMethod: false,
@@ -130,10 +129,7 @@ Map<String, String> _enumFallbackMap(YamlMap? enumFallbacks) {
 
   return Map.fromEntries(
     enumFallbacks.entries.map(
-      (entry) => MapEntry(
-        entry.key as String,
-        entry.value as String,
-      ),
+      (entry) => MapEntry(entry.key as String, entry.value as String),
     ),
   );
 }
@@ -157,9 +153,7 @@ enum DataToJsonMode {
   // only accept the Data type
   typeSafe;
 
-  Reference getDataToJsonParamType(
-    Reference dataTypeRef,
-  ) {
+  Reference getDataToJsonParamType(Reference dataTypeRef) {
     return switch (this) {
       DataToJsonMode.dynamicParam => refer('dynamic'),
       DataToJsonMode.typeSafe => dataTypeRef,
@@ -176,7 +170,8 @@ DataToJsonMode getDataToJsonModeFromConfig(Map<String, dynamic>? config) {
     'type_safe' => DataToJsonMode.typeSafe,
     'dynamic_param' => DataToJsonMode.dynamicParam,
     null => defaultMode,
-    _ => throw ArgumentError.value(
+    _ =>
+      throw ArgumentError.value(
         configValue,
         'data_to_json',
         'Invalid value for data_to_json, expected one of: type_safe, dynamic_param',
