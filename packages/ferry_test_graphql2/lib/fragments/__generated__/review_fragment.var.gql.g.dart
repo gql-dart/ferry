@@ -7,48 +7,51 @@ part of 'review_fragment.var.gql.dart';
 // **************************************************************************
 
 Serializer<GReviewFragmentVars> _$gReviewFragmentVarsSerializer =
-    new _$GReviewFragmentVarsSerializer();
+    _$GReviewFragmentVarsSerializer();
 
 class _$GReviewFragmentVarsSerializer
     implements StructuredSerializer<GReviewFragmentVars> {
   @override
   final Iterable<Type> types = const [
     GReviewFragmentVars,
-    _$GReviewFragmentVars
+    _$GReviewFragmentVars,
   ];
   @override
   final String wireName = 'GReviewFragmentVars';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, GReviewFragmentVars object,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    GReviewFragmentVars object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return <Object?>[];
   }
 
   @override
   GReviewFragmentVars deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    return new GReviewFragmentVarsBuilder().build();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    return GReviewFragmentVarsBuilder().build();
   }
 }
 
 class _$GReviewFragmentVars extends GReviewFragmentVars {
-  factory _$GReviewFragmentVars(
-          [void Function(GReviewFragmentVarsBuilder)? updates]) =>
-      (new GReviewFragmentVarsBuilder()..update(updates))._build();
+  factory _$GReviewFragmentVars([
+    void Function(GReviewFragmentVarsBuilder)? updates,
+  ]) => (GReviewFragmentVarsBuilder()..update(updates))._build();
 
   _$GReviewFragmentVars._() : super._();
-
   @override
   GReviewFragmentVars rebuild(
-          void Function(GReviewFragmentVarsBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GReviewFragmentVarsBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GReviewFragmentVarsBuilder toBuilder() =>
-      new GReviewFragmentVarsBuilder()..replace(this);
+      GReviewFragmentVarsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -75,7 +78,6 @@ class GReviewFragmentVarsBuilder
 
   @override
   void replace(GReviewFragmentVars other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GReviewFragmentVars;
   }
 
@@ -88,7 +90,7 @@ class GReviewFragmentVarsBuilder
   GReviewFragmentVars build() => _build();
 
   _$GReviewFragmentVars _build() {
-    final _$result = _$v ?? new _$GReviewFragmentVars._();
+    final _$result = _$v ?? _$GReviewFragmentVars._();
     replace(_$result);
     return _$result;
   }

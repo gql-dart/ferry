@@ -39,10 +39,10 @@ abstract class GCreateReviewReq
   _i4.Operation get operation;
   @override
   _i4.Request get execRequest => _i4.Request(
-        operation: operation,
-        variables: vars.toJson(),
-        context: context ?? const _i4.Context(),
-      );
+    operation: operation,
+    variables: vars.toJson(),
+    context: context ?? const _i4.Context(),
+  );
 
   @override
   String? get requestId;
@@ -51,7 +51,8 @@ abstract class GCreateReviewReq
   _i2.GCreateReviewData? Function(
     _i2.GCreateReviewData?,
     _i2.GCreateReviewData?,
-  )? get updateResult;
+  )?
+  get updateResult;
   @override
   _i2.GCreateReviewData? get optimisticResponse;
   @override
@@ -77,20 +78,16 @@ abstract class GCreateReviewReq
 
   @override
   _i1.OperationRequest<_i2.GCreateReviewData, _i3.GCreateReviewVars>
-      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
-          this.rebuild((b) => b..operation = transform(operation));
+  transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+      this.rebuild((b) => b..operation = transform(operation));
 
   static Serializer<GCreateReviewReq> get serializer =>
       _$gCreateReviewReqSerializer;
 
-  Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
-        GCreateReviewReq.serializer,
-        this,
-      ) as Map<String, dynamic>);
+  Map<String, dynamic> toJson() =>
+      (_i6.serializers.serializeWith(GCreateReviewReq.serializer, this)
+          as Map<String, dynamic>);
 
   static GCreateReviewReq? fromJson(Map<String, dynamic> json) =>
-      _i6.serializers.deserializeWith(
-        GCreateReviewReq.serializer,
-        json,
-      );
+      _i6.serializers.deserializeWith(GCreateReviewReq.serializer, json);
 }

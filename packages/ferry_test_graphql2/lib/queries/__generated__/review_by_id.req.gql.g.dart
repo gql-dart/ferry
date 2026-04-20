@@ -7,7 +7,7 @@ part of 'review_by_id.req.gql.dart';
 // **************************************************************************
 
 Serializer<GReviewsByIDReq> _$gReviewsByIDReqSerializer =
-    new _$GReviewsByIDReqSerializer();
+    _$GReviewsByIDReqSerializer();
 
 class _$GReviewsByIDReqSerializer
     implements StructuredSerializer<GReviewsByIDReq> {
@@ -17,64 +17,91 @@ class _$GReviewsByIDReqSerializer
   final String wireName = 'GReviewsByIDReq';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, GReviewsByIDReq object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    GReviewsByIDReq object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'vars',
-      serializers.serialize(object.vars,
-          specifiedType: const FullType(_i3.GReviewsByIDVars)),
+      serializers.serialize(
+        object.vars,
+        specifiedType: const FullType(_i3.GReviewsByIDVars),
+      ),
       'operation',
-      serializers.serialize(object.operation,
-          specifiedType: const FullType(_i4.Operation)),
+      serializers.serialize(
+        object.operation,
+        specifiedType: const FullType(_i4.Operation),
+      ),
       'executeOnListen',
-      serializers.serialize(object.executeOnListen,
-          specifiedType: const FullType(bool)),
+      serializers.serialize(
+        object.executeOnListen,
+        specifiedType: const FullType(bool),
+      ),
     ];
     Object? value;
     value = object.requestId;
     if (value != null) {
       result
         ..add('requestId')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(String)),
+        );
     }
     value = object.optimisticResponse;
     if (value != null) {
       result
         ..add('optimisticResponse')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(_i2.GReviewsByIDData)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(_i2.GReviewsByIDData),
+          ),
+        );
     }
     value = object.updateCacheHandlerKey;
     if (value != null) {
       result
         ..add('updateCacheHandlerKey')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(String)),
+        );
     }
     value = object.updateCacheHandlerContext;
     if (value != null) {
       result
         ..add('updateCacheHandlerContext')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(
-                Map, const [const FullType(String), const FullType(dynamic)])));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(Map, const [
+              const FullType(String),
+              const FullType(dynamic),
+            ]),
+          ),
+        );
     }
     value = object.fetchPolicy;
     if (value != null) {
       result
         ..add('fetchPolicy')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(_i1.FetchPolicy)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(_i1.FetchPolicy),
+          ),
+        );
     }
     return result;
   }
 
   @override
   GReviewsByIDReq deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GReviewsByIDReqBuilder();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = GReviewsByIDReqBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -83,42 +110,73 @@ class _$GReviewsByIDReqSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'vars':
-          result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GReviewsByIDVars))!
-              as _i3.GReviewsByIDVars);
+          result.vars.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i3.GReviewsByIDVars),
+                )!
+                as _i3.GReviewsByIDVars,
+          );
           break;
         case 'operation':
-          result.operation = serializers.deserialize(value,
-              specifiedType: const FullType(_i4.Operation))! as _i4.Operation;
+          result.operation =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i4.Operation),
+                  )!
+                  as _i4.Operation;
           break;
         case 'requestId':
-          result.requestId = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
+          result.requestId =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String?;
           break;
         case 'optimisticResponse':
-          result.optimisticResponse.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i2.GReviewsByIDData))!
-              as _i2.GReviewsByIDData);
+          result.optimisticResponse.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i2.GReviewsByIDData),
+                )!
+                as _i2.GReviewsByIDData,
+          );
           break;
         case 'updateCacheHandlerKey':
-          result.updateCacheHandlerKey = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
+          result.updateCacheHandlerKey =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String?;
           break;
         case 'updateCacheHandlerContext':
-          result.updateCacheHandlerContext = serializers.deserialize(value,
-              specifiedType: const FullType(Map, const [
-                const FullType(String),
-                const FullType(dynamic)
-              ])) as Map<String, dynamic>?;
+          result.updateCacheHandlerContext =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(Map, const [
+                      const FullType(String),
+                      const FullType(dynamic),
+                    ]),
+                  )
+                  as Map<String, dynamic>?;
           break;
         case 'fetchPolicy':
-          result.fetchPolicy = serializers.deserialize(value,
-                  specifiedType: const FullType(_i1.FetchPolicy))
-              as _i1.FetchPolicy?;
+          result.fetchPolicy =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i1.FetchPolicy),
+                  )
+                  as _i1.FetchPolicy?;
           break;
         case 'executeOnListen':
-          result.executeOnListen = serializers.deserialize(value,
-              specifiedType: const FullType(bool))! as bool;
+          result.executeOnListen =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )!
+                  as bool;
           break;
       }
     }
@@ -136,7 +194,10 @@ class _$GReviewsByIDReq extends GReviewsByIDReq {
   final String? requestId;
   @override
   final _i2.GReviewsByIDData? Function(
-      _i2.GReviewsByIDData?, _i2.GReviewsByIDData?)? updateResult;
+    _i2.GReviewsByIDData?,
+    _i2.GReviewsByIDData?,
+  )?
+  updateResult;
   @override
   final _i2.GReviewsByIDData? optimisticResponse;
   @override
@@ -151,44 +212,35 @@ class _$GReviewsByIDReq extends GReviewsByIDReq {
   final _i4.Context? context;
 
   factory _$GReviewsByIDReq([void Function(GReviewsByIDReqBuilder)? updates]) =>
-      (new GReviewsByIDReqBuilder()..update(updates))._build();
+      (GReviewsByIDReqBuilder()..update(updates))._build();
 
-  _$GReviewsByIDReq._(
-      {required this.vars,
-      required this.operation,
-      this.requestId,
-      this.updateResult,
-      this.optimisticResponse,
-      this.updateCacheHandlerKey,
-      this.updateCacheHandlerContext,
-      this.fetchPolicy,
-      required this.executeOnListen,
-      this.context})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(vars, r'GReviewsByIDReq', 'vars');
-    BuiltValueNullFieldError.checkNotNull(
-        operation, r'GReviewsByIDReq', 'operation');
-    BuiltValueNullFieldError.checkNotNull(
-        executeOnListen, r'GReviewsByIDReq', 'executeOnListen');
-  }
-
+  _$GReviewsByIDReq._({
+    required this.vars,
+    required this.operation,
+    this.requestId,
+    this.updateResult,
+    this.optimisticResponse,
+    this.updateCacheHandlerKey,
+    this.updateCacheHandlerContext,
+    this.fetchPolicy,
+    required this.executeOnListen,
+    this.context,
+  }) : super._();
   @override
   GReviewsByIDReq rebuild(void Function(GReviewsByIDReqBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GReviewsByIDReqBuilder toBuilder() =>
-      new GReviewsByIDReqBuilder()..replace(this);
+  GReviewsByIDReqBuilder toBuilder() => GReviewsByIDReqBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    final dynamic _$dynamicOther = other;
     return other is GReviewsByIDReq &&
         vars == other.vars &&
         operation == other.operation &&
         requestId == other.requestId &&
-        updateResult == _$dynamicOther.updateResult &&
+        updateResult == other.updateResult &&
         optimisticResponse == other.optimisticResponse &&
         updateCacheHandlerKey == other.updateCacheHandlerKey &&
         updateCacheHandlerContext == other.updateCacheHandlerContext &&
@@ -237,7 +289,7 @@ class GReviewsByIDReqBuilder
 
   _i3.GReviewsByIDVarsBuilder? _vars;
   _i3.GReviewsByIDVarsBuilder get vars =>
-      _$this._vars ??= new _i3.GReviewsByIDVarsBuilder();
+      _$this._vars ??= _i3.GReviewsByIDVarsBuilder();
   set vars(_i3.GReviewsByIDVarsBuilder? vars) => _$this._vars = vars;
 
   _i4.Operation? _operation;
@@ -249,18 +301,20 @@ class GReviewsByIDReqBuilder
   set requestId(String? requestId) => _$this._requestId = requestId;
 
   _i2.GReviewsByIDData? Function(_i2.GReviewsByIDData?, _i2.GReviewsByIDData?)?
-      _updateResult;
+  _updateResult;
   _i2.GReviewsByIDData? Function(_i2.GReviewsByIDData?, _i2.GReviewsByIDData?)?
-      get updateResult => _$this._updateResult;
+  get updateResult => _$this._updateResult;
   set updateResult(
-          _i2.GReviewsByIDData? Function(
-                  _i2.GReviewsByIDData?, _i2.GReviewsByIDData?)?
-              updateResult) =>
-      _$this._updateResult = updateResult;
+    _i2.GReviewsByIDData? Function(
+      _i2.GReviewsByIDData?,
+      _i2.GReviewsByIDData?,
+    )?
+    updateResult,
+  ) => _$this._updateResult = updateResult;
 
   _i2.GReviewsByIDDataBuilder? _optimisticResponse;
   _i2.GReviewsByIDDataBuilder get optimisticResponse =>
-      _$this._optimisticResponse ??= new _i2.GReviewsByIDDataBuilder();
+      _$this._optimisticResponse ??= _i2.GReviewsByIDDataBuilder();
   set optimisticResponse(_i2.GReviewsByIDDataBuilder? optimisticResponse) =>
       _$this._optimisticResponse = optimisticResponse;
 
@@ -273,8 +327,8 @@ class GReviewsByIDReqBuilder
   Map<String, dynamic>? get updateCacheHandlerContext =>
       _$this._updateCacheHandlerContext;
   set updateCacheHandlerContext(
-          Map<String, dynamic>? updateCacheHandlerContext) =>
-      _$this._updateCacheHandlerContext = updateCacheHandlerContext;
+    Map<String, dynamic>? updateCacheHandlerContext,
+  ) => _$this._updateCacheHandlerContext = updateCacheHandlerContext;
 
   _i1.FetchPolicy? _fetchPolicy;
   _i1.FetchPolicy? get fetchPolicy => _$this._fetchPolicy;
@@ -314,7 +368,6 @@ class GReviewsByIDReqBuilder
 
   @override
   void replace(GReviewsByIDReq other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GReviewsByIDReq;
   }
 
@@ -329,20 +382,28 @@ class GReviewsByIDReqBuilder
   _$GReviewsByIDReq _build() {
     _$GReviewsByIDReq _$result;
     try {
-      _$result = _$v ??
-          new _$GReviewsByIDReq._(
-              vars: vars.build(),
-              operation: BuiltValueNullFieldError.checkNotNull(
-                  operation, r'GReviewsByIDReq', 'operation'),
-              requestId: requestId,
-              updateResult: updateResult,
-              optimisticResponse: _optimisticResponse?.build(),
-              updateCacheHandlerKey: updateCacheHandlerKey,
-              updateCacheHandlerContext: updateCacheHandlerContext,
-              fetchPolicy: fetchPolicy,
-              executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, r'GReviewsByIDReq', 'executeOnListen'),
-              context: context);
+      _$result =
+          _$v ??
+          _$GReviewsByIDReq._(
+            vars: vars.build(),
+            operation: BuiltValueNullFieldError.checkNotNull(
+              operation,
+              r'GReviewsByIDReq',
+              'operation',
+            ),
+            requestId: requestId,
+            updateResult: updateResult,
+            optimisticResponse: _optimisticResponse?.build(),
+            updateCacheHandlerKey: updateCacheHandlerKey,
+            updateCacheHandlerContext: updateCacheHandlerContext,
+            fetchPolicy: fetchPolicy,
+            executeOnListen: BuiltValueNullFieldError.checkNotNull(
+              executeOnListen,
+              r'GReviewsByIDReq',
+              'executeOnListen',
+            ),
+            context: context,
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -352,8 +413,11 @@ class GReviewsByIDReqBuilder
         _$failedField = 'optimisticResponse';
         _optimisticResponse?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GReviewsByIDReq', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'GReviewsByIDReq',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

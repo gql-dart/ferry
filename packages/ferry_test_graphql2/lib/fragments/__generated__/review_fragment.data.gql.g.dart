@@ -7,26 +7,30 @@ part of 'review_fragment.data.gql.dart';
 // **************************************************************************
 
 Serializer<GReviewFragmentData> _$gReviewFragmentDataSerializer =
-    new _$GReviewFragmentDataSerializer();
+    _$GReviewFragmentDataSerializer();
 
 class _$GReviewFragmentDataSerializer
     implements StructuredSerializer<GReviewFragmentData> {
   @override
   final Iterable<Type> types = const [
     GReviewFragmentData,
-    _$GReviewFragmentData
+    _$GReviewFragmentData,
   ];
   @override
   final String wireName = 'GReviewFragmentData';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, GReviewFragmentData object,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    GReviewFragmentData object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
+      serializers.serialize(
+        object.G__typename,
+        specifiedType: const FullType(String),
+      ),
       'stars',
       serializers.serialize(object.stars, specifiedType: const FullType(int)),
     ];
@@ -35,17 +39,20 @@ class _$GReviewFragmentDataSerializer
     if (value != null) {
       result
         ..add('commentary')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(String)),
+        );
     }
     return result;
   }
 
   @override
   GReviewFragmentData deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GReviewFragmentDataBuilder();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = GReviewFragmentDataBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -54,16 +61,28 @@ class _$GReviewFragmentDataSerializer
       final Object? value = iterator.current;
       switch (key) {
         case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+          result.G__typename =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )!
+                  as String;
           break;
         case 'stars':
-          result.stars = serializers.deserialize(value,
-              specifiedType: const FullType(int))! as int;
+          result.stars =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )!
+                  as int;
           break;
         case 'commentary':
-          result.commentary = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
+          result.commentary =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String?;
           break;
       }
     }
@@ -80,27 +99,23 @@ class _$GReviewFragmentData extends GReviewFragmentData {
   @override
   final String? commentary;
 
-  factory _$GReviewFragmentData(
-          [void Function(GReviewFragmentDataBuilder)? updates]) =>
-      (new GReviewFragmentDataBuilder()..update(updates))._build();
+  factory _$GReviewFragmentData([
+    void Function(GReviewFragmentDataBuilder)? updates,
+  ]) => (GReviewFragmentDataBuilder()..update(updates))._build();
 
-  _$GReviewFragmentData._(
-      {required this.G__typename, required this.stars, this.commentary})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GReviewFragmentData', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        stars, r'GReviewFragmentData', 'stars');
-  }
-
+  _$GReviewFragmentData._({
+    required this.G__typename,
+    required this.stars,
+    this.commentary,
+  }) : super._();
   @override
   GReviewFragmentData rebuild(
-          void Function(GReviewFragmentDataBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GReviewFragmentDataBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GReviewFragmentDataBuilder toBuilder() =>
-      new GReviewFragmentDataBuilder()..replace(this);
+      GReviewFragmentDataBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -164,7 +179,6 @@ class GReviewFragmentDataBuilder
 
   @override
   void replace(GReviewFragmentData other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GReviewFragmentData;
   }
 
@@ -177,13 +191,21 @@ class GReviewFragmentDataBuilder
   GReviewFragmentData build() => _build();
 
   _$GReviewFragmentData _build() {
-    final _$result = _$v ??
-        new _$GReviewFragmentData._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, r'GReviewFragmentData', 'G__typename'),
-            stars: BuiltValueNullFieldError.checkNotNull(
-                stars, r'GReviewFragmentData', 'stars'),
-            commentary: commentary);
+    final _$result =
+        _$v ??
+        _$GReviewFragmentData._(
+          G__typename: BuiltValueNullFieldError.checkNotNull(
+            G__typename,
+            r'GReviewFragmentData',
+            'G__typename',
+          ),
+          stars: BuiltValueNullFieldError.checkNotNull(
+            stars,
+            r'GReviewFragmentData',
+            'stars',
+          ),
+          commentary: commentary,
+        );
     replace(_$result);
     return _$result;
   }

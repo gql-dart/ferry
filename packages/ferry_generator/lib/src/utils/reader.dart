@@ -46,16 +46,12 @@ Future<SourceNode> _assetToSourceNode(
   return SourceNode(
     url: url,
     document: parseString(sourceString, url: url),
-    imports:
-        await Stream.fromIterable(imports)
-            .asyncMap(
-              (importedAssetId) => _assetToSourceNode(
-                buildStep,
-                importedAssetId,
-                sourceExtension,
-              ),
-            )
-            .toSet(),
+    imports: await Stream.fromIterable(imports)
+        .asyncMap(
+          (importedAssetId) =>
+              _assetToSourceNode(buildStep, importedAssetId, sourceExtension),
+        )
+        .toSet(),
   );
 }
 

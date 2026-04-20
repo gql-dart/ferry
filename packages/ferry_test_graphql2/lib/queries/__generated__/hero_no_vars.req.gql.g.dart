@@ -7,7 +7,7 @@ part of 'hero_no_vars.req.gql.dart';
 // **************************************************************************
 
 Serializer<GHeroNoVarsReq> _$gHeroNoVarsReqSerializer =
-    new _$GHeroNoVarsReqSerializer();
+    _$GHeroNoVarsReqSerializer();
 
 class _$GHeroNoVarsReqSerializer
     implements StructuredSerializer<GHeroNoVarsReq> {
@@ -17,64 +17,91 @@ class _$GHeroNoVarsReqSerializer
   final String wireName = 'GHeroNoVarsReq';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, GHeroNoVarsReq object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    GHeroNoVarsReq object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'vars',
-      serializers.serialize(object.vars,
-          specifiedType: const FullType(_i3.GHeroNoVarsVars)),
+      serializers.serialize(
+        object.vars,
+        specifiedType: const FullType(_i3.GHeroNoVarsVars),
+      ),
       'operation',
-      serializers.serialize(object.operation,
-          specifiedType: const FullType(_i4.Operation)),
+      serializers.serialize(
+        object.operation,
+        specifiedType: const FullType(_i4.Operation),
+      ),
       'executeOnListen',
-      serializers.serialize(object.executeOnListen,
-          specifiedType: const FullType(bool)),
+      serializers.serialize(
+        object.executeOnListen,
+        specifiedType: const FullType(bool),
+      ),
     ];
     Object? value;
     value = object.requestId;
     if (value != null) {
       result
         ..add('requestId')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(String)),
+        );
     }
     value = object.optimisticResponse;
     if (value != null) {
       result
         ..add('optimisticResponse')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(_i2.GHeroNoVarsData)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(_i2.GHeroNoVarsData),
+          ),
+        );
     }
     value = object.updateCacheHandlerKey;
     if (value != null) {
       result
         ..add('updateCacheHandlerKey')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(String)),
+        );
     }
     value = object.updateCacheHandlerContext;
     if (value != null) {
       result
         ..add('updateCacheHandlerContext')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(
-                Map, const [const FullType(String), const FullType(dynamic)])));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(Map, const [
+              const FullType(String),
+              const FullType(dynamic),
+            ]),
+          ),
+        );
     }
     value = object.fetchPolicy;
     if (value != null) {
       result
         ..add('fetchPolicy')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(_i1.FetchPolicy)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(_i1.FetchPolicy),
+          ),
+        );
     }
     return result;
   }
 
   @override
   GHeroNoVarsReq deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GHeroNoVarsReqBuilder();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = GHeroNoVarsReqBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -83,42 +110,73 @@ class _$GHeroNoVarsReqSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'vars':
-          result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GHeroNoVarsVars))!
-              as _i3.GHeroNoVarsVars);
+          result.vars.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i3.GHeroNoVarsVars),
+                )!
+                as _i3.GHeroNoVarsVars,
+          );
           break;
         case 'operation':
-          result.operation = serializers.deserialize(value,
-              specifiedType: const FullType(_i4.Operation))! as _i4.Operation;
+          result.operation =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i4.Operation),
+                  )!
+                  as _i4.Operation;
           break;
         case 'requestId':
-          result.requestId = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
+          result.requestId =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String?;
           break;
         case 'optimisticResponse':
-          result.optimisticResponse.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i2.GHeroNoVarsData))!
-              as _i2.GHeroNoVarsData);
+          result.optimisticResponse.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i2.GHeroNoVarsData),
+                )!
+                as _i2.GHeroNoVarsData,
+          );
           break;
         case 'updateCacheHandlerKey':
-          result.updateCacheHandlerKey = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
+          result.updateCacheHandlerKey =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String?;
           break;
         case 'updateCacheHandlerContext':
-          result.updateCacheHandlerContext = serializers.deserialize(value,
-              specifiedType: const FullType(Map, const [
-                const FullType(String),
-                const FullType(dynamic)
-              ])) as Map<String, dynamic>?;
+          result.updateCacheHandlerContext =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(Map, const [
+                      const FullType(String),
+                      const FullType(dynamic),
+                    ]),
+                  )
+                  as Map<String, dynamic>?;
           break;
         case 'fetchPolicy':
-          result.fetchPolicy = serializers.deserialize(value,
-                  specifiedType: const FullType(_i1.FetchPolicy))
-              as _i1.FetchPolicy?;
+          result.fetchPolicy =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i1.FetchPolicy),
+                  )
+                  as _i1.FetchPolicy?;
           break;
         case 'executeOnListen':
-          result.executeOnListen = serializers.deserialize(value,
-              specifiedType: const FullType(bool))! as bool;
+          result.executeOnListen =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )!
+                  as bool;
           break;
       }
     }
@@ -136,7 +194,10 @@ class _$GHeroNoVarsReq extends GHeroNoVarsReq {
   final String? requestId;
   @override
   final _i2.GHeroNoVarsData? Function(
-      _i2.GHeroNoVarsData?, _i2.GHeroNoVarsData?)? updateResult;
+    _i2.GHeroNoVarsData?,
+    _i2.GHeroNoVarsData?,
+  )?
+  updateResult;
   @override
   final _i2.GHeroNoVarsData? optimisticResponse;
   @override
@@ -151,44 +212,35 @@ class _$GHeroNoVarsReq extends GHeroNoVarsReq {
   final _i4.Context? context;
 
   factory _$GHeroNoVarsReq([void Function(GHeroNoVarsReqBuilder)? updates]) =>
-      (new GHeroNoVarsReqBuilder()..update(updates))._build();
+      (GHeroNoVarsReqBuilder()..update(updates))._build();
 
-  _$GHeroNoVarsReq._(
-      {required this.vars,
-      required this.operation,
-      this.requestId,
-      this.updateResult,
-      this.optimisticResponse,
-      this.updateCacheHandlerKey,
-      this.updateCacheHandlerContext,
-      this.fetchPolicy,
-      required this.executeOnListen,
-      this.context})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(vars, r'GHeroNoVarsReq', 'vars');
-    BuiltValueNullFieldError.checkNotNull(
-        operation, r'GHeroNoVarsReq', 'operation');
-    BuiltValueNullFieldError.checkNotNull(
-        executeOnListen, r'GHeroNoVarsReq', 'executeOnListen');
-  }
-
+  _$GHeroNoVarsReq._({
+    required this.vars,
+    required this.operation,
+    this.requestId,
+    this.updateResult,
+    this.optimisticResponse,
+    this.updateCacheHandlerKey,
+    this.updateCacheHandlerContext,
+    this.fetchPolicy,
+    required this.executeOnListen,
+    this.context,
+  }) : super._();
   @override
   GHeroNoVarsReq rebuild(void Function(GHeroNoVarsReqBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GHeroNoVarsReqBuilder toBuilder() =>
-      new GHeroNoVarsReqBuilder()..replace(this);
+  GHeroNoVarsReqBuilder toBuilder() => GHeroNoVarsReqBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    final dynamic _$dynamicOther = other;
     return other is GHeroNoVarsReq &&
         vars == other.vars &&
         operation == other.operation &&
         requestId == other.requestId &&
-        updateResult == _$dynamicOther.updateResult &&
+        updateResult == other.updateResult &&
         optimisticResponse == other.optimisticResponse &&
         updateCacheHandlerKey == other.updateCacheHandlerKey &&
         updateCacheHandlerContext == other.updateCacheHandlerContext &&
@@ -237,7 +289,7 @@ class GHeroNoVarsReqBuilder
 
   _i3.GHeroNoVarsVarsBuilder? _vars;
   _i3.GHeroNoVarsVarsBuilder get vars =>
-      _$this._vars ??= new _i3.GHeroNoVarsVarsBuilder();
+      _$this._vars ??= _i3.GHeroNoVarsVarsBuilder();
   set vars(_i3.GHeroNoVarsVarsBuilder? vars) => _$this._vars = vars;
 
   _i4.Operation? _operation;
@@ -249,18 +301,17 @@ class GHeroNoVarsReqBuilder
   set requestId(String? requestId) => _$this._requestId = requestId;
 
   _i2.GHeroNoVarsData? Function(_i2.GHeroNoVarsData?, _i2.GHeroNoVarsData?)?
-      _updateResult;
+  _updateResult;
   _i2.GHeroNoVarsData? Function(_i2.GHeroNoVarsData?, _i2.GHeroNoVarsData?)?
-      get updateResult => _$this._updateResult;
+  get updateResult => _$this._updateResult;
   set updateResult(
-          _i2.GHeroNoVarsData? Function(
-                  _i2.GHeroNoVarsData?, _i2.GHeroNoVarsData?)?
-              updateResult) =>
-      _$this._updateResult = updateResult;
+    _i2.GHeroNoVarsData? Function(_i2.GHeroNoVarsData?, _i2.GHeroNoVarsData?)?
+    updateResult,
+  ) => _$this._updateResult = updateResult;
 
   _i2.GHeroNoVarsDataBuilder? _optimisticResponse;
   _i2.GHeroNoVarsDataBuilder get optimisticResponse =>
-      _$this._optimisticResponse ??= new _i2.GHeroNoVarsDataBuilder();
+      _$this._optimisticResponse ??= _i2.GHeroNoVarsDataBuilder();
   set optimisticResponse(_i2.GHeroNoVarsDataBuilder? optimisticResponse) =>
       _$this._optimisticResponse = optimisticResponse;
 
@@ -273,8 +324,8 @@ class GHeroNoVarsReqBuilder
   Map<String, dynamic>? get updateCacheHandlerContext =>
       _$this._updateCacheHandlerContext;
   set updateCacheHandlerContext(
-          Map<String, dynamic>? updateCacheHandlerContext) =>
-      _$this._updateCacheHandlerContext = updateCacheHandlerContext;
+    Map<String, dynamic>? updateCacheHandlerContext,
+  ) => _$this._updateCacheHandlerContext = updateCacheHandlerContext;
 
   _i1.FetchPolicy? _fetchPolicy;
   _i1.FetchPolicy? get fetchPolicy => _$this._fetchPolicy;
@@ -314,7 +365,6 @@ class GHeroNoVarsReqBuilder
 
   @override
   void replace(GHeroNoVarsReq other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GHeroNoVarsReq;
   }
 
@@ -329,20 +379,28 @@ class GHeroNoVarsReqBuilder
   _$GHeroNoVarsReq _build() {
     _$GHeroNoVarsReq _$result;
     try {
-      _$result = _$v ??
-          new _$GHeroNoVarsReq._(
-              vars: vars.build(),
-              operation: BuiltValueNullFieldError.checkNotNull(
-                  operation, r'GHeroNoVarsReq', 'operation'),
-              requestId: requestId,
-              updateResult: updateResult,
-              optimisticResponse: _optimisticResponse?.build(),
-              updateCacheHandlerKey: updateCacheHandlerKey,
-              updateCacheHandlerContext: updateCacheHandlerContext,
-              fetchPolicy: fetchPolicy,
-              executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, r'GHeroNoVarsReq', 'executeOnListen'),
-              context: context);
+      _$result =
+          _$v ??
+          _$GHeroNoVarsReq._(
+            vars: vars.build(),
+            operation: BuiltValueNullFieldError.checkNotNull(
+              operation,
+              r'GHeroNoVarsReq',
+              'operation',
+            ),
+            requestId: requestId,
+            updateResult: updateResult,
+            optimisticResponse: _optimisticResponse?.build(),
+            updateCacheHandlerKey: updateCacheHandlerKey,
+            updateCacheHandlerContext: updateCacheHandlerContext,
+            fetchPolicy: fetchPolicy,
+            executeOnListen: BuiltValueNullFieldError.checkNotNull(
+              executeOnListen,
+              r'GHeroNoVarsReq',
+              'executeOnListen',
+            ),
+            context: context,
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -352,8 +410,11 @@ class GHeroNoVarsReqBuilder
         _$failedField = 'optimisticResponse';
         _optimisticResponse?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GHeroNoVarsReq', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'GHeroNoVarsReq',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

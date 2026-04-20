@@ -23,9 +23,9 @@ abstract class GReviewWithDateReq
         _i1.OperationRequest<_i2.GReviewWithDateData, _i3.GReviewWithDateVars> {
   GReviewWithDateReq._();
 
-  factory GReviewWithDateReq(
-          [void Function(GReviewWithDateReqBuilder b) updates]) =
-      _$GReviewWithDateReq;
+  factory GReviewWithDateReq([
+    void Function(GReviewWithDateReqBuilder b) updates,
+  ]) = _$GReviewWithDateReq;
 
   static void _initializeBuilder(GReviewWithDateReqBuilder b) => b
     ..operation = _i4.Operation(
@@ -40,10 +40,10 @@ abstract class GReviewWithDateReq
   _i4.Operation get operation;
   @override
   _i4.Request get execRequest => _i4.Request(
-        operation: operation,
-        variables: vars.toJson(),
-        context: context ?? const _i4.Context(),
-      );
+    operation: operation,
+    variables: vars.toJson(),
+    context: context ?? const _i4.Context(),
+  );
 
   @override
   String? get requestId;
@@ -52,7 +52,8 @@ abstract class GReviewWithDateReq
   _i2.GReviewWithDateData? Function(
     _i2.GReviewWithDateData?,
     _i2.GReviewWithDateData?,
-  )? get updateResult;
+  )?
+  get updateResult;
   @override
   _i2.GReviewWithDateData? get optimisticResponse;
   @override
@@ -79,20 +80,16 @@ abstract class GReviewWithDateReq
 
   @override
   _i1.OperationRequest<_i2.GReviewWithDateData, _i3.GReviewWithDateVars>
-      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
-          this.rebuild((b) => b..operation = transform(operation));
+  transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+      this.rebuild((b) => b..operation = transform(operation));
 
   static Serializer<GReviewWithDateReq> get serializer =>
       _$gReviewWithDateReqSerializer;
 
-  Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
-        GReviewWithDateReq.serializer,
-        this,
-      ) as Map<String, dynamic>);
+  Map<String, dynamic> toJson() =>
+      (_i6.serializers.serializeWith(GReviewWithDateReq.serializer, this)
+          as Map<String, dynamic>);
 
   static GReviewWithDateReq? fromJson(Map<String, dynamic> json) =>
-      _i6.serializers.deserializeWith(
-        GReviewWithDateReq.serializer,
-        json,
-      );
+      _i6.serializers.deserializeWith(GReviewWithDateReq.serializer, json);
 }

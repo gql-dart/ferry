@@ -25,25 +25,21 @@ abstract class GHeroNoVarsData
   static Serializer<GHeroNoVarsData> get serializer =>
       _$gHeroNoVarsDataSerializer;
 
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GHeroNoVarsData.serializer,
-        this,
-      ) as Map<String, dynamic>);
+  Map<String, dynamic> toJson() =>
+      (_i1.serializers.serializeWith(GHeroNoVarsData.serializer, this)
+          as Map<String, dynamic>);
 
   static GHeroNoVarsData? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GHeroNoVarsData.serializer,
-        json,
-      );
+      _i1.serializers.deserializeWith(GHeroNoVarsData.serializer, json);
 }
 
 abstract class GHeroNoVarsData_hero
     implements Built<GHeroNoVarsData_hero, GHeroNoVarsData_heroBuilder> {
   GHeroNoVarsData_hero._();
 
-  factory GHeroNoVarsData_hero(
-          [void Function(GHeroNoVarsData_heroBuilder b) updates]) =
-      _$GHeroNoVarsData_hero;
+  factory GHeroNoVarsData_hero([
+    void Function(GHeroNoVarsData_heroBuilder b) updates,
+  ]) = _$GHeroNoVarsData_hero;
 
   static void _initializeBuilder(GHeroNoVarsData_heroBuilder b) =>
       b..G__typename = 'Character';
@@ -55,14 +51,10 @@ abstract class GHeroNoVarsData_hero
   static Serializer<GHeroNoVarsData_hero> get serializer =>
       _$gHeroNoVarsDataHeroSerializer;
 
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GHeroNoVarsData_hero.serializer,
-        this,
-      ) as Map<String, dynamic>);
+  Map<String, dynamic> toJson() =>
+      (_i1.serializers.serializeWith(GHeroNoVarsData_hero.serializer, this)
+          as Map<String, dynamic>);
 
   static GHeroNoVarsData_hero? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GHeroNoVarsData_hero.serializer,
-        json,
-      );
+      _i1.serializers.deserializeWith(GHeroNoVarsData_hero.serializer, json);
 }

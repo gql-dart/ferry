@@ -4,8 +4,9 @@ import 'package:ferry_test_graphql2/queries/__generated__/reviews.req.gql.dart';
 
 void main() {
   group('Fetch Policies', () {
-    final req =
-        GReviewsReq((b) => b..fetchPolicy = FetchPolicy.CacheAndNetwork);
+    final req = GReviewsReq(
+      (b) => b..fetchPolicy = FetchPolicy.CacheAndNetwork,
+    );
 
     final json = req.toJson();
     final deserialized = GReviewsReq.fromJson(json);

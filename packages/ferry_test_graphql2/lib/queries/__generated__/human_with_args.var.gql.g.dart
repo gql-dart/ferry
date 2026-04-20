@@ -7,7 +7,7 @@ part of 'human_with_args.var.gql.dart';
 // **************************************************************************
 
 Serializer<GHumanWithArgsVars> _$gHumanWithArgsVarsSerializer =
-    new _$GHumanWithArgsVarsSerializer();
+    _$GHumanWithArgsVarsSerializer();
 
 class _$GHumanWithArgsVarsSerializer
     implements StructuredSerializer<GHumanWithArgsVars> {
@@ -18,8 +18,10 @@ class _$GHumanWithArgsVarsSerializer
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, GHumanWithArgsVars object,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    GHumanWithArgsVars object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(String)),
@@ -29,17 +31,20 @@ class _$GHumanWithArgsVarsSerializer
     if (value != null) {
       result
         ..add('friendsAfter')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(String)),
+        );
     }
     return result;
   }
 
   @override
   GHumanWithArgsVars deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GHumanWithArgsVarsBuilder();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = GHumanWithArgsVarsBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -48,12 +53,20 @@ class _$GHumanWithArgsVarsSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+          result.id =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )!
+                  as String;
           break;
         case 'friendsAfter':
-          result.friendsAfter = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
+          result.friendsAfter =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String?;
           break;
       }
     }
@@ -68,22 +81,19 @@ class _$GHumanWithArgsVars extends GHumanWithArgsVars {
   @override
   final String? friendsAfter;
 
-  factory _$GHumanWithArgsVars(
-          [void Function(GHumanWithArgsVarsBuilder)? updates]) =>
-      (new GHumanWithArgsVarsBuilder()..update(updates))._build();
+  factory _$GHumanWithArgsVars([
+    void Function(GHumanWithArgsVarsBuilder)? updates,
+  ]) => (GHumanWithArgsVarsBuilder()..update(updates))._build();
 
-  _$GHumanWithArgsVars._({required this.id, this.friendsAfter}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(id, r'GHumanWithArgsVars', 'id');
-  }
-
+  _$GHumanWithArgsVars._({required this.id, this.friendsAfter}) : super._();
   @override
   GHumanWithArgsVars rebuild(
-          void Function(GHumanWithArgsVarsBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GHumanWithArgsVarsBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GHumanWithArgsVarsBuilder toBuilder() =>
-      new GHumanWithArgsVarsBuilder()..replace(this);
+      GHumanWithArgsVarsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -137,7 +147,6 @@ class GHumanWithArgsVarsBuilder
 
   @override
   void replace(GHumanWithArgsVars other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GHumanWithArgsVars;
   }
 
@@ -150,11 +159,16 @@ class GHumanWithArgsVarsBuilder
   GHumanWithArgsVars build() => _build();
 
   _$GHumanWithArgsVars _build() {
-    final _$result = _$v ??
-        new _$GHumanWithArgsVars._(
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GHumanWithArgsVars', 'id'),
-            friendsAfter: friendsAfter);
+    final _$result =
+        _$v ??
+        _$GHumanWithArgsVars._(
+          id: BuiltValueNullFieldError.checkNotNull(
+            id,
+            r'GHumanWithArgsVars',
+            'id',
+          ),
+          friendsAfter: friendsAfter,
+        );
     replace(_$result);
     return _$result;
   }

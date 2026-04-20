@@ -24,9 +24,9 @@ abstract class GHeroForEpisodeReq
         _i1.OperationRequest<_i2.GHeroForEpisodeData, _i3.GHeroForEpisodeVars> {
   GHeroForEpisodeReq._();
 
-  factory GHeroForEpisodeReq(
-          [void Function(GHeroForEpisodeReqBuilder b) updates]) =
-      _$GHeroForEpisodeReq;
+  factory GHeroForEpisodeReq([
+    void Function(GHeroForEpisodeReqBuilder b) updates,
+  ]) = _$GHeroForEpisodeReq;
 
   static void _initializeBuilder(GHeroForEpisodeReqBuilder b) => b
     ..operation = _i4.Operation(
@@ -41,10 +41,10 @@ abstract class GHeroForEpisodeReq
   _i4.Operation get operation;
   @override
   _i4.Request get execRequest => _i4.Request(
-        operation: operation,
-        variables: vars.toJson(),
-        context: context ?? const _i4.Context(),
-      );
+    operation: operation,
+    variables: vars.toJson(),
+    context: context ?? const _i4.Context(),
+  );
 
   @override
   String? get requestId;
@@ -53,7 +53,8 @@ abstract class GHeroForEpisodeReq
   _i2.GHeroForEpisodeData? Function(
     _i2.GHeroForEpisodeData?,
     _i2.GHeroForEpisodeData?,
-  )? get updateResult;
+  )?
+  get updateResult;
   @override
   _i2.GHeroForEpisodeData? get optimisticResponse;
   @override
@@ -80,22 +81,18 @@ abstract class GHeroForEpisodeReq
 
   @override
   _i1.OperationRequest<_i2.GHeroForEpisodeData, _i3.GHeroForEpisodeVars>
-      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
-          this.rebuild((b) => b..operation = transform(operation));
+  transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+      this.rebuild((b) => b..operation = transform(operation));
 
   static Serializer<GHeroForEpisodeReq> get serializer =>
       _$gHeroForEpisodeReqSerializer;
 
-  Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
-        GHeroForEpisodeReq.serializer,
-        this,
-      ) as Map<String, dynamic>);
+  Map<String, dynamic> toJson() =>
+      (_i6.serializers.serializeWith(GHeroForEpisodeReq.serializer, this)
+          as Map<String, dynamic>);
 
   static GHeroForEpisodeReq? fromJson(Map<String, dynamic> json) =>
-      _i6.serializers.deserializeWith(
-        GHeroForEpisodeReq.serializer,
-        json,
-      );
+      _i6.serializers.deserializeWith(GHeroForEpisodeReq.serializer, json);
 }
 
 abstract class GDroidFragmentReq
@@ -104,9 +101,9 @@ abstract class GDroidFragmentReq
         _i1.FragmentRequest<_i2.GDroidFragmentData, _i3.GDroidFragmentVars> {
   GDroidFragmentReq._();
 
-  factory GDroidFragmentReq(
-          [void Function(GDroidFragmentReqBuilder b) updates]) =
-      _$GDroidFragmentReq;
+  factory GDroidFragmentReq([
+    void Function(GDroidFragmentReqBuilder b) updates,
+  ]) = _$GDroidFragmentReq;
 
   static void _initializeBuilder(GDroidFragmentReqBuilder b) => b
     ..document = _i5.document
@@ -133,14 +130,10 @@ abstract class GDroidFragmentReq
   static Serializer<GDroidFragmentReq> get serializer =>
       _$gDroidFragmentReqSerializer;
 
-  Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
-        GDroidFragmentReq.serializer,
-        this,
-      ) as Map<String, dynamic>);
+  Map<String, dynamic> toJson() =>
+      (_i6.serializers.serializeWith(GDroidFragmentReq.serializer, this)
+          as Map<String, dynamic>);
 
   static GDroidFragmentReq? fromJson(Map<String, dynamic> json) =>
-      _i6.serializers.deserializeWith(
-        GDroidFragmentReq.serializer,
-        json,
-      );
+      _i6.serializers.deserializeWith(GDroidFragmentReq.serializer, json);
 }

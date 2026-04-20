@@ -7,50 +7,61 @@ part of 'review_with_date_scalar.var.gql.dart';
 // **************************************************************************
 
 Serializer<GReviewWithDateVars> _$gReviewWithDateVarsSerializer =
-    new _$GReviewWithDateVarsSerializer();
+    _$GReviewWithDateVarsSerializer();
 
 class _$GReviewWithDateVarsSerializer
     implements StructuredSerializer<GReviewWithDateVars> {
   @override
   final Iterable<Type> types = const [
     GReviewWithDateVars,
-    _$GReviewWithDateVars
+    _$GReviewWithDateVars,
   ];
   @override
   final String wireName = 'GReviewWithDateVars';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, GReviewWithDateVars object,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    GReviewWithDateVars object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'review',
-      serializers.serialize(object.review,
-          specifiedType: const FullType(_i1.GReviewInput)),
+      serializers.serialize(
+        object.review,
+        specifiedType: const FullType(_i1.GReviewInput),
+      ),
     ];
     Object? value;
     value = object.episode;
     if (value != null) {
       result
         ..add('episode')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(_i1.GEpisode)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(_i1.GEpisode),
+          ),
+        );
     }
     value = object.createdAt;
     if (value != null) {
       result
         ..add('createdAt')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(DateTime)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(DateTime)),
+        );
     }
     return result;
   }
 
   @override
   GReviewWithDateVars deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GReviewWithDateVarsBuilder();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = GReviewWithDateVarsBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -59,17 +70,29 @@ class _$GReviewWithDateVarsSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'episode':
-          result.episode = serializers.deserialize(value,
-              specifiedType: const FullType(_i1.GEpisode)) as _i1.GEpisode?;
+          result.episode =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i1.GEpisode),
+                  )
+                  as _i1.GEpisode?;
           break;
         case 'review':
-          result.review.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i1.GReviewInput))!
-              as _i1.GReviewInput);
+          result.review.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i1.GReviewInput),
+                )!
+                as _i1.GReviewInput,
+          );
           break;
         case 'createdAt':
-          result.createdAt = serializers.deserialize(value,
-              specifiedType: const FullType(DateTime)) as DateTime?;
+          result.createdAt =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DateTime),
+                  )
+                  as DateTime?;
           break;
       }
     }
@@ -86,24 +109,20 @@ class _$GReviewWithDateVars extends GReviewWithDateVars {
   @override
   final DateTime? createdAt;
 
-  factory _$GReviewWithDateVars(
-          [void Function(GReviewWithDateVarsBuilder)? updates]) =>
-      (new GReviewWithDateVarsBuilder()..update(updates))._build();
+  factory _$GReviewWithDateVars([
+    void Function(GReviewWithDateVarsBuilder)? updates,
+  ]) => (GReviewWithDateVarsBuilder()..update(updates))._build();
 
   _$GReviewWithDateVars._({this.episode, required this.review, this.createdAt})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        review, r'GReviewWithDateVars', 'review');
-  }
-
+    : super._();
   @override
   GReviewWithDateVars rebuild(
-          void Function(GReviewWithDateVarsBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GReviewWithDateVarsBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GReviewWithDateVarsBuilder toBuilder() =>
-      new GReviewWithDateVarsBuilder()..replace(this);
+      GReviewWithDateVarsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -144,7 +163,7 @@ class GReviewWithDateVarsBuilder
 
   _i1.GReviewInputBuilder? _review;
   _i1.GReviewInputBuilder get review =>
-      _$this._review ??= new _i1.GReviewInputBuilder();
+      _$this._review ??= _i1.GReviewInputBuilder();
   set review(_i1.GReviewInputBuilder? review) => _$this._review = review;
 
   DateTime? _createdAt;
@@ -166,7 +185,6 @@ class GReviewWithDateVarsBuilder
 
   @override
   void replace(GReviewWithDateVars other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GReviewWithDateVars;
   }
 
@@ -181,17 +199,24 @@ class GReviewWithDateVarsBuilder
   _$GReviewWithDateVars _build() {
     _$GReviewWithDateVars _$result;
     try {
-      _$result = _$v ??
-          new _$GReviewWithDateVars._(
-              episode: episode, review: review.build(), createdAt: createdAt);
+      _$result =
+          _$v ??
+          _$GReviewWithDateVars._(
+            episode: episode,
+            review: review.build(),
+            createdAt: createdAt,
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'review';
         review.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GReviewWithDateVars', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'GReviewWithDateVars',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

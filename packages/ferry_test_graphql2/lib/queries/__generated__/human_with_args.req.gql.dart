@@ -23,9 +23,9 @@ abstract class GHumanWithArgsReq
         _i1.OperationRequest<_i2.GHumanWithArgsData, _i3.GHumanWithArgsVars> {
   GHumanWithArgsReq._();
 
-  factory GHumanWithArgsReq(
-          [void Function(GHumanWithArgsReqBuilder b) updates]) =
-      _$GHumanWithArgsReq;
+  factory GHumanWithArgsReq([
+    void Function(GHumanWithArgsReqBuilder b) updates,
+  ]) = _$GHumanWithArgsReq;
 
   static void _initializeBuilder(GHumanWithArgsReqBuilder b) => b
     ..operation = _i4.Operation(
@@ -40,10 +40,10 @@ abstract class GHumanWithArgsReq
   _i4.Operation get operation;
   @override
   _i4.Request get execRequest => _i4.Request(
-        operation: operation,
-        variables: vars.toJson(),
-        context: context ?? const _i4.Context(),
-      );
+    operation: operation,
+    variables: vars.toJson(),
+    context: context ?? const _i4.Context(),
+  );
 
   @override
   String? get requestId;
@@ -52,7 +52,8 @@ abstract class GHumanWithArgsReq
   _i2.GHumanWithArgsData? Function(
     _i2.GHumanWithArgsData?,
     _i2.GHumanWithArgsData?,
-  )? get updateResult;
+  )?
+  get updateResult;
   @override
   _i2.GHumanWithArgsData? get optimisticResponse;
   @override
@@ -78,20 +79,16 @@ abstract class GHumanWithArgsReq
 
   @override
   _i1.OperationRequest<_i2.GHumanWithArgsData, _i3.GHumanWithArgsVars>
-      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
-          this.rebuild((b) => b..operation = transform(operation));
+  transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+      this.rebuild((b) => b..operation = transform(operation));
 
   static Serializer<GHumanWithArgsReq> get serializer =>
       _$gHumanWithArgsReqSerializer;
 
-  Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
-        GHumanWithArgsReq.serializer,
-        this,
-      ) as Map<String, dynamic>);
+  Map<String, dynamic> toJson() =>
+      (_i6.serializers.serializeWith(GHumanWithArgsReq.serializer, this)
+          as Map<String, dynamic>);
 
   static GHumanWithArgsReq? fromJson(Map<String, dynamic> json) =>
-      _i6.serializers.deserializeWith(
-        GHumanWithArgsReq.serializer,
-        json,
-      );
+      _i6.serializers.deserializeWith(GHumanWithArgsReq.serializer, json);
 }

@@ -7,82 +7,107 @@ part of 'hero_with_fragments.req.gql.dart';
 // **************************************************************************
 
 Serializer<GHeroWithFragmentsReq> _$gHeroWithFragmentsReqSerializer =
-    new _$GHeroWithFragmentsReqSerializer();
-Serializer<GheroDataReq> _$gheroDataReqSerializer =
-    new _$GheroDataReqSerializer();
+    _$GHeroWithFragmentsReqSerializer();
+Serializer<GheroDataReq> _$gheroDataReqSerializer = _$GheroDataReqSerializer();
 Serializer<GcomparisonFieldsReq> _$gcomparisonFieldsReqSerializer =
-    new _$GcomparisonFieldsReqSerializer();
+    _$GcomparisonFieldsReqSerializer();
 
 class _$GHeroWithFragmentsReqSerializer
     implements StructuredSerializer<GHeroWithFragmentsReq> {
   @override
   final Iterable<Type> types = const [
     GHeroWithFragmentsReq,
-    _$GHeroWithFragmentsReq
+    _$GHeroWithFragmentsReq,
   ];
   @override
   final String wireName = 'GHeroWithFragmentsReq';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, GHeroWithFragmentsReq object,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    GHeroWithFragmentsReq object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'vars',
-      serializers.serialize(object.vars,
-          specifiedType: const FullType(_i3.GHeroWithFragmentsVars)),
+      serializers.serialize(
+        object.vars,
+        specifiedType: const FullType(_i3.GHeroWithFragmentsVars),
+      ),
       'operation',
-      serializers.serialize(object.operation,
-          specifiedType: const FullType(_i4.Operation)),
+      serializers.serialize(
+        object.operation,
+        specifiedType: const FullType(_i4.Operation),
+      ),
       'executeOnListen',
-      serializers.serialize(object.executeOnListen,
-          specifiedType: const FullType(bool)),
+      serializers.serialize(
+        object.executeOnListen,
+        specifiedType: const FullType(bool),
+      ),
     ];
     Object? value;
     value = object.requestId;
     if (value != null) {
       result
         ..add('requestId')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(String)),
+        );
     }
     value = object.optimisticResponse;
     if (value != null) {
       result
         ..add('optimisticResponse')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(_i2.GHeroWithFragmentsData)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(_i2.GHeroWithFragmentsData),
+          ),
+        );
     }
     value = object.updateCacheHandlerKey;
     if (value != null) {
       result
         ..add('updateCacheHandlerKey')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(String)),
+        );
     }
     value = object.updateCacheHandlerContext;
     if (value != null) {
       result
         ..add('updateCacheHandlerContext')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(
-                Map, const [const FullType(String), const FullType(dynamic)])));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(Map, const [
+              const FullType(String),
+              const FullType(dynamic),
+            ]),
+          ),
+        );
     }
     value = object.fetchPolicy;
     if (value != null) {
       result
         ..add('fetchPolicy')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(_i1.FetchPolicy)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(_i1.FetchPolicy),
+          ),
+        );
     }
     return result;
   }
 
   @override
   GHeroWithFragmentsReq deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GHeroWithFragmentsReqBuilder();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = GHeroWithFragmentsReqBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -91,42 +116,73 @@ class _$GHeroWithFragmentsReqSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'vars':
-          result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GHeroWithFragmentsVars))!
-              as _i3.GHeroWithFragmentsVars);
+          result.vars.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i3.GHeroWithFragmentsVars),
+                )!
+                as _i3.GHeroWithFragmentsVars,
+          );
           break;
         case 'operation':
-          result.operation = serializers.deserialize(value,
-              specifiedType: const FullType(_i4.Operation))! as _i4.Operation;
+          result.operation =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i4.Operation),
+                  )!
+                  as _i4.Operation;
           break;
         case 'requestId':
-          result.requestId = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
+          result.requestId =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String?;
           break;
         case 'optimisticResponse':
-          result.optimisticResponse.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i2.GHeroWithFragmentsData))!
-              as _i2.GHeroWithFragmentsData);
+          result.optimisticResponse.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i2.GHeroWithFragmentsData),
+                )!
+                as _i2.GHeroWithFragmentsData,
+          );
           break;
         case 'updateCacheHandlerKey':
-          result.updateCacheHandlerKey = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
+          result.updateCacheHandlerKey =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String?;
           break;
         case 'updateCacheHandlerContext':
-          result.updateCacheHandlerContext = serializers.deserialize(value,
-              specifiedType: const FullType(Map, const [
-                const FullType(String),
-                const FullType(dynamic)
-              ])) as Map<String, dynamic>?;
+          result.updateCacheHandlerContext =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(Map, const [
+                      const FullType(String),
+                      const FullType(dynamic),
+                    ]),
+                  )
+                  as Map<String, dynamic>?;
           break;
         case 'fetchPolicy':
-          result.fetchPolicy = serializers.deserialize(value,
-                  specifiedType: const FullType(_i1.FetchPolicy))
-              as _i1.FetchPolicy?;
+          result.fetchPolicy =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i1.FetchPolicy),
+                  )
+                  as _i1.FetchPolicy?;
           break;
         case 'executeOnListen':
-          result.executeOnListen = serializers.deserialize(value,
-              specifiedType: const FullType(bool))! as bool;
+          result.executeOnListen =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )!
+                  as bool;
           break;
       }
     }
@@ -142,36 +198,50 @@ class _$GheroDataReqSerializer implements StructuredSerializer<GheroDataReq> {
   final String wireName = 'GheroDataReq';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, GheroDataReq object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    GheroDataReq object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'vars',
-      serializers.serialize(object.vars,
-          specifiedType: const FullType(_i3.GheroDataVars)),
+      serializers.serialize(
+        object.vars,
+        specifiedType: const FullType(_i3.GheroDataVars),
+      ),
       'document',
-      serializers.serialize(object.document,
-          specifiedType: const FullType(_i7.DocumentNode)),
+      serializers.serialize(
+        object.document,
+        specifiedType: const FullType(_i7.DocumentNode),
+      ),
       'idFields',
-      serializers.serialize(object.idFields,
-          specifiedType: const FullType(
-              Map, const [const FullType(String), const FullType(dynamic)])),
+      serializers.serialize(
+        object.idFields,
+        specifiedType: const FullType(Map, const [
+          const FullType(String),
+          const FullType(dynamic),
+        ]),
+      ),
     ];
     Object? value;
     value = object.fragmentName;
     if (value != null) {
       result
         ..add('fragmentName')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(String)),
+        );
     }
     return result;
   }
 
   @override
   GheroDataReq deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GheroDataReqBuilder();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = GheroDataReqBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -180,25 +250,40 @@ class _$GheroDataReqSerializer implements StructuredSerializer<GheroDataReq> {
       final Object? value = iterator.current;
       switch (key) {
         case 'vars':
-          result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GheroDataVars))!
-              as _i3.GheroDataVars);
+          result.vars.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i3.GheroDataVars),
+                )!
+                as _i3.GheroDataVars,
+          );
           break;
         case 'document':
-          result.document = serializers.deserialize(value,
-                  specifiedType: const FullType(_i7.DocumentNode))!
-              as _i7.DocumentNode;
+          result.document =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i7.DocumentNode),
+                  )!
+                  as _i7.DocumentNode;
           break;
         case 'fragmentName':
-          result.fragmentName = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
+          result.fragmentName =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String?;
           break;
         case 'idFields':
-          result.idFields = serializers.deserialize(value,
-              specifiedType: const FullType(Map, const [
-                const FullType(String),
-                const FullType(dynamic)
-              ]))! as Map<String, dynamic>;
+          result.idFields =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(Map, const [
+                      const FullType(String),
+                      const FullType(dynamic),
+                    ]),
+                  )!
+                  as Map<String, dynamic>;
           break;
       }
     }
@@ -212,43 +297,56 @@ class _$GcomparisonFieldsReqSerializer
   @override
   final Iterable<Type> types = const [
     GcomparisonFieldsReq,
-    _$GcomparisonFieldsReq
+    _$GcomparisonFieldsReq,
   ];
   @override
   final String wireName = 'GcomparisonFieldsReq';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, GcomparisonFieldsReq object,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    GcomparisonFieldsReq object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'vars',
-      serializers.serialize(object.vars,
-          specifiedType: const FullType(_i3.GcomparisonFieldsVars)),
+      serializers.serialize(
+        object.vars,
+        specifiedType: const FullType(_i3.GcomparisonFieldsVars),
+      ),
       'document',
-      serializers.serialize(object.document,
-          specifiedType: const FullType(_i7.DocumentNode)),
+      serializers.serialize(
+        object.document,
+        specifiedType: const FullType(_i7.DocumentNode),
+      ),
       'idFields',
-      serializers.serialize(object.idFields,
-          specifiedType: const FullType(
-              Map, const [const FullType(String), const FullType(dynamic)])),
+      serializers.serialize(
+        object.idFields,
+        specifiedType: const FullType(Map, const [
+          const FullType(String),
+          const FullType(dynamic),
+        ]),
+      ),
     ];
     Object? value;
     value = object.fragmentName;
     if (value != null) {
       result
         ..add('fragmentName')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(String)),
+        );
     }
     return result;
   }
 
   @override
   GcomparisonFieldsReq deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GcomparisonFieldsReqBuilder();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = GcomparisonFieldsReqBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -257,25 +355,40 @@ class _$GcomparisonFieldsReqSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'vars':
-          result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GcomparisonFieldsVars))!
-              as _i3.GcomparisonFieldsVars);
+          result.vars.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i3.GcomparisonFieldsVars),
+                )!
+                as _i3.GcomparisonFieldsVars,
+          );
           break;
         case 'document':
-          result.document = serializers.deserialize(value,
-                  specifiedType: const FullType(_i7.DocumentNode))!
-              as _i7.DocumentNode;
+          result.document =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i7.DocumentNode),
+                  )!
+                  as _i7.DocumentNode;
           break;
         case 'fragmentName':
-          result.fragmentName = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
+          result.fragmentName =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String?;
           break;
         case 'idFields':
-          result.idFields = serializers.deserialize(value,
-              specifiedType: const FullType(Map, const [
-                const FullType(String),
-                const FullType(dynamic)
-              ]))! as Map<String, dynamic>;
+          result.idFields =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(Map, const [
+                      const FullType(String),
+                      const FullType(dynamic),
+                    ]),
+                  )!
+                  as Map<String, dynamic>;
           break;
       }
     }
@@ -293,7 +406,10 @@ class _$GHeroWithFragmentsReq extends GHeroWithFragmentsReq {
   final String? requestId;
   @override
   final _i2.GHeroWithFragmentsData? Function(
-      _i2.GHeroWithFragmentsData?, _i2.GHeroWithFragmentsData?)? updateResult;
+    _i2.GHeroWithFragmentsData?,
+    _i2.GHeroWithFragmentsData?,
+  )?
+  updateResult;
   @override
   final _i2.GHeroWithFragmentsData? optimisticResponse;
   @override
@@ -307,48 +423,39 @@ class _$GHeroWithFragmentsReq extends GHeroWithFragmentsReq {
   @override
   final _i4.Context? context;
 
-  factory _$GHeroWithFragmentsReq(
-          [void Function(GHeroWithFragmentsReqBuilder)? updates]) =>
-      (new GHeroWithFragmentsReqBuilder()..update(updates))._build();
+  factory _$GHeroWithFragmentsReq([
+    void Function(GHeroWithFragmentsReqBuilder)? updates,
+  ]) => (GHeroWithFragmentsReqBuilder()..update(updates))._build();
 
-  _$GHeroWithFragmentsReq._(
-      {required this.vars,
-      required this.operation,
-      this.requestId,
-      this.updateResult,
-      this.optimisticResponse,
-      this.updateCacheHandlerKey,
-      this.updateCacheHandlerContext,
-      this.fetchPolicy,
-      required this.executeOnListen,
-      this.context})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        vars, r'GHeroWithFragmentsReq', 'vars');
-    BuiltValueNullFieldError.checkNotNull(
-        operation, r'GHeroWithFragmentsReq', 'operation');
-    BuiltValueNullFieldError.checkNotNull(
-        executeOnListen, r'GHeroWithFragmentsReq', 'executeOnListen');
-  }
-
+  _$GHeroWithFragmentsReq._({
+    required this.vars,
+    required this.operation,
+    this.requestId,
+    this.updateResult,
+    this.optimisticResponse,
+    this.updateCacheHandlerKey,
+    this.updateCacheHandlerContext,
+    this.fetchPolicy,
+    required this.executeOnListen,
+    this.context,
+  }) : super._();
   @override
   GHeroWithFragmentsReq rebuild(
-          void Function(GHeroWithFragmentsReqBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GHeroWithFragmentsReqBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GHeroWithFragmentsReqBuilder toBuilder() =>
-      new GHeroWithFragmentsReqBuilder()..replace(this);
+      GHeroWithFragmentsReqBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    final dynamic _$dynamicOther = other;
     return other is GHeroWithFragmentsReq &&
         vars == other.vars &&
         operation == other.operation &&
         requestId == other.requestId &&
-        updateResult == _$dynamicOther.updateResult &&
+        updateResult == other.updateResult &&
         optimisticResponse == other.optimisticResponse &&
         updateCacheHandlerKey == other.updateCacheHandlerKey &&
         updateCacheHandlerContext == other.updateCacheHandlerContext &&
@@ -397,7 +504,7 @@ class GHeroWithFragmentsReqBuilder
 
   _i3.GHeroWithFragmentsVarsBuilder? _vars;
   _i3.GHeroWithFragmentsVarsBuilder get vars =>
-      _$this._vars ??= new _i3.GHeroWithFragmentsVarsBuilder();
+      _$this._vars ??= _i3.GHeroWithFragmentsVarsBuilder();
   set vars(_i3.GHeroWithFragmentsVarsBuilder? vars) => _$this._vars = vars;
 
   _i4.Operation? _operation;
@@ -409,22 +516,29 @@ class GHeroWithFragmentsReqBuilder
   set requestId(String? requestId) => _$this._requestId = requestId;
 
   _i2.GHeroWithFragmentsData? Function(
-      _i2.GHeroWithFragmentsData?, _i2.GHeroWithFragmentsData?)? _updateResult;
+    _i2.GHeroWithFragmentsData?,
+    _i2.GHeroWithFragmentsData?,
+  )?
+  _updateResult;
   _i2.GHeroWithFragmentsData? Function(
-          _i2.GHeroWithFragmentsData?, _i2.GHeroWithFragmentsData?)?
-      get updateResult => _$this._updateResult;
+    _i2.GHeroWithFragmentsData?,
+    _i2.GHeroWithFragmentsData?,
+  )?
+  get updateResult => _$this._updateResult;
   set updateResult(
-          _i2.GHeroWithFragmentsData? Function(
-                  _i2.GHeroWithFragmentsData?, _i2.GHeroWithFragmentsData?)?
-              updateResult) =>
-      _$this._updateResult = updateResult;
+    _i2.GHeroWithFragmentsData? Function(
+      _i2.GHeroWithFragmentsData?,
+      _i2.GHeroWithFragmentsData?,
+    )?
+    updateResult,
+  ) => _$this._updateResult = updateResult;
 
   _i2.GHeroWithFragmentsDataBuilder? _optimisticResponse;
   _i2.GHeroWithFragmentsDataBuilder get optimisticResponse =>
-      _$this._optimisticResponse ??= new _i2.GHeroWithFragmentsDataBuilder();
+      _$this._optimisticResponse ??= _i2.GHeroWithFragmentsDataBuilder();
   set optimisticResponse(
-          _i2.GHeroWithFragmentsDataBuilder? optimisticResponse) =>
-      _$this._optimisticResponse = optimisticResponse;
+    _i2.GHeroWithFragmentsDataBuilder? optimisticResponse,
+  ) => _$this._optimisticResponse = optimisticResponse;
 
   String? _updateCacheHandlerKey;
   String? get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
@@ -435,8 +549,8 @@ class GHeroWithFragmentsReqBuilder
   Map<String, dynamic>? get updateCacheHandlerContext =>
       _$this._updateCacheHandlerContext;
   set updateCacheHandlerContext(
-          Map<String, dynamic>? updateCacheHandlerContext) =>
-      _$this._updateCacheHandlerContext = updateCacheHandlerContext;
+    Map<String, dynamic>? updateCacheHandlerContext,
+  ) => _$this._updateCacheHandlerContext = updateCacheHandlerContext;
 
   _i1.FetchPolicy? _fetchPolicy;
   _i1.FetchPolicy? get fetchPolicy => _$this._fetchPolicy;
@@ -476,7 +590,6 @@ class GHeroWithFragmentsReqBuilder
 
   @override
   void replace(GHeroWithFragmentsReq other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GHeroWithFragmentsReq;
   }
 
@@ -491,20 +604,28 @@ class GHeroWithFragmentsReqBuilder
   _$GHeroWithFragmentsReq _build() {
     _$GHeroWithFragmentsReq _$result;
     try {
-      _$result = _$v ??
-          new _$GHeroWithFragmentsReq._(
-              vars: vars.build(),
-              operation: BuiltValueNullFieldError.checkNotNull(
-                  operation, r'GHeroWithFragmentsReq', 'operation'),
-              requestId: requestId,
-              updateResult: updateResult,
-              optimisticResponse: _optimisticResponse?.build(),
-              updateCacheHandlerKey: updateCacheHandlerKey,
-              updateCacheHandlerContext: updateCacheHandlerContext,
-              fetchPolicy: fetchPolicy,
-              executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, r'GHeroWithFragmentsReq', 'executeOnListen'),
-              context: context);
+      _$result =
+          _$v ??
+          _$GHeroWithFragmentsReq._(
+            vars: vars.build(),
+            operation: BuiltValueNullFieldError.checkNotNull(
+              operation,
+              r'GHeroWithFragmentsReq',
+              'operation',
+            ),
+            requestId: requestId,
+            updateResult: updateResult,
+            optimisticResponse: _optimisticResponse?.build(),
+            updateCacheHandlerKey: updateCacheHandlerKey,
+            updateCacheHandlerContext: updateCacheHandlerContext,
+            fetchPolicy: fetchPolicy,
+            executeOnListen: BuiltValueNullFieldError.checkNotNull(
+              executeOnListen,
+              r'GHeroWithFragmentsReq',
+              'executeOnListen',
+            ),
+            context: context,
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -514,8 +635,11 @@ class GHeroWithFragmentsReqBuilder
         _$failedField = 'optimisticResponse';
         _optimisticResponse?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GHeroWithFragmentsReq', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'GHeroWithFragmentsReq',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -535,27 +659,20 @@ class _$GheroDataReq extends GheroDataReq {
   final Map<String, dynamic> idFields;
 
   factory _$GheroDataReq([void Function(GheroDataReqBuilder)? updates]) =>
-      (new GheroDataReqBuilder()..update(updates))._build();
+      (GheroDataReqBuilder()..update(updates))._build();
 
-  _$GheroDataReq._(
-      {required this.vars,
-      required this.document,
-      this.fragmentName,
-      required this.idFields})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(vars, r'GheroDataReq', 'vars');
-    BuiltValueNullFieldError.checkNotNull(
-        document, r'GheroDataReq', 'document');
-    BuiltValueNullFieldError.checkNotNull(
-        idFields, r'GheroDataReq', 'idFields');
-  }
-
+  _$GheroDataReq._({
+    required this.vars,
+    required this.document,
+    this.fragmentName,
+    required this.idFields,
+  }) : super._();
   @override
   GheroDataReq rebuild(void Function(GheroDataReqBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GheroDataReqBuilder toBuilder() => new GheroDataReqBuilder()..replace(this);
+  GheroDataReqBuilder toBuilder() => GheroDataReqBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -595,7 +712,7 @@ class GheroDataReqBuilder
 
   _i3.GheroDataVarsBuilder? _vars;
   _i3.GheroDataVarsBuilder get vars =>
-      _$this._vars ??= new _i3.GheroDataVarsBuilder();
+      _$this._vars ??= _i3.GheroDataVarsBuilder();
   set vars(_i3.GheroDataVarsBuilder? vars) => _$this._vars = vars;
 
   _i7.DocumentNode? _document;
@@ -628,7 +745,6 @@ class GheroDataReqBuilder
 
   @override
   void replace(GheroDataReq other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GheroDataReq;
   }
 
@@ -643,22 +759,33 @@ class GheroDataReqBuilder
   _$GheroDataReq _build() {
     _$GheroDataReq _$result;
     try {
-      _$result = _$v ??
-          new _$GheroDataReq._(
-              vars: vars.build(),
-              document: BuiltValueNullFieldError.checkNotNull(
-                  document, r'GheroDataReq', 'document'),
-              fragmentName: fragmentName,
-              idFields: BuiltValueNullFieldError.checkNotNull(
-                  idFields, r'GheroDataReq', 'idFields'));
+      _$result =
+          _$v ??
+          _$GheroDataReq._(
+            vars: vars.build(),
+            document: BuiltValueNullFieldError.checkNotNull(
+              document,
+              r'GheroDataReq',
+              'document',
+            ),
+            fragmentName: fragmentName,
+            idFields: BuiltValueNullFieldError.checkNotNull(
+              idFields,
+              r'GheroDataReq',
+              'idFields',
+            ),
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GheroDataReq', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'GheroDataReq',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -677,32 +804,24 @@ class _$GcomparisonFieldsReq extends GcomparisonFieldsReq {
   @override
   final Map<String, dynamic> idFields;
 
-  factory _$GcomparisonFieldsReq(
-          [void Function(GcomparisonFieldsReqBuilder)? updates]) =>
-      (new GcomparisonFieldsReqBuilder()..update(updates))._build();
+  factory _$GcomparisonFieldsReq([
+    void Function(GcomparisonFieldsReqBuilder)? updates,
+  ]) => (GcomparisonFieldsReqBuilder()..update(updates))._build();
 
-  _$GcomparisonFieldsReq._(
-      {required this.vars,
-      required this.document,
-      this.fragmentName,
-      required this.idFields})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        vars, r'GcomparisonFieldsReq', 'vars');
-    BuiltValueNullFieldError.checkNotNull(
-        document, r'GcomparisonFieldsReq', 'document');
-    BuiltValueNullFieldError.checkNotNull(
-        idFields, r'GcomparisonFieldsReq', 'idFields');
-  }
-
+  _$GcomparisonFieldsReq._({
+    required this.vars,
+    required this.document,
+    this.fragmentName,
+    required this.idFields,
+  }) : super._();
   @override
   GcomparisonFieldsReq rebuild(
-          void Function(GcomparisonFieldsReqBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GcomparisonFieldsReqBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GcomparisonFieldsReqBuilder toBuilder() =>
-      new GcomparisonFieldsReqBuilder()..replace(this);
+      GcomparisonFieldsReqBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -742,7 +861,7 @@ class GcomparisonFieldsReqBuilder
 
   _i3.GcomparisonFieldsVarsBuilder? _vars;
   _i3.GcomparisonFieldsVarsBuilder get vars =>
-      _$this._vars ??= new _i3.GcomparisonFieldsVarsBuilder();
+      _$this._vars ??= _i3.GcomparisonFieldsVarsBuilder();
   set vars(_i3.GcomparisonFieldsVarsBuilder? vars) => _$this._vars = vars;
 
   _i7.DocumentNode? _document;
@@ -775,7 +894,6 @@ class GcomparisonFieldsReqBuilder
 
   @override
   void replace(GcomparisonFieldsReq other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GcomparisonFieldsReq;
   }
 
@@ -790,22 +908,33 @@ class GcomparisonFieldsReqBuilder
   _$GcomparisonFieldsReq _build() {
     _$GcomparisonFieldsReq _$result;
     try {
-      _$result = _$v ??
-          new _$GcomparisonFieldsReq._(
-              vars: vars.build(),
-              document: BuiltValueNullFieldError.checkNotNull(
-                  document, r'GcomparisonFieldsReq', 'document'),
-              fragmentName: fragmentName,
-              idFields: BuiltValueNullFieldError.checkNotNull(
-                  idFields, r'GcomparisonFieldsReq', 'idFields'));
+      _$result =
+          _$v ??
+          _$GcomparisonFieldsReq._(
+            vars: vars.build(),
+            document: BuiltValueNullFieldError.checkNotNull(
+              document,
+              r'GcomparisonFieldsReq',
+              'document',
+            ),
+            fragmentName: fragmentName,
+            idFields: BuiltValueNullFieldError.checkNotNull(
+              idFields,
+              r'GcomparisonFieldsReq',
+              'idFields',
+            ),
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GcomparisonFieldsReq', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'GcomparisonFieldsReq',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

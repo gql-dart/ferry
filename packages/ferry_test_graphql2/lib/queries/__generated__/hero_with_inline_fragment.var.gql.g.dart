@@ -7,28 +7,32 @@ part of 'hero_with_inline_fragment.var.gql.dart';
 // **************************************************************************
 
 Serializer<GHeroForEpisodeVars> _$gHeroForEpisodeVarsSerializer =
-    new _$GHeroForEpisodeVarsSerializer();
+    _$GHeroForEpisodeVarsSerializer();
 Serializer<GDroidFragmentVars> _$gDroidFragmentVarsSerializer =
-    new _$GDroidFragmentVarsSerializer();
+    _$GDroidFragmentVarsSerializer();
 
 class _$GHeroForEpisodeVarsSerializer
     implements StructuredSerializer<GHeroForEpisodeVars> {
   @override
   final Iterable<Type> types = const [
     GHeroForEpisodeVars,
-    _$GHeroForEpisodeVars
+    _$GHeroForEpisodeVars,
   ];
   @override
   final String wireName = 'GHeroForEpisodeVars';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, GHeroForEpisodeVars object,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    GHeroForEpisodeVars object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'ep',
-      serializers.serialize(object.ep,
-          specifiedType: const FullType(_i1.GEpisode)),
+      serializers.serialize(
+        object.ep,
+        specifiedType: const FullType(_i1.GEpisode),
+      ),
     ];
 
     return result;
@@ -36,9 +40,11 @@ class _$GHeroForEpisodeVarsSerializer
 
   @override
   GHeroForEpisodeVars deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GHeroForEpisodeVarsBuilder();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = GHeroForEpisodeVarsBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -47,8 +53,12 @@ class _$GHeroForEpisodeVarsSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'ep':
-          result.ep = serializers.deserialize(value,
-              specifiedType: const FullType(_i1.GEpisode))! as _i1.GEpisode;
+          result.ep =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i1.GEpisode),
+                  )!
+                  as _i1.GEpisode;
           break;
       }
     }
@@ -66,16 +76,20 @@ class _$GDroidFragmentVarsSerializer
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, GDroidFragmentVars object,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    GDroidFragmentVars object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return <Object?>[];
   }
 
   @override
   GDroidFragmentVars deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    return new GDroidFragmentVarsBuilder().build();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    return GDroidFragmentVarsBuilder().build();
   }
 }
 
@@ -83,22 +97,19 @@ class _$GHeroForEpisodeVars extends GHeroForEpisodeVars {
   @override
   final _i1.GEpisode ep;
 
-  factory _$GHeroForEpisodeVars(
-          [void Function(GHeroForEpisodeVarsBuilder)? updates]) =>
-      (new GHeroForEpisodeVarsBuilder()..update(updates))._build();
+  factory _$GHeroForEpisodeVars([
+    void Function(GHeroForEpisodeVarsBuilder)? updates,
+  ]) => (GHeroForEpisodeVarsBuilder()..update(updates))._build();
 
-  _$GHeroForEpisodeVars._({required this.ep}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(ep, r'GHeroForEpisodeVars', 'ep');
-  }
-
+  _$GHeroForEpisodeVars._({required this.ep}) : super._();
   @override
   GHeroForEpisodeVars rebuild(
-          void Function(GHeroForEpisodeVarsBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GHeroForEpisodeVarsBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GHeroForEpisodeVarsBuilder toBuilder() =>
-      new GHeroForEpisodeVarsBuilder()..replace(this);
+      GHeroForEpisodeVarsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -116,8 +127,9 @@ class _$GHeroForEpisodeVars extends GHeroForEpisodeVars {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'GHeroForEpisodeVars')..add('ep', ep))
-        .toString();
+    return (newBuiltValueToStringHelper(
+      r'GHeroForEpisodeVars',
+    )..add('ep', ep)).toString();
   }
 }
 
@@ -142,7 +154,6 @@ class GHeroForEpisodeVarsBuilder
 
   @override
   void replace(GHeroForEpisodeVars other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GHeroForEpisodeVars;
   }
 
@@ -155,30 +166,34 @@ class GHeroForEpisodeVarsBuilder
   GHeroForEpisodeVars build() => _build();
 
   _$GHeroForEpisodeVars _build() {
-    final _$result = _$v ??
-        new _$GHeroForEpisodeVars._(
-            ep: BuiltValueNullFieldError.checkNotNull(
-                ep, r'GHeroForEpisodeVars', 'ep'));
+    final _$result =
+        _$v ??
+        _$GHeroForEpisodeVars._(
+          ep: BuiltValueNullFieldError.checkNotNull(
+            ep,
+            r'GHeroForEpisodeVars',
+            'ep',
+          ),
+        );
     replace(_$result);
     return _$result;
   }
 }
 
 class _$GDroidFragmentVars extends GDroidFragmentVars {
-  factory _$GDroidFragmentVars(
-          [void Function(GDroidFragmentVarsBuilder)? updates]) =>
-      (new GDroidFragmentVarsBuilder()..update(updates))._build();
+  factory _$GDroidFragmentVars([
+    void Function(GDroidFragmentVarsBuilder)? updates,
+  ]) => (GDroidFragmentVarsBuilder()..update(updates))._build();
 
   _$GDroidFragmentVars._() : super._();
-
   @override
   GDroidFragmentVars rebuild(
-          void Function(GDroidFragmentVarsBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GDroidFragmentVarsBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GDroidFragmentVarsBuilder toBuilder() =>
-      new GDroidFragmentVarsBuilder()..replace(this);
+      GDroidFragmentVarsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -205,7 +220,6 @@ class GDroidFragmentVarsBuilder
 
   @override
   void replace(GDroidFragmentVars other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GDroidFragmentVars;
   }
 
@@ -218,7 +232,7 @@ class GDroidFragmentVarsBuilder
   GDroidFragmentVars build() => _build();
 
   _$GDroidFragmentVars _build() {
-    final _$result = _$v ?? new _$GDroidFragmentVars._();
+    final _$result = _$v ?? _$GDroidFragmentVars._();
     replace(_$result);
     return _$result;
   }

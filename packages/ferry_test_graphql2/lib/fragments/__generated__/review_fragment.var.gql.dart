@@ -13,21 +13,17 @@ abstract class GReviewFragmentVars
     implements Built<GReviewFragmentVars, GReviewFragmentVarsBuilder> {
   GReviewFragmentVars._();
 
-  factory GReviewFragmentVars(
-          [void Function(GReviewFragmentVarsBuilder b) updates]) =
-      _$GReviewFragmentVars;
+  factory GReviewFragmentVars([
+    void Function(GReviewFragmentVarsBuilder b) updates,
+  ]) = _$GReviewFragmentVars;
 
   static Serializer<GReviewFragmentVars> get serializer =>
       _$gReviewFragmentVarsSerializer;
 
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GReviewFragmentVars.serializer,
-        this,
-      ) as Map<String, dynamic>);
+  Map<String, dynamic> toJson() =>
+      (_i1.serializers.serializeWith(GReviewFragmentVars.serializer, this)
+          as Map<String, dynamic>);
 
   static GReviewFragmentVars? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GReviewFragmentVars.serializer,
-        json,
-      );
+      _i1.serializers.deserializeWith(GReviewFragmentVars.serializer, json);
 }

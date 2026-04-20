@@ -20,8 +20,7 @@ class DateSerializer implements PrimitiveSerializer<DateTime> {
     Serializers serializers,
     DateTime date, {
     FullType specifiedType = FullType.unspecified,
-  }) =>
-      date.millisecondsSinceEpoch;
+  }) => date.millisecondsSinceEpoch;
 
   @override
   Iterable<Type> get types => [DateTime];

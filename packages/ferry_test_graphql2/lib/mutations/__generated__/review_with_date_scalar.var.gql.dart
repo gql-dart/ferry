@@ -15,9 +15,9 @@ abstract class GReviewWithDateVars
     implements Built<GReviewWithDateVars, GReviewWithDateVarsBuilder> {
   GReviewWithDateVars._();
 
-  factory GReviewWithDateVars(
-          [void Function(GReviewWithDateVarsBuilder b) updates]) =
-      _$GReviewWithDateVars;
+  factory GReviewWithDateVars([
+    void Function(GReviewWithDateVarsBuilder b) updates,
+  ]) = _$GReviewWithDateVars;
 
   _i1.GEpisode? get episode;
   _i1.GReviewInput get review;
@@ -25,14 +25,10 @@ abstract class GReviewWithDateVars
   static Serializer<GReviewWithDateVars> get serializer =>
       _$gReviewWithDateVarsSerializer;
 
-  Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
-        GReviewWithDateVars.serializer,
-        this,
-      ) as Map<String, dynamic>);
+  Map<String, dynamic> toJson() =>
+      (_i2.serializers.serializeWith(GReviewWithDateVars.serializer, this)
+          as Map<String, dynamic>);
 
   static GReviewWithDateVars? fromJson(Map<String, dynamic> json) =>
-      _i2.serializers.deserializeWith(
-        GReviewWithDateVars.serializer,
-        json,
-      );
+      _i2.serializers.deserializeWith(GReviewWithDateVars.serializer, json);
 }

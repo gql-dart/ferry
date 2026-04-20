@@ -47,16 +47,15 @@ class GqlAllocator implements Allocator {
     final uri = Uri.parse(url);
 
     if (uri.path.endsWith(sourceExtension)) {
-      final replacedUrl =
-          uri
-              .replace(
-                path: outputPath(
-                  uri.path,
-                  outputDir,
-                ).replaceAll(RegExp(r'.graphql$'), '.${uri.fragment}.gql.dart'),
-              )
-              .removeFragment()
-              .toString();
+      final replacedUrl = uri
+          .replace(
+            path: outputPath(
+              uri.path,
+              outputDir,
+            ).replaceAll(RegExp(r'.graphql$'), '.${uri.fragment}.gql.dart'),
+          )
+          .removeFragment()
+          .toString();
 
       if (replacedUrl == currentUrl) {
         return symbol;
@@ -92,9 +91,8 @@ class GqlAllocator implements Allocator {
 
   @override
   Iterable<Directive> get imports => _imports.keys.map(
-    (u) =>
-        _imports[u] == null
-            ? Directive.import(u)
-            : Directive.import(u, as: '_i${_imports[u]}'),
+    (u) => _imports[u] == null
+        ? Directive.import(u)
+        : Directive.import(u, as: '_i${_imports[u]}'),
   );
 }

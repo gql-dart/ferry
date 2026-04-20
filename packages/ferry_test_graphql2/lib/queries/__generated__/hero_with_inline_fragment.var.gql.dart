@@ -15,45 +15,37 @@ abstract class GHeroForEpisodeVars
     implements Built<GHeroForEpisodeVars, GHeroForEpisodeVarsBuilder> {
   GHeroForEpisodeVars._();
 
-  factory GHeroForEpisodeVars(
-          [void Function(GHeroForEpisodeVarsBuilder b) updates]) =
-      _$GHeroForEpisodeVars;
+  factory GHeroForEpisodeVars([
+    void Function(GHeroForEpisodeVarsBuilder b) updates,
+  ]) = _$GHeroForEpisodeVars;
 
   _i1.GEpisode get ep;
   static Serializer<GHeroForEpisodeVars> get serializer =>
       _$gHeroForEpisodeVarsSerializer;
 
-  Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
-        GHeroForEpisodeVars.serializer,
-        this,
-      ) as Map<String, dynamic>);
+  Map<String, dynamic> toJson() =>
+      (_i2.serializers.serializeWith(GHeroForEpisodeVars.serializer, this)
+          as Map<String, dynamic>);
 
   static GHeroForEpisodeVars? fromJson(Map<String, dynamic> json) =>
-      _i2.serializers.deserializeWith(
-        GHeroForEpisodeVars.serializer,
-        json,
-      );
+      _i2.serializers.deserializeWith(GHeroForEpisodeVars.serializer, json);
 }
 
 abstract class GDroidFragmentVars
     implements Built<GDroidFragmentVars, GDroidFragmentVarsBuilder> {
   GDroidFragmentVars._();
 
-  factory GDroidFragmentVars(
-          [void Function(GDroidFragmentVarsBuilder b) updates]) =
-      _$GDroidFragmentVars;
+  factory GDroidFragmentVars([
+    void Function(GDroidFragmentVarsBuilder b) updates,
+  ]) = _$GDroidFragmentVars;
 
   static Serializer<GDroidFragmentVars> get serializer =>
       _$gDroidFragmentVarsSerializer;
 
-  Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
-        GDroidFragmentVars.serializer,
-        this,
-      ) as Map<String, dynamic>);
+  Map<String, dynamic> toJson() =>
+      (_i2.serializers.serializeWith(GDroidFragmentVars.serializer, this)
+          as Map<String, dynamic>);
 
   static GDroidFragmentVars? fromJson(Map<String, dynamic> json) =>
-      _i2.serializers.deserializeWith(
-        GDroidFragmentVars.serializer,
-        json,
-      );
+      _i2.serializers.deserializeWith(GDroidFragmentVars.serializer, json);
 }

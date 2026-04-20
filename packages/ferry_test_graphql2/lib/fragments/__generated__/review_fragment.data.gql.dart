@@ -22,9 +22,9 @@ abstract class GReviewFragmentData
         GReviewFragment {
   GReviewFragmentData._();
 
-  factory GReviewFragmentData(
-          [void Function(GReviewFragmentDataBuilder b) updates]) =
-      _$GReviewFragmentData;
+  factory GReviewFragmentData([
+    void Function(GReviewFragmentDataBuilder b) updates,
+  ]) = _$GReviewFragmentData;
 
   static void _initializeBuilder(GReviewFragmentDataBuilder b) =>
       b..G__typename = 'Review';
@@ -40,14 +40,10 @@ abstract class GReviewFragmentData
       _$gReviewFragmentDataSerializer;
 
   @override
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GReviewFragmentData.serializer,
-        this,
-      ) as Map<String, dynamic>);
+  Map<String, dynamic> toJson() =>
+      (_i1.serializers.serializeWith(GReviewFragmentData.serializer, this)
+          as Map<String, dynamic>);
 
   static GReviewFragmentData? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GReviewFragmentData.serializer,
-        json,
-      );
+      _i1.serializers.deserializeWith(GReviewFragmentData.serializer, json);
 }
