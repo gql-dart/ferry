@@ -29,16 +29,12 @@ abstract class GAliasedHeroData
   static Serializer<GAliasedHeroData> get serializer =>
       _$gAliasedHeroDataSerializer;
 
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GAliasedHeroData.serializer,
-        this,
-      ) as Map<String, dynamic>);
+  Map<String, dynamic> toJson() =>
+      (_i1.serializers.serializeWith(GAliasedHeroData.serializer, this)
+          as Map<String, dynamic>);
 
   static GAliasedHeroData? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GAliasedHeroData.serializer,
-        json,
-      );
+      _i1.serializers.deserializeWith(GAliasedHeroData.serializer, json);
 }
 
 abstract class GAliasedHeroData_empireHero
@@ -46,9 +42,9 @@ abstract class GAliasedHeroData_empireHero
         Built<GAliasedHeroData_empireHero, GAliasedHeroData_empireHeroBuilder> {
   GAliasedHeroData_empireHero._();
 
-  factory GAliasedHeroData_empireHero(
-          [void Function(GAliasedHeroData_empireHeroBuilder b) updates]) =
-      _$GAliasedHeroData_empireHero;
+  factory GAliasedHeroData_empireHero([
+    void Function(GAliasedHeroData_empireHeroBuilder b) updates,
+  ]) = _$GAliasedHeroData_empireHero;
 
   static void _initializeBuilder(GAliasedHeroData_empireHeroBuilder b) =>
       b..G__typename = 'Character';
@@ -61,16 +57,16 @@ abstract class GAliasedHeroData_empireHero
   static Serializer<GAliasedHeroData_empireHero> get serializer =>
       _$gAliasedHeroDataEmpireHeroSerializer;
 
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GAliasedHeroData_empireHero.serializer,
-        this,
-      ) as Map<String, dynamic>);
+  Map<String, dynamic> toJson() =>
+      (_i1.serializers.serializeWith(
+            GAliasedHeroData_empireHero.serializer,
+            this,
+          )
+          as Map<String, dynamic>);
 
-  static GAliasedHeroData_empireHero? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GAliasedHeroData_empireHero.serializer,
-        json,
-      );
+  static GAliasedHeroData_empireHero? fromJson(Map<String, dynamic> json) => _i1
+      .serializers
+      .deserializeWith(GAliasedHeroData_empireHero.serializer, json);
 }
 
 abstract class GAliasedHeroData_jediHero
@@ -78,9 +74,9 @@ abstract class GAliasedHeroData_jediHero
         Built<GAliasedHeroData_jediHero, GAliasedHeroData_jediHeroBuilder> {
   GAliasedHeroData_jediHero._();
 
-  factory GAliasedHeroData_jediHero(
-          [void Function(GAliasedHeroData_jediHeroBuilder b) updates]) =
-      _$GAliasedHeroData_jediHero;
+  factory GAliasedHeroData_jediHero([
+    void Function(GAliasedHeroData_jediHeroBuilder b) updates,
+  ]) = _$GAliasedHeroData_jediHero;
 
   static void _initializeBuilder(GAliasedHeroData_jediHeroBuilder b) =>
       b..G__typename = 'Character';
@@ -93,14 +89,11 @@ abstract class GAliasedHeroData_jediHero
   static Serializer<GAliasedHeroData_jediHero> get serializer =>
       _$gAliasedHeroDataJediHeroSerializer;
 
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GAliasedHeroData_jediHero.serializer,
-        this,
-      ) as Map<String, dynamic>);
+  Map<String, dynamic> toJson() =>
+      (_i1.serializers.serializeWith(GAliasedHeroData_jediHero.serializer, this)
+          as Map<String, dynamic>);
 
-  static GAliasedHeroData_jediHero? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GAliasedHeroData_jediHero.serializer,
-        json,
-      );
+  static GAliasedHeroData_jediHero? fromJson(Map<String, dynamic> json) => _i1
+      .serializers
+      .deserializeWith(GAliasedHeroData_jediHero.serializer, json);
 }

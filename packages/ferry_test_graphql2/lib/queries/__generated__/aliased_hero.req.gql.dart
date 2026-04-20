@@ -39,19 +39,17 @@ abstract class GAliasedHeroReq
   _i4.Operation get operation;
   @override
   _i4.Request get execRequest => _i4.Request(
-        operation: operation,
-        variables: vars.toJson(),
-        context: context ?? const _i4.Context(),
-      );
+    operation: operation,
+    variables: vars.toJson(),
+    context: context ?? const _i4.Context(),
+  );
 
   @override
   String? get requestId;
   @override
   @BuiltValueField(serialize: false)
-  _i2.GAliasedHeroData? Function(
-    _i2.GAliasedHeroData?,
-    _i2.GAliasedHeroData?,
-  )? get updateResult;
+  _i2.GAliasedHeroData? Function(_i2.GAliasedHeroData?, _i2.GAliasedHeroData?)?
+  get updateResult;
   @override
   _i2.GAliasedHeroData? get optimisticResponse;
   @override
@@ -77,20 +75,16 @@ abstract class GAliasedHeroReq
 
   @override
   _i1.OperationRequest<_i2.GAliasedHeroData, _i3.GAliasedHeroVars>
-      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
-          this.rebuild((b) => b..operation = transform(operation));
+  transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+      this.rebuild((b) => b..operation = transform(operation));
 
   static Serializer<GAliasedHeroReq> get serializer =>
       _$gAliasedHeroReqSerializer;
 
-  Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
-        GAliasedHeroReq.serializer,
-        this,
-      ) as Map<String, dynamic>);
+  Map<String, dynamic> toJson() =>
+      (_i6.serializers.serializeWith(GAliasedHeroReq.serializer, this)
+          as Map<String, dynamic>);
 
   static GAliasedHeroReq? fromJson(Map<String, dynamic> json) =>
-      _i6.serializers.deserializeWith(
-        GAliasedHeroReq.serializer,
-        json,
-      );
+      _i6.serializers.deserializeWith(GAliasedHeroReq.serializer, json);
 }

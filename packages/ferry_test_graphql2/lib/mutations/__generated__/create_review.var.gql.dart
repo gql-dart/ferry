@@ -15,23 +15,19 @@ abstract class GCreateReviewVars
     implements Built<GCreateReviewVars, GCreateReviewVarsBuilder> {
   GCreateReviewVars._();
 
-  factory GCreateReviewVars(
-          [void Function(GCreateReviewVarsBuilder b) updates]) =
-      _$GCreateReviewVars;
+  factory GCreateReviewVars([
+    void Function(GCreateReviewVarsBuilder b) updates,
+  ]) = _$GCreateReviewVars;
 
   _i1.GEpisode? get episode;
   _i1.GReviewInput get review;
   static Serializer<GCreateReviewVars> get serializer =>
       _$gCreateReviewVarsSerializer;
 
-  Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
-        GCreateReviewVars.serializer,
-        this,
-      ) as Map<String, dynamic>);
+  Map<String, dynamic> toJson() =>
+      (_i2.serializers.serializeWith(GCreateReviewVars.serializer, this)
+          as Map<String, dynamic>);
 
   static GCreateReviewVars? fromJson(Map<String, dynamic> json) =>
-      _i2.serializers.deserializeWith(
-        GCreateReviewVars.serializer,
-        json,
-      );
+      _i2.serializers.deserializeWith(GCreateReviewVars.serializer, json);
 }

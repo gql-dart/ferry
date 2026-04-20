@@ -133,13 +133,12 @@ class SerializerBuilder implements Builder {
     // and add them to the serializers of this package
     final isExternalSchema = schemaId.package != buildStep.inputId.package;
 
-    final externalSerializersExpression =
-        isExternalSchema
-            ? refer(
-              'serializers',
-              _externalSchemaSerializersImport(schemaId, config),
-            ).property('serializers')
-            : null;
+    final externalSerializersExpression = isExternalSchema
+        ? refer(
+            'serializers',
+            _externalSchemaSerializersImport(schemaId, config),
+          ).property('serializers')
+        : null;
 
     if (isExternalSchema) {
       final externalSchemaId = outputAssetId(
@@ -198,11 +197,10 @@ String _externalSchemaSerializersImport(
 ) {
   final outPutId = outputAssetId(schemaId, schemaExtension, config.outputDir);
 
-  final serializersPathSegments =
-      outPutId.pathSegments
-        ..removeAt(0)
-        ..removeLast()
-        ..add('serializers.gql.dart');
+  final serializersPathSegments = outPutId.pathSegments
+    ..removeAt(0)
+    ..removeLast()
+    ..add('serializers.gql.dart');
 
   final outPutPath = p.joinAll(serializersPathSegments);
 
@@ -226,21 +224,21 @@ bool isBuiltValue(ClassElement c) => c.allSupertypes.any(
           'package:built_value/built_value.dart',
 );
 
-typedef ClassesToGenerateSerializersFor =
-    ({Set<ClassElement> builtClasses, Set<ClassElement> nonBuiltClasses});
+typedef ClassesToGenerateSerializersFor = ({
+  Set<ClassElement> builtClasses,
+  Set<ClassElement> nonBuiltClasses,
+});
 
 ClassesToGenerateSerializersFor extractClassesToGenerateSerializersFor(
   LibraryElement externalSchemaLibrary,
 ) {
-  final builtClasses =
-      externalSchemaLibrary.classes
-          .where((c) => hasSerializer(c) && isBuiltValue(c))
-          .toSet();
+  final builtClasses = externalSchemaLibrary.classes
+      .where((c) => hasSerializer(c) && isBuiltValue(c))
+      .toSet();
 
-  final nonBuiltClasses =
-      externalSchemaLibrary.classes
-          .where((c) => hasSerializer(c) && !isBuiltValue(c))
-          .toSet();
+  final nonBuiltClasses = externalSchemaLibrary.classes
+      .where((c) => hasSerializer(c) && !isBuiltValue(c))
+      .toSet();
 
   return (builtClasses: builtClasses, nonBuiltClasses: nonBuiltClasses);
 }

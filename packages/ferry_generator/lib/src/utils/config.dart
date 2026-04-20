@@ -27,14 +27,12 @@ class BuilderConfig {
   final DataToJsonMode dataToJsonMode;
 
   BuilderConfig(Map<String, dynamic> config)
-    : schemaId =
-          config['schema'] == null
-              ? null
-              : AssetId.parse(config['schema'] as String),
-      schemaIds =
-          (config['schemas'] as YamlList?)
-              ?.map((dynamic schema) => AssetId.parse(schema as String))
-              .toList(),
+    : schemaId = config['schema'] == null
+          ? null
+          : AssetId.parse(config['schema'] as String),
+      schemaIds = (config['schemas'] as YamlList?)
+          ?.map((dynamic schema) => AssetId.parse(schema as String))
+          .toList(),
       shouldAddTypenames = config['add_typenames'] ?? true,
       shouldGenerateVarsCreateFactories =
           config['vars_create_factories'] ?? false,
@@ -170,11 +168,10 @@ DataToJsonMode getDataToJsonModeFromConfig(Map<String, dynamic>? config) {
     'type_safe' => DataToJsonMode.typeSafe,
     'dynamic_param' => DataToJsonMode.dynamicParam,
     null => defaultMode,
-    _ =>
-      throw ArgumentError.value(
-        configValue,
-        'data_to_json',
-        'Invalid value for data_to_json, expected one of: type_safe, dynamic_param',
-      ),
+    _ => throw ArgumentError.value(
+      configValue,
+      'data_to_json',
+      'Invalid value for data_to_json, expected one of: type_safe, dynamic_param',
+    ),
   };
 }

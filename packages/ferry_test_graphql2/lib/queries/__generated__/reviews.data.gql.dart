@@ -27,25 +27,21 @@ abstract class GReviewsData
   BuiltList<GReviewsData_reviews?>? get reviews;
   static Serializer<GReviewsData> get serializer => _$gReviewsDataSerializer;
 
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GReviewsData.serializer,
-        this,
-      ) as Map<String, dynamic>);
+  Map<String, dynamic> toJson() =>
+      (_i1.serializers.serializeWith(GReviewsData.serializer, this)
+          as Map<String, dynamic>);
 
   static GReviewsData? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GReviewsData.serializer,
-        json,
-      );
+      _i1.serializers.deserializeWith(GReviewsData.serializer, json);
 }
 
 abstract class GReviewsData_reviews
     implements Built<GReviewsData_reviews, GReviewsData_reviewsBuilder> {
   GReviewsData_reviews._();
 
-  factory GReviewsData_reviews(
-          [void Function(GReviewsData_reviewsBuilder b) updates]) =
-      _$GReviewsData_reviews;
+  factory GReviewsData_reviews([
+    void Function(GReviewsData_reviewsBuilder b) updates,
+  ]) = _$GReviewsData_reviews;
 
   static void _initializeBuilder(GReviewsData_reviewsBuilder b) =>
       b..G__typename = 'Review';
@@ -61,14 +57,10 @@ abstract class GReviewsData_reviews
   static Serializer<GReviewsData_reviews> get serializer =>
       _$gReviewsDataReviewsSerializer;
 
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GReviewsData_reviews.serializer,
-        this,
-      ) as Map<String, dynamic>);
+  Map<String, dynamic> toJson() =>
+      (_i1.serializers.serializeWith(GReviewsData_reviews.serializer, this)
+          as Map<String, dynamic>);
 
   static GReviewsData_reviews? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GReviewsData_reviews.serializer,
-        json,
-      );
+      _i1.serializers.deserializeWith(GReviewsData_reviews.serializer, json);
 }

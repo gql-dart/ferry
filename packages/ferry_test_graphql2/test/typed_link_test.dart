@@ -5,29 +5,28 @@ import 'package:ferry_exec/ferry_exec.dart';
 import 'package:ferry_test_graphql2/queries/__generated__/hero_no_vars.req.gql.dart';
 
 final _TerminatingTypedLink = TypedLink.function(
-  <TData, TVars>(request, [next]) => Stream.value(
-    OperationResponse(operationRequest: request),
-  ),
+  <TData, TVars>(request, [next]) =>
+      Stream.value(OperationResponse(operationRequest: request)),
 );
 
 final _Req2TypedLink = TypedLink.function(
   <TData, TVars>(request, [next]) =>
       next!((request as dynamic).rebuild((b) => b..requestId = '2')).map(
-    (response) => OperationResponse(
-      operationRequest: response.operationRequest,
-      dataSource: DataSource.Cache,
-    ),
-  ),
+        (response) => OperationResponse(
+          operationRequest: response.operationRequest,
+          dataSource: DataSource.Cache,
+        ),
+      ),
 );
 
 final _Req3TypedLink = TypedLink.function(
   <TData, TVars>(request, [next]) =>
       next!((request as dynamic).rebuild((b) => b..requestId = '3')).map(
-    (response) => OperationResponse(
-      operationRequest: response.operationRequest,
-      dataSource: DataSource.Link,
-    ),
-  ),
+        (response) => OperationResponse(
+          operationRequest: response.operationRequest,
+          dataSource: DataSource.Link,
+        ),
+      ),
 );
 
 void main() {

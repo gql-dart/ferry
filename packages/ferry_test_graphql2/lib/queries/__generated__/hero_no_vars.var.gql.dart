@@ -19,14 +19,10 @@ abstract class GHeroNoVarsVars
   static Serializer<GHeroNoVarsVars> get serializer =>
       _$gHeroNoVarsVarsSerializer;
 
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GHeroNoVarsVars.serializer,
-        this,
-      ) as Map<String, dynamic>);
+  Map<String, dynamic> toJson() =>
+      (_i1.serializers.serializeWith(GHeroNoVarsVars.serializer, this)
+          as Map<String, dynamic>);
 
   static GHeroNoVarsVars? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GHeroNoVarsVars.serializer,
-        json,
-      );
+      _i1.serializers.deserializeWith(GHeroNoVarsVars.serializer, json);
 }

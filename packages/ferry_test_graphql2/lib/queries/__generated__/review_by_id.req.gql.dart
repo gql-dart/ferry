@@ -39,19 +39,17 @@ abstract class GReviewsByIDReq
   _i4.Operation get operation;
   @override
   _i4.Request get execRequest => _i4.Request(
-        operation: operation,
-        variables: vars.toJson(),
-        context: context ?? const _i4.Context(),
-      );
+    operation: operation,
+    variables: vars.toJson(),
+    context: context ?? const _i4.Context(),
+  );
 
   @override
   String? get requestId;
   @override
   @BuiltValueField(serialize: false)
-  _i2.GReviewsByIDData? Function(
-    _i2.GReviewsByIDData?,
-    _i2.GReviewsByIDData?,
-  )? get updateResult;
+  _i2.GReviewsByIDData? Function(_i2.GReviewsByIDData?, _i2.GReviewsByIDData?)?
+  get updateResult;
   @override
   _i2.GReviewsByIDData? get optimisticResponse;
   @override
@@ -77,20 +75,16 @@ abstract class GReviewsByIDReq
 
   @override
   _i1.OperationRequest<_i2.GReviewsByIDData, _i3.GReviewsByIDVars>
-      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
-          this.rebuild((b) => b..operation = transform(operation));
+  transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+      this.rebuild((b) => b..operation = transform(operation));
 
   static Serializer<GReviewsByIDReq> get serializer =>
       _$gReviewsByIDReqSerializer;
 
-  Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
-        GReviewsByIDReq.serializer,
-        this,
-      ) as Map<String, dynamic>);
+  Map<String, dynamic> toJson() =>
+      (_i6.serializers.serializeWith(GReviewsByIDReq.serializer, this)
+          as Map<String, dynamic>);
 
   static GReviewsByIDReq? fromJson(Map<String, dynamic> json) =>
-      _i6.serializers.deserializeWith(
-        GReviewsByIDReq.serializer,
-        json,
-      );
+      _i6.serializers.deserializeWith(GReviewsByIDReq.serializer, json);
 }

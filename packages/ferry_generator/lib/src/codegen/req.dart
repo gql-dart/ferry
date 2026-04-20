@@ -10,11 +10,10 @@ Library buildReqLibrary(
   String partUrl,
   DataToJsonMode dataToVarsMode,
 ) => Library(
-  (b) =>
-      b
-        ..directives.add(Directive.part(partUrl))
-        ..body.addAll([
-          ...buildOperationReqClasses(docSource, dataToVarsMode),
-          ...buildFragmentReqClasses(docSource, dataToVarsMode),
-        ]),
+  (b) => b
+    ..directives.add(Directive.part(partUrl))
+    ..body.addAll([
+      ...buildOperationReqClasses(docSource, dataToVarsMode),
+      ...buildFragmentReqClasses(docSource, dataToVarsMode),
+    ]),
 );

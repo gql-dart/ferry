@@ -47,10 +47,9 @@ class PickAllocator implements Allocator {
   @override
   Iterable<Directive> get imports => _imports.entries
       .map(
-        (u) =>
-            u.value == null
-                ? Directive.import(u.key)
-                : Directive.import(u.key, show: u.value!),
+        (u) => u.value == null
+            ? Directive.import(u.key)
+            : Directive.import(u.key, show: u.value!),
       )
       .followedBy(
         aliasedImports.entries.map((e) => Directive.import(e.key, as: e.value)),

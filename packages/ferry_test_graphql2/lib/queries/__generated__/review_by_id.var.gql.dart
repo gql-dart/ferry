@@ -20,14 +20,10 @@ abstract class GReviewsByIDVars
   static Serializer<GReviewsByIDVars> get serializer =>
       _$gReviewsByIDVarsSerializer;
 
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GReviewsByIDVars.serializer,
-        this,
-      ) as Map<String, dynamic>);
+  Map<String, dynamic> toJson() =>
+      (_i1.serializers.serializeWith(GReviewsByIDVars.serializer, this)
+          as Map<String, dynamic>);
 
   static GReviewsByIDVars? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GReviewsByIDVars.serializer,
-        json,
-      );
+      _i1.serializers.deserializeWith(GReviewsByIDVars.serializer, json);
 }
