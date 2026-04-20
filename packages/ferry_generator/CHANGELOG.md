@@ -1,3 +1,7 @@
+## 0.12.0+4
+
+ - Support `analyzer 9.x` and `10.x`.
+
 ## 0.12.0+3
 
  - Support `build ^4.0.0` / `build_runner ^2.10.3` (requires Dart `^3.7.0`).

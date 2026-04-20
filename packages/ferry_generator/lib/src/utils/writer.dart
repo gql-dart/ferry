@@ -16,15 +16,16 @@ Future<void> writeDocument(
 ) {
   if (library.body.isEmpty) return Future.value(null);
 
-  final libString = library
-      .accept(
-        DartEmitter(
-          allocator: allocator,
-          orderDirectives: true,
-          useNullSafetySyntax: true,
-        ),
-      )
-      .toString();
+  final libString =
+      library
+          .accept(
+            DartEmitter(
+              allocator: allocator,
+              orderDirectives: true,
+              useNullSafetySyntax: true,
+            ),
+          )
+          .toString();
 
   final formatted = _dartfmt.format(libString);
 
