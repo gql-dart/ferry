@@ -6,10 +6,9 @@ part of 'reviews.data.gql.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<GReviewsData> _$gReviewsDataSerializer =
-    new _$GReviewsDataSerializer();
+Serializer<GReviewsData> _$gReviewsDataSerializer = _$GReviewsDataSerializer();
 Serializer<GReviewsData_reviews> _$gReviewsDataReviewsSerializer =
-    new _$GReviewsData_reviewsSerializer();
+    _$GReviewsData_reviewsSerializer();
 
 class _$GReviewsDataSerializer implements StructuredSerializer<GReviewsData> {
   @override
@@ -18,30 +17,42 @@ class _$GReviewsDataSerializer implements StructuredSerializer<GReviewsData> {
   final String wireName = 'GReviewsData';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, GReviewsData object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    GReviewsData object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
+      serializers.serialize(
+        object.G__typename,
+        specifiedType: const FullType(String),
+      ),
     ];
     Object? value;
     value = object.reviews;
     if (value != null) {
       result
         ..add('reviews')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(BuiltList,
-                const [const FullType.nullable(GReviewsData_reviews)])));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(BuiltList, const [
+              const FullType.nullable(GReviewsData_reviews),
+            ]),
+          ),
+        );
     }
     return result;
   }
 
   @override
   GReviewsData deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GReviewsDataBuilder();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = GReviewsDataBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -50,14 +61,23 @@ class _$GReviewsDataSerializer implements StructuredSerializer<GReviewsData> {
       final Object? value = iterator.current;
       switch (key) {
         case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+          result.G__typename =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )!
+                  as String;
           break;
         case 'reviews':
-          result.reviews.replace(serializers.deserialize(value,
-              specifiedType: const FullType(BuiltList, const [
-                const FullType.nullable(GReviewsData_reviews)
-              ]))! as BuiltList<Object?>);
+          result.reviews.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(BuiltList, const [
+                    const FullType.nullable(GReviewsData_reviews),
+                  ]),
+                )!
+                as BuiltList<Object?>,
+          );
           break;
       }
     }
@@ -71,58 +91,73 @@ class _$GReviewsData_reviewsSerializer
   @override
   final Iterable<Type> types = const [
     GReviewsData_reviews,
-    _$GReviewsData_reviews
+    _$GReviewsData_reviews,
   ];
   @override
   final String wireName = 'GReviewsData_reviews';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, GReviewsData_reviews object,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    GReviewsData_reviews object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
+      serializers.serialize(
+        object.G__typename,
+        specifiedType: const FullType(String),
+      ),
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(String)),
       'stars',
       serializers.serialize(object.stars, specifiedType: const FullType(int)),
       'seenOn',
-      serializers.serialize(object.seenOn,
-          specifiedType:
-              const FullType(BuiltList, const [const FullType(DateTime)])),
+      serializers.serialize(
+        object.seenOn,
+        specifiedType: const FullType(BuiltList, const [
+          const FullType(DateTime),
+        ]),
+      ),
     ];
     Object? value;
     value = object.episode;
     if (value != null) {
       result
         ..add('episode')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(_i2.GEpisode)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(_i2.GEpisode),
+          ),
+        );
     }
     value = object.commentary;
     if (value != null) {
       result
         ..add('commentary')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(String)),
+        );
     }
     value = object.createdAt;
     if (value != null) {
       result
         ..add('createdAt')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(DateTime)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(DateTime)),
+        );
     }
     return result;
   }
 
   @override
   GReviewsData_reviews deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GReviewsData_reviewsBuilder();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = GReviewsData_reviewsBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -131,34 +166,63 @@ class _$GReviewsData_reviewsSerializer
       final Object? value = iterator.current;
       switch (key) {
         case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+          result.G__typename =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )!
+                  as String;
           break;
         case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+          result.id =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )!
+                  as String;
           break;
         case 'episode':
-          result.episode = serializers.deserialize(value,
-              specifiedType: const FullType(_i2.GEpisode)) as _i2.GEpisode?;
+          result.episode =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i2.GEpisode),
+                  )
+                  as _i2.GEpisode?;
           break;
         case 'stars':
-          result.stars = serializers.deserialize(value,
-              specifiedType: const FullType(int))! as int;
+          result.stars =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )!
+                  as int;
           break;
         case 'commentary':
-          result.commentary = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
+          result.commentary =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String?;
           break;
         case 'createdAt':
-          result.createdAt = serializers.deserialize(value,
-              specifiedType: const FullType(DateTime)) as DateTime?;
+          result.createdAt =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DateTime),
+                  )
+                  as DateTime?;
           break;
         case 'seenOn':
-          result.seenOn.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltList, const [const FullType(DateTime)]))!
-              as BuiltList<Object?>);
+          result.seenOn.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(BuiltList, const [
+                    const FullType(DateTime),
+                  ]),
+                )!
+                as BuiltList<Object?>,
+          );
           break;
       }
     }
@@ -174,19 +238,15 @@ class _$GReviewsData extends GReviewsData {
   final BuiltList<GReviewsData_reviews?>? reviews;
 
   factory _$GReviewsData([void Function(GReviewsDataBuilder)? updates]) =>
-      (new GReviewsDataBuilder()..update(updates))._build();
+      (GReviewsDataBuilder()..update(updates))._build();
 
-  _$GReviewsData._({required this.G__typename, this.reviews}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GReviewsData', 'G__typename');
-  }
-
+  _$GReviewsData._({required this.G__typename, this.reviews}) : super._();
   @override
   GReviewsData rebuild(void Function(GReviewsDataBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GReviewsDataBuilder toBuilder() => new GReviewsDataBuilder()..replace(this);
+  GReviewsDataBuilder toBuilder() => GReviewsDataBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -224,7 +284,7 @@ class GReviewsDataBuilder
 
   ListBuilder<GReviewsData_reviews?>? _reviews;
   ListBuilder<GReviewsData_reviews?> get reviews =>
-      _$this._reviews ??= new ListBuilder<GReviewsData_reviews?>();
+      _$this._reviews ??= ListBuilder<GReviewsData_reviews?>();
   set reviews(ListBuilder<GReviewsData_reviews?>? reviews) =>
       _$this._reviews = reviews;
 
@@ -244,7 +304,6 @@ class GReviewsDataBuilder
 
   @override
   void replace(GReviewsData other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GReviewsData;
   }
 
@@ -259,19 +318,27 @@ class GReviewsDataBuilder
   _$GReviewsData _build() {
     _$GReviewsData _$result;
     try {
-      _$result = _$v ??
-          new _$GReviewsData._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GReviewsData', 'G__typename'),
-              reviews: _reviews?.build());
+      _$result =
+          _$v ??
+          _$GReviewsData._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+              G__typename,
+              r'GReviewsData',
+              'G__typename',
+            ),
+            reviews: _reviews?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'reviews';
         _reviews?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GReviewsData', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'GReviewsData',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -296,36 +363,27 @@ class _$GReviewsData_reviews extends GReviewsData_reviews {
   @override
   final BuiltList<DateTime> seenOn;
 
-  factory _$GReviewsData_reviews(
-          [void Function(GReviewsData_reviewsBuilder)? updates]) =>
-      (new GReviewsData_reviewsBuilder()..update(updates))._build();
+  factory _$GReviewsData_reviews([
+    void Function(GReviewsData_reviewsBuilder)? updates,
+  ]) => (GReviewsData_reviewsBuilder()..update(updates))._build();
 
-  _$GReviewsData_reviews._(
-      {required this.G__typename,
-      required this.id,
-      this.episode,
-      required this.stars,
-      this.commentary,
-      this.createdAt,
-      required this.seenOn})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GReviewsData_reviews', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(id, r'GReviewsData_reviews', 'id');
-    BuiltValueNullFieldError.checkNotNull(
-        stars, r'GReviewsData_reviews', 'stars');
-    BuiltValueNullFieldError.checkNotNull(
-        seenOn, r'GReviewsData_reviews', 'seenOn');
-  }
-
+  _$GReviewsData_reviews._({
+    required this.G__typename,
+    required this.id,
+    this.episode,
+    required this.stars,
+    this.commentary,
+    this.createdAt,
+    required this.seenOn,
+  }) : super._();
   @override
   GReviewsData_reviews rebuild(
-          void Function(GReviewsData_reviewsBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GReviewsData_reviewsBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GReviewsData_reviewsBuilder toBuilder() =>
-      new GReviewsData_reviewsBuilder()..replace(this);
+      GReviewsData_reviewsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -398,7 +456,7 @@ class GReviewsData_reviewsBuilder
 
   ListBuilder<DateTime>? _seenOn;
   ListBuilder<DateTime> get seenOn =>
-      _$this._seenOn ??= new ListBuilder<DateTime>();
+      _$this._seenOn ??= ListBuilder<DateTime>();
   set seenOn(ListBuilder<DateTime>? seenOn) => _$this._seenOn = seenOn;
 
   GReviewsData_reviewsBuilder() {
@@ -422,7 +480,6 @@ class GReviewsData_reviewsBuilder
 
   @override
   void replace(GReviewsData_reviews other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GReviewsData_reviews;
   }
 
@@ -437,26 +494,40 @@ class GReviewsData_reviewsBuilder
   _$GReviewsData_reviews _build() {
     _$GReviewsData_reviews _$result;
     try {
-      _$result = _$v ??
-          new _$GReviewsData_reviews._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GReviewsData_reviews', 'G__typename'),
-              id: BuiltValueNullFieldError.checkNotNull(
-                  id, r'GReviewsData_reviews', 'id'),
-              episode: episode,
-              stars: BuiltValueNullFieldError.checkNotNull(
-                  stars, r'GReviewsData_reviews', 'stars'),
-              commentary: commentary,
-              createdAt: createdAt,
-              seenOn: seenOn.build());
+      _$result =
+          _$v ??
+          _$GReviewsData_reviews._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+              G__typename,
+              r'GReviewsData_reviews',
+              'G__typename',
+            ),
+            id: BuiltValueNullFieldError.checkNotNull(
+              id,
+              r'GReviewsData_reviews',
+              'id',
+            ),
+            episode: episode,
+            stars: BuiltValueNullFieldError.checkNotNull(
+              stars,
+              r'GReviewsData_reviews',
+              'stars',
+            ),
+            commentary: commentary,
+            createdAt: createdAt,
+            seenOn: seenOn.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'seenOn';
         seenOn.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GReviewsData_reviews', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'GReviewsData_reviews',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

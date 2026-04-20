@@ -7,10 +7,10 @@ part of 'create_review.data.gql.dart';
 // **************************************************************************
 
 Serializer<GCreateReviewData> _$gCreateReviewDataSerializer =
-    new _$GCreateReviewDataSerializer();
+    _$GCreateReviewDataSerializer();
 Serializer<GCreateReviewData_createReview>
-    _$gCreateReviewDataCreateReviewSerializer =
-    new _$GCreateReviewData_createReviewSerializer();
+_$gCreateReviewDataCreateReviewSerializer =
+    _$GCreateReviewData_createReviewSerializer();
 
 class _$GCreateReviewDataSerializer
     implements StructuredSerializer<GCreateReviewData> {
@@ -20,29 +20,40 @@ class _$GCreateReviewDataSerializer
   final String wireName = 'GCreateReviewData';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, GCreateReviewData object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    GCreateReviewData object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
+      serializers.serialize(
+        object.G__typename,
+        specifiedType: const FullType(String),
+      ),
     ];
     Object? value;
     value = object.createReview;
     if (value != null) {
       result
         ..add('createReview')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(GCreateReviewData_createReview)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(GCreateReviewData_createReview),
+          ),
+        );
     }
     return result;
   }
 
   @override
   GCreateReviewData deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GCreateReviewDataBuilder();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = GCreateReviewDataBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -51,14 +62,21 @@ class _$GCreateReviewDataSerializer
       final Object? value = iterator.current;
       switch (key) {
         case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+          result.G__typename =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )!
+                  as String;
           break;
         case 'createReview':
-          result.createReview.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(GCreateReviewData_createReview))!
-              as GCreateReviewData_createReview);
+          result.createReview.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(GCreateReviewData_createReview),
+                )!
+                as GCreateReviewData_createReview,
+          );
           break;
       }
     }
@@ -72,19 +90,23 @@ class _$GCreateReviewData_createReviewSerializer
   @override
   final Iterable<Type> types = const [
     GCreateReviewData_createReview,
-    _$GCreateReviewData_createReview
+    _$GCreateReviewData_createReview,
   ];
   @override
   final String wireName = 'GCreateReviewData_createReview';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, GCreateReviewData_createReview object,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    GCreateReviewData_createReview object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
+      serializers.serialize(
+        object.G__typename,
+        specifiedType: const FullType(String),
+      ),
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(String)),
       'stars',
@@ -95,24 +117,31 @@ class _$GCreateReviewData_createReviewSerializer
     if (value != null) {
       result
         ..add('episode')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(_i2.GEpisode)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(_i2.GEpisode),
+          ),
+        );
     }
     value = object.commentary;
     if (value != null) {
       result
         ..add('commentary')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(String)),
+        );
     }
     return result;
   }
 
   @override
   GCreateReviewData_createReview deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GCreateReviewData_createReviewBuilder();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = GCreateReviewData_createReviewBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -121,24 +150,44 @@ class _$GCreateReviewData_createReviewSerializer
       final Object? value = iterator.current;
       switch (key) {
         case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+          result.G__typename =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )!
+                  as String;
           break;
         case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+          result.id =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )!
+                  as String;
           break;
         case 'episode':
-          result.episode = serializers.deserialize(value,
-              specifiedType: const FullType(_i2.GEpisode)) as _i2.GEpisode?;
+          result.episode =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i2.GEpisode),
+                  )
+                  as _i2.GEpisode?;
           break;
         case 'stars':
-          result.stars = serializers.deserialize(value,
-              specifiedType: const FullType(int))! as int;
+          result.stars =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )!
+                  as int;
           break;
         case 'commentary':
-          result.commentary = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
+          result.commentary =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String?;
           break;
       }
     }
@@ -153,23 +202,19 @@ class _$GCreateReviewData extends GCreateReviewData {
   @override
   final GCreateReviewData_createReview? createReview;
 
-  factory _$GCreateReviewData(
-          [void Function(GCreateReviewDataBuilder)? updates]) =>
-      (new GCreateReviewDataBuilder()..update(updates))._build();
+  factory _$GCreateReviewData([
+    void Function(GCreateReviewDataBuilder)? updates,
+  ]) => (GCreateReviewDataBuilder()..update(updates))._build();
 
   _$GCreateReviewData._({required this.G__typename, this.createReview})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GCreateReviewData', 'G__typename');
-  }
-
+    : super._();
   @override
   GCreateReviewData rebuild(void Function(GCreateReviewDataBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   GCreateReviewDataBuilder toBuilder() =>
-      new GCreateReviewDataBuilder()..replace(this);
+      GCreateReviewDataBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -207,7 +252,7 @@ class GCreateReviewDataBuilder
 
   GCreateReviewData_createReviewBuilder? _createReview;
   GCreateReviewData_createReviewBuilder get createReview =>
-      _$this._createReview ??= new GCreateReviewData_createReviewBuilder();
+      _$this._createReview ??= GCreateReviewData_createReviewBuilder();
   set createReview(GCreateReviewData_createReviewBuilder? createReview) =>
       _$this._createReview = createReview;
 
@@ -227,7 +272,6 @@ class GCreateReviewDataBuilder
 
   @override
   void replace(GCreateReviewData other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GCreateReviewData;
   }
 
@@ -242,19 +286,27 @@ class GCreateReviewDataBuilder
   _$GCreateReviewData _build() {
     _$GCreateReviewData _$result;
     try {
-      _$result = _$v ??
-          new _$GCreateReviewData._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GCreateReviewData', 'G__typename'),
-              createReview: _createReview?.build());
+      _$result =
+          _$v ??
+          _$GCreateReviewData._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+              G__typename,
+              r'GCreateReviewData',
+              'G__typename',
+            ),
+            createReview: _createReview?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'createReview';
         _createReview?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GCreateReviewData', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'GCreateReviewData',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -275,33 +327,25 @@ class _$GCreateReviewData_createReview extends GCreateReviewData_createReview {
   @override
   final String? commentary;
 
-  factory _$GCreateReviewData_createReview(
-          [void Function(GCreateReviewData_createReviewBuilder)? updates]) =>
-      (new GCreateReviewData_createReviewBuilder()..update(updates))._build();
+  factory _$GCreateReviewData_createReview([
+    void Function(GCreateReviewData_createReviewBuilder)? updates,
+  ]) => (GCreateReviewData_createReviewBuilder()..update(updates))._build();
 
-  _$GCreateReviewData_createReview._(
-      {required this.G__typename,
-      required this.id,
-      this.episode,
-      required this.stars,
-      this.commentary})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GCreateReviewData_createReview', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GCreateReviewData_createReview', 'id');
-    BuiltValueNullFieldError.checkNotNull(
-        stars, r'GCreateReviewData_createReview', 'stars');
-  }
-
+  _$GCreateReviewData_createReview._({
+    required this.G__typename,
+    required this.id,
+    this.episode,
+    required this.stars,
+    this.commentary,
+  }) : super._();
   @override
   GCreateReviewData_createReview rebuild(
-          void Function(GCreateReviewData_createReviewBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GCreateReviewData_createReviewBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GCreateReviewData_createReviewBuilder toBuilder() =>
-      new GCreateReviewData_createReviewBuilder()..replace(this);
+      GCreateReviewData_createReviewBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -340,8 +384,10 @@ class _$GCreateReviewData_createReview extends GCreateReviewData_createReview {
 
 class GCreateReviewData_createReviewBuilder
     implements
-        Builder<GCreateReviewData_createReview,
-            GCreateReviewData_createReviewBuilder> {
+        Builder<
+          GCreateReviewData_createReview,
+          GCreateReviewData_createReviewBuilder
+        > {
   _$GCreateReviewData_createReview? _$v;
 
   String? _G__typename;
@@ -383,7 +429,6 @@ class GCreateReviewData_createReviewBuilder
 
   @override
   void replace(GCreateReviewData_createReview other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GCreateReviewData_createReview;
   }
 
@@ -396,16 +441,27 @@ class GCreateReviewData_createReviewBuilder
   GCreateReviewData_createReview build() => _build();
 
   _$GCreateReviewData_createReview _build() {
-    final _$result = _$v ??
-        new _$GCreateReviewData_createReview._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, r'GCreateReviewData_createReview', 'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GCreateReviewData_createReview', 'id'),
-            episode: episode,
-            stars: BuiltValueNullFieldError.checkNotNull(
-                stars, r'GCreateReviewData_createReview', 'stars'),
-            commentary: commentary);
+    final _$result =
+        _$v ??
+        _$GCreateReviewData_createReview._(
+          G__typename: BuiltValueNullFieldError.checkNotNull(
+            G__typename,
+            r'GCreateReviewData_createReview',
+            'G__typename',
+          ),
+          id: BuiltValueNullFieldError.checkNotNull(
+            id,
+            r'GCreateReviewData_createReview',
+            'id',
+          ),
+          episode: episode,
+          stars: BuiltValueNullFieldError.checkNotNull(
+            stars,
+            r'GCreateReviewData_createReview',
+            'stars',
+          ),
+          commentary: commentary,
+        );
     replace(_$result);
     return _$result;
   }

@@ -7,7 +7,7 @@ part of 'review_fragment.req.gql.dart';
 // **************************************************************************
 
 Serializer<GReviewFragmentReq> _$gReviewFragmentReqSerializer =
-    new _$GReviewFragmentReqSerializer();
+    _$GReviewFragmentReqSerializer();
 
 class _$GReviewFragmentReqSerializer
     implements StructuredSerializer<GReviewFragmentReq> {
@@ -18,36 +18,49 @@ class _$GReviewFragmentReqSerializer
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, GReviewFragmentReq object,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    GReviewFragmentReq object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'vars',
-      serializers.serialize(object.vars,
-          specifiedType: const FullType(_i3.GReviewFragmentVars)),
+      serializers.serialize(
+        object.vars,
+        specifiedType: const FullType(_i3.GReviewFragmentVars),
+      ),
       'document',
-      serializers.serialize(object.document,
-          specifiedType: const FullType(_i5.DocumentNode)),
+      serializers.serialize(
+        object.document,
+        specifiedType: const FullType(_i5.DocumentNode),
+      ),
       'idFields',
-      serializers.serialize(object.idFields,
-          specifiedType: const FullType(
-              Map, const [const FullType(String), const FullType(dynamic)])),
+      serializers.serialize(
+        object.idFields,
+        specifiedType: const FullType(Map, const [
+          const FullType(String),
+          const FullType(dynamic),
+        ]),
+      ),
     ];
     Object? value;
     value = object.fragmentName;
     if (value != null) {
       result
         ..add('fragmentName')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(String)),
+        );
     }
     return result;
   }
 
   @override
   GReviewFragmentReq deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GReviewFragmentReqBuilder();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = GReviewFragmentReqBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -56,25 +69,40 @@ class _$GReviewFragmentReqSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'vars':
-          result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GReviewFragmentVars))!
-              as _i3.GReviewFragmentVars);
+          result.vars.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i3.GReviewFragmentVars),
+                )!
+                as _i3.GReviewFragmentVars,
+          );
           break;
         case 'document':
-          result.document = serializers.deserialize(value,
-                  specifiedType: const FullType(_i5.DocumentNode))!
-              as _i5.DocumentNode;
+          result.document =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i5.DocumentNode),
+                  )!
+                  as _i5.DocumentNode;
           break;
         case 'fragmentName':
-          result.fragmentName = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
+          result.fragmentName =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String?;
           break;
         case 'idFields':
-          result.idFields = serializers.deserialize(value,
-              specifiedType: const FullType(Map, const [
-                const FullType(String),
-                const FullType(dynamic)
-              ]))! as Map<String, dynamic>;
+          result.idFields =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(Map, const [
+                      const FullType(String),
+                      const FullType(dynamic),
+                    ]),
+                  )!
+                  as Map<String, dynamic>;
           break;
       }
     }
@@ -93,31 +121,24 @@ class _$GReviewFragmentReq extends GReviewFragmentReq {
   @override
   final Map<String, dynamic> idFields;
 
-  factory _$GReviewFragmentReq(
-          [void Function(GReviewFragmentReqBuilder)? updates]) =>
-      (new GReviewFragmentReqBuilder()..update(updates))._build();
+  factory _$GReviewFragmentReq([
+    void Function(GReviewFragmentReqBuilder)? updates,
+  ]) => (GReviewFragmentReqBuilder()..update(updates))._build();
 
-  _$GReviewFragmentReq._(
-      {required this.vars,
-      required this.document,
-      this.fragmentName,
-      required this.idFields})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(vars, r'GReviewFragmentReq', 'vars');
-    BuiltValueNullFieldError.checkNotNull(
-        document, r'GReviewFragmentReq', 'document');
-    BuiltValueNullFieldError.checkNotNull(
-        idFields, r'GReviewFragmentReq', 'idFields');
-  }
-
+  _$GReviewFragmentReq._({
+    required this.vars,
+    required this.document,
+    this.fragmentName,
+    required this.idFields,
+  }) : super._();
   @override
   GReviewFragmentReq rebuild(
-          void Function(GReviewFragmentReqBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GReviewFragmentReqBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GReviewFragmentReqBuilder toBuilder() =>
-      new GReviewFragmentReqBuilder()..replace(this);
+      GReviewFragmentReqBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -157,7 +178,7 @@ class GReviewFragmentReqBuilder
 
   _i3.GReviewFragmentVarsBuilder? _vars;
   _i3.GReviewFragmentVarsBuilder get vars =>
-      _$this._vars ??= new _i3.GReviewFragmentVarsBuilder();
+      _$this._vars ??= _i3.GReviewFragmentVarsBuilder();
   set vars(_i3.GReviewFragmentVarsBuilder? vars) => _$this._vars = vars;
 
   _i5.DocumentNode? _document;
@@ -190,7 +211,6 @@ class GReviewFragmentReqBuilder
 
   @override
   void replace(GReviewFragmentReq other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GReviewFragmentReq;
   }
 
@@ -205,22 +225,33 @@ class GReviewFragmentReqBuilder
   _$GReviewFragmentReq _build() {
     _$GReviewFragmentReq _$result;
     try {
-      _$result = _$v ??
-          new _$GReviewFragmentReq._(
-              vars: vars.build(),
-              document: BuiltValueNullFieldError.checkNotNull(
-                  document, r'GReviewFragmentReq', 'document'),
-              fragmentName: fragmentName,
-              idFields: BuiltValueNullFieldError.checkNotNull(
-                  idFields, r'GReviewFragmentReq', 'idFields'));
+      _$result =
+          _$v ??
+          _$GReviewFragmentReq._(
+            vars: vars.build(),
+            document: BuiltValueNullFieldError.checkNotNull(
+              document,
+              r'GReviewFragmentReq',
+              'document',
+            ),
+            fragmentName: fragmentName,
+            idFields: BuiltValueNullFieldError.checkNotNull(
+              idFields,
+              r'GReviewFragmentReq',
+              'idFields',
+            ),
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GReviewFragmentReq', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'GReviewFragmentReq',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

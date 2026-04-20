@@ -7,7 +7,7 @@ part of 'hero_no_vars.var.gql.dart';
 // **************************************************************************
 
 Serializer<GHeroNoVarsVars> _$gHeroNoVarsVarsSerializer =
-    new _$GHeroNoVarsVarsSerializer();
+    _$GHeroNoVarsVarsSerializer();
 
 class _$GHeroNoVarsVarsSerializer
     implements StructuredSerializer<GHeroNoVarsVars> {
@@ -17,32 +17,35 @@ class _$GHeroNoVarsVarsSerializer
   final String wireName = 'GHeroNoVarsVars';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, GHeroNoVarsVars object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    GHeroNoVarsVars object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return <Object?>[];
   }
 
   @override
   GHeroNoVarsVars deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    return new GHeroNoVarsVarsBuilder().build();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    return GHeroNoVarsVarsBuilder().build();
   }
 }
 
 class _$GHeroNoVarsVars extends GHeroNoVarsVars {
   factory _$GHeroNoVarsVars([void Function(GHeroNoVarsVarsBuilder)? updates]) =>
-      (new GHeroNoVarsVarsBuilder()..update(updates))._build();
+      (GHeroNoVarsVarsBuilder()..update(updates))._build();
 
   _$GHeroNoVarsVars._() : super._();
-
   @override
   GHeroNoVarsVars rebuild(void Function(GHeroNoVarsVarsBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GHeroNoVarsVarsBuilder toBuilder() =>
-      new GHeroNoVarsVarsBuilder()..replace(this);
+  GHeroNoVarsVarsBuilder toBuilder() => GHeroNoVarsVarsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -69,7 +72,6 @@ class GHeroNoVarsVarsBuilder
 
   @override
   void replace(GHeroNoVarsVars other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GHeroNoVarsVars;
   }
 
@@ -82,7 +84,7 @@ class GHeroNoVarsVarsBuilder
   GHeroNoVarsVars build() => _build();
 
   _$GHeroNoVarsVars _build() {
-    final _$result = _$v ?? new _$GHeroNoVarsVars._();
+    final _$result = _$v ?? _$GHeroNoVarsVars._();
     replace(_$result);
     return _$result;
   }

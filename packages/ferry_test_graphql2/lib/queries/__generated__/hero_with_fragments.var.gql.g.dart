@@ -7,43 +7,51 @@ part of 'hero_with_fragments.var.gql.dart';
 // **************************************************************************
 
 Serializer<GHeroWithFragmentsVars> _$gHeroWithFragmentsVarsSerializer =
-    new _$GHeroWithFragmentsVarsSerializer();
+    _$GHeroWithFragmentsVarsSerializer();
 Serializer<GheroDataVars> _$gheroDataVarsSerializer =
-    new _$GheroDataVarsSerializer();
+    _$GheroDataVarsSerializer();
 Serializer<GcomparisonFieldsVars> _$gcomparisonFieldsVarsSerializer =
-    new _$GcomparisonFieldsVarsSerializer();
+    _$GcomparisonFieldsVarsSerializer();
 
 class _$GHeroWithFragmentsVarsSerializer
     implements StructuredSerializer<GHeroWithFragmentsVars> {
   @override
   final Iterable<Type> types = const [
     GHeroWithFragmentsVars,
-    _$GHeroWithFragmentsVars
+    _$GHeroWithFragmentsVars,
   ];
   @override
   final String wireName = 'GHeroWithFragmentsVars';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, GHeroWithFragmentsVars object,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    GHeroWithFragmentsVars object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[];
     Object? value;
     value = object.episode;
     if (value != null) {
       result
         ..add('episode')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(_i1.GEpisode)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(_i1.GEpisode),
+          ),
+        );
     }
     return result;
   }
 
   @override
   GHeroWithFragmentsVars deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GHeroWithFragmentsVarsBuilder();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = GHeroWithFragmentsVarsBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -52,8 +60,12 @@ class _$GHeroWithFragmentsVarsSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'episode':
-          result.episode = serializers.deserialize(value,
-              specifiedType: const FullType(_i1.GEpisode)) as _i1.GEpisode?;
+          result.episode =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i1.GEpisode),
+                  )
+                  as _i1.GEpisode?;
           break;
       }
     }
@@ -69,16 +81,21 @@ class _$GheroDataVarsSerializer implements StructuredSerializer<GheroDataVars> {
   final String wireName = 'GheroDataVars';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, GheroDataVars object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    GheroDataVars object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return <Object?>[];
   }
 
   @override
   GheroDataVars deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    return new GheroDataVarsBuilder().build();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    return GheroDataVarsBuilder().build();
   }
 }
 
@@ -87,15 +104,17 @@ class _$GcomparisonFieldsVarsSerializer
   @override
   final Iterable<Type> types = const [
     GcomparisonFieldsVars,
-    _$GcomparisonFieldsVars
+    _$GcomparisonFieldsVars,
   ];
   @override
   final String wireName = 'GcomparisonFieldsVars';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, GcomparisonFieldsVars object,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    GcomparisonFieldsVars object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[];
     Object? value;
     value = object.first;
@@ -109,9 +128,11 @@ class _$GcomparisonFieldsVarsSerializer
 
   @override
   GcomparisonFieldsVars deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GcomparisonFieldsVarsBuilder();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = GcomparisonFieldsVarsBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -120,8 +141,9 @@ class _$GcomparisonFieldsVarsSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'first':
-          result.first = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int?;
+          result.first =
+              serializers.deserialize(value, specifiedType: const FullType(int))
+                  as int?;
           break;
       }
     }
@@ -134,20 +156,19 @@ class _$GHeroWithFragmentsVars extends GHeroWithFragmentsVars {
   @override
   final _i1.GEpisode? episode;
 
-  factory _$GHeroWithFragmentsVars(
-          [void Function(GHeroWithFragmentsVarsBuilder)? updates]) =>
-      (new GHeroWithFragmentsVarsBuilder()..update(updates))._build();
+  factory _$GHeroWithFragmentsVars([
+    void Function(GHeroWithFragmentsVarsBuilder)? updates,
+  ]) => (GHeroWithFragmentsVarsBuilder()..update(updates))._build();
 
   _$GHeroWithFragmentsVars._({this.episode}) : super._();
-
   @override
   GHeroWithFragmentsVars rebuild(
-          void Function(GHeroWithFragmentsVarsBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GHeroWithFragmentsVarsBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GHeroWithFragmentsVarsBuilder toBuilder() =>
-      new GHeroWithFragmentsVarsBuilder()..replace(this);
+      GHeroWithFragmentsVarsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -165,9 +186,9 @@ class _$GHeroWithFragmentsVars extends GHeroWithFragmentsVars {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'GHeroWithFragmentsVars')
-          ..add('episode', episode))
-        .toString();
+    return (newBuiltValueToStringHelper(
+      r'GHeroWithFragmentsVars',
+    )..add('episode', episode)).toString();
   }
 }
 
@@ -192,7 +213,6 @@ class GHeroWithFragmentsVarsBuilder
 
   @override
   void replace(GHeroWithFragmentsVars other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GHeroWithFragmentsVars;
   }
 
@@ -205,7 +225,7 @@ class GHeroWithFragmentsVarsBuilder
   GHeroWithFragmentsVars build() => _build();
 
   _$GHeroWithFragmentsVars _build() {
-    final _$result = _$v ?? new _$GHeroWithFragmentsVars._(episode: episode);
+    final _$result = _$v ?? _$GHeroWithFragmentsVars._(episode: episode);
     replace(_$result);
     return _$result;
   }
@@ -213,16 +233,15 @@ class GHeroWithFragmentsVarsBuilder
 
 class _$GheroDataVars extends GheroDataVars {
   factory _$GheroDataVars([void Function(GheroDataVarsBuilder)? updates]) =>
-      (new GheroDataVarsBuilder()..update(updates))._build();
+      (GheroDataVarsBuilder()..update(updates))._build();
 
   _$GheroDataVars._() : super._();
-
   @override
   GheroDataVars rebuild(void Function(GheroDataVarsBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GheroDataVarsBuilder toBuilder() => new GheroDataVarsBuilder()..replace(this);
+  GheroDataVarsBuilder toBuilder() => GheroDataVarsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -249,7 +268,6 @@ class GheroDataVarsBuilder
 
   @override
   void replace(GheroDataVars other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GheroDataVars;
   }
 
@@ -262,7 +280,7 @@ class GheroDataVarsBuilder
   GheroDataVars build() => _build();
 
   _$GheroDataVars _build() {
-    final _$result = _$v ?? new _$GheroDataVars._();
+    final _$result = _$v ?? _$GheroDataVars._();
     replace(_$result);
     return _$result;
   }
@@ -272,20 +290,19 @@ class _$GcomparisonFieldsVars extends GcomparisonFieldsVars {
   @override
   final int? first;
 
-  factory _$GcomparisonFieldsVars(
-          [void Function(GcomparisonFieldsVarsBuilder)? updates]) =>
-      (new GcomparisonFieldsVarsBuilder()..update(updates))._build();
+  factory _$GcomparisonFieldsVars([
+    void Function(GcomparisonFieldsVarsBuilder)? updates,
+  ]) => (GcomparisonFieldsVarsBuilder()..update(updates))._build();
 
   _$GcomparisonFieldsVars._({this.first}) : super._();
-
   @override
   GcomparisonFieldsVars rebuild(
-          void Function(GcomparisonFieldsVarsBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GcomparisonFieldsVarsBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GcomparisonFieldsVarsBuilder toBuilder() =>
-      new GcomparisonFieldsVarsBuilder()..replace(this);
+      GcomparisonFieldsVarsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -303,9 +320,9 @@ class _$GcomparisonFieldsVars extends GcomparisonFieldsVars {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'GcomparisonFieldsVars')
-          ..add('first', first))
-        .toString();
+    return (newBuiltValueToStringHelper(
+      r'GcomparisonFieldsVars',
+    )..add('first', first)).toString();
   }
 }
 
@@ -330,7 +347,6 @@ class GcomparisonFieldsVarsBuilder
 
   @override
   void replace(GcomparisonFieldsVars other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GcomparisonFieldsVars;
   }
 
@@ -343,7 +359,7 @@ class GcomparisonFieldsVarsBuilder
   GcomparisonFieldsVars build() => _build();
 
   _$GcomparisonFieldsVars _build() {
-    final _$result = _$v ?? new _$GcomparisonFieldsVars._(first: first);
+    final _$result = _$v ?? _$GcomparisonFieldsVars._(first: first);
     replace(_$result);
     return _$result;
   }

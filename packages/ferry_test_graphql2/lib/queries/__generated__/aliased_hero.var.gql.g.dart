@@ -7,7 +7,7 @@ part of 'aliased_hero.var.gql.dart';
 // **************************************************************************
 
 Serializer<GAliasedHeroVars> _$gAliasedHeroVarsSerializer =
-    new _$GAliasedHeroVarsSerializer();
+    _$GAliasedHeroVarsSerializer();
 
 class _$GAliasedHeroVarsSerializer
     implements StructuredSerializer<GAliasedHeroVars> {
@@ -17,12 +17,17 @@ class _$GAliasedHeroVarsSerializer
   final String wireName = 'GAliasedHeroVars';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, GAliasedHeroVars object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    GAliasedHeroVars object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'ep',
-      serializers.serialize(object.ep,
-          specifiedType: const FullType(_i1.GEpisode)),
+      serializers.serialize(
+        object.ep,
+        specifiedType: const FullType(_i1.GEpisode),
+      ),
     ];
 
     return result;
@@ -30,9 +35,11 @@ class _$GAliasedHeroVarsSerializer
 
   @override
   GAliasedHeroVars deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GAliasedHeroVarsBuilder();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = GAliasedHeroVarsBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -41,8 +48,12 @@ class _$GAliasedHeroVarsSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'ep':
-          result.ep = serializers.deserialize(value,
-              specifiedType: const FullType(_i1.GEpisode))! as _i1.GEpisode;
+          result.ep =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i1.GEpisode),
+                  )!
+                  as _i1.GEpisode;
           break;
       }
     }
@@ -55,21 +66,18 @@ class _$GAliasedHeroVars extends GAliasedHeroVars {
   @override
   final _i1.GEpisode ep;
 
-  factory _$GAliasedHeroVars(
-          [void Function(GAliasedHeroVarsBuilder)? updates]) =>
-      (new GAliasedHeroVarsBuilder()..update(updates))._build();
+  factory _$GAliasedHeroVars([
+    void Function(GAliasedHeroVarsBuilder)? updates,
+  ]) => (GAliasedHeroVarsBuilder()..update(updates))._build();
 
-  _$GAliasedHeroVars._({required this.ep}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(ep, r'GAliasedHeroVars', 'ep');
-  }
-
+  _$GAliasedHeroVars._({required this.ep}) : super._();
   @override
   GAliasedHeroVars rebuild(void Function(GAliasedHeroVarsBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   GAliasedHeroVarsBuilder toBuilder() =>
-      new GAliasedHeroVarsBuilder()..replace(this);
+      GAliasedHeroVarsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -87,8 +95,9 @@ class _$GAliasedHeroVars extends GAliasedHeroVars {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'GAliasedHeroVars')..add('ep', ep))
-        .toString();
+    return (newBuiltValueToStringHelper(
+      r'GAliasedHeroVars',
+    )..add('ep', ep)).toString();
   }
 }
 
@@ -113,7 +122,6 @@ class GAliasedHeroVarsBuilder
 
   @override
   void replace(GAliasedHeroVars other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GAliasedHeroVars;
   }
 
@@ -126,10 +134,15 @@ class GAliasedHeroVarsBuilder
   GAliasedHeroVars build() => _build();
 
   _$GAliasedHeroVars _build() {
-    final _$result = _$v ??
-        new _$GAliasedHeroVars._(
-            ep: BuiltValueNullFieldError.checkNotNull(
-                ep, r'GAliasedHeroVars', 'ep'));
+    final _$result =
+        _$v ??
+        _$GAliasedHeroVars._(
+          ep: BuiltValueNullFieldError.checkNotNull(
+            ep,
+            r'GAliasedHeroVars',
+            'ep',
+          ),
+        );
     replace(_$result);
     return _$result;
   }

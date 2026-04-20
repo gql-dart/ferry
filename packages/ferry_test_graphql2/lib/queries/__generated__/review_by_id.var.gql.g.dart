@@ -7,7 +7,7 @@ part of 'review_by_id.var.gql.dart';
 // **************************************************************************
 
 Serializer<GReviewsByIDVars> _$gReviewsByIDVarsSerializer =
-    new _$GReviewsByIDVarsSerializer();
+    _$GReviewsByIDVarsSerializer();
 
 class _$GReviewsByIDVarsSerializer
     implements StructuredSerializer<GReviewsByIDVars> {
@@ -17,8 +17,11 @@ class _$GReviewsByIDVarsSerializer
   final String wireName = 'GReviewsByIDVars';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, GReviewsByIDVars object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    GReviewsByIDVars object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(String)),
@@ -29,9 +32,11 @@ class _$GReviewsByIDVarsSerializer
 
   @override
   GReviewsByIDVars deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GReviewsByIDVarsBuilder();
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = GReviewsByIDVarsBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -40,8 +45,12 @@ class _$GReviewsByIDVarsSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+          result.id =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )!
+                  as String;
           break;
       }
     }
@@ -54,21 +63,18 @@ class _$GReviewsByIDVars extends GReviewsByIDVars {
   @override
   final String id;
 
-  factory _$GReviewsByIDVars(
-          [void Function(GReviewsByIDVarsBuilder)? updates]) =>
-      (new GReviewsByIDVarsBuilder()..update(updates))._build();
+  factory _$GReviewsByIDVars([
+    void Function(GReviewsByIDVarsBuilder)? updates,
+  ]) => (GReviewsByIDVarsBuilder()..update(updates))._build();
 
-  _$GReviewsByIDVars._({required this.id}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(id, r'GReviewsByIDVars', 'id');
-  }
-
+  _$GReviewsByIDVars._({required this.id}) : super._();
   @override
   GReviewsByIDVars rebuild(void Function(GReviewsByIDVarsBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   GReviewsByIDVarsBuilder toBuilder() =>
-      new GReviewsByIDVarsBuilder()..replace(this);
+      GReviewsByIDVarsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -86,8 +92,9 @@ class _$GReviewsByIDVars extends GReviewsByIDVars {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'GReviewsByIDVars')..add('id', id))
-        .toString();
+    return (newBuiltValueToStringHelper(
+      r'GReviewsByIDVars',
+    )..add('id', id)).toString();
   }
 }
 
@@ -112,7 +119,6 @@ class GReviewsByIDVarsBuilder
 
   @override
   void replace(GReviewsByIDVars other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GReviewsByIDVars;
   }
 
@@ -125,10 +131,15 @@ class GReviewsByIDVarsBuilder
   GReviewsByIDVars build() => _build();
 
   _$GReviewsByIDVars _build() {
-    final _$result = _$v ??
-        new _$GReviewsByIDVars._(
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GReviewsByIDVars', 'id'));
+    final _$result =
+        _$v ??
+        _$GReviewsByIDVars._(
+          id: BuiltValueNullFieldError.checkNotNull(
+            id,
+            r'GReviewsByIDVars',
+            'id',
+          ),
+        );
     replace(_$result);
     return _$result;
   }
