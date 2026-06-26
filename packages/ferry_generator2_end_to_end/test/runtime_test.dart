@@ -12,6 +12,7 @@ import 'package:ferry_generator2_end_to_end/edge_cases/__generated__/conditional
 import 'package:ferry_generator2_end_to_end/edge_cases/__generated__/deep_fragments.data.gql.dart';
 import 'package:ferry_generator2_end_to_end/edge_cases/__generated__/fragment_directives.data.gql.dart';
 import 'package:ferry_generator2_end_to_end/edge_cases/__generated__/human_birthday.data.gql.dart';
+import 'package:ferry_generator2_end_to_end/edge_cases/__generated__/numeric_value.data.gql.dart';
 import 'package:ferry_generator2_end_to_end/edge_cases/__generated__/posts_by_likes.var.gql.dart';
 import 'package:ferry_generator2_end_to_end/edge_cases/__generated__/review_by_one_of.req.gql.dart';
 import 'package:ferry_generator2_end_to_end/edge_cases/__generated__/review_by_one_of.var.gql.dart';
@@ -344,6 +345,45 @@ void main() {
     final data = GSearchWithStarshipData.fromJson(input);
     expect(data.search?.first, isNull);
     expect(data.toJson(), equals(input));
+  });
+
+  test('issue 672 accepts int JSON for Float field', () {
+    final data = GNumericValueData.fromJson({
+      '__typename': 'Query',
+      'numericValue': {
+        '__typename': 'NumericValue',
+        'value': 1,
+        'floatValues': const <dynamic>[],
+      },
+    });
+
+    expect(data.numericValue!.value, 1.0);
+  });
+
+  test('issue 672 accepts int JSON elements for Float list field', () {
+    final data = GNumericValueData.fromJson({
+      '__typename': 'Query',
+      'numericValue': {
+        '__typename': 'NumericValue',
+        'floatValues': <dynamic>[1],
+      },
+    });
+
+    expect(data.numericValue!.floatValues, equals([1.0]));
+  });
+
+  test('issue 672 keeps non-integral JSON double invalid for Int field', () {
+    expect(
+      () => GNumericValueData.fromJson({
+        '__typename': 'Query',
+        'numericValue': {
+          '__typename': 'NumericValue',
+          'floatValues': const <dynamic>[],
+          'intValue': 1.2,
+        },
+      }),
+      throwsA(isA<TypeError>()),
+    );
   });
 
   test('enum list uses unknown fallback for unexpected values', () {

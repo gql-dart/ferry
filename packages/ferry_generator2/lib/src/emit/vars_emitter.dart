@@ -375,7 +375,8 @@ class VarsEmitter {
   }) {
     if (namedType.kind != GraphQLTypeKind.scalar) return false;
     if (override?.fromJsonFunctionName != null) return false;
-    if (_isBuiltinScalarName(typeName)) return true;
+    if (canUseListFromForBuiltinScalar(typeName)) return true;
+    if (isBuiltinScalarName(typeName)) return false;
     final overrideType = override?.type;
     if (overrideType == null) return false;
     final normalized = overrideType.replaceAll(" ", "");
@@ -386,15 +387,6 @@ class VarsEmitter {
     }
     return true;
   }
-
-  bool _isBuiltinScalarName(String typeName) => switch (typeName) {
-        "Int" => true,
-        "Float" => true,
-        "Boolean" => true,
-        "ID" => true,
-        "String" => true,
-        _ => false,
-      };
 
   Reference _typeReferenceWithNullability(
     Reference typeRef, {
@@ -576,7 +568,12 @@ class VarsEmitter {
     }
 
     final scalarType = _scalarReference(typeName);
-    final castExpr = valueExpr.asA(scalarType);
+    final castExpr = scalarFromJsonExpression(
+      typeName: typeName,
+      valueExpr: valueExpr,
+      scalarType: scalarType,
+      overrideType: override?.type,
+    );
     return _collections.wrapMap(
       typeName: typeName,
       innerExpr: castExpr,

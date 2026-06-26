@@ -128,6 +128,43 @@ Expression conditionalExpression(
   );
 }
 
+Expression scalarFromJsonExpression({
+  required String typeName,
+  required Expression valueExpr,
+  required Reference scalarType,
+  required String? overrideType,
+}) {
+  if (shouldCoerceFloatFromJson(
+    typeName: typeName,
+    overrideType: overrideType,
+  )) {
+    return valueExpr.asA(refer("num")).property("toDouble").call([]);
+  }
+  return valueExpr.asA(scalarType);
+}
+
+bool shouldCoerceFloatFromJson({
+  required String typeName,
+  required String? overrideType,
+}) {
+  if (typeName != "Float") return false;
+  if (overrideType == null) return true;
+  final normalized = overrideType.replaceAll(" ", "");
+  return normalized == "double" || normalized == "double?";
+}
+
+bool isBuiltinScalarName(String typeName) => switch (typeName) {
+      "Int" => true,
+      "Float" => true,
+      "Boolean" => true,
+      "ID" => true,
+      "String" => true,
+      _ => false,
+    };
+
+bool canUseListFromForBuiltinScalar(String typeName) =>
+    isBuiltinScalarName(typeName) && typeName != "Float";
+
 String copyWithIsSetName(String propertyName) =>
     identifier("${propertyName}IsSet");
 

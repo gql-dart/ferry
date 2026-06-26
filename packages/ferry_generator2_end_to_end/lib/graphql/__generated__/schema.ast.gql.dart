@@ -370,6 +370,15 @@ const Query = _i1.ObjectTypeDefinitionNode(
         isNonNull: false,
       ),
     ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'numericValue'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'NumericValue'),
+        isNonNull: false,
+      ),
+    ),
   ],
 );
 const Mutation = _i1.ObjectTypeDefinitionNode(
@@ -1442,6 +1451,43 @@ const WeirdNames = _i1.ObjectTypeDefinitionNode(
     ),
   ],
 );
+const NumericValue = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'NumericValue'),
+  directives: [],
+  interfaces: [],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'value'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Float'),
+        isNonNull: false,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'floatValues'),
+      directives: [],
+      args: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'Float'),
+          isNonNull: true,
+        ),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'intValue'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: false,
+      ),
+    ),
+  ],
+);
 const PostLikesInput = _i1.InputObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'PostLikesInput'),
   directives: [],
@@ -2119,6 +2165,7 @@ const document = _i1.DocumentNode(definitions: [
   PostLikes,
   PostFavorites,
   WeirdNames,
+  NumericValue,
   PostLikesInput,
   PostFavoritesInput,
   Author,

@@ -153,13 +153,15 @@ class GSearchWithStarshipData_search__asStarship
       G__typename: (json['__typename'] as String),
       id: (json['id'] as String),
       name: (json['name'] as String),
-      length: json['length'] == null ? null : (json['length'] as double),
+      length:
+          json['length'] == null ? null : (json['length'] as num).toDouble(),
       coordinates: json['coordinates'] == null
           ? null
           : List<List<double>>.unmodifiable(
               (json['coordinates'] as List<dynamic>)
-                  .map((_$e) => List<double>.unmodifiable(
-                      List<double>.from((_$e as List<dynamic>))))
+                  .map((_$e) => List<double>.unmodifiable((_$e as List<dynamic>)
+                      .map((_$e) => (_$e as num).toDouble())
+                      .toList()))
                   .toList()),
     );
   }

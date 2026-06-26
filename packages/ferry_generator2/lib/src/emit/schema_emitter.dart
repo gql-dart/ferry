@@ -952,7 +952,12 @@ class _SchemaEmitter {
     }
 
     final scalarType = _scalarReference(typeName);
-    final castExpr = valueExpr.asA(scalarType);
+    final castExpr = scalarFromJsonExpression(
+      typeName: typeName,
+      valueExpr: valueExpr,
+      scalarType: scalarType,
+      overrideType: override?.type,
+    );
     return _collections.wrapMap(
       typeName: typeName,
       innerExpr: castExpr,

@@ -5,6 +5,7 @@ import "../config/builder_config.dart";
 import "data_emitter_context.dart";
 import "data_emitter_fields.dart";
 import "data_emitter_types.dart";
+import "emitter_helpers.dart";
 import "../ir/types.dart";
 
 Expression fromJsonExpression({
@@ -138,7 +139,12 @@ Expression _fromJsonForNamedType({
   }
 
   final scalarType = scalarReference(ctx: ctx, typeName: typeName);
-  final castExpr = valueExpr.asA(scalarType);
+  final castExpr = scalarFromJsonExpression(
+    typeName: typeName,
+    valueExpr: valueExpr,
+    scalarType: scalarType,
+    overrideType: override?.type,
+  );
   return ctx.collections.wrapMap(
     typeName: typeName,
     innerExpr: castExpr,
