@@ -9,6 +9,7 @@ import "../ir/model.dart";
 import "../ir/names.dart";
 import "../ir/types.dart";
 import "../utils/naming.dart";
+import "emitter_helpers.dart";
 
 List<FieldSpec> buildFieldSpecs({
   required DataEmitterContext ctx,
@@ -161,7 +162,8 @@ bool canUseListFrom({
 }) {
   if (namedType.kind != GraphQLTypeKind.scalar) return false;
   if (override?.fromJsonFunctionName != null) return false;
-  if (_isBuiltinScalarName(typeName)) return true;
+  if (canUseListFromForBuiltinScalar(typeName)) return true;
+  if (isBuiltinScalarName(typeName)) return false;
   final overrideType = override?.type;
   if (overrideType == null) return false;
   final normalized = overrideType.replaceAll(" ", "");
@@ -172,15 +174,6 @@ bool canUseListFrom({
   }
   return true;
 }
-
-bool _isBuiltinScalarName(String typeName) => switch (typeName) {
-      "Int" => true,
-      "Float" => true,
-      "Boolean" => true,
-      "ID" => true,
-      "String" => true,
-      _ => false,
-    };
 
 Reference typeReferenceWithNullability(
   Reference typeRef, {

@@ -70,7 +70,8 @@ class GHumanWithArgsData_human {
   factory GHumanWithArgsData_human.fromJson(Map<String, dynamic> json) {
     return GHumanWithArgsData_human(
       name: (json['name'] as String),
-      height: json['height'] == null ? null : (json['height'] as double),
+      height:
+          json['height'] == null ? null : (json['height'] as num).toDouble(),
       G__typename: (json['__typename'] as String),
     );
   }
