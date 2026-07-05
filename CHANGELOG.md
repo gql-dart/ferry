@@ -11,6 +11,27 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 Packages with breaking changes:
 
+ - [`ferry_generator2` - `v0.1.0-dev.7`](#ferry_generator2---v010-dev7)
+
+Packages with other changes:
+
+ - There are no other changes in this release.
+
+---
+
+#### `ferry_generator2` - `v0.1.0-dev.7`
+
+ - **BREAKING** **FIX**(generator2): improve nullable copyWith ergonomics (#676).
+
+
+## 2026-07-05
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
  - There are no breaking changes in this release.
 
 Packages with other changes:

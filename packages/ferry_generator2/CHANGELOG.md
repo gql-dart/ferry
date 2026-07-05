@@ -1,3 +1,9 @@
+## 0.1.0-dev.7
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **FIX**(generator2): improve nullable copyWith ergonomics (#676).
+
 ## 0.1.0-dev.6
 
  - **FIX**(generator2): validate variables in custom scalar literals (#675).
