@@ -112,20 +112,27 @@ class GHeroWith2FragmentsReq
   }) {
     return GHeroWith2FragmentsReq(
       operation: operation ?? this.operation,
-      requestId: requestIdIsSet ? requestId : this.requestId,
-      updateResult: updateResultIsSet ? updateResult : this.updateResult,
-      optimisticResponse: optimisticResponseIsSet
+      requestId:
+          requestId != null || requestIdIsSet ? requestId : this.requestId,
+      updateResult: updateResult != null || updateResultIsSet
+          ? updateResult
+          : this.updateResult,
+      optimisticResponse: optimisticResponse != null || optimisticResponseIsSet
           ? optimisticResponse
           : this.optimisticResponse,
-      updateCacheHandlerKey: updateCacheHandlerKeyIsSet
-          ? updateCacheHandlerKey
-          : this.updateCacheHandlerKey,
-      updateCacheHandlerContext: updateCacheHandlerContextIsSet
-          ? updateCacheHandlerContext
-          : this.updateCacheHandlerContext,
-      fetchPolicy: fetchPolicyIsSet ? fetchPolicy : this.fetchPolicy,
+      updateCacheHandlerKey:
+          updateCacheHandlerKey != null || updateCacheHandlerKeyIsSet
+              ? updateCacheHandlerKey
+              : this.updateCacheHandlerKey,
+      updateCacheHandlerContext:
+          updateCacheHandlerContext != null || updateCacheHandlerContextIsSet
+              ? updateCacheHandlerContext
+              : this.updateCacheHandlerContext,
+      fetchPolicy: fetchPolicy != null || fetchPolicyIsSet
+          ? fetchPolicy
+          : this.fetchPolicy,
       executeOnListen: executeOnListen ?? this.executeOnListen,
-      context: contextIsSet ? context : this.context,
+      context: context != null || contextIsSet ? context : this.context,
     );
   }
 
@@ -201,7 +208,9 @@ class GheroNameReq implements _i1.FragmentRequest<_i2.GheroNameData, Null> {
   }) {
     return GheroNameReq(
       document: document ?? this.document,
-      fragmentName: fragmentNameIsSet ? fragmentName : this.fragmentName,
+      fragmentName: fragmentName != null || fragmentNameIsSet
+          ? fragmentName
+          : this.fragmentName,
       idFields: idFields ?? this.idFields,
     );
   }
@@ -261,7 +270,9 @@ class GheroIdReq implements _i1.FragmentRequest<_i2.GheroIdData, Null> {
   }) {
     return GheroIdReq(
       document: document ?? this.document,
-      fragmentName: fragmentNameIsSet ? fragmentName : this.fragmentName,
+      fragmentName: fragmentName != null || fragmentNameIsSet
+          ? fragmentName
+          : this.fragmentName,
       idFields: idFields ?? this.idFields,
     );
   }

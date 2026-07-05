@@ -526,8 +526,9 @@ class GBookFragmentData__asTextbook extends GBookFragmentData
       author: author ?? this.author,
       title: title ?? this.title,
       tagMatrix: tagMatrix ?? this.tagMatrix,
-      tagMatrixNullable:
-          tagMatrixNullableIsSet ? tagMatrixNullable : this.tagMatrixNullable,
+      tagMatrixNullable: tagMatrixNullable != null || tagMatrixNullableIsSet
+          ? tagMatrixNullable
+          : this.tagMatrixNullable,
       relatedBooks: relatedBooks ?? this.relatedBooks,
       G__typename: G__typename ?? this.G__typename,
       courses: courses ?? this.courses,
@@ -642,8 +643,9 @@ class GBookFragmentData__asColoringBook extends GBookFragmentData
       author: author ?? this.author,
       title: title ?? this.title,
       tagMatrix: tagMatrix ?? this.tagMatrix,
-      tagMatrixNullable:
-          tagMatrixNullableIsSet ? tagMatrixNullable : this.tagMatrixNullable,
+      tagMatrixNullable: tagMatrixNullable != null || tagMatrixNullableIsSet
+          ? tagMatrixNullable
+          : this.tagMatrixNullable,
       relatedBooks: relatedBooks ?? this.relatedBooks,
       G__typename: G__typename ?? this.G__typename,
       colors: colors ?? this.colors,
@@ -750,8 +752,9 @@ class GBookFragmentData__unknown extends GBookFragmentData
       author: author ?? this.author,
       title: title ?? this.title,
       tagMatrix: tagMatrix ?? this.tagMatrix,
-      tagMatrixNullable:
-          tagMatrixNullableIsSet ? tagMatrixNullable : this.tagMatrixNullable,
+      tagMatrixNullable: tagMatrixNullable != null || tagMatrixNullableIsSet
+          ? tagMatrixNullable
+          : this.tagMatrixNullable,
       relatedBooks: relatedBooks ?? this.relatedBooks,
       G__typename: G__typename ?? this.G__typename,
     );

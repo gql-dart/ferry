@@ -50,7 +50,9 @@ class GPostsByLikesData {
     String? G__typename,
   }) {
     return GPostsByLikesData(
-      postsByLikes: postsByLikesIsSet ? postsByLikes : this.postsByLikes,
+      postsByLikes: postsByLikes != null || postsByLikesIsSet
+          ? postsByLikes
+          : this.postsByLikes,
       G__typename: G__typename ?? this.G__typename,
     );
   }

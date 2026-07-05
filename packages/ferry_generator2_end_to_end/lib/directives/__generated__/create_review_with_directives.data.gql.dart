@@ -42,7 +42,9 @@ class GCreateReviewWithDirectivesData {
     String? G__typename,
   }) {
     return GCreateReviewWithDirectivesData(
-      createReview: createReviewIsSet ? createReview : this.createReview,
+      createReview: createReview != null || createReviewIsSet
+          ? createReview
+          : this.createReview,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -117,9 +119,10 @@ class GCreateReviewWithDirectivesData_createReview {
     String? G__typename,
   }) {
     return GCreateReviewWithDirectivesData_createReview(
-      episode: episodeIsSet ? episode : this.episode,
+      episode: episode != null || episodeIsSet ? episode : this.episode,
       stars: stars ?? this.stars,
-      commentary: commentaryIsSet ? commentary : this.commentary,
+      commentary:
+          commentary != null || commentaryIsSet ? commentary : this.commentary,
       G__typename: G__typename ?? this.G__typename,
     );
   }

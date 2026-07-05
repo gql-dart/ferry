@@ -49,7 +49,7 @@ class GSearchWithDefaultData {
     String? G__typename,
   }) {
     return GSearchWithDefaultData(
-      search: searchIsSet ? search : this.search,
+      search: search != null || searchIsSet ? search : this.search,
       G__typename: G__typename ?? this.G__typename,
     );
   }

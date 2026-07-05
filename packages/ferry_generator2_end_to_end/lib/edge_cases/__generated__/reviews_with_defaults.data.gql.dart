@@ -52,7 +52,7 @@ class GReviewsWithDefaultsData {
     String? G__typename,
   }) {
     return GReviewsWithDefaultsData(
-      reviews: reviewsIsSet ? reviews : this.reviews,
+      reviews: reviews != null || reviewsIsSet ? reviews : this.reviews,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -110,7 +110,7 @@ class GReviewsWithDefaultsData_reviews {
     String? G__typename,
   }) {
     return GReviewsWithDefaultsData_reviews(
-      episode: episodeIsSet ? episode : this.episode,
+      episode: episode != null || episodeIsSet ? episode : this.episode,
       G__typename: G__typename ?? this.G__typename,
     );
   }

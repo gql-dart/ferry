@@ -38,7 +38,7 @@ class GHumanBirthdayData {
     String? G__typename,
   }) {
     return GHumanBirthdayData(
-      human: humanIsSet ? human : this.human,
+      human: human != null || humanIsSet ? human : this.human,
       G__typename: G__typename ?? this.G__typename,
     );
   }

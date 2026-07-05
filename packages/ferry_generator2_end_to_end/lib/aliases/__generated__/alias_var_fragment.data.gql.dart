@@ -76,8 +76,10 @@ class GPostFragmentData implements GPostFragment {
   }) {
     return GPostFragmentData(
       id: id ?? this.id,
-      isFavorited: isFavoritedIsSet ? isFavorited : this.isFavorited,
-      isLiked: isLikedIsSet ? isLiked : this.isLiked,
+      isFavorited: isFavorited != null || isFavoritedIsSet
+          ? isFavorited
+          : this.isFavorited,
+      isLiked: isLiked != null || isLikedIsSet ? isLiked : this.isLiked,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -250,7 +252,7 @@ class GPostsData {
     String? G__typename,
   }) {
     return GPostsData(
-      posts: postsIsSet ? posts : this.posts,
+      posts: posts != null || postsIsSet ? posts : this.posts,
       G__typename: G__typename ?? this.G__typename,
     );
   }

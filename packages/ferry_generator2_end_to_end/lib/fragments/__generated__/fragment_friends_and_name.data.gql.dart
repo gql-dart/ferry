@@ -116,7 +116,8 @@ class GheroFriendsAndNameData_friendsConnection
     String? G__typename,
   }) {
     return GheroFriendsAndNameData_friendsConnection(
-      totalCount: totalCountIsSet ? totalCount : this.totalCount,
+      totalCount:
+          totalCount != null || totalCountIsSet ? totalCount : this.totalCount,
       G__typename: G__typename ?? this.G__typename,
     );
   }

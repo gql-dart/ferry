@@ -42,7 +42,7 @@ class GSettingsData {
     String? G__typename,
   }) {
     return GSettingsData(
-      settings: settingsIsSet ? settings : this.settings,
+      settings: settings != null || settingsIsSet ? settings : this.settings,
       G__typename: G__typename ?? this.G__typename,
     );
   }

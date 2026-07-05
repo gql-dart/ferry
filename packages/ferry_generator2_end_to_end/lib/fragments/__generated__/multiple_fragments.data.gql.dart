@@ -157,7 +157,7 @@ class GHeroWith2FragmentsData {
     String? G__typename,
   }) {
     return GHeroWith2FragmentsData(
-      hero: heroIsSet ? hero : this.hero,
+      hero: hero != null || heroIsSet ? hero : this.hero,
       G__typename: G__typename ?? this.G__typename,
     );
   }

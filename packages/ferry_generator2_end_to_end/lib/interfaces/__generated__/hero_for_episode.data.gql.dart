@@ -53,9 +53,10 @@ class GDroidFragmentData implements GDroidFragment {
     String? G__typename,
   }) {
     return GDroidFragmentData(
-      primaryFunction:
-          primaryFunctionIsSet ? primaryFunction : this.primaryFunction,
-      result: resultIsSet ? result : this.result,
+      primaryFunction: primaryFunction != null || primaryFunctionIsSet
+          ? primaryFunction
+          : this.primaryFunction,
+      result: result != null || resultIsSet ? result : this.result,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -116,7 +117,7 @@ class GHeroForEpisodeData {
     String? G__typename,
   }) {
     return GHeroForEpisodeData(
-      hero: heroIsSet ? hero : this.hero,
+      hero: hero != null || heroIsSet ? hero : this.hero,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -316,11 +317,12 @@ class GHeroForEpisodeData_hero__asDroid extends GHeroForEpisodeData_hero
   }) {
     return GHeroForEpisodeData_hero__asDroid(
       name: name ?? this.name,
-      friends: friendsIsSet ? friends : this.friends,
+      friends: friends != null || friendsIsSet ? friends : this.friends,
       G__typename: G__typename ?? this.G__typename,
-      primaryFunction:
-          primaryFunctionIsSet ? primaryFunction : this.primaryFunction,
-      result: resultIsSet ? result : this.result,
+      primaryFunction: primaryFunction != null || primaryFunctionIsSet
+          ? primaryFunction
+          : this.primaryFunction,
+      result: result != null || resultIsSet ? result : this.result,
     );
   }
 
@@ -385,7 +387,7 @@ class GHeroForEpisodeData_hero__unknown extends GHeroForEpisodeData_hero {
   }) {
     return GHeroForEpisodeData_hero__unknown(
       name: name ?? this.name,
-      friends: friendsIsSet ? friends : this.friends,
+      friends: friends != null || friendsIsSet ? friends : this.friends,
       G__typename: G__typename ?? this.G__typename,
     );
   }

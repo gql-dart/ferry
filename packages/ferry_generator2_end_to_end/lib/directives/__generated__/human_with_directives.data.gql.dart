@@ -36,7 +36,7 @@ class GHumanWithDirectivesData {
     String? G__typename,
   }) {
     return GHumanWithDirectivesData(
-      human: humanIsSet ? human : this.human,
+      human: human != null || humanIsSet ? human : this.human,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -99,8 +99,8 @@ class GHumanWithDirectivesData_human {
     String? G__typename,
   }) {
     return GHumanWithDirectivesData_human(
-      id: idIsSet ? id : this.id,
-      name: nameIsSet ? name : this.name,
+      id: id != null || idIsSet ? id : this.id,
+      name: name != null || nameIsSet ? name : this.name,
       G__typename: G__typename ?? this.G__typename,
     );
   }

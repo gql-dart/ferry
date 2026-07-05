@@ -45,7 +45,9 @@ class GReviewWithDateData {
     String? G__typename,
   }) {
     return GReviewWithDateData(
-      createReview: createReviewIsSet ? createReview : this.createReview,
+      createReview: createReview != null || createReviewIsSet
+          ? createReview
+          : this.createReview,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -147,10 +149,12 @@ class GReviewWithDateData_createReview {
     String? G__typename,
   }) {
     return GReviewWithDateData_createReview(
-      episode: episodeIsSet ? episode : this.episode,
+      episode: episode != null || episodeIsSet ? episode : this.episode,
       stars: stars ?? this.stars,
-      commentary: commentaryIsSet ? commentary : this.commentary,
-      createdAt: createdAtIsSet ? createdAt : this.createdAt,
+      commentary:
+          commentary != null || commentaryIsSet ? commentary : this.commentary,
+      createdAt:
+          createdAt != null || createdAtIsSet ? createdAt : this.createdAt,
       seenOn: seenOn ?? this.seenOn,
       custom: custom ?? this.custom,
       G__typename: G__typename ?? this.G__typename,

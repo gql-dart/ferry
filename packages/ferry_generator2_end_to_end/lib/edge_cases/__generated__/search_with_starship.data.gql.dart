@@ -51,7 +51,7 @@ class GSearchWithStarshipData {
     String? G__typename,
   }) {
     return GSearchWithStarshipData(
-      search: searchIsSet ? search : this.search,
+      search: search != null || searchIsSet ? search : this.search,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -202,8 +202,10 @@ class GSearchWithStarshipData_search__asStarship
       G__typename: G__typename ?? this.G__typename,
       id: id ?? this.id,
       name: name ?? this.name,
-      length: lengthIsSet ? length : this.length,
-      coordinates: coordinatesIsSet ? coordinates : this.coordinates,
+      length: length != null || lengthIsSet ? length : this.length,
+      coordinates: coordinates != null || coordinatesIsSet
+          ? coordinates
+          : this.coordinates,
     );
   }
 

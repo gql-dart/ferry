@@ -70,7 +70,7 @@ class GFragLevel1Data implements GFragLevel1, GFragLevel3, GFragLevel2 {
     return GFragLevel1Data(
       id: id ?? this.id,
       name: name ?? this.name,
-      friends: friendsIsSet ? friends : this.friends,
+      friends: friends != null || friendsIsSet ? friends : this.friends,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -154,7 +154,7 @@ class GFragLevel2Data implements GFragLevel2, GFragLevel3 {
   }) {
     return GFragLevel2Data(
       name: name ?? this.name,
-      friends: friendsIsSet ? friends : this.friends,
+      friends: friends != null || friendsIsSet ? friends : this.friends,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -229,7 +229,7 @@ class GFragLevel3Data implements GFragLevel3 {
     String? G__typename,
   }) {
     return GFragLevel3Data(
-      friends: friendsIsSet ? friends : this.friends,
+      friends: friends != null || friendsIsSet ? friends : this.friends,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -357,7 +357,7 @@ class GDeepFragmentsData {
     String? G__typename,
   }) {
     return GDeepFragmentsData(
-      hero: heroIsSet ? hero : this.hero,
+      hero: hero != null || heroIsSet ? hero : this.hero,
       G__typename: G__typename ?? this.G__typename,
     );
   }

@@ -36,7 +36,7 @@ class GHumanWithArgsData {
     String? G__typename,
   }) {
     return GHumanWithArgsData(
-      human: humanIsSet ? human : this.human,
+      human: human != null || humanIsSet ? human : this.human,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -99,7 +99,7 @@ class GHumanWithArgsData_human {
   }) {
     return GHumanWithArgsData_human(
       name: name ?? this.name,
-      height: heightIsSet ? height : this.height,
+      height: height != null || heightIsSet ? height : this.height,
       G__typename: G__typename ?? this.G__typename,
     );
   }

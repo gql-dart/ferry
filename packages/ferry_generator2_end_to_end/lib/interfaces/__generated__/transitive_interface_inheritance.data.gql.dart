@@ -37,7 +37,7 @@ class GAThingTransitiveInterfaceInheritanceData {
     String? G__typename,
   }) {
     return GAThingTransitiveInterfaceInheritanceData(
-      aThing: aThingIsSet ? aThing : this.aThing,
+      aThing: aThing != null || aThingIsSet ? aThing : this.aThing,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -338,7 +338,7 @@ class GBThingTransitiveInterfaceInheritanceData {
     String? G__typename,
   }) {
     return GBThingTransitiveInterfaceInheritanceData(
-      bThing: bThingIsSet ? bThing : this.bThing,
+      bThing: bThing != null || bThingIsSet ? bThing : this.bThing,
       G__typename: G__typename ?? this.G__typename,
     );
   }

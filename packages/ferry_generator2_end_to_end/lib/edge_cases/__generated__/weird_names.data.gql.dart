@@ -43,7 +43,8 @@ class GWeirdNamesData {
     String? G__typename,
   }) {
     return GWeirdNamesData(
-      weirdNames: weirdNamesIsSet ? weirdNames : this.weirdNames,
+      weirdNames:
+          weirdNames != null || weirdNamesIsSet ? weirdNames : this.weirdNames,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -172,15 +173,21 @@ class GWeirdNamesData_weirdNames {
     String? G__typename,
   }) {
     return GWeirdNamesData_weirdNames(
-      Gclass: GclassIsSet ? Gclass : this.Gclass,
-      GtoJson: GtoJsonIsSet ? GtoJson : this.GtoJson,
-      GfromJson: GfromJsonIsSet ? GfromJson : this.GfromJson,
-      GcopyWith: GcopyWithIsSet ? GcopyWith : this.GcopyWith,
-      GhashCode: GhashCodeIsSet ? GhashCode : this.GhashCode,
-      Gvalues: GvaluesIsSet ? Gvalues : this.Gvalues,
-      hasuraEnum: hasuraEnumIsSet ? hasuraEnum : this.hasuraEnum,
-      result: resultIsSet ? result : this.result,
-      GruntimeType: GruntimeTypeIsSet ? GruntimeType : this.GruntimeType,
+      Gclass: Gclass != null || GclassIsSet ? Gclass : this.Gclass,
+      GtoJson: GtoJson != null || GtoJsonIsSet ? GtoJson : this.GtoJson,
+      GfromJson:
+          GfromJson != null || GfromJsonIsSet ? GfromJson : this.GfromJson,
+      GcopyWith:
+          GcopyWith != null || GcopyWithIsSet ? GcopyWith : this.GcopyWith,
+      GhashCode:
+          GhashCode != null || GhashCodeIsSet ? GhashCode : this.GhashCode,
+      Gvalues: Gvalues != null || GvaluesIsSet ? Gvalues : this.Gvalues,
+      hasuraEnum:
+          hasuraEnum != null || hasuraEnumIsSet ? hasuraEnum : this.hasuraEnum,
+      result: result != null || resultIsSet ? result : this.result,
+      GruntimeType: GruntimeType != null || GruntimeTypeIsSet
+          ? GruntimeType
+          : this.GruntimeType,
       G__typename: G__typename ?? this.G__typename,
     );
   }

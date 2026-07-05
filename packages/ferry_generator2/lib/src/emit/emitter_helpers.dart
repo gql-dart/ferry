@@ -42,7 +42,7 @@ Method buildCopyWithMethod(String className, List<EmitterField> fields) {
         ),
       );
       args[field.name] = conditionalExpression(
-        refer(isSetName),
+        refer(field.name).notEqualTo(literalNull).or(refer(isSetName)),
         refer(field.name),
         refer("this").property(field.name),
       );

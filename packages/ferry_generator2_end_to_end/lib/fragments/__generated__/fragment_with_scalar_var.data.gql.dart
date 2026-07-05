@@ -58,8 +58,9 @@ class GPostFragmentForUser1Data implements GPostFragmentForUser1 {
   }) {
     return GPostFragmentForUser1Data(
       id: id ?? this.id,
-      favoritedUsers:
-          favoritedUsersIsSet ? favoritedUsers : this.favoritedUsers,
+      favoritedUsers: favoritedUsers != null || favoritedUsersIsSet
+          ? favoritedUsers
+          : this.favoritedUsers,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -181,7 +182,7 @@ class GPostsWithFixedVariableData {
     String? G__typename,
   }) {
     return GPostsWithFixedVariableData(
-      posts: postsIsSet ? posts : this.posts,
+      posts: posts != null || postsIsSet ? posts : this.posts,
       G__typename: G__typename ?? this.G__typename,
     );
   }

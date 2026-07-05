@@ -46,7 +46,7 @@ class GHeroWith2FragmentsWithSharedTransitiveFragmentsData {
     String? G__typename,
   }) {
     return GHeroWith2FragmentsWithSharedTransitiveFragmentsData(
-      hero: heroIsSet ? hero : this.hero,
+      hero: hero != null || heroIsSet ? hero : this.hero,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -185,7 +185,8 @@ class GHeroWith2FragmentsWithSharedTransitiveFragmentsData_hero_friendsConnectio
     String? G__typename,
   }) {
     return GHeroWith2FragmentsWithSharedTransitiveFragmentsData_hero_friendsConnection(
-      totalCount: totalCountIsSet ? totalCount : this.totalCount,
+      totalCount:
+          totalCount != null || totalCountIsSet ? totalCount : this.totalCount,
       G__typename: G__typename ?? this.G__typename,
     );
   }

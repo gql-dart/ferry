@@ -192,9 +192,9 @@ class GMultipleInterfacesData {
     String? G__typename,
   }) {
     return GMultipleInterfacesData(
-      cThing: cThingIsSet ? cThing : this.cThing,
-      dThing: dThingIsSet ? dThing : this.dThing,
-      other: otherIsSet ? other : this.other,
+      cThing: cThing != null || cThingIsSet ? cThing : this.cThing,
+      dThing: dThing != null || dThingIsSet ? dThing : this.dThing,
+      other: other != null || otherIsSet ? other : this.other,
       G__typename: G__typename ?? this.G__typename,
     );
   }

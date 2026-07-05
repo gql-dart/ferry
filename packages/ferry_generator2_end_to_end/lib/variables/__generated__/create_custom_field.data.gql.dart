@@ -36,8 +36,9 @@ class GCreateCustomFieldData {
     String? G__typename,
   }) {
     return GCreateCustomFieldData(
-      createCustomField:
-          createCustomFieldIsSet ? createCustomField : this.createCustomField,
+      createCustomField: createCustomField != null || createCustomFieldIsSet
+          ? createCustomField
+          : this.createCustomField,
       G__typename: G__typename ?? this.G__typename,
     );
   }

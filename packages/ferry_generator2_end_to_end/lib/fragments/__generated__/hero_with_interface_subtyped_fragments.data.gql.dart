@@ -162,8 +162,9 @@ class GheroFieldsFragmentData__asHuman extends GheroFieldsFragmentData
       id: id ?? this.id,
       name: name ?? this.name,
       G__typename: G__typename ?? this.G__typename,
-      homePlanet: homePlanetIsSet ? homePlanet : this.homePlanet,
-      friends: friendsIsSet ? friends : this.friends,
+      homePlanet:
+          homePlanet != null || homePlanetIsSet ? homePlanet : this.homePlanet,
+      friends: friends != null || friendsIsSet ? friends : this.friends,
     );
   }
 
@@ -309,8 +310,9 @@ class GheroFieldsFragmentData__asHuman_friends__asDroid
       G__typename: G__typename ?? this.G__typename,
       id: id ?? this.id,
       name: name ?? this.name,
-      primaryFunction:
-          primaryFunctionIsSet ? primaryFunction : this.primaryFunction,
+      primaryFunction: primaryFunction != null || primaryFunctionIsSet
+          ? primaryFunction
+          : this.primaryFunction,
     );
   }
 
@@ -385,7 +387,8 @@ class GheroFieldsFragmentData__asHuman_friends__asHuman
       G__typename: G__typename ?? this.G__typename,
       id: id ?? this.id,
       name: name ?? this.name,
-      homePlanet: homePlanetIsSet ? homePlanet : this.homePlanet,
+      homePlanet:
+          homePlanet != null || homePlanetIsSet ? homePlanet : this.homePlanet,
     );
   }
 
@@ -499,8 +502,9 @@ class GheroFieldsFragmentData__asDroid extends GheroFieldsFragmentData
       id: id ?? this.id,
       name: name ?? this.name,
       G__typename: G__typename ?? this.G__typename,
-      primaryFunction:
-          primaryFunctionIsSet ? primaryFunction : this.primaryFunction,
+      primaryFunction: primaryFunction != null || primaryFunctionIsSet
+          ? primaryFunction
+          : this.primaryFunction,
     );
   }
 
@@ -643,8 +647,9 @@ class GhumanFieldsFragmentData implements GhumanFieldsFragment {
     String? G__typename,
   }) {
     return GhumanFieldsFragmentData(
-      homePlanet: homePlanetIsSet ? homePlanet : this.homePlanet,
-      friends: friendsIsSet ? friends : this.friends,
+      homePlanet:
+          homePlanet != null || homePlanetIsSet ? homePlanet : this.homePlanet,
+      friends: friends != null || friendsIsSet ? friends : this.friends,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -781,8 +786,9 @@ class GhumanFieldsFragmentData_friends__asDroid
       G__typename: G__typename ?? this.G__typename,
       id: id ?? this.id,
       name: name ?? this.name,
-      primaryFunction:
-          primaryFunctionIsSet ? primaryFunction : this.primaryFunction,
+      primaryFunction: primaryFunction != null || primaryFunctionIsSet
+          ? primaryFunction
+          : this.primaryFunction,
     );
   }
 
@@ -855,7 +861,8 @@ class GhumanFieldsFragmentData_friends__asHuman
       G__typename: G__typename ?? this.G__typename,
       id: id ?? this.id,
       name: name ?? this.name,
-      homePlanet: homePlanetIsSet ? homePlanet : this.homePlanet,
+      homePlanet:
+          homePlanet != null || homePlanetIsSet ? homePlanet : this.homePlanet,
     );
   }
 
@@ -960,8 +967,9 @@ class GdroidFieldsFragmentData implements GdroidFieldsFragment {
     String? G__typename,
   }) {
     return GdroidFieldsFragmentData(
-      primaryFunction:
-          primaryFunctionIsSet ? primaryFunction : this.primaryFunction,
+      primaryFunction: primaryFunction != null || primaryFunctionIsSet
+          ? primaryFunction
+          : this.primaryFunction,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -1022,7 +1030,7 @@ class GHeroWithInterfaceSubTypedFragmentsData {
     String? G__typename,
   }) {
     return GHeroWithInterfaceSubTypedFragmentsData(
-      hero: heroIsSet ? hero : this.hero,
+      hero: hero != null || heroIsSet ? hero : this.hero,
       G__typename: G__typename ?? this.G__typename,
     );
   }

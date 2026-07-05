@@ -41,7 +41,9 @@ class GNumericValueData {
     String? G__typename,
   }) {
     return GNumericValueData(
-      numericValue: numericValueIsSet ? numericValue : this.numericValue,
+      numericValue: numericValue != null || numericValueIsSet
+          ? numericValue
+          : this.numericValue,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -113,9 +115,9 @@ class GNumericValueData_numericValue {
     String? G__typename,
   }) {
     return GNumericValueData_numericValue(
-      value: valueIsSet ? value : this.value,
+      value: value != null || valueIsSet ? value : this.value,
       floatValues: floatValues ?? this.floatValues,
-      intValue: intValueIsSet ? intValue : this.intValue,
+      intValue: intValue != null || intValueIsSet ? intValue : this.intValue,
       G__typename: G__typename ?? this.G__typename,
     );
   }

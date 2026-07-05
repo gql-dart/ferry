@@ -85,7 +85,7 @@ class GCharacterDetailsData implements GCharacterDetails {
     return GCharacterDetailsData(
       id: id ?? this.id,
       name: name ?? this.name,
-      friends: friendsIsSet ? friends : this.friends,
+      friends: friends != null || friendsIsSet ? friends : this.friends,
       appearsIn: appearsIn ?? this.appearsIn,
       G__typename: G__typename ?? this.G__typename,
     );
@@ -242,7 +242,7 @@ class GFriendInfoData_friendsConnection
     String? G__typename,
   }) {
     return GFriendInfoData_friendsConnection(
-      friends: friendsIsSet ? friends : this.friends,
+      friends: friends != null || friendsIsSet ? friends : this.friends,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -379,7 +379,7 @@ class GSearchResultsQueryData {
     String? G__typename,
   }) {
     return GSearchResultsQueryData(
-      search: searchIsSet ? search : this.search,
+      search: search != null || searchIsSet ? search : this.search,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -532,7 +532,7 @@ class GSearchResultsQueryData_search__asHuman
       G__typename: G__typename ?? this.G__typename,
       id: id ?? this.id,
       name: name ?? this.name,
-      friends: friendsIsSet ? friends : this.friends,
+      friends: friends != null || friendsIsSet ? friends : this.friends,
       appearsIn: appearsIn ?? this.appearsIn,
     );
   }
@@ -629,7 +629,7 @@ class GSearchResultsQueryData_search__asDroid
       G__typename: G__typename ?? this.G__typename,
       id: id ?? this.id,
       name: name ?? this.name,
-      friends: friendsIsSet ? friends : this.friends,
+      friends: friends != null || friendsIsSet ? friends : this.friends,
       appearsIn: appearsIn ?? this.appearsIn,
     );
   }

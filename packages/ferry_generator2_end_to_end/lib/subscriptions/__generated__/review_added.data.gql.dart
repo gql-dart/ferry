@@ -32,7 +32,9 @@ class GReviewAddedData {
     bool reviewAddedIsSet = false,
   }) {
     return GReviewAddedData(
-        reviewAdded: reviewAddedIsSet ? reviewAdded : this.reviewAdded);
+        reviewAdded: reviewAdded != null || reviewAddedIsSet
+            ? reviewAdded
+            : this.reviewAdded);
   }
 
   @override
@@ -102,9 +104,10 @@ class GReviewAddedData_reviewAdded {
     String? G__typename,
   }) {
     return GReviewAddedData_reviewAdded(
-      episode: episodeIsSet ? episode : this.episode,
+      episode: episode != null || episodeIsSet ? episode : this.episode,
       stars: stars ?? this.stars,
-      commentary: commentaryIsSet ? commentary : this.commentary,
+      commentary:
+          commentary != null || commentaryIsSet ? commentary : this.commentary,
       G__typename: G__typename ?? this.G__typename,
     );
   }

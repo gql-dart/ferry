@@ -57,8 +57,9 @@ class GAliasedHeroData {
     String? G__typename,
   }) {
     return GAliasedHeroData(
-      empireHero: empireHeroIsSet ? empireHero : this.empireHero,
-      jediHero: jediHeroIsSet ? jediHero : this.jediHero,
+      empireHero:
+          empireHero != null || empireHeroIsSet ? empireHero : this.empireHero,
+      jediHero: jediHero != null || jediHeroIsSet ? jediHero : this.jediHero,
       G__typename: G__typename ?? this.G__typename,
     );
   }

@@ -41,7 +41,7 @@ class GReviewByOneOfData {
     String? G__typename,
   }) {
     return GReviewByOneOfData(
-      reviewBy: reviewByIsSet ? reviewBy : this.reviewBy,
+      reviewBy: reviewBy != null || reviewByIsSet ? reviewBy : this.reviewBy,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -105,7 +105,7 @@ class GReviewByOneOfData_reviewBy {
     String? G__typename,
   }) {
     return GReviewByOneOfData_reviewBy(
-      episode: episodeIsSet ? episode : this.episode,
+      episode: episode != null || episodeIsSet ? episode : this.episode,
       stars: stars ?? this.stars,
       G__typename: G__typename ?? this.G__typename,
     );

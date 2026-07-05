@@ -42,7 +42,7 @@ class GHeroWithInterfaceUnnamedFragmentsData {
     String? G__typename,
   }) {
     return GHeroWithInterfaceUnnamedFragmentsData(
-      hero: heroIsSet ? hero : this.hero,
+      hero: hero != null || heroIsSet ? hero : this.hero,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -213,8 +213,9 @@ class GHeroWithInterfaceUnnamedFragmentsData_hero__asHuman
       id: id ?? this.id,
       name: name ?? this.name,
       G__typename: G__typename ?? this.G__typename,
-      homePlanet: homePlanetIsSet ? homePlanet : this.homePlanet,
-      friends: friendsIsSet ? friends : this.friends,
+      homePlanet:
+          homePlanet != null || homePlanetIsSet ? homePlanet : this.homePlanet,
+      friends: friends != null || friendsIsSet ? friends : this.friends,
     );
   }
 
@@ -367,7 +368,8 @@ class GHeroWithInterfaceUnnamedFragmentsData_hero__asHuman_friends__asHuman
       G__typename: G__typename ?? this.G__typename,
       id: id ?? this.id,
       name: name ?? this.name,
-      homePlanet: homePlanetIsSet ? homePlanet : this.homePlanet,
+      homePlanet:
+          homePlanet != null || homePlanetIsSet ? homePlanet : this.homePlanet,
     );
   }
 
@@ -441,8 +443,9 @@ class GHeroWithInterfaceUnnamedFragmentsData_hero__asHuman_friends__asDroid
       G__typename: G__typename ?? this.G__typename,
       id: id ?? this.id,
       name: name ?? this.name,
-      primaryFunction:
-          primaryFunctionIsSet ? primaryFunction : this.primaryFunction,
+      primaryFunction: primaryFunction != null || primaryFunctionIsSet
+          ? primaryFunction
+          : this.primaryFunction,
     );
   }
 
@@ -551,8 +554,9 @@ class GHeroWithInterfaceUnnamedFragmentsData_hero__asDroid
       id: id ?? this.id,
       name: name ?? this.name,
       G__typename: G__typename ?? this.G__typename,
-      primaryFunction:
-          primaryFunctionIsSet ? primaryFunction : this.primaryFunction,
+      primaryFunction: primaryFunction != null || primaryFunctionIsSet
+          ? primaryFunction
+          : this.primaryFunction,
     );
   }
 

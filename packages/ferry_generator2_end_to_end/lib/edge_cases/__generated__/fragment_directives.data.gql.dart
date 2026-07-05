@@ -39,7 +39,7 @@ class GHeroNameData implements GHeroName {
     String? G__typename,
   }) {
     return GHeroNameData(
-      name: nameIsSet ? name : this.name,
+      name: name != null || nameIsSet ? name : this.name,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -99,7 +99,7 @@ class GHeroFragmentDirectivesData {
     String? G__typename,
   }) {
     return GHeroFragmentDirectivesData(
-      hero: heroIsSet ? hero : this.hero,
+      hero: hero != null || heroIsSet ? hero : this.hero,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -163,7 +163,7 @@ class GHeroFragmentDirectivesData_hero {
     return GHeroFragmentDirectivesData_hero(
       G__typename: G__typename ?? this.G__typename,
       id: id ?? this.id,
-      name: nameIsSet ? name : this.name,
+      name: name != null || nameIsSet ? name : this.name,
     );
   }
 

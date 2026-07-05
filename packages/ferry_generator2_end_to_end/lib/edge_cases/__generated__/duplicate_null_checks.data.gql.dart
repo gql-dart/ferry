@@ -36,9 +36,10 @@ class GDuplicateNullChecksData {
     String? G__typename,
   }) {
     return GDuplicateNullChecksData(
-      duplicateNullChecks: duplicateNullChecksIsSet
-          ? duplicateNullChecks
-          : this.duplicateNullChecks,
+      duplicateNullChecks:
+          duplicateNullChecks != null || duplicateNullChecksIsSet
+              ? duplicateNullChecks
+              : this.duplicateNullChecks,
       G__typename: G__typename ?? this.G__typename,
     );
   }

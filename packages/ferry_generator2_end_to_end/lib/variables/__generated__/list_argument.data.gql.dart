@@ -52,7 +52,7 @@ class GreviewsWithListArgumentData {
     String? G__typename,
   }) {
     return GreviewsWithListArgumentData(
-      reviews: reviewsIsSet ? reviews : this.reviews,
+      reviews: reviews != null || reviewsIsSet ? reviews : this.reviews,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -111,7 +111,7 @@ class GreviewsWithListArgumentData_reviews {
     String? G__typename,
   }) {
     return GreviewsWithListArgumentData_reviews(
-      episode: episodeIsSet ? episode : this.episode,
+      episode: episode != null || episodeIsSet ? episode : this.episode,
       G__typename: G__typename ?? this.G__typename,
     );
   }

@@ -113,20 +113,27 @@ class GDeepFragmentsReq
   }) {
     return GDeepFragmentsReq(
       operation: operation ?? this.operation,
-      requestId: requestIdIsSet ? requestId : this.requestId,
-      updateResult: updateResultIsSet ? updateResult : this.updateResult,
-      optimisticResponse: optimisticResponseIsSet
+      requestId:
+          requestId != null || requestIdIsSet ? requestId : this.requestId,
+      updateResult: updateResult != null || updateResultIsSet
+          ? updateResult
+          : this.updateResult,
+      optimisticResponse: optimisticResponse != null || optimisticResponseIsSet
           ? optimisticResponse
           : this.optimisticResponse,
-      updateCacheHandlerKey: updateCacheHandlerKeyIsSet
-          ? updateCacheHandlerKey
-          : this.updateCacheHandlerKey,
-      updateCacheHandlerContext: updateCacheHandlerContextIsSet
-          ? updateCacheHandlerContext
-          : this.updateCacheHandlerContext,
-      fetchPolicy: fetchPolicyIsSet ? fetchPolicy : this.fetchPolicy,
+      updateCacheHandlerKey:
+          updateCacheHandlerKey != null || updateCacheHandlerKeyIsSet
+              ? updateCacheHandlerKey
+              : this.updateCacheHandlerKey,
+      updateCacheHandlerContext:
+          updateCacheHandlerContext != null || updateCacheHandlerContextIsSet
+              ? updateCacheHandlerContext
+              : this.updateCacheHandlerContext,
+      fetchPolicy: fetchPolicy != null || fetchPolicyIsSet
+          ? fetchPolicy
+          : this.fetchPolicy,
       executeOnListen: executeOnListen ?? this.executeOnListen,
-      context: contextIsSet ? context : this.context,
+      context: context != null || contextIsSet ? context : this.context,
     );
   }
 
@@ -206,7 +213,9 @@ class GFragLevel1Req implements _i1.FragmentRequest<_i2.GFragLevel1Data, Null> {
   }) {
     return GFragLevel1Req(
       document: document ?? this.document,
-      fragmentName: fragmentNameIsSet ? fragmentName : this.fragmentName,
+      fragmentName: fragmentName != null || fragmentNameIsSet
+          ? fragmentName
+          : this.fragmentName,
       idFields: idFields ?? this.idFields,
     );
   }
@@ -269,7 +278,9 @@ class GFragLevel2Req implements _i1.FragmentRequest<_i2.GFragLevel2Data, Null> {
   }) {
     return GFragLevel2Req(
       document: document ?? this.document,
-      fragmentName: fragmentNameIsSet ? fragmentName : this.fragmentName,
+      fragmentName: fragmentName != null || fragmentNameIsSet
+          ? fragmentName
+          : this.fragmentName,
       idFields: idFields ?? this.idFields,
     );
   }
@@ -331,7 +342,9 @@ class GFragLevel3Req implements _i1.FragmentRequest<_i2.GFragLevel3Data, Null> {
   }) {
     return GFragLevel3Req(
       document: document ?? this.document,
-      fragmentName: fragmentNameIsSet ? fragmentName : this.fragmentName,
+      fragmentName: fragmentName != null || fragmentNameIsSet
+          ? fragmentName
+          : this.fragmentName,
       idFields: idFields ?? this.idFields,
     );
   }
@@ -391,7 +404,9 @@ class GFragLevel4Req implements _i1.FragmentRequest<_i2.GFragLevel4Data, Null> {
   }) {
     return GFragLevel4Req(
       document: document ?? this.document,
-      fragmentName: fragmentNameIsSet ? fragmentName : this.fragmentName,
+      fragmentName: fragmentName != null || fragmentNameIsSet
+          ? fragmentName
+          : this.fragmentName,
       idFields: idFields ?? this.idFields,
     );
   }

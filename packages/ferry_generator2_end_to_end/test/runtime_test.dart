@@ -1107,11 +1107,9 @@ void main() {
 
     final updated = original.copyWith(
       requestId: 'req-2',
-      requestIdIsSet: true,
       updateCacheHandlerContext: <String, dynamic>{
         'count': 2,
       },
-      updateCacheHandlerContextIsSet: true,
     );
     expect(updated.requestId, 'req-2');
     expect(
@@ -1119,11 +1117,52 @@ void main() {
       equals(<String, dynamic>{'count': 2}),
     );
 
+    final unchanged = updated.copyWith(requestId: null);
+    expect(unchanged.requestId, 'req-2');
+
     final cleared = updated.copyWith(
       requestId: null,
       requestIdIsSet: true,
     );
     expect(cleared.requestId, isNull);
+  });
+
+  test('data copyWith updates nullable fields', () {
+    const original = GDroidFragmentData(
+      primaryFunction: 'Astromech',
+      result: 'ready',
+    );
+
+    final updated = original.copyWith(primaryFunction: 'Protocol');
+    expect(updated.primaryFunction, 'Protocol');
+    expect(updated.result, 'ready');
+
+    final unchanged = updated.copyWith(primaryFunction: null);
+    expect(unchanged.primaryFunction, 'Protocol');
+
+    final cleared = updated.copyWith(
+      primaryFunction: null,
+      primaryFunctionIsSet: true,
+    );
+    expect(cleared.primaryFunction, isNull);
+
+    const named = GHeroNameData(
+      name: 'Luke',
+      G__typename: 'Human',
+    );
+    expect(named.copyWith(name: 'Leia').name, 'Leia');
+    expect(named.copyWith(name: null).name, 'Luke');
+    expect(named.copyWith(name: null, nameIsSet: true).name, isNull);
+  });
+
+  test('copyWith keeps non-null field behavior', () {
+    const original = GHumanWithArgsData_human(
+      name: 'Luke',
+      height: 1.72,
+    );
+
+    expect(original.copyWith(name: 'Leia').name, 'Leia');
+    expect(original.copyWith(name: null).name, 'Luke');
   });
 
   test('no-vars request copyWith preserves vars', () {

@@ -208,8 +208,9 @@ class GcomparisonFieldsData_friendsConnection
     String? G__typename,
   }) {
     return GcomparisonFieldsData_friendsConnection(
-      totalCount: totalCountIsSet ? totalCount : this.totalCount,
-      edges: edgesIsSet ? edges : this.edges,
+      totalCount:
+          totalCount != null || totalCountIsSet ? totalCount : this.totalCount,
+      edges: edges != null || edgesIsSet ? edges : this.edges,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -270,7 +271,7 @@ class GcomparisonFieldsData_friendsConnection_edges
     String? G__typename,
   }) {
     return GcomparisonFieldsData_friendsConnection_edges(
-      node: nodeIsSet ? node : this.node,
+      node: node != null || nodeIsSet ? node : this.node,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -330,7 +331,7 @@ class GHeroWithFragmentsData {
     String? G__typename,
   }) {
     return GHeroWithFragmentsData(
-      hero: heroIsSet ? hero : this.hero,
+      hero: hero != null || heroIsSet ? hero : this.hero,
       G__typename: G__typename ?? this.G__typename,
     );
   }
