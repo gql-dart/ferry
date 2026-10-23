@@ -78,7 +78,7 @@ void main() {
     var values = 0;
     for (var seed = 0; seed < 500; seed++) {
       final legacy = await _run(
-        LegacyHiveStore(
+        LegacyHiveStore.deletesEmitNull(
           await Hive.openBox<dynamic>('dl$seed', bytes: Uint8List(0)),
         ),
         seed,

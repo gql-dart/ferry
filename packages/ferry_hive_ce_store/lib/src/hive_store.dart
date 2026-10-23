@@ -33,9 +33,12 @@ class HiveStore extends Store {
 
   @override
   Stream<Map<String, dynamic>?> watch(String dataId, {bool distinct = true}) {
+    // hive_ce puts the deleted value into the event of a delete.
     final stream = _events(dataId)
         .map<Map<String, dynamic>?>((event) =>
-            event.value == null ? null : Map.from(event.value as Map))
+            event.deleted || event.value == null
+                ? null
+                : Map.from(event.value as Map))
         .startWith(get(dataId));
 
     if (distinct) {

@@ -350,6 +350,27 @@ void main() {
       await store.dispose();
     });
 
+    test('emits null when a watched key is deleted', () async {
+      final box = await Hive.openBox<dynamic>('graphql');
+      await box.clear();
+      await box.put('Post:123', {'id': '123'});
+      final store = HiveStore(box);
+
+      expect(
+        store.watch('Post:123'),
+        emitsInOrder([
+          {'id': '123'},
+          null,
+          emitsDone,
+        ]),
+      );
+
+      await Future<void>.delayed(Duration.zero);
+      store.delete('Post:123');
+      await Future<void>.delayed(Duration.zero);
+      await store.dispose();
+    });
+
     test('emits to every listener of a key, and only to those', () async {
       final box = await Hive.openBox<dynamic>('graphql');
       await box.clear();
