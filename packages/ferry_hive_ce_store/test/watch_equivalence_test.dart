@@ -328,8 +328,9 @@ void main() {
     var emissions = 0;
     for (var seed = 0; seed < 300; seed++) {
       final ops = _randomScript(seed);
-      final legacy =
-          await _run(LegacyHiveStore(await _memoryBox('legacy_$seed')), ops);
+      final legacy = await _run(
+          LegacyHiveStore.deletesEmitNull(await _memoryBox('legacy_$seed')),
+          ops);
       final keyed = await _run(HiveStore(await _memoryBox('keyed_$seed')), ops);
       expect(
         withoutRepeats(keyed),

@@ -9,8 +9,17 @@ class LegacyHiveStore extends Store {
   final Box<dynamic> box;
   final JsonEquals _jsonEquals;
 
+  /// Emit null instead of the deleted value when a key is deleted, like the
+  /// current store does.
+  final bool deletesEmitNull;
+
   LegacyHiveStore(this.box, [JsonEquals? jsonEquals])
-      : _jsonEquals = jsonEquals ?? jsonMapEquals;
+      : _jsonEquals = jsonEquals ?? jsonMapEquals,
+        deletesEmitNull = false;
+
+  LegacyHiveStore.deletesEmitNull(this.box, [JsonEquals? jsonEquals])
+      : _jsonEquals = jsonEquals ?? jsonMapEquals,
+        deletesEmitNull = true;
 
   @override
   Iterable<String> get keys => List.from(box.keys);
@@ -20,7 +29,9 @@ class LegacyHiveStore extends Store {
     final stream = box
         .watch(key: dataId)
         .map<Map<String, dynamic>?>((event) =>
-            event.value == null ? null : Map.from(event.value as Map))
+            event.value == null || (deletesEmitNull && event.deleted)
+                ? null
+                : Map.from(event.value as Map))
         .startWith(get(dataId));
 
     if (distinct) {
