@@ -14,6 +14,12 @@ analyzer:
     - lib/**/__generated__/**
     - lib/**.g.dart
     - lib/**.gql.dart
+    - build/**
+    - android/**
+    - ios/**
+    - windows/**
+    - macos/**
+    - linux/**
 
 linter:
   # The lint rules applied to this project can be customized in the
