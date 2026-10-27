@@ -1,44 +1,74 @@
-name: Publish Alpha
+name: Publish to pub.dev
+
+# Publishes one package per pushed release tag, `<package>-v<version>` (the
+# format `melos version` uses). pub.dev authenticates the run with GitHub's
+# OIDC token, so the repository stores no pub credentials. Each package's
+# automated publishing settings on pub.dev must use the tag pattern
+# `<package>-v{{version}}` and require the `pub.dev` environment.
 on:
   push:
-    branches:
-      - master
+    tags:
+      - "*-v[0-9]+.[0-9]+.[0-9]+*"
+
+permissions: {}
+
+concurrency:
+  group: publish-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
-  publish_alpha:
+  resolve:
+    name: Resolve package
     runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    outputs:
+      working-directory: ${{ steps.package.outputs.working-directory }}
     steps:
-      - uses: actions/checkout@v3
-        with: 
-           fetch-depth: 0 # we need tags for melos, no better option ATM but check https://github.com/actions/checkout/issues/701
-      - name: Install Flutter
-        uses: subosito/flutter-action@v2
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          channel: beta
-      - name: Activate melos
-        run: |
-          echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
-          dart pub global activate melos 6.3.3
-      - name: Bootstrap melos
-        run: melos bs
-      - name: Configure git user
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-      - run: melos version --yes -p
-      - name: Setup Pub Credentials
-        shell: bash
+          persist-credentials: false
+
+      - name: Set up Flutter
+        uses: flutter-actions/setup-flutter@6e2468fd827c4a7337cd4b835a6049b78bc0bd1f
+
+      - name: Find the package for the tag
+        id: package
         env:
-          CREDENTIALS_JSON: ${{ secrets.CREDENTIALS_JSON }}
+          TAG: ${{ github.ref_name }}
+        run: ./tool/package_for_tag.sh "$TAG" >> "$GITHUB_OUTPUT"
+
+      # Packages released together are tagged together, and pub.dev can take a
+      # few minutes to serve a new version, so wait until this package's
+      # dependencies resolve.
+      - name: Wait for dependencies on pub.dev
+        working-directory: ${{ steps.package.outputs.working-directory }}
         run: |
-          mkdir -p $XDG_CONFIG_HOME/dart/
-          echo $CREDENTIALS_JSON > $XDG_CONFIG_HOME/dart/pub-credentials.json
-      - run: melos publish --yes --dry-run --ignore="*pokemon*"
-      - run: melos publish --yes --no-dry-run --ignore="*pokemon*"
-        continue-on-error: true
-      - name: Push back version bumps
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: master
-          tags: true
+          for attempt in $(seq 1 30); do
+            if flutter pub get; then
+              exit 0
+            fi
+            echo "Attempt $attempt failed, retrying in 30 seconds."
+            sleep 30
+          done
+          exit 1
+
+  publish:
+    name: Publish
+    needs: resolve
+    permissions:
+      id-token: write # Required for authentication using OIDC
+    # 953e9604 splits validation, offline packaging and publishing into
+    # separate jobs, so only the upload holds the OIDC token. It isn't in a
+    # setup-dart release yet (v1 is the older single job); move to the first
+    # release tag that contains it.
+    uses: dart-lang/setup-dart/.github/workflows/publish.yml@953e9604f31f14b7fb8d90dd913e6205a6c8eeeb
+    with:
+      working-directory: ${{ needs.resolve.outputs.working-directory }}
+      # ferry_flutter needs the Flutter SDK; it publishes pure Dart packages too.
+      use-flutter: true
+      environment: pub.dev
+      # Forks check the archive but never upload.
+      test-run: ${{ github.repository != 'gql-dart/ferry' }}
