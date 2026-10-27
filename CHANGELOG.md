@@ -15,6 +15,28 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`ferry_hive_ce_store` - `v0.1.0`](#ferry_hive_ce_store---v010)
+
+---
+
+#### `ferry_hive_ce_store` - `v0.1.0`
+
+ - **PERF**(ferry_hive_ce_store): hand box events only to watchers of their key (#679).
+ - **FIX**(ferry_hive_ce_store): emit null when a watched key is deleted (#680).
+
+
+## 2026-10-27
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`ferry_cache` - `v0.10.2-dev.0`](#ferry_cache---v0102-dev0)
 
 ---
