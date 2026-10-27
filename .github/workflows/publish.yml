@@ -42,10 +42,12 @@ jobs:
 
       # Packages released together are tagged together, and pub.dev can take a
       # few minutes to serve a new version, so wait until this package's
-      # dependencies resolve.
+      # dependencies resolve. Within the pub workspace they would resolve to
+      # the local packages, so the override resolves the package on its own.
       - name: Wait for dependencies on pub.dev
         working-directory: ${{ steps.package.outputs.working-directory }}
         run: |
+          echo "resolution:" > pubspec_overrides.yaml
           for attempt in $(seq 1 30); do
             if flutter pub get; then
               exit 0

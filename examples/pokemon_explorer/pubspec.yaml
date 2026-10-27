@@ -2,7 +2,8 @@ name: pokemon_explorer
 version: 0.0.3-dev.4
 publish_to: none
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: '>=3.6.0 <4.0.0'
+resolution: workspace
 dependencies:
   gql_link: '>=0.5.0 <2.0.0'
   gql_http_link: '>=0.4.0 <2.0.0'
@@ -18,7 +19,7 @@ dependencies:
   built_collection: ^5.0.0
   collection: ^1.15.0
 dev_dependencies:
-  flutter_lints: 2.0.1
+  flutter_lints: ^5.0.0
   build_runner: ^2.0.2
   ferry_generator: ^0.14.0-dev.4
   gql_code_builder_serializers: ^0.1.0
