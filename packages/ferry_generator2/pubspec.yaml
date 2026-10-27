@@ -11,7 +11,7 @@ topics:
   - ferry
   - codegen
 dependencies:
-  build: ^4.0.3
+  build: ">=4.0.3 <6.0.0"
   code_builder: ^4.3.0
   dart_style: ^3.0.1
   glob: ^2.0.1
@@ -21,10 +21,11 @@ dependencies:
   pub_semver: ^2.0.0
   yaml: ^3.1.0
 dev_dependencies:
-  analyzer: ^9.0.0
+  analyzer: ">=12.0.0 <15.0.0"
   build_runner: ^2.0.2
   build_test: ^3.3.2
   ferry_exec:
     path: ../ferry_exec
   logging: ^1.2.0
+  package_config: ">=2.1.0 <4.0.0"
   test: ^1.16.8

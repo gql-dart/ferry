@@ -308,7 +308,7 @@ void main() {
       final unit = parseResult.unit;
       final classNames = unit.declarations
           .whereType<ClassDeclaration>()
-          .map((decl) => decl.name.lexeme)
+          .map((decl) => decl.declaredName)
           .toSet();
       expect(
         classNames,
