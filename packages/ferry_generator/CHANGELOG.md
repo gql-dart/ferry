@@ -1,3 +1,8 @@
+## 0.12.0+6
+
+ - Support `analyzer 14.x`.
+ - Allow `build 5`.
+
 ## 0.12.0+5
 
  - Support `analyzer 12.x`.
