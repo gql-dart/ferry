@@ -1,7 +1,8 @@
 name: ferry_generator2_end_to_end
 publish_to: none
 environment:
-  sdk: ">=3.0.0 <4.0.0"
+  sdk: ">=3.6.0 <4.0.0"
+resolution: workspace
 
 dependencies:
   gql: ^1.0.0
@@ -17,7 +18,3 @@ dev_dependencies:
   ferry:
     path: ../ferry
   test: ^1.24.0
-
-dependency_overrides:
-  ferry_exec:
-    path: ../ferry_exec

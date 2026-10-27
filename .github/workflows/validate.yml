@@ -1,6 +1,15 @@
 name: Validate
 on: pull_request
 
+env:
+  # The Flutter SDK pins exact versions of some packages (test_api, for
+  # example), so the workspace's pubspec.lock depends on the Flutter version.
+  # When changing it, run `melos bs` with the new version and commit
+  # pubspec.lock, or the format job fails on the lockfile diff.
+  FLUTTER_VERSION: 3.47.8
+  # Keep in sync with melos in the root pubspec.yaml.
+  MELOS_VERSION: 7.8.2
+
 jobs:
   verify_commits:
     runs-on: ubuntu-latest
@@ -17,11 +26,12 @@ jobs:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
         with:
-          channel: beta
+          channel: stable
+          flutter-version: ${{ env.FLUTTER_VERSION }}
       - name: Activate melos
         run: |
           echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
-          dart pub global activate melos 6.3.3
+          dart pub global activate melos ${{ env.MELOS_VERSION }}
       - name: Bootstrap melos
         run: melos bs
       - name: Analyze package
@@ -34,11 +44,12 @@ jobs:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
         with:
-          channel: beta
+          channel: stable
+          flutter-version: ${{ env.FLUTTER_VERSION }}
       - name: Activate melos
         run: |
           echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
-          dart pub global activate melos 6.3.3
+          dart pub global activate melos ${{ env.MELOS_VERSION }}
       - name: Bootstrap melos
         run: melos bs
       - name: Validate formatting
@@ -52,11 +63,12 @@ jobs:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
         with:
-          channel: beta
+          channel: stable
+          flutter-version: ${{ env.FLUTTER_VERSION }}
       - name: Activate melos
         run: |
           echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
-          dart pub global activate melos 6.3.3
+          dart pub global activate melos ${{ env.MELOS_VERSION }}
       - name: Bootstrap melos
         run: melos bs
       - name: Run tests

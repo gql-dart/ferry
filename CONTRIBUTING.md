@@ -15,6 +15,19 @@ If you'd like to add a feature or fix a bug, we're more than happy to accept pul
 - Write helpful documentation
 - If you would like to make a bigger / fundamental change to the codebase, please file a lightweight example PR / issue first.
 
+## Development setup
+
+The packages and examples form a [pub workspace](https://dart.dev/tools/pub/workspaces): they share one dependency resolution and one `pubspec.lock` in the repository root, and their dependencies on each other resolve to the local packages. [Melos](https://melos.invertase.dev) runs commands across them; its configuration is in the root `pubspec.yaml`.
+
+```bash
+dart pub global activate melos
+melos bootstrap   # runs flutter pub get for the whole workspace
+melos run analyze
+melos run test
+```
+
+CI runs on the Flutter version set in `.github/workflows/validate.yml`. The Flutter SDK pins some dependencies, so update `pubspec.lock` with that Flutter version.
+
 ## Releasing
 
 `.github/workflows/publish.yml` publishes a package when its release tag, `<package>-v<version>`, is pushed. pub.dev authenticates the run with GitHub's OIDC token ([automated publishing](https://dart.dev/tools/pub/automated-publishing)), so the repository stores no pub.dev credentials, and only maintainers can create release tags.
