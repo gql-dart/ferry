@@ -2,6 +2,7 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+
 import 'package:ferry_generator2_end_to_end/custom/date.dart';
 import 'package:ferry_generator2_end_to_end/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;

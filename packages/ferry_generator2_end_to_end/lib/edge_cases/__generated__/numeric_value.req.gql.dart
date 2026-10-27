@@ -2,6 +2,7 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+
 import 'package:ferry_exec/ferry_exec.dart' as _i1;
 import 'package:ferry_generator2_end_to_end/edge_cases/__generated__/numeric_value.ast.gql.dart'
     as _i5;

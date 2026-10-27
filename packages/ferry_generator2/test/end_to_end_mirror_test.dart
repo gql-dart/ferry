@@ -749,17 +749,17 @@ Future<CompilationUnit> _resolvedUnit(LibraryElement library) async {
 EnumDeclaration _enumDecl(CompilationUnit unit, String name) {
   return unit.declarations
       .whereType<EnumDeclaration>()
-      .firstWhere((decl) => decl.name.lexeme == name);
+      .firstWhere((decl) => decl.declaredName == name);
 }
 
 MethodDeclaration _enumMethod(EnumDeclaration enumDecl, String name) {
-  return enumDecl.members
+  return enumDecl.bodyMembers
       .whereType<MethodDeclaration>()
       .firstWhere((member) => member.name.lexeme == name);
 }
 
 MethodDeclaration _methodDecl(ClassDeclaration classDecl, String name) {
-  return classDecl.members
+  return classDecl.bodyMembers
       .whereType<MethodDeclaration>()
       .firstWhere((member) => member.name.lexeme == name);
 }
@@ -768,7 +768,7 @@ ConstructorDeclaration _constructorDecl(
   ClassDeclaration classDecl, [
   String? name,
 ]) {
-  return classDecl.members
+  return classDecl.bodyMembers
       .whereType<ConstructorDeclaration>()
       .firstWhere((ctor) => ctor.name?.lexeme == name);
 }
@@ -777,7 +777,7 @@ TypeAnnotation _fieldTypeAnnotation(
   ClassDeclaration classDecl,
   String fieldName,
 ) {
-  for (final member in classDecl.members.whereType<FieldDeclaration>()) {
+  for (final member in classDecl.bodyMembers.whereType<FieldDeclaration>()) {
     for (final variable in member.fields.variables) {
       if (variable.name.lexeme == fieldName) {
         final type = member.fields.type;
@@ -788,7 +788,7 @@ TypeAnnotation _fieldTypeAnnotation(
       }
     }
   }
-  throw StateError('Missing field $fieldName in ${classDecl.name.lexeme}');
+  throw StateError('Missing field $fieldName in ${classDecl.declaredName}');
 }
 
 bool _containsIndexWithString(AstNode node, String value) {

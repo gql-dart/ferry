@@ -2,6 +2,7 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+
 import 'package:gql/ast.dart' as _i1;
 
 const schema = _i1.SchemaDefinitionNode(
