@@ -1,3 +1,7 @@
+## 0.9.1-dev.5
+
+ - **FIX**(generators): support analyzer 14 and build 5 (#681).
+
 ## 0.9.1-dev.4
 
  - Update a dependency to the latest release.
