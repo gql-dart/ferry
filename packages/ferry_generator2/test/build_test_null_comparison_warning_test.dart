@@ -88,7 +88,8 @@ void main() {
       final nullComparisonWarnings = diagnostics
           .where(
             (diagnostic) =>
-                diagnostic.diagnosticCode.name == 'UNNECESSARY_NULL_COMPARISON',
+                diagnostic.diagnosticCode.lowerCaseName ==
+                'unnecessary_null_comparison',
           )
           .toList();
 

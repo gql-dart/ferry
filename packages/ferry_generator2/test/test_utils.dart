@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:isolate';
 
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 import 'package:build_test/build_test.dart';
+import 'package:package_config/package_config.dart';
 import 'package:path/path.dart' as p;
 
 Map<String, String> extractGeneratedDartSources(
@@ -56,7 +58,7 @@ Future<Map<String, LibraryElement>> resolveGeneratedLibraries(
   Map<String, String> sources,
   Iterable<String> assetIds, {
   required String rootPackage,
-}) {
+}) async {
   return resolveSources(
     sources,
     (resolver) async {
@@ -68,5 +70,9 @@ Future<Map<String, LibraryElement>> resolveGeneratedLibraries(
     },
     rootPackage: rootPackage,
     readAllSourcesFromFilesystem: true,
+    // An explicit package config gives each call its own analysis session.
+    // With the shared default session, libraries resolved here are re-read
+    // with the outputs of later builds that write the same paths.
+    packageConfig: await loadPackageConfigUri((await Isolate.packageConfig)!),
   );
 }

@@ -3,6 +3,37 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2026-10-27
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`ferry_flutter` - `v0.9.1-dev.5`](#ferry_flutter---v091-dev5)
+ - [`ferry_generator` - `v0.14.0-dev.4`](#ferry_generator---v0140-dev4)
+ - [`ferry_generator2` - `v0.1.0-dev.8`](#ferry_generator2---v010-dev8)
+
+---
+
+#### `ferry_flutter` - `v0.9.1-dev.5`
+
+ - **FIX**(generators): support analyzer 14 and build 5 (#681).
+
+#### `ferry_generator` - `v0.14.0-dev.4`
+
+ - **FIX**(generators): support analyzer 14 and build 5 (#681).
+
+#### `ferry_generator2` - `v0.1.0-dev.8`
+
+ - **FIX**(generators): support analyzer 14 and build 5 (#681).
+
+
 ## 2026-07-05
 
 ### Changes

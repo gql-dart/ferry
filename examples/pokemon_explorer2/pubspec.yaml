@@ -4,14 +4,15 @@ publish_to: none
 version: 0.0.1
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
+  sdk: ">=3.6.0 <4.0.0"
+resolution: workspace
 
 dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
   ferry: ^0.16.2-dev.4
-  ferry_flutter: ^0.9.1-dev.4
+  ferry_flutter: ^0.9.1-dev.5
   gql: ^1.0.0
   gql_exec: ^1.0.0
   gql_http_link: ">=0.4.0 <2.0.0"

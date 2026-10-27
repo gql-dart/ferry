@@ -1,3 +1,7 @@
+## 0.1.0-dev.8
+
+ - **FIX**(generators): support analyzer 14 and build 5 (#681).
+
 ## 0.1.0-dev.7
 
 > Note: This release has breaking changes.

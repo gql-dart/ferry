@@ -1,3 +1,7 @@
+## 0.14.0-dev.4
+
+ - **FIX**(generators): support analyzer 14 and build 5 (#681).
+
 ## 0.14.0-dev.3
 
  - **CHORE**: update `build` to `^4.0.0` (#653).
