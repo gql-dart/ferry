@@ -1,3 +1,7 @@
+## 0.10.2-dev.0
+
+ - Republishes 0.10.1-dev.0+1, which sorts below 0.10.1, as a later version. Depends on ferry_exec ^0.8.0-dev.0 and requires Dart 3.6.
+
 ## 0.10.1-dev.0+1
 
  - Update a dependency to the latest release.
