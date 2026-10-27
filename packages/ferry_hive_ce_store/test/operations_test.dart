@@ -322,6 +322,69 @@ void main() {
     });
   });
 
+  group('watch dispatch', () {
+    test("doesn't emit writes made before listening", () async {
+      final box = await Hive.openBox<dynamic>('graphql');
+      await box.clear();
+      final store = HiveStore(box);
+      final other = store.watch('Post:456').listen((_) {});
+
+      // The box events of these writes are still in flight when the
+      // listener below subscribes.
+      store.put('Post:123', {'id': '1'});
+      store.put('Post:123', {'id': '2'});
+
+      expect(
+        store.watch('Post:123', distinct: false),
+        emitsInOrder([
+          {'id': '2'},
+          {'id': '3'},
+          emitsDone,
+        ]),
+      );
+
+      await Future<void>.delayed(Duration.zero);
+      store.put('Post:123', {'id': '3'});
+      await Future<void>.delayed(Duration.zero);
+      await other.cancel();
+      await store.dispose();
+    });
+
+    test('emits to every listener of a key, and only to those', () async {
+      final box = await Hive.openBox<dynamic>('graphql');
+      await box.clear();
+      final store = HiveStore(box);
+
+      final first = <Map<String, dynamic>?>[];
+      final second = <Map<String, dynamic>?>[];
+      final unrelated = <Map<String, dynamic>?>[];
+      final subscriptions = [
+        store.watch('Post:1', distinct: false).listen(first.add),
+        store.watch('Post:1', distinct: false).listen(second.add),
+        store.watch('Post:2', distinct: false).listen(unrelated.add),
+      ];
+      await Future<void>.delayed(Duration.zero);
+
+      store.putAll({
+        'Post:1': {'id': '1'},
+        'Post:3': {'id': '3'},
+      });
+      await Future<void>.delayed(Duration.zero);
+
+      expect(first, [
+        null,
+        {'id': '1'},
+      ]);
+      expect(second, first);
+      expect(unrelated, [null]);
+
+      for (final subscription in subscriptions) {
+        await subscription.cancel();
+      }
+      await store.dispose();
+    });
+  });
+
   test('mutating map does not break hive', () async {
     final box = await Hive.openBox<dynamic>('graphql');
 
