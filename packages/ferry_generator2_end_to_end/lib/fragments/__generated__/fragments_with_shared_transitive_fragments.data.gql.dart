@@ -2,6 +2,7 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+
 import 'package:ferry_generator2_end_to_end/fragments/__generated__/fragment_friends_and_name.data.gql.dart'
     as _i3;
 import 'package:ferry_generator2_end_to_end/fragments/__generated__/fragment_name_and_id.data.gql.dart'
