@@ -15,6 +15,27 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`ferry_cache` - `v0.10.2-dev.0`](#ferry_cache---v0102-dev0)
+
+---
+
+#### `ferry_cache` - `v0.10.2-dev.0`
+
+ - Republishes 0.10.1-dev.0+1, which sorts below 0.10.1, as a later version. Depends on ferry_exec ^0.8.0-dev.0 and requires Dart 3.6.
+
+
+## 2026-10-27
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`ferry_flutter` - `v0.9.1-dev.5`](#ferry_flutter---v091-dev5)
  - [`ferry_generator` - `v0.14.0-dev.4`](#ferry_generator---v0140-dev4)
  - [`ferry_generator2` - `v0.1.0-dev.8`](#ferry_generator2---v010-dev8)
